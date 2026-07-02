@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.services.status_service import get_status
+from app.core.debugit import execute
 from app.api.debug import router as debug_router
 
 app = FastAPI(
@@ -19,6 +20,7 @@ def root():
 
 
 @app.get("/status")
+@execute("status")
 def status():
     return get_status()
 
