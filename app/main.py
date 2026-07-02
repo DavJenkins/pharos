@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.services.status_service import get_status
+from app.api.debug import router as debug_router
 
 app = FastAPI(
     title="Data Ark API",
@@ -20,3 +21,6 @@ def root():
 @app.get("/status")
 def status():
     return get_status()
+
+
+app.include_router(debug_router)
