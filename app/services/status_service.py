@@ -2,9 +2,26 @@ import json
 import subprocess
 from pathlib import Path
 
-from app.services.network import ethernet, wifi
+from app.services.network import ethernet, wifi, access_point
 
 STATUS_FILE = Path("/var/www/html/status.json")
+
+
+NETWORK_KEYS = {
+    "eth_state",
+    "eth_ip",
+    "eth_gateway",
+    "wifi_state",
+    "wifi_ssid",
+    "wifi_signal_dbm",
+    "wifi_signal_pct",
+    "wifi_rate",
+    "wifi_ip",
+    "wifi_gateway",
+    "ap_ssid",
+    "ap_client_count",
+    "ap_clients",
+}
 
 
 def get_status():
@@ -18,7 +35,17 @@ def get_status():
     with STATUS_FILE.open() as f:
         status = json.load(f)
 
+    #
+    # Remove all Bash-generated network fields.
+    #
+    for key in NETWORK_KEYS:
+        status.pop(key, None)
+
+    #
+    # Replace them with native Python values.
+    #
     status.update(ethernet())
     status.update(wifi())
+    status.update(access_point())
 
     return status
