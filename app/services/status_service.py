@@ -3,6 +3,7 @@ import subprocess
 from pathlib import Path
 
 from app.services.network import ethernet, wifi, access_point
+from app.services.system import system_info
 
 STATUS_FILE = Path("/var/www/html/status.json")
 
@@ -21,6 +22,9 @@ NETWORK_KEYS = {
     "ap_ssid",
     "ap_client_count",
     "ap_clients",
+    "hostname",
+    "platform",
+    "uptime",
 }
 
 
@@ -47,5 +51,6 @@ def get_status():
     status.update(ethernet())
     status.update(wifi())
     status.update(access_point())
+    status.update(system_info())
 
     return status
