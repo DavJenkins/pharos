@@ -4,6 +4,7 @@ from pathlib import Path
 
 from app.services.network import ethernet, wifi, access_point
 from app.services.system import system_info
+from app.services.resources import resources
 
 STATUS_FILE = Path("/var/www/html/status.json")
 
@@ -25,6 +26,19 @@ NETWORK_KEYS = {
     "hostname",
     "platform",
     "uptime",
+    "cpu_temp_c",
+    "load_1",
+    "load_5",
+    "load_15",
+    "mem_used",
+    "mem_available",
+    "swap_used",
+    "sd_used",
+    "sd_free",
+    "sd_pct",
+    "ssd_used",
+    "ssd_free",
+    "ssd_pct",
 }
 
 
@@ -52,5 +66,6 @@ def get_status():
     status.update(wifi())
     status.update(access_point())
     status.update(system_info())
+    status.update(resources())
 
     return status
