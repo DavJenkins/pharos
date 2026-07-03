@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 
-from app.models.status import StatusResponse
-from app.services.status_service import get_status
+from app.routers.about import router as about_router
+from app.routers.debug import router as debug_router
+from app.routers.events import router as events_router
+from app.routers.network import router as network_router
+from app.routers.status import router as status_router
 
 app = FastAPI(
     title="Data Ark API",
@@ -10,21 +13,17 @@ app = FastAPI(
     root_path="/api",
 )
 
+app.include_router(about_router)
+app.include_router(status_router)
+app.include_router(network_router)
+app.include_router(events_router)
+app.include_router(debug_router)
+
 
 @app.get("/")
 def root():
     return {
         "application": "Data Ark",
-        "version": "1.0.0",
+        "version": app.version,
         "status": "running",
     }
-
-
-@app.get(
-    "/status",
-    response_model=StatusResponse,
-    summary="Current appliance status",
-    tags=["Status"],
-)
-def status():
-    return get_status()
