@@ -7,6 +7,7 @@ app = FastAPI(
     title="Data Ark API",
     version="1.0.0",
     description="REST API for the Data Ark appliance",
+    root_path="/api",
 )
 
 
