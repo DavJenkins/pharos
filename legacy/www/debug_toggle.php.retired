@@ -1,0 +1,19 @@
+<?php
+// /var/www/html/debug_toggle.php
+
+// Ensure only 'on' or 'off' are accepted
+$state = ($_GET['state'] === 'on') ? 'on' : 'off';
+
+// 1. Toggle the flag file in the permanent system path
+if ($state === 'on') {
+    shell_exec("touch /var/lib/ark/debug_status");
+} else {
+    shell_exec("rm -f /var/lib/ark/debug_status");
+}
+
+// 2. Immediately trigger a status update so the JSON is current
+shell_exec("/usr/local/bin/ark-status.sh");
+
+// 3. Return the current state for the frontend
+echo ($state === 'on' ? "ON" : "OFF");
+?>

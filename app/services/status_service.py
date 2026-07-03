@@ -1,17 +1,20 @@
-from app.services.network import ethernet, wifi, access_point
-from app.services.system import system_info
-from app.services.resources import resources
-from app.services.status import status
+from pathlib import Path
+
+from app.services.network import collect as network
+from app.services.system import collect as system
+from app.services.resources import collect as resources
 
 
 def get_status():
-    result = {}
 
-    result.update(ethernet())
-    result.update(wifi())
-    result.update(access_point())
-    result.update(system_info())
-    result.update(resources())
-    result.update(status())
+    debug = Path("/var/lib/ark/debug_status").exists()
 
-    return result
+    return {
+        "network": network(),
+        "system": system(),
+        "resources": resources(),
+        "status": {
+            "state": "ok",
+            "debug": debug,
+        },
+    }

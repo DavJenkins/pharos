@@ -1,133 +1,118 @@
-import subprocess
-from pathlib import Path
-
-LEASES = Path("/var/lib/misc/dnsmasq.leases")
+from app.core.command import run
 
 
-def _run(cmd):
+def _ip4(dev: str) -> str:
+    out = run(["ip", "-4", "-o", "addr", "show", "dev", dev])
+    if not out:
+        return ""
+
     try:
-        return subprocess.check_output(cmd, text=True).strip()
+        return out.split()[3].split("/")[0]
     except Exception:
         return ""
 
 
-def ethernet():
-    state = _run(["cat", "/sys/class/net/eth0/operstate"]) or "down"
+def _gateway(dev: str) -> str:
+    out = run(["ip", "route", "show", "default", "dev", dev])
+    if not out:
+        return ""
 
-    ip = ""
-    out = _run(["ip", "-4", "-o", "addr", "show", "dev", "eth0"])
-    if out:
-        ip = out.split()[3].split("/")[0]
+    parts = out.split()
+    try:
+        return parts[2]
+    except Exception:
+        return ""
 
-    gw = ""
-    out = _run(["ip", "route", "show", "default", "dev", "eth0"])
-    if out:
-        gw = out.split()[2]
+
+def ethernet() -> dict:
+    state = run(["cat", "/sys/class/net/eth0/operstate"]) or "down"
 
     return {
-        "eth_state": state,
-        "eth_ip": ip,
-        "eth_gateway": gw,
+        "state": state,
+        "ip": _ip4("eth0"),
+        "gateway": _gateway("eth0"),
     }
 
 
-def wifi():
-    link = _run(["iw", "dev", "wlan1", "link"])
+def wifi() -> dict:
+    link = run(["iw", "dev", "wlan1", "link"])
 
-    state = "disconnected"
-    ssid = "Disconnected"
-    signal_dbm = ""
-    signal_pct = 0
+    if "SSID:" not in link:
+        return {
+            "state": "disconnected",
+            "ssid": None,
+            "signal": None,
+            "rate": None,
+            "ip": "",
+            "gateway": "",
+        }
+
+    ssid = ""
+    dbm = None
     rate = ""
 
-    if "SSID:" in link:
-        state = "connected"
+    for line in link.splitlines():
+        line = line.strip()
 
-        for line in link.splitlines():
-            line = line.strip()
+        if line.startswith("SSID:"):
+            ssid = line.split(":", 1)[1].strip()
 
-            if line.startswith("SSID:"):
-                ssid = line.split(":", 1)[1].strip()
+        elif line.startswith("signal:"):
+            try:
+                dbm = int(float(line.split()[1]))
+            except Exception:
+                pass
 
-            elif line.startswith("signal:"):
-                signal_dbm = line.split()[1]
+        elif line.startswith("tx bitrate:"):
+            rate = line.split(":", 1)[1].strip()
 
-                try:
-                    signal_pct = max(
-                        0,
-                        min(100, int((float(signal_dbm) + 90) * 100 / 60))
-                    )
-                except Exception:
-                    signal_pct = 0
-
-            elif line.startswith("tx bitrate:"):
-                rate = line.split(":", 1)[1].strip()
-
-    ip = ""
-    out = _run(["ip", "-4", "-o", "addr", "show", "dev", "wlan1"])
-    if out:
-        ip = out.split()[3].split("/")[0]
-
-    gw = ""
-    out = _run(["ip", "route", "show", "default", "dev", "wlan1"])
-    if out:
-        gw = out.split()[2]
+    pct = None
+    if dbm is not None:
+        pct = max(0, min(100, int((dbm + 90) * 100 / 60)))
 
     return {
-        "wifi_state": state,
-        "wifi_ssid": ssid,
-        "wifi_signal_dbm": signal_dbm,
-        "wifi_signal_pct": signal_pct,
-        "wifi_rate": rate,
-        "wifi_ip": ip,
-        "wifi_gateway": gw,
+        "state": "connected",
+        "ssid": ssid,
+        "signal": {
+            "dbm": dbm,
+            "percent": pct,
+        },
+        "rate": rate,
+        "ip": _ip4("wlan1"),
+        "gateway": _gateway("wlan1"),
     }
 
 
-def access_point():
-    ap_ssid = (
-        _run([
-            "nmcli",
-            "-g",
-            "802-11-wireless.ssid",
-            "connection",
-            "show",
-            "DataArk",
-        ])
-        or "DataArk"
-    )
-
-    leases = {}
-
-    if LEASES.exists():
-        for line in LEASES.read_text().splitlines():
-            parts = line.split()
-            if len(parts) >= 4:
-                leases[parts[1].lower()] = {
-                    "ip": parts[2],
-                    "hostname": parts[3] if parts[3] != "*" else "Unknown device",
-                }
+def access_point() -> dict:
+    ssid = run([
+        "nmcli",
+        "-g",
+        "802-11-wireless.ssid",
+        "connection",
+        "show",
+        "DataArk",
+    ]) or "DataArk"
 
     clients = []
 
-    stations = _run(["iw", "dev", "wlan0", "station", "dump"])
+    stations = run(["iw", "dev", "wlan0", "station", "dump"])
 
     for line in stations.splitlines():
-        if not line.startswith("Station "):
-            continue
-
-        mac = line.split()[1].lower()
-
-        lease = leases.get(mac, {})
-
-        clients.append({
-            "hostname": lease.get("hostname", "Unknown device"),
-            "ip": lease.get("ip", "No DHCP lease"),
-            "mac": mac,
-        })
+        if line.startswith("Station "):
+            mac = line.split()[1]
+            clients.append({
+                "mac": mac,
+            })
 
     return {
-        "ap_ssid": ap_ssid,
-        "ap_client_count": len(clients),
-        "ap_clients": clients,
+        "ssid": ssid,
+        "clients": clients,
+    }
+
+
+def collect() -> dict:
+    return {
+        "ethernet": ethernet(),
+        "wifi": wifi(),
+        "access_point": access_point(),
     }

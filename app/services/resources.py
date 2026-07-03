@@ -1,66 +1,74 @@
+from pathlib import Path
 import subprocess
 
 
 def _run(cmd):
     try:
-        return subprocess.check_output(cmd, text=True).strip()
+        return subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            check=False,
+        ).stdout.strip()
     except Exception:
         return ""
 
 
-def _bytes_human(n):
-    units = ["B", "KiB", "MiB", "GiB", "TiB"]
-    n = float(n)
-    i = 0
-    while n >= 1024 and i < len(units) - 1:
-        n /= 1024
-        i += 1
-    return f"{n:.1f} {units[i]}"
+def _human(n: int) -> str:
+    units = ["B","KiB","MiB","GiB","TiB"]
+    f = float(n)
+    for u in units:
+        if f < 1024 or u == units[-1]:
+            return f"{f:.1f} {u}"
+        f /= 1024
 
 
-def resources():
-    load1, load5, load15 = open("/proc/loadavg").read().split()[:3]
+def _meminfo():
+    d = {}
+    for line in Path("/proc/meminfo").read_text().splitlines():
+        k, v = line.split(":", 1)
+        d[k] = int(v.split()[0]) * 1024
+    return d
 
-    mem = {}
-    with open("/proc/meminfo") as f:
-        for line in f:
-            k, v = line.split(":", 1)
-            mem[k] = int(v.split()[0]) * 1024
 
-    mem_used = mem["MemTotal"] - mem["MemAvailable"]
-    swap_used = mem["SwapTotal"] - mem["SwapFree"]
+def _df(path):
+    out = _run(["df", "-B1", path]).splitlines()
+    if len(out) < 2:
+        return {"used":"","free":"","percent":0}
+    f = out[1].split()
+    return {
+        "used": _human(int(f[2])),
+        "free": _human(int(f[3])),
+        "percent": int(f[4].rstrip("%")),
+    }
 
-    root = _run(["df", "-B1", "/"]).splitlines()[-1].split()
-    sd_used = int(root[2])
-    sd_free = int(root[3])
-    sd_pct = int(root[4].rstrip("%"))
 
-    ssd_used = ssd_free = ssd_pct = 0
-    ssd = _run(["df", "-B1", "/mnt/storage"])
-    if ssd:
-        parts = ssd.splitlines()[-1].split()
-        if len(parts) >= 5:
-            ssd_used = int(parts[2])
-            ssd_free = int(parts[3])
-            ssd_pct = int(parts[4].rstrip("%"))
+def _cpu_temp():
+    out = _run(["vcgencmd","measure_temp"])
+    try:
+        return float(out.split("=")[1].split("'")[0])
+    except Exception:
+        return 0.0
 
-    temp = 0.0
-    out = _run(["vcgencmd", "measure_temp"])
-    if out.startswith("temp="):
-        temp = float(out.split("=")[1].split("'")[0])
+
+def collect():
+    mem = _meminfo()
+
+    with open("/proc/loadavg") as f:
+        load = f.read().split()[:3]
 
     return {
-        "cpu_temp_c": temp,
-        "load_1": load1,
-        "load_5": load5,
-        "load_15": load15,
-        "mem_used": _bytes_human(mem_used),
-        "mem_available": _bytes_human(mem["MemAvailable"]),
-        "swap_used": _bytes_human(swap_used),
-        "sd_used": _bytes_human(sd_used),
-        "sd_free": _bytes_human(sd_free),
-        "sd_pct": sd_pct,
-        "ssd_used": _bytes_human(ssd_used),
-        "ssd_free": _bytes_human(ssd_free),
-        "ssd_pct": ssd_pct,
+        "cpu": {
+            "temperature_c": _cpu_temp(),
+            "load": [float(x) for x in load],
+        },
+        "memory": {
+            "used": _human(mem["MemTotal"] - mem["MemAvailable"]),
+            "available": _human(mem["MemAvailable"]),
+            "swap_used": _human(mem["SwapTotal"] - mem["SwapFree"]),
+        },
+        "storage": {
+            "sd": _df("/"),
+            "ssd": _df("/mnt/storage"),
+        },
     }

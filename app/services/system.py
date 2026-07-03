@@ -1,29 +1,29 @@
-import platform
-import subprocess
 from pathlib import Path
+import subprocess
 
 
-def _run(cmd):
+def _model() -> str:
     try:
-        return subprocess.check_output(cmd, text=True).strip()
+        return Path("/proc/device-tree/model").read_bytes().rstrip(b"\0").decode()
     except Exception:
         return ""
 
 
-def system_info():
-    hostname = platform.node()
+def _uptime() -> str:
+    try:
+        return subprocess.run(
+            ["uptime", "-p"],
+            capture_output=True,
+            text=True,
+            check=False,
+        ).stdout.strip().removeprefix("up ")
+    except Exception:
+        return ""
 
-    model = ""
-    model_file = Path("/proc/device-tree/model")
-    if model_file.exists():
-        model = model_file.read_text(errors="ignore").replace("\x00", "").strip()
 
-    uptime = _run(["uptime", "-p"])
-    if uptime.startswith("up "):
-        uptime = uptime[3:]
-
+def collect() -> dict:
     return {
-        "hostname": hostname,
-        "platform": model,
-        "uptime": uptime,
+        "hostname": Path("/etc/hostname").read_text().strip(),
+        "platform": _model(),
+        "uptime": _uptime(),
     }
