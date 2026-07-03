@@ -1,15 +1,24 @@
 #!/usr/bin/env python3
 
 from pathlib import Path
+import shutil
 import html
 
 SOURCE = Path("/opt/dataark/docs")
 TARGET = Path("/tmp/dataark-docs")
 
 
-def markdown_to_html(text):
+###############################################################################
+# Start with a completely clean output directory
+###############################################################################
 
-    lines = text.splitlines()
+if TARGET.exists():
+    shutil.rmtree(TARGET)
+
+TARGET.mkdir(parents=True)
+
+
+def markdown_to_html(text):
 
     out = []
 
@@ -20,6 +29,7 @@ def markdown_to_html(text):
 <title>Data Ark Documentation</title>
 
 <style>
+
 body{
     max-width:900px;
     margin:40px auto;
@@ -28,10 +38,25 @@ body{
     color:#e8e8e8;
     line-height:1.6;
 }
-h1,h2,h3{color:#7fc8ff;}
-pre{background:#111;padding:1em;overflow:auto;}
-code{font-family:Consolas,monospace;}
-a{color:#7fc8ff;}
+
+h1,h2,h3{
+    color:#7fc8ff;
+}
+
+pre{
+    background:#111;
+    padding:1em;
+    overflow:auto;
+}
+
+code{
+    font-family:Consolas,monospace;
+}
+
+a{
+    color:#7fc8ff;
+}
+
 </style>
 
 </head>
@@ -40,7 +65,7 @@ a{color:#7fc8ff;}
 
     in_list = False
 
-    for line in lines:
+    for line in text.splitlines():
 
         if line.startswith("# "):
             if in_list:
@@ -85,19 +110,16 @@ a{color:#7fc8ff;}
     return "\n".join(out)
 
 
-TARGET.mkdir(parents=True, exist_ok=True)
-
 for md in SOURCE.rglob("*.md"):
 
     rel = md.relative_to(SOURCE)
-
     outfile = TARGET / rel.with_suffix(".html")
 
     outfile.parent.mkdir(parents=True, exist_ok=True)
 
     outfile.write_text(
         markdown_to_html(md.read_text(encoding="utf-8")),
-        encoding="utf-8"
+        encoding="utf-8",
     )
 
-print("Published to", TARGET)
+print("Published", len(list(SOURCE.rglob("*.md"))), "documents.")
