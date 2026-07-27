@@ -5,20 +5,61 @@ SOURCE="/opt/dataark/app/static"
 TARGET="/var/www/html"
 
 echo
-echo "Deploying website..."
-echo "  From: $SOURCE"
-echo "    To: $TARGET"
+echo "============================================================"
+echo " Deploying Data Ark Web Interface"
+echo "============================================================"
+
+echo
+echo "1. Deploying static website..."
 
 sudo mkdir -p "$TARGET"
 
 sudo rsync -av --delete \
     --exclude='*.bak' \
+    --exclude='docs/' \
     "$SOURCE"/ \
     "$TARGET"/
 
 echo
-echo "Deployment complete."
+echo "2. Publishing documentation..."
+
+python3 tools/publish_docs.py
 
 echo
-echo "Current website:"
-find "$TARGET" -maxdepth 2 | sort
+echo "3. Installing documentation..."
+
+sudo mkdir -p "$TARGET/docs"
+
+sudo rsync -av --delete \
+    /tmp/dataark-docs/ \
+    "$TARGET/docs/"
+
+echo
+echo "4. Cleaning obsolete files..."
+
+sudo find "$TARGET" \
+    -maxdepth 1 \
+    -name "index.html.*.bak" \
+    -delete
+
+sudo rm -f \
+    "$TARGET/index.nginx-debian.html" \
+    "$TARGET/status.json" \
+    "$TARGET/logs.php"
+
+echo
+echo "============================================================"
+echo " Deployment Complete"
+echo "============================================================"
+
+echo
+echo "Website:"
+echo "    http://dataark/"
+
+echo
+echo "Documentation:"
+echo "    http://dataark/docs/"
+
+echo
+echo "Swagger:"
+echo "    http://dataark/api/docs"
