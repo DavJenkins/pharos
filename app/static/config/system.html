@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Data ARK System Settings</title>
+<style>
+  body { font-family: sans-serif; margin: 2rem; max-width: 760px; }
+  h1 { margin-bottom: .25rem; }
+  .muted { color: #555; margin-top: 0; }
+  .card {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  label { display: block; margin-top: 1rem; font-weight: bold; }
+  input {
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
+    padding: .5rem;
+    margin-top: .35rem;
+  }
+  button {
+    margin-top: 1.25rem;
+    padding: .55rem .9rem;
+    cursor: pointer;
+  }
+  .warning {
+    margin-top: 1rem;
+    padding: .75rem;
+    border-left: 4px solid #b77900;
+    background: #fff8e6;
+  }
+  .status {
+    margin-top: 1rem;
+    white-space: pre-wrap;
+    font-family: monospace;
+  }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+
+<p><a href="/">← Back to dashboard</a></p>
+
+<h1>Data ARK System Settings</h1>
+<p class="muted" id="platform">Loading system information…</p>
+
+<div class="card">
+  <h2>Access Point</h2>
+
+  <label for="ap-ssid">Network name (SSID)</label>
+  <input id="ap-ssid" type="text" maxlength="32" autocomplete="off">
+
+  <div class="warning">
+    Saving a new AP name will disconnect every device currently connected to
+    this Data ARK Wi-Fi network, including this browser. Reconnect to the new
+    network name, then return to <strong>http://192.168.4.1/</strong>.
+  </div>
+
+  <button id="save-button" type="button">Save AP Name</button>
+
+  <div id="status" class="status"></div>
+</div>
+
+<script>
+  async function loadSettings() {
+    try {
+      const response = await fetch('/api/status?_=' + Date.now(), { cache: 'no-store' });
+      const data = await response.json();
+
+      document.getElementById('platform').textContent =
+        `${data.platform || 'Unknown platform'} — hostname: ${data.hostname || 'unknown'}`;
+
+      document.getElementById('ap-ssid').value = data.ap_ssid || 'DataArk';
+    } catch (err) {
+      document.getElementById('platform').textContent =
+        'Unable to load current system information.';
+    }
+  }
+
+  document.getElementById('save-button').addEventListener('click', async () => {
+    const ssid = document.getElementById('ap-ssid').value.trim();
+    const status = document.getElementById('status');
+    const saveButton = document.getElementById('save-button');
+
+    if (!ssid) {
+      status.textContent = 'AP name cannot be blank.';
+      return;
+    }
+
+    if (ssid.length > 32) {
+      status.textContent = 'AP name must be 32 characters or fewer.';
+      return;
+    }
+
+    saveButton.disabled = true;
+    status.textContent = `Saving AP name "${ssid}"…`;
+
+    try {
+      const response = await fetch('/cgi-bin/save-ap-name.sh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'ssid=' + encodeURIComponent(ssid)
+      });
+
+      const result = await response.json();
+
+      if (!result.ok) {
+        status.textContent = 'Error: ' + (result.error || 'Unable to save AP name.');
+        saveButton.disabled = false;
+        return;
+      }
+
+      status.textContent =
+        `Saved AP name: ${result.ssid}\n\n` +
+        'The DataArk access point is restarting now.\n' +
+        'This browser will disconnect. Reconnect to the new Wi-Fi name, then return to:\n' +
+        'http://192.168.4.1/';
+    } catch (err) {
+      status.textContent =
+        'The request may have succeeded, but the browser lost its connection while the access point restarted.\n' +
+        'Reconnect to the new Wi-Fi name, then return to http://192.168.4.1/';
+    }
+  });
+
+  loadSettings();
+</script>
+
+</body>
+</html>

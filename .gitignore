@@ -4,3 +4,22 @@ __pycache__/
 .env
 .idea/
 .vscode/
+
+# -------------------------------------------------------------------
+# Editor / backup files
+# -------------------------------------------------------------------
+
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+

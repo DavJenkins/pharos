@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1">
+
+<title>Data Ark Dashboard</title>
+
+<link rel="stylesheet"
+      href="assets/css/dataark.css">
+
+</head>
+
+<body>
+
+<!-- ================================================================ -->
+<!-- Status Bar                                                       -->
+<!-- ================================================================ -->
+
+<div class="glass status-bar">
+
+<button id="eth-button"
+        class="status-button off"
+        title="Ethernet">
+
+<svg viewBox="0 0 24 24">
+<path d="M7 3h10v5h3v6h-3v7h-3v-4h-4v4H7v-7H4V8h3V3zm2 2v5h6V5H9zm-3 7v2h12v-2H6z"/>
+</svg>
+
+</button>
+
+
+<button id="wifi-button"
+        class="status-button off"
+        title="Wi-Fi">
+
+📶
+
+</button>
+
+
+<button id="ap-button"
+        class="status-button off"
+        title="Access Point">
+
+📡
+
+</button>
+
+
+<button id="system-button"
+        class="status-button off"
+        title="System">
+
+💻
+
+</button>
+
+
+<button id="debug-button"
+        class="status-button off"
+        title="Debug">
+
+🐞
+
+</button>
+
+
+<button id="refresh-button"
+        class="status-button on"
+        title="Auto Refresh">
+
+🔄
+
+</button>
+
+
+<a class="status-button"
+   href="/docs/"
+   title="Documentation">
+
+📖
+
+</a>
+
+
+<a class="status-button"
+   href="/api/docs"
+   title="REST API">
+
+📘
+
+</a>
+
+</div>
+
+
+<!-- ================================================================ -->
+<!-- Main Panel                                                       -->
+<!-- ================================================================ -->
+
+<div class="glass content-panel">
+
+<h1>Data Ark</h1>
+
+<p>
+
+System Sync:
+
+<strong id="sync-status">
+
+Loading...
+
+</strong>
+
+</p>
+
+</div>
+
+
+<!-- ================================================================ -->
+<!-- Touch-friendly Status Panel                                      -->
+<!-- ================================================================ -->
+
+<div id="status-panel"
+     class="glass status-panel">
+
+<p>
+
+Status information will appear here.
+
+</p>
+
+</div>
+
+
+<!-- ================================================================ -->
+<!-- Resource Icons                                                   -->
+<!-- ================================================================ -->
+
+<a id="icon-1"
+   class="icon-wrapper"
+   href="https://www.wikipedia.org"
+   target="_blank">
+
+<img src="assets/icons/Wikipedia.png">
+
+</a>
+
+
+<a id="icon-2"
+   class="icon-wrapper"
+   href="https://www.kiwix.org"
+   target="_blank">
+
+<img src="assets/icons/Kiwix.png">
+
+</a>
+
+
+<a id="icon-3"
+   class="icon-wrapper"
+   href="https://www.openstreetmap.org"
+   target="_blank">
+
+<img src="assets/icons/OpenStreetmap.png">
+
+</a>
+
+
+<a id="icon-4"
+   class="icon-wrapper"
+   href="https://www.gutenberg.org"
+   target="_blank">
+
+<img src="assets/icons/ProjectGutenberg.png">
+
+</a>
+
+
+<a id="icon-5"
+   class="icon-wrapper"
+   href="https://www.kiwix.org"
+   target="_blank">
+
+<img src="assets/icons/WikiMed.png">
+
+</a>
+
+
+<a id="icon-6"
+   class="icon-wrapper"
+   href="https://www.usa.gov"
+   target="_blank">
+
+<img src="assets/icons/USAGov.png">
+
+</a>
+
+
+<a id="icon-7"
+   class="icon-wrapper"
+   href="https://www.raspberrypi.com"
+   target="_blank">
+
+<img src="assets/icons/RaspberryPi.png">
+
+</a>
+
+
+<script src="assets/js/api.js"></script>
+
+<script src="assets/js/status.js"></script>
+
+<script src="assets/js/dashboard.js"></script>
+
+</body>
+
+</html>

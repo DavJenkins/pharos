@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Configure Wi-Fi</title>
+</head>
+<body>
+    <h1>Select Wi-Fi Network</h1>
+
+    <form action="/cgi-bin/save-wifi.sh" method="POST">
+        <label>SSID:</label>
+
+        <select name="ssid" id="ssid-select" required></select>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Save & Connect</button>
+    </form>
+
+    <script>
+function dbg(...a) {
+    if (window.DATAARK_DEBUG) console.log("[WIFI]", ...a);
+}
+
+let networksData = null;
+let statusData = null;
+
+function renderIfReady() {
+    if (!networksData || !statusData) return;
+
+    const select = document.getElementById('ssid-select');
+
+    const target = (statusData.wifi_ssid || "").trim();
+
+    dbg("target SSID =", target);
+
+    // HARD RESET (critical fix)
+    select.options.length = 0;
+
+    networksData
+        .filter(s => s && s.trim())
+        .forEach(ssid => {
+            const opt = new Option(ssid, ssid);
+            select.add(opt);
+        });
+
+    // DEFER selection until after browser commit
+    setTimeout(() => {
+
+        let found = false;
+
+        for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === target) {
+                select.selectedIndex = i;
+                found = true;
+                break;
+            }
+        }
+
+        if (!found && select.options.length > 0) {
+            select.selectedIndex = 0;
+        }
+
+        dbg("final selected =", select.value);
+
+    }, 0);
+}
+
+fetch('/cgi-bin/get-wifi-list.sh')
+    .then(r => r.json())
+    .then(d => {
+        networksData = d;
+        renderIfReady();
+    });
+
+fetch('/api/status')
+    .then(r => r.json())
+    .then(d => {
+        statusData = d;
+        renderIfReady();
+    });
+    </script>
+
+</body>
+</html>
