@@ -59,11 +59,11 @@ body{background-image:none}
 .status-bar #debug-button.error::after{content:"?";color:#8c2525}
 .status-bar .status-button:hover,.status-bar .status-button:focus-visible{border-color:#52666b;outline:2px solid #075d89;outline-offset:1px;transform:none}
 
-#internet-retry{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:40px;padding:.5rem .9rem;border:1px solid #103c3a;border-radius:7px;background:#154b49;color:#fff;font-weight:600;cursor:pointer;box-shadow:0 2px 3px #0003;transition:background .15s ease,box-shadow .15s ease}
+#internet-retry,#portal-continue{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:40px;padding:.5rem .9rem;border:1px solid #103c3a;border-radius:7px;background:#154b49;color:#fff;font-weight:600;cursor:pointer;box-shadow:0 2px 3px #0003;transition:background .15s ease,box-shadow .15s ease}
 #internet-retry::before{content:"\21bb";font-size:1.2em;line-height:1}
-#internet-retry:hover{background:#0c3634;box-shadow:0 3px 5px #0004}
-#internet-retry:active{box-shadow:inset 0 2px 3px #0004}
-#internet-retry:focus-visible{outline:3px solid #075d89;outline-offset:3px}
+#internet-retry:hover,#portal-continue:hover{background:#0c3634;box-shadow:0 3px 5px #0004}
+#internet-retry:active,#portal-continue:active{box-shadow:inset 0 2px 3px #0004}
+#internet-retry:focus-visible,#portal-continue:focus-visible{outline:3px solid #075d89;outline-offset:3px}
 
 /* Echo the background's blue haze and warm stone without losing contrast. */
 .site-header{background:linear-gradient(135deg,rgba(226,234,245,.96),rgba(243,228,198,.96));border:1px solid #b7a885;box-shadow:0 3px 12px #283d5520}
@@ -86,3 +86,11 @@ body{background-image:none}
 .asset-external svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .asset-external:hover,.asset-external:focus-visible{outline:1px solid currentColor;outline-offset:1px}
 .asset-external[aria-disabled="true"]{color:#737b81;cursor:not-allowed}
+
+#portal-welcome[hidden],#portal-continue[hidden]{display:none}
+#portal-message{margin:.4rem 0 0;font-size:.8rem;line-height:1.4}
+#portal-message:empty{display:none}
+#portal-continue:disabled{opacity:.65;cursor:wait}
+
+#portal-continue[aria-pressed="true"]{background:#23532f;border-color:#153b1e}
+#portal-continue[aria-pressed="false"]{background:#454a4d;border-color:#303436}

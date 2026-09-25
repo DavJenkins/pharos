@@ -1,19 +1,21 @@
 # AP Welcome Portal
 
-The DataArk access point guides compatible devices to http://192.168.4.1/ while retaining normal internet forwarding whenever the Pi has an upstream connection. This is an introduction to the library, not a login system or an access-control firewall.
+The DataArk access point guides compatible devices to http://192.168.4.1/ and offers optional internet pass-through when the Pi has an upstream connection. Internet forwarding is off by default for AP devices; local content remains accessible.
 
 ## Joining the Ark
 
 - Join the DataArk Wi-Fi network and select the device's sign-in notification.
-- Explore the local library on the landing page. Select Continue with internet access when ready; the device may then close its sign-in window.
+- Explore the local library on the landing page. Use Internet pass-through: Off / On in the upper-right controls to opt this device into internet access; the device may then close its sign-in window.
 - Bookmark http://192.168.4.1/ to reopen the library in a full browser. Downloading large archives works best in the full browser.
 - Without internet, keep the Wi-Fi connection when the device asks whether to stay connected. Local content remains available.
 
-The welcome acknowledgement lasts six hours per AP IPv4 address and resets on API restart. It does not identify a person or authenticate a device. A device reusing an acknowledged DHCP address can inherit that acknowledgement. The Ark does not prevent browsing before acknowledgement.
+Opt-ins last up to six hours and reset on reboot or forwarding-service restart. Both the AP device's current IPv4 address and its observed Wi-Fi MAC address must be allowed. A changed address may require opting in again. This is a resource-use control, not user authentication: Wi-Fi MAC/IP addresses can be spoofed. The separate administration password still protects network settings.
+
+The control reports the Ark's upstream availability separately from this device's forwarding permission. Enabling requires a successful upstream probe; disabling remains possible when the upstream is offline. Failure to read the firewall state displays Unavailable rather than falsely claiming Off.
 
 ## Install
 
-From /opt/dataark, run the Python tests, deploy the web interface, and restart dataark.service. Then run sudo python3 deploy/install_portal.py.
+From /opt/dataark, run the Python tests, deploy the web interface, and restart dataark.service. Then run sudo python3 deploy/install_portal.py. After that installation succeeds, run sudo python3 deploy/install_pass_through.py to enforce default-off forwarding. The latter immediately stops AP internet forwarding until a device opts in. It leaves the Pi's own downloads and local services running. Deploy the updated website and restart dataark.service for the toggle UI/API.
 
 The installer checks the DataArk profile, loopback-only API listener, native dnsmasq/nftables syntax, Apache configuration, a live HTTP probe and the dedicated DNS listener. It backs up affected configuration beneath /var/backups/dataark-portal and rolls back on installation failure. It prints an exact rollback command for later use.
 
@@ -25,12 +27,12 @@ A separate dnsmasq instance listens on AP port 1053. A private nftables table re
 
 Only these dedicated detection hostnames resolve to the portal: connectivitycheck.gstatic.com, connectivitycheck.android.com, captive.apple.com, www.msftconnecttest.com and www.msftncsi.com. Apache routes their known HTTP probe paths to the API, which redirects AP clients to the canonical landing address. Ordinary websites and HTTPS are not intercepted.
 
-After acknowledgement, the API checks the corresponding fixed upstream HTTP probe and returns its real response only when it matches the expected successful result. An offline or unexpected result redirects to the local library. No arbitrary URLs, client cookies or authentication headers are forwarded. Apache overwrites the source-address headers, and the API remains bound to 127.0.0.1:8000.
+When pass-through is enabled, the API checks the corresponding fixed upstream HTTP probe and returns its real response only when it matches the expected successful result. An offline or unexpected result redirects to the local library. No arbitrary URLs, client cookies or authentication headers are forwarded. Apache overwrites the source-address headers, and the API remains bound to 127.0.0.1:8000.
 
 ## Verify on an AP client
 
 - Join from a phone or laptop that has not acknowledged the welcome page. Confirm the sign-in prompt reaches 192.168.4.1 and the local library works.
-- Choose Continue with internet access. With upstream internet available, confirm both an ordinary HTTP site and an HTTPS site work in the normal browser. Confirm the Ark's online links become available.
+- With pass-through Off, confirm external HTTP and HTTPS browsing is blocked while local Kiwix works. Turn pass-through On and confirm external browsing works; turn it Off again and verify internet traffic stops. Disable cellular data during this test. Test a second AP device to confirm the first device's opt-in does not enable the second one.
 - Confirm local Kiwix, downloads, network administration and Samba still work.
 - When convenient, test without an upstream connection: the portal and local content should remain available. Do not disconnect an upstream interface during an active download just to perform this test.
 - Reboot later to verify persistence, then repeat the AP-client test.
@@ -42,3 +44,14 @@ Automatic sign-in behaviour varies by OS, private DNS, VPN and device policy. So
 Check systemctl status dataark-portal-dns.service --no-pager and journalctl -u dataark-portal-dns.service -n 30 --no-pager. Inspect sudo nft list table ip dataark_portal and sudo iptables -t nat -S PREROUTING.
 
 To disable the welcome DNS immediately, run sudo systemctl disable --now dataark-portal-dns.service. Normal shared DNS and internet forwarding remain available. To restore the complete previous portal configuration, use the installer --rollback command printed at installation. That restores the backed-up configuration files, including the prior saved firewall file; do not use an old backup after unrelated configuration changes without reviewing it.
+
+
+## Forwarding policy and recovery
+
+The dataark-pass-through.service unit installs its own inet dataark_forward nftables table before NetworkManager starts. It filters forwarded traffic in both directions on wlan0, before the existing NetworkManager/Docker filter chains. Local input/output traffic (including the Pi's downloads, DNS, web server and Samba) is untouched. Published Docker Kiwix traffic on TCP 8080 is explicitly exempted. Other remotely hosted services require pass-through. IPv6 forwarding is blocked; an opt-in currently permits IPv4 forwarding only.
+
+The API invokes a root-owned, fixed-scope helper through a no-arguments sudo rule. The helper validates an AP IPv4 address, obtains the device MAC from the wlan0 neighbor table, and atomically modifies only the two timed allowlists. It does not accept shell commands or arbitrary firewall rules. Apache supplies the real connection address; request bodies cannot choose another device.
+
+The installer validates native nft syntax and sudoers before changes, backs up its files and its own previous table, and prints an explicit rollback command. Reinstalling resets all opt-ins to Off. Stopping the service alone deliberately leaves the filter in place; use the printed rollback command to undo installation. Do not delete firewall tables merely to repair a UI error.
+
+Inspect sudo nft list table inet dataark_forward and systemctl status dataark-pass-through.service --no-pager. If the service fails at boot, its default-off policy may not be installed; inspect and repair it rather than assuming traffic is blocked. No browser-only check proves firewall enforcement: the real AP-device tests above are required after installation.

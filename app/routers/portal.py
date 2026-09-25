@@ -1,4 +1,4 @@
-"""AP welcome flow. This is guidance, not authentication or an internet firewall."""
+"""AP welcome detection and per-device internet forwarding control."""
 import http.client
 import ipaddress
 import threading
@@ -6,11 +6,11 @@ import time
 from urllib.request import build_opener, ProxyHandler, HTTPRedirectHandler
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
+from app.services.pass_through import control
 
 router = APIRouter(prefix="/portal", include_in_schema=False)
-SESSIONS = {}
-LOCK = threading.Lock()
-TTL = 6 * 3600
+ONLINE_LOCK = threading.Lock()
+ONLINE_CACHE = (0.0, False)
 PROBES = {
     "generate_204": ("http://connectivitycheck.gstatic.com/generate_204", 204, b""),
     "gen_204": ("http://connectivitycheck.gstatic.com/generate_204", 204, b""),
@@ -26,41 +26,73 @@ class NoRedirect(HTTPRedirectHandler):
 
 
 def peer(request):
-    # Apache overwrites these headers. The API must remain loopback-only.
+    # Apache overwrites the peer header. The API must remain loopback-only.
     try:
         address = ipaddress.ip_address(request.headers.get("x-dataark-peer", ""))
     except ValueError:
         raise HTTPException(404)
-    if (address not in ipaddress.ip_network("192.168.4.0/24") or
-            request.headers.get("x-dataark-server") != "192.168.4.1"):
+    if address not in ipaddress.ip_network("192.168.4.0/24"):
         raise HTTPException(404)
     return str(address)
 
 
 def remembered(address):
-    now = time.monotonic()
-    with LOCK:
-        for key in list(SESSIONS):
-            if SESSIONS[key] <= now:
-                del SESSIONS[key]
-        return address in SESSIONS
+    try:
+        return control(address)
+    except RuntimeError:
+        return False
+
+
+def upstream_available():
+    global ONLINE_CACHE
+    with ONLINE_LOCK:
+        now = time.monotonic()
+        if now < ONLINE_CACHE[0]:
+            return ONLINE_CACHE[1]
+        try:
+            upstream_probe('generate_204')
+            online = True
+        except (OSError, ValueError, http.client.HTTPException):
+            online = False
+        ONLINE_CACHE = (time.monotonic() + 15, online)
+        return online
+
+
+def switch(request, enabled):
+    address = peer(request)
+    if request.headers.get("origin") != "http://192.168.4.1":
+        raise HTTPException(403)
+    if enabled and not upstream_available():
+        raise HTTPException(409, "Upstream internet is unavailable")
+    try:
+        control(address, enabled)
+    except RuntimeError as error:
+        raise HTTPException(503, str(error))
+    return Response(status_code=204, headers={"Cache-Control": "no-store"})
 
 
 @router.post("/continue")
 def continue_online(request: Request):
-    address = peer(request)
-    # Do not let unrelated sites acknowledge the welcome page for a client.
-    if request.headers.get("origin") != "http://192.168.4.1":
-        raise HTTPException(403)
-    remembered(address)
-    with LOCK:
-        SESSIONS[address] = time.monotonic() + TTL
-    return Response(status_code=204, headers={"Cache-Control": "no-store"})
+    # Compatibility with already-cached copies of the former welcome button.
+    return switch(request, True)
+
+
+@router.post("/pass-through/{setting}")
+def pass_through(setting: str, request: Request):
+    if setting not in ('on', 'off'):
+        raise HTTPException(404)
+    return switch(request, setting == 'on')
 
 
 @router.get("/state")
 def state(request: Request):
-    return Response('true' if remembered(peer(request)) else 'false',
+    address = peer(request)
+    try:
+        enabled = control(address)
+    except RuntimeError as error:
+        raise HTTPException(503, str(error))
+    import json
+    return Response(json.dumps({'enabled':enabled,'upstream_online':upstream_available()}),
                     media_type="application/json", headers={"Cache-Control": "no-store"})
 
 

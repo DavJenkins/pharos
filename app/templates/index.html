@@ -29,6 +29,10 @@
 <span>Sync: <strong id="sync-status">Loading...</strong></span>
 <span id="internet-status" role="status">Checking internet...</span>
 <button id="internet-retry" type="button">Check internet</button>
+<div id="portal-welcome" hidden>
+<button id="portal-continue" type="button" aria-pressed="false" title="Allow this device to use the Ark's internet connection for up to six hours">Internet pass-through: Off</button>
+<p id="portal-message" role="status"></p>
+</div>
 <details class="network-settings"><summary>Network settings</summary>
 <nav aria-label="Network settings"><a href="/config/wifi.html">Upstream Wi-Fi</a>
 <a href="/config/system.html">Access point settings</a></nav></details>
@@ -117,10 +121,6 @@
 </div>
 
 <main class="manifest-catalog">
-<aside id="portal-welcome" hidden style="grid-column:1/-1;padding:1rem;background:#173e48;color:#fff;border-radius:12px">
-<p id="portal-message">Welcome aboard. Explore the Ark below, or continue to use the internet when it is available.</p>
-<button id="portal-continue" type="button" style="padding:.65rem 1rem;background:#d9b978;color:#142c37;border:0;border-radius:6px;cursor:pointer;font-weight:bold">Continue with internet access</button>
-</aside>
 {{MANIFEST_CARDS}}
 </main>
 

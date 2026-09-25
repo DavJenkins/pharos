@@ -43,7 +43,7 @@ add rule ip dataark_portal dns iifname "wlan0" ip saddr 192.168.4.0/24 ip daddr 
 APACHE = MARKER + r'''
 # Overwrite client-supplied values; the backend is bound to loopback only.
 RequestHeader set X-DataArk-Peer "expr=%{CONN_REMOTE_ADDR}"
-RequestHeader set X-DataArk-Server "expr=%{SERVER_ADDR}"
+RequestHeader unset X-DataArk-Server
 ProxyPassMatch "^/(generate_204|gen_204|hotspot-detect\.html|library/test/success\.html|connecttest\.txt|ncsi\.txt)$" "http://127.0.0.1:8000/portal/probe/$1" connectiontimeout=3 timeout=8
 '''
 SERVICE = MARKER + '''
@@ -150,6 +150,23 @@ def rollback(backup):
     print(f'Restored portal configuration from {backup}')
 
 
+def wait_for_api():
+    # systemctl restart can return before a Type=simple application binds its socket.
+    for attempt in range(21):
+        listeners = run(['ss','-H','-ltn','sport = :8000']).stdout.splitlines()
+        if listeners:
+            endpoints = [line.split()[3] if len(line.split()) >= 5 else '<unrecognized ss output>'
+                         for line in listeners]
+            if any(endpoint != '127.0.0.1:8000' for endpoint in endpoints):
+                raise SystemExit('The API must listen only on 127.0.0.1:8000. Found: ' + ', '.join(endpoints))
+            return
+        if attempt < 20:
+            time.sleep(.5)
+    raise SystemExit('No API listener appeared on port 8000 within 10 seconds. '
+                     'Check systemctl status dataark.service and journalctl -u dataark.service -n 30 --no-pager. '
+                     'No portal configuration was changed.')
+
+
 def check_dns():
     # Query the dedicated listener, not the Pi's own resolver.
     hostname = HOSTS[0]
@@ -192,9 +209,7 @@ def main():
     profile = run(['nmcli','-g','connection.interface-name,ipv4.method,ipv4.addresses,802-11-wireless.mode','connection','show','DataArk']).stdout.splitlines()
     if profile != ['wlan0','shared','192.168.4.1/24','ap']:
         raise SystemExit('Unexpected DataArk AP profile; no changes made.')
-    listeners = run(['ss','-H','-ltn','sport = :8000']).stdout.splitlines()
-    if not listeners or any(line.split()[3] != '127.0.0.1:8000' for line in listeners):
-        raise SystemExit('The API must listen only on 127.0.0.1:8000.')
+    wait_for_api()
     ports = run(['ss','-H','-lunt','sport = :1053']).stdout
     unit_path = Path('/etc/systemd/system')/UNIT
     if ports and not (unit_path.exists() and unit_path.read_bytes() == SERVICE.encode()):

@@ -36,11 +36,18 @@ class TestClient:
     def post(self,path,headers): return self.request('POST',path,headers)
 
 
-AP = {'X-DataArk-Peer': '192.168.4.22', 'X-DataArk-Server': '192.168.4.1'}
+AP = {'X-DataArk-Peer': '192.168.4.22'}
 
 class PortalTests(unittest.TestCase):
     def setUp(self):
-        portal.SESSIONS.clear()
+        self.allowed = {}
+        def control(address, enabled=None):
+            if enabled is not None: self.allowed[address] = enabled
+            return self.allowed.get(address,False)
+        control_patch = patch.object(portal,'control',side_effect=control)
+        online_patch = patch.object(portal,'upstream_available',return_value=True)
+        control_patch.start(); online_patch.start()
+        self.addCleanup(control_patch.stop); self.addCleanup(online_patch.stop)
         self.client = TestClient(app, follow_redirects=False)
 
     def test_new_client_redirects_without_upstream_request(self):
@@ -53,7 +60,7 @@ class PortalTests(unittest.TestCase):
 
     def test_lan_and_missing_trusted_headers_are_rejected(self):
         for headers in ({}, dict(AP, **{'X-DataArk-Peer':'192.168.40.22'}),
-                        dict(AP, **{'X-DataArk-Server':'192.168.40.123'}),
+                        {'X-DataArk-Server':'192.168.4.1', 'X-Forwarded-For':'192.168.4.22'},
                         dict(AP, **{'X-DataArk-Peer':'garbage'})):
             self.assertEqual(self.client.get('/portal/state',headers=headers).status_code,404)
 
@@ -62,8 +69,8 @@ class PortalTests(unittest.TestCase):
         self.assertEqual(self.client.get('/portal/continue',headers=AP).status_code,405)
         headers = dict(AP, Origin='http://192.168.4.1')
         self.assertEqual(self.client.post('/portal/continue',headers=headers).status_code,204)
-        self.assertTrue(self.client.get('/portal/state',headers=AP).json())
-        self.assertFalse(self.client.get('/portal/state',headers=dict(AP, **{'X-DataArk-Peer':'192.168.4.23'})).json())
+        self.assertTrue(self.client.get('/portal/state',headers=AP).json()['enabled'])
+        self.assertFalse(self.client.get('/portal/state',headers=dict(AP, **{'X-DataArk-Peer':'192.168.4.23'})).json()['enabled'])
 
     def test_acknowledged_client_checks_actual_upstream(self):
         self.client.post('/portal/continue',headers=dict(AP, Origin='http://192.168.4.1'))
@@ -73,12 +80,19 @@ class PortalTests(unittest.TestCase):
             self.assertEqual(self.client.get('/portal/probe/generate_204',headers=AP).status_code,302)
         self.assertEqual(self.client.get('/portal/probe/http://evil.example',headers=AP).status_code,404)
 
-    def test_sessions_expire(self):
-        with patch.object(portal.time,'monotonic',return_value=100):
-            self.client.post('/portal/continue',headers=dict(AP, Origin='http://192.168.4.1'))
-        with patch.object(portal.time,'monotonic',return_value=100+portal.TTL):
-            self.assertFalse(self.client.get('/portal/state',headers=AP).json())
-            self.assertEqual(portal.SESSIONS,{})
+    def test_control_failure_is_not_reported_as_off(self):
+        with patch.object(portal,'control',side_effect=RuntimeError('unavailable')):
+            self.assertEqual(self.client.get('/portal/state',headers=AP).status_code,503)
+            self.assertEqual(self.client.get('/portal/probe/generate_204',headers=AP).status_code,302)
+
+    def test_toggle_off_and_offline_enable_rejection(self):
+        headers=dict(AP,Origin='http://192.168.4.1')
+        self.assertEqual(self.client.post('/portal/pass-through/on',headers=headers).status_code,204)
+        self.assertTrue(self.client.get('/portal/state',headers=AP).json()['enabled'])
+        with patch.object(portal,'upstream_available',return_value=False):
+            self.assertEqual(self.client.post('/portal/pass-through/off',headers=headers).status_code,204)
+            self.assertEqual(self.client.post('/portal/pass-through/on',headers=headers).status_code,409)
+        self.assertFalse(self.client.get('/portal/state',headers=AP).json()['enabled'])
 
     def test_probe_forwards_only_bounded_expected_response(self):
         class Result:
@@ -98,6 +112,28 @@ class PortalTests(unittest.TestCase):
             with self.assertRaises(ValueError): portal.upstream_probe('connecttest.txt')
 
 class PortalInstallerTests(unittest.TestCase):
+    def test_waits_for_api_startup(self):
+        ready = SimpleNamespace(stdout='LISTEN 0 2048 127.0.0.1:8000 0.0.0.0:*')
+        with patch.object(installer,'run',side_effect=[SimpleNamespace(stdout=''),ready]) as run, patch.object(installer.time,'sleep') as sleep:
+            installer.wait_for_api()
+            self.assertEqual(run.call_count,2)
+            sleep.assert_called_once_with(.5)
+
+    def test_rejects_non_loopback_listener_without_waiting(self):
+        for output in ('LISTEN 0 2048 0.0.0.0:8000 0.0.0.0:*',
+                       'LISTEN 0 2048 [::]:8000 [::]:*', 'unexpected'):
+            with self.subTest(output=output), patch.object(installer,'run',return_value=SimpleNamespace(stdout=output)), patch.object(installer.time,'sleep') as sleep:
+                with self.assertRaisesRegex(SystemExit,'Found:'):
+                    installer.wait_for_api()
+                sleep.assert_not_called()
+
+    def test_missing_api_has_bounded_wait_and_specific_error(self):
+        with patch.object(installer,'run',return_value=SimpleNamespace(stdout='')) as run, patch.object(installer.time,'sleep') as sleep:
+            with self.assertRaisesRegex(SystemExit,'No API listener appeared'):
+                installer.wait_for_api()
+            self.assertEqual(run.call_count,21)
+            self.assertEqual(sleep.call_count,20)
+
     def test_removes_only_exact_legacy_nat_rules(self):
         legacy = ' '.join(installer.LEGACY)+'\n'
         docker = '-A PREROUTING -m addrtype --dst-type LOCAL -j DOCKER\n'
