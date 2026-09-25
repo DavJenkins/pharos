@@ -23,3 +23,8 @@ __pycache__/
 # Virtual environment
 venv/
 
+
+# Generated manifest outputs and cached source observations
+.cache/
+app/static/assets/manifest/
+app/static/manifest.json

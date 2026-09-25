@@ -207,3 +207,5 @@ body{
         display:block;
     }
 }
+
+.library-primary { display:inline-block; padding:.65rem 1rem; background:#154b49; color:#fff; border-radius:8px; text-decoration:none; font-weight:600; }

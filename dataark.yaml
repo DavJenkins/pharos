@@ -1,0 +1,176 @@
+# Data Ark central asset manifest. Edit this file, then deploy/deploy-web.sh.
+# Automatic updates run when dataark-update.timer is installed and enabled.
+system:
+  project_name: Data Ark
+  version: "1.4"
+  theme: Ark of the Covenant
+  base_mount: /mnt/storage
+  hide_missing: false
+  services:
+    kiwix_port: 8080
+    samba_share_path: /mnt/storage
+    web_root: /var/www/html
+    content_url_prefix: /library-files/
+  artwork:
+    path: app/static/assets/Pharos Data Ark.png
+    alt: Data Ark lighthouse
+
+categories:
+  - id: content_sources
+    title: Content sources
+    description: Explore the sources and content collected on this Ark. Local availability is shown for each registered asset.
+  - id: zim_archives
+    title: Offline knowledge libraries
+    description: Read locally preserved archives with Kiwix, or download the original files.
+  - id: reference
+    title: Reference sources
+    description: Online sources to explore and build your own collection.
+  - id: pdf_reference
+    title: PDF reference vault
+    description: Medical, communications, engineering, and administrative documents.
+  - id: utilities_binaries
+    title: Portable utilities
+    description: Readers and tools to take with the content.
+
+scenarios:
+  - id: general
+    title: General reference
+  - id: medical
+    title: Medical reference
+  - id: technical
+    title: Technical reference
+
+repositories:
+  - id: wikipedia
+    category: content_sources
+    title: Wikipedia
+    description: English encyclopedias preserved on this Ark.
+    artwork: {path: app/static/assets/icons/Wikipedia.png, alt: Wikipedia}
+    update_policy: manual
+    refresh_interval: never
+    tags: [encyclopedia]
+    scenarios: [general]
+    links:
+      - {title: Wikipedia (local), service: kiwix, path: '/#name=wikipedia_en_all'}
+      - {title: Wikipedia, url: 'https://www.wikipedia.org', requires_internet: true}
+  - id: technical-qa
+    category: content_sources
+    title: Technical Q&A
+    description: Electronics and Unix/Linux questions and answers, with a portable reader.
+    artwork: {path: app/static/assets/icons/Kiwix.png, alt: Kiwix}
+    update_policy: manual
+    refresh_interval: never
+    scenarios: [technical]
+    links:
+      - {title: Read local technical Q&A, service: kiwix, path: '/#category=stack_exchange'}
+      - {title: Electronics Q&A, url: 'https://electronics.stackexchange.com', requires_internet: true}
+      - {title: Unix and Linux Q&A, url: 'https://unix.stackexchange.com', requires_internet: true}
+  - id: wikimed
+    category: content_sources
+    title: WikiMed
+    description: A locally preserved medical encyclopedia.
+    artwork: {path: app/static/assets/icons/WikiMed.png, alt: WikiMed}
+    update_policy: manual
+    scenarios: [medical]
+    links:
+      - {title: Read local WikiMed, service: kiwix, path: '/#name=wikipedia_en_medicine'}
+      - {title: Kiwix medical resources, url: 'https://www.kiwix.org', requires_internet: true}
+  - id: openstreetmap
+    category: content_sources
+    title: OpenStreetMap
+    description: Open mapping reference. Register downloaded maps as assets below.
+    artwork: {path: app/static/assets/icons/OpenStreetmap.png, alt: OpenStreetMap}
+    links:
+      - {title: OpenStreetMap, url: 'https://www.openstreetmap.org', requires_internet: true}
+  - id: project-gutenberg
+    category: content_sources
+    title: Project Gutenberg
+    description: Public-domain reading sources. Register local books as assets below.
+    artwork: {path: app/static/assets/icons/ProjectGutenberg.png, alt: Project Gutenberg}
+    links:
+      - {title: Project Gutenberg, url: 'https://www.gutenberg.org', requires_internet: true}
+  - id: usa-gov
+    category: content_sources
+    title: USA.gov
+    description: Government reference and information sources.
+    artwork: {path: app/static/assets/icons/USAGov.png, alt: USA.gov}
+    links:
+      - {title: USA.gov, url: 'https://www.usa.gov', requires_internet: true}
+
+# These are the files reported by the storage audit. Removing an entry never deletes a file.
+# Exact-version sources checked 2026-09-24; unavailable versions remain preserved locally.
+assets:
+  - id: wikipedia-main
+    repository_id: wikipedia
+    category: zim_archives
+    title: Wikipedia — English with images (February 2026)
+    relative_path: wikipedia_en_all_maxi_2026-02.zim
+    update_policy: on_network_available
+    refresh_interval: 1d
+    update_source:
+      kind: kiwix_zim
+      directory: https://download.kiwix.org/zim/wikipedia/
+      filename_prefix: wikipedia_en_all_maxi_
+    download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-02.zim
+    tags: [encyclopedia, images]
+  - id: wikipedia-nopic
+    repository_id: wikipedia
+    category: zim_archives
+    title: Wikipedia — English without images (December 2025)
+    relative_path: wikipedia_en_all_nopic_2025-12.zim
+    update_policy: on_network_available
+    refresh_interval: 1d
+    update_source:
+      kind: kiwix_zim
+      directory: https://download.kiwix.org/zim/wikipedia/
+      filename_prefix: wikipedia_en_all_nopic_
+    download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2025-12.zim
+    mirror_url: https://ny.mirror.driftle.ss/kiwix/zim/wikipedia/wikipedia_en_all_nopic_2025-12.zim
+  - id: wikipedia-medicine
+    repository_id: wikimed
+    category: zim_archives
+    title: Wikipedia Medicine (January 2026)
+    relative_path: wikipedia_en_medicine_maxi_2026-01.zim
+    update_policy: on_network_available
+    refresh_interval: 1d
+    update_source:
+      kind: kiwix_zim
+      directory: https://download.kiwix.org/zim/wikipedia/
+      filename_prefix: wikipedia_en_medicine_maxi_
+    download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-01.zim
+  - id: electronics-qa
+    repository_id: technical-qa
+    category: zim_archives
+    title: Electronics Stack Exchange (December 2025)
+    relative_path: electronics.stackexchange.com_en_all_2025-12.zim
+    update_policy: on_network_available
+    refresh_interval: 1d
+    update_source:
+      kind: kiwix_zim
+      directory: https://download.kiwix.org/zim/stack_exchange/
+      filename_prefix: electronics.stackexchange.com_en_all_
+    download_url: https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2025-12.zim
+    mirror_url: https://ny.mirror.driftle.ss/kiwix/zim/stack_exchange/electronics.stackexchange.com_en_all_2025-12.zim
+  - id: unix-qa
+    repository_id: technical-qa
+    category: zim_archives
+    title: Unix Stack Exchange (December 2025)
+    relative_path: unix.stackexchange.com_en_all_2025-12.zim
+    update_policy: on_network_available
+    refresh_interval: 1d
+    update_source:
+      kind: kiwix_zim
+      directory: https://download.kiwix.org/zim/stack_exchange/
+      filename_prefix: unix.stackexchange.com_en_all_
+    download_url: https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2025-12.zim
+    mirror_url: https://ny.mirror.driftle.ss/kiwix/zim/stack_exchange/unix.stackexchange.com_en_all_2025-12.zim
+  - id: kiwix-windows-reader
+    repository_id: technical-qa
+    category: utilities_binaries
+    title: Kiwix Desktop for Windows (copy the entire kiwix-viewer folder)
+    relative_path: kiwix-viewer/kiwix-desktop.exe
+    download_url: https://download.kiwix.org/release/kiwix-desktop/kiwix-desktop_windows_x64_2.5.1.zip
+    source_note: Windows ZIP distribution with dependencies; embedded executable version string is 2.5.1. Byte identity not checked.
+    architecture: x86_64
+    executable: true
+    tags: [windows, reader]

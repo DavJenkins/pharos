@@ -24,6 +24,7 @@ def debug_on():
 
     old = DEBUG_FLAG.exists()
 
+    DEBUG_FLAG.parent.mkdir(parents=True, exist_ok=True)
     DEBUG_FLAG.touch(exist_ok=True)
 
     if not old:

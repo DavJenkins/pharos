@@ -8,6 +8,7 @@ const Dashboard = {
 
     refreshEnabled: true,
     refreshTimer: null,
+    refreshing: false,
 
     //------------------------------------------------------------------
     // Utility
@@ -65,6 +66,8 @@ const Dashboard = {
         if (!b)
             return;
 
+        b.classList.remove("error");
+        b.setAttribute("aria-pressed", String(this.refreshEnabled));
         b.classList.toggle("on", this.refreshEnabled);
         b.classList.toggle("off", !this.refreshEnabled);
 
@@ -82,6 +85,8 @@ const Dashboard = {
         if (!b)
             return;
 
+        b.classList.remove("error");
+        b.setAttribute("aria-pressed", String(DataArkStatus.debug));
         b.classList.toggle("on", DataArkStatus.debug);
         b.classList.toggle("off", !DataArkStatus.debug);
 
@@ -104,23 +109,21 @@ const Dashboard = {
 
         this.byId("eth-button").className =
             "status-button " +
-            (eth.connected ? "on" : "off");
+            (eth.connected === true ? "on" : eth.connected === false ? "off" : "error");
 
         this.byId("wifi-button").className =
             "status-button " +
-            (wifi.connected ? "on" : "off");
+            (wifi.connected === true ? "on" : wifi.connected === false ? "off" : "error");
 
         this.byId("ap-button").className =
             "status-button " +
-            ((ap.client_count || 0) > 0
-                ? "on"
-                : "off");
+            (ap.active === true ? "on" : ap.active === false ? "off" : "error");
 
         this.byId("system-button").className =
             "status-button " +
             (DataArkStatus.state === "ok"
                 ? "on"
-                : "off");
+                : "error");
 
         //------------------------------------------------------------------
         // Rich hover text
@@ -145,6 +148,8 @@ const Dashboard = {
 
     async refresh() {
 
+        if (this.refreshing) return;
+        this.refreshing = true;
         try {
 
             await DataArkStatus.refresh();
@@ -157,12 +162,21 @@ const Dashboard = {
 
             this.byId("sync-status").textContent =
                 DataArkStatus.sync;
+            this.byId("sync-status").title = DataArkStatus.data?.status?.update?.detail || DataArkStatus.sync;
 
         }
         catch (err) {
 
             console.error(err);
-
+            DataArkStatus.data = null;
+            this.byId("debug-button").removeAttribute("aria-pressed");
+            this.byId("sync-status").textContent = "Unavailable";
+            for (const id of ["eth-button", "wifi-button", "ap-button", "system-button", "debug-button"]) {
+                this.byId(id).className = "status-button error";
+                this.byId(id).title = "Status unavailable; retrying automatically";
+            }
+        } finally {
+            this.refreshing = false;
         }
 
     },
@@ -172,6 +186,8 @@ const Dashboard = {
     //------------------------------------------------------------------
 
     async initialize() {
+
+        this.updateRefreshButton();
 
         this.byId("refresh-button")
             ?.addEventListener(

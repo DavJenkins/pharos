@@ -9,6 +9,7 @@ def _run(cmd):
             capture_output=True,
             text=True,
             check=False,
+            timeout=3,
         ).stdout.strip()
     except Exception:
         return ""
@@ -32,9 +33,11 @@ def _meminfo():
 
 
 def _df(path):
+    if path == "/mnt/storage" and not Path(path).is_mount():
+        return {"used":"","free":"","percent":None}
     out = _run(["df", "-B1", path]).splitlines()
     if len(out) < 2:
-        return {"used":"","free":"","percent":0}
+        return {"used":"","free":"","percent":None}
     f = out[1].split()
     return {
         "used": _human(int(f[2])),
@@ -48,7 +51,7 @@ def _cpu_temp():
     try:
         return float(out.split("=")[1].split("'")[0])
     except Exception:
-        return 0.0
+        return None
 
 
 def collect():

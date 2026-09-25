@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1">
+
+<title>{{PROJECT_NAME}} Dashboard</title>
+
+<link rel="stylesheet"
+      href="assets/css/dataark.css">
+
+<link rel="stylesheet" href="assets/css/manifest.css">
+{{BACKGROUND_STYLE}}
+</head>
+
+<body>
+
+<!-- ================================================================ -->
+<!-- Status Bar                                                       -->
+<!-- ================================================================ -->
+
+<div class="dashboard-top">
+<div class="glass status-bar" aria-label="Ark status and administration">
+<div class="status-controls">
+<span>Sync: <strong id="sync-status">Loading...</strong></span>
+<span id="internet-status" role="status">Checking internet...</span>
+<button id="internet-retry" type="button">Check internet</button>
+<details class="network-settings"><summary>Network settings</summary>
+<nav aria-label="Network settings"><a href="/config/wifi.html">Upstream Wi-Fi</a>
+<a href="/config/system.html">Access point settings</a></nav></details>
+</div>
+
+<button id="eth-button"
+        class="status-button off"
+        title="Ethernet">
+
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M3 4h18v13h-5v4H8v-4H3V4zm2 2v9h5v4h4v-4h5V6H5zm2 2h2v4H7V8zm4 0h2v4h-2V8zm4 0h2v4h-2V8z"/>
+</svg>
+
+</button>
+
+
+<button id="wifi-button"
+        class="status-button off"
+        title="Wi-Fi">
+
+📶
+
+</button>
+
+
+<button id="ap-button"
+        class="status-button off"
+        title="Access Point">
+
+📡
+
+</button>
+
+
+<button id="system-button"
+        class="status-button off"
+        title="System">
+
+💻
+
+</button>
+
+
+<button id="debug-button"
+        class="status-button off"
+        title="Debug">
+
+🐞
+
+</button>
+
+
+<button id="refresh-button"
+        class="status-button on"
+        title="Auto Refresh">
+
+🔄
+
+</button>
+
+
+<a class="status-button"
+   href="/docs/"
+   title="Documentation">
+
+📖
+
+</a>
+
+
+<a class="status-button"
+   href="/api/docs"
+   title="REST API">
+
+📘
+
+</a>
+
+</div>
+
+
+<header class="site-header">
+<h1>{{PROJECT_NAME}}</h1>
+<nav aria-label="Content access"><a href="/content.html">Access your content</a></nav>
+</header>
+</div>
+
+<main class="manifest-catalog">
+{{MANIFEST_CARDS}}
+</main>
+
+<footer class="platform-credit">
+<a href="https://www.raspberrypi.com" data-requires-internet="true">
+<img src="assets/icons/RaspberryPi.png" alt="" width="40" height="40">
+<span>Powered by Raspberry Pi</span>
+</a>
+</footer>
+
+<script src="assets/js/manifest-links.js"></script>
+<script src="assets/js/connectivity.js"></script>
+<script src="assets/js/content-links.js"></script>
+<script src="assets/js/api.js"></script>
+
+<script src="assets/js/status.js"></script>
+
+<script src="assets/js/dashboard.js"></script>
+
+</body>
+
+</html>

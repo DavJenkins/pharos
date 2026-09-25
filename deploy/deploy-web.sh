@@ -4,6 +4,10 @@ set -e
 SOURCE="/opt/dataark/app/static"
 TARGET="/var/www/html"
 
+# Fail before changing the deployed site if configuration/artwork is invalid.
+cd /opt/dataark
+bash tools/render_dashboard.sh
+
 echo
 echo "============================================================"
 echo " Deploying Data Ark Web Interface"

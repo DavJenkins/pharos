@@ -1,0 +1,40 @@
+{
+  "checked_on": "2026-09-24",
+  "archives": [
+    {
+      "id": "wikipedia-main",
+      "filename": "wikipedia_en_all_maxi_2026-08.zim",
+      "url": "https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-08.zim",
+      "bytes": 127418087648,
+      "sha256": "34162d18b9f96f494eac48a73a309c72e0bc95d85f76be405d0f5de795854aa6"
+    },
+    {
+      "id": "wikipedia-nopic",
+      "filename": "wikipedia_en_all_nopic_2026-06.zim",
+      "url": "https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2026-06.zim",
+      "bytes": 52690706555,
+      "sha256": "441a56d9e05b2d98f8ae9acb7986a513ed47904d73852c92dc6b7d50baa122e5"
+    },
+    {
+      "id": "wikipedia-medicine",
+      "filename": "wikipedia_en_medicine_maxi_2026-04.zim",
+      "url": "https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-04.zim",
+      "bytes": 2215520569,
+      "sha256": "6f67340a7cd7665bb57c27d2bbff97e26f2037477c9ea597345a118286820331"
+    },
+    {
+      "id": "electronics-qa",
+      "filename": "electronics.stackexchange.com_en_all_2026-08.zim",
+      "url": "https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2026-08.zim",
+      "bytes": 4214186044,
+      "sha256": "5a23c08a3c1275128c247b0c67ec8ed03a953a504c6a23e2cd6a9ac5422b88c1"
+    },
+    {
+      "id": "unix-qa",
+      "filename": "unix.stackexchange.com_en_all_2026-08.zim",
+      "url": "https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2026-08.zim",
+      "bytes": 1312634563,
+      "sha256": "738326e81abe0f50edbaa3e4a002d0ca221e5dfb66e4954bb64e370756f602d3"
+    }
+  ]
+}

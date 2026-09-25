@@ -1,86 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Configure Wi-Fi</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data Ark Network Settings</title>
+<style>
+body {font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;color:#222}
+label {display:block;margin-top:1rem} input,select,button {font:inherit;padding:.6rem;box-sizing:border-box;max-width:100%}
+input:not([type=checkbox]),select {display:block;width:100%;margin-top:.3rem}
+button {margin-top:1rem} .notice {padding:1rem;background:#fff4d6;border-left:4px solid #a65e00}
+#result {white-space:pre-wrap;overflow-wrap:anywhere} nav a {margin-right:1rem}
+</style>
 </head>
-<body>
-    <h1>Select Wi-Fi Network</h1>
-
-    <form action="/cgi-bin/save-wifi.sh" method="POST">
-        <label>SSID:</label>
-
-        <select name="ssid" id="ssid-select" required></select>
-
-        <label>Password:</label>
-        <input type="password" name="password" required>
-
-        <button type="submit">Save & Connect</button>
-    </form>
-
-    <script>
-function dbg(...a) {
-    if (window.DATAARK_DEBUG) console.log("[WIFI]", ...a);
-}
-
-let networksData = null;
-let statusData = null;
-
-function renderIfReady() {
-    if (!networksData || !statusData) return;
-
-    const select = document.getElementById('ssid-select');
-
-    const target = (statusData.wifi_ssid || "").trim();
-
-    dbg("target SSID =", target);
-
-    // HARD RESET (critical fix)
-    select.options.length = 0;
-
-    networksData
-        .filter(s => s && s.trim())
-        .forEach(ssid => {
-            const opt = new Option(ssid, ssid);
-            select.add(opt);
-        });
-
-    // DEFER selection until after browser commit
-    setTimeout(() => {
-
-        let found = false;
-
-        for (let i = 0; i < select.options.length; i++) {
-            if (select.options[i].value === target) {
-                select.selectedIndex = i;
-                found = true;
-                break;
-            }
-        }
-
-        if (!found && select.options.length > 0) {
-            select.selectedIndex = 0;
-        }
-
-        dbg("final selected =", select.value);
-
-    }, 0);
-}
-
-fetch('/cgi-bin/get-wifi-list.sh')
-    .then(r => r.json())
-    .then(d => {
-        networksData = d;
-        renderIfReady();
-    });
-
-fetch('/api/status')
-    .then(r => r.json())
-    .then(d => {
-        statusData = d;
-        renderIfReady();
-    });
-    </script>
-
+<body data-action="connect">
+<nav><a href="/">Dashboard</a><a href="/config/wifi.html">Upstream Wi-Fi</a><a href="/config/system.html">Access point</a></nav>
+<h1>Connect upstream Wi-Fi</h1>
+<p id="current" role="status">Loading current network…</p>
+<form id="network-form">
+<label>Network administration password (user: admin)
+<input id="admin-password" type="password" autocomplete="off" required></label>
+<p>This is the separate password created by the network administration installer.</p>
+<button id="scan" type="button">Find networks</button>
+<label>Network name (SSID)<input id="ssid" list="networks" required autocomplete="off"></label>
+<datalist id="networks"></datalist>
+<label>Security<select id="security"><option value="wpa-psk">WPA/WPA2 Personal</option><option value="open">Open network</option></select></label>
+<label>Wi-Fi password<input id="wifi-password" type="password" autocomplete="new-password"></label>
+<p>WPA3-only and enterprise networks require configuration on the Pi.</p>
+<p class="notice">This changes the upstream adapter (wlan1). Your browser may disconnect if it is using that connection. The DataArk access point on wlan0 remains available at http://192.168.4.1/.</p>
+<label><input id="acknowledge" type="checkbox" required> I understand that devices may need to reconnect.</label>
+<button id="save" type="submit">Save & Connect</button>
+</form>
+<p id="result" role="status" aria-live="polite"></p>
+<script src="/assets/js/network-settings.js"></script>
 </body>
 </html>

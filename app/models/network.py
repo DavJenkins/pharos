@@ -8,14 +8,14 @@ class Signal(BaseModel):
 
 class Ethernet(BaseModel):
     state: str
-    connected: bool
+    connected: bool | None
     ip: str
     gateway: str
 
 
 class Wifi(BaseModel):
     state: str
-    connected: bool
+    connected: bool | None
     ssid: str | None
     signal: Signal
     rate: str | None
@@ -24,6 +24,9 @@ class Wifi(BaseModel):
 
 
 class AccessPoint(BaseModel):
+    active: bool | None = None
+    state: str = "unknown"
+    ip: str = ""
     ssid: str
     client_count: int
     clients: list[dict]

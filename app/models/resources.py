@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class CPU(BaseModel):
-    temperature_c: float
+    temperature_c: float | None
     load: list[float]
 
 
@@ -15,7 +15,7 @@ class Memory(BaseModel):
 class Disk(BaseModel):
     used: str
     free: str
-    percent: int
+    percent: int | None
 
 
 class Storage(BaseModel):

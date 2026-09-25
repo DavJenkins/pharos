@@ -1,4 +1,5 @@
 import json
+from collections import deque
 from pathlib import Path
 
 from fastapi import APIRouter, Query
@@ -19,10 +20,16 @@ def events(
     if not EVENT_LOG.exists():
         return []
 
-    lines = EVENT_LOG.read_text().splitlines()
+    with EVENT_LOG.open(encoding="utf-8") as stream:
+        lines = deque(stream, maxlen=limit)
 
-    return [
-        json.loads(line)
-        for line in lines[-limit:]
-        if line.strip()
-    ]
+    records = []
+    for line in lines:
+        if not line.strip():
+            continue
+        try:
+            records.append(json.loads(line))
+        except json.JSONDecodeError:
+            # A writer may not have finished the last record yet.
+            continue
+    return records

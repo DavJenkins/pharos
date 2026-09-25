@@ -111,7 +111,7 @@ const DataArkStatus = {
         return [
             "Ethernet",
             "",
-            `Connected : ${e.connected ? "Yes" : "No"}`,
+            `Connected : ${e.connected === true ? "Yes" : e.connected === false ? "No" : "Unavailable"}`,
             `IP        : ${e.ip ?? "-"}`,
             `Gateway   : ${e.gateway ?? "-"}`
         ].join("\n");
@@ -125,7 +125,7 @@ const DataArkStatus = {
             "Wi-Fi",
             "",
             `SSID      : ${w.ssid ?? "-"}`,
-            `Connected : ${w.connected ? "Yes" : "No"}`,
+            `Connected : ${w.connected === true ? "Yes" : w.connected === false ? "No" : "Unavailable"}`,
             `Signal    : ${w.signal?.dbm ?? "-"} dBm`,
             `Strength  : ${w.signal?.percent ?? "-"} %`,
             `Rate      : ${w.rate ?? "-"}`,
@@ -141,6 +141,8 @@ const DataArkStatus = {
         return [
             "Access Point",
             "",
+            `Active    : ${ap.active === true ? "Yes" : ap.active === false ? "No" : "Unavailable"}`,
+            `IP        : ${ap.ip || "-"}`,
             `SSID      : ${ap.ssid ?? "-"}`,
             `Clients   : ${ap.client_count ?? 0}`
         ].join("\n");
@@ -154,6 +156,7 @@ const DataArkStatus = {
             "System",
             "",
             `State     : ${this.state}`,
+            ...(this.data?.status?.issues ?? []),
             `Hostname  : ${s.hostname ?? "-"}`,
             `Platform  : ${s.platform ?? "-"}`,
             `Uptime    : ${s.uptime ?? "-"}`
@@ -162,4 +165,4 @@ const DataArkStatus = {
 
 };
 
-Object.freeze(DataArkStatus);
+Object.seal(DataArkStatus);

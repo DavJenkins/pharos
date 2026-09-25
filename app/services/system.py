@@ -16,6 +16,7 @@ def _uptime() -> str:
             capture_output=True,
             text=True,
             check=False,
+            timeout=3,
         ).stdout.strip().removeprefix("up ")
     except Exception:
         return ""

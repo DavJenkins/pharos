@@ -1,0 +1,88 @@
+html,body{min-height:100%;height:auto}
+body{overflow:auto;padding:0 1rem 3rem;box-sizing:border-box;background-color:#eee9dc}
+.status-bar{position:relative;top:auto;right:auto;grid-column:3;grid-row:1;width:240px;max-width:100%;margin:0;padding:14px;box-sizing:border-box;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;justify-items:center;align-items:center}
+.content-panel{position:relative;top:auto;left:auto;transform:none;min-width:0;max-width:1000px;margin:1rem auto 2rem;box-sizing:border-box}
+.manifest-catalog{max-width:1200px;margin:auto}
+.manifest-category{margin:2rem 0;padding:1rem;border-radius:12px;background:rgba(248,245,235,.94)}
+.manifest-category h2{margin:.25rem 0;color:#3c351d}
+.manifest-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:1rem}
+.manifest-card{padding:.8rem 1rem;background:#fffdf7;color:#292c30;border:1px solid #d3c7a8;border-radius:10px;overflow-wrap:anywhere}
+.manifest-card h3{margin:.45rem 0 .2rem}.manifest-card p{margin:.4rem 0;line-height:1.4}
+.manifest-artwork{display:block;width:68px;height:68px;object-fit:contain;margin:0 auto}
+.manifest-assets .manifest-artwork{display:inline-block;width:32px;height:32px;vertical-align:middle;margin-right:.4rem}
+.manifest-links{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0}
+.manifest-links a{padding:.4rem .65rem;border:1px solid #94742e;border-radius:5px;color:#214a58}
+.manifest-assets{padding-left:1.25rem;line-height:1.4;margin:.5rem 0 0}.manifest-assets li{margin:.4rem 0}
+.manifest-assets a{color:#075d89}.manifest-missing{background-color:#ececec;color:#656565}
+.manifest-missing>.manifest-artwork{filter:grayscale(1)}
+.manifest-badge{display:inline-block;margin:.3rem 0;padding:.2rem .4rem;border:1px solid #aaa;border-radius:4px;font-size:.8rem}
+.manifest-assets .manifest-badge{display:block;width:fit-content}
+.manifest-tag{display:inline-block;margin:.3rem .3rem 0 0;font-size:.8rem;color:#625533}
+.manifest-disabled{color:#777;padding:.4rem .65rem;border:1px solid #bbb;border-radius:5px}
+.manifest-empty{background:#fffdf7;padding:2rem}.manifest-upstream{font-size:.85rem;color:#785618}
+@media(hover:none){.status-panel{display:none}}
+
+
+body{background-image:none}
+.manifest-upstream{display:block}
+
+.platform-credit{max-width:1200px;min-height:100vh;min-height:100svh;margin:2rem auto 0;text-align:center;box-sizing:border-box}
+.platform-credit a{display:inline-flex;align-items:center;gap:.65rem;padding:.6rem 1rem;background:#fffdf7;color:#3c351d;border-radius:8px;text-decoration:none}
+.platform-credit a:hover{text-decoration:underline}
+.platform-credit img{object-fit:contain}
+
+.site-header{max-width:1200px;margin:1rem auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.4rem;padding:.7rem 1rem;box-sizing:border-box;background:rgba(248,245,235,.94);border-radius:10px}
+.site-header h1{font-size:1.65rem;margin:0}.site-header a{color:#075d89}
+.status-controls{grid-column:1/-1;width:100%;display:grid;gap:.5rem;font-size:.85rem;text-align:center}
+.status-controls button{justify-self:center}
+.dashboard-top{display:grid;grid-template-columns:240px minmax(0,1fr) 240px;align-items:center;gap:16px;padding:12px 0 16px;margin:0 auto}
+.dashboard-top .site-header{grid-column:2;grid-row:1;width:50%;margin:0 auto}
+@media(max-width:900px){.dashboard-top{grid-template-columns:minmax(0,1fr)}.dashboard-top .status-bar{grid-column:1;justify-self:end}.dashboard-top .site-header{grid-column:1;grid-row:2}}
+.status-controls button,.network-settings summary{font:inherit;cursor:pointer}
+.network-settings{position:relative}.network-settings nav{position:absolute;right:0;top:1.8rem;background:#fffdf7;border:1px solid #d3c7a8;border-radius:6px;padding:.7rem;min-width:160px;box-shadow:0 3px 10px #0002}
+.network-settings nav a{display:block;padding:.3rem;color:#075d89}
+[data-requires-internet][aria-disabled="true"]{color:#666;opacity:.65;cursor:not-allowed;text-decoration:none}
+.manifest-category{margin-top:1rem}
+
+/* Keep every indicator hoverable; use state markers instead of bright tiles. */
+.status-bar .status-button{position:relative;width:40px;height:40px;background:rgba(255,255,255,.18);border:1px solid transparent;border-radius:6px;opacity:1}
+.status-bar .status-button.off{color:#555;background:rgba(255,255,255,.1)}
+.status-bar .status-button.on{color:#155344;background:rgba(231,248,240,.35)}
+.status-bar .status-button.error{color:#8c2525;background:rgba(255,235,231,.35)}
+.status-bar .status-button.on::after,.status-bar .status-button.off::after,.status-bar .status-button.error::after{content:"";position:absolute;right:3px;bottom:3px;width:7px;height:7px;border-radius:50%;box-sizing:border-box;border:1px solid #555;background:transparent}
+.status-bar .status-button.on::after{background:#216947;border-color:#216947}
+.status-bar .status-button.error::after{content:"!";width:11px;height:11px;line-height:10px;font:bold 10px/10px sans-serif;text-align:center;background:#a52d2d;border-color:#a52d2d;color:#fff}
+.status-bar #refresh-button,.status-bar #debug-button{padding-bottom:10px}
+.status-bar #refresh-button::after,.status-bar #debug-button::after{left:0;right:0;bottom:1px;width:auto;height:11px;border:0;border-radius:0;background:none;font:600 9px/11px system-ui;color:#444;text-align:center}
+.status-bar #refresh-button.on::after,.status-bar #debug-button.on::after{content:"ON";color:#174f37}
+.status-bar #refresh-button.off::after,.status-bar #debug-button.off::after{content:"OFF"}
+.status-bar #debug-button.error::after{content:"?";color:#8c2525}
+.status-bar .status-button:hover,.status-bar .status-button:focus-visible{border-color:#52666b;outline:2px solid #075d89;outline-offset:1px;transform:none}
+
+#internet-retry{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:40px;padding:.5rem .9rem;border:1px solid #103c3a;border-radius:7px;background:#154b49;color:#fff;font-weight:600;cursor:pointer;box-shadow:0 2px 3px #0003;transition:background .15s ease,box-shadow .15s ease}
+#internet-retry::before{content:"\21bb";font-size:1.2em;line-height:1}
+#internet-retry:hover{background:#0c3634;box-shadow:0 3px 5px #0004}
+#internet-retry:active{box-shadow:inset 0 2px 3px #0004}
+#internet-retry:focus-visible{outline:3px solid #075d89;outline-offset:3px}
+
+/* Echo the background's blue haze and warm stone without losing contrast. */
+.site-header{background:linear-gradient(135deg,rgba(226,234,245,.96),rgba(243,228,198,.96));border:1px solid #b7a885;box-shadow:0 3px 12px #283d5520}
+.site-header h1{color:#253f59}
+.manifest-category{background:linear-gradient(145deg,rgba(225,234,245,.95),rgba(241,231,209,.96));border:1px solid #b8b4a3}
+.manifest-category h2{color:#294761}
+.manifest-card{background:linear-gradient(160deg,#f2f6fa,#f8f0de);border-color:#b7bec4;border-top:3px solid #a78a51}
+.manifest-card h3{color:#294761}
+.manifest-links a{background:#e5edf3;border-color:#94a8b5;color:#234a62}
+.manifest-links a:hover{background:#d6e4ed}
+.manifest-badge{background:#eee4ca;border-color:#bdac7b;color:#493f27}
+.manifest-tag{color:#526779}
+.manifest-card.manifest-missing{background:#e7e8e7;border-top-color:#939895}
+.platform-credit a{background:#e5edf3;border:1px solid #acb9c2;color:#294761}
+@media(max-width:900px){.dashboard-top .site-header{min-width:min(260px,100%)}}
+
+#sync-status.internet-unavailable{font-weight:400}
+
+.asset-external{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;width:24px;height:24px;margin-left:.25rem;border-radius:3px}
+.asset-external svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.asset-external:hover,.asset-external:focus-visible{outline:1px solid currentColor;outline-offset:1px}
+.asset-external[aria-disabled="true"]{color:#737b81;cursor:not-allowed}

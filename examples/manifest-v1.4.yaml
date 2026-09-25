@@ -1,0 +1,83 @@
+# Example only. The example.invalid download URLs and filenames are placeholders.
+# This file is not the deployed configuration; copy/edit records into dataark.yaml.
+system:
+  project_name: Data Ark example
+  version: "1.4"
+  base_mount: /mnt/storage
+  hide_missing: false
+  services:
+    kiwix_port: 8080
+    content_url_prefix: /library-files/
+  # Local artwork paths are relative to THIS manifest file.
+  # Alternatively: artwork: {url: 'https://your-host.example/artwork.png'}
+  # Or: artwork: {inline: 'data:image/png;base64,...'}
+categories:
+  - {id: zim_archives, title: Kiwix ZIM libraries}
+  - {id: pdf_reference, title: PDF reference vault}
+  - {id: utilities_binaries, title: Portable utilities}
+scenarios:
+  - {id: emergency, title: Emergency reference}
+  - {id: development, title: Software development}
+repositories:
+  - id: kiwix
+    category: zim_archives
+    title: Kiwix libraries
+    update_policy: manual
+    refresh_interval: 30d
+    links:
+      - {title: Read library, service: kiwix, path: /}
+      - {title: Kiwix, url: 'https://www.kiwix.org', requires_internet: true}
+  - id: documents
+    category: pdf_reference
+    title: Curated reference documents
+    update_policy: on_network_available
+    refresh_interval: 30d
+    scenarios: [emergency]
+  - id: tools
+    category: utilities_binaries
+    title: Portable tools
+    update_policy: manual
+assets:
+  - id: wikipedia
+    repository_id: kiwix
+    category: zim_archives
+    title: Wikipedia English
+    relative_path: zim/wikipedia_en_all_maxi_2026-02.zim
+    download_url: https://example.invalid/wikipedia_en_all_maxi_2026-02.zim
+    mirror_url: https://mirror.example.invalid/wikipedia_en_all_maxi_2026-02.zim
+    update_policy: pin_version
+    version_pin: "2026-02"
+    tags: [encyclopedia]
+  - id: field-reference
+    repository_id: documents
+    category: pdf_reference
+    title: Field reference manual
+    subcategory: Medical and first aid
+    relative_path: pdf/medical/field-reference.pdf
+    download_url: https://example.invalid/field-reference.pdf
+    scenarios: [emergency]
+  - id: radio-reference
+    repository_id: documents
+    category: pdf_reference
+    title: Amateur radio reference
+    relative_path: pdf/comms/radio-reference.pdf
+    tags: [ham-radio, communications]
+  - id: engineering-reference
+    repository_id: documents
+    category: pdf_reference
+    title: Electrical reference
+    relative_path: pdf/engineering/electrical-reference.pdf
+  - id: essential-forms
+    repository_id: documents
+    category: pdf_reference
+    title: Essential forms
+    relative_path: pdf/forms/essential-forms.pdf
+  - id: portable-tool
+    repository_id: tools
+    category: utilities_binaries
+    title: Portable ARM64 utility
+    relative_path: bin/arm64/utility
+    architecture: aarch64
+    executable: true
+    scenarios: [development]
+    # expected_hash: optional 64-character SHA-256 hex digest from a trusted source

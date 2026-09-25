@@ -3,6 +3,8 @@
 from pathlib import Path
 import shutil
 import html
+import re
+from urllib.parse import urlsplit, urlunsplit
 
 SOURCE = Path("/opt/dataark/docs")
 TARGET = Path("/tmp/dataark-docs")
@@ -16,6 +18,26 @@ if TARGET.exists():
     shutil.rmtree(TARGET)
 
 TARGET.mkdir(parents=True)
+
+
+def inline_html(text):
+    def link(match):
+        label, target = match.groups()
+        parts = urlsplit(target)
+        if parts.scheme not in ("", "http", "https", "mailto"):
+            return html.escape(match.group(0))
+        if not parts.scheme and not parts.netloc and parts.path.endswith(".md"):
+            target = urlunsplit(parts._replace(path=parts.path[:-3] + ".html"))
+        return f'<a href="{html.escape(target, quote=True)}">{html.escape(label)}</a>'
+
+    chunks = []
+    start = 0
+    for match in re.finditer(r"\[([^\]]+)\]\(([^\s)]+)\)", text):
+        chunks.append(html.escape(text[start:match.start()]))
+        chunks.append(link(match))
+        start = match.end()
+    chunks.append(html.escape(text[start:]))
+    return "".join(chunks)
 
 
 def markdown_to_html(text):
@@ -71,28 +93,28 @@ a{
             if in_list:
                 out.append("</ul>")
                 in_list = False
-            out.append(f"<h1>{html.escape(line[2:])}</h1>")
+            out.append(f"<h1>{inline_html(line[2:])}</h1>")
             continue
 
         if line.startswith("## "):
             if in_list:
                 out.append("</ul>")
                 in_list = False
-            out.append(f"<h2>{html.escape(line[3:])}</h2>")
+            out.append(f"<h2>{inline_html(line[3:])}</h2>")
             continue
 
         if line.startswith("### "):
             if in_list:
                 out.append("</ul>")
                 in_list = False
-            out.append(f"<h3>{html.escape(line[4:])}</h3>")
+            out.append(f"<h3>{inline_html(line[4:])}</h3>")
             continue
 
         if line.startswith("- "):
             if not in_list:
                 out.append("<ul>")
                 in_list = True
-            out.append(f"<li>{html.escape(line[2:])}</li>")
+            out.append(f"<li>{inline_html(line[2:])}</li>")
             continue
 
         if in_list:
@@ -100,7 +122,7 @@ a{
             in_list = False
 
         if line.strip():
-            out.append(f"<p>{html.escape(line)}</p>")
+            out.append(f"<p>{inline_html(line)}</p>")
 
     if in_list:
         out.append("</ul>")

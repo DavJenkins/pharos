@@ -12,6 +12,7 @@ const DataArkAPI = {
 
         const response = await fetch(url, {
             cache: "no-store",
+            signal: AbortSignal.timeout(30000),
             ...options
         });
 
