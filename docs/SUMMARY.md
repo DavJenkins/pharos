@@ -17,6 +17,7 @@
 ## Administration
 
 - [Administrator Guide](20-Administration/AdministratorGuide.md)
+- [AP Welcome Portal](20-Administration/Portal.md)
 - [Central Asset Manifest](20-Administration/Manifest.md)
 - [System Inventory](20-Administration/SystemInventory.md)
 - [Release Notes](20-Administration/ReleaseNotes.md)

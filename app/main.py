@@ -6,6 +6,7 @@ from app.routers.events import router as events_router
 from app.routers.network import router as network_router
 from app.routers.network_admin import router as network_admin_router
 from app.routers.status import router as status_router
+from app.routers.portal import router as portal_router
 
 app = FastAPI(
     title="Data Ark API",
@@ -16,6 +17,7 @@ app = FastAPI(
 
 app.include_router(about_router)
 app.include_router(status_router)
+app.include_router(portal_router)
 app.include_router(network_router)
 app.include_router(network_admin_router)
 app.include_router(events_router)
