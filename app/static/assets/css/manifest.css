@@ -1,6 +1,6 @@
 html,body{min-height:100%;height:auto}
 body{overflow:auto;padding:0 1rem 3rem;box-sizing:border-box;background-color:#eee9dc}
-.status-bar{position:relative;top:auto;right:auto;grid-column:3;grid-row:1;width:240px;max-width:100%;margin:0;padding:14px;box-sizing:border-box;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;justify-items:center;align-items:center}
+.status-bar{position:relative;top:auto;right:auto;grid-column:3;grid-row:1;width:200px;max-width:100%;justify-self:end;margin:0;padding:10px;box-sizing:border-box;display:grid;grid-template-columns:1fr;gap:8px;justify-items:center;align-items:center}
 .content-panel{position:relative;top:auto;left:auto;transform:none;min-width:0;max-width:1000px;margin:1rem auto 2rem;box-sizing:border-box}
 .manifest-catalog{max-width:1200px;margin:auto}
 .manifest-category{margin:2rem 0;padding:1rem;border-radius:12px;background:rgba(248,245,235,.94)}
@@ -39,13 +39,13 @@ body{background-image:none}
 .dashboard-top .site-header{grid-column:2;grid-row:1;width:50%;margin:0 auto}
 @media(max-width:900px){.dashboard-top{grid-template-columns:minmax(0,1fr)}.dashboard-top .status-bar{grid-column:1;justify-self:end}.dashboard-top .site-header{grid-column:1;grid-row:2}}
 .status-controls button,.network-settings summary{font:inherit;cursor:pointer}
-.network-settings{position:relative}.network-settings nav{position:absolute;right:0;top:1.8rem;background:#fffdf7;border:1px solid #d3c7a8;border-radius:6px;padding:.7rem;min-width:160px;box-shadow:0 3px 10px #0002}
+.network-settings{position:relative;grid-column:1/-1;justify-self:stretch;text-align:center;font-size:.85rem}.network-settings nav{position:absolute;top:calc(100% + 1rem);right:0;z-index:1;margin:0;box-sizing:border-box;width:100%;background:#fffdf7;border:1px solid #d3c7a8;border-radius:6px;padding:.7rem;min-width:0;box-shadow:0 3px 10px #0002}
 .network-settings nav a{display:block;padding:.3rem;color:#075d89}
 [data-requires-internet][aria-disabled="true"]{color:#666;opacity:.65;cursor:not-allowed;text-decoration:none}
 .manifest-category{margin-top:1rem}
 
 /* Keep every indicator hoverable; use state markers instead of bright tiles. */
-.status-bar .status-button{position:relative;width:40px;height:40px;background:rgba(255,255,255,.18);border:1px solid transparent;border-radius:6px;opacity:1}
+.status-bar .status-button{position:relative;width:36px;height:36px;padding:1px;box-sizing:border-box;font-size:18px;background:rgba(255,255,255,.18);border:1px solid transparent;border-radius:6px;opacity:1}
 .status-bar .status-button.off{color:#555;background:rgba(255,255,255,.1)}
 .status-bar .status-button.on{color:#155344;background:rgba(231,248,240,.35)}
 .status-bar .status-button.error{color:#8c2525;background:rgba(255,235,231,.35)}
@@ -59,11 +59,6 @@ body{background-image:none}
 .status-bar #debug-button.error::after{content:"?";color:#8c2525}
 .status-bar .status-button:hover,.status-bar .status-button:focus-visible{border-color:#52666b;outline:2px solid #075d89;outline-offset:1px;transform:none}
 
-#internet-retry,#portal-continue{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:40px;padding:.5rem .9rem;border:1px solid #103c3a;border-radius:7px;background:#154b49;color:#fff;font-weight:600;cursor:pointer;box-shadow:0 2px 3px #0003;transition:background .15s ease,box-shadow .15s ease}
-#internet-retry::before{content:"\21bb";font-size:1.2em;line-height:1}
-#internet-retry:hover,#portal-continue:hover{background:#0c3634;box-shadow:0 3px 5px #0004}
-#internet-retry:active,#portal-continue:active{box-shadow:inset 0 2px 3px #0004}
-#internet-retry:focus-visible,#portal-continue:focus-visible{outline:3px solid #075d89;outline-offset:3px}
 
 /* Echo the background's blue haze and warm stone without losing contrast. */
 .site-header{background:linear-gradient(135deg,rgba(226,234,245,.96),rgba(243,228,198,.96));border:1px solid #b7a885;box-shadow:0 3px 12px #283d5520}
@@ -87,10 +82,38 @@ body{background-image:none}
 .asset-external:hover,.asset-external:focus-visible{outline:1px solid currentColor;outline-offset:1px}
 .asset-external[aria-disabled="true"]{color:#737b81;cursor:not-allowed}
 
-#portal-welcome[hidden],#portal-continue[hidden]{display:none}
-#portal-message{margin:.4rem 0 0;font-size:.8rem;line-height:1.4}
-#portal-message:empty{display:none}
-#portal-continue:disabled{opacity:.65;cursor:wait}
 
-#portal-continue[aria-pressed="true"]{background:#23532f;border-color:#153b1e}
-#portal-continue[aria-pressed="false"]{background:#454a4d;border-color:#303436}
+
+/* Keep the floating network menu above the catalog without resizing the header. */
+.dashboard-top .status-bar{z-index:20}
+.network-settings nav a:focus-visible{outline:2px solid #075d89;outline-offset:1px}
+
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.status-bar #portal-continue{padding:1px 0 10px}
+.status-bar #portal-continue::after{display:none}
+#portal-state{position:absolute;bottom:1px;left:0;right:0;font:600 9px/11px system-ui;text-align:center}
+.status-bar #portal-continue[aria-disabled="true"]{cursor:not-allowed}
+
+.status-tiles{display:grid;grid-template-columns:repeat(3,36px);gap:6px;justify-self:center}
+.status-bar .status-button svg{width:20px;height:20px}
+
+/* Antique gold lettering echoes the illuminated architecture and wooden sign. */
+.dashboard-top .site-header h1{
+    font-family:"Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+    font-size:clamp(1.9rem,2.5vw,2.4rem);
+    font-weight:700;
+    font-variant:small-caps;
+    letter-spacing:.065em;
+    line-height:1.15;
+    color:#79531f;
+    text-shadow:0 1px 0 #fff3cf,0 2px 2px #29476130;
+}
+
+/* Changing progress text must not resize the header or move the catalog. */
+.status-controls{min-width:0}
+.sync-line{display:flex;align-items:baseline;justify-content:center;gap:.25em;min-width:0;max-width:100%;white-space:nowrap;line-height:1.3;min-height:1.3em}
+#sync-status{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#sync-status:focus-visible{outline:2px solid #075d89;outline-offset:2px}
+
+/* Keep the narrower status box from growing when connection text changes. */
+#internet-status{display:block;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

@@ -31,8 +31,8 @@ cache-size=150
 local-ttl=30
 user=dnsmasq
 '''
-for host in HOSTS:
-    DNS += f'address=/{host}/192.168.4.1\nlocal=/{host}/\n'
+# Keep detection hosts on normal DNS: Android can reject private-IP answers.
+DNS += 'address=/dataark/192.168.4.1\nlocal=/dataark/\n'
 NFT = MARKER + '''
 add table ip dataark_portal
 flush table ip dataark_portal
@@ -45,6 +45,17 @@ APACHE = MARKER + r'''
 RequestHeader set X-DataArk-Peer "expr=%{CONN_REMOTE_ADDR}"
 RequestHeader unset X-DataArk-Server
 ProxyPassMatch "^/(generate_204|gen_204|hotspot-detect\.html|library/test/success\.html|connecttest\.txt|ncsi\.txt)$" "http://127.0.0.1:8000/portal/probe/$1" connectiontimeout=3 timeout=8
+# A separate listener avoids changing requests to the normal dashboard.
+# Bind independently of wlan0 startup; only AP source addresses may use it.
+Listen 0.0.0.0:8081
+<VirtualHost *:8081>
+    ProxyPass / !
+    <Location />
+        Require ip 192.168.4.0/24
+    </Location>
+    Header always set Cache-Control "no-store"
+    RedirectMatch 302 "^/.*$" "http://192.168.4.1/?portal=1"
+</VirtualHost>
 '''
 SERVICE = MARKER + '''
 [Unit]
@@ -169,7 +180,7 @@ def wait_for_api():
 
 def check_dns():
     # Query the dedicated listener, not the Pi's own resolver.
-    hostname = HOSTS[0]
+    hostname = 'dataark'
     question = b"".join(bytes([len(label)]) + label.encode() for label in hostname.split('.')) + b"\x00\x00\x01\x00\x01"
     packet = struct.pack('!6H', 0xDA41, 0x0100, 1, 0, 0, 0) + question
     for _ in range(5):
@@ -224,8 +235,13 @@ def main():
             raise SystemExit('Unexpected Apache enabled configuration.')
     if not unit_path.exists() and run(['nft','list','table','ip','dataark_portal'],check=False).returncode == 0:
         raise SystemExit('An unmanaged dataark_portal firewall table already exists.')
+    intercept_ports = run(['ss','-H','-ltn','sport = :8081']).stdout
+    previous_apache = Path('/etc/apache2/conf-available/dataark-portal.conf')
+    if intercept_ports and not (previous_apache.exists() and
+            'Listen 0.0.0.0:8081' in previous_apache.read_text()):
+        raise SystemExit('Port 8081 is already in use; no changes made.')
     modules = run(['apache2ctl','-M']).stdout
-    if any(m not in modules for m in ('proxy_module','proxy_http_module')):
+    if any(m not in modules for m in ('proxy_module','proxy_http_module','alias_module')):
         raise SystemExit('The existing Apache reverse-proxy modules must be enabled.')
     with tempfile.NamedTemporaryFile(mode='w') as test:
         test.write(DNS); test.flush()
@@ -264,6 +280,11 @@ def main():
                       'http://192.168.4.1/generate_204']).stdout
         if result != '302':
             raise RuntimeError('Portal probe did not redirect; deploy and restart the updated API first.')
+        intercepted = run(['curl','--noproxy','*','--interface','192.168.4.1',
+                           '--max-time','8','--silent','--dump-header','-',
+                           '--output','/dev/null','http://192.168.4.1:8081/arbitrary-path']).stdout
+        if '302' not in intercepted.splitlines()[0] or 'Location: http://192.168.4.1/?portal=1' not in intercepted:
+            raise RuntimeError('The dedicated HTTP listener did not redirect to the Ark.')
         run(['systemctl','daemon-reload'])
         run(['systemctl','enable',UNIT])
         run(['systemctl','restart',UNIT])
@@ -276,9 +297,9 @@ def main():
     except Exception:
         rollback(backup)
         raise
-    print('AP welcome detection installed; normal HTTP/HTTPS internet forwarding is retained.')
+    print('Portal HTTP listener installed; detection hostnames now use normal DNS.')
     print('NetworkManager, wlan0/wlan1 connections and Docker were not restarted.')
-    print('Join the AP on a phone and test the sign-in prompt, then Continue with internet access.')
+    print('Run deploy/install_pass_through.py next to enable per-device HTTP interception.')
     print(f'Undo: sudo python3 deploy/install_portal.py --rollback {backup}')
 
 if __name__ == '__main__':

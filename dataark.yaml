@@ -101,6 +101,7 @@ repositories:
 # Exact-version sources checked 2026-09-24; unavailable versions remain preserved locally.
 assets:
   - id: wikipedia-main
+    online_url: https://en.wikipedia.org/
     repository_id: wikipedia
     category: zim_archives
     title: Wikipedia — English with images (February 2026)
@@ -114,6 +115,7 @@ assets:
     download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-02.zim
     tags: [encyclopedia, images]
   - id: wikipedia-nopic
+    online_url: https://en.wikipedia.org/
     repository_id: wikipedia
     category: zim_archives
     title: Wikipedia — English without images (December 2025)
@@ -127,6 +129,7 @@ assets:
     download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2025-12.zim
     mirror_url: https://ny.mirror.driftle.ss/kiwix/zim/wikipedia/wikipedia_en_all_nopic_2025-12.zim
   - id: wikipedia-medicine
+    online_url: https://en.wikipedia.org/wiki/Portal:Medicine
     repository_id: wikimed
     category: zim_archives
     title: Wikipedia Medicine (January 2026)
@@ -139,6 +142,7 @@ assets:
       filename_prefix: wikipedia_en_medicine_maxi_
     download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-01.zim
   - id: electronics-qa
+    online_url: https://electronics.stackexchange.com/
     repository_id: technical-qa
     category: zim_archives
     title: Electronics Stack Exchange (December 2025)
@@ -152,6 +156,7 @@ assets:
     download_url: https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2025-12.zim
     mirror_url: https://ny.mirror.driftle.ss/kiwix/zim/stack_exchange/electronics.stackexchange.com_en_all_2025-12.zim
   - id: unix-qa
+    online_url: https://unix.stackexchange.com/
     repository_id: technical-qa
     category: zim_archives
     title: Unix Stack Exchange (December 2025)
@@ -165,6 +170,7 @@ assets:
     download_url: https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2025-12.zim
     mirror_url: https://ny.mirror.driftle.ss/kiwix/zim/stack_exchange/unix.stackexchange.com_en_all_2025-12.zim
   - id: kiwix-windows-reader
+    online_url: https://kiwix.org/en/applications/
     repository_id: technical-qa
     category: utilities_binaries
     title: Kiwix Desktop for Windows (copy the entire kiwix-viewer folder)

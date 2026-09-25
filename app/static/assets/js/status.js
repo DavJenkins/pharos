@@ -104,6 +104,19 @@ const DataArkStatus = {
     // Tooltip helpers
     //------------------------------------------------------------------
 
+    syncTooltip() {
+        const update = this.data?.status?.update;
+        const lines = [this.sync || "Sync status unavailable"];
+        if (update?.detail) lines.push("", update.detail);
+        else if (update?.state === "waiting") lines.push("", "The worker has not reported a waiting reason.");
+        if (update?.asset) lines.push("Asset: " + update.asset);
+        if (update?.updated) {
+            const date = new Date(update.updated);
+            if (!Number.isNaN(date.getTime())) lines.push("Last worker update: " + date.toLocaleString());
+        }
+        return lines.join("\n");
+    },
+
     ethernetTooltip() {
 
         const e = this.ethernet;

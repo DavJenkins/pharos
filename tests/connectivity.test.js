@@ -12,7 +12,7 @@ function link(href) {
 async function run() {
     const external = link("https://example.org/");
     const local = link("/library-files/book.pdf");
-    const status = {};
+    const status = {textContent:"Ark online"};
     const context = {navigator: {onLine: false}, AbortController, setTimeout, clearTimeout,
         setInterval: () => {}, window: {addEventListener() {}},
         document: {hidden: false, querySelectorAll: () => [external], addEventListener() {},
@@ -39,7 +39,7 @@ async function run() {
     context.fetch=async () => {throw Error("no internet");};
     await model.check();
     assert.equal(external.getAttribute("href"),null);
-    assert.equal(status.textContent,"Internet unavailable");
+    assert.equal(status.textContent,"Ark online", "Browser connectivity must not overwrite Ark status");
     let finish;
     context.fetch=() => new Promise(resolve => {finish=resolve;});
     const pending=model.check();

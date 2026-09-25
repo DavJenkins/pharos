@@ -10,10 +10,6 @@ const DataArkConnectivity = {
 
     setState(state) {
         const enabled = state === "online";
-        document.getElementById("sync-status")?.classList.toggle("internet-unavailable", state === "offline");
-        const status = document.getElementById("internet-status");
-        if (status) status.textContent = enabled ? "Internet available" :
-            state === "checking" ? "Checking internet..." : "Internet unavailable";
         for (const saved of this.links) {
             const link = saved.element;
             if (enabled) {
@@ -26,7 +22,7 @@ const DataArkConnectivity = {
                 link.removeAttribute("href");
                 link.setAttribute("aria-disabled", "true");
                 link.setAttribute("title", state === "checking" ? "Checking internet access" :
-                    "Internet check failed. Local content remains available. Use Check internet to retry.");
+                    "Internet check failed. Local content remains available. Internet access is checked automatically.");
             }
         }
     },
@@ -63,7 +59,6 @@ const DataArkConnectivity = {
     initialize() {
         this.links = Array.from(document.querySelectorAll('[data-requires-internet="true"]'))
             .map(element => ({element, href: element.getAttribute("href"), title: element.getAttribute("title")}));
-        document.getElementById("internet-retry")?.addEventListener("click", () => this.check());
         window.addEventListener("online", () => this.check());
         window.addEventListener("offline", () => this.check());
         document.addEventListener("visibilitychange", () => {

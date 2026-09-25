@@ -162,7 +162,9 @@ const Dashboard = {
 
             this.byId("sync-status").textContent =
                 DataArkStatus.sync;
-            this.byId("sync-status").title = DataArkStatus.data?.status?.update?.detail || DataArkStatus.sync;
+            this.byId("sync-status").title = typeof DataArkStatus.syncTooltip === "function"
+                ? DataArkStatus.syncTooltip()
+                : (DataArkStatus.data?.status?.update?.detail || DataArkStatus.sync);
 
         }
         catch (err) {
@@ -171,6 +173,7 @@ const Dashboard = {
             DataArkStatus.data = null;
             this.byId("debug-button").removeAttribute("aria-pressed");
             this.byId("sync-status").textContent = "Unavailable";
+            this.byId("sync-status").title = "Status unavailable; the last worker state could not be refreshed.";
             for (const id of ["eth-button", "wifi-button", "ap-button", "system-button", "debug-button"]) {
                 this.byId(id).className = "status-button error";
                 this.byId(id).title = "Status unavailable; retrying automatically";

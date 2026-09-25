@@ -82,3 +82,7 @@ Operational commands:
 - Disable future automatic runs: `sudo systemctl disable --now dataark-update.timer` (stop the service too if it is currently running).
 
 The worker service is privileged because it must restart Docker and publish the site. Installation does not grant the web API Docker or download privileges. Keep repository and manifest edits restricted to trusted administrators. API responses include status.update for progress detail. Unit tests use mocks and temporary files; live systemd activation must be verified on the Pi after installation.
+
+## Reading links and archive downloads
+
+Asset titles for ZIM files open the corresponding local Kiwix reader. The optional online_url field supplies the external reading-page link beside the title; download_url and mirror_url are retrieval metadata for updates and are never used as that external link. Missing archive releases do not disable an independent online reading page. Archive downloads remain available through the explicitly labelled content catalog and file browser.

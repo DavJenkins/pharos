@@ -26,18 +26,13 @@
 <div class="dashboard-top">
 <div class="glass status-bar" aria-label="Ark status and administration">
 <div class="status-controls">
-<span>Sync: <strong id="sync-status">Loading...</strong></span>
-<span id="internet-status" role="status">Checking internet...</span>
-<button id="internet-retry" type="button">Check internet</button>
-<div id="portal-welcome" hidden>
-<button id="portal-continue" type="button" aria-pressed="false" title="Allow this device to use the Ark's internet connection for up to six hours">Internet pass-through: Off</button>
-<p id="portal-message" role="status"></p>
-</div>
-<details class="network-settings"><summary>Network settings</summary>
-<nav aria-label="Network settings"><a href="/config/wifi.html">Upstream Wi-Fi</a>
-<a href="/config/system.html">Access point settings</a></nav></details>
+<span class="sync-line">Sync: <strong id="sync-status" tabindex="0">Loading...</strong></span>
+<span id="internet-status" role="status">Checking Ark connection...</span>
+
+
 </div>
 
+<div class="status-tiles" aria-label="System controls">
 <button id="eth-button"
         class="status-button off"
         title="Ethernet">
@@ -48,7 +43,6 @@
 
 </button>
 
-
 <button id="wifi-button"
         class="status-button off"
         title="Wi-Fi">
@@ -56,7 +50,6 @@
 📶
 
 </button>
-
 
 <button id="ap-button"
         class="status-button off"
@@ -66,6 +59,10 @@
 
 </button>
 
+<button id="portal-continue" class="status-button off" type="button" aria-disabled="true" aria-label="Internet pass-through unavailable" title="Checking pass-through availability">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h16m-4-4 4 4-4 4M21 17H5m4-4-4 4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<span id="portal-state">--</span>
+</button>
 
 <button id="system-button"
         class="status-button off"
@@ -75,16 +72,6 @@
 
 </button>
 
-
-<button id="debug-button"
-        class="status-button off"
-        title="Debug">
-
-🐞
-
-</button>
-
-
 <button id="refresh-button"
         class="status-button on"
         title="Auto Refresh">
@@ -92,7 +79,6 @@
 🔄
 
 </button>
-
 
 <a class="status-button"
    href="/docs/"
@@ -102,7 +88,6 @@
 
 </a>
 
-
 <a class="status-button"
    href="/api/docs"
    title="REST API">
@@ -110,6 +95,20 @@
 📘
 
 </a>
+
+<button id="debug-button"
+        class="status-button off"
+        title="Debug">
+
+🐞
+
+</button>
+</div>
+<p id="portal-message" class="visually-hidden" role="status"></p>
+
+<details class="network-settings"><summary>Network settings</summary>
+<nav aria-label="Network settings"><a href="/config/wifi.html">Upstream Wi-Fi</a>
+<a href="/config/system.html">Access point settings</a></nav></details>
 
 </div>
 
@@ -134,6 +133,7 @@
 <script src="assets/js/manifest-links.js"></script>
 <script src="assets/js/connectivity.js"></script>
 <script src="assets/js/portal.js"></script>
+<script src="assets/js/ark-connectivity.js"></script>
 <script src="assets/js/content-links.js"></script>
 <script src="assets/js/api.js"></script>
 

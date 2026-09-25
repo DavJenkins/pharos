@@ -84,6 +84,14 @@ def pass_through(setting: str, request: Request):
     return switch(request, setting == 'on')
 
 
+@router.get("/upstream")
+def upstream_state():
+    # Public, read-only status of the Ark, independent of the caller's network.
+    import json
+    return Response(json.dumps({'online':upstream_available()}), media_type="application/json",
+                    headers={"Cache-Control":"no-store"})
+
+
 @router.get("/state")
 def state(request: Request):
     address = peer(request)

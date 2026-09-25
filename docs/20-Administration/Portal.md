@@ -25,14 +25,18 @@ It removes only the exact legacy wlan0 port-80 REDIRECT entries from the live NA
 
 A separate dnsmasq instance listens on AP port 1053. A private nftables table redirects only IPv4 DNS requests arriving on wlan0 for 192.168.4.1:53. Normal names are forwarded to NetworkManager's existing DNS listener. The Pi's own DNS and upstream interface are unaffected.
 
-Only these dedicated detection hostnames resolve to the portal: connectivitycheck.gstatic.com, connectivitycheck.android.com, captive.apple.com, www.msftconnecttest.com and www.msftncsi.com. Apache routes their known HTTP probe paths to the API, which redirects AP clients to the canonical landing address. Ordinary websites and HTTPS are not intercepted.
+Detection hostnames use normal upstream DNS. They must not be overridden with the private AP address: Android can classify that answer as no internet and skip its HTTP probe. Only the local name dataark resolves to 192.168.4.1 through the dedicated listener.
+
+The forwarding table intercepts external IPv4 HTTP on port 80 from AP clients whose MAC and IP are not both opted in. It redirects those connections to a separate Apache listener on port 8081, which sends a non-cacheable 302 to http://192.168.4.1/?portal=1. The listener accepts only AP source addresses. Requests to any of the Pi's local addresses bypass interception, keeping the dashboard and API unchanged. HTTPS is never intercepted. Opted-in clients bypass the redirect and use normal forwarding.
+
+NAT applies when a connection is created. After toggling pass-through, an existing HTTP connection may retain its prior redirect until it closes; retry in a new connection. The forwarding filter still blocks internet traffic immediately when opt-in is removed. Without upstream DNS or cached answers, automatic detection may not run; the local IP remains available offline.
 
 When pass-through is enabled, the API checks the corresponding fixed upstream HTTP probe and returns its real response only when it matches the expected successful result. An offline or unexpected result redirects to the local library. No arbitrary URLs, client cookies or authentication headers are forwarded. Apache overwrites the source-address headers, and the API remains bound to 127.0.0.1:8000.
 
 ## Verify on an AP client
 
 - Join from a phone or laptop that has not acknowledged the welcome page. Confirm the sign-in prompt reaches 192.168.4.1 and the local library works.
-- With pass-through Off, confirm external HTTP and HTTPS browsing is blocked while local Kiwix works. Turn pass-through On and confirm external browsing works; turn it Off again and verify internet traffic stops. Disable cellular data during this test. Test a second AP device to confirm the first device's opt-in does not enable the second one.
+- With pass-through Off, confirm external HTTP opens the Ark and HTTPS is blocked while local Kiwix works. Turn pass-through On and confirm external browsing works; turn it Off again and verify internet traffic stops. Disable cellular data during this test. Test a second AP device to confirm the first device's opt-in does not enable the second one.
 - Confirm local Kiwix, downloads, network administration and Samba still work.
 - When convenient, test without an upstream connection: the portal and local content should remain available. Do not disconnect an upstream interface during an active download just to perform this test.
 - Reboot later to verify persistence, then repeat the AP-client test.
@@ -43,7 +47,7 @@ Automatic sign-in behaviour varies by OS, private DNS, VPN and device policy. So
 
 Check systemctl status dataark-portal-dns.service --no-pager and journalctl -u dataark-portal-dns.service -n 30 --no-pager. Inspect sudo nft list table ip dataark_portal and sudo iptables -t nat -S PREROUTING.
 
-To disable the welcome DNS immediately, run sudo systemctl disable --now dataark-portal-dns.service. Normal shared DNS and internet forwarding remain available. To restore the complete previous portal configuration, use the installer --rollback command printed at installation. That restores the backed-up configuration files, including the prior saved firewall file; do not use an old backup after unrelated configuration changes without reviewing it.
+To disable the welcome DNS immediately, run sudo systemctl disable --now dataark-portal-dns.service. Normal shared DNS remains available; the separate pass-through firewall still controls forwarding and HTTP interception. To restore the complete previous portal configuration, use the installer --rollback command printed at installation. That restores the backed-up configuration files, including the prior saved firewall file; do not use an old backup after unrelated configuration changes without reviewing it.
 
 
 ## Forwarding policy and recovery
@@ -55,3 +59,8 @@ The API invokes a root-owned, fixed-scope helper through a no-arguments sudo rul
 The installer validates native nft syntax and sudoers before changes, backs up its files and its own previous table, and prints an explicit rollback command. Reinstalling resets all opt-ins to Off. Stopping the service alone deliberately leaves the filter in place; use the printed rollback command to undo installation. Do not delete firewall tables merely to repair a UI error.
 
 Inspect sudo nft list table inet dataark_forward and systemctl status dataark-pass-through.service --no-pager. If the service fails at boot, its default-off policy may not be installed; inspect and repair it rather than assuming traffic is blocked. No browser-only check proves firewall enforcement: the real AP-device tests above are required after installation.
+
+
+## Upgrade from DNS-based detection
+
+Run `sudo python3 deploy/install_portal.py` followed by `sudo python3 deploy/install_pass_through.py`. The first installs the dedicated redirect listener and removes detection-host DNS overrides; the second installs HTTP interception and resets opt-ins to Off. Each installer prints its own backup/rollback command and performs native configuration checks before activation. No Wi-Fi, NetworkManager or Docker restart is required. Reconnect the test phone to clear connection state, then verify the sign-in prompt and both pass-through settings. If undoing both steps, roll back pass-through first, then the portal, using the backups from this upgrade.

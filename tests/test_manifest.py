@@ -83,11 +83,25 @@ class ManifestTests(unittest.TestCase):
         self.assertIn('&lt;script&gt;', page)
         self.assertIn('/library-files/space%20%26%20name.pdf', page)
 
+    def test_archive_titles_open_reader_and_external_icons_open_pages(self):
+        asset = self.data['assets'][0]
+        asset.update(relative_path='wikipedia_2026.zim', download_url='https://example.invalid/huge.zim',
+                     online_url='https://example.invalid/read')
+        (self.content/'wikipedia_2026.zim').touch()
+        _, page = self.render()
+        self.assertIn('data-manifest-kiwix-path="/content/wikipedia_2026"',page)
+        self.assertIn('href="https://example.invalid/read"',page)
+        self.assertNotIn('href="/library-files/wikipedia_2026.zim"',page)
+        self.assertNotIn('href="https://example.invalid/huge.zim"',page)
+        del asset['online_url']
+        _, page = self.render()
+        self.assertNotIn('class="asset-external"',page)
+
     def test_invalid_manifest_preserves_previous_page(self):
         self.render()
         previous = self.output.read_bytes()
         original = deepcopy(self.data)
-        for field, bad in [('repository_id', 'unknown'), ('relative_path', '../escape'), ('download_url', 'javascript:alert(1)'), ('expected_hash', 'bad')]:
+        for field, bad in [('repository_id', 'unknown'), ('relative_path', '../escape'), ('download_url', 'javascript:alert(1)'), ('online_url', 'javascript:alert(1)'), ('expected_hash', 'bad')]:
             self.data = deepcopy(original)
             self.data['assets'][0][field] = bad
             self.write()

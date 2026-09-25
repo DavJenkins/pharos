@@ -4,6 +4,7 @@ No content downloads, scheduled updates, or executable launches occur here.
 Only explicitly configured artwork can be fetched during a build.
 """
 import base64
+from datetime import datetime
 import hashlib
 import html
 import io
@@ -102,7 +103,7 @@ def policy(item):
     if item.get('expected_hash') is not None:
         if not isinstance(item['expected_hash'], str) or not re.fullmatch(r'[0-9a-fA-F]{64}', item['expected_hash']):
             raise ManifestError('expected_hash must be a SHA-256 hex digest when supplied.')
-    for name in ('download_url', 'mirror_url'):
+    for name in ('download_url', 'mirror_url', 'online_url'):
         if item.get(name):
             url(item[name], name, local=False)
 
@@ -279,6 +280,18 @@ def image_tag(art, fallback):
         return ''
     return '<img class="manifest-artwork" src="' + html.escape(art['src'], quote=True) + '" alt="' + html.escape(art['alt'] or fallback, quote=True) + '" loading="lazy">'
 
+def version_dashboard_assets(page):
+    static = Path(__file__).resolve().parents[1] / 'static'
+    def version(match):
+        attribute, relative = match.groups()
+        path = static / relative
+        if not path.is_file():
+            return match.group(0)
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()[:16]
+        return f'{attribute}="{relative}?v={digest}"'
+    return re.sub(r'(src|href)="(assets/(?:js|css)/[A-Za-z0-9_.-]+\.(?:js|css))(?:\?v=[^" ]*)?"', version, page)
+
+
 def build(manifest_path, template_path, output_path, content_root=None, refresh_artwork=False):
     manifest_path, output_path = Path(manifest_path).resolve(), Path(output_path).resolve()
     data = load_manifest(manifest_path)
@@ -339,24 +352,29 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                 state = observation['status']
                 label = ('Preserved locally — source unavailable' if item['available'] else 'Source unavailable') if state == 'unavailable' else 'Upstream available at last check' if state == 'available' else 'Upstream status unknown'
                 checked = observation['checked_at']
-                note = '<span class="manifest-upstream">' + label + (' · checked ' + html.escape(checked) if checked else ' · not checked') + '</span>'
+                checked_text = ''
+                if checked:
+                    fallback = datetime.fromisoformat(checked).strftime('%b %d, %Y at %H:%M %Z')
+                    checked_text = '<time data-local-time datetime="' + html.escape(checked, quote=True) + '">' + html.escape(fallback) + '</time>'
+                note = '<span class="manifest-upstream">' + label + (' · checked ' + checked_text if checked else ' · not checked') + '</span>'
                 external = ''
-                source = item.get('download_url') or item.get('mirror_url')
+                source = item.get('online_url')
                 if source:
                     glyph = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7M21 3L10 14M10 5H5v14h14v-5"/></svg>'
-                    if state == 'unavailable':
-                        external = '<span class="asset-external" role="link" aria-disabled="true" tabindex="0" title="Online source unavailable at last check" aria-label="Online source unavailable">' + glyph + '</span>'
-                    else:
-                        if state == 'available':
-                            for result in upstream.get(item['id'], {}).get('observations', []):
-                                if result.get('status') == 'available' and result.get('url') in (item.get('download_url'), item.get('mirror_url')):
-                                    source = result['url']
-                                    break
-                        external = '<a class="asset-external" data-requires-internet="true" href="' + html.escape(source, quote=True) + '" target="_blank" rel="noopener noreferrer" title="Open online download source" aria-label="' + html.escape('Open online download source for ' + item['title'], quote=True) + '">' + glyph + '</a>'
+                    external = '<a class="asset-external" data-requires-internet="true" href="' + html.escape(source, quote=True) + '" target="_blank" rel="noopener noreferrer" title="Read online" aria-label="' + html.escape('Read online: ' + item['title'], quote=True) + '">' + glyph + '</a>'
                 if item['available']:
-                    target = item['local_url']
-                    reader = (' <a href="' + html.escape(item['service_endpoint'], quote=True) + '">Read</a>') if item.get('service_endpoint') else ''
-                    entries.append('<li>' + thumbnail + '<a href="' + html.escape(target, quote=True) + '">' + title + '</a>' + external + reader + note + '</li>')
+                    attributes = ''
+                    if Path(item['relative_path']).suffix.lower() == '.zim':
+                        reader_path = '/content/' + quote(Path(item['relative_path']).stem, safe='')
+                        target = f'http://dataark:{port}' + reader_path
+                        attributes = f' data-manifest-kiwix-port="{port}" data-manifest-kiwix-path="{html.escape(reader_path, quote=True)}"'
+                    elif item.get('service_endpoint'):
+                        target = item['service_endpoint']
+                    elif Path(item['relative_path']).suffix.lower() in ('.pdf', '.html', '.htm', '.txt', '.png', '.jpg', '.jpeg', '.webp'):
+                        target = item['local_url']
+                    else:
+                        target = prefix + 'START-HERE.html'
+                    entries.append('<li>' + thumbnail + '<a href="' + html.escape(target, quote=True) + '"' + attributes + '>' + title + '</a>' + external + note + '</li>')
                 else:
                     entries.append('<li class="manifest-missing">' + thumbnail + title + external + '<span class="manifest-badge">Unavailable / Pending Download</span>' + note + '</li>')
             badge = 'Unavailable / Pending Download' if missing else f'{ready} of {len(items)} assets available' if items else 'Reference links'
@@ -377,6 +395,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
     style = '<style>body{background-image:url("' + background['src'] + '")}</style>' if background else ''
     rendered = template.replace('{{PROJECT_NAME}}', html.escape(system['project_name'])).replace('{{MANIFEST_CARDS}}',
         ''.join(sections) or '<p class="manifest-empty">No repositories configured for display.</p>').replace('{{BACKGROUND_STYLE}}', style)
+    rendered = version_dashboard_assets(rendered)
     compiled = {**data, 'assets': compiled_assets}
     # Complete validation/rendering before replacing the previously working page.
     atomic_write(destination / 'manifest.json', json.dumps(compiled, indent=2, ensure_ascii=False).encode('utf-8'))

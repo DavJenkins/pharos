@@ -15,6 +15,14 @@ add table inet dataark_forward
 flush table inet dataark_forward
 add set inet dataark_forward clients { type ether_addr; flags timeout; timeout 6h; }
 add set inet dataark_forward addresses { type ipv4_addr; flags timeout; timeout 6h; }
+# NAT decisions use the same timed allowlists as forwarding.
+add chain inet dataark_forward welcome { type nat hook prerouting priority -110; policy accept; }
+add rule inet dataark_forward welcome iifname != "wlan0" return
+add rule inet dataark_forward welcome ip saddr != 192.168.4.0/24 return
+add rule inet dataark_forward welcome ether saddr @clients ip saddr @addresses return
+# All Pi addresses remain local, including the dashboard and API.
+add rule inet dataark_forward welcome fib daddr type local return
+add rule inet dataark_forward welcome ip saddr 192.168.4.0/24 tcp dport 80 redirect to :8081
 add chain inet dataark_forward gate { type filter hook forward priority -10; policy accept; }
 # Preserve published local Kiwix (Docker DNAT) and its replies.
 add rule inet dataark_forward gate iifname "wlan0" ct status dnat tcp dport 8080 return
@@ -74,6 +82,10 @@ def main():
             raise SystemExit('Use the root-owned backup printed by this installer.')
         restore(backup); return
     run(['systemctl','is-active','--quiet','dataark-portal-dns.service'])
+    portal_conf = Path('/etc/apache2/conf-available/dataark-portal.conf')
+    if not portal_conf.exists() or 'Listen 0.0.0.0:8081' not in portal_conf.read_text():
+        raise SystemExit('Install the updated portal first: sudo python3 deploy/install_portal.py')
+    run(['apache2ctl','configtest'])
     if run(['systemctl','show','dataark.service','-p','User','--value']).stdout.strip()!='admin':
         raise SystemExit('Expected API account admin.')
     profile=run(['nmcli','-g','connection.interface-name,ipv4.method,ipv4.addresses','connection','show','DataArk']).stdout.splitlines()

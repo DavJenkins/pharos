@@ -50,6 +50,14 @@ class PortalTests(unittest.TestCase):
         self.addCleanup(control_patch.stop); self.addCleanup(online_patch.stop)
         self.client = TestClient(app, follow_redirects=False)
 
+    def test_upstream_status_available_without_ap_membership(self):
+        for online in (True, False):
+            with patch.object(portal,'upstream_available',return_value=online):
+                result=self.client.get('/portal/upstream',headers={})
+            self.assertEqual(result.status_code,200)
+            self.assertEqual(result.json(),{'online':online})
+            self.assertEqual(result.headers['cache-control'],'no-store')
+
     def test_new_client_redirects_without_upstream_request(self):
         with patch.object(portal, 'upstream_probe') as upstream:
             response = self.client.get('/portal/probe/generate_204', headers=AP)
@@ -174,6 +182,12 @@ class PortalInstallerTests(unittest.TestCase):
             self.assertIn('dport 53',line)
         self.assertNotIn('www.gstatic.com',installer.HOSTS)
         self.assertNotIn('address=/#/',installer.DNS)
+        for host in installer.HOSTS:
+            self.assertNotIn('address=/' + host + '/',installer.DNS)
+        self.assertIn('address=/dataark/192.168.4.1',installer.DNS)
+        self.assertIn('Require ip 192.168.4.0/24',installer.APACHE)
+        self.assertIn('ProxyPass / !',installer.APACHE)
+        self.assertIn('RedirectMatch 302',installer.APACHE)
         self.assertIn('server=192.168.4.1#53',installer.DNS)
 
 if __name__ == '__main__':

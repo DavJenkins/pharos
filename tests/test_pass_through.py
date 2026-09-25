@@ -52,6 +52,17 @@ class PassThroughTests(unittest.TestCase):
         with patch.object(pass_through.subprocess,'run',side_effect=subprocess.TimeoutExpired('sudo',12)):
             with self.assertRaises(RuntimeError): pass_through.control(ADDRESS,True)
 
+    def test_welcome_intercepts_only_external_ap_http_without_opt_in(self):
+        rules = [line for line in installer.RULES.splitlines()
+                 if line.startswith('add rule inet dataark_forward welcome ')]
+        self.assertEqual(len(rules), 5)
+        self.assertIn('iifname != "wlan0" return', rules[0])
+        self.assertIn('ip saddr != 192.168.4.0/24 return', rules[1])
+        self.assertIn('ether saddr @clients ip saddr @addresses return', rules[2])
+        self.assertIn('fib daddr type local return', rules[3])
+        self.assertIn('ip saddr 192.168.4.0/24 tcp dport 80 redirect to :8081', rules[4])
+        self.assertNotIn('443', '\n'.join(rules))
+
     def test_policy_blocks_both_directions_and_preserves_local_kiwix(self):
         self.assertIn('type filter hook forward priority -10',installer.RULES)
         self.assertNotIn('hook input',installer.RULES)
