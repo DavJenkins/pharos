@@ -14,12 +14,19 @@ RESOURCES = {"cpu": {"temperature_c": 40.0, "load": [0.0, 0.0, 0.0]},
 SERVICES = {"fastapi": "running", "apache": "running", "network_manager": "running", "samba": "running"}
 
 class HealthTests(unittest.TestCase):
-    def test_sync_exit_codes_and_timeout(self):
+    @patch("app.services.update_status.progress", return_value=None)
+    def test_sync_exit_codes_and_timeout(self, _progress):
         for code, state in [(0, "Syncing"), (1, "Idle"), (2, "Unavailable")]:
             with self.subTest(code=code), patch.object(health.subprocess, "run", return_value=SimpleNamespace(returncode=code)):
                 self.assertEqual(health.sync_state(), state)
         with patch.object(health.subprocess, "run", side_effect=subprocess.TimeoutExpired("pgrep", 2)):
             self.assertEqual(health.sync_state(), "Unavailable")
+
+    def test_worker_status_takes_precedence_over_rsync(self):
+        for label in ("Waiting to update", "Downloading: Wikipedia (30%)", "Idle", "Update status unavailable"):
+            with self.subTest(label=label), patch("app.services.update_status.progress", return_value={"label": label}), patch.object(health.subprocess, "run") as run:
+                self.assertEqual(health.sync_state(), label)
+                run.assert_not_called()
 
     def test_thresholds(self):
         for temp, disk, expected in [(40, 20, "ok"), (70, 20, "degraded"), (80, 20, "error"), (40, 80, "degraded"), (40, 90, "error"), (None, 20, "degraded"), (40, None, "degraded")]:
@@ -46,7 +53,9 @@ class HealthTests(unittest.TestCase):
         with patch.object(health.subprocess, "run", side_effect=FileNotFoundError):
             self.assertEqual(health.services()["apache"], "unknown")
 
-    def test_partial_collection_serializes(self):
+    @patch.object(status_service, "progress", return_value=None)
+    @patch.object(status_service.Path, "exists", return_value=False)
+    def test_partial_collection_serializes(self, _exists, _progress):
         with patch.object(status_service, "network", side_effect=OSError), patch.object(status_service, "system", return_value={"hostname": "test", "platform": "Pi", "uptime": "1 hour"}), patch.object(status_service, "resources", return_value=RESOURCES), patch.object(status_service, "services", return_value=SERVICES), patch.object(status_service, "sync_state", return_value="Idle"):
             data = StatusResponse.model_validate(status_service.get_status()).model_dump()
         self.assertIsNone(data["network"])
