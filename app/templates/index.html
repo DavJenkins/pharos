@@ -121,6 +121,37 @@
 
 <main class="manifest-catalog">
 {{MANIFEST_CARDS}}
+{{RESOURCE_SECTIONS}}
+<section id="bugout-panel" class="resource-section" hidden aria-labelledby="bugout-heading">
+<h2 id="bugout-heading">Household backup</h2>
+<p id="bugout-warning" class="household-warning" role="status" hidden></p>
+<p id="bugout-readiness" role="status">Checking sources...</p>
+<button id="bugout-start" type="button" disabled>Bugout</button>
+<button id="bugout-sync" type="button" disabled>Sync now</button>
+<button id="bugout-stop" type="button" hidden>Cancel bugout</button>
+<button id="bugout-continue" type="button" hidden>Cancel bugout and continue updates in background</button>
+<p id="bugout-operation" role="status"></p>
+<ul id="bugout-tasks"></ul>
+<dialog id="bugout-dialog">
+<form id="bugout-form">
+<h3 id="bugout-dialog-title">Start bugout</h3>
+<label>Administration password <input id="bugout-admin" type="password" autocomplete="current-password" placeholder="The Data Ark network administration password." title="The Data Ark network administration password." required></label>
+<fieldset id="bugout-credential-fields" hidden>
+<legend>Network share credentials</legend>
+<label>Username <input id="bugout-username" autocomplete="off"></label>
+<label>Password <input id="bugout-password" type="password" autocomplete="off"></label>
+<label>Domain (optional) <input id="bugout-domain" autocomplete="off"></label>
+<label><input id="bugout-remember" type="checkbox"> Remember on this Ark</label>
+<p>Otherwise used for the next backup operation, expiring after one hour.</p>
+<button id="bugout-test-credentials" type="button">Test credentials</button>
+<p>Tests access without saving credentials or copying files.</p>
+</fieldset>
+<p id="bugout-form-result" role="status"></p>
+<button id="bugout-submit" type="submit">Start backup</button>
+<button id="bugout-cancel" type="button">Cancel</button>
+</form>
+</dialog>
+</section>
 </main>
 
 <footer class="platform-credit">
@@ -133,6 +164,7 @@
 <script src="assets/js/manifest-links.js"></script>
 <script src="assets/js/connectivity.js"></script>
 <script src="assets/js/portal.js"></script>
+<script src="assets/js/bugout.js"></script>
 <script src="assets/js/ark-connectivity.js"></script>
 <script src="assets/js/content-links.js"></script>
 <script src="assets/js/api.js"></script>

@@ -43,6 +43,41 @@ class ManifestTests(unittest.TestCase):
         result = build(self.manifest, self.template, self.output, content_root=self.content)
         return result, self.output.read_text(encoding='utf-8')
 
+    def test_nested_resources_and_connectivity(self):
+        self.template.write_text('{{PROJECT_NAME}}{{BACKGROUND_STYLE}}{{MANIFEST_CARDS}}{{RESOURCE_SECTIONS}}')
+        (self.content / 'Manuals').mkdir()
+        (self.content / 'Manuals' / 'my guide.pdf').write_bytes(b'pdf')
+        self.data['resource_sections'] = [{'title':'Personal <resources>', 'items':[
+            {'title':'Folder', 'path':'Manuals'},
+            {'title':'Absent', 'path':'missing.pdf'},
+            {'title':'Online', 'url':'https://example.invalid/reference'},
+            {'title':'LAN', 'url':'http://192.168.4.2/', 'requires_internet':False}],
+            'sections':[{'title':'Guides', 'items':[{'title':'Guide', 'path':'Manuals/my guide.pdf'}]}]}]
+        _, page = self.render()
+        self.assertIn('Personal &lt;resources&gt;', page)
+        self.assertIn('href="/library-files/Manuals/"', page)
+        self.assertIn('href="/library-files/Manuals/my%20guide.pdf"', page)
+        self.assertIn('href="https://example.invalid/reference" data-requires-internet="true"', page)
+        self.assertIn('href="http://192.168.4.2/">LAN', page)
+        self.assertIn('<h3>Guides</h3>', page)
+        self.assertIn('Unavailable locally', page)
+        self.data['system']['hide_missing'] = True
+        self.assertNotIn('Absent', self.render()[1])
+
+    def test_invalid_resources_rejected(self):
+        for item in ({'title':'Bad','path':'../secret'}, {'title':'Bad','url':'javascript:alert(1)'},
+                     {'title':'Bad','path':'file','url':'/file'}, {'title':'Bad','url':'/file','requires_internet':'yes'}):
+            self.data['resource_sections'] = [{'title':'Section', 'items':[item]}]
+            self.write()
+            with self.assertRaises(ManifestError): load_manifest(self.manifest)
+        nested = {'title':'Deep'}
+        self.data['resource_sections'] = [nested]
+        for _ in range(6):
+            nested['sections'] = [{'title':'Deep'}]
+            nested = nested['sections'][0]
+        self.write()
+        with self.assertRaises(ManifestError): load_manifest(self.manifest)
+
     def test_empty_and_configuration_drives_cards(self):
         result, page = self.render()
         self.assertFalse(result['assets'][0]['available'])

@@ -117,3 +117,26 @@ body{background-image:none}
 
 /* Keep the narrower status box from growing when connection text changes. */
 #internet-status{display:block;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.resource-section{margin:1rem 0;padding:1rem;border:1px solid #b8ad86;border-radius:10px;background:rgba(248,245,235,.94);overflow-wrap:anywhere}
+.resource-section .resource-section{background:rgba(255,255,255,.35);margin:.75rem 0 0}
+.resource-section li{margin:.5rem 0}.resource-section h2,.resource-section h3,.resource-section h4,.resource-section h5,.resource-section h6{color:#294761;margin:.25rem 0 .65rem}
+
+#bugout-panel[hidden],#bugout-credential-fields[hidden]{display:none}
+#bugout-panel button{padding:.45rem .7rem;border:1px solid #807446;border-radius:5px;background:#174e50;color:#fff;cursor:pointer}
+#bugout-panel button:disabled{background:#ddd;color:#555;cursor:not-allowed}
+#bugout-dialog{max-width:min(28rem,85vw);border:1px solid #807446;border-radius:10px;background:#f8f5eb;color:#223747}
+#bugout-dialog::backdrop{background:#0008}
+#bugout-form label{display:block;margin:.65rem 0}#bugout-form input:not([type=checkbox]){display:block;box-sizing:border-box;width:100%;padding:.45rem}
+#bugout-form-result{color:#962e21}
+
+/* Local reading is the primary action; online references remain secondary. */
+.manifest-links{align-items:center}
+.manifest-links a:not([data-requires-internet]){font-weight:600}
+.manifest-links a[data-requires-internet]{background:transparent;border-color:transparent;color:#526779;font-size:.85rem;padding:.3rem .25rem;text-decoration:underline;text-underline-offset:.15em}
+.manifest-links a[data-requires-internet]:hover,.manifest-links a[data-requires-internet]:focus-visible{background:#e5edf3;color:#234a62}
+.manifest-assets .asset-external{color:#526779}
+.household-copy-status{display:block;margin:.25rem 0;color:#294761}
+
+.household-warning { display: block; padding: .55rem .7rem; border-left: 4px solid #9b381c; background: #fff2df; color: #70220d; margin: .5rem 0; }
+.household-warning[hidden] { display: none; }

@@ -15,6 +15,9 @@ app = FastAPI(
     root_path="/api",
 )
 
+from app.routers.bugout import router as bugout_router
+app.include_router(bugout_router)
+
 app.include_router(about_router)
 app.include_router(status_router)
 app.include_router(portal_router)

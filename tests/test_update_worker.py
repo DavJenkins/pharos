@@ -75,7 +75,11 @@ class AutomaticUpdateTests(unittest.TestCase):
             path=Path(d)/'status.json';self.assertIsNone(progress(path))
             now=datetime.now(timezone.utc)
             path.write_text(json.dumps({'state':'downloading','asset':'Wikipedia','percent':25,'updated':now.isoformat()}))
-            self.assertEqual(progress(path)['label'],'Downloading: Wikipedia (25%)')
+            self.assertEqual(progress(path)['label'],'Downloading 25%: Wikipedia')
             path.write_text(json.dumps({'state':'downloading','updated':(now-timedelta(minutes=10)).isoformat()}))
             self.assertEqual(progress(path)['label'],'Update status stale')
+            for percent in (0, 45, 100):
+                path.write_text(json.dumps({'state':'verifying','asset':'Wikipedia with a long archive title',
+                    'percent':percent,'updated':now.isoformat()}))
+                self.assertTrue(progress(path)['label'].startswith(f'Verifying {percent}%:'))
             path.write_text('not json');self.assertEqual(progress(path)['label'],'Update status unavailable')

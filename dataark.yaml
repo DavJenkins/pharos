@@ -98,77 +98,79 @@ repositories:
       - {title: USA.gov, url: 'https://www.usa.gov', requires_internet: true}
 
 # These are the files reported by the storage audit. Removing an entry never deletes a file.
-# Exact-version sources checked 2026-09-24; unavailable versions remain preserved locally.
+# Old versions are retired after replacement downloads and Kiwix activation are verified.
 assets:
   - id: wikipedia-main
     online_url: https://en.wikipedia.org/
     repository_id: wikipedia
     category: zim_archives
-    title: Wikipedia — English with images (February 2026)
-    relative_path: wikipedia_en_all_maxi_2026-02.zim
+    title: Wikipedia — English with images (August 2026)
+    relative_path: wikipedia_en_all_maxi_2026-08.zim
     update_policy: on_network_available
     refresh_interval: 1d
     update_source:
       kind: kiwix_zim
       directory: https://download.kiwix.org/zim/wikipedia/
       filename_prefix: wikipedia_en_all_maxi_
-    download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-02.zim
+    download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-08.zim
+    expected_hash: "34162d18b9f96f494eac48a73a309c72e0bc95d85f76be405d0f5de795854aa6"
     tags: [encyclopedia, images]
   - id: wikipedia-nopic
     online_url: https://en.wikipedia.org/
     repository_id: wikipedia
     category: zim_archives
-    title: Wikipedia — English without images (December 2025)
-    relative_path: wikipedia_en_all_nopic_2025-12.zim
+    title: Wikipedia — English without images (June 2026)
+    relative_path: wikipedia_en_all_nopic_2026-06.zim
     update_policy: on_network_available
     refresh_interval: 1d
     update_source:
       kind: kiwix_zim
       directory: https://download.kiwix.org/zim/wikipedia/
       filename_prefix: wikipedia_en_all_nopic_
-    download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2025-12.zim
-    mirror_url: https://ny.mirror.driftle.ss/kiwix/zim/wikipedia/wikipedia_en_all_nopic_2025-12.zim
+    download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2026-06.zim
+    expected_hash: "441a56d9e05b2d98f8ae9acb7986a513ed47904d73852c92dc6b7d50baa122e5"
   - id: wikipedia-medicine
     online_url: https://en.wikipedia.org/wiki/Portal:Medicine
     repository_id: wikimed
     category: zim_archives
-    title: Wikipedia Medicine (January 2026)
-    relative_path: wikipedia_en_medicine_maxi_2026-01.zim
+    title: Wikipedia Medicine (October 2026)
+    relative_path: wikipedia_en_medicine_maxi_2026-10.zim
     update_policy: on_network_available
     refresh_interval: 1d
     update_source:
       kind: kiwix_zim
       directory: https://download.kiwix.org/zim/wikipedia/
       filename_prefix: wikipedia_en_medicine_maxi_
-    download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-01.zim
+    download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-10.zim
+    expected_hash: "9a1570f2f346aa18694ee520e0483f19b7447f69e0970e2f727c53ccf0dcc7d6"
   - id: electronics-qa
     online_url: https://electronics.stackexchange.com/
     repository_id: technical-qa
     category: zim_archives
-    title: Electronics Stack Exchange (December 2025)
-    relative_path: electronics.stackexchange.com_en_all_2025-12.zim
+    title: Electronics Stack Exchange (August 2026)
+    relative_path: electronics.stackexchange.com_en_all_2026-08.zim
     update_policy: on_network_available
     refresh_interval: 1d
     update_source:
       kind: kiwix_zim
       directory: https://download.kiwix.org/zim/stack_exchange/
       filename_prefix: electronics.stackexchange.com_en_all_
-    download_url: https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2025-12.zim
-    mirror_url: https://ny.mirror.driftle.ss/kiwix/zim/stack_exchange/electronics.stackexchange.com_en_all_2025-12.zim
+    download_url: https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2026-08.zim
+    expected_hash: "5a23c08a3c1275128c247b0c67ec8ed03a953a504c6a23e2cd6a9ac5422b88c1"
   - id: unix-qa
     online_url: https://unix.stackexchange.com/
     repository_id: technical-qa
     category: zim_archives
-    title: Unix Stack Exchange (December 2025)
-    relative_path: unix.stackexchange.com_en_all_2025-12.zim
+    title: Unix Stack Exchange (August 2026)
+    relative_path: unix.stackexchange.com_en_all_2026-08.zim
     update_policy: on_network_available
     refresh_interval: 1d
     update_source:
       kind: kiwix_zim
       directory: https://download.kiwix.org/zim/stack_exchange/
       filename_prefix: unix.stackexchange.com_en_all_
-    download_url: https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2025-12.zim
-    mirror_url: https://ny.mirror.driftle.ss/kiwix/zim/stack_exchange/unix.stackexchange.com_en_all_2025-12.zim
+    download_url: https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2026-08.zim
+    expected_hash: "738326e81abe0f50edbaa3e4a002d0ca221e5dfb66e4954bb64e370756f602d3"
   - id: kiwix-windows-reader
     online_url: https://kiwix.org/en/applications/
     repository_id: technical-qa
@@ -180,3 +182,26 @@ assets:
     architecture: x86_64
     executable: true
     tags: [windows, reader]
+
+# Optional nested sections below the repository cards. See Manifest documentation.
+resource_sections: []
+
+# Household sources: credentials are supplied privately through the landing page.
+bugout:
+  budget_seconds: 300
+  reserve_gib: 2
+  tasks:
+    - id: manuals
+      title: Manuals
+      kind: smb
+      host: 192.168.40.127
+      share: Manuals
+      credential: manuals-reader
+      priority: 100
+      prefetch: true
+      prefetch_interval: 1d
+      normal_sync: scheduled
+      include_in_bugout: true
+      timeout_seconds: 3600
+      encryption:
+        method: none

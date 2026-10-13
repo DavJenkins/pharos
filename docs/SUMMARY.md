@@ -17,6 +17,8 @@
 ## Administration
 
 - [Administrator Guide](20-Administration/AdministratorGuide.md)
+- [Household Bugout Backups](20-Administration/Bugout.md)
+- [Reliability acceptance tests](20-Administration/AcceptanceTests.md)
 - [AP Welcome Portal](20-Administration/Portal.md)
 - [Central Asset Manifest](20-Administration/Manifest.md)
 - [System Inventory](20-Administration/SystemInventory.md)

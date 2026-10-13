@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 SOURCE="/opt/dataark/app/static"
 TARGET="/var/www/html"
@@ -7,6 +7,11 @@ TARGET="/var/www/html"
 # Fail before changing the deployed site if configuration/artwork is invalid.
 cd /opt/dataark
 bash tools/render_dashboard.sh
+
+# Build documentation before changing the live site. Each run owns its output.
+DOCS_STAGE="$(mktemp -d "${TMPDIR:-/tmp}/dataark-docs.XXXXXXXX")"
+trap 'rm -rf -- "$DOCS_STAGE"' EXIT
+python3 tools/publish_docs.py --output "$DOCS_STAGE"
 
 echo
 echo "============================================================"
@@ -25,21 +30,16 @@ sudo rsync -av --delete \
     "$TARGET"/
 
 echo
-echo "2. Publishing documentation..."
-
-python3 tools/publish_docs.py
-
-echo
-echo "3. Installing documentation..."
+echo "2. Installing documentation..."
 
 sudo mkdir -p "$TARGET/docs"
 
 sudo rsync -av --delete \
-    /tmp/dataark-docs/ \
+    "$DOCS_STAGE"/ \
     "$TARGET/docs/"
 
 echo
-echo "4. Cleaning obsolete files..."
+echo "3. Cleaning obsolete files..."
 
 sudo find "$TARGET" \
     -maxdepth 1 \

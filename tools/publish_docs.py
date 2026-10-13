@@ -1,23 +1,13 @@
 #!/usr/bin/env python3
 
 from pathlib import Path
-import shutil
+import argparse
+import tempfile
 import html
 import re
 from urllib.parse import urlsplit, urlunsplit
 
-SOURCE = Path("/opt/dataark/docs")
-TARGET = Path("/tmp/dataark-docs")
-
-
-###############################################################################
-# Start with a completely clean output directory
-###############################################################################
-
-if TARGET.exists():
-    shutil.rmtree(TARGET)
-
-TARGET.mkdir(parents=True)
+SOURCE = Path(__file__).resolve().parents[1] / 'docs'
 
 
 def inline_html(text):
@@ -132,16 +122,37 @@ a{
     return "\n".join(out)
 
 
-for md in SOURCE.rglob("*.md"):
 
-    rel = md.relative_to(SOURCE)
-    outfile = TARGET / rel.with_suffix(".html")
+def publish(source, target):
+    source, target = Path(source), Path(target)
+    if not source.is_dir():
+        raise ValueError('Documentation source directory is missing')
+    # Never remove or overwrite a directory left by another user or deployment.
+    if target.is_symlink() or (target.exists() and (not target.is_dir() or any(target.iterdir()))):
+        raise ValueError('Documentation output must be a new or empty directory')
+    documents = sorted(source.rglob('*.md'))
+    if not documents:
+        raise ValueError('No documentation source files found')
+    target.mkdir(parents=True, exist_ok=True)
+    for md in documents:
+        outfile = target / md.relative_to(source).with_suffix('.html')
+        outfile.parent.mkdir(parents=True, exist_ok=True)
+        outfile.write_text(markdown_to_html(md.read_text(encoding='utf-8')), encoding='utf-8')
+    return len(documents)
 
-    outfile.parent.mkdir(parents=True, exist_ok=True)
 
-    outfile.write_text(
-        markdown_to_html(md.read_text(encoding="utf-8")),
-        encoding="utf-8",
-    )
+def main():
+    parser = argparse.ArgumentParser(description='Publish documentation into a fresh directory.')
+    parser.add_argument('--source', type=Path, default=SOURCE)
+    parser.add_argument('--output', type=Path, help='New or empty output directory; defaults to a unique temporary directory.')
+    args = parser.parse_args()
+    target = args.output if args.output is not None else Path(tempfile.mkdtemp(prefix='dataark-docs-'))
+    try:
+        count = publish(args.source, target)
+    except (OSError, ValueError) as error:
+        parser.exit(1, 'Documentation publishing failed: ' + str(error) + '\n')
+    print('Published', count, 'documents to', str(target))
 
-print("Published", len(list(SOURCE.rglob("*.md"))), "documents.")
+
+if __name__ == '__main__':
+    main()

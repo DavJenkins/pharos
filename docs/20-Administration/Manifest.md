@@ -86,3 +86,31 @@ The worker service is privileged because it must restart Docker and publish the 
 ## Reading links and archive downloads
 
 Asset titles for ZIM files open the corresponding local Kiwix reader. The optional online_url field supplies the external reading-page link beside the title; download_url and mirror_url are retrieval metadata for updates and are never used as that external link. Missing archive releases do not disable an independent online reading page. Archive downloads remain available through the explicitly labelled content catalog and file browser.
+
+
+## Additional resource sections
+
+`resource_sections` is an optional ordered list below the repository cards and above the platform footer. Sections accept `title`, optional `description`, `items`, and nested `sections` (up to six section levels). Each item has a title and exactly one `path` or `url`.
+
+```yaml
+resource_sections:
+  - title: Household resources
+    description: Our local documents and useful services.
+    items:
+      - title: Manuals folder
+        path: manuals
+      - title: Home Assistant
+        url: http://homeassistant.local:8123/
+        requires_internet: false
+    sections:
+      - title: Emergency planning
+        items:
+          - title: Household plan
+            path: documents/household-plan.pdf
+          - title: Online reference
+            url: https://www.ready.gov/
+```
+
+These are examples, not installed resources. Paths use forward slashes relative to `system.base_mount`; files and directories must already exist on the SSD. They are served through `content_url_prefix`. Files may open or download according to their type and the browser. Directories link to the web server's directory listing, which must be enabled there. No files are copied or downloaded by declaring a resource. Paths outside the mount are rejected; publish intended content onto the SSD first rather than exposing arbitrary system directories.
+
+Root-relative URLs default to local access. Absolute HTTP(S) URLs default to requiring internet and use the existing disabled-link behavior. For another LAN service, explicitly set `requires_internet: false`; this does not guarantee the service is reachable through the AP's forwarding policy. Missing SSD paths show Unavailable locally, or are omitted when `system.hide_missing` is true. Re-run `./deploy/deploy-web.sh` after changing configuration or adding local resources to refresh availability.

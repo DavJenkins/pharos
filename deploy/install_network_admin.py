@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """One-time root-owned helper installation. Does not change network connections."""
+import argparse
 import getpass
 import grp
 import hashlib
@@ -25,6 +26,9 @@ def install(path, content, mode, gid=0):
         temp.unlink(missing_ok=True)
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--reset-password', action='store_true', help='Replace the administration password after entering and confirming a new one.')
+    args = parser.parse_args()
     if os.geteuid() != 0:
         raise SystemExit('Run with sudo python3 deploy/install_network_admin.py')
     os.umask(0o077)
@@ -42,7 +46,7 @@ def main():
     directory = Path('/etc/dataark')
     credentials = directory / 'network-admin.json'
     new_credentials = None
-    if not credentials.exists():
+    if args.reset_password or not credentials.exists():
         password = getpass.getpass('Create a separate network administration password (12+ characters): ')
         confirmation = getpass.getpass('Repeat password: ')
         if password != confirmation or not 12 <= len(password) <= 256:

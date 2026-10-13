@@ -121,6 +121,68 @@ def indexed(values, label):
         result[key] = value
     return result
 
+def validate_resource_sections(sections, depth=0):
+    if depth > 5 or not isinstance(sections, list):
+        raise ManifestError('resource_sections must be lists, nested at most six levels.')
+    for section in sections:
+        if not isinstance(section, dict) or set(section) - {'title', 'description', 'items', 'sections'}:
+            raise ManifestError('Resource sections accept title, description, items and sections.')
+        text(section.get('title'), 'Resource section title')
+        if 'description' in section:
+            text(section['description'], 'Resource section description')
+        items = section.get('items', [])
+        if not isinstance(items, list):
+            raise ManifestError('Resource items must be a list.')
+        for item in items:
+            if not isinstance(item, dict) or set(item) - {'title', 'path', 'url', 'requires_internet'}:
+                raise ManifestError('Resource items accept title, path, url and requires_internet.')
+            text(item.get('title'), 'Resource title')
+            if ('path' in item) == ('url' in item):
+                raise ManifestError('A resource requires exactly one path or URL.')
+            if 'path' in item:
+                relative_path(item['path'], 'Resource path')
+            else:
+                url(item['url'])
+            if type(item.get('requires_internet', False)) is not bool:
+                raise ManifestError('requires_internet must be true or false.')
+            if 'path' in item and item.get('requires_internet', False):
+                raise ManifestError('SSD resources cannot require internet.')
+        if 'sections' in section:
+            validate_resource_sections(section['sections'], depth + 1)
+
+
+def render_resource_sections(sections, root, prefix, hide=False, depth=0):
+    rendered = []
+    for section in sections:
+        heading = min(2 + depth, 6)
+        parts = [f'<section class="resource-section"><h{heading}>' +
+                 html.escape(section['title']) + f'</h{heading}>']
+        if section.get('description'):
+            parts.append('<p>' + html.escape(section['description']) + '</p>')
+        entries = []
+        for item in section.get('items', []):
+            title = html.escape(item['title'])
+            if 'path' in item:
+                local = inside(root, item['path'])
+                if not (local.is_file() or local.is_dir()):
+                    if not hide:
+                        entries.append('<li>' + title + ' <span class="manifest-badge">Unavailable locally</span></li>')
+                    continue
+                target = prefix + quote(item['path'].rstrip('/'), safe='/') + ('/' if local.is_dir() else '')
+                online = False
+            else:
+                target = item['url']
+                online = item.get('requires_internet', not target.startswith('/'))
+            attributes = ' data-requires-internet="true"' if online else ''
+            entries.append('<li><a href="' + html.escape(target, quote=True) + '"' + attributes + '>' + title + '</a></li>')
+        if entries:
+            parts.append('<ul>' + ''.join(entries) + '</ul>')
+        parts.append(render_resource_sections(section.get('sections', []), root, prefix, hide, depth + 1))
+        parts.append('</section>')
+        rendered.append(''.join(parts))
+    return ''.join(rendered)
+
+
 def load_manifest(path):
     path = Path(path)
     raw = path.read_text(encoding='utf-8-sig')
@@ -199,6 +261,12 @@ def load_manifest(path):
                 raise ManifestError(f'{field} must be a list of strings.')
         if any(value not in scenarios for value in item.get('scenarios', [])):
             raise ManifestError('Unknown scenario reference.')
+    from app.services.bugout import validate as validate_bugout
+    try:
+        validate_bugout(data.get('bugout', {}))
+    except ValueError as error:
+        raise ManifestError(str(error)) from None
+    validate_resource_sections(data.get('resource_sections', []))
     return data
 
 def atomic_write(path, content):
@@ -395,6 +463,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
     style = '<style>body{background-image:url("' + background['src'] + '")}</style>' if background else ''
     rendered = template.replace('{{PROJECT_NAME}}', html.escape(system['project_name'])).replace('{{MANIFEST_CARDS}}',
         ''.join(sections) or '<p class="manifest-empty">No repositories configured for display.</p>').replace('{{BACKGROUND_STYLE}}', style)
+    rendered = rendered.replace('{{RESOURCE_SECTIONS}}', render_resource_sections(data.get('resource_sections', []), root, prefix, hide))
     rendered = version_dashboard_assets(rendered)
     compiled = {**data, 'assets': compiled_assets}
     # Complete validation/rendering before replacing the previously working page.
