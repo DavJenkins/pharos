@@ -21,6 +21,8 @@
 - [Reliability acceptance tests](20-Administration/AcceptanceTests.md)
 - [AP Welcome Portal](20-Administration/Portal.md)
 - [Central Asset Manifest](20-Administration/Manifest.md)
+- [Local reference maps](20-Administration/Maps.md)
+- [Project status: October 21, 2026](20-Administration/ProjectStatus-2026-10-21.md)
 - [System Inventory](20-Administration/SystemInventory.md)
 - [Release Notes](20-Administration/ReleaseNotes.md)
 

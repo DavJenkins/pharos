@@ -121,6 +121,32 @@ def indexed(values, label):
         result[key] = value
     return result
 
+def validate_geography(value):
+    if not isinstance(value, dict) or set(value) - {'country', 'state', 'counties'}:
+        raise ManifestError('geography accepts country, state and counties.')
+    if value.get('country') != 'US':
+        raise ManifestError('Geographic coverage currently supports country US.')
+    state = value.get('state')
+    if not isinstance(state, dict) or set(state) != {'code', 'name'}:
+        raise ManifestError('geography.state requires code and name.')
+    if not isinstance(state['code'], str) or not re.fullmatch(r'[A-Z]{2}', state['code']):
+        raise ManifestError('State code must be two uppercase letters.')
+    text(state['name'], 'State name')
+    counties = value.get('counties')
+    if not isinstance(counties, list) or not counties:
+        raise ManifestError('geography.counties must be a nonempty list.')
+    seen = set()
+    for county in counties:
+        if not isinstance(county, dict) or set(county) - {'name', 'focus'}:
+            raise ManifestError('County entries accept name and optional focus.')
+        name = text(county.get('name'), 'County name').strip().casefold()
+        if name in seen:
+            raise ManifestError('County names must be unique.')
+        seen.add(name)
+        if 'focus' in county:
+            text(county['focus'], 'County focus')
+
+
 def validate_resource_sections(sections, depth=0):
     if depth > 5 or not isinstance(sections, list):
         raise ManifestError('resource_sections must be lists, nested at most six levels.')
@@ -266,6 +292,14 @@ def load_manifest(path):
         validate_bugout(data.get('bugout', {}))
     except ValueError as error:
         raise ManifestError(str(error)) from None
+    if 'geography' in data:
+        validate_geography(data['geography'])
+    if 'maps' in data:
+        from tools.map_worker import settings
+        try:
+            settings(data)
+        except ValueError as error:
+            raise ManifestError(str(error)) from None
     validate_resource_sections(data.get('resource_sections', []))
     return data
 

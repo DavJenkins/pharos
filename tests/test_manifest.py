@@ -43,6 +43,21 @@ class ManifestTests(unittest.TestCase):
         result = build(self.manifest, self.template, self.output, content_root=self.content)
         return result, self.output.read_text(encoding='utf-8')
 
+    def test_geographic_coverage_survives_rendering(self):
+        coverage = {'country':'US','state':{'code':'MA','name':'Massachusetts'},
+                    'counties':[{'name':'Worcester','focus':'Northern Worcester County'}, {'name':'Middlesex'}]}
+        self.data['geography'] = coverage
+        result, _ = self.render()
+        self.assertEqual(result['geography'], coverage)
+        self.assertEqual(json.loads((self.output.parent/'manifest.json').read_text())['geography'], coverage)
+        for invalid in (None, {}, dict(coverage,counties=[{'name':'Worcester'},{'name':'worcester'}]),
+                        dict(coverage,counties=[{'name':'Worcester','focus':False}]),
+                        dict(coverage,state={'code':'mass','name':'Massachusetts'})):
+            self.data['geography'] = invalid
+            self.write()
+            with self.subTest(invalid=invalid), self.assertRaises(ManifestError):
+                load_manifest(self.manifest)
+
     def test_nested_resources_and_connectivity(self):
         self.template.write_text('{{PROJECT_NAME}}{{BACKGROUND_STYLE}}{{MANIFEST_CARDS}}{{RESOURCE_SECTIONS}}')
         (self.content / 'Manuals').mkdir()

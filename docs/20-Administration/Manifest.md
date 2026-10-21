@@ -114,3 +114,26 @@ resource_sections:
 These are examples, not installed resources. Paths use forward slashes relative to `system.base_mount`; files and directories must already exist on the SSD. They are served through `content_url_prefix`. Files may open or download according to their type and the browser. Directories link to the web server's directory listing, which must be enabled there. No files are copied or downloaded by declaring a resource. Paths outside the mount are rejected; publish intended content onto the SSD first rather than exposing arbitrary system directories.
 
 Root-relative URLs default to local access. Absolute HTTP(S) URLs default to requiring internet and use the existing disabled-link behavior. For another LAN service, explicitly set `requires_internet: false`; this does not guarantee the service is reachable through the AP's forwarding policy. Missing SSD paths show Unavailable locally, or are omitted when `system.hide_missing` is true. Re-run `./deploy/deploy-web.sh` after changing configuration or adding local resources to refresh availability.
+
+
+## Geographic coverage
+
+The optional top-level `geography` block stores the Ark's default local reference area:
+
+```yaml
+geography:
+  country: US
+  state:
+    code: MA
+    name: Massachusetts
+  counties:
+    - name: Worcester
+      focus: Northern Worcester County
+    - name: Middlesex
+```
+
+County names are scoped to the configured state. `focus` is descriptive: northern Worcester County is the area of interest, not an invented administrative boundary or clipping polygon. Full Worcester and Middlesex county coverage remains included. A narrower download boundary would need explicit towns or a geographic extent.
+
+This metadata is validated and carried into the generated manifest. It does not by itself download maps, add a GIS viewer, or change existing source download URLs. Future flood-map, parcel and other geographic resource collectors can use this shared configuration instead of hard-coded locations. Omit the block for existing installations without geographic resources.
+
+The optional `maps` block now enables the Massachusetts map collector described in [Local reference maps](Maps.md). It uses `geography` for county selection and is independent of bugout tasks.

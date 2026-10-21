@@ -15,6 +15,26 @@ system:
     path: app/static/assets/Pharos Data Ark.png
     alt: Data Ark lighthouse
 
+# Default geographic coverage for local reference resources.
+# Focus is descriptive, not a clipping boundary; retain full county coverage.
+geography:
+  country: US
+  state:
+    code: MA
+    name: Massachusetts
+  counties:
+    - name: Worcester
+      focus: Northern Worcester County
+    - name: Middlesex
+
+# Monthly reference-map checks; independent of bugout and Kiwix updates.
+maps:
+  enabled: true
+  refresh_days: 30
+  reserve_gib: 10
+  max_run_gib: 8
+  sources: [flood, parcels, topographic]
+
 categories:
   - id: content_sources
     title: Content sources
@@ -147,30 +167,30 @@ assets:
     online_url: https://electronics.stackexchange.com/
     repository_id: technical-qa
     category: zim_archives
-    title: Electronics Stack Exchange (August 2026)
-    relative_path: electronics.stackexchange.com_en_all_2026-08.zim
+    title: Electronics Stack Exchange (October 2026)
+    relative_path: electronics.stackexchange.com_en_all_2026-10.zim
     update_policy: on_network_available
     refresh_interval: 1d
     update_source:
       kind: kiwix_zim
       directory: https://download.kiwix.org/zim/stack_exchange/
       filename_prefix: electronics.stackexchange.com_en_all_
-    download_url: https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2026-08.zim
-    expected_hash: "5a23c08a3c1275128c247b0c67ec8ed03a953a504c6a23e2cd6a9ac5422b88c1"
+    download_url: https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2026-10.zim
+    expected_hash: "b28e58b24ed55c602265729b34b0c6cc4e12228e6fe2f55df5b5e9eae169b266"
   - id: unix-qa
     online_url: https://unix.stackexchange.com/
     repository_id: technical-qa
     category: zim_archives
-    title: Unix Stack Exchange (August 2026)
-    relative_path: unix.stackexchange.com_en_all_2026-08.zim
+    title: Unix Stack Exchange (October 2026)
+    relative_path: unix.stackexchange.com_en_all_2026-10.zim
     update_policy: on_network_available
     refresh_interval: 1d
     update_source:
       kind: kiwix_zim
       directory: https://download.kiwix.org/zim/stack_exchange/
       filename_prefix: unix.stackexchange.com_en_all_
-    download_url: https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2026-08.zim
-    expected_hash: "738326e81abe0f50edbaa3e4a002d0ca221e5dfb66e4954bb64e370756f602d3"
+    download_url: https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2026-10.zim
+    expected_hash: "793f0fbaf64e9eb8d2fd59fec80f62cf94acb22ca94c87eb25ae145dd589e551"
   - id: kiwix-windows-reader
     online_url: https://kiwix.org/en/applications/
     repository_id: technical-qa
@@ -184,7 +204,34 @@ assets:
     tags: [windows, reader]
 
 # Optional nested sections below the repository cards. See Manifest documentation.
-resource_sections: []
+resource_sections:
+  - title: Local maps
+    description: Massachusetts reference maps for Worcester and Middlesex counties. Northern Worcester is the focus; the flood archive contains statewide published coverage.
+    items:
+      - title: Local map collection and update status
+        path: maps/index.html
+    sections:
+      - title: Flood hazards
+        description: Published flood-hazard GIS data, not live flooding. Missing mapping does not mean no risk.
+        items:
+          - title: Local flood data and status
+            path: maps/flood/index.html
+          - title: MassGIS FEMA flood data (online)
+            url: https://www.mass.gov/info-details/massgis-data-fema-national-flood-hazard-layer
+      - title: Property boundaries
+        description: Town parcel GIS archives for the configured counties. Parcel boundaries are not a survey.
+        items:
+          - title: Local parcel data and status
+            path: maps/parcels/index.html
+          - title: MassGIS property maps (online)
+            url: https://www.mass.gov/info-details/massgis-data-property-tax-parcels
+      - title: Terrain and topographic maps
+        description: Latest available USGS topographic PDFs intersecting the configured counties, suitable for offline reading and printing.
+        items:
+          - title: Local topographic PDFs and status
+            path: maps/topographic/index.html
+          - title: USGS topographic maps (online)
+            url: https://www.usgs.gov/programs/national-geospatial-program/us-topo-maps-america
 
 # Household sources: credentials are supplied privately through the landing page.
 bugout:
