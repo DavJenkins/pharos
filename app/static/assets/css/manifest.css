@@ -140,3 +140,29 @@ body{background-image:none}
 
 .household-warning { display: block; padding: .55rem .7rem; border-left: 4px solid #9b381c; background: #fff2df; color: #70220d; margin: .5rem 0; }
 .household-warning[hidden] { display: none; }
+
+/* Touch-accessible status controls, kept behind one settings disclosure. */
+.ark-settings{width:100%;min-width:0;font-size:.85rem;text-align:center}
+.ark-settings>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:center;gap:.4rem;border:1px solid #94a8b5;border-radius:6px;background:#e5edf3;color:#234a62;font-weight:600}
+.ark-settings>summary::after{content:"▾"}.ark-settings[open]>summary::after{content:"▴"}
+.ark-settings>summary:focus-visible{outline:2px solid #075d89;outline-offset:2px}
+.ark-settings-content{padding-top:.5rem}.settings-hint{margin:.25rem 0 .65rem;line-height:1.4}
+.ark-settings .status-tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 4px;width:100%}
+.status-tile{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.status-tile .control-label{font:600 11px/1.25 system-ui;color:#294761;overflow-wrap:anywhere}
+.status-bar .ark-settings .status-button{width:44px;height:44px;display:flex;align-items:center;justify-content:center;text-decoration:none}
+.status-detail{margin:.65rem 0;padding:.65rem;text-align:left;background:#fffdf7;border:1px solid #94a8b5;border-radius:6px;overflow-wrap:anywhere}
+.status-detail[hidden]{display:none}.status-detail h2{font-size:1rem;margin:0 0 .4rem;color:#294761}
+.status-detail p{margin:.4rem 0;line-height:1.4}#status-detail-value{white-space:pre-line}
+.status-detail button{min-height:44px;padding:.4rem .6rem;font:inherit}
+.ark-settings .network-settings{margin-top:.75rem}.ark-settings .network-settings>summary{min-height:44px;align-content:center}
+
+/* Keep the two status lines beside one gear, rather than stacking a settings bar. */
+.dashboard-top .status-bar{grid-template-columns:minmax(0,1fr) 44px;gap:6px 8px;width:220px}
+.status-bar>.status-controls{grid-column:1;grid-row:1;text-align:left;gap:.15rem}
+.status-bar .sync-line{justify-content:flex-start}
+.ark-settings{display:contents}
+.ark-settings>summary{grid-column:2;grid-row:1;width:44px;height:44px;box-sizing:border-box;min-height:44px;font-size:27px;background:transparent;border-color:transparent;padding:0}
+.ark-settings>summary::after{display:none}
+.ark-settings-content{grid-column:1/-1;grid-row:2;width:100%;box-sizing:border-box}
+.ark-settings:not([open])>.ark-settings-content{display:none}

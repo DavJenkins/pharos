@@ -32,8 +32,12 @@
 
 </div>
 
+<details id="ark-settings" class="ark-settings">
+<summary aria-label="Settings" title="Settings">⚙</summary>
+<div class="ark-settings-content">
+<p class="settings-hint">Tap a status icon for details. Internet access is for this device only. The local library works even when it is off.</p>
 <div class="status-tiles" aria-label="System controls">
-<button id="eth-button"
+<div class="status-tile"><button id="eth-button"
         class="status-button off"
         title="Ethernet">
 
@@ -41,74 +45,77 @@
 <path d="M3 4h18v13h-5v4H8v-4H3V4zm2 2v9h5v4h4v-4h5V6H5zm2 2h2v4H7V8zm4 0h2v4h-2V8zm4 0h2v4h-2V8z"/>
 </svg>
 
-</button>
+</button><span class="control-label">Ethernet</span></div>
 
-<button id="wifi-button"
+<div class="status-tile"><button id="wifi-button"
         class="status-button off"
         title="Wi-Fi">
 
 📶
 
-</button>
+</button><span class="control-label">Wi-Fi</span></div>
 
-<button id="ap-button"
+<div class="status-tile"><button id="ap-button"
         class="status-button off"
         title="Access Point">
 
 📡
 
-</button>
+</button><span class="control-label">Hotspot</span></div>
 
-<button id="portal-continue" class="status-button off" type="button" aria-disabled="true" aria-label="Internet pass-through unavailable" title="Checking pass-through availability">
+<div class="status-tile"><button id="portal-continue" class="status-button off" type="button" aria-disabled="true" aria-label="Internet access unavailable" title="Checking internet access">
 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h16m-4-4 4 4-4 4M21 17H5m4-4-4 4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 <span id="portal-state">--</span>
-</button>
+</button><span class="control-label">Internet access</span></div>
 
-<button id="system-button"
+<div class="status-tile"><button id="system-button"
         class="status-button off"
         title="System">
 
 💻
 
-</button>
+</button><span class="control-label">System</span></div>
 
-<button id="refresh-button"
+<div class="status-tile"><button id="refresh-button"
         class="status-button on"
         title="Auto Refresh">
 
 🔄
 
-</button>
+</button><span class="control-label">Refresh</span></div>
 
-<a class="status-button"
+<div class="status-tile"><a class="status-button"
    href="/docs/"
    title="Documentation">
 
 📖
 
-</a>
+</a><span class="control-label">Help</span></div>
 
-<a class="status-button"
+<div class="status-tile"><a class="status-button"
    href="/api/docs"
    title="REST API">
 
 📘
 
-</a>
+</a><span class="control-label">Developer API</span></div>
 
-<button id="debug-button"
+<div class="status-tile"><button id="debug-button"
         class="status-button off"
         title="Debug">
 
 🐞
 
-</button>
+</button><span class="control-label">Debug</span></div>
 </div>
+<section id="status-detail" class="status-detail" hidden aria-labelledby="status-detail-heading"><h2 id="status-detail-heading"></h2><p id="status-detail-description"></p><p id="status-detail-value"></p><button id="status-detail-close" type="button">Close details</button></section>
 <p id="portal-message" class="visually-hidden" role="status"></p>
 
 <details class="network-settings"><summary>Network settings</summary>
 <nav aria-label="Network settings"><a href="/config/wifi.html">Upstream Wi-Fi</a>
 <a href="/config/system.html">Access point settings</a></nav></details>
+</div>
+</details>
 
 </div>
 
@@ -172,6 +179,7 @@
 <script src="assets/js/status.js"></script>
 
 <script src="assets/js/dashboard.js"></script>
+<script src="assets/js/status-help.js"></script>
 
 </body>
 

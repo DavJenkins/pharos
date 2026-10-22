@@ -5,7 +5,7 @@
     const indicator = document.getElementById("portal-state");
     if (!button || !message || !indicator) return;
     if (location.hostname !== "192.168.4.1") {
-        button.title = "Connect to the Ark Wi-Fi and open 192.168.4.1 to control pass-through for this device.";
+        button.title = "Connect to the Ark Wi-Fi and open 192.168.4.1 to control internet access for this device.";
         button.setAttribute("aria-label", button.title);
         return;
     }
@@ -22,9 +22,9 @@
         button.classList.toggle("on", state.enabled);
         button.classList.toggle("off", !state.enabled);
         button.classList.remove("error");
-        button.title = state.enabled ? "Internet pass-through enabled. Click to turn off." :
+        button.title = state.enabled ? "Internet access for this device is on. Tap to turn off." :
             state.upstream_online ? "Enable internet access for this device (up to six hours)." : "No upstream internet connection.";
-        button.setAttribute("aria-label", "Internet pass-through " + indicator.textContent + ". " + button.title);
+        button.setAttribute("aria-label", "Internet access " + indicator.textContent + ". " + button.title);
         button.setAttribute("aria-pressed",String(state.enabled));
         button.setAttribute("aria-disabled", String(!state.enabled && !state.upstream_online));
         message.textContent = state.upstream_online ?
@@ -37,10 +37,10 @@
         indicator.textContent = "?";
         button.classList.remove("on", "off");
         button.classList.add("error");
-        button.title = "Pass-through state unavailable. Local content remains available.";
+        button.title = "Internet access status unavailable. Local content remains available.";
         button.setAttribute("aria-label", button.title);
         button.removeAttribute("aria-pressed");
-        message.textContent = "Could not read pass-through state. Local content remains available.";
+        message.textContent = "Could not read internet access status. Local content remains available.";
     }
     async function update() {
         if (busy) return;
