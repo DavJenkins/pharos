@@ -43,6 +43,14 @@ class AutomaticUpdateTests(unittest.TestCase):
         with patch('tools.update_worker.fetch_small',return_value=b'<a href="wikipedia_en_all_maxi_2026-01.zim">old</a>') as fetch:
             self.assertIsNone(release_info(a));self.assertEqual(fetch.call_count,1)
 
+    def test_ifixit_source_uses_its_exact_release_series(self):
+        asset = self.asset()
+        asset['relative_path'] = 'ifixit_en_all_2025-12.zim'
+        asset['update_source'] = {'kind':'kiwix_zim', 'directory':'https://download.kiwix.org/zim/ifixit/', 'filename_prefix':'ifixit_en_all_'}
+        self.assertEqual(source_config(asset), ('https://download.kiwix.org/zim/ifixit/', 'ifixit_en_all_'))
+        asset['update_source']['directory'] = 'https://download.kiwix.org/zim/ifixit-untrusted/'
+        with self.assertRaises(ValueError): source_config(asset)
+
     def test_publisher_metadata_must_match_release(self):
         a=self.asset();name='wikipedia_en_all_maxi_2026-08.zim'
         listing=f'<a href="{name}">new</a>'.encode()

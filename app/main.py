@@ -34,3 +34,6 @@ def root():
         "version": app.version,
         "status": "running",
     }
+
+from app.routers.library import router as library_router
+app.include_router(library_router)

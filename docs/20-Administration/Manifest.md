@@ -4,7 +4,7 @@ The landing page is generated from `/opt/dataark/dataark.yaml`. Each enabled rep
 
 Edit the YAML, then run `./deploy/deploy-web.sh` from `/opt/dataark`. Deployment validates and renders the manifest before copying the website. To render without deployment, run `bash tools/render_dashboard.sh`. The Bash entry point uses the existing virtual environment and Python/PyYAML/Pillow, with no jq or yq dependency.
 
-The default file lists six content sources in one Content sources group and identifies six known local files. Local availability is independent of that grouping. The Raspberry Pi logo appears separately in the template as a platform credit, not a content repository. `examples/manifest-v1.4.yaml` is a separate illustration with ZIM, PDF, and portable binary entries. Its example.invalid URLs and sample filenames must be replaced before use. An empty `repositories: []` and `assets: []` is valid. Remove entries you do not want displayed; files on the SSD are never deleted by this process.
+The manifest groups installed offline collections under Content sources. Reference-only entries remain disabled until local collections are registered; missing registered collections are hidden. Local availability is independent of that grouping. The Raspberry Pi logo appears separately in the template as a platform credit, not a content repository. `examples/manifest-v1.4.yaml` is a separate illustration with ZIM, PDF, and portable binary entries. Its example.invalid URLs and sample filenames must be replaced before use. An empty `repositories: []` and `assets: []` is valid. Remove entries you do not want displayed; files on the SSD are never deleted by this process.
 
 ## Configuration fields
 
@@ -60,9 +60,9 @@ Connectivity does not mark an archive source as removed or affect local copies. 
 
 ## Automatic content processing
 
-Install once on the Pi with `sudo python3 deploy/install_update_worker.py`, then restart `dataark.service` after deploying the updated API code. Installation enables dataark-update.timer. The timer polls every five minutes; the asset refresh_interval controls when release discovery is due. The five registered ZIM series use on_network_available with a one-day interval. Newer releases are discovered dynamically from the official Kiwix index; the dated one-time JSON update plan is not used by the worker.
+Install once on the Pi with `sudo python3 deploy/install_update_worker.py`, then restart `dataark.service` after deploying the updated API code. Installation enables dataark-update.timer. The timer polls every five minutes; the asset refresh_interval controls when release discovery is due. The six registered ZIM series use on_network_available with a one-day interval. Newer releases are discovered dynamically from the official Kiwix index; the dated one-time JSON update plan is not used by the worker.
 
-Each automatic asset requires update_source with kind: kiwix_zim, directory (the official wikipedia or stack_exchange download directory), and filename_prefix identifying its exact series. This first adapter handles those ZIM archives. The Windows reader remains manual; automatic ZIP installation and other provider adapters are not yet supported. Reference-only cards never trigger speculative downloads.
+Each automatic asset requires update_source with kind: kiwix_zim, directory (the official wikipedia, stack_exchange, or ifixit download directory), and filename_prefix identifying its exact series. This first adapter handles those ZIM archives. The Windows reader remains manual; automatic ZIP installation and other provider adapters are not yet supported. Reference-only cards never trigger speculative downloads.
 
 Policies: manual skips downloads; auto and on_network_available process due assets and retry interrupted transfers when access returns; pin_version selects exactly version_pin such as 2026-08. A refresh_interval of never disables discovery. Disabled repository entries are skipped. Without an explicit pin the worker does not downgrade a newer local archive.
 
@@ -137,3 +137,8 @@ County names are scoped to the configured state. `focus` is descriptive: norther
 This metadata is validated and carried into the generated manifest. It does not by itself download maps, add a GIS viewer, or change existing source download URLs. Future flood-map, parcel and other geographic resource collectors can use this shared configuration instead of hard-coded locations. Omit the block for existing installations without geographic resources.
 
 The optional `maps` block now enables the Massachusetts map collector described in [Local reference maps](Maps.md). It uses `geography` for county selection and is independent of bugout tasks.
+
+
+## Local-first collection display and iFixit
+
+The main page hides missing registered collections. Reference-only OpenStreetMap, Project Gutenberg, and USA.gov entries remain configured but disabled until actual offline collections are registered. Local Massachusetts maps remain in their separate section. iFixit uses the official Kiwix `ifixit_en_all_` series, daily release checks, publisher SHA-256 verification, and the existing transactional Kiwix activation. No new source hosts or arbitrary directories are accepted. Attribution is retained at `/legal/ifixit.html`.

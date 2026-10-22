@@ -60,7 +60,7 @@ def source_config(asset):
     if not isinstance(spec, dict) or spec.get('kind') != 'kiwix_zim':
         raise ValueError('Automatic updates require an explicit supported update_source (kiwix_zim).')
     directory = spec.get('directory')
-    if directory not in ('https://download.kiwix.org/zim/wikipedia/', 'https://download.kiwix.org/zim/stack_exchange/'):
+    if directory not in ('https://download.kiwix.org/zim/wikipedia/', 'https://download.kiwix.org/zim/stack_exchange/', 'https://download.kiwix.org/zim/ifixit/', 'https://download.kiwix.org/zim/gutenberg/'):
         raise ValueError('Unsupported Kiwix source directory')
     prefix = spec.get('filename_prefix', '')
     if not re.fullmatch(r'[A-Za-z0-9_.-]+_', prefix):

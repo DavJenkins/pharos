@@ -5,7 +5,7 @@ system:
   version: "1.4"
   theme: Ark of the Covenant
   base_mount: /mnt/storage
-  hide_missing: false
+  hide_missing: true
   services:
     kiwix_port: 8080
     samba_share_path: /mnt/storage
@@ -95,7 +95,20 @@ repositories:
     links:
       - {title: Read local WikiMed, service: kiwix, path: '/#name=wikipedia_en_medicine'}
       - {title: Kiwix medical resources, url: 'https://www.kiwix.org', requires_internet: true}
+  - id: ifixit
+    category: content_sources
+    title: iFixit Repair Guides
+    description: Step-by-step English repair guides with photos, preserved for offline use. By iFixit and its contributors, CC BY-NC-SA 3.0.
+    update_policy: on_network_available
+    refresh_interval: 1d
+    tags: [repair, maintenance, illustrated]
+    scenarios: [technical, general]
+    links:
+      - {title: Read repair guides (local), service: kiwix, path: '/#name=ifixit_en_all'}
+      - {title: Attribution and license, url: '/legal/ifixit.html'}
+      - {title: iFixit (online), url: 'https://www.ifixit.com', requires_internet: true}
   - id: openstreetmap
+    enabled: false
     category: content_sources
     title: OpenStreetMap
     description: Open mapping reference. Register downloaded maps as assets below.
@@ -103,6 +116,7 @@ repositories:
     links:
       - {title: OpenStreetMap, url: 'https://www.openstreetmap.org', requires_internet: true}
   - id: project-gutenberg
+    enabled: false
     category: content_sources
     title: Project Gutenberg
     description: Public-domain reading sources. Register local books as assets below.
@@ -110,6 +124,7 @@ repositories:
     links:
       - {title: Project Gutenberg, url: 'https://www.gutenberg.org', requires_internet: true}
   - id: usa-gov
+    enabled: false
     category: content_sources
     title: USA.gov
     description: Government reference and information sources.
@@ -120,6 +135,22 @@ repositories:
 # These are the files reported by the storage audit. Removing an entry never deletes a file.
 # Old versions are retired after replacement downloads and Kiwix activation are verified.
 assets:
+  - id: ifixit-repair-guides
+    online_url: https://www.ifixit.com/Guide
+    repository_id: ifixit
+    category: zim_archives
+    title: iFixit Repair Guides — English with images (December 2025)
+    relative_path: ifixit_en_all_2025-12.zim
+    update_policy: on_network_available
+    refresh_interval: 1d
+    update_source:
+      kind: kiwix_zim
+      directory: https://download.kiwix.org/zim/ifixit/
+      filename_prefix: ifixit_en_all_
+    download_url: https://download.kiwix.org/zim/ifixit/ifixit_en_all_2025-12.zim
+    expected_hash: "9bb5f3408707fd0300c6ef47a425c3217187f144cd9154a928183816aa72eead"
+    source_note: Kiwix English archive, latest listed release checked October 22, 2026. iFixit and contributors; CC BY-NC-SA 3.0; archived content unchanged.
+    tags: [repair, images]
   - id: wikipedia-main
     online_url: https://en.wikipedia.org/
     repository_id: wikipedia

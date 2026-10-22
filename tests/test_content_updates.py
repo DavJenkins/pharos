@@ -20,6 +20,12 @@ class ContentUpdateTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_plan({'archives':[valid,valid]})
 
+    def test_ifixit_plan_keeps_official_host_and_exact_path(self):
+        item = {**self.item(), 'filename':'ifixit_en_all_2025-12.zim', 'url':'https://download.kiwix.org/zim/ifixit/ifixit_en_all_2025-12.zim'}
+        self.assertEqual(validate_plan({'archives':[item]}), [item])
+        for bad in ['https://download.kiwix.org/zim/ifixit/../ifixit_en_all_2025-12.zim', 'https://example.org/zim/ifixit/ifixit_en_all_2025-12.zim']:
+            with self.assertRaises(ValueError): validate_plan({'archives':[{**item,'url':bad}]})
+
     def test_verification_rejects_corruption_without_changing_file(self):
         with tempfile.TemporaryDirectory() as directory:
             path=Path(directory)/'download.part'
