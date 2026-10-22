@@ -6,3 +6,5 @@ body{margin:0;background:#f4f3eb;color:#243a4b;font:16px/1.5 system-ui}main{max-
 #installed li{display:flex;align-items:center;justify-content:space-between;gap:12px}
 #installed li>span{min-width:0;overflow-wrap:anywhere}
 #installed li .remove-content{flex:0 0 44px;width:44px;height:44px;min-height:44px;margin:0;padding:0;font-size:23px;line-height:1;display:flex;align-items:center;justify-content:center}
+
+.operation-state{padding:12px 16px;border-radius:6px;font-weight:700;border-left:5px solid #075d89;background:#e5edf3}.state-success{background:#e2f2e5;color:#18532a;border-color:#287b40}.state-error{background:#ffe9e4;color:#8c2619;border-color:#a33928}.state-queued{background:#fff1ce;color:#614c0a;border-color:#b18a15}#confirm [hidden]{display:none!important}

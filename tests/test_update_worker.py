@@ -91,3 +91,13 @@ class AutomaticUpdateTests(unittest.TestCase):
                     'percent':percent,'updated':now.isoformat()}))
                 self.assertTrue(progress(path)['label'].startswith(f'Verifying {percent}%:'))
             path.write_text('not json');self.assertEqual(progress(path)['label'],'Update status unavailable')
+
+class WorkerStartupRegression(unittest.TestCase):
+    def test_startup_does_not_reference_loop_asset(self):
+        from tools import update_worker as worker
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'dataark.yaml').write_text('example')
+            with patch.object(worker,'ROOT',root),patch.object(worker,'STATE',root/'state'),patch.object(worker,'run') as run,patch.object(worker,'report') as report:
+                self.assertEqual(worker.main(),0)
+                run.assert_called_once()
+                report.assert_not_called()

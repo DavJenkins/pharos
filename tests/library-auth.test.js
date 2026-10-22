@@ -13,9 +13,9 @@ function harness(){
     return {ok:!url.endsWith('/install')&&!url.endsWith('/unlock')||status===200,status,json:async()=>url.endsWith('/install')?{message:'Requested',detail:'Wrong password'}:inventory};
   }});
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../app/static/assets/js/library.js'),'utf8'),context);
-  const choose=()=>vm.runInContext('choose({title:"Example",repository_id:"example",release:"example.zim",bytes:100},"install")',context);
+  const choose=()=>vm.runInContext('choose({id:"example",title:"Example",repository_id:"example",release:"example.zim",bytes:100},"install")',context);
   const submit=()=>element('download-form').onsubmit({preventDefault(){}});
-  return {element,requests,choose,submit,hooks,setStatus:n=>status=n,expire:()=>{now+=16*60*1000;vm.runInContext('authUI()',context);}};
+  return {element,requests,choose,submit,hooks,follow:data=>{context.progressData=data;vm.runInContext("followDownload(progressData)",context);},setStatus:n=>status=n,expire:()=>{now+=16*60*1000;vm.runInContext('authUI()',context);}};
 }
 test('successful authentication is reused for another confirmed action',async()=>{
  const h=harness();h.choose();h.element('password').value='test-only-password';await h.submit();
@@ -23,7 +23,7 @@ test('successful authentication is reused for another confirmed action',async()=
  await h.submit();const r=h.requests.filter(r=>r.url.endsWith('/install'));assert.equal(r.length,2);assert.equal(r[0].options.headers.Authorization,r[1].options.headers.Authorization);assert.equal(h.element('password').value,'');
 });
 test('expired authentication prompts again',async()=>{
- const h=harness();h.choose();h.element('password').value='test';await h.submit();h.expire();assert.equal(h.element('password').required,true);assert.equal(h.element('password-row').hidden,false);
+ const h=harness();h.choose();h.element('password').value='test';await h.submit();h.expire();h.choose();assert.equal(h.element('password').required,true);assert.equal(h.element('password-row').hidden,false);
 });
 test('authentication rejection clears the cached credential',async()=>{
  const h=harness();h.choose();h.element('password').value='test';await h.submit();h.choose();h.setStatus(401);await h.submit();assert.equal(h.element('password').required,true);assert.equal(h.element('lock-library').hidden,true);
@@ -31,4 +31,11 @@ test('authentication rejection clears the cached credential',async()=>{
 test('explicit lock and navigation clear authentication',async()=>{
  const h=harness();h.choose();h.element('password').value='test';await h.submit();h.element('lock-library').onclick();assert.equal(h.element('password').required,true);
  h.element('password').value='test';await h.submit();h.hooks.pagehide();assert.equal(h.element('password').required,true);
+});
+
+test('queued, active, and completed downloads have distinct states',async()=>{
+ const h=harness();h.choose();h.element('password').value='test';await h.submit();assert.equal(h.element('operation-heading').textContent,'Download queued');
+ h.follow({installed:[],progress:{state:'downloading',label:'Downloading 25%'}});assert.equal(h.element('operation-heading').textContent,'Download in progress');
+ h.follow({installed:[{id:'example'}],progress:{state:'activating',label:'Activating'}});assert.equal(h.element('operation-heading').textContent,'Activating collection');
+ h.follow({installed:[{id:'example'}],progress:{state:'idle',label:'Idle'}});assert.equal(h.element('operation-heading').textContent,'Download complete');assert.equal(h.element('download').hidden,true);
 });

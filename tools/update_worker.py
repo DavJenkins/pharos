@@ -254,7 +254,6 @@ def main():
         except BlockingIOError:
             return 0
         try:
-            emit('archive_activated',asset_id=asset['id'],title=asset['title'])
             manifest_snapshot[0] = (ROOT / 'dataark.yaml').read_text(encoding='utf-8')
             run()
         except BlockingIOError:
