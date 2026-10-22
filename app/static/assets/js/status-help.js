@@ -21,12 +21,39 @@
         let allowAction = false;
         let pending = null;
         let pendingTimer = null;
+        function renderDetails(item, title) {
+            value.replaceChildren();
+            const strong = document.createElement("strong");
+            strong.className = "status-details-heading";
+            strong.textContent = item.name;
+            value.append(strong);
+            const list = document.createElement("dl");
+            list.className = "status-details-list";
+            const lines = (title || "Status unavailable").split("\n").map(line => line.trim()).filter(Boolean);
+            for (const line of lines.length > 1 ? lines.slice(1) : lines) {
+                const field = line.match(/^([^:]+):\s*(.*)$/);
+                if (field) {
+                    const label = document.createElement("dt");
+                    const content = document.createElement("dd");
+                    label.textContent = field[1].trim();
+                    content.textContent = field[2].trim() || "—";
+                    if (label.textContent === "State" && content.textContent === "ok") content.textContent = "Healthy";
+                    list.append(label, content);
+                } else {
+                    const note = document.createElement("dd");
+                    note.className = "status-details-note";
+                    note.textContent = line;
+                    list.append(note);
+                }
+            }
+            value.append(list);
+        }
         function render() {
             if (!selected) return;
             const item = items[selected], original = document.getElementById(selected);
             heading.textContent = item.name;
             description.textContent = item.description;
-            value.textContent = original.title || "Status unavailable";
+            renderDetails(item, original.title);
             value.hidden = !!item.url || !!item.toggle;
             document.getElementById("status-dialog-toggle-row").hidden = !item.toggle;
             if (item.toggle) {

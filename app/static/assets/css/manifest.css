@@ -197,3 +197,9 @@ body{background-image:none}
 .status-dialog-footer{display:flex;justify-content:flex-end;margin-top:1rem}
 .status-dialog-footer button{min-height:44px;padding:.6rem .9rem;border:1px solid #94a8b5;border-radius:6px;font:inherit;background:#e5edf3;color:#234a62;cursor:pointer}
 .status-dialog-footer button:focus-visible{outline:2px solid #075d89;outline-offset:2px}
+
+#status-dialog-value{white-space:normal;overflow-wrap:anywhere}
+.status-details-heading{display:block;font-weight:700;font-size:1rem;margin-bottom:.55rem}
+.status-details-list{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:.35rem .8rem;margin:0 0 0 .75rem;line-height:1.45}
+.status-details-list dt{font-weight:600;margin:0}.status-details-list dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.status-details-list .status-details-note{grid-column:1/-1}
