@@ -23,10 +23,6 @@
         let pendingTimer = null;
         function renderDetails(item, title) {
             value.replaceChildren();
-            const strong = document.createElement("strong");
-            strong.className = "status-details-heading";
-            strong.textContent = item.name;
-            value.append(strong);
             const list = document.createElement("dl");
             list.className = "status-details-list";
             const lines = (title || "Status unavailable").split("\n").map(line => line.trim()).filter(Boolean);
