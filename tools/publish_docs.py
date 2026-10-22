@@ -38,6 +38,7 @@ def markdown_to_html(text):
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Data Ark Documentation</title>
 
 <style>
@@ -45,6 +46,8 @@ def markdown_to_html(text):
 body{
     max-width:900px;
     margin:40px auto;
+    padding:0 1rem;
+    overflow-wrap:anywhere;
     font-family:Arial,Helvetica,sans-serif;
     background:#202124;
     color:#e8e8e8;

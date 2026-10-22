@@ -1,30 +1,14 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Data Ark — Offline Content</title>
-<style>
-body{font:18px/1.6 system-ui,sans-serif;max-width:860px;margin:2rem auto;padding:0 1rem;background:#faf8f2;color:#202c35}
-h1,h2{color:#154b49}a{color:#075d89}.primary{display:inline-block;background:#154b49;color:white;padding:.8rem 1.2rem;border-radius:.4rem;text-decoration:none}
-section{padding:1rem 0;border-bottom:1px solid #ddd}code{overflow-wrap:anywhere}nav{font-size:.9rem}
-</style></head><body>
-<nav><a href="/">Dashboard</a> · <a href="/docs/">Documentation</a></nav>
-<h1>Your offline library</h1>
-<p>The content lives on the Ark’s SSD. Read it here, copy it to another device, or take the drive with you.</p>
-<section><h2>Read in your browser</h2>
-<p>Browse the ZIM archives you have added to this Ark. The available titles depend on your collection.</p>
-<a class="primary" data-kiwix href="http://dataark:8080/">Open Kiwix library</a></section>
-<section><h2>Browse and download original files</h2>
-<p>Download ZIM archives or documents to keep a local copy. Large archives may take considerable time and space.</p>
-<p><a href="/library-files/START-HERE.html">Content catalog and reader instructions</a> · <a href="/library-files/BROWSE.html">Browse SSD files</a></p></section>
-<section><h2>Use a file manager</h2>
-<p>Windows File Explorer: <code id="windows-share">\\dataark\Offline-Archives</code></p>
-<p>macOS Finder → Go → Connect to Server: <code id="mac-share">smb://dataark/Offline-Archives</code></p>
-<p>The library share is read-only. Use your Samba account if your computer requires sign-in.
-The separate <code>Bugout-Staging</code> share remains the upload area.</p></section>
-<section><h2>Use the SSD without the Pi</h2>
-<p>Shut the Pi down cleanly, wait for shutdown, then disconnect the SSD. Attach it to another computer and open the
-<code>OfflineRepo</code> volume. Start with <code>START-HERE.html</code> or <code>README-DATA-ARK.txt</code>.</p>
-<p>The SSD uses exFAT. Keep the original files; do not reformat it. Open ZIM archives using a compatible Kiwix reader.
-The catalog identifies any Windows reader programs present; keep compatible readers for the devices you intend to use.</p></section>
-<p>Online reference links remain on the dashboard for when internet access is available.</p>
-<script src="/assets/js/content-links.js"></script>
-</body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Data Ark — Access your content</title>
+<style>body{font:18px/1.6 system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#faf8f2;color:#202c35}h1,h2{color:#154b49}a{color:#075d89}.primary{display:inline-block;background:#154b49;color:white;padding:.8rem 1.2rem;border-radius:.4rem;text-decoration:none}section{padding:1rem 0;border-bottom:1px solid #ddd}code{overflow-wrap:anywhere}nav{font-size:.9rem}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{padding:.65rem;text-align:left;vertical-align:top;border-bottom:1px solid #ccc}.table-wrap{overflow-x:auto}</style></head><body>
+<nav><a href="/">Dashboard</a> · <a href="/docs/SUMMARY.html">Documentation</a></nav>
+<h1>Access your content</h1><p>Read the public library on the Ark, copy it to another device, or use the SSD directly. The content available depends on what is installed. Reading and copying require no caretaker password.</p>
+<section><h2>Read in your browser</h2><p>Kiwix serves installed ZIM archives over the local network. Choose a collection on the landing page or open the library below.</p><a class="primary" data-kiwix href="http://dataark:8080/">Open Kiwix library</a><p><a href="/library-files/maps/index.html">Local map collection</a> · <a href="/docs/SUMMARY.html">Offline help</a></p>
+<div class="table-wrap"><table><thead><tr><th>Content</th><th>How to view it</th></tr></thead><tbody><tr><td>Wikipedia, WikiMed, technical Q&amp;A, iFixit and installed Gutenberg ZIMs</td><td>Kiwix in your browser; a compatible Kiwix application for a copied archive.</td></tr><tr><td>PDF maps and documents</td><td>A PDF-capable browser or separate PDF reader.</td></tr><tr><td>Flood and parcel GIS ZIPs</td><td>Download, extract, and use compatible GIS software. The Ark does not currently provide an interactive browser viewer for these datasets.</td></tr><tr><td>Portable utilities</td><td>Use an application compatible with your operating system. Copy the entire Windows kiwix-viewer folder, not just its executable.</td></tr><tr><td>Household backup snapshots</td><td>Download and restore with the relevant archive/decryption tools and permissions. They are not automatically rendered by Kiwix.</td></tr></tbody></table></div><p>A reachable collection link does not prove every article or image has been tested. A queued archive is not available until verification and activation complete.</p></section>
+<section><h2>Download original files over HTTP</h2><p><a href="/library-files/START-HERE.html">Content catalog and reader instructions</a> · <a href="/library-files/BROWSE.html">Browse SSD files</a></p><p>Use the browser's download command or a download client. Large archives need sufficient destination space. A client that supports HTTP resume can resume transfers when the file and server permit it. Online source links require internet; local file links use this Ark.</p></section>
+<section><h2>Copy with a file manager — SMB</h2><p>Windows File Explorer: <code id="windows-share">\\dataark\Offline-Archives</code></p><p>macOS Finder → Go → Connect to Server: <code id="mac-share">smb://dataark/Offline-Archives</code></p><p>The library share is read-only. Guest access depends on your device's policy; use an authorized Samba account if required. The separate Bugout-Staging share is an upload area, not the anonymous library. Samba credentials are separate from the caretaker password.</p></section>
+<section><h2>Anonymous read-only FTP</h2><p>Use an FTP client with host <code data-ark-host>dataark</code>, port <code>21</code>, username <code>anonymous</code>, no password, and passive mode. Open the <code>/library</code> folder.</p><p>FTP supports public file downloads and resumable transfers. Upload, rename and deletion are disabled; private and staging directories are excluded. No account is needed. Most current web browsers do not include an FTP client; use a dedicated client or HTTP downloads instead.</p></section>
+<section><h2>Administrator transfers — SFTP and rsync over SSH</h2><p>SFTP is available through the existing SSH service at <code data-ark-host>dataark</code>, port <code>22</code>. Sign in with an authorized Pi account and use <code>/mnt/storage</code>. Its account permissions apply; this is not anonymous access.</p><p>Administrators can also pull files using rsync over SSH for resumable or scripted copying. There is no anonymous rsync daemon. SSH authentication is separate from the library's shared caretaker password. Ordinary readers should use HTTP, SMB, or anonymous FTP.</p></section>
+<section><h2>Use the SSD without the Pi</h2><p>Have a caretaker shut the Pi down cleanly, wait for shutdown, then disconnect the SSD. Attach it to another computer and open the <code>OfflineRepo</code> volume. Start with <code>START-HERE.html</code> or <code>README-DATA-ARK.txt</code>.</p><p>The SSD uses exFAT. Do not reformat it. ZIMs, PDFs, GIS files and program packages still need suitable software on the receiving computer. Keep reader dependencies together.</p></section>
+<section><h2>Add or remove a collection</h2><p>Use Settings → System → Manage Library on the landing page. Caretaker authentication protects changes to the shared collection; copying public content does not require it. Removal retains supported source information for later reinstatement.</p><p><a href="/docs/20-Administration/Library.html">Library management guide</a></p></section>
+<script src="/assets/js/content-links.js"></script></body></html>

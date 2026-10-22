@@ -9,28 +9,8 @@ Nested resource sections are implemented in the central manifest. They are a dis
 Still pending: HA connection credentials and package installation, live source/encryption/HA acceptance tests, UPS/power-budget telemetry, application-specific quiesce/export hooks, removable-media export, hardware/GPIO triggers, shutdown/eject policy and retention policy. No door, light or other physical-device actions are configured automatically.
 
 
-## Library selection workflow
+## Library management status
 
-Requested on October 22, 2026: keep the landing page focused on verified local collections. Add a separate Manage library view listing available collections with language, coverage, release date, download size, and installation status, with explicit download actions. A completed download must be registered, verified, activated in its reader, and then represented on the landing page automatically. Candidate collections include English Project Gutenberg books and suitable OpenStreetMap-derived offline map packages; neither is currently installed as a collection. The existing Massachusetts map references remain available separately. The selection/download management screen is planned, not yet implemented.
+Implemented October 22, 2026: Manage Library in the System pop-up; installed/pending/removed inventory; free-space and full updater status; curated English Gutenberg download requests; password-protected removal and reinstatement; retained sources for pre-seeded archives; page-memory caretaker authentication; lifecycle diagnostics; and anonymous read-only FTP. See [Library management](Library.md) for current behavior.
 
-## Manage Library implementation
-
-The local `/library.html` page now lists installed assets, pending archives, free storage and full updater activity. The curated publisher check offers English Project Gutenberg release/size metadata. OpenStreetMap and USA.gov remain clearly marked references, not installed collections. OSM region/package/reader selection is still planned.
-
-Downloads require the existing network administration password and the fixed-scope helper installed with `sudo venv/bin/python deploy/install_library.py` after administrator approval. It accepts only the curated collection ID and displayed release/size, rechecks publisher metadata and disk space under the worker lock, and passes installation to the existing checksum/activation worker. No arbitrary download URLs or filesystem paths are accepted. The installer grants admin passwordless execution of this helper only, with no command-line arguments. Without this helper the page remains read-only and says setup is required.
-
-### Content removal authorization
-
-Removing installed content must require the same Ark administration password as downloads, plus explicit confirmation identifying the collection to be removed. Browsing remains public. No removal endpoint or delete control currently exists; the download helper does not accept removal actions. Automatic replacement of a verified archive by the existing updater remains part of the update transaction.
-
-### Removal and reinstatement implemented
-
-Manage Library is linked from the System status pop-up. Installed registered files have a Remove action: the confirmation names the item and its size and requires the shared caretaker password. Removal retains source metadata, marks the asset removed, disables its automatic updates, refreshes Kiwix and the published catalogue, then frees the file only after successful publication. A durable journal rolls back an interrupted uncommitted removal before the updater runs. Removed archives appear under Not installed with a password-protected Reinstate action that uses their original supported Kiwix series, verifies the downloaded release, and re-enables updates. This applies to pre-seeded archives too. Utilities without an automatic adapter retain their original package link for manual restoration. Removal acts on the registered file, not unrelated files or whole directories.
-
-Public collection requests and storage-based approval policy remain planned; downloads and reinstatement currently require the caretaker password.
-
-Library management now remembers successful caretaker authentication in page memory only, for 15 minutes after the last successful management action. It is cleared on reload/navigation, an authentication rejection, or Lock library management. Each removal still needs explicit confirmation. No credential is written to browser storage or cookies.
-
-### Library diagnostics
-
-Library events use the existing `/var/lib/ark/events.log` stream, exposed through `/api/events`. Entries include authentication acceptance/rejection, action, registered collection name, a correlation value, elapsed seconds, outcome, freed bytes, errors and rollback/recovery results. Detailed removal stages and coarse download/verification progress are emitted only while Debug is on. Basic operation outcomes remain available with Debug off. Request bodies, passwords and authorization headers are excluded. Logging I/O failures do not interrupt content operations.
+Still planned: public collection requests and storage-sensitive caretaker approval, OpenStreetMap region/package/reader selection, and a browser viewer for specialized GIS datasets. Utilities without an automatic adapter retain a source link for manual restoration. The existence of a reference link does not establish offline installation.

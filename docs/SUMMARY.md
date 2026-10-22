@@ -20,6 +20,7 @@
 - [Household Bugout Backups](20-Administration/Bugout.md)
 - [Reliability acceptance tests](20-Administration/AcceptanceTests.md)
 - [AP Welcome Portal](20-Administration/Portal.md)
+- [Library management and distribution](20-Administration/Library.md)
 - [Central Asset Manifest](20-Administration/Manifest.md)
 - [Local reference maps](20-Administration/Maps.md)
 - [Project status: October 21, 2026](20-Administration/ProjectStatus-2026-10-21.md)

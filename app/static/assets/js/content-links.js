@@ -10,3 +10,5 @@ const windows = document.getElementById("windows-share");
 const mac = document.getElementById("mac-share");
 if (windows) windows.textContent = "\\\\" + location.hostname + "\\Offline-Archives";
 if (mac) mac.textContent = "smb://" + location.hostname + "/Offline-Archives";
+
+document.querySelectorAll("[data-ark-host]").forEach(node=>node.textContent=location.hostname);

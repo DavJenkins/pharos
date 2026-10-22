@@ -48,3 +48,11 @@ Record device/OS, date, expected result, actual result, and relevant status outp
 8. **Missing SSD / interrupted updates:** exercise on a spare appliance or disposable storage. Ensure no content is written into the unmounted mount-point directory, old content survives update failure, and status identifies recovery work. Do not pull a live production SSD to simulate failure.
 
 Retention limits, UPS behavior and application-specific database consistency need agreed policies and implementations before acceptance criteria can be finalized.
+
+## October 22 viewer and distribution audit
+
+Anonymous FTP was tested on loopback and from the desktop LAN: public listing, small-file retrieval and resume succeeded; uploads and entry into staging/private directories were rejected. Documentation and local map indexes returned HTTP 200. These checks do not establish client compatibility for every content format.
+
+Kiwix catalogue and homepage were reachable, but collection-page requests timed out during the live audit while Gutenberg was downloading. Restarting the reader temporarily reset connections; its homepage returned afterward, while archive-page timeouts remained reproducible. A process was observed waiting on SSD reads. This does not establish a disk fault or prove the download caused it; reader performance and article/image access remain unresolved acceptance items. Do not treat a successful catalogue probe as proof of usable article access.
+
+The map audit found 59 topographic PDFs, one flood GIS ZIP, and 114 parcel GIS ZIPs. Collection indexes are linked from the landing page, but GIS ZIPs require external software. No integrated browser GIS viewer is currently provided. The Windows reader package is present; execution on Windows and compatibility with other operating systems are separate acceptance checks.
