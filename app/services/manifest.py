@@ -409,6 +409,8 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
     asset_rows = {}
     compiled_assets = []
     for asset in data.get('assets', []):
+        if asset.get('removed'):
+            continue
         local = inside(root, asset['relative_path'])
         available = local.is_file() or local.is_dir()
         art = prepare_artwork(asset.get('artwork'), manifest_path.parent, destination, cache, refresh_artwork)

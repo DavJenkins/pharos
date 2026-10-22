@@ -5,7 +5,7 @@
         "wifi-button": {name:"Wi-Fi", description:"The Wi-Fi network the Ark uses to reach the internet.", settings:"/config/wifi.html", settingsLabel:"Change upstream Wi-Fi"},
         "ap-button": {name:"Hotspot", description:"The DataArk Wi-Fi network your devices join to use the Ark.", settings:"/config/system.html", settingsLabel:"Change hotspot settings"},
         "portal-continue": {name:"Internet pass-through", description:"Allow this device to reach the internet through the Ark. This does not change access for other devices. Permission lasts up to six hours and resets when the Ark restarts.", toggle:true},
-        "system-button": {name:"System", description:"The Ark's health, platform, and running time."},
+        "system-button": {name:"System", description:"The Ark's health, platform, and running time.", settings:"/library.html", settingsLabel:"Manage Library"},
         "refresh-button": {name:"Auto refresh", description:"Update the displayed dashboard status every five seconds. Pausing this does not stop the Ark's services.", toggle:true},
         "debug-button": {name:"Debug", description:"Record diagnostic information for troubleshooting. Portal monitoring runs only while Debug is on. Logs stay on this Ark, rotate automatically, and include known portal-check DNS names.", toggle:true},
     };

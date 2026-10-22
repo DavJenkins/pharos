@@ -16,6 +16,17 @@ def catalogue():
 
 @router.post('/install')
 async def install(request: Request):
+    return await mutation(request,'install')
+
+@router.post('/remove')
+async def remove(request: Request):
+    return await mutation(request,'remove')
+
+@router.post('/restore')
+async def restore(request: Request):
+    return await mutation(request,'restore')
+
+async def mutation(request: Request, action: str):
     if not await run_in_threadpool(authorized, request.headers.get('authorization','')[:2049]):
         raise HTTPException(401, 'Enter the Ark administration password used for network settings.')
     if request.headers.get('content-type','').split(';')[0] != 'application/json':
@@ -27,8 +38,11 @@ async def install(request: Request):
             raise HTTPException(413, 'Request too large')
     try:
         payload=json.loads(body)
-        if not isinstance(payload,dict) or set(payload)!={'repository_id','release','bytes'}:
+        fields={'install':{'repository_id','release','bytes'},'remove':{'asset_id','relative_path','bytes'},'restore':{'asset_id'}}
+        if not isinstance(payload,dict) or set(payload)!=fields[action]:
             raise ValueError('Invalid library request')
+        if action!='install':
+            payload['action']=action
         return await run_in_threadpool(library.install,payload)
     except (ValueError, OSError) as error:
         raise HTTPException(400,str(error)) from None

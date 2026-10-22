@@ -1,5 +1,5 @@
 #!/opt/dataark/venv/bin/python
-"""Fixed-scope authenticated library install boundary; no caller URLs or paths."""
+"""Fixed-scope authenticated library management boundary; no caller URLs or paths."""
 import fcntl
 import json
 import subprocess
@@ -24,7 +24,7 @@ def register(payload):
         except BlockingIOError:
             raise ValueError('Another update is running. Wait for it to finish and retry.') from None
         data=load_manifest(ROOT/'dataark.yaml')
-        if any(a['repository_id']==repo for a in data['assets']):
+        if any(a['repository_id']==repo and not a.get('removed') for a in data['assets']):
             return {'message':'This collection is already registered. Its download will resume automatically when the Ark is online.'}
         mount=Path(data['system']['base_mount'])
         if not mount.is_mount():
@@ -43,8 +43,10 @@ def register(payload):
         repository['enabled']=True
         repository['description']=spec['description']
         repository['links'].insert(0,{'title':'Read books (local)','service':'kiwix','path':'/#name='+spec['prefix'].rstrip('_')})
+        data['assets']=[a for a in data['assets'] if not (a['repository_id']==repo and a.get('removed'))]
         data['assets'].append(asset)
-        content=yaml.safe_dump(data,sort_keys=False,allow_unicode=True)
+        from tools.library_removal import serialize
+        content=serialize(data)
         import tempfile
         with tempfile.NamedTemporaryFile(mode='w',suffix='.yaml',dir=ROOT,delete=False) as check:
             check.write(content)
@@ -62,7 +64,13 @@ if __name__=='__main__':
         value=sys.stdin.read(2049)
         if len(value)>2048:
             raise ValueError('Request too large')
-        print(json.dumps(register(json.loads(value))))
+        payload=json.loads(value)
+        if isinstance(payload,dict) and payload.get('action') in ('remove','restore'):
+            from tools.library_removal import remove, restore
+            result=(remove if payload['action']=='remove' else restore)(payload)
+        else:
+            result=register(payload)
+        print(json.dumps(result))
     except Exception as error:
         print(str(error))
         raise SystemExit(1)

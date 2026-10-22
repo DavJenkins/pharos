@@ -177,6 +177,9 @@ def download(item, staging, title):
 
 
 def run():
+    from tools.library_removal import recover
+    recover()
+    manifest_snapshot[0] = (ROOT / 'dataark.yaml').read_text(encoding='utf-8')
     data = load_manifest(ROOT / 'dataark.yaml')
     if data['system']['base_mount'] != '/mnt/storage':
         raise ValueError('This Kiwix deployment requires base_mount /mnt/storage.')
@@ -204,7 +207,7 @@ def run():
     import fcntl
     checked_any = False
     for asset in data['assets']:
-        if asset['repository_id'] not in enabled or not eligible(asset, history.get(asset['id'], 0), time.time()):
+        if asset.get('removed') or asset['repository_id'] not in enabled or not eligible(asset, history.get(asset['id'], 0), time.time()):
             continue
         checked_any = True
         report('checking', asset['title'])

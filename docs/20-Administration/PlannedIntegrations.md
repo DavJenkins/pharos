@@ -22,3 +22,9 @@ Downloads require the existing network administration password and the fixed-sco
 ### Content removal authorization
 
 Removing installed content must require the same Ark administration password as downloads, plus explicit confirmation identifying the collection to be removed. Browsing remains public. No removal endpoint or delete control currently exists; the download helper does not accept removal actions. Automatic replacement of a verified archive by the existing updater remains part of the update transaction.
+
+### Removal and reinstatement implemented
+
+Manage Library is linked from the System status pop-up. Installed registered files have a Remove action: the confirmation names the item and its size and requires the shared caretaker password. Removal retains source metadata, marks the asset removed, disables its automatic updates, refreshes Kiwix and the published catalogue, then frees the file only after successful publication. A durable journal rolls back an interrupted uncommitted removal before the updater runs. Removed archives appear under Not installed with a password-protected Reinstate action that uses their original supported Kiwix series, verifies the downloaded release, and re-enables updates. This applies to pre-seeded archives too. Utilities without an automatic adapter retain their original package link for manual restoration. Removal acts on the registered file, not unrelated files or whole directories.
+
+Public collection requests and storage-based approval policy remain planned; downloads and reinstatement currently require the caretaker password.
