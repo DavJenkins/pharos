@@ -1,3 +1,8 @@
 body{margin:0;background:#f4f3eb;color:#243a4b;font:16px/1.5 system-ui}main{max-width:850px;margin:auto;padding:24px}a{color:#075d89}section{background:#fffdf7;border:1px solid #94a8b5;border-radius:10px;padding:20px;margin:20px 0}h1,h2,h3{line-height:1.25}h2{font-size:1.3rem}li{margin:.65rem 0;overflow-wrap:anywhere}article+article{border-top:1px solid #94a8b5;margin-top:20px;padding-top:12px}button,input{font:inherit;min-height:44px;box-sizing:border-box}button{padding:8px 16px;background:#e5edf3;border:1px solid #94a8b5;border-radius:6px;color:#234a62;cursor:pointer}button:disabled{opacity:.6;cursor:default}dialog{max-width:min(32rem,90vw);box-sizing:border-box;border:1px solid #94a8b5;border-radius:10px;background:#f4f3eb;color:#243a4b;padding:24px}dialog::backdrop{background:#10223188}input{display:block;width:100%;margin-top:8px}.actions{display:flex;justify-content:flex-end;gap:12px;margin-top:20px}#activity,#detail,#result{overflow-wrap:anywhere}#activity{font-weight:600}
 
 #installed li,#removed li{padding:.5rem 0;border-bottom:1px solid #d3dce2}#installed li button,#removed li button{margin:.4rem 0 .2rem .6rem}
+
+/* Keep removal controls in one predictable column, including on phones. */
+#installed li{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#installed li>span{min-width:0;overflow-wrap:anywhere}
+#installed li .remove-content{flex:0 0 44px;width:44px;height:44px;min-height:44px;margin:0;padding:0;font-size:23px;line-height:1;display:flex;align-items:center;justify-content:center}
