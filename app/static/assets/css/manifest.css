@@ -166,3 +166,12 @@ body{background-image:none}
 .ark-settings>summary::after{display:none}
 .ark-settings-content{grid-column:1/-1;grid-row:2;width:100%;box-sizing:border-box}
 .ark-settings:not([open])>.ark-settings-content{display:none}
+
+/* The expanded details content spans the box; only the gear sits beside status. */
+.dashboard-top .status-bar{display:block;width:170px;max-width:100%;padding:6px 8px;min-height:56px}
+.status-bar>.status-controls{display:grid;width:100%;box-sizing:border-box;padding-right:48px;gap:.15rem;min-height:42px;align-content:center}
+.status-bar .ark-settings{display:block;width:100%;font-size:.85rem}
+.status-bar .ark-settings>summary{position:absolute;top:5px;right:5px;width:44px;height:44px}
+.status-bar .ark-settings-content{display:block;width:100%;padding-top:10px}
+.status-bar .ark-settings:not([open])>.ark-settings-content{display:none}
+.dashboard-top .status-bar:has(.ark-settings[open]){width:300px}
