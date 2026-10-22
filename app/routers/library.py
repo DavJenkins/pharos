@@ -14,6 +14,15 @@ def inventory():
 def catalogue():
     return library.catalogue()
 
+@router.post('/unlock')
+async def unlock(request: Request):
+    await check_password(request)
+    return {'message':'Library management unlocked.'}
+
+async def check_password(request: Request):
+    if not await run_in_threadpool(authorized, request.headers.get('authorization','')[:2049]):
+        raise HTTPException(401, 'Password not accepted. Use the Ark caretaker password used for network settings, rather than the Wi-Fi password or Pi login password.')
+
 @router.post('/install')
 async def install(request: Request):
     return await mutation(request,'install')
@@ -27,8 +36,7 @@ async def restore(request: Request):
     return await mutation(request,'restore')
 
 async def mutation(request: Request, action: str):
-    if not await run_in_threadpool(authorized, request.headers.get('authorization','')[:2049]):
-        raise HTTPException(401, 'Enter the Ark administration password used for network settings.')
+    await check_password(request)
     if request.headers.get('content-type','').split(';')[0] != 'application/json':
         raise HTTPException(415, 'JSON required')
     body = bytearray()

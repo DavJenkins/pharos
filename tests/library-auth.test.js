@@ -10,7 +10,7 @@ function harness(){
   const context=vm.createContext({document:{getElementById:element,createElement:()=>element(Symbol())},window:{addEventListener:(n,f)=>hooks[n]=f},TextEncoder,btoa:s=>Buffer.from(s,'binary').toString('base64'),Date:{now:()=>now},setInterval(){},fetch:async(url,options={})=>{
     requests.push({url,options});
     const inventory={downloads_enabled:true,storage_ready:true,free_bytes:100,installed:[],pending:[],removed:[],progress:{label:'Idle'}};
-    return {ok:!url.endsWith('/install')||status===200,status,json:async()=>url.endsWith('/install')?{message:'Requested',detail:'Wrong password'}:inventory};
+    return {ok:!url.endsWith('/install')&&!url.endsWith('/unlock')||status===200,status,json:async()=>url.endsWith('/install')?{message:'Requested',detail:'Wrong password'}:inventory};
   }});
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../app/static/assets/js/library.js'),'utf8'),context);
   const choose=()=>vm.runInContext('choose({title:"Example",repository_id:"example",release:"example.zim",bytes:100},"install")',context);
