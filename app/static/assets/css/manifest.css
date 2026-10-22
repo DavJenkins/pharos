@@ -191,3 +191,9 @@ body{background-image:none}
 
 .control-group-heading{margin:.65rem 0 .5rem;font:600 12px/1.3 system-ui;color:#294761;text-align:left}
 .control-group-divider{border:0;border-top:2px solid #294761;margin:.85rem 0 .5rem}
+
+.status-dialog-actions #status-dialog-toggle-row{display:flex;align-items:center;gap:.65rem;min-height:44px;font:inherit;cursor:pointer}
+.status-dialog-actions #status-dialog-action{width:22px;height:22px;margin:0;accent-color:#234a62;flex-shrink:0}
+.status-dialog-footer{display:flex;justify-content:flex-end;margin-top:1rem}
+.status-dialog-footer button{min-height:44px;padding:.6rem .9rem;border:1px solid #94a8b5;border-radius:6px;font:inherit;background:#e5edf3;color:#234a62;cursor:pointer}
+.status-dialog-footer button:focus-visible{outline:2px solid #075d89;outline-offset:2px}

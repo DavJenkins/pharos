@@ -68,7 +68,7 @@ Run `sudo python3 deploy/install_portal.py` followed by `sudo python3 deploy/ins
 
 ## Debug-controlled discovery diagnostics
 
-The Settings gear groups Connections, Access and monitoring, and Support tools. All nine icons open a dialog first. Internet access, Auto refresh, and Debug change state only through the button inside their dialog. Desktop hover descriptions remain available. Upstream Wi-Fi and hotspot configuration links appear in their respective dialogs.
+The Settings gear groups Connections, Access and monitoring, and Support tools. Seven status/control icons open a dialog first; Help and Developer API navigate directly. Internet access, Auto refresh, and Debug change state only through the checkbox inside their dialog. Close is positioned at the lower right in every dialog. Desktop hover descriptions remain available. Upstream Wi-Fi and hotspot configuration links appear in their respective dialogs.
 
 The optional `dataark-portal-monitor.service` follows `/var/lib/ark/debug_status`, the existing Debug setting. With Debug off it runs an idle supervisor without tcpdump; with Debug on it captures AP address assignment, ARP, known captive-portal DNS queries, and HTTP connection establishment/reset metadata. It does not record HTTP bodies, passwords, or general DNS names. Logs are local, root-readable, and rotate across four files of approximately 1 MiB each in `/var/log/dataark-portal-monitor/`. The service is limited to 5% of one CPU and 64 MiB of memory; these are limits, not measured typical consumption.
 
