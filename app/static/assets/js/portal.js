@@ -25,21 +25,21 @@
         button.title = state.enabled ? "Internet access for this device is on. Tap to turn off." :
             state.upstream_online ? "Enable internet access for this device (up to six hours)." : "No upstream internet connection.";
         button.setAttribute("aria-label", "Internet access " + indicator.textContent + ". " + button.title);
-        button.setAttribute("aria-pressed",String(state.enabled));
-        button.setAttribute("aria-disabled", String(!state.enabled && !state.upstream_online));
+        button.setAttribute("data-enabled",String(state.enabled));
+        button.setAttribute("data-action-disabled", String(!state.enabled && !state.upstream_online));
         message.textContent = state.upstream_online ?
             (state.enabled ? "Using the Ark's internet connection." : "The Ark is online. Enable access for this device if needed.") :
             "The Ark is offline. Local content remains available.";
     }
     function unavailable() {
         state = null;
-        button.setAttribute("aria-disabled", "true");
+        button.setAttribute("data-action-disabled", "true");
         indicator.textContent = "?";
         button.classList.remove("on", "off");
         button.classList.add("error");
         button.title = "Internet access status unavailable. Local content remains available.";
         button.setAttribute("aria-label", button.title);
-        button.removeAttribute("aria-pressed");
+        button.removeAttribute("data-enabled");
         message.textContent = "Could not read internet access status. Local content remains available.";
     }
     async function update() {

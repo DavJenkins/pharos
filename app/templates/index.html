@@ -35,8 +35,9 @@
 <details id="ark-settings" class="ark-settings">
 <summary aria-label="Settings" title="Settings">⚙</summary>
 <div class="ark-settings-content">
-<p class="settings-hint">Tap a status icon for details. Internet access is for this device only.</p>
-<div class="status-tiles" aria-label="System controls">
+<p class="settings-hint">Tap an icon for details and controls.</p>
+<h2 class="control-group-heading">Connections</h2>
+<div class="status-tiles" aria-label="Connections">
 <div class="status-tile"><button id="eth-button"
         class="status-button off"
         title="Ethernet">
@@ -63,7 +64,11 @@
 
 </button><span class="control-label">Hotspot</span></div>
 
-<div class="status-tile"><button id="portal-continue" class="status-button off" type="button" aria-disabled="true" aria-label="Internet access unavailable" title="Checking internet access">
+</div>
+<hr class="control-group-divider">
+<h2 class="control-group-heading">Access and monitoring</h2>
+<div class="status-tiles" aria-label="Access and monitoring">
+<div class="status-tile"><button id="portal-continue" class="status-button off" type="button" aria-label="Internet access unavailable" title="Checking internet access">
 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h16m-4-4 4 4-4 4M21 17H5m4-4-4 4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 <span id="portal-state">--</span>
 </button><span class="control-label">Internet access</span></div>
@@ -82,23 +87,23 @@
 
 🔄
 
-</button><span class="control-label">Refresh</span></div>
+</button><span class="control-label">Auto refresh</span></div>
 
-<div class="status-tile"><a class="status-button"
-   href="/docs/"
-   title="Documentation">
+</div>
+<hr class="control-group-divider">
+<h2 class="control-group-heading">Support tools</h2>
+<div class="status-tiles" aria-label="Support tools">
+<div class="status-tile"><button type="button" id="docs-button" class="status-button" title="Documentation">
 
 📖
 
-</a><span class="control-label">Help</span></div>
+</button><span class="control-label">Help</span></div>
 
-<div class="status-tile"><a class="status-button"
-   href="/api/docs"
-   title="REST API">
+<div class="status-tile"><button type="button" id="api-button" class="status-button" title="REST API">
 
 📘
 
-</a><span class="control-label">Developer API</span></div>
+</button><span class="control-label">Developer API</span></div>
 
 <div class="status-tile"><button id="debug-button"
         class="status-button off"
@@ -108,12 +113,15 @@
 
 </button><span class="control-label">Debug</span></div>
 </div>
-<section id="status-detail" class="status-detail" hidden aria-labelledby="status-detail-heading"><h2 id="status-detail-heading"></h2><p id="status-detail-description"></p><p id="status-detail-value"></p><button id="status-detail-close" type="button">Close details</button></section>
+<dialog id="status-dialog" aria-labelledby="status-dialog-heading" aria-describedby="status-dialog-description">
+<h2 id="status-dialog-heading"></h2>
+<p id="status-dialog-description"></p>
+<p id="status-dialog-value"></p>
+<div class="status-dialog-actions"><button id="status-dialog-action" type="button" hidden></button><a id="status-dialog-link" hidden></a><button id="status-dialog-close" type="button">Close</button></div>
+</dialog>
 <p id="portal-message" class="visually-hidden" role="status"></p>
 
-<details class="network-settings"><summary>Network settings</summary>
-<nav aria-label="Network settings"><a href="/config/wifi.html">Upstream Wi-Fi</a>
-<a href="/config/system.html">Access point settings</a></nav></details>
+
 </div>
 </details>
 

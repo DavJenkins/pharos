@@ -64,3 +64,14 @@ Inspect sudo nft list table inet dataark_forward and systemctl status dataark-pa
 ## Upgrade from DNS-based detection
 
 Run `sudo python3 deploy/install_portal.py` followed by `sudo python3 deploy/install_pass_through.py`. The first installs the dedicated redirect listener and removes detection-host DNS overrides; the second installs HTTP interception and resets opt-ins to Off. Each installer prints its own backup/rollback command and performs native configuration checks before activation. No Wi-Fi, NetworkManager or Docker restart is required. Reconnect the test phone to clear connection state, then verify the sign-in prompt and both pass-through settings. If undoing both steps, roll back pass-through first, then the portal, using the backups from this upgrade.
+
+
+## Debug-controlled discovery diagnostics
+
+The Settings gear groups Connections, Access and monitoring, and Support tools. All nine icons open a dialog first. Internet access, Auto refresh, and Debug change state only through the button inside their dialog. Desktop hover descriptions remain available. Upstream Wi-Fi and hotspot configuration links appear in their respective dialogs.
+
+The optional `dataark-portal-monitor.service` follows `/var/lib/ark/debug_status`, the existing Debug setting. With Debug off it runs an idle supervisor without tcpdump; with Debug on it captures AP address assignment, ARP, known captive-portal DNS queries, and HTTP connection establishment/reset metadata. It does not record HTTP bodies, passwords, or general DNS names. Logs are local, root-readable, and rotate across four files of approximately 1 MiB each in `/var/log/dataark-portal-monitor/`. The service is limited to 5% of one CPU and 64 MiB of memory; these are limits, not measured typical consumption.
+
+Install with `sudo python3 deploy/install_portal_monitor.py`. Stop permanently with `sudo systemctl disable --now dataark-portal-monitor.service`. Previously captured logs are retained when Debug is off and remain bounded; they are not deleted by toggling Debug.
+
+To investigate a missed Android sign-in prompt, record the approximate failure time, then inspect the rotating logs alongside Apache access/error logs and service status. A fresh forget/rejoin with upstream online was observed to prompt sign-in and open the dashboard. Offline discovery remains a separate unverified test.

@@ -175,3 +175,19 @@ body{background-image:none}
 .status-bar .ark-settings-content{display:block;width:100%;padding-top:10px}
 .status-bar .ark-settings:not([open])>.ark-settings-content{display:none}
 .dashboard-top .status-bar:has(.ark-settings[open]){width:300px}
+
+.status-tile .control-help{display:flex;align-items:center;justify-content:center;min-height:44px;width:100%;padding:2px;border:0;border-radius:4px;background:transparent;color:#294761;font:600 11px/1.25 system-ui;cursor:pointer;text-align:center}
+.control-help:hover,.control-help:focus-visible{outline:2px solid #075d89;outline-offset:1px;background:#e5edf3}
+
+#status-dialog{width:min(32rem,calc(100vw - 2rem));max-height:calc(100dvh - 2rem);box-sizing:border-box;overflow:auto;border:1px solid #94a8b5;border-radius:12px;padding:1.25rem;background:#f4f3eb;color:#243a4b;text-align:left;box-shadow:0 12px 45px #0005}
+#status-dialog::backdrop{background:#10223188}
+#status-dialog h2{margin:0 0 .75rem;font-size:1.25rem}#status-dialog p{line-height:1.5;overflow-wrap:anywhere}
+#status-dialog-value{white-space:pre-line;padding:.6rem;background:#fff9;border-radius:6px}
+.status-dialog-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-top:1rem}
+.status-dialog-actions button,.status-dialog-actions a{min-height:44px;box-sizing:border-box;padding:.6rem .8rem;border:1px solid #94a8b5;border-radius:6px;font:inherit;background:#e5edf3;color:#234a62;text-decoration:none;cursor:pointer}
+.status-dialog-actions [hidden],#status-dialog [hidden]{display:none!important}
+.status-dialog-actions button:disabled{opacity:.6;cursor:default}
+.status-dialog-actions button:focus-visible,.status-dialog-actions a:focus-visible{outline:2px solid #075d89;outline-offset:2px}
+
+.control-group-heading{margin:.65rem 0 .5rem;font:600 12px/1.3 system-ui;color:#294761;text-align:left}
+.control-group-divider{border:0;border-top:2px solid #294761;margin:.85rem 0 .5rem}

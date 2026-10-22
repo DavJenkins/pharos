@@ -67,7 +67,7 @@ const Dashboard = {
             return;
 
         b.classList.remove("error");
-        b.setAttribute("aria-pressed", String(this.refreshEnabled));
+        b.setAttribute("data-enabled", String(this.refreshEnabled));
         b.classList.toggle("on", this.refreshEnabled);
         b.classList.toggle("off", !this.refreshEnabled);
 
@@ -86,7 +86,7 @@ const Dashboard = {
             return;
 
         b.classList.remove("error");
-        b.setAttribute("aria-pressed", String(DataArkStatus.debug));
+        b.setAttribute("data-enabled", String(DataArkStatus.debug));
         b.classList.toggle("on", DataArkStatus.debug);
         b.classList.toggle("off", !DataArkStatus.debug);
 
@@ -171,7 +171,7 @@ const Dashboard = {
 
             console.error(err);
             DataArkStatus.data = null;
-            this.byId("debug-button").removeAttribute("aria-pressed");
+            this.byId("debug-button").removeAttribute("data-enabled");
             this.byId("sync-status").textContent = "Unavailable";
             this.byId("sync-status").title = "Status unavailable; the last worker state could not be refreshed.";
             for (const id of ["eth-button", "wifi-button", "ap-button", "system-button", "debug-button"]) {
