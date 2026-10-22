@@ -18,3 +18,7 @@ Requested on October 22, 2026: keep the landing page focused on verified local c
 The local `/library.html` page now lists installed assets, pending archives, free storage and full updater activity. The curated publisher check offers English Project Gutenberg release/size metadata. OpenStreetMap and USA.gov remain clearly marked references, not installed collections. OSM region/package/reader selection is still planned.
 
 Downloads require the existing network administration password and the fixed-scope helper installed with `sudo venv/bin/python deploy/install_library.py` after administrator approval. It accepts only the curated collection ID and displayed release/size, rechecks publisher metadata and disk space under the worker lock, and passes installation to the existing checksum/activation worker. No arbitrary download URLs or filesystem paths are accepted. The installer grants admin passwordless execution of this helper only, with no command-line arguments. Without this helper the page remains read-only and says setup is required.
+
+### Content removal authorization
+
+Removing installed content must require the same Ark administration password as downloads, plus explicit confirmation identifying the collection to be removed. Browsing remains public. No removal endpoint or delete control currently exists; the download helper does not accept removal actions. Automatic replacement of a verified archive by the existing updater remains part of the update transaction.
