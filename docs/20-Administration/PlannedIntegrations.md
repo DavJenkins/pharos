@@ -30,3 +30,7 @@ Manage Library is linked from the System status pop-up. Installed registered fil
 Public collection requests and storage-based approval policy remain planned; downloads and reinstatement currently require the caretaker password.
 
 Library management now remembers successful caretaker authentication in page memory only, for 15 minutes after the last successful management action. It is cleared on reload/navigation, an authentication rejection, or Lock library management. Each removal still needs explicit confirmation. No credential is written to browser storage or cookies.
+
+### Library diagnostics
+
+Library events use the existing `/var/lib/ark/events.log` stream, exposed through `/api/events`. Entries include authentication acceptance/rejection, action, registered collection name, a correlation value, elapsed seconds, outcome, freed bytes, errors and rollback/recovery results. Detailed removal stages and coarse download/verification progress are emitted only while Debug is on. Basic operation outcomes remain available with Debug off. Request bodies, passwords and authorization headers are excluded. Logging I/O failures do not interrupt content operations.

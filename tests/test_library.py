@@ -23,7 +23,7 @@ class LibraryTests(unittest.TestCase):
     def test_reject_changed_release_without_writing(self):
         from contextlib import nullcontext
         data={'system':{'base_mount':'/mnt/storage'},'assets':[]}
-        with tempfile.TemporaryDirectory() as tmp, patch.object(helper.Path,'open',return_value=open(Path(tmp)/'lock','a')), patch.object(helper,'load_manifest',return_value=data), patch.object(helper.Path,'is_mount',return_value=True), patch.object(helper,'release_info',return_value={'filename':'new.zim','bytes':10}), patch.object(helper,'atomic_write') as write:
+        with patch('app.services.library_events.events.info'), tempfile.TemporaryDirectory() as tmp, patch.object(helper.Path,'open',return_value=open(Path(tmp)/'lock','a')), patch.object(helper,'load_manifest',return_value=data), patch('app.services.manifest.load_manifest',return_value=data), patch.object(helper.Path,'is_mount',return_value=True), patch.object(helper,'release_info',return_value={'filename':'new.zim','bytes':10}), patch.object(helper,'atomic_write') as write:
             with self.assertRaisesRegex(ValueError,'release changed'):
                 helper.register({'repository_id':'project-gutenberg','release':'old.zim','bytes':10})
             write.assert_not_called()

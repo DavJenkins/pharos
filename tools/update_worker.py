@@ -19,12 +19,21 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from app.services.manifest import atomic_write, load_manifest
 from tools.stage_content_updates import verify
+from app.services.library_events import emit
 
 STATE = Path('/var/lib/dataark/updates')
 STATUS = STATE / 'status.json'
 
 
+_reported=None
+
 def report(state, asset=None, percent=None, detail=None):
+    global _reported
+    bucket=int(percent//10) if type(percent) in (int,float) else None
+    marker=(state,asset,bucket)
+    if marker!=_reported:
+        emit('update_progress',detailed=state not in ('error','waiting','idle'),phase=state,title=asset,reason=detail,percent=percent)
+        _reported=marker
     value = {'state': state, 'asset': asset, 'percent': percent, 'detail': detail,
         'updated': datetime.now(timezone.utc).isoformat(timespec='seconds')}
     atomic_write(STATUS, json.dumps(value).encode())
@@ -224,6 +233,7 @@ def run():
             if (ROOT / 'dataark.yaml').read_text(encoding='utf-8') != manifest_snapshot[0]:
                 raise RuntimeError('Manifest changed during the download; retrying with fresh configuration next run.')
             child([sys.executable, str(ROOT / 'tools/activate_content_updates.py'), '--plan', str(plan)], 'activating', asset['title'])
+            emit('archive_activated',asset_id=asset['id'],title=asset['title'])
             manifest_snapshot[0] = (ROOT / 'dataark.yaml').read_text(encoding='utf-8')
         history[asset['id']] = time.time()
         atomic_write(STATE / 'checked.json', json.dumps(history).encode())
@@ -244,6 +254,7 @@ def main():
         except BlockingIOError:
             return 0
         try:
+            emit('archive_activated',asset_id=asset['id'],title=asset['title'])
             manifest_snapshot[0] = (ROOT / 'dataark.yaml').read_text(encoding='utf-8')
             run()
         except BlockingIOError:

@@ -10,7 +10,9 @@ import yaml
 from app.services.library import PACKAGES, ROOT
 from app.services.manifest import atomic_write, load_manifest
 from tools.update_worker import release_info
+from app.services.library_events import tracked, phase
 
+@tracked('download')
 def register(payload):
     if not isinstance(payload,dict) or set(payload)!={'repository_id','release','bytes'}:
         raise ValueError('Invalid library request')
@@ -32,6 +34,7 @@ def register(payload):
         asset={'id':spec['id'],'repository_id':repo,'category':'zim_archives','title':spec['title'],
             'relative_path':spec['prefix']+'2000-01.zim', 'update_policy':'on_network_available','refresh_interval':'1d',
             'update_source':{'kind':'kiwix_zim','directory':spec['directory'],'filename_prefix':spec['prefix']}}
+        phase('checking publisher and storage')
         release=release_info(asset)
         if payload['release']!=release['filename'] or type(payload['bytes']) is not int or payload['bytes']!=release['bytes']:
             raise ValueError('The publisher release changed. Check available downloads again before confirming.')

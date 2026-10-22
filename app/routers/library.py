@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException, Request
 from starlette.concurrency import run_in_threadpool
 from app.services import library
 from app.services.network_admin import authorized
+from app.services.library_events import emit
 
 router = APIRouter(prefix='/library', tags=['Library'])
 
@@ -17,10 +18,12 @@ def catalogue():
 @router.post('/unlock')
 async def unlock(request: Request):
     await check_password(request)
+    emit('authentication_accepted')
     return {'message':'Library management unlocked.'}
 
 async def check_password(request: Request):
     if not await run_in_threadpool(authorized, request.headers.get('authorization','')[:2049]):
+        emit('authentication_rejected')
         raise HTTPException(401, 'Password not accepted. Use the Ark caretaker password used for network settings, rather than the Wi-Fi password or Pi login password.')
 
 @router.post('/install')

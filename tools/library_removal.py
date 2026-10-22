@@ -4,6 +4,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import yaml
+from app.services.library_events import tracked, phase, emit
 from app.services.manifest import atomic_write, load_manifest, inside
 from tools.activate_content_updates import check_container, docker, wait_for_library
 from tools.publish_content import publish
@@ -52,6 +53,7 @@ def recover():
     if not JOURNAL.exists():
         return
     state=json.loads(JOURNAL.read_text())
+    emit('recovery_started',phase=state['phase'])
     mount=MOUNT
     path=inside(mount,state['relative_path'])
     saved=mount/'.dataark-updates'/'removed-file'
@@ -60,6 +62,7 @@ def recover():
     if state['phase']=='committed':
         saved.unlink(missing_ok=True)
         JOURNAL.unlink()
+        emit('recovery_completed',outcome='committed removal cleanup')
         return
     if saved.exists():
         if path.exists():
@@ -71,7 +74,9 @@ def recover():
         wait_for_library([{'filename':path.name}],[],state['port'])
     publish_library(mount)
     JOURNAL.unlink()
+    emit('rollback_completed',outcome='previous content restored')
 
+@tracked('remove')
 def remove(payload):
     if set(payload)!={'action','asset_id','relative_path','bytes'} or payload['action']!='remove':
         raise ValueError('Invalid removal request')
@@ -85,6 +90,7 @@ def remove(payload):
         manifest=ROOT/'dataark.yaml'
         original=manifest.read_text()
         data=load_manifest(manifest)
+        phase('validating registered file')
         asset,path=target(data,payload['asset_id'],payload['relative_path'],payload['bytes'])
         mount=MOUNT
         staging=mount/'.dataark-updates'
@@ -110,21 +116,29 @@ def remove(payload):
                 'port':data['system']['services']['kiwix_port']}
             atomic_write(JOURNAL,json.dumps(state).encode())
             try:
+                phase('staging removal')
                 path.rename(saved)
                 if zim:
+                    phase('restarting local reader')
                     docker('restart','kiwix-serve')
+                    phase('confirming reader catalogue')
                     wait_for_library([], [path.name],state['port'])
+                phase('disabling automatic updates')
                 atomic_write(manifest,updated.encode())
+                phase('publishing library and landing page')
                 publish_library(mount)
                 state['phase']='committed'
                 atomic_write(JOURNAL,json.dumps(state).encode())
             except Exception:
+                emit('rollback_started')
                 recover()
                 raise
+            phase('freeing storage')
             saved.unlink()
             JOURNAL.unlink()
     return {'message':'Removed from the Ark. Automatic updates for this item are off. Its source information is retained for reinstatement.'}
 
+@tracked('reinstate')
 def restore(payload):
     if set(payload)!={'action','asset_id'} or payload['action']!='restore':
         raise ValueError('Invalid reinstatement request')
@@ -144,6 +158,7 @@ def restore(payload):
         if not mount.is_mount():
             raise ValueError('Content SSD is not mounted')
         asset['update_policy']='on_network_available'
+        phase('checking reinstatement source')
         release=release_info(asset)
         import shutil
         if not release or shutil.disk_usage(mount).free<release['bytes']+2*1024**3:
