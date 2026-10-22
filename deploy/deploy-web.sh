@@ -34,7 +34,7 @@ echo "2. Installing documentation..."
 
 sudo mkdir -p "$TARGET/docs"
 
-sudo rsync -av --delete \
+sudo rsync -av --delete --chmod=D755,F644 \
     "$DOCS_STAGE"/ \
     "$TARGET/docs/"
 
