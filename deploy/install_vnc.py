@@ -12,7 +12,10 @@ def main():
     if not key.exists() and not cert.exists():
         run('openssl','req','-x509','-newkey','rsa:3072','-sha256','-nodes','-days','365','-keyout',str(key),'-out',str(cert),'-subj','/CN=dataark','-addext','subjectAltName=DNS:dataark,DNS:dataark.local,IP:192.168.4.1',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     if not key.is_file() or not cert.is_file():raise SystemExit('Incomplete VNC identity; inspect instead of replacing it')
-    (config/'config').write_text('port=5901\nenable_auth=true\nenable_pam=true\nrelax_encryption=false\nallow_broken_crypto=false\nprivate_key_file='+str(key)+'\ncertificate_file='+str(cert)+'\n')
+    rsa=config/'rsa_key.pem'
+    if not rsa.exists():
+        run('openssl','genrsa','-traditional','-out',str(rsa),'3072',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    (config/'config').write_text('port=5901\nenable_auth=true\nenable_pam=true\nrelax_encryption=false\nallow_broken_crypto=false\nprivate_key_file='+str(key)+'\ncertificate_file='+str(cert)+'\nrsa_private_key_file='+str(rsa)+'\n')
     for p in config.iterdir():os.chown(p,owner.pw_uid,owner.pw_gid);p.chmod(0o600)
     helper=Path('/usr/local/libexec/dataark-vnc');helper.write_bytes((ROOT/'deploy/vnc/launch_vnc.py').read_bytes());helper.chmod(0o755)
     run('systemctl','disable','--now','x11vnc.service','wayvnc.service','wayvnc-control.service')
