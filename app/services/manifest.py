@@ -382,16 +382,16 @@ def image_tag(art, fallback):
         return ''
     return '<img class="manifest-artwork" src="' + html.escape(art['src'], quote=True) + '" alt="' + html.escape(art['alt'] or fallback, quote=True) + '" loading="lazy">'
 
-def version_dashboard_assets(page):
-    static = Path(__file__).resolve().parents[1] / 'static'
+def version_dashboard_assets(page, static=None):
+    static = Path(static) if static is not None else Path(__file__).resolve().parents[1] / 'static'
     def version(match):
         attribute, relative = match.groups()
-        path = static / relative
+        path = static / relative.lstrip('/')
         if not path.is_file():
             return match.group(0)
         digest = hashlib.sha256(path.read_bytes()).hexdigest()[:16]
         return f'{attribute}="{relative}?v={digest}"'
-    return re.sub(r'(src|href)="(assets/(?:js|css)/[A-Za-z0-9_.-]+\.(?:js|css))(?:\?v=[^" ]*)?"', version, page)
+    return re.sub(r'(src|href)="(/?assets/(?:js|css)/[A-Za-z0-9_.-]+\.(?:js|css))(?:\?v=[^" ]*)?"', version, page)
 
 
 def build(manifest_path, template_path, output_path, content_root=None, refresh_artwork=False):

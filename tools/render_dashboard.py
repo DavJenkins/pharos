@@ -5,7 +5,17 @@ from pathlib import Path
 import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from app.services.manifest import build, ManifestError
+from app.services.manifest import build, ManifestError, version_dashboard_assets
+
+def version_static_pages(static):
+    for page in Path(static).rglob('*.html'):
+        if page.is_symlink():
+            continue
+        original=page.read_text(encoding='utf-8')
+        updated=version_dashboard_assets(original,static)
+        if updated!=original:
+            page.write_text(updated,encoding='utf-8')
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -19,6 +29,8 @@ def main():
     except (ManifestError, OSError) as error:
         print(f'Manifest build failed: {error}', file=sys.stderr)
         return 1
+    if args.output.resolve() == (ROOT/'app/static/index.html').resolve():
+        version_static_pages(ROOT/'app/static')
     print(f'Rendered {len(result.get("repositories", []))} configured repositories.')
     print('No content downloads or updates were started.')
     return 0
