@@ -1,8 +1,6 @@
-# Data Ark central asset manifest. Edit this file, then deploy/deploy-web.sh.
-# Automatic updates run when dataark-update.timer is installed and enabled.
 system:
   project_name: Data Ark
-  version: "1.4"
+  version: '1.4'
   theme: Ark of the Covenant
   base_mount: /mnt/storage
   hide_missing: true
@@ -14,9 +12,6 @@ system:
   artwork:
     path: app/static/assets/Pharos Data Ark.png
     alt: Data Ark lighthouse
-
-# Default geographic coverage for local reference resources.
-# Focus is descriptive, not a clipping boundary; retain full county coverage.
 geography:
   country: US
   state:
@@ -26,22 +21,24 @@ geography:
     - name: Worcester
       focus: Northern Worcester County
     - name: Middlesex
-
-# Monthly reference-map checks; independent of bugout and Kiwix updates.
 maps:
   enabled: true
   refresh_days: 30
   reserve_gib: 10
   max_run_gib: 8
-  sources: [flood, parcels, topographic]
-
+  sources:
+    - flood
+    - parcels
+    - topographic
 categories:
   - id: content_sources
     title: Content sources
-    description: Explore the sources and content collected on this Ark. Local availability is shown for each registered asset.
+    description: Explore the sources and content collected on this Ark. Local availability
+      is shown for each registered asset.
   - id: zim_archives
     title: Offline knowledge libraries
-    description: Read locally preserved archives with Kiwix, or download the original files.
+    description: Read locally preserved archives with Kiwix, or download the original
+      files.
   - id: reference
     title: Reference sources
     description: Online sources to explore and build your own collection.
@@ -51,7 +48,6 @@ categories:
   - id: utilities_binaries
     title: Portable utilities
     description: Readers and tools to take with the content.
-
 scenarios:
   - id: general
     title: General reference
@@ -59,81 +55,139 @@ scenarios:
     title: Medical reference
   - id: technical
     title: Technical reference
-
 repositories:
   - id: wikipedia
     category: content_sources
     title: Wikipedia
     description: English encyclopedias preserved on this Ark.
-    artwork: {path: app/static/assets/icons/Wikipedia.png, alt: Wikipedia}
+    artwork:
+      path: app/static/assets/icons/Wikipedia.png
+      alt: Wikipedia
     update_policy: manual
     refresh_interval: never
-    tags: [encyclopedia]
-    scenarios: [general]
+    tags:
+      - encyclopedia
+    scenarios:
+      - general
     links:
-      - {title: Wikipedia (local), service: kiwix, path: '/#name=wikipedia_en_all'}
-      - {title: Wikipedia, url: 'https://www.wikipedia.org', requires_internet: true}
+      - title: Wikipedia (local)
+        service: kiwix
+        path: /#name=wikipedia_en_all
+      - title: Wikipedia
+        url: https://www.wikipedia.org
+        requires_internet: true
   - id: technical-qa
     category: content_sources
     title: Technical Q&A
-    description: Electronics and Unix/Linux questions and answers, with a portable reader.
-    artwork: {path: app/static/assets/icons/Kiwix.png, alt: Kiwix}
+    description: Electronics and Unix/Linux questions and answers, with a portable
+      reader.
+    artwork:
+      path: app/static/assets/icons/Kiwix.png
+      alt: Kiwix
     update_policy: manual
     refresh_interval: never
-    scenarios: [technical]
+    scenarios:
+      - technical
     links:
-      - {title: Read local technical Q&A, service: kiwix, path: '/#category=stack_exchange'}
-      - {title: Electronics Q&A, url: 'https://electronics.stackexchange.com', requires_internet: true}
-      - {title: Unix and Linux Q&A, url: 'https://unix.stackexchange.com', requires_internet: true}
+      - title: Read local technical Q&A
+        service: kiwix
+        path: /#category=stack_exchange
+      - title: Electronics Q&A
+        url: https://electronics.stackexchange.com
+        requires_internet: true
+      - title: Unix and Linux Q&A
+        url: https://unix.stackexchange.com
+        requires_internet: true
   - id: wikimed
     category: content_sources
     title: WikiMed
     description: A locally preserved medical encyclopedia.
-    artwork: {path: app/static/assets/icons/WikiMed.png, alt: WikiMed}
+    artwork:
+      path: app/static/assets/icons/WikiMed.png
+      alt: WikiMed
     update_policy: manual
-    scenarios: [medical]
+    scenarios:
+      - medical
     links:
-      - {title: Read local WikiMed, service: kiwix, path: '/#name=wikipedia_en_medicine'}
-      - {title: Kiwix medical resources, url: 'https://www.kiwix.org', requires_internet: true}
+      - title: Read local WikiMed
+        service: kiwix
+        path: /#name=wikipedia_en_medicine
+      - title: Kiwix medical resources
+        url: https://www.kiwix.org
+        requires_internet: true
   - id: ifixit
     category: content_sources
     title: iFixit Repair Guides
-    description: Step-by-step English repair guides with photos, preserved for offline use. By iFixit and its contributors, CC BY-NC-SA 3.0.
+    description: Step-by-step English repair guides with photos, preserved for offline
+      use. By iFixit and its contributors, CC BY-NC-SA 3.0.
     update_policy: on_network_available
     refresh_interval: 1d
-    tags: [repair, maintenance, illustrated]
-    scenarios: [technical, general]
+    tags:
+      - repair
+      - maintenance
+      - illustrated
+    scenarios:
+      - technical
+      - general
     links:
-      - {title: Read repair guides (local), service: kiwix, path: '/#name=ifixit_en_all'}
-      - {title: Attribution and license, url: '/legal/ifixit.html'}
-      - {title: iFixit (online), url: 'https://www.ifixit.com', requires_internet: true}
-  - id: openstreetmap
-    enabled: false
-    category: content_sources
-    title: OpenStreetMap
-    description: Open mapping reference. Register downloaded maps as assets below.
-    artwork: {path: app/static/assets/icons/OpenStreetmap.png, alt: OpenStreetMap}
-    links:
-      - {title: OpenStreetMap, url: 'https://www.openstreetmap.org', requires_internet: true}
+      - title: Read repair guides (local)
+        service: kiwix
+        path: /#name=ifixit_en_all
+      - title: Attribution and license
+        url: /legal/ifixit.html
+      - title: iFixit (online)
+        url: https://www.ifixit.com
+        requires_internet: true
   - id: project-gutenberg
     enabled: false
     category: content_sources
     title: Project Gutenberg
     description: Public-domain reading sources. Register local books as assets below.
-    artwork: {path: app/static/assets/icons/ProjectGutenberg.png, alt: Project Gutenberg}
+    artwork:
+      path: app/static/assets/icons/ProjectGutenberg.png
+      alt: Project Gutenberg
     links:
-      - {title: Project Gutenberg, url: 'https://www.gutenberg.org', requires_internet: true}
+      - title: Project Gutenberg
+        url: https://www.gutenberg.org
+        requires_internet: true
   - id: usa-gov
     enabled: false
     category: content_sources
     title: USA.gov
     description: Government reference and information sources.
-    artwork: {path: app/static/assets/icons/USAGov.png, alt: USA.gov}
+    artwork:
+      path: app/static/assets/icons/USAGov.png
+      alt: USA.gov
     links:
-      - {title: USA.gov, url: 'https://www.usa.gov', requires_internet: true}
-
-# These are the files reported by the storage audit. Removing an entry never deletes a file.
-# Old versions are retired after replacement downloads and Kiwix activation are verified.
+      - title: USA.gov
+        url: https://www.usa.gov
+        requires_internet: true
+  - id: openstreetmap
+    enabled: true
+    category: content_sources
+    title: Offline street map
+    description: Massachusetts and adjoining border areas. Local OpenStreetMap-derived
+      vector map with offline pan and zoom; no routing or search.
+    artwork:
+      path: app/static/assets/icons/OpenStreetmap.png
+      alt: OpenStreetMap
+    links:
+      - title: Open the offline street map
+        url: /maps.html
+      - title: Map sources and maintenance
+        url: /docs/20-Administration/OfflineReferences.html
+    update_policy: manual
+    refresh_interval: never
+  - id: preparedness
+    category: content_sources
+    title: Emergency preparedness and CERT
+    description: FEMA preparedness and CERT manuals, preserved as readable PDFs. Massachusetts
+      MEMA downloads are pending publisher access.
+    update_policy: manual
+    refresh_interval: never
+    links:
+      - title: Open local preparedness references
+        url: /library-files/preparedness/index.html
 assets:
   - id: ifixit-repair-guides
     online_url: https://www.ifixit.com/Guide
@@ -148,9 +202,12 @@ assets:
       directory: https://download.kiwix.org/zim/ifixit/
       filename_prefix: ifixit_en_all_
     download_url: https://download.kiwix.org/zim/ifixit/ifixit_en_all_2025-12.zim
-    expected_hash: "9bb5f3408707fd0300c6ef47a425c3217187f144cd9154a928183816aa72eead"
-    source_note: Kiwix English archive, latest listed release checked October 22, 2026. iFixit and contributors; CC BY-NC-SA 3.0; archived content unchanged.
-    tags: [repair, images]
+    expected_hash: 9bb5f3408707fd0300c6ef47a425c3217187f144cd9154a928183816aa72eead
+    source_note: Kiwix English archive, latest listed release checked October 22,
+      2026. iFixit and contributors; CC BY-NC-SA 3.0; archived content unchanged.
+    tags:
+      - repair
+      - images
   - id: wikipedia-main
     online_url: https://en.wikipedia.org/
     repository_id: wikipedia
@@ -164,8 +221,10 @@ assets:
       directory: https://download.kiwix.org/zim/wikipedia/
       filename_prefix: wikipedia_en_all_maxi_
     download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-08.zim
-    expected_hash: "34162d18b9f96f494eac48a73a309c72e0bc95d85f76be405d0f5de795854aa6"
-    tags: [encyclopedia, images]
+    expected_hash: 34162d18b9f96f494eac48a73a309c72e0bc95d85f76be405d0f5de795854aa6
+    tags:
+      - encyclopedia
+      - images
   - id: wikipedia-nopic
     online_url: https://en.wikipedia.org/
     repository_id: wikipedia
@@ -179,7 +238,7 @@ assets:
       directory: https://download.kiwix.org/zim/wikipedia/
       filename_prefix: wikipedia_en_all_nopic_
     download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2026-06.zim
-    expected_hash: "441a56d9e05b2d98f8ae9acb7986a513ed47904d73852c92dc6b7d50baa122e5"
+    expected_hash: 441a56d9e05b2d98f8ae9acb7986a513ed47904d73852c92dc6b7d50baa122e5
   - id: wikipedia-medicine
     online_url: https://en.wikipedia.org/wiki/Portal:Medicine
     repository_id: wikimed
@@ -193,7 +252,7 @@ assets:
       directory: https://download.kiwix.org/zim/wikipedia/
       filename_prefix: wikipedia_en_medicine_maxi_
     download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-10.zim
-    expected_hash: "9a1570f2f346aa18694ee520e0483f19b7447f69e0970e2f727c53ccf0dcc7d6"
+    expected_hash: 9a1570f2f346aa18694ee520e0483f19b7447f69e0970e2f727c53ccf0dcc7d6
   - id: electronics-qa
     online_url: https://electronics.stackexchange.com/
     repository_id: technical-qa
@@ -207,7 +266,7 @@ assets:
       directory: https://download.kiwix.org/zim/stack_exchange/
       filename_prefix: electronics.stackexchange.com_en_all_
     download_url: https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2026-10.zim
-    expected_hash: "b28e58b24ed55c602265729b34b0c6cc4e12228e6fe2f55df5b5e9eae169b266"
+    expected_hash: b28e58b24ed55c602265729b34b0c6cc4e12228e6fe2f55df5b5e9eae169b266
   - id: unix-qa
     online_url: https://unix.stackexchange.com/
     repository_id: technical-qa
@@ -221,7 +280,7 @@ assets:
       directory: https://download.kiwix.org/zim/stack_exchange/
       filename_prefix: unix.stackexchange.com_en_all_
     download_url: https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2026-10.zim
-    expected_hash: "793f0fbaf64e9eb8d2fd59fec80f62cf94acb22ca94c87eb25ae145dd589e551"
+    expected_hash: 793f0fbaf64e9eb8d2fd59fec80f62cf94acb22ca94c87eb25ae145dd589e551
   - id: kiwix-windows-reader
     online_url: https://kiwix.org/en/applications/
     repository_id: technical-qa
@@ -229,42 +288,95 @@ assets:
     title: Kiwix Desktop for Windows (copy the entire kiwix-viewer folder)
     relative_path: kiwix-viewer/kiwix-desktop.exe
     download_url: https://download.kiwix.org/release/kiwix-desktop/kiwix-desktop_windows_x64_2.5.1.zip
-    source_note: Windows ZIP distribution with dependencies; embedded executable version string is 2.5.1. Byte identity not checked.
+    source_note: Windows ZIP distribution with dependencies; embedded executable version
+      string is 2.5.1. Byte identity not checked.
     architecture: x86_64
     executable: true
-    tags: [windows, reader]
-
-# Optional nested sections below the repository cards. See Manifest documentation.
+    tags:
+      - windows
+      - reader
+  - id: osm-massachusetts
+    repository_id: openstreetmap
+    category: reference
+    title: Massachusetts offline street map (October 22, 2026)
+    relative_path: maps/osm/massachusetts.pmtiles
+    service_endpoint: /maps.html
+    update_policy: manual
+    refresh_interval: never
+    source_note: Regional extract only; bbox -73.51,41.23,-69.90,42.89, zoom 0–15;
+      OSM ODbL, Protomaps and Natural Earth attribution. Do not download the source
+      planet file as a replacement.
+    version_pin: null
+    online_url: https://docs.protomaps.com/basemaps/downloads
+  - id: fema-ready
+    repository_id: preparedness
+    category: pdf_reference
+    title: FEMA / Ready.gov — Are You Ready? (2021 hosted edition)
+    relative_path: preparedness/fema-ready.pdf
+    online_url: https://www.ready.gov/sites/default/files/2021-11/are-you-ready-guide.pdf
+    download_url: https://www.ready.gov/sites/default/files/2021-11/are-you-ready-guide.pdf
+    expected_hash: 3873f8ae7528389adacab72259c37b9ae3c507bd3ae23783122e06586560040c
+    update_policy: manual
+    refresh_interval: never
+    source_note: Official source; retrieved 2026-10-23T04:41:38.052894+00:00
+    version_pin: null
+  - id: cert-participant-2019
+    repository_id: preparedness
+    category: pdf_reference
+    title: FEMA CERT Basic Training Participant Manual (2019)
+    relative_path: preparedness/cert-participant-2019.pdf
+    online_url: https://www.ready.gov/sites/default/files/2019.CERT_.Basic_.PM_FINAL_508c.pdf
+    download_url: https://www.ready.gov/sites/default/files/2019.CERT_.Basic_.PM_FINAL_508c.pdf
+    expected_hash: ca297bbc329c322ccbcb252fae7a1c89fd95f93dbf72b78b165b53cafa664026
+    update_policy: manual
+    refresh_interval: never
+    source_note: Official source; retrieved 2026-10-23T04:41:38.387182+00:00
+    version_pin: null
+  - id: cert-hazards-2019
+    repository_id: preparedness
+    category: pdf_reference
+    title: FEMA CERT Hazard Annexes (2019)
+    relative_path: preparedness/cert-hazards-2019.pdf
+    online_url: https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf
+    download_url: https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf
+    expected_hash: 110abd05cf6dd5760379eaa75b58f09efad5066638e5ded6afeacc16d8a98260
+    update_policy: manual
+    refresh_interval: never
+    source_note: Official source; retrieved 2026-10-23T04:41:38.734186+00:00
+    version_pin: null
 resource_sections:
   - title: Local maps
-    description: Massachusetts reference maps for Worcester and Middlesex counties. Northern Worcester is the focus; the flood archive contains statewide published coverage.
+    description: Massachusetts reference maps for Worcester and Middlesex counties.
+      Northern Worcester is the focus; the flood archive contains statewide published
+      coverage.
     items:
       - title: Local map collection and update status
         path: maps/index.html
     sections:
       - title: Flood hazards
-        description: Published flood-hazard GIS data, not live flooding. Missing mapping does not mean no risk.
+        description: Published flood-hazard GIS data, not live flooding. Missing mapping
+          does not mean no risk.
         items:
           - title: Local flood data and status
             path: maps/flood/index.html
           - title: MassGIS FEMA flood data (online)
             url: https://www.mass.gov/info-details/massgis-data-fema-national-flood-hazard-layer
       - title: Property boundaries
-        description: Town parcel GIS archives for the configured counties. Parcel boundaries are not a survey.
+        description: Town parcel GIS archives for the configured counties. Parcel
+          boundaries are not a survey.
         items:
           - title: Local parcel data and status
             path: maps/parcels/index.html
           - title: MassGIS property maps (online)
             url: https://www.mass.gov/info-details/massgis-data-property-tax-parcels
       - title: Terrain and topographic maps
-        description: Latest available USGS topographic PDFs intersecting the configured counties, suitable for offline reading and printing.
+        description: Latest available USGS topographic PDFs intersecting the configured
+          counties, suitable for offline reading and printing.
         items:
           - title: Local topographic PDFs and status
             path: maps/topographic/index.html
           - title: USGS topographic maps (online)
             url: https://www.usgs.gov/programs/national-geospatial-program/us-topo-maps-america
-
-# Household sources: credentials are supplied privately through the landing page.
 bugout:
   budget_seconds: 300
   reserve_gib: 2
