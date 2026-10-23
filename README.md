@@ -2,6 +2,9 @@
 
 > **Data Ark is an appliance for preserving civilization's practical knowledge.**
 
+Start with the [complete handbook and handover](docs/00-Introduction/Handbook.md), [deployed configuration reference](docs/20-Administration/Configuration.md), and [image-to-Ark bootstrap plan](docs/30-Developer/BootstrapPlan.md). The local working source is `/opt/dataark` on the Ark and the `\\dataark\dataark` development share; the canonical remote is [DavJenkins/pharos](https://github.com/DavJenkins/pharos).
+
+
 ![Pharos Data Ark](app/static/assets/Pharos%20Data%20Ark.png)
 
 ---

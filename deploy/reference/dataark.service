@@ -1,0 +1,17 @@
+[Unit]
+Description=Data Ark FastAPI
+After=network.target
+
+[Service]
+User=admin
+Group=admin
+WorkingDirectory=/opt/dataark
+
+Environment="PATH=/opt/dataark/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ExecStart=/opt/dataark/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

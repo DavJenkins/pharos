@@ -1,0 +1,2 @@
+# Example only. Replace disk UUID and verified account IDs; do not format an existing disk.
+UUID=<CONTENT_UUID> /mnt/storage exfat defaults,uid=<ADMIN_UID>,gid=<ADMIN_GID>,umask=000 0 0

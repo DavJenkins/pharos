@@ -2,6 +2,7 @@
 
 ## Introduction
 
+- [Complete handbook and handover](00-Introduction/Handbook.md)
 - [Welcome](00-Introduction/Welcome.md)
 - [Why Data Ark?](00-Introduction/Why.md)
 
@@ -16,6 +17,8 @@
 
 ## Administration
 
+- [Configuration reference](20-Administration/Configuration.md)
+- [Source repository, backups and handover](20-Administration/SourceAndHandover.md)
 - [Administrator Guide](20-Administration/AdministratorGuide.md)
 - [Household Bugout Backups](20-Administration/Bugout.md)
 - [Reliability acceptance tests](20-Administration/AcceptanceTests.md)
@@ -31,6 +34,7 @@
 
 ## Developer
 
+- [Image-to-Ark bootstrap plan](30-Developer/BootstrapPlan.md)
 - [Developer Guide](30-Developer/DeveloperGuide.md)
 - [Architecture](30-Developer/Architecture.md)
 - [REST API](30-Developer/API.md)

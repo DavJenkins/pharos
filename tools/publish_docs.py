@@ -10,6 +10,11 @@ from urllib.parse import urlsplit, urlunsplit
 SOURCE = Path(__file__).resolve().parents[1] / 'docs'
 
 
+def escaped_inline(text):
+    parts = re.split(r"(`[^`]+`)", text)
+    return "".join("<code>" + html.escape(part[1:-1]) + "</code>" if part.startswith("`") and part.endswith("`") else html.escape(part) for part in parts)
+
+
 def inline_html(text):
     def link(match):
         label, target = match.groups()
@@ -23,10 +28,10 @@ def inline_html(text):
     chunks = []
     start = 0
     for match in re.finditer(r"\[([^\]]+)\]\(([^\s)]+)\)", text):
-        chunks.append(html.escape(text[start:match.start()]))
+        chunks.append(escaped_inline(text[start:match.start()]))
         chunks.append(link(match))
         start = match.end()
-    chunks.append(html.escape(text[start:]))
+    chunks.append(escaped_inline(text[start:]))
     return "".join(chunks)
 
 
@@ -79,8 +84,19 @@ a{
 """)
 
     in_list = False
+    in_code = False
 
     for line in text.splitlines():
+        if line.startswith("```"):
+            if in_list:
+                out.append("</ul>")
+                in_list = False
+            out.append("</code></pre>" if in_code else "<pre><code>")
+            in_code = not in_code
+            continue
+        if in_code:
+            out.append(html.escape(line))
+            continue
 
         if line.startswith("# "):
             if in_list:
@@ -120,6 +136,8 @@ a{
     if in_list:
         out.append("</ul>")
 
+    if in_code:
+        out.append("</code></pre>")
     out.append("</body></html>")
 
     return "\n".join(out)

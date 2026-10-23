@@ -13,6 +13,12 @@ import tarfile
 import tempfile
 
 CONFIG_PATHS = [
+    "/etc/vsftpd.conf", "/etc/ssh", "/etc/docker", "/etc/sudoers", "/etc/sudoers.d",
+    "/usr/local/libexec/dataark-library", "/usr/local/libexec/dataark-pass-through",
+    "/usr/local/libexec/dataark-portal-monitor", "/etc/default/locale", "/etc/timezone", "/etc/localtime",
+    "/boot/firmware/config.txt", "/boot/firmware/cmdline.txt",
+    "/home/admin/.ssh/authorized_keys", "/root/.ssh/authorized_keys",
+    "/var/lib/samba/private", "/opt/dataark/dataark.yaml", "/opt/dataark/requirements.txt",
     "/etc/dataark", "/etc/sudoers.d/dataark-network", "/usr/local/libexec/dataark-network",
     "/etc/apache2", "/etc/nginx", "/etc/systemd/system",
     "/etc/NetworkManager", "/etc/hostapd", "/etc/dnsmasq.conf",
@@ -26,6 +32,14 @@ CONFIG_PATHS = [
     "/home/admin/kiwix-server/docker-compose.yml",
 ]
 COMMANDS = {
+    "os_release": ["cat", "/etc/os-release"],
+    "kernel": ["uname", "-a"],
+    "python_dependencies": ["/opt/dataark/venv/bin/python", "-m", "pip", "freeze"],
+    "repository_revision": ["git", "-c", "safe.directory=/opt/dataark", "-C", "/opt/dataark", "rev-parse", "HEAD"],
+    "repository_changes": ["git", "-c", "safe.directory=/opt/dataark", "-C", "/opt/dataark", "status", "--short"],
+    "kiwix_container": ["docker", "inspect", "kiwix-serve"],
+    "ssh_effective_settings": ["sshd", "-T"],
+    "forwarding": ["sysctl", "net.ipv4.ip_forward", "net.ipv6.conf.all.forwarding"],
     "services": ["systemctl", "list-units", "--all", "--type=service", "--no-pager"],
     "unit_files": ["systemctl", "list-unit-files", "--no-pager"],
     "dataark_unit": ["systemctl", "cat", "dataark.service"],

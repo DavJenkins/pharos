@@ -35,3 +35,17 @@ class DocumentationPublishingTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'No documentation'):
                 publish(root / 'empty', root / 'output')
             self.assertFalse((root / 'output').exists())
+
+
+class HandbookCodeFormatting(unittest.TestCase):
+    def test_fenced_commands_are_literal_and_escaped(self):
+        from tools.publish_docs import markdown_to_html
+        rendered=markdown_to_html('# Example\n```sh\ncat <file>\n[not a link](secret.md)\n```\n')
+        self.assertIn('<pre><code>',rendered)
+        self.assertIn('cat &lt;file&gt;',rendered)
+        self.assertNotIn('href="secret.html"',rendered)
+        self.assertIn('</code></pre>',rendered)
+
+    def test_inline_code_is_escaped(self):
+        from tools.publish_docs import inline_html
+        self.assertIn('<code>&lt;path&gt;</code>',inline_html('Use `<path>`'))
