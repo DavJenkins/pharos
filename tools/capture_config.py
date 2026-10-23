@@ -13,6 +13,7 @@ import tarfile
 import tempfile
 
 CONFIG_PATHS = [
+    "/etc/dataark-terminal", "/var/lib/shellinabox/known_hosts",
     "/etc/vsftpd.conf", "/etc/ssh", "/etc/docker", "/etc/sudoers", "/etc/sudoers.d",
     "/usr/local/libexec/dataark-library", "/usr/local/libexec/dataark-pass-through",
     "/usr/local/libexec/dataark-portal-monitor", "/etc/default/locale", "/etc/timezone", "/etc/localtime",

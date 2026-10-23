@@ -17,6 +17,21 @@
         const action = document.getElementById("status-dialog-action");
         const link = document.getElementById("status-dialog-link");
         const close = document.getElementById("status-dialog-close");
+        const terminalLink = document.createElement("a");
+        terminalLink.textContent = "Terminal";
+        terminalLink.hidden = true;
+        terminalLink.target = "_blank";
+        terminalLink.rel = "noopener noreferrer";
+        const terminalUrl = new URL(window.location.href);
+        terminalUrl.protocol = "https:";
+        terminalUrl.port = "4200";
+        terminalUrl.pathname = "/";
+        terminalUrl.search = "";
+        terminalUrl.hash = "";
+        terminalLink.href = terminalUrl.href;
+        terminalLink.title = "Linux admin login required";
+        link.after(terminalLink);
+
         let selected = null;
         let libraryInfo = null;
         let libraryBusy = false;
@@ -95,6 +110,7 @@
                 action.checked = pending && pending.id === selected ? pending.checked : enabled;
                 document.getElementById("status-dialog-toggle-label").textContent = selected === "debug-button" ? "Enable debug diagnostics" : selected === "refresh-button" ? "Update status automatically" : "Use the Ark's internet connection on this device";
             }
+            terminalLink.hidden = selected !== "system-button";
             link.hidden = !(item.settings || item.url);
             link.href = item.settings || item.url || "#";
             link.textContent = item.settingsLabel || item.openLabel || "";

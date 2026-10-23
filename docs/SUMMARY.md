@@ -52,3 +52,5 @@
 - [Offline maps and preparedness references](20-Administration/OfflineReferences.md)
 
 - [Forms and Templates](20-Administration/Forms.md)
+
+- [Browser terminal](20-Administration/BrowserTerminal.md)

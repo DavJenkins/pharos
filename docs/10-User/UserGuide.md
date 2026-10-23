@@ -36,7 +36,7 @@ Open the gear to see three groups. Desktop users can also hover for short detail
 ### Access and monitoring
 
 - Internet pass-through controls internet forwarding for the device making the request while connected to the hotspot. It does not enable everyone else's internet. It requires a working upstream connection and normally expires after six hours or a restart.
-- System shows health, platform, hostname, and running time, plus installed/pending/removed library counts, free SSD capacity and current library activity. Manage Library opens from this pop-up.
+- System shows health, platform, hostname, and running time, plus installed/pending/removed library counts, free SSD capacity and current library activity. Manage Library opens from this pop-up. Terminal opens an HTTPS Linux shell in a new tab and requires the Linux admin password; see [Browser terminal](../20-Administration/BrowserTerminal.md) for first-use certificate trust.
 - Auto refresh updates the dashboard's status about every five seconds. Turning it off does not stop downloads or the Ark's services. Reload the page to pick up newly deployed interface code.
 
 ### Support tools
