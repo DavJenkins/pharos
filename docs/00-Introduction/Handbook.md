@@ -53,7 +53,7 @@ The DataArk hotspot uses wlan0 and 192.168.4.1/24. The separate wlan1 interface 
 - Local source share: enter \\dataark\dataark in Windows File Explorer, or smb://dataark/dataark in a compatible file manager. This development share has its own access permissions and is not the anonymous FTP library.
 - The reviewed development branch is feature/readme-foundation. Confirm the actual branch and working changes before maintenance; do not assume GitHub's default branch matches the deployed checkout.
 
-The public library's source is not automatically a backup of the working checkout. Git protects committed history; uncommitted configuration changes, ignored files, credentials, content archives and private operational state require separate handling. See [Source and handover](../20-Administration/SourceAndHandover.md).
+The GitHub repository is not automatically a backup of the working checkout. Git protects committed history; uncommitted configuration changes, ignored files, credentials, content archives and private operational state require separate handling. See [Source and handover](../20-Administration/SourceAndHandover.md).
 
 ## How to use and maintain it
 
