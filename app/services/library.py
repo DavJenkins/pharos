@@ -3,6 +3,9 @@ from pathlib import Path
 import json
 import shutil
 import subprocess
+import math
+import time
+from datetime import datetime, timezone
 from app.services.manifest import load_manifest
 from app.services.update_status import progress
 
@@ -14,15 +17,54 @@ PACKAGES = {
         'language':'English', 'coverage':'English book collection'},
 }
 
+CHECK_HISTORY = Path('/var/lib/dataark/updates/checked.json')
+
+def update_schedule(asset, repository, history, history_available=True, now=None):
+    from tools.update_worker import interval_seconds
+    policy=asset.get('update_policy',repository.get('update_policy','manual'))
+    interval=asset.get('refresh_interval',repository.get('refresh_interval','never'))
+    seconds=interval_seconds(interval)
+    enabled=policy!='manual' and seconds is not None and repository.get('enabled',True) and not asset.get('removed',False)
+    checked=history.get(asset['id'])
+    last=None
+    if checked is not None:
+        try:
+            if type(checked) not in (int,float) or not math.isfinite(checked) or checked<=0:
+                raise ValueError('Invalid check timestamp')
+            last=datetime.fromtimestamp(checked,timezone.utc).isoformat(timespec='seconds')
+        except (ValueError,OverflowError,OSError):
+            checked=None
+            history_available=False
+    due=None
+    if enabled and checked is not None and history_available:
+        try:
+            due=datetime.fromtimestamp(checked+seconds,timezone.utc).isoformat(timespec='seconds')
+        except (ValueError,OverflowError,OSError):
+            history_available=False
+    return {'policy':policy,'interval':interval,'enabled':bool(enabled),'last_checked':last,
+        'next_due':due,'due_now':bool(enabled and history_available and (checked is None or checked+seconds <= (time.time() if now is None else now))),
+        'history_available':history_available,'pinned_version':asset.get('version_pin')}
+
+
 def inventory():
     data = load_manifest(ROOT / 'dataark.yaml')
     mount = Path(data['system']['base_mount'])
     repositories = {r['id']:r for r in data['repositories']}
+    try:
+        history=json.loads(CHECK_HISTORY.read_text())
+        if not isinstance(history,dict):
+            raise ValueError('Invalid history')
+        history_available=True
+    except FileNotFoundError:
+        history,history_available={},True
+    except (OSError,ValueError):
+        history,history_available={},False
     installed, pending, removed = [], [], []
     for asset in data['assets']:
         path = mount / asset['relative_path']
         item = {'title':asset['title'], 'repository':repositories[asset['repository_id']]['title'],
             'id':asset['id'], 'repository_id':asset['repository_id'], 'relative_path':asset['relative_path'], 'can_restore':bool(asset.get('update_source')), 'source_url':asset.get('download_url'), 'bytes':path.stat().st_size if path.is_file() else None}
+        item['update']=update_schedule(asset,repositories[asset['repository_id']],history,history_available)
         if asset.get('removed'):
             removed.append(item)
         elif path.is_file():

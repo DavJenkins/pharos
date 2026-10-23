@@ -47,3 +47,30 @@ class LibraryTests(unittest.TestCase):
             with self.subTest(removed=removed),patch.object(library,'load_manifest',return_value={'assets':[{'repository_id':'project-gutenberg','removed':removed}]}),patch('tools.update_worker.release_info') as release:
                 self.assertEqual(library.catalogue(),[])
                 release.assert_not_called()
+
+    def test_schedule_last_check_and_next_daily_due(self):
+        from app.services.library import update_schedule
+        from datetime import datetime
+        item=update_schedule({'id':'a','update_policy':'on_network_available','refresh_interval':'1d'}, {}, {'a':1000000}, now=1000010)
+        self.assertFalse(item['due_now'])
+        self.assertEqual((datetime.fromisoformat(item['next_due'])-datetime.fromisoformat(item['last_checked'])).total_seconds(),86400)
+        self.assertTrue(update_schedule({'id':'a','update_policy':'auto','refresh_interval':'1d'}, {}, {'a':1000000}, now=1086400)['due_now'])
+
+    def test_manual_removed_or_disabled_are_not_scheduled(self):
+        from app.services.library import update_schedule
+        for asset,repo in [({'id':'a','update_policy':'manual','refresh_interval':'never'},{}),({'id':'a','update_policy':'auto','refresh_interval':'1d','removed':True},{}),({'id':'a','update_policy':'auto','refresh_interval':'1d'},{'enabled':False})]:
+            item=update_schedule(asset,repo,{'a':1000000},now=2000000)
+            self.assertFalse(item['enabled'])
+            self.assertIsNone(item['next_due'])
+            self.assertFalse(item['due_now'])
+
+    def test_missing_history_is_due_but_invalid_history_is_unknown(self):
+        from app.services.library import update_schedule
+        asset={'id':'a','update_policy':'auto','refresh_interval':'1d'}
+        self.assertTrue(update_schedule(asset,{}, {})['due_now'])
+        for value in [True,float('nan'),-1,'wrong',1e300]:
+            with self.subTest(value=value):
+                item=update_schedule(asset,{}, {'a':value})
+                self.assertFalse(item['history_available'])
+                self.assertFalse(item['due_now'])
+        self.assertFalse(update_schedule(asset,{}, {},False)['history_available'])

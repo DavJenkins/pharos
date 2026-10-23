@@ -60,3 +60,7 @@ After a code change, verify anonymous inventory access, rejection of unauthentic
 - Direct SSD: shut down cleanly, connect OfflineRepo to another computer, and open START-HERE.html. A compatible reader remains necessary.
 
 FTP installation: install the Debian vsftpd package, then run sudo python3 deploy/install_ftp.py. The tracked configuration is in deploy/ftp. Test anonymous listing, a small download, resume, blocked writes, and denial of all staging/private paths. Do not expose administration endpoints or SSH accounts merely to provide public library access.
+
+## Displayed update schedule
+
+Manage Library displays each registered item’s effective update policy and configured publisher-check interval, its last completed worker check from checked.json, and its next due time. These are read-only settings. Times are formatted in the viewing device’s timezone. Due work waits for connectivity and the worker; it is not a guaranteed start time or publisher release date. Manual, disabled and removed items are not scheduled. Missing history is shown as not recorded; unreadable or invalid history is shown as unavailable rather than inventing a date.
