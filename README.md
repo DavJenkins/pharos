@@ -21,6 +21,9 @@ Data Ark was created from a simple idea:
 
 > **Essential knowledge should remain available, even when the Internet does not.**
 
+The Ark's primary purpose is to preserve and serve useful content under adverse conditions. In those conditions, the network, Linux computer, storage, terminal and tools it brings along are also potential peripheral resources. Make those capabilities discoverable and useful while protecting the library's availability. See [Resources beyond the library](docs/10-User/Resources.md).
+
+
 Rather than depending on cloud services or continuous connectivity, Data Ark packages a carefully curated collection of information into a self-contained appliance built around inexpensive, low-power hardware.
 
 Anyone nearby can connect with a phone, tablet, or laptop and immediately access practical knowledge without creating an account, installing software, or connecting to the Internet.

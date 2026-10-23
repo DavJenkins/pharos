@@ -2,9 +2,11 @@
 
 ## Request paths
 
-Browsers reach Apache on port 80. Apache serves generated/static files from /var/www/html and proxies /api/ to FastAPI on loopback port 8000. FastAPI routers validate requests and delegate to services. Collectors obtain network, platform, resource, and service information from Linux. The browser consumes the API; it does not directly execute privileged commands.
+Browsers reach Apache on port 80. Apache serves generated/static files from /var/www/html and proxies /api/ to FastAPI on loopback port 8000. FastAPI routers validate requests and delegate to services. Collectors obtain network, platform, resource, and service information from Linux. The dashboard consumes the API; its ordinary status requests do not execute arbitrary commands. The separately authenticated browser terminal follows a different path, described below.
 
 Kiwix is a separate container on port 8080, mounting the content SSD as /data. ZIM reader links use the current browser host with the configured Kiwix port. Apache's /library-files/ alias and Samba's Offline-Archives share expose public original files. Anonymous FTP uses a read-only service mount of the public library. SFTP and rsync over SSH use existing Pi account permissions.
+
+The browser terminal uses Apache HTTPS on port 4200, proxied to an unprivileged loopback-only terminal backend on 4201. That backend opens a fixed SSH connection to the existing Linux admin account, requiring its Linux password. This is separate from the public dashboard/API and shared caretaker authentication. See [Browser terminal](../20-Administration/BrowserTerminal.md).
 
 ## Source and generated output
 
@@ -43,4 +45,8 @@ State under /var/lib/dataark tracks updater, maps, portal, and household work. /
 
 ## Known boundaries
 
-No anonymous rsync daemon or WebDAV service is configured. OpenStreetMap is not yet an interactive offline basemap service. GIS datasets need an external viewer. Public library requests, storage-based approvals, a full recovery image, and comprehensive client/offline acceptance remain unfinished work.
+No anonymous rsync daemon or WebDAV service is configured. A Massachusetts OpenStreetMap-derived vector basemap now has a local browser viewer; it does not provide search or route planning. Flood/parcel GIS datasets still need an external viewer. Public library requests, storage-based approvals, a full recovery image, and comprehensive client/offline acceptance remain unfinished work.
+
+## Peripheral resource principle
+
+The network, Linux computer, storage, terminal, tools and physical interfaces incidental to serving content are potential resources under adverse conditions. Their utility is not limited to administration. Discoverability, offline dependencies, access requirements and operational limits belong in the [resource guide](../10-User/Resources.md). Preserve open library access and continuity when adding features. Workload quotas, isolation and public compute are not automatically provided by this architecture; they must be separately designed and verified.

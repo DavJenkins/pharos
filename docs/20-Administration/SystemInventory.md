@@ -37,3 +37,7 @@ Reviewed on the live appliance October 22, 2026. This is an implementation inven
 - .dataark-updates, .bugout-staging, upload areas and filesystem metadata are not anonymous FTP content. Library/HTTP and Samba exclusions have their own configuration and must be verified when changed.
 
 Legacy CGI files may exist but are not the active network-management implementation. Do not enable CGI or broaden sudo permissions to make an obsolete script work. See the [architecture](../30-Developer/Architecture.md) and [administrator guide](AdministratorGuide.md).
+
+## Existing remote-access inventory — October 23, 2026
+
+AnyDesk 8.0.4 is installed with an active service. xrdp 0.10.1 and xorgxrdp are installed, xrdp/xrdp-sesman are active and TCP 3389 is listening. OpenSSH server/client/SFTP are installed and TCP 22 is listening. The separate authenticated browser terminal uses HTTPS 4200 and loopback backend 4201. Classic rsh/rlogin/rexec were not found and ports 512–514 were not listening. The legacy x11vnc unit is failed; its executable and a VNC listener were not found. These facts are inventory observations, not successful interactive desktop tests. AnyDesk’s direct/offline operation is not verified. See [Resources beyond the library](../10-User/Resources.md).

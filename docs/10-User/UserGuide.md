@@ -58,3 +58,7 @@ Disconnect your client normally when finished reading. Before unplugging the SSD
 ## If something fails
 
 Try the manual hotspot address, confirm which Wi-Fi network your device joined, and check the displayed error. For a failure report, note the collection, action, approximate time, and exact message. Do not send passwords. The caretaker can correlate your report with the library event log. [FAQ](FAQ.md) covers common cases.
+
+## Resources beyond the library
+
+The dashboard’s Other resources link lists existing network, file-transfer, computing, terminal and diagnostic capabilities, with their access requirements. These can support tasks beyond operating the Ark. [Resource guide](Resources.md).

@@ -54,6 +54,7 @@ Integrate the reviewed feature installers rather than maintaining competing copi
 - install_bugout.py: optional household source/backup integration.
 - install_portal_monitor.py: bounded Debug-controlled portal diagnostics.
 - install_ftp.py: optional anonymous read-only FTP.
+- install_terminal.py: separately opted-in HTTPS browser shell with Linux authentication and reviewed certificate/network scope.
 
 Each installer has prerequisites and possible effects. The bootstrap must encode their dependencies and re-entry behavior; this list is not an executable ordering guarantee. Network/firewall installers require especially careful recovery handling.
 
@@ -82,3 +83,7 @@ The bootstrap is complete only after a person other than the original author can
 - Test on a spare SD and separate content disk, then perform an independent maintainer walkthrough.
 
 See [Configuration reference](../20-Administration/Configuration.md), [Source and handover](../20-Administration/SourceAndHandover.md) and [Acceptance tests](../20-Administration/AcceptanceTests.md).
+
+## Peripheral resource inventory
+
+A future bootstrap report should list incidental usable capabilities alongside the primary library: installed tools, available local interfaces, access methods, offline dependencies and recovery instructions. Separate installed/tested functions from possibilities requiring more hardware or configuration. Do not silently enable administration, writable workspaces or code execution merely because the hardware supports them. Verify optional functions do not compromise content service.

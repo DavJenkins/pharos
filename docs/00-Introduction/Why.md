@@ -22,6 +22,12 @@ The Ark also supports configured household backups. Credentials and staging area
 
 Offline access still needs power, working storage, a working reader, and a reachable local network. Captive-portal pop-ups vary by client. A running server is not proof that every article, image, map, or copied reader works on every device. Checksums detect corruption; they do not establish that information is correct, current, or suitable for a particular situation.
 
+## Incidental capabilities are potential resources
+
+Under adverse conditions, the network, computer, storage, terminal and tools that accompany the library may be useful in their own right. The Ark should expose and document these peripheral resources, including uses beyond its own maintenance, while preserving dependable access to the library. Public reading remains open; authorization protects operations that could disrupt shared services or destroy content. Installed capabilities, unconfigured possibilities and their dependencies must be clearly distinguished.
+
+See [Resources beyond the library](../10-User/Resources.md).
+
 ## Favor maintainable parts
 
 The implementation uses Apache for web access, FastAPI for local APIs, Kiwix for ZIM reading, Samba and FTP for file distribution, and systemd for workers. The central manifest identifies collections and their sources. Source code, tests, installers, and documentation should be enough for another maintainer to understand the system; a complete disaster-recovery restore still requires independent testing.

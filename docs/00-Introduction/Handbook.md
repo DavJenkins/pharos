@@ -4,7 +4,7 @@
 
 This handbook is the entry point for someone inheriting the appliance or returning to it after time away. It records the philosophy, intended behavior, deployed design, configuration dependencies, routine care and remaining work. It is also a navigation map to the more detailed guides, not a claim that every recovery scenario has been tested.
 
-The implementation and settings were reviewed on October 22, 2026. Dynamic facts such as installed collections, free space, addresses and job state belong in the live interface and private configuration inventory. Historic project notes must not be mistaken for current instructions.
+The core implementation and settings were reviewed on October 22, 2026; maps, forms, browser terminal and peripheral-resource guidance were updated on October 23, 2026. Dynamic facts such as installed collections, free space, addresses and job state belong in the live interface and private configuration inventory. Historic project notes must not be mistaken for current instructions.
 
 ## The central promise
 
@@ -13,6 +13,16 @@ Useful knowledge should remain accessible when the internet does not. A person n
 The name and practical mission emphasize preservation, continuity and recoverability. Information should not depend on one person's memory, a single cloud account or an undocumented workstation. Maintenance knowledge belongs with the appliance as well as in its source repository.
 
 ## Philosophy and decisions
+
+### Peripheral resources are part of the mission
+
+The Ark exists to preserve and serve useful content, especially under adverse conditions. Under those conditions, capabilities incidental to that mission should be considered potential peripheral resources: the local network, Linux computer, terminal, storage, file-transfer services, installed tools and physical interfaces may solve problems beyond reading the library.
+
+Make existing capabilities discoverable and usable without crowding out the library. Document what is available now, what requires authentication or additional equipment, what depends on upstream connectivity, and what is only a possibility. Useful peripheral functions are not limited to operating or maintaining the Ark.
+
+Preserve the primary service while enabling this broader usefulness. Open reading and copying stay open to everyone. Authorization protects actions that can disrupt service, change shared state or destroy content; it is not a separate class of access to knowledge. Resource limits, isolation and recovery paths should be considered when adding a capability. These are design requirements, not a claim that all shell jobs are currently quota-limited or isolated from the library.
+
+See [Resources beyond the library](../10-User/Resources.md) for the current inventory and practical boundaries.
 
 ### Open reading, shared stewardship
 
@@ -28,7 +38,7 @@ The landing page is for installed local holdings. A prominent online-only card i
 
 The gear groups the nine dashboard icons into Connections, Access and monitoring, and Support tools. A status/control icon opens details before an action; Help and Developer API are deliberately direct links. Desktop hover descriptions remain useful. Toggles belong inside the pop-up, Close belongs at the lower right, and duplicate titles and tiny separate information targets should be avoided.
 
-System contains library counts, storage and activity beside Manage Library. Internet pass-through means upstream access for the requesting hotspot device, not a global internet switch. Auto refresh controls the page's status polling, not system updates. These distinctions prevent a convenient-looking control from doing something surprising.
+System contains library counts, storage and activity beside Manage Library and the separately authenticated Terminal link. Internet pass-through means upstream access for the requesting hotspot device, not a global internet switch. Auto refresh controls the page's status polling, not system updates. These distinctions prevent a convenient-looking control from doing something surprising.
 
 ### Prefer recoverable transitions
 
@@ -69,11 +79,11 @@ Maps, household backups and portal behavior have dedicated guides in the [conten
 
 ## What is working versus what is promised
 
-Implemented capabilities include local library discovery, the management lifecycle, shared caretaker authentication, per-device pass-through, bounded portal capture, library lifecycle events, file distribution and documented configuration capture. FTP download/resume, blocked writes and private-path exclusion were verified on loopback and from the desktop LAN.
+Implemented capabilities include the local Massachusetts street-map viewer, the forms/reference collections, the authenticated HTTPS browser terminal, local library discovery, the management lifecycle, shared caretaker authentication, per-device pass-through, bounded portal capture, library lifecycle events, file distribution and documented configuration capture. FTP download/resume, blocked writes and private-path exclusion were verified on loopback and from the desktop LAN.
 
 The reader audit identified archive-page timeouts even when the Kiwix catalogue was available. Do not mark all viewers healthy until actual articles and images pass. PDF and GIS formats differ: map indexes are not an integrated GIS viewer. Portable Windows software has its own execution/compatibility checks. See [Acceptance tests](../20-Administration/AcceptanceTests.md) for observed results and unresolved tests.
 
-Other incomplete areas include a spare-storage disaster recovery test, public collection requests and storage approvals, a selected offline OpenStreetMap package/reader, some live household/encryption/HA checks, UPS-aware shutdown/eject policy and retention rules. No physical door, light or other home-automation actions are implied by a configured backup integration.
+Other incomplete areas include a spare-storage disaster recovery test, public collection requests and storage approvals, some live household/encryption/HA checks, UPS-aware shutdown/eject policy and retention rules. No physical door, light or other home-automation actions are implied by a configured backup integration.
 
 ## The deployment goal
 

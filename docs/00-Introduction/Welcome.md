@@ -18,6 +18,10 @@ Reading and copying the public library are open to everyone who can reach the Ar
 
 The caretaker protects the shared copy and available storage. Removing a collection affects everyone using this Ark, so it requires confirmation. Source details remain available for supported reinstatement.
 
+## Useful beyond reading
+
+The Ark also brings local networking, file transfer, general Linux computing and installed tools. Some are open public services; shell and changes to shared state require authorization. See [Resources beyond the library](../10-User/Resources.md) for what exists now and what is only a possibility.
+
 ## Start here
 
 - [User Guide](../10-User/UserGuide.md): connect, read, copy, and understand the status controls.

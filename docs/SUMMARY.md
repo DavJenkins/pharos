@@ -12,6 +12,7 @@
 
 - [User Guide](10-User/UserGuide.md)
 - [Frequently Asked Questions](10-User/FAQ.md)
+- [Resources beyond the library](10-User/Resources.md)
 
 ---
 
@@ -26,6 +27,9 @@
 - [Library management and distribution](20-Administration/Library.md)
 - [Central Asset Manifest](20-Administration/Manifest.md)
 - [Local reference maps](20-Administration/Maps.md)
+- [Offline maps and preparedness references](20-Administration/OfflineReferences.md)
+- [Forms and Templates](20-Administration/Forms.md)
+- [Browser terminal](20-Administration/BrowserTerminal.md)
 - [Project status: October 21, 2026](20-Administration/ProjectStatus-2026-10-21.md)
 - [System Inventory](20-Administration/SystemInventory.md)
 - [Release Notes](20-Administration/ReleaseNotes.md)
@@ -48,9 +52,3 @@
 ## Legal
 
 - [Licenses](40-Legal/Licenses.md)
-
-- [Offline maps and preparedness references](20-Administration/OfflineReferences.md)
-
-- [Forms and Templates](20-Administration/Forms.md)
-
-- [Browser terminal](20-Administration/BrowserTerminal.md)
