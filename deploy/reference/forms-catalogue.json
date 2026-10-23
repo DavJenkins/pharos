@@ -1,0 +1,242 @@
+[
+  {
+    "id": "f1040-2025",
+    "title": "IRS Individual income tax return",
+    "url": "https://www.irs.gov/pub/irs-prior/f1040--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "i1040gi-2025",
+    "title": "IRS 1040 and 1040-SR instructions",
+    "url": "https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "f1040s1-2025",
+    "title": "IRS Schedule 1 — Additional income and adjustments",
+    "url": "https://www.irs.gov/pub/irs-prior/f1040s1--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "f1040s1a-2025",
+    "title": "IRS Schedule 1-A — Additional deductions",
+    "url": "https://www.irs.gov/pub/irs-prior/f1040s1a--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "f1040s2-2025",
+    "title": "IRS Schedule 2 — Additional taxes",
+    "url": "https://www.irs.gov/pub/irs-prior/f1040s2--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "f1040s3-2025",
+    "title": "IRS Schedule 3 — Additional credits and payments",
+    "url": "https://www.irs.gov/pub/irs-prior/f1040s3--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "f1040sa-2025",
+    "title": "IRS Schedule A — Itemized deductions",
+    "url": "https://www.irs.gov/pub/irs-prior/f1040sa--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "f1040sb-2025",
+    "title": "IRS Schedule B — Interest and ordinary dividends",
+    "url": "https://www.irs.gov/pub/irs-prior/f1040sb--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "f1040sc-2025",
+    "title": "IRS Schedule C — Profit or loss from business",
+    "url": "https://www.irs.gov/pub/irs-prior/f1040sc--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "f1040sd-2025",
+    "title": "IRS Schedule D — Capital gains and losses",
+    "url": "https://www.irs.gov/pub/irs-prior/f1040sd--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "f1040se-2025",
+    "title": "IRS Schedule E — Supplemental income and loss",
+    "url": "https://www.irs.gov/pub/irs-prior/f1040se--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "f1040sse-2025",
+    "title": "IRS Schedule SE — Self-employment tax",
+    "url": "https://www.irs.gov/pub/irs-prior/f1040sse--2025.pdf",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Federal — United States. Use instructions for the same tax year."
+  },
+  {
+    "id": "fw9",
+    "title": "W-9 — Taxpayer identification and certification",
+    "url": "https://www.irs.gov/pub/irs-pdf/fw9.pdf",
+    "group": "tax",
+    "edition": "Publisher revision at retrieval",
+    "note": "Federal — United States. Revision is recorded from the PDF; not a tax-year return."
+  },
+  {
+    "id": "fw4",
+    "title": "W-4 — Employee withholding certificate",
+    "url": "https://www.irs.gov/pub/irs-pdf/fw4.pdf",
+    "group": "tax",
+    "edition": "Publisher revision at retrieval",
+    "note": "Federal — United States. Revision is recorded from the PDF; not a tax-year return."
+  },
+  {
+    "id": "fss4",
+    "title": "SS-4 — Employer identification number application",
+    "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
+    "group": "tax",
+    "edition": "Publisher revision at retrieval",
+    "note": "Federal — United States. Revision is recorded from the PDF; not a tax-year return."
+  },
+  {
+    "id": "iss4",
+    "title": "SS-4 instructions",
+    "url": "https://www.irs.gov/pub/irs-pdf/iss4.pdf",
+    "group": "tax",
+    "edition": "Publisher revision at retrieval",
+    "note": "Federal — United States. Revision is recorded from the PDF; not a tax-year return."
+  },
+  {
+    "id": "f4506t",
+    "title": "4506-T — Request for transcript",
+    "url": "https://www.irs.gov/pub/irs-pdf/f4506t.pdf",
+    "group": "tax",
+    "edition": "Publisher revision at retrieval",
+    "note": "Federal — United States. Revision is recorded from the PDF; not a tax-year return."
+  },
+  {
+    "id": "f8822",
+    "title": "8822 — Change of address",
+    "url": "https://www.irs.gov/pub/irs-pdf/f8822.pdf",
+    "group": "tax",
+    "edition": "Publisher revision at retrieval",
+    "note": "Federal — United States. Revision is recorded from the PDF; not a tax-year return."
+  },
+  {
+    "id": "ma-form1-2025",
+    "title": "Massachusetts Form 1 — Resident income tax return",
+    "url": "https://www.mass.gov/doc/2025-form-1-massachusetts-resident-income-tax-return/download",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Massachusetts. Instructions must match the tax year."
+  },
+  {
+    "id": "ma-form1-instructions-2025",
+    "title": "Massachusetts Form 1 instructions",
+    "url": "https://www.mass.gov/doc/2025-form-1-instructions/download",
+    "group": "tax",
+    "edition": "Tax year 2025",
+    "note": "Massachusetts. Exclude draft editions."
+  },
+  {
+    "id": "ss5",
+    "title": "SSA SS-5 — Application for a Social Security card",
+    "url": "https://www.ssa.gov/online/ss-5.pdf",
+    "group": "government",
+    "edition": "Publisher revision at retrieval",
+    "note": "United States; instructions included."
+  },
+  {
+    "id": "i9",
+    "title": "USCIS I-9 — Employment eligibility verification",
+    "url": "https://www.uscis.gov/sites/default/files/document/forms/i-9.pdf",
+    "group": "government",
+    "edition": "Publisher revision at retrieval",
+    "note": "United States; check accepted edition before use."
+  },
+  {
+    "id": "i9-instructions",
+    "title": "USCIS I-9 instructions",
+    "url": "https://www.uscis.gov/sites/default/files/document/forms/i-9instr.pdf",
+    "group": "government",
+    "edition": "Publisher revision at retrieval",
+    "note": "United States."
+  },
+  {
+    "id": "ma-health-proxy",
+    "title": "Massachusetts Health Care Proxy",
+    "url": "https://www.mass.gov/doc/download-the-massachusetts-healthcare-proxy-form/download",
+    "group": "government",
+    "edition": "Publisher revision at retrieval",
+    "note": "Massachusetts. Execution and witness requirements apply."
+  },
+  {
+    "id": "sf95",
+    "title": "GSA SF 95 — Claim for damage, injury or death",
+    "url": "https://www.gsa.gov/cdnstatic/SF95-07a.pdf",
+    "group": "government",
+    "edition": "Publisher revision at retrieval",
+    "note": "Claims against the United States; instructions included. Not a general insurance claim form."
+  },
+  {
+    "id": "commonpaper-professional-services-agreement",
+    "title": "Professional Services Agreement",
+    "url": "https://commonpaper.com/standards/professional-services-agreement/1.1/cover-page-and-standard-terms-docx",
+    "group": "contracts",
+    "edition": "Common Paper version 1.1",
+    "note": "CC BY 4.0 — Common Paper. Complete cover page and terms. Governing law and transaction details must be chosen; not jurisdiction-specific."
+  },
+  {
+    "id": "commonpaper-software-license-agreement",
+    "title": "Software License Agreement",
+    "url": "https://commonpaper.com/standards/software-license-agreement/1.1/cover-page-and-standard-terms-docx",
+    "group": "contracts",
+    "edition": "Common Paper version 1.1",
+    "note": "CC BY 4.0 — Common Paper. Complete cover page and terms. Governing law and transaction details must be chosen; not jurisdiction-specific."
+  },
+  {
+    "id": "commonpaper-partnership-agreement",
+    "title": "Business Partnership Agreement",
+    "url": "https://commonpaper.com/standards/partnership-agreement/1.1/cover-page-and-standard-terms-docx",
+    "group": "contracts",
+    "edition": "Common Paper version 1.1",
+    "note": "CC BY 4.0 — Common Paper. Complete cover page and terms. Governing law and transaction details must be chosen; not jurisdiction-specific."
+  },
+  {
+    "id": "commonpaper-mutual-nda",
+    "title": "Mutual Non-Disclosure Agreement",
+    "url": "https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-docx",
+    "group": "contracts",
+    "edition": "Common Paper version 1.0",
+    "note": "CC BY 4.0 — Common Paper. Complete cover page and terms. Governing law and transaction details must be chosen; not jurisdiction-specific."
+  },
+  {
+    "id": "commonpaper-mutual-nda-pdf",
+    "title": "Mutual Non-Disclosure Agreement — printable PDF",
+    "url": "https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-pdf",
+    "group": "contracts",
+    "edition": "Common Paper version 1.0",
+    "note": "CC BY 4.0 — Common Paper. Complete cover page and terms; governing law must be chosen."
+  }
+]

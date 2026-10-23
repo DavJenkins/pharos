@@ -188,6 +188,17 @@ repositories:
     links:
       - title: Open local preparedness references
         url: /library-files/preparedness/index.html
+  - id: forms-templates
+    category: content_sources
+    title: Forms and Templates
+    description: Blank tax and government forms, instructions and openly licensed
+      contract templates. Tax years, revisions and sources are preserved.
+    collapse_assets: true
+    update_policy: manual
+    refresh_interval: never
+    links:
+      - title: Browse local forms and templates
+        url: /library-files/forms/index.html
 assets:
   - id: ifixit-repair-guides
     online_url: https://www.ifixit.com/Guide
@@ -344,6 +355,350 @@ assets:
     refresh_interval: never
     source_note: Official source; retrieved 2026-10-23T04:41:38.734186+00:00
     version_pin: null
+  - id: forms-f1040-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS Individual income tax return — Tax year 2025
+    relative_path: forms/tax/f1040-2025.pdf
+    service_endpoint: /library-files/forms/tax/f1040-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/f1040--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/f1040--2025.pdf
+    expected_hash: 3d31c226df0d189ced80e039d01cf0f8820c1019681a0f0ca6264de277b7e982
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:57.857835+00:00
+  - id: forms-i1040gi-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS 1040 and 1040-SR instructions — Tax year 2025
+    relative_path: forms/tax/i1040gi-2025.pdf
+    service_endpoint: /library-files/forms/tax/i1040gi-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf
+    expected_hash: 482e9c487c608f1bbeaceef35bc3c0933e8b35443cfff447e4279d590468364a
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:57.860189+00:00
+  - id: forms-f1040s1-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS Schedule 1 — Additional income and adjustments — Tax year 2025
+    relative_path: forms/tax/f1040s1-2025.pdf
+    service_endpoint: /library-files/forms/tax/f1040s1-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/f1040s1--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/f1040s1--2025.pdf
+    expected_hash: 8dafec719f6a4716c259a2bdaca546d9bb9e262d1eabef885fe116a7327458fa
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:57.861808+00:00
+  - id: forms-f1040s1a-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS Schedule 1-A — Additional deductions — Tax year 2025
+    relative_path: forms/tax/f1040s1a-2025.pdf
+    service_endpoint: /library-files/forms/tax/f1040s1a-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/f1040s1a--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/f1040s1a--2025.pdf
+    expected_hash: 64f97b38ff4218e2f188fd55a8aab7043556687487c82bbefe0b6dd1a956ecd4
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:58.319899+00:00
+  - id: forms-f1040s2-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS Schedule 2 — Additional taxes — Tax year 2025
+    relative_path: forms/tax/f1040s2-2025.pdf
+    service_endpoint: /library-files/forms/tax/f1040s2-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/f1040s2--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/f1040s2--2025.pdf
+    expected_hash: 64d867b683334cfc533993e37ccb0d143449ec29428a78206be2e4de333941e8
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:58.508373+00:00
+  - id: forms-f1040s3-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS Schedule 3 — Additional credits and payments — Tax year 2025
+    relative_path: forms/tax/f1040s3-2025.pdf
+    service_endpoint: /library-files/forms/tax/f1040s3-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/f1040s3--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/f1040s3--2025.pdf
+    expected_hash: 008cfd3fe3ebd0860452069b90fd0a3d53dda6dd8a5d870278370aa899a63f82
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:58.578129+00:00
+  - id: forms-f1040sa-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS Schedule A — Itemized deductions — Tax year 2025
+    relative_path: forms/tax/f1040sa-2025.pdf
+    service_endpoint: /library-files/forms/tax/f1040sa-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/f1040sa--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/f1040sa--2025.pdf
+    expected_hash: c14acf3478f4c33f27ac6e8ecd9f94b6fb25b16745b341728bd27847d2ef56bb
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:58.621695+00:00
+  - id: forms-f1040sb-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS Schedule B — Interest and ordinary dividends — Tax year 2025
+    relative_path: forms/tax/f1040sb-2025.pdf
+    service_endpoint: /library-files/forms/tax/f1040sb-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/f1040sb--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/f1040sb--2025.pdf
+    expected_hash: dd1ec3719954532bd219343d81385a2ada3c8e9573fc755a3893f1fbbecc63e2
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:58.834223+00:00
+  - id: forms-f1040sc-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS Schedule C — Profit or loss from business — Tax year 2025
+    relative_path: forms/tax/f1040sc-2025.pdf
+    service_endpoint: /library-files/forms/tax/f1040sc-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/f1040sc--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/f1040sc--2025.pdf
+    expected_hash: ddf401dbe060467d39f90ad2abf645df1de31512821a150dc68a3882bbf19716
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:58.872060+00:00
+  - id: forms-f1040sd-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS Schedule D — Capital gains and losses — Tax year 2025
+    relative_path: forms/tax/f1040sd-2025.pdf
+    service_endpoint: /library-files/forms/tax/f1040sd-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/f1040sd--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/f1040sd--2025.pdf
+    expected_hash: 90564c8b7e49280363612639b804d113ebedb516c2e87c70649f29c844da1d2e
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:58.939074+00:00
+  - id: forms-f1040se-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS Schedule E — Supplemental income and loss — Tax year 2025
+    relative_path: forms/tax/f1040se-2025.pdf
+    service_endpoint: /library-files/forms/tax/f1040se-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/f1040se--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/f1040se--2025.pdf
+    expected_hash: c5e2c8fa0ec5ee9153a0167734df634afe0ea8bb8483040766e5f4b1b12780f3
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:59.121639+00:00
+  - id: forms-f1040sse-2025
+    repository_id: forms-templates
+    category: pdf_reference
+    title: IRS Schedule SE — Self-employment tax — Tax year 2025
+    relative_path: forms/tax/f1040sse-2025.pdf
+    service_endpoint: /library-files/forms/tax/f1040sse-2025.pdf
+    online_url: https://www.irs.gov/pub/irs-prior/f1040sse--2025.pdf
+    download_url: https://www.irs.gov/pub/irs-prior/f1040sse--2025.pdf
+    expected_hash: 05bc2b3e1dfca65d8c6fc6d652af4fa3736e953c6575d6e9f82590484677d347
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Use instructions for the same tax year.
+      Retrieved 2026-10-23T04:56:59.160622+00:00
+  - id: forms-fw9
+    repository_id: forms-templates
+    category: pdf_reference
+    title: W-9 — Taxpayer identification and certification — Publisher revision at
+      retrieval
+    relative_path: forms/tax/fw9.pdf
+    service_endpoint: /library-files/forms/tax/fw9.pdf
+    online_url: https://www.irs.gov/pub/irs-pdf/fw9.pdf
+    download_url: https://www.irs.gov/pub/irs-pdf/fw9.pdf
+    expected_hash: 2d420cbb4123dcf1fb82595b2359cfbb5d81f00b9df9d359fcc7af361d093f53
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Revision is recorded from the PDF; not a
+      tax-year return. Retrieved 2026-10-23T04:56:59.248853+00:00
+  - id: forms-fw4
+    repository_id: forms-templates
+    category: pdf_reference
+    title: W-4 — Employee withholding certificate — Publisher revision at retrieval
+    relative_path: forms/tax/fw4.pdf
+    service_endpoint: /library-files/forms/tax/fw4.pdf
+    online_url: https://www.irs.gov/pub/irs-pdf/fw4.pdf
+    download_url: https://www.irs.gov/pub/irs-pdf/fw4.pdf
+    expected_hash: 92444d8856ce55d9e25dca8b6d1420634fc68b11e1ab1f760916ea29ddd312b2
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Revision is recorded from the PDF; not a
+      tax-year return. Retrieved 2026-10-23T04:56:59.425658+00:00
+  - id: forms-fss4
+    repository_id: forms-templates
+    category: pdf_reference
+    title: SS-4 — Employer identification number application — Publisher revision
+      at retrieval
+    relative_path: forms/tax/fss4.pdf
+    service_endpoint: /library-files/forms/tax/fss4.pdf
+    online_url: https://www.irs.gov/pub/irs-pdf/fss4.pdf
+    download_url: https://www.irs.gov/pub/irs-pdf/fss4.pdf
+    expected_hash: 23d295529950b05979596cf58d559db6c433a4ec852407b1820265c117cb3ca2
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Revision is recorded from the PDF; not a
+      tax-year return. Retrieved 2026-10-23T04:56:59.471745+00:00
+  - id: forms-iss4
+    repository_id: forms-templates
+    category: pdf_reference
+    title: SS-4 instructions — Publisher revision at retrieval
+    relative_path: forms/tax/iss4.pdf
+    service_endpoint: /library-files/forms/tax/iss4.pdf
+    online_url: https://www.irs.gov/pub/irs-pdf/iss4.pdf
+    download_url: https://www.irs.gov/pub/irs-pdf/iss4.pdf
+    expected_hash: cba1fac11f7e152aad7830e3a4f036d3b9b2a26d1af8daa72be19d838f705c44
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Revision is recorded from the PDF; not a
+      tax-year return. Retrieved 2026-10-23T04:56:59.571419+00:00
+  - id: forms-f4506t
+    repository_id: forms-templates
+    category: pdf_reference
+    title: 4506-T — Request for transcript — Publisher revision at retrieval
+    relative_path: forms/tax/f4506t.pdf
+    service_endpoint: /library-files/forms/tax/f4506t.pdf
+    online_url: https://www.irs.gov/pub/irs-pdf/f4506t.pdf
+    download_url: https://www.irs.gov/pub/irs-pdf/f4506t.pdf
+    expected_hash: 4de7303eee766f31deb9afbb66aa538e8e04909d31307c494b328e69fbbe634e
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Revision is recorded from the PDF; not a
+      tax-year return. Retrieved 2026-10-23T04:56:59.752843+00:00
+  - id: forms-f8822
+    repository_id: forms-templates
+    category: pdf_reference
+    title: 8822 — Change of address — Publisher revision at retrieval
+    relative_path: forms/tax/f8822.pdf
+    service_endpoint: /library-files/forms/tax/f8822.pdf
+    online_url: https://www.irs.gov/pub/irs-pdf/f8822.pdf
+    download_url: https://www.irs.gov/pub/irs-pdf/f8822.pdf
+    expected_hash: 200ec0db82a1f8ea0c37f5ffdad562926dfe26c1d537ff701755989ce4197be6
+    update_policy: manual
+    refresh_interval: never
+    source_note: Federal — United States. Revision is recorded from the PDF; not a
+      tax-year return. Retrieved 2026-10-23T04:56:59.794158+00:00
+  - id: forms-i9
+    repository_id: forms-templates
+    category: pdf_reference
+    title: USCIS I-9 — Employment eligibility verification — Publisher revision at
+      retrieval
+    relative_path: forms/government/i9.pdf
+    service_endpoint: /library-files/forms/government/i9.pdf
+    online_url: https://www.uscis.gov/sites/default/files/document/forms/i-9.pdf
+    download_url: https://www.uscis.gov/sites/default/files/document/forms/i-9.pdf
+    expected_hash: 780f348c34df694bb0b4dbbfaf9f22b99b9757b80d16a37ba89aadf069597281
+    update_policy: manual
+    refresh_interval: never
+    source_note: United States; check accepted edition before use. Retrieved 2026-10-23T04:57:00.069546+00:00
+  - id: forms-i9-instructions
+    repository_id: forms-templates
+    category: pdf_reference
+    title: USCIS I-9 instructions — Publisher revision at retrieval
+    relative_path: forms/government/i9-instructions.pdf
+    service_endpoint: /library-files/forms/government/i9-instructions.pdf
+    online_url: https://www.uscis.gov/sites/default/files/document/forms/i-9instr.pdf
+    download_url: https://www.uscis.gov/sites/default/files/document/forms/i-9instr.pdf
+    expected_hash: c66c3818fbecbfb87b5f0560f4dfd4086905daf72ca29dba15ce4c8d49dc4ca3
+    update_policy: manual
+    refresh_interval: never
+    source_note: United States. Retrieved 2026-10-23T04:57:00.114847+00:00
+  - id: forms-sf95
+    repository_id: forms-templates
+    category: pdf_reference
+    title: GSA SF 95 — Claim for damage, injury or death — Publisher revision at retrieval
+    relative_path: forms/government/sf95.pdf
+    service_endpoint: /library-files/forms/government/sf95.pdf
+    online_url: https://www.gsa.gov/cdnstatic/SF95-07a.pdf
+    download_url: https://www.gsa.gov/cdnstatic/SF95-07a.pdf
+    expected_hash: 7c58078520934a0dc2c28ec9e59064548a38df3ac26f63c6a7d83a3280c9afe4
+    update_policy: manual
+    refresh_interval: never
+    source_note: Claims against the United States; instructions included. Not a general
+      insurance claim form. Retrieved 2026-10-23T04:57:00.243750+00:00
+  - id: forms-commonpaper-professional-services-agreement
+    repository_id: forms-templates
+    category: pdf_reference
+    title: Professional Services Agreement — Common Paper version 1.1
+    relative_path: forms/contracts/commonpaper-professional-services-agreement.docx
+    service_endpoint: /library-files/forms/contracts/commonpaper-professional-services-agreement.docx
+    online_url: https://commonpaper.com/standards/professional-services-agreement/1.1/cover-page-and-standard-terms-docx
+    download_url: https://commonpaper.com/standards/professional-services-agreement/1.1/cover-page-and-standard-terms-docx
+    expected_hash: d8cc13f589096d1b2afc1917756adea450cd7d966779633613fbecc4dc45d3ba
+    update_policy: manual
+    refresh_interval: never
+    source_note: CC BY 4.0 — Common Paper. Complete cover page and terms. Governing
+      law and transaction details must be chosen; not jurisdiction-specific. Retrieved
+      2026-10-23T04:57:00.370964+00:00
+  - id: forms-commonpaper-software-license-agreement
+    repository_id: forms-templates
+    category: pdf_reference
+    title: Software License Agreement — Common Paper version 1.1
+    relative_path: forms/contracts/commonpaper-software-license-agreement.docx
+    service_endpoint: /library-files/forms/contracts/commonpaper-software-license-agreement.docx
+    online_url: https://commonpaper.com/standards/software-license-agreement/1.1/cover-page-and-standard-terms-docx
+    download_url: https://commonpaper.com/standards/software-license-agreement/1.1/cover-page-and-standard-terms-docx
+    expected_hash: 0a073e0e2087811749bb06215bc9490b9a6a067c5449ed3516bb9d94c0497834
+    update_policy: manual
+    refresh_interval: never
+    source_note: CC BY 4.0 — Common Paper. Complete cover page and terms. Governing
+      law and transaction details must be chosen; not jurisdiction-specific. Retrieved
+      2026-10-23T04:57:00.608844+00:00
+  - id: forms-commonpaper-partnership-agreement
+    repository_id: forms-templates
+    category: pdf_reference
+    title: Business Partnership Agreement — Common Paper version 1.1
+    relative_path: forms/contracts/commonpaper-partnership-agreement.docx
+    service_endpoint: /library-files/forms/contracts/commonpaper-partnership-agreement.docx
+    online_url: https://commonpaper.com/standards/partnership-agreement/1.1/cover-page-and-standard-terms-docx
+    download_url: https://commonpaper.com/standards/partnership-agreement/1.1/cover-page-and-standard-terms-docx
+    expected_hash: ae3023105755ecd9b2312bf53c216319fd0bc79830c4627611a7ac5b0a206895
+    update_policy: manual
+    refresh_interval: never
+    source_note: CC BY 4.0 — Common Paper. Complete cover page and terms. Governing
+      law and transaction details must be chosen; not jurisdiction-specific. Retrieved
+      2026-10-23T04:57:00.635594+00:00
+  - id: forms-commonpaper-mutual-nda
+    repository_id: forms-templates
+    category: pdf_reference
+    title: Mutual Non-Disclosure Agreement — Common Paper version 1.0
+    relative_path: forms/contracts/commonpaper-mutual-nda.docx
+    service_endpoint: /library-files/forms/contracts/commonpaper-mutual-nda.docx
+    online_url: https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-docx
+    download_url: https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-docx
+    expected_hash: 18e07001c3ebfc749833e10836eda4fe0d302ab0a7519a0388696be3df86b566
+    update_policy: manual
+    refresh_interval: never
+    source_note: CC BY 4.0 — Common Paper. Complete cover page and terms. Governing
+      law and transaction details must be chosen; not jurisdiction-specific. Retrieved
+      2026-10-23T04:57:01.524730+00:00
+  - id: forms-commonpaper-mutual-nda-pdf
+    repository_id: forms-templates
+    category: pdf_reference
+    title: Mutual Non-Disclosure Agreement — printable PDF — Common Paper version
+      1.0
+    relative_path: forms/contracts/commonpaper-mutual-nda-pdf.pdf
+    service_endpoint: /library-files/forms/contracts/commonpaper-mutual-nda-pdf.pdf
+    online_url: https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-pdf
+    download_url: https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-pdf
+    expected_hash: 8d31fe0e0eb96649b180ec4f6eec84617ff2d499576f8dccde981e58c5a829d6
+    update_policy: manual
+    refresh_interval: never
+    source_note: CC BY 4.0 — Common Paper. Complete cover page and terms; governing
+      law must be chosen. Retrieved 2026-10-23T04:57:01.848997+00:00
 resource_sections:
   - title: Local maps
     description: Massachusetts reference maps for Worcester and Middlesex counties.

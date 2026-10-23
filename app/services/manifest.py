@@ -248,6 +248,8 @@ def load_manifest(path):
             raise ManifestError(f'Unknown category for repository {repo["id"]}.')
         if type(repo.get('enabled', True)) is not bool:
             raise ManifestError('Repository enabled must be true or false.')
+        if type(repo.get('collapse_assets', False)) is not bool:
+            raise ManifestError('Repository collapse_assets must be true or false.')
         if not isinstance(repo.get('links', []), list):
             raise ManifestError('Repository links must be a list.')
         for link in repo.get('links', []):
@@ -483,11 +485,14 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                     entries.append('<li class="manifest-missing">' + thumbnail + title + external + '<span class="manifest-badge">Unavailable / Pending Download</span>' + note + '</li>')
             badge = 'Unavailable / Pending Download' if missing else f'{ready} of {len(items)} assets available' if items else 'Reference links'
             tags = ''.join('<span class="manifest-tag">' + html.escape(value) + '</span>' for value in repo.get('tags', []))
+            asset_list = '<ul class="manifest-assets">' + ''.join(entries) + '</ul>'
+            if entries and repo.get('collapse_assets', False):
+                asset_list = '<details><summary>Show individual files (' + str(len(entries)) + ')</summary>' + asset_list + '</details>'
             cards.append('<article class="manifest-card' + (' manifest-missing' if missing else '') + '" data-repository-id="' + html.escape(repo['id'], quote=True) + '">' +
                          image_tag(art, repo['title']) + '<h3>' + html.escape(repo['title']) + '</h3><p>' +
                          html.escape(str(repo.get('description', ''))) + '</p><span class="manifest-badge">' + badge +
                          '</span><div class="manifest-tags">' + tags + '</div><nav class="manifest-links">' + ' '.join(links) +
-                         '</nav><ul class="manifest-assets">' + ''.join(entries) + '</ul></article>')
+                         '</nav>' + asset_list + '</article>')
         if cards:
             sections.append('<section class="manifest-category"><h2>' + html.escape(category['title']) + '</h2><p>' +
                             html.escape(str(category.get('description', ''))) + '</p><div class="manifest-grid">' +

@@ -43,6 +43,18 @@ class ManifestTests(unittest.TestCase):
         result = build(self.manifest, self.template, self.output, content_root=self.content)
         return result, self.output.read_text(encoding='utf-8')
 
+    def test_collapsed_collection_keeps_files_and_primary_link(self):
+        (self.content/'book.pdf').write_bytes(b'pdf')
+        self.data['repositories'][0]['collapse_assets']=True
+        self.data['repositories'][0]['links'].append({'title':'Browse collection','url':'/library-files/forms/index.html'})
+        _, page=self.render()
+        self.assertIn('<details><summary>Show individual files (1)</summary>',page)
+        self.assertIn('href="/library-files/book.pdf"',page)
+        self.assertIn('href="/library-files/forms/index.html"',page)
+        self.data['repositories'][0]['collapse_assets']='yes'
+        self.write()
+        with self.assertRaises(ManifestError): load_manifest(self.manifest)
+
     def test_geographic_coverage_survives_rendering(self):
         coverage = {'country':'US','state':{'code':'MA','name':'Massachusetts'},
                     'counties':[{'name':'Worcester','focus':'Northern Worcester County'}, {'name':'Middlesex'}]}

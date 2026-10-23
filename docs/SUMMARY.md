@@ -50,3 +50,5 @@
 - [Licenses](40-Legal/Licenses.md)
 
 - [Offline maps and preparedness references](20-Administration/OfflineReferences.md)
+
+- [Forms and Templates](20-Administration/Forms.md)
