@@ -40,3 +40,10 @@ class LibraryTests(unittest.TestCase):
             result=library.catalogue()[0]
             self.assertNotIn('error',result)
             self.assertEqual(result['bytes'],123)
+
+    def test_catalogue_excludes_installed_pending_and_removed_registrations(self):
+        from app.services import library
+        for removed in (False,True):
+            with self.subTest(removed=removed),patch.object(library,'load_manifest',return_value={'assets':[{'repository_id':'project-gutenberg','removed':removed}]}),patch('tools.update_worker.release_info') as release:
+                self.assertEqual(library.catalogue(),[])
+                release.assert_not_called()

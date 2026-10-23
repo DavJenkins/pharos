@@ -22,7 +22,7 @@ def inventory():
     for asset in data['assets']:
         path = mount / asset['relative_path']
         item = {'title':asset['title'], 'repository':repositories[asset['repository_id']]['title'],
-            'id':asset['id'], 'relative_path':asset['relative_path'], 'can_restore':bool(asset.get('update_source')), 'source_url':asset.get('download_url'), 'bytes':path.stat().st_size if path.is_file() else None}
+            'id':asset['id'], 'repository_id':asset['repository_id'], 'relative_path':asset['relative_path'], 'can_restore':bool(asset.get('update_source')), 'source_url':asset.get('download_url'), 'bytes':path.stat().st_size if path.is_file() else None}
         if asset.get('removed'):
             removed.append(item)
         elif path.is_file():
@@ -38,6 +38,9 @@ def catalogue():
     data = load_manifest(ROOT / 'dataark.yaml')
     result = []
     for repo, spec in PACKAGES.items():
+        # Existing and removed collections are managed in their own inventory lists.
+        if any(a['repository_id']==repo for a in data['assets']):
+            continue
         item = {k:v for k,v in spec.items() if k not in ('directory','prefix')}
         item['repository_id'] = repo
         item['registered'] = any(a['repository_id'] == repo and not a.get('removed') for a in data['assets'])
