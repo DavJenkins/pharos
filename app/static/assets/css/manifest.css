@@ -212,3 +212,5 @@ body{background-image:none}
 /* Expanded settings shows the complete live status without truncation. */
 .status-bar:has(.ark-settings[open]) #sync-status{display:block;-webkit-line-clamp:unset;max-height:none;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
 .status-bar:has(.ark-settings[open]) #internet-status{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
+
+.library-summary-heading{font-size:1rem;font-weight:700;margin:.9rem 0 .45rem;padding-top:.65rem;border-top:1px solid #94a8b5}

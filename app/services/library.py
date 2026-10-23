@@ -30,7 +30,7 @@ def inventory():
         elif asset.get('update_source'):
             pending.append(item)
     usage = shutil.disk_usage(mount)
-    return {'installed':installed, 'pending':pending, 'removed':removed, 'free_bytes':usage.free,
+    return {'installed':installed, 'pending':pending, 'removed':removed, 'free_bytes':usage.free, 'total_bytes':usage.total, 'used_bytes':usage.used,
         'storage_ready':mount.is_mount(), 'downloads_enabled':Path('/usr/local/libexec/dataark-library').is_file(), 'progress':progress()}
 
 def catalogue():

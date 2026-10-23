@@ -5,7 +5,7 @@
         "wifi-button": {name:"Wi-Fi", description:"The Wi-Fi network the Ark uses to reach the internet.", settings:"/config/wifi.html", settingsLabel:"Change upstream Wi-Fi"},
         "ap-button": {name:"Hotspot", description:"The DataArk Wi-Fi network your devices join to use the Ark.", settings:"/config/system.html", settingsLabel:"Change hotspot settings"},
         "portal-continue": {name:"Internet pass-through", description:"Allow this device to reach the internet through the Ark. This does not change access for other devices. Permission lasts up to six hours and resets when the Ark restarts.", toggle:true},
-        "system-button": {name:"System", description:"The Ark's health, platform, and running time.", settings:"/library.html", settingsLabel:"Manage Library"},
+        "system-button": {name:"System", description:"The Ark's health, running time, and library storage.", settings:"/library.html", settingsLabel:"Manage Library"},
         "refresh-button": {name:"Auto refresh", description:"Update the displayed dashboard status every five seconds. Pausing this does not stop the Ark's services.", toggle:true},
         "debug-button": {name:"Debug", description:"Record diagnostic information for troubleshooting. Portal monitoring runs only while Debug is on. Logs stay on this Ark, rotate automatically, and include known portal-check DNS names.", toggle:true},
     };
@@ -18,6 +18,21 @@
         const link = document.getElementById("status-dialog-link");
         const close = document.getElementById("status-dialog-close");
         let selected = null;
+        let libraryInfo = null;
+        let libraryBusy = false;
+        async function refreshLibrary(){
+            if(libraryBusy||selected!=="system-button"||!dialog.open)return;
+            libraryBusy=true;
+            const controller=new AbortController();
+            const timer=setTimeout(()=>controller.abort(),6000);
+            try{
+                const response=await fetch("/api/library",{cache:"no-store",signal:controller.signal});
+                if(!response.ok)throw new Error("Library unavailable");
+                libraryInfo=await response.json();
+            }catch(_){libraryInfo={unavailable:true};}
+            finally{clearTimeout(timer);libraryBusy=false;if(selected==="system-button"&&dialog.open)render();}
+        }
+        setInterval(refreshLibrary,5000);
         let allowAction = false;
         let pending = null;
         let pendingTimer = null;
@@ -43,6 +58,23 @@
                 }
             }
             value.append(list);
+            if(selected==="system-button"){
+                const title=document.createElement("h3");title.className="library-summary-heading";title.textContent="Library";value.append(title);
+                const summary=document.createElement("dl");summary.className="status-details-list";
+                const row=(label,text)=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=label;dd.textContent=text;summary.append(dt,dd);};
+                const gib=n=>(n/1024**3).toFixed(1)+" GiB";
+                if(!libraryInfo){row("Status","Loading…");}
+                else if(libraryInfo.unavailable){row("Status","Unavailable — reconnect and reopen System.");}
+                else{
+                    row("Installed",libraryInfo.installed.length+(libraryInfo.installed.length===1?" registered item":" registered items"));
+                    row("Pending",libraryInfo.pending.length+(libraryInfo.pending.length===1?" download":" downloads"));
+                    row("Not installed",libraryInfo.removed.length+(libraryInfo.removed.length===1?" removed item":" removed items"));
+                    row("Storage",libraryInfo.storage_ready?gib(libraryInfo.free_bytes)+" free of "+gib(libraryInfo.total_bytes):"Content SSD not mounted");
+                    row("Activity",libraryInfo.progress?.label||"Unavailable");
+                    if(libraryInfo.progress?.detail)row("Details",libraryInfo.progress.detail);
+                }
+                value.append(summary);
+            }
         }
         function render() {
             if (!selected) return;
@@ -79,6 +111,7 @@
                 selected = id;
                 render();
                 if (!dialog.open) dialog.showModal();
+                if(id==="system-button")refreshLibrary();
                 close.focus();
             }, true);
             new MutationObserver(render).observe(original, {attributes:true, attributeFilter:["title","class","data-action-disabled","aria-busy"], childList:true,subtree:true,characterData:true});
