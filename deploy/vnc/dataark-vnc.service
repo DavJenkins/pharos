@@ -1,0 +1,26 @@
+[Unit]
+Description=Data Ark encrypted Wayland VNC desktop
+After=display-manager.service user@1000.service
+Wants=display-manager.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=admin
+Group=admin
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+Environment=WAYLAND_DISPLAY=wayland-0
+ExecStart=/usr/local/libexec/dataark-vnc
+Restart=on-failure
+RestartSec=5
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/run/user/1000
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+IPAddressDeny=any
+IPAddressAllow=localhost
+IPAddressAllow=10.0.0.0/8 172.16.0.0/12 192.168.0.0/16
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

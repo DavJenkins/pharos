@@ -30,6 +30,7 @@
 - [Offline maps and preparedness references](20-Administration/OfflineReferences.md)
 - [Forms and Templates](20-Administration/Forms.md)
 - [Browser terminal](20-Administration/BrowserTerminal.md)
+- [VNC desktop access](20-Administration/VNC.md)
 - [Project status: October 21, 2026](20-Administration/ProjectStatus-2026-10-21.md)
 - [System Inventory](20-Administration/SystemInventory.md)
 - [Release Notes](20-Administration/ReleaseNotes.md)

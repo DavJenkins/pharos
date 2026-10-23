@@ -13,6 +13,7 @@ import tarfile
 import tempfile
 
 CONFIG_PATHS = [
+    "/home/admin/.config/dataark-vnc", "/home/admin/.vnc/passwd", "/etc/pam.d/wayvnc", "/usr/local/libexec/dataark-vnc",
     "/etc/dataark-terminal", "/var/lib/shellinabox/known_hosts",
     "/etc/vsftpd.conf", "/etc/ssh", "/etc/docker", "/etc/sudoers", "/etc/sudoers.d",
     "/usr/local/libexec/dataark-library", "/usr/local/libexec/dataark-pass-through",
@@ -37,7 +38,7 @@ COMMANDS = {
     "kernel": ["uname", "-a"],
     "python_dependencies": ["/opt/dataark/venv/bin/python", "-m", "pip", "freeze"],
     "repository_revision": ["git", "-c", "safe.directory=/opt/dataark", "-C", "/opt/dataark", "rev-parse", "HEAD"],
-    "repository_changes": ["git", "-c", "safe.directory=/opt/dataark", "-C", "/opt/dataark", "status", "--short"],
+    "repository_changes": ["git", "--no-optional-locks", "-c", "safe.directory=/opt/dataark", "-C", "/opt/dataark", "status", "--short"],
     "kiwix_container": ["docker", "inspect", "kiwix-serve"],
     "ssh_effective_settings": ["sshd", "-T"],
     "forwarding": ["sysctl", "net.ipv4.ip_forward", "net.ipv6.conf.all.forwarding"],
