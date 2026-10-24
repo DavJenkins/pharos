@@ -13,7 +13,7 @@ if (-not (Test-Path -LiteralPath (Join-Path $captureRoot 'config.json'))) {
   [System.IO.File]::WriteAllText((Join-Path $captureRoot 'config.json'), ($configuration | ConvertTo-Json), $utf8)
 }
 $launcher = Join-Path $captureRoot 'native-host.cmd'
-('@echo off' + "`r`n" + '"' + $pythonPath + '" "' + (Join-Path $captureRoot 'native_host.py') + '"') | Set-Content -LiteralPath $launcher -Encoding ascii
+('@echo off' + "`r`n" + '"' + $pythonPath + '" -B "' + (Join-Path $captureRoot 'native_host.py') + '"') | Set-Content -LiteralPath $launcher -Encoding ascii
 $hostManifest = @{
  name='com.dejsoftware.dataark_capture'; description='Data Ark approved public PDF capture'; path=$launcher; type='stdio'
  allowed_origins=@('chrome-extension://gilcpcndoddadpkefaeecjemhhcahhig/')
