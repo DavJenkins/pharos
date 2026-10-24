@@ -381,146 +381,6 @@
       "repository": "forms-templates"
     },
     {
-      "id": "family-nasa-exoplanets",
-      "title": "NASA Exoplanets Coloring Book",
-      "path": "family-resources/kids/nasa-exoplanets.pdf",
-      "selected": true,
-      "bytes": 4934372,
-      "sha256": "64efb59df3bc9115e91692b195223ed142465ce3272564066b75a40c575141bf",
-      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/Exoplanets_Coloring_Book_07-22-2016.pdf",
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-nasa-star-en",
-      "title": "NASA Our Very Own Star",
-      "path": "family-resources/kids/nasa-star-en.pdf",
-      "selected": true,
-      "bytes": 99235,
-      "sha256": "e75cf552f55f471a4e3a49d8e01f4a0b6fa41ff604b100ec2c9c7d38b32951c9",
-      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_English.pdf",
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-nasa-star-es",
-      "title": "NASA Our Very Own Star \u2014 Spanish",
-      "path": "family-resources/kids/nasa-star-es.pdf",
-      "selected": true,
-      "bytes": 99608,
-      "sha256": "c710dd16abf095effd9e7cad1dd7ee74d034da51c83b88658fc373d74235a326",
-      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_Spanish.pdf",
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-nasa-iss",
-      "title": "NASA International Space Station Activity Book",
-      "path": "family-resources/kids/nasa-iss.pdf",
-      "selected": true,
-      "bytes": 2609216,
-      "sha256": "483b151756ab6a875333ee2998c851ccfcf00b053d6d0dda0c02a3dc5c881b56",
-      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/ISS_Activity_Book.pdf",
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-nps-caves-en",
-      "title": "Junior Cave Scientist Activity Book",
-      "path": "family-resources/kids/nps-caves-en.pdf",
-      "selected": true,
-      "bytes": 9815633,
-      "sha256": "4f37433062bb60fe8b5b236e29e0666347cbe8dd31200277dc7c522c0e05f971",
-      "source": "https://home.nps.gov/subjects/caves/upload/Junior-Cave-Scientist-Booklet_English508_web-compressed.pdf",
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-nps-caves-es",
-      "title": "Junior Cave Scientist Activity Book \u2014 Spanish",
-      "path": "family-resources/kids/nps-caves-es.pdf",
-      "selected": true,
-      "bytes": 6998800,
-      "sha256": "57450605052654930268bec102fe7fa82b671af8e6ccf4ead196ecfda600eaaa",
-      "source": "https://home.nps.gov/subjects/caves/upload/Junior-Ranger-Cave-Scientist-SPANISH-Final508_web-compressed_2.pdf",
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-fema-ics",
-      "title": "FEMA NIMS Incident Command System Forms & Instructions",
-      "path": "family-resources/readiness/fema-ics.pdf",
-      "selected": true,
-      "bytes": 2989866,
-      "sha256": "1948f66d0732b3e2c0fd2435a13dc45179dbbf374f216216c649deaa317483cc",
-      "source": "https://training.fema.gov/emiweb/is/icsresource/assets/nims%20ics%20forms%20booklet.v3.pdf",
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-cp-contractor",
-      "title": "Common Paper Independent Contractor Agreement",
-      "path": "family-resources/contracts/cp-contractor.docx",
-      "selected": true,
-      "bytes": 149021,
-      "sha256": "786ffa49851ad2761a33f87b115a5140b2a14ab21d58464df4d9aa0cbedd74dc",
-      "source": "https://commonpaper.com/wp-content/uploads/2025/05/Common-Paper-Independent-Contractor-Agreement.docx",
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-cp-amendment",
-      "title": "Common Paper Agreement Amendment",
-      "path": "family-resources/contracts/cp-amendment.docx",
-      "selected": true,
-      "bytes": 39017,
-      "sha256": "64b04560d5640a78a23f1978b0d88254929ceb45c59604e0777cc2ecfccf0ce4",
-      "source": "https://commonpaper.com/wp-content/uploads/2025/01/Common-Paper-Amendment.docx",
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-cp-sow",
-      "title": "Common Paper Statement of Work",
-      "path": "family-resources/contracts/cp-sow.docx",
-      "selected": true,
-      "bytes": 136347,
-      "sha256": "8523d48df8f5330b70e0102dad26761b275a11dfab336201fef04a0fee1b6ac9",
-      "source": "https://commonpaper.com/wp-content/uploads/2025/01/Professional-Services-Agreement-SOW-Only.docx",
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-household-a4",
-      "title": "Household worksheet pack \u2014 A4",
-      "path": "family-resources/generated/household-a4.pdf",
-      "selected": true,
-      "bytes": 16103,
-      "sha256": "e134ca81508e177bcd5b30b5ffc5608dfa1d0042b58a4039c91744c835811367",
-      "source": null,
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-household-letter",
-      "title": "Household worksheet pack \u2014 US Letter",
-      "path": "family-resources/generated/household-letter.pdf",
-      "selected": true,
-      "bytes": 15933,
-      "sha256": "03c39c8b2287da6eda30d17a2b362392f8f9d24fbd4306cbc00b1a219912293d",
-      "source": null,
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-paper-a4",
-      "title": "Paper pattern pack \u2014 A4",
-      "path": "family-resources/generated/paper-a4.pdf",
-      "selected": true,
-      "bytes": 392531,
-      "sha256": "ee3e326fb1959dfba80d556ad56803505bd5a61c48ea2761354ccb69b7fd1625",
-      "source": null,
-      "repository": "family-resources"
-    },
-    {
-      "id": "family-paper-letter",
-      "title": "Paper pattern pack \u2014 US Letter",
-      "path": "family-resources/generated/paper-letter.pdf",
-      "selected": true,
-      "bytes": 376391,
-      "sha256": "d7092412741d5e4675a1cc325c6756d9227984d4a476031cdde0173461c1ecd2",
-      "source": null,
-      "repository": "family-resources"
-    },
-    {
       "id": "ref-maine-survival",
       "title": "You Alone in the Maine Woods",
       "path": "resilience/documents/maine-survival.pdf",
@@ -1379,6 +1239,216 @@
       "sha256": "9ffb7891930411d0e889ea93886b18724a0242320b190e8f9c6c99ec50bb56f2",
       "source": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.txt",
       "repository": "radio-study"
+    },
+    {
+      "id": "family-nasa-exoplanets",
+      "title": "NASA Exoplanets Coloring Book",
+      "path": "family-resources/kids/nasa-exoplanets.pdf",
+      "selected": true,
+      "bytes": 4934372,
+      "sha256": "64efb59df3bc9115e91692b195223ed142465ce3272564066b75a40c575141bf",
+      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/Exoplanets_Coloring_Book_07-22-2016.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-nasa-star-en",
+      "title": "NASA Our Very Own Star",
+      "path": "family-resources/kids/nasa-star-en.pdf",
+      "selected": true,
+      "bytes": 99235,
+      "sha256": "e75cf552f55f471a4e3a49d8e01f4a0b6fa41ff604b100ec2c9c7d38b32951c9",
+      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_English.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-nasa-star-es",
+      "title": "NASA Our Very Own Star \u2014 Spanish",
+      "path": "family-resources/kids/nasa-star-es.pdf",
+      "selected": true,
+      "bytes": 99608,
+      "sha256": "c710dd16abf095effd9e7cad1dd7ee74d034da51c83b88658fc373d74235a326",
+      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_Spanish.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-nasa-iss",
+      "title": "NASA International Space Station Activity Book",
+      "path": "family-resources/kids/nasa-iss.pdf",
+      "selected": true,
+      "bytes": 2609216,
+      "sha256": "483b151756ab6a875333ee2998c851ccfcf00b053d6d0dda0c02a3dc5c881b56",
+      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/ISS_Activity_Book.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-nps-caves-en",
+      "title": "Junior Cave Scientist Activity Book",
+      "path": "family-resources/kids/nps-caves-en.pdf",
+      "selected": true,
+      "bytes": 9815633,
+      "sha256": "4f37433062bb60fe8b5b236e29e0666347cbe8dd31200277dc7c522c0e05f971",
+      "source": "https://home.nps.gov/subjects/caves/upload/Junior-Cave-Scientist-Booklet_English508_web-compressed.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-nps-caves-es",
+      "title": "Junior Cave Scientist Activity Book \u2014 Spanish",
+      "path": "family-resources/kids/nps-caves-es.pdf",
+      "selected": true,
+      "bytes": 6998800,
+      "sha256": "57450605052654930268bec102fe7fa82b671af8e6ccf4ead196ecfda600eaaa",
+      "source": "https://home.nps.gov/subjects/caves/upload/Junior-Ranger-Cave-Scientist-SPANISH-Final508_web-compressed_2.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-fema-ics",
+      "title": "FEMA NIMS Incident Command System Forms & Instructions",
+      "path": "family-resources/readiness/fema-ics.pdf",
+      "selected": true,
+      "bytes": 2989866,
+      "sha256": "1948f66d0732b3e2c0fd2435a13dc45179dbbf374f216216c649deaa317483cc",
+      "source": "https://training.fema.gov/emiweb/is/icsresource/assets/nims%20ics%20forms%20booklet.v3.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-cp-contractor",
+      "title": "Common Paper Independent Contractor Agreement",
+      "path": "family-resources/contracts/cp-contractor.docx",
+      "selected": true,
+      "bytes": 149021,
+      "sha256": "786ffa49851ad2761a33f87b115a5140b2a14ab21d58464df4d9aa0cbedd74dc",
+      "source": "https://commonpaper.com/wp-content/uploads/2025/05/Common-Paper-Independent-Contractor-Agreement.docx",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-cp-amendment",
+      "title": "Common Paper Agreement Amendment",
+      "path": "family-resources/contracts/cp-amendment.docx",
+      "selected": true,
+      "bytes": 39017,
+      "sha256": "64b04560d5640a78a23f1978b0d88254929ceb45c59604e0777cc2ecfccf0ce4",
+      "source": "https://commonpaper.com/wp-content/uploads/2025/01/Common-Paper-Amendment.docx",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-cp-sow",
+      "title": "Common Paper Statement of Work",
+      "path": "family-resources/contracts/cp-sow.docx",
+      "selected": true,
+      "bytes": 136347,
+      "sha256": "8523d48df8f5330b70e0102dad26761b275a11dfab336201fef04a0fee1b6ac9",
+      "source": "https://commonpaper.com/wp-content/uploads/2025/01/Professional-Services-Agreement-SOW-Only.docx",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-household-a4",
+      "title": "Household worksheet pack \u2014 A4",
+      "path": "family-resources/generated/household-a4.pdf",
+      "selected": true,
+      "bytes": 16103,
+      "sha256": "e134ca81508e177bcd5b30b5ffc5608dfa1d0042b58a4039c91744c835811367",
+      "source": null,
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-household-letter",
+      "title": "Household worksheet pack \u2014 US Letter",
+      "path": "family-resources/generated/household-letter.pdf",
+      "selected": true,
+      "bytes": 15933,
+      "sha256": "03c39c8b2287da6eda30d17a2b362392f8f9d24fbd4306cbc00b1a219912293d",
+      "source": null,
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-paper-a4",
+      "title": "Paper pattern pack \u2014 A4",
+      "path": "family-resources/generated/paper-a4.pdf",
+      "selected": true,
+      "bytes": 392531,
+      "sha256": "ee3e326fb1959dfba80d556ad56803505bd5a61c48ea2761354ccb69b7fd1625",
+      "source": null,
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-paper-letter",
+      "title": "Paper pattern pack \u2014 US Letter",
+      "path": "family-resources/generated/paper-letter.pdf",
+      "selected": true,
+      "bytes": 376391,
+      "sha256": "d7092412741d5e4675a1cc325c6756d9227984d4a476031cdde0173461c1ecd2",
+      "source": null,
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-adult-wildflowers",
+      "title": "North American Wild Flowers \u2014 Swarthmore Coloring Book",
+      "path": "family-resources/adult-coloring/adult-wildflowers.pdf",
+      "selected": true,
+      "bytes": 3511488,
+      "sha256": "39c635cc44054768210b890dafd02d1c72641b68255d13546c27c62bcd79b7fc",
+      "source": "https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2021/01/SwarthmoreCollegeLibraries_ColorOurCollections2021-2.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-adult-jmu",
+      "title": "Vintage Gardens, Architecture & Illustrations \u2014 JMU Coloring Book",
+      "path": "family-resources/adult-coloring/adult-jmu.pdf",
+      "selected": true,
+      "bytes": 10303920,
+      "sha256": "dabeda22ca9e438f7de53a6630e5df7b9a82ca489edb3042ba1d6ad306fc8e54",
+      "source": "https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2020/01/JamesMadisonUniversity_COC20.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-adult-europeana",
+      "title": "European Art & Heritage \u2014 Europeana Coloring Book",
+      "path": "family-resources/adult-coloring/adult-europeana.pdf",
+      "selected": true,
+      "bytes": 7316194,
+      "sha256": "3c3dfdfc357507bdd574ca9b2008eb6cf70673503323f16ab6b83b5950125df4",
+      "source": "https://assets.ctfassets.net/i01duvb6kq77/1SRHphnds6UpEF9CdgVL6f/2de18233ec330e24506124bc4e7b55ea/Europeana_Colouring_Book_-_European_Year_of_Youth_-_ColorOurCollections.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "accord-2017-manual",
+      "title": "2017 Honda Accord Sedan \u2014 Owner\u2019s Manual",
+      "path": "vehicles/accord-2017-manual.pdf",
+      "selected": true,
+      "bytes": 38403007,
+      "sha256": "27131e7c33d2b7a830d4685e79c3cd409b26a9d28e7728cff9fba29a50b09e79",
+      "source": "https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf",
+      "repository": "vehicle-manuals"
+    },
+    {
+      "id": "accord-2017-guide",
+      "title": "2017 Honda Accord Sedan \u2014 Quick Owner\u2019s Guide",
+      "path": "vehicles/accord-2017-guide.pdf",
+      "selected": true,
+      "bytes": 26707760,
+      "sha256": "4c0b913cccb2cfc56e63b521f38d2e046b97b2fc6af85f88970fd6af11e7cd7c",
+      "source": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf",
+      "repository": "vehicle-manuals"
+    },
+    {
+      "id": "civic-2017-manual",
+      "title": "2017 Honda Civic Sedan \u2014 Owner\u2019s Manual",
+      "path": "vehicles/civic-2017-manual.pdf",
+      "selected": true,
+      "bytes": 38389872,
+      "sha256": "fe000335a5046b4f8cc2298329dedf223ea30f587789c039d0fe3617f8d6dafe",
+      "source": "https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf",
+      "repository": "vehicle-manuals"
+    },
+    {
+      "id": "civic-2017-guide",
+      "title": "2017 Honda Civic Sedan \u2014 Quick Owner\u2019s Guide",
+      "path": "vehicles/civic-2017-guide.pdf",
+      "selected": true,
+      "bytes": 25167273,
+      "sha256": "dc3534cb5238c93af62f1df08df70728fbc068cc56b977f832a9657b419a9929",
+      "source": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF",
+      "repository": "vehicle-manuals"
     }
   ],
   "unmanaged_archives": [

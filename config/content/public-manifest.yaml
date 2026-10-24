@@ -218,8 +218,8 @@ repositories:
     alt: Family collection icon
   category: content_sources
   title: Paper, Play & Family Resources
-  description: Offline paper studio, PDF coloring, browser games, activity books,
-    household worksheets and incident forms. English and Spanish selections.
+  description: Offline paper studio, PDF coloring, browser games, adult coloring,
+    activity books, household worksheets and incident forms. English and Spanish selections.
   collapse_assets: true
   update_policy: manual
   refresh_interval: never
@@ -284,6 +284,18 @@ repositories:
     url: /radio-study.html
   - title: Pool sources and editions
     url: /library-files/radio-study/source.json
+- id: vehicle-manuals
+  category: content_sources
+  title: Vehicle Manuals
+  description: Honda owner’s manuals and quick guides for the 2017 Accord Sedan and
+    Civic Sedan. Includes routine maintenance and roadside procedures; these are not
+    factory workshop manuals. Confirm engine and equipment before use.
+  artwork:
+    path: app/static/assets/icons/Repair.png
+    alt: Vehicle maintenance icon
+  update_policy: manual
+  refresh_interval: never
+  links: []
 assets:
 - id: ifixit-repair-guides
   online_url: https://www.ifixit.com/Guide
@@ -830,196 +842,6 @@ assets:
   refresh_interval: never
   source_note: CC BY 4.0 — Common Paper. Complete cover page and terms; governing
     law must be chosen. Retrieved 2026-10-23T04:57:01.848997+00:00
-  version_pin: null
-- id: family-nasa-exoplanets
-  repository_id: family-resources
-  category: pdf_reference
-  title: NASA Exoplanets Coloring Book
-  relative_path: family-resources/kids/nasa-exoplanets.pdf
-  service_endpoint: /library-files/family-resources/kids/nasa-exoplanets.pdf
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: 64efb59df3bc9115e91692b195223ed142465ce3272564066b75a40c575141bf
-  source_note: NASA educational and informational use; original notices retained.
-    No endorsement implied. Retrieved 2026-10-24T00:50:50.623637+00:00
-  online_url: https://science.nasa.gov/toolkit/coloring-books/
-  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Exoplanets_Coloring_Book_07-22-2016.pdf
-  version_pin: null
-- id: family-nasa-star-en
-  repository_id: family-resources
-  category: pdf_reference
-  title: NASA Our Very Own Star
-  relative_path: family-resources/kids/nasa-star-en.pdf
-  service_endpoint: /library-files/family-resources/kids/nasa-star-en.pdf
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: e75cf552f55f471a4e3a49d8e01f4a0b6fa41ff604b100ec2c9c7d38b32951c9
-  source_note: NASA educational and informational use; original notices retained.
-    No endorsement implied. Retrieved 2026-10-24T00:50:50.625965+00:00
-  online_url: https://science.nasa.gov/toolkit/coloring-books/
-  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_English.pdf
-  version_pin: null
-- id: family-nasa-star-es
-  repository_id: family-resources
-  category: pdf_reference
-  title: NASA Our Very Own Star — Spanish
-  relative_path: family-resources/kids/nasa-star-es.pdf
-  service_endpoint: /library-files/family-resources/kids/nasa-star-es.pdf
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: c710dd16abf095effd9e7cad1dd7ee74d034da51c83b88658fc373d74235a326
-  source_note: NASA educational and informational use; original notices retained.
-    No endorsement implied. Retrieved 2026-10-24T00:50:50.627561+00:00
-  online_url: https://science.nasa.gov/toolkit/coloring-books/
-  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_Spanish.pdf
-  version_pin: null
-- id: family-nasa-iss
-  repository_id: family-resources
-  category: pdf_reference
-  title: NASA International Space Station Activity Book
-  relative_path: family-resources/kids/nasa-iss.pdf
-  service_endpoint: /library-files/family-resources/kids/nasa-iss.pdf
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: 483b151756ab6a875333ee2998c851ccfcf00b053d6d0dda0c02a3dc5c881b56
-  source_note: NASA educational and informational use; original notices retained.
-    No endorsement implied. Retrieved 2026-10-24T00:50:50.873597+00:00
-  online_url: https://science.nasa.gov/toolkit/coloring-books/
-  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/ISS_Activity_Book.pdf
-  version_pin: null
-- id: family-nps-caves-en
-  repository_id: family-resources
-  category: pdf_reference
-  title: Junior Cave Scientist Activity Book
-  relative_path: family-resources/kids/nps-caves-en.pdf
-  service_endpoint: /library-files/family-resources/kids/nps-caves-en.pdf
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: 4f37433062bb60fe8b5b236e29e0666347cbe8dd31200277dc7c522c0e05f971
-  source_note: NPS publication with copyrighted material. Non-commercial educational
-    use only; original format retained, not for sale or reformatting. Read the original
-    notices. Retrieved 2026-10-24T00:50:51.094343+00:00
-  online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
-  download_url: https://home.nps.gov/subjects/caves/upload/Junior-Cave-Scientist-Booklet_English508_web-compressed.pdf
-  version_pin: null
-- id: family-nps-caves-es
-  repository_id: family-resources
-  category: pdf_reference
-  title: Junior Cave Scientist Activity Book — Spanish
-  relative_path: family-resources/kids/nps-caves-es.pdf
-  service_endpoint: /library-files/family-resources/kids/nps-caves-es.pdf
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: 57450605052654930268bec102fe7fa82b671af8e6ccf4ead196ecfda600eaaa
-  source_note: NPS publication with copyrighted material. Non-commercial educational
-    use only; original format retained, not for sale or reformatting. Read the original
-    notices. Retrieved 2026-10-24T00:50:51.485281+00:00
-  online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
-  download_url: https://home.nps.gov/subjects/caves/upload/Junior-Ranger-Cave-Scientist-SPANISH-Final508_web-compressed_2.pdf
-  version_pin: null
-- id: family-fema-ics
-  repository_id: family-resources
-  category: pdf_reference
-  title: FEMA NIMS Incident Command System Forms & Instructions
-  relative_path: family-resources/readiness/fema-ics.pdf
-  service_endpoint: /library-files/family-resources/readiness/fema-ics.pdf
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: 1948f66d0732b3e2c0fd2435a13dc45179dbbf374f216216c649deaa317483cc
-  source_note: U.S. federal government publication; publisher notices retained. Retrieved
-    2026-10-24T00:50:51.869640+00:00
-  online_url: https://training.fema.gov/emiweb/is/icsresource/
-  download_url: https://training.fema.gov/emiweb/is/icsresource/assets/nims%20ics%20forms%20booklet.v3.pdf
-  version_pin: null
-- id: family-cp-contractor
-  repository_id: family-resources
-  category: pdf_reference
-  title: Common Paper Independent Contractor Agreement
-  relative_path: family-resources/contracts/cp-contractor.docx
-  service_endpoint: /library-files/family-resources/contracts/cp-contractor.docx
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: 786ffa49851ad2761a33f87b115a5140b2a14ab21d58464df4d9aa0cbedd74dc
-  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
-    Retrieved 2026-10-24T00:50:53.082367+00:00
-  online_url: https://commonpaper.com/documents/independent-contractor-agreement
-  download_url: https://commonpaper.com/wp-content/uploads/2025/05/Common-Paper-Independent-Contractor-Agreement.docx
-  version_pin: null
-- id: family-cp-amendment
-  repository_id: family-resources
-  category: pdf_reference
-  title: Common Paper Agreement Amendment
-  relative_path: family-resources/contracts/cp-amendment.docx
-  service_endpoint: /library-files/family-resources/contracts/cp-amendment.docx
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: 64b04560d5640a78a23f1978b0d88254929ceb45c59604e0777cc2ecfccf0ce4
-  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
-    Retrieved 2026-10-24T00:50:53.091287+00:00
-  online_url: https://commonpaper.com/documents/amendment
-  download_url: https://commonpaper.com/wp-content/uploads/2025/01/Common-Paper-Amendment.docx
-  version_pin: null
-- id: family-cp-sow
-  repository_id: family-resources
-  category: pdf_reference
-  title: Common Paper Statement of Work
-  relative_path: family-resources/contracts/cp-sow.docx
-  service_endpoint: /library-files/family-resources/contracts/cp-sow.docx
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: 8523d48df8f5330b70e0102dad26761b275a11dfab336201fef04a0fee1b6ac9
-  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
-    Retrieved 2026-10-24T00:50:53.237911+00:00
-  online_url: https://commonpaper.com/documents/statement-of-work
-  download_url: https://commonpaper.com/wp-content/uploads/2025/01/Professional-Services-Agreement-SOW-Only.docx
-  version_pin: null
-- id: family-household-a4
-  repository_id: family-resources
-  category: pdf_reference
-  title: Household worksheet pack — A4
-  relative_path: family-resources/generated/household-a4.pdf
-  service_endpoint: /library-files/family-resources/generated/household-a4.pdf
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: e134ca81508e177bcd5b30b5ffc5608dfa1d0042b58a4039c91744c835811367
-  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
-    2026-10-24T00:51:00.656356+00:00
-  version_pin: null
-- id: family-household-letter
-  repository_id: family-resources
-  category: pdf_reference
-  title: Household worksheet pack — US Letter
-  relative_path: family-resources/generated/household-letter.pdf
-  service_endpoint: /library-files/family-resources/generated/household-letter.pdf
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: 03c39c8b2287da6eda30d17a2b362392f8f9d24fbd4306cbc00b1a219912293d
-  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
-    2026-10-24T00:51:00.705745+00:00
-  version_pin: null
-- id: family-paper-a4
-  repository_id: family-resources
-  category: pdf_reference
-  title: Paper pattern pack — A4
-  relative_path: family-resources/generated/paper-a4.pdf
-  service_endpoint: /library-files/family-resources/generated/paper-a4.pdf
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: ee3e326fb1959dfba80d556ad56803505bd5a61c48ea2761354ccb69b7fd1625
-  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
-    2026-10-24T00:51:00.756146+00:00
-  version_pin: null
-- id: family-paper-letter
-  repository_id: family-resources
-  category: pdf_reference
-  title: Paper pattern pack — US Letter
-  relative_path: family-resources/generated/paper-letter.pdf
-  service_endpoint: /library-files/family-resources/generated/paper-letter.pdf
-  update_policy: manual
-  refresh_interval: never
-  expected_hash: d7092412741d5e4675a1cc325c6756d9227984d4a476031cdde0173461c1ecd2
-  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
-    2026-10-24T00:51:00.808860+00:00
   version_pin: null
 - id: ref-maine-survival
   repository_id: resilience
@@ -2226,6 +2048,7 @@ assets:
   download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.json
   source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
     Figures and source record accompany collection.
+  version_pin: null
 - id: radio-technician-txt
   repository_id: radio-study
   category: pdf_reference
@@ -2239,6 +2062,7 @@ assets:
   download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.txt
   source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
     Figures and source record accompany collection.
+  version_pin: null
 - id: radio-general-json
   repository_id: radio-study
   category: pdf_reference
@@ -2252,6 +2076,7 @@ assets:
   download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.json
   source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
     Figures and source record accompany collection.
+  version_pin: null
 - id: radio-general-txt
   repository_id: radio-study
   category: pdf_reference
@@ -2265,6 +2090,7 @@ assets:
   download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.txt
   source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
     Figures and source record accompany collection.
+  version_pin: null
 - id: radio-extra-json
   repository_id: radio-study
   category: pdf_reference
@@ -2278,6 +2104,7 @@ assets:
   download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.json
   source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
     Figures and source record accompany collection.
+  version_pin: null
 - id: radio-extra-txt
   repository_id: radio-study
   category: pdf_reference
@@ -2291,6 +2118,297 @@ assets:
   download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.txt
   source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
     Figures and source record accompany collection.
+  version_pin: null
+- id: family-nasa-exoplanets
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA Exoplanets Coloring Book
+  relative_path: family-resources/kids/nasa-exoplanets.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-exoplanets.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 64efb59df3bc9115e91692b195223ed142465ce3272564066b75a40c575141bf
+  source_note: NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.623637+00:00
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Exoplanets_Coloring_Book_07-22-2016.pdf
+  version_pin: null
+- id: family-nasa-star-en
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA Our Very Own Star
+  relative_path: family-resources/kids/nasa-star-en.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-star-en.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: e75cf552f55f471a4e3a49d8e01f4a0b6fa41ff604b100ec2c9c7d38b32951c9
+  source_note: NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.625965+00:00
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_English.pdf
+  version_pin: null
+- id: family-nasa-star-es
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA Our Very Own Star — Spanish
+  relative_path: family-resources/kids/nasa-star-es.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-star-es.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: c710dd16abf095effd9e7cad1dd7ee74d034da51c83b88658fc373d74235a326
+  source_note: NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.627561+00:00
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_Spanish.pdf
+  version_pin: null
+- id: family-nasa-iss
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA International Space Station Activity Book
+  relative_path: family-resources/kids/nasa-iss.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-iss.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 483b151756ab6a875333ee2998c851ccfcf00b053d6d0dda0c02a3dc5c881b56
+  source_note: NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.873597+00:00
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/ISS_Activity_Book.pdf
+  version_pin: null
+- id: family-nps-caves-en
+  repository_id: family-resources
+  category: pdf_reference
+  title: Junior Cave Scientist Activity Book
+  relative_path: family-resources/kids/nps-caves-en.pdf
+  service_endpoint: /library-files/family-resources/kids/nps-caves-en.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 4f37433062bb60fe8b5b236e29e0666347cbe8dd31200277dc7c522c0e05f971
+  source_note: NPS publication with copyrighted material. Non-commercial educational
+    use only; original format retained, not for sale or reformatting. Read the original
+    notices. Retrieved 2026-10-24T00:50:51.094343+00:00
+  online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
+  download_url: https://home.nps.gov/subjects/caves/upload/Junior-Cave-Scientist-Booklet_English508_web-compressed.pdf
+  version_pin: null
+- id: family-nps-caves-es
+  repository_id: family-resources
+  category: pdf_reference
+  title: Junior Cave Scientist Activity Book — Spanish
+  relative_path: family-resources/kids/nps-caves-es.pdf
+  service_endpoint: /library-files/family-resources/kids/nps-caves-es.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 57450605052654930268bec102fe7fa82b671af8e6ccf4ead196ecfda600eaaa
+  source_note: NPS publication with copyrighted material. Non-commercial educational
+    use only; original format retained, not for sale or reformatting. Read the original
+    notices. Retrieved 2026-10-24T00:50:51.485281+00:00
+  online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
+  download_url: https://home.nps.gov/subjects/caves/upload/Junior-Ranger-Cave-Scientist-SPANISH-Final508_web-compressed_2.pdf
+  version_pin: null
+- id: family-fema-ics
+  repository_id: family-resources
+  category: pdf_reference
+  title: FEMA NIMS Incident Command System Forms & Instructions
+  relative_path: family-resources/readiness/fema-ics.pdf
+  service_endpoint: /library-files/family-resources/readiness/fema-ics.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 1948f66d0732b3e2c0fd2435a13dc45179dbbf374f216216c649deaa317483cc
+  source_note: U.S. federal government publication; publisher notices retained. Retrieved
+    2026-10-24T00:50:51.869640+00:00
+  online_url: https://training.fema.gov/emiweb/is/icsresource/
+  download_url: https://training.fema.gov/emiweb/is/icsresource/assets/nims%20ics%20forms%20booklet.v3.pdf
+  version_pin: null
+- id: family-cp-contractor
+  repository_id: family-resources
+  category: pdf_reference
+  title: Common Paper Independent Contractor Agreement
+  relative_path: family-resources/contracts/cp-contractor.docx
+  service_endpoint: /library-files/family-resources/contracts/cp-contractor.docx
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 786ffa49851ad2761a33f87b115a5140b2a14ab21d58464df4d9aa0cbedd74dc
+  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.082367+00:00
+  online_url: https://commonpaper.com/documents/independent-contractor-agreement
+  download_url: https://commonpaper.com/wp-content/uploads/2025/05/Common-Paper-Independent-Contractor-Agreement.docx
+  version_pin: null
+- id: family-cp-amendment
+  repository_id: family-resources
+  category: pdf_reference
+  title: Common Paper Agreement Amendment
+  relative_path: family-resources/contracts/cp-amendment.docx
+  service_endpoint: /library-files/family-resources/contracts/cp-amendment.docx
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 64b04560d5640a78a23f1978b0d88254929ceb45c59604e0777cc2ecfccf0ce4
+  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.091287+00:00
+  online_url: https://commonpaper.com/documents/amendment
+  download_url: https://commonpaper.com/wp-content/uploads/2025/01/Common-Paper-Amendment.docx
+  version_pin: null
+- id: family-cp-sow
+  repository_id: family-resources
+  category: pdf_reference
+  title: Common Paper Statement of Work
+  relative_path: family-resources/contracts/cp-sow.docx
+  service_endpoint: /library-files/family-resources/contracts/cp-sow.docx
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 8523d48df8f5330b70e0102dad26761b275a11dfab336201fef04a0fee1b6ac9
+  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.237911+00:00
+  online_url: https://commonpaper.com/documents/statement-of-work
+  download_url: https://commonpaper.com/wp-content/uploads/2025/01/Professional-Services-Agreement-SOW-Only.docx
+  version_pin: null
+- id: family-household-a4
+  repository_id: family-resources
+  category: pdf_reference
+  title: Household worksheet pack — A4
+  relative_path: family-resources/generated/household-a4.pdf
+  service_endpoint: /library-files/family-resources/generated/household-a4.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: e134ca81508e177bcd5b30b5ffc5608dfa1d0042b58a4039c91744c835811367
+  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.656356+00:00
+  version_pin: null
+- id: family-household-letter
+  repository_id: family-resources
+  category: pdf_reference
+  title: Household worksheet pack — US Letter
+  relative_path: family-resources/generated/household-letter.pdf
+  service_endpoint: /library-files/family-resources/generated/household-letter.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 03c39c8b2287da6eda30d17a2b362392f8f9d24fbd4306cbc00b1a219912293d
+  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.705745+00:00
+  version_pin: null
+- id: family-paper-a4
+  repository_id: family-resources
+  category: pdf_reference
+  title: Paper pattern pack — A4
+  relative_path: family-resources/generated/paper-a4.pdf
+  service_endpoint: /library-files/family-resources/generated/paper-a4.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: ee3e326fb1959dfba80d556ad56803505bd5a61c48ea2761354ccb69b7fd1625
+  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.756146+00:00
+  version_pin: null
+- id: family-paper-letter
+  repository_id: family-resources
+  category: pdf_reference
+  title: Paper pattern pack — US Letter
+  relative_path: family-resources/generated/paper-letter.pdf
+  service_endpoint: /library-files/family-resources/generated/paper-letter.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: d7092412741d5e4675a1cc325c6756d9227984d4a476031cdde0173461c1ecd2
+  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.808860+00:00
+  version_pin: null
+- id: family-adult-wildflowers
+  repository_id: family-resources
+  category: pdf_reference
+  title: North American Wild Flowers — Swarthmore Coloring Book
+  relative_path: family-resources/adult-coloring/adult-wildflowers.pdf
+  service_endpoint: /library-files/family-resources/adult-coloring/adult-wildflowers.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 39c635cc44054768210b890dafd02d1c72641b68255d13546c27c62bcd79b7fc
+  source_note: Images from Mary Vaux Walcott, North American Wild Flowers (1925),
+    public domain in the United States. Swarthmore attribution and original notices
+    retained. Retrieved 2026-10-24T15:01:18.012764+00:00
+  online_url: https://library.nyam.org/colorourcollections/
+  download_url: https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2021/01/SwarthmoreCollegeLibraries_ColorOurCollections2021-2.pdf
+  version_pin: null
+- id: family-adult-jmu
+  repository_id: family-resources
+  category: pdf_reference
+  title: Vintage Gardens, Architecture & Illustrations — JMU Coloring Book
+  relative_path: family-resources/adult-coloring/adult-jmu.pdf
+  service_endpoint: /library-files/family-resources/adult-coloring/adult-jmu.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: dabeda22ca9e438f7de53a6630e5df7b9a82ca489edb3042ba1d6ad306fc8e54
+  source_note: Illustrations from 1924 publications, identified by JMU as public domain
+    in the United States. Original source credits retained. Retrieved 2026-10-24T15:01:20.021642+00:00
+  online_url: https://www.lib.jmu.edu/100-libraries-museums-created-coloring-books-from-their-collections-including-us/
+  download_url: https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2020/01/JamesMadisonUniversity_COC20.pdf
+  version_pin: null
+- id: family-adult-europeana
+  repository_id: family-resources
+  category: pdf_reference
+  title: European Art & Heritage — Europeana Coloring Book
+  relative_path: family-resources/adult-coloring/adult-europeana.pdf
+  service_endpoint: /library-files/family-resources/adult-coloring/adult-europeana.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 3c3dfdfc357507bdd574ca9b2008eb6cf70673503323f16ab6b83b5950125df4
+  source_note: Per-image CC BY, CC0 and public-domain credits are printed in the original
+    book. Retain the credited artist, institution and license with shared colored
+    versions. Retrieved 2026-10-24T15:01:21.859896+00:00
+  online_url: https://www.europeana.eu/en/stories/european-year-of-youth-colouring-book
+  download_url: https://assets.ctfassets.net/i01duvb6kq77/1SRHphnds6UpEF9CdgVL6f/2de18233ec330e24506124bc4e7b55ea/Europeana_Colouring_Book_-_European_Year_of_Youth_-_ColorOurCollections.pdf
+  version_pin: null
+- id: accord-2017-manual
+  repository_id: vehicle-manuals
+  category: pdf_reference
+  title: 2017 Honda Accord Sedan — Owner’s Manual
+  relative_path: vehicles/accord-2017-manual.pdf
+  service_endpoint: /library-files/vehicles/accord-2017-manual.pdf
+  download_url: https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf
+  online_url: https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf
+  expected_hash: 27131e7c33d2b7a830d4685e79c3cd409b26a9d28e7728cff9fba29a50b09e79
+  update_policy: manual
+  refresh_interval: never
+  source_note: Owner information and routine maintenance; not a factory workshop manual.
+    Confirm trim, engine and equipment before following procedures. Original Honda
+    copyright retained. Retrieved 2026-10-24T15:03:25.714314+00:00
+- id: accord-2017-guide
+  repository_id: vehicle-manuals
+  category: pdf_reference
+  title: 2017 Honda Accord Sedan — Quick Owner’s Guide
+  relative_path: vehicles/accord-2017-guide.pdf
+  service_endpoint: /library-files/vehicles/accord-2017-guide.pdf
+  download_url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf
+  online_url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf
+  expected_hash: 4c0b913cccb2cfc56e63b521f38d2e046b97b2fc6af85f88970fd6af11e7cd7c
+  update_policy: manual
+  refresh_interval: never
+  source_note: Owner information and routine maintenance; not a factory workshop manual.
+    Confirm trim, engine and equipment before following procedures. Original Honda
+    copyright retained. Retrieved 2026-10-24T15:03:28.862709+00:00
+- id: civic-2017-manual
+  repository_id: vehicle-manuals
+  category: pdf_reference
+  title: 2017 Honda Civic Sedan — Owner’s Manual
+  relative_path: vehicles/civic-2017-manual.pdf
+  service_endpoint: /library-files/vehicles/civic-2017-manual.pdf
+  download_url: https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf
+  online_url: https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf
+  expected_hash: fe000335a5046b4f8cc2298329dedf223ea30f587789c039d0fe3617f8d6dafe
+  update_policy: manual
+  refresh_interval: never
+  source_note: Owner information and routine maintenance; not a factory workshop manual.
+    Confirm trim, engine and equipment before following procedures. Original Honda
+    copyright retained. Retrieved 2026-10-24T15:03:33.187811+00:00
+- id: civic-2017-guide
+  repository_id: vehicle-manuals
+  category: pdf_reference
+  title: 2017 Honda Civic Sedan — Quick Owner’s Guide
+  relative_path: vehicles/civic-2017-guide.pdf
+  service_endpoint: /library-files/vehicles/civic-2017-guide.pdf
+  download_url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF
+  online_url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF
+  expected_hash: dc3534cb5238c93af62f1df08df70728fbc068cc56b977f832a9657b419a9929
+  update_policy: manual
+  refresh_interval: never
+  source_note: Owner information and routine maintenance; not a factory workshop manual.
+    Confirm trim, engine and equipment before following procedures. Original Honda
+    copyright retained. Retrieved 2026-10-24T15:03:36.123078+00:00
 resource_sections:
 - title: Local maps
   description: Massachusetts reference maps for Worcester and Middlesex counties.

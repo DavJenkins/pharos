@@ -1,9 +1,9 @@
 # Public content recipe. Edit enabled flags and source catalogues; keep this folder with the source repository.
 schema: 1
 name: Data Ark content selection
-exported_at: '2026-10-24T02:04:19.818437+00:00'
+exported_at: '2026-10-24T15:04:19.967180+00:00'
 source_repository: https://github.com/DavJenkins/pharos
-source_commit: 0b8b03c62c0740c31d26e92c2072c0a5765d070f
+source_commit: ea06c00c7d840f1aff4f2ec6066c45b34ddcbe95
 content_root: /mnt/storage
 manifest: public-manifest.yaml
 reserve_gib: 10
@@ -82,6 +82,26 @@ direct_files:
   url: https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf
   bytes: 2951425
   sha256: 110abd05cf6dd5760379eaa75b58f09efad5066638e5ded6afeacc16d8a98260
+- id: accord-2017-manual
+  path: vehicles/accord-2017-manual.pdf
+  url: https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf
+  bytes: 38403007
+  sha256: 27131e7c33d2b7a830d4685e79c3cd409b26a9d28e7728cff9fba29a50b09e79
+- id: accord-2017-guide
+  path: vehicles/accord-2017-guide.pdf
+  url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf
+  bytes: 26707760
+  sha256: 4c0b913cccb2cfc56e63b521f38d2e046b97b2fc6af85f88970fd6af11e7cd7c
+- id: civic-2017-manual
+  path: vehicles/civic-2017-manual.pdf
+  url: https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf
+  bytes: 38389872
+  sha256: fe000335a5046b4f8cc2298329dedf223ea30f587789c039d0fe3617f8d6dafe
+- id: civic-2017-guide
+  path: vehicles/civic-2017-guide.pdf
+  url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF
+  bytes: 25167273
+  sha256: dc3534cb5238c93af62f1df08df70728fbc068cc56b977f832a9657b419a9929
 map_files:
 - id: ma-nfhl
   path: maps/flood/massachusetts-nfhl.zip
@@ -1263,6 +1283,7 @@ recipes:
 snapshots:
 - snapshots/maps/status.json
 - snapshots/preparedness/sources.json
+- snapshots/vehicles/sources.json
 - snapshots/forms/sources.json
 - snapshots/family-resources/sources.json
 - snapshots/resilience/sources.json

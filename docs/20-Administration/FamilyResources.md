@@ -43,3 +43,7 @@ The in-app browser did not confirm the SVG download event during verification, a
 ## Learning at home
 
 /learning.html organizes existing local resources for early learners, elementary school, middle/high school and adult practical learning. It links Gutenberg, Wikipedia, iFixit, activities and paper tools. It does not add or claim a complete curriculum, teacher guides or assessments. Reader links use the current Ark hostname and Kiwix port 8080. A previously observed Kiwix article timeout is not resolved by this hub; the reader catalogue and actual article opening are separate checks.
+
+## Adult coloring
+
+The Adult coloring section contains Swarthmore’s 2021 North American Wild Flowers book (28 pages), JMU’s 2020 vintage illustrations (13 pages), and Europeana’s 2022 art collection (20 pages). They are available in the library book picker at `/coloring.html`, as original PDFs in `family-resources/adult-coloring/`, and in the family resources index. Page counts include covers and credits. Preserve each original page’s artist, institution, and license when sharing colored versions. Source URLs and use notes live in `deploy/reference/family-catalogue.json`; installed hashes and page counts live on the content drive in `family-resources/sources.json`.

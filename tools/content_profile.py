@@ -2,7 +2,7 @@
 """Export a readable content recipe, preview restoration, or restore explicitly.
 Never removes content. Appliance/private configuration is a separate backup.
 """
-import argparse,hashlib,json,os,shutil,subprocess,sys,tarfile,tempfile,time
+import argparse,hashlib,json,os,shutil,subprocess,sys,tarfile,tempfile,time,ssl
 from datetime import datetime,timezone
 from pathlib import Path,PurePosixPath
 from urllib.parse import urlsplit
@@ -14,7 +14,7 @@ COLLECTIONS={
  'resilience':('tools/install_resilience.py',['--register'],'deploy/reference/resilience-catalogue.json'),
  'callsigns':('tools/install_callsigns.py',[],'deploy/reference/callsign-sources.json'),
  'radio-study':('tools/install_radio_study.py',[],'deploy/reference/radio-pools.json')}
-REFERENCE_FILES=['family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json']
+REFERENCE_FILES=['family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','vehicle-manuals.json','honda-intermediate.pem']
 PUBLIC_KEYS=['system','geography','maps','categories','scenarios','repositories','assets','resource_sections']
 def read(path):return yaml.safe_load(Path(path).read_text())
 def write(path,data):
@@ -44,7 +44,7 @@ def export(folder):
   coverage.append(lock)
   if a['relative_path'].endswith('.zim'):
    archives.append({'id':a['id'],'title':lock['title'],'enabled':present,'path':a['relative_path'],'url':a.get('download_url'),'bytes':lock['bytes'],'sha256':lock['sha256']})
-  elif a.get('repository_id')=='preparedness' and present and a.get('download_url'):
+  elif a.get('repository_id') in ('preparedness','vehicle-manuals') and present and a.get('download_url'):
    files.append({'id':a['id'],'path':a['relative_path'],'url':a['download_url'],'bytes':lock['bytes'],'sha256':lock['sha256']})
  state_path=root/'maps/status.json';state=json.loads(state_path.read_text()) if state_path.is_file() else {'files':{},'items':[]}
  mapfiles=[]
@@ -52,7 +52,7 @@ def export(folder):
   meta=state.get('files',{}).get(item['id'],{});p=inside(root,'maps/'+item['path'])
   if p.is_file():mapfiles.append({'id':item['id'],'path':'maps/'+item['path'],'url':item['url'],'bytes':p.stat().st_size,'sha256':meta.get('sha256')})
  snapshots=[]
- for relative in ['maps/status.json','preparedness/sources.json','forms/sources.json','family-resources/sources.json','resilience/sources.json','civic-reference/sources.json','civic-reference/us-code-source.json','civic-reference/callsigns-source.json','radio-study/source.json']:
+ for relative in ['maps/status.json','preparedness/sources.json','vehicles/sources.json','forms/sources.json','family-resources/sources.json','resilience/sources.json','civic-reference/sources.json','civic-reference/us-code-source.json','civic-reference/callsigns-source.json','radio-study/source.json']:
   p=inside(root,relative)
   if p.is_file():
    name='snapshots/'+relative;write(folder/name,p.read_text());snapshots.append(name)
@@ -117,7 +117,14 @@ def download(item,root,c,verify_existing=False):
  if shutil.disk_usage(root).free-size<c['reserve_gib']*1024**3:raise RuntimeError('Insufficient free space above reserve')
  part=target.with_suffix(target.suffix+'.restore-part');args=['curl','--fail','--location','--proto','=https','--retry','2','--connect-timeout','30','--max-filesize',str(size),'--continue-at','-','--output',str(part)]
  if c.get('download_rate_kib'):args+=['--limit-rate',str(c['download_rate_kib'])+'K']
- subprocess.run(args+[item['url']],check=True)
+ # Honda omits an intermediate certificate. Supply its CA chain only for
+ # this host, still validating the hostname and the system's trusted roots.
+ with tempfile.TemporaryDirectory(prefix='dataark-download-ca-') as temporary:
+  if urlsplit(item['url']).hostname=='techinfo.honda.com':
+   roots=Path(ssl.get_default_verify_paths().cafile);bundle=Path(temporary)/'ca.pem'
+   bundle.write_bytes(roots.read_bytes()+b'\n'+(REPO/'deploy/reference/honda-intermediate.pem').read_bytes())
+   args+=['--cacert',str(bundle)]
+  subprocess.run(args+[item['url']],check=True)
  if item.get('bytes') and part.stat().st_size!=item['bytes']:raise ValueError('Downloaded size mismatch; staged file retained')
  if item.get('sha256') and digest(part)!=item['sha256']:raise ValueError('Downloaded checksum mismatch; original file retained')
  if target.suffix=='.zim':

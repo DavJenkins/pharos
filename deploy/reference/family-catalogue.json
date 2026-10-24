@@ -186,5 +186,44 @@
     "age": "Households / adults with children",
     "purpose": "Family preparedness / contacts / planning",
     "license": "Source: CDC. Public-domain agency material; original notices retained. Free from CDC.gov. No CDC/HHS/U.S. Government endorsement implied."
+  },
+  {
+    "id": "adult-wildflowers",
+    "title": "North American Wild Flowers — Swarthmore Coloring Book",
+    "url": "https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2021/01/SwarthmoreCollegeLibraries_ColorOurCollections2021-2.pdf",
+    "source_page": "https://library.nyam.org/colorourcollections/",
+    "purpose": "Detailed botanical illustrations / wildflowers",
+    "edition": "Swarthmore College Libraries, Color Our Collections 2021",
+    "license": "Images from Mary Vaux Walcott, North American Wild Flowers (1925), public domain in the United States. Swarthmore attribution and original notices retained.",
+    "collection": "adult-coloring",
+    "format": "pdf",
+    "language": "English",
+    "age": "Adults and teens / detailed designs"
+  },
+  {
+    "id": "adult-jmu",
+    "title": "Vintage Gardens, Architecture & Illustrations — JMU Coloring Book",
+    "url": "https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2020/01/JamesMadisonUniversity_COC20.pdf",
+    "source_page": "https://www.lib.jmu.edu/100-libraries-museums-created-coloring-books-from-their-collections-including-us/",
+    "purpose": "Detailed vintage illustrations / gardens / architecture",
+    "edition": "James Madison University Libraries, Color Our Collections 2020",
+    "license": "Illustrations from 1924 publications, identified by JMU as public domain in the United States. Original source credits retained.",
+    "collection": "adult-coloring",
+    "format": "pdf",
+    "language": "English",
+    "age": "Adults and teens / detailed designs"
+  },
+  {
+    "id": "adult-europeana",
+    "title": "European Art & Heritage — Europeana Coloring Book",
+    "url": "https://assets.ctfassets.net/i01duvb6kq77/1SRHphnds6UpEF9CdgVL6f/2de18233ec330e24506124bc4e7b55ea/Europeana_Colouring_Book_-_European_Year_of_Youth_-_ColorOurCollections.pdf",
+    "source_page": "https://www.europeana.eu/en/stories/european-year-of-youth-colouring-book",
+    "purpose": "Detailed art / historic scenes / portraits",
+    "edition": "Europeana, European Year of Youth 2022",
+    "license": "Per-image CC BY, CC0 and public-domain credits are printed in the original book. Retain the credited artist, institution and license with shared colored versions.",
+    "collection": "adult-coloring",
+    "format": "pdf",
+    "language": "English",
+    "age": "Adults and teens / detailed designs"
   }
 ]

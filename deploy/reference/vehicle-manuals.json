@@ -1,0 +1,26 @@
+[
+  {
+    "id": "accord-2017-manual",
+    "title": "2017 Honda Accord Sedan — Owner’s Manual",
+    "url": "https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf",
+    "model": "Accord"
+  },
+  {
+    "id": "accord-2017-guide",
+    "title": "2017 Honda Accord Sedan — Quick Owner’s Guide",
+    "url": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf",
+    "model": "Accord"
+  },
+  {
+    "id": "civic-2017-manual",
+    "title": "2017 Honda Civic Sedan — Owner’s Manual",
+    "url": "https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf",
+    "model": "Civic"
+  },
+  {
+    "id": "civic-2017-guide",
+    "title": "2017 Honda Civic Sedan — Quick Owner’s Guide",
+    "url": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF",
+    "model": "Civic"
+  }
+]
