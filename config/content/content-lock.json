@@ -2119,6 +2119,96 @@
       "sha256": "a23addbbbc24ee08a86096c2d40f6aa2086ce5d660236c55f6927c0bd0eca144",
       "source": "https://nevegetable.org/sites/default/files/2024-08/Pest_ID_2018_no%20cover%20date-UA.pdf",
       "repository": "growing-food"
+    },
+    {
+      "id": "family-nav-symbols",
+      "title": "Topographic Map Symbols \u2014 USGS",
+      "path": "family-resources/navigation-field/nav-symbols.pdf",
+      "selected": true,
+      "bytes": 2197818,
+      "sha256": "edb97e137a1831e75f6fddb4971e5e46b9a68cd8ca17ef2c44480b453f49aa59",
+      "source": "https://pubs.usgs.gov/gip/TopographicMapSymbols/topomapsymbols.pdf",
+      "repository": "navigation-field"
+    },
+    {
+      "id": "family-nav-land",
+      "title": "Basic Land Navigation \u2014 NWCG",
+      "path": "family-resources/navigation-field/nav-land.pdf",
+      "selected": true,
+      "bytes": 30744922,
+      "sha256": "35bb97d101435356092ce866d970b21733dd2929747ffb827451c90baaf35019",
+      "source": "https://www.govinfo.gov/content/pkg/GOVPUB-A13-PURL-gpo249583/pdf/GOVPUB-A13-PURL-gpo249583.pdf",
+      "repository": "navigation-field"
+    },
+    {
+      "id": "family-nav-trip",
+      "title": "Trip Planning Guide Package \u2014 National Park Service",
+      "path": "family-resources/navigation-field/nav-trip.pdf",
+      "selected": true,
+      "bytes": 2572164,
+      "sha256": "4f722870828c8b9b129c6b8d5447c4cda2a75aa4134a23e9ec0f9eafa4d0b271",
+      "source": "https://www.nps.gov/subjects/healthandsafety/upload/Trip-Planning-Guide-Package-508c.pdf",
+      "repository": "navigation-field"
+    },
+    {
+      "id": "family-comms-radiogram",
+      "title": "Fillable Radiogram Form \u2014 ARRL",
+      "path": "family-resources/emergency-comms/comms-radiogram.pdf",
+      "selected": true,
+      "bytes": 71406,
+      "sha256": "cc886c48a89d7d805a241973a03528fa2a562fb788aa1a5d7274802c01b8180a",
+      "source": "https://www.arrl.org/files/media/Group/Fillable%20Radiogram%20Form.pdf",
+      "repository": "emergency-comms"
+    },
+    {
+      "id": "family-comms-format",
+      "title": "The ARRL Message Format",
+      "path": "family-resources/emergency-comms/comms-format.pdf",
+      "selected": true,
+      "bytes": 101027,
+      "sha256": "9fbd5a54de332bed4fd00c4e3dd5a846ba0780bef0d981ff37c5c7673c24b7f5",
+      "source": "https://www.arrl.org/files/file/Public%20Service/MPG104A.pdf",
+      "repository": "emergency-comms"
+    },
+    {
+      "id": "family-comms-ares",
+      "title": "ARES Manual \u2014 ARRL",
+      "path": "family-resources/emergency-comms/comms-ares.pdf",
+      "selected": true,
+      "bytes": 2649454,
+      "sha256": "bb8076506b8797f929381cd33674faecfcc81e26b074bd86939067050c07d299",
+      "source": "https://www.arrl.org/files/file/Public%20Service/ARES/ARESmanual2015.pdf",
+      "repository": "emergency-comms"
+    },
+    {
+      "id": "family-comms-plain",
+      "title": "Plain Language: Making the Transition from Ten Codes \u2014 CISA",
+      "path": "family-resources/emergency-comms/comms-plain.pdf",
+      "selected": true,
+      "bytes": 7032803,
+      "sha256": "ce8ac08d6771d9d5feb8deb19ad00c9a2cfe4d8a93377b5c7466633aea283b93",
+      "source": "https://www.cisa.gov/sites/default/files/publications/PlainLanguageGuide.pdf",
+      "repository": "emergency-comms"
+    },
+    {
+      "id": "family-comms-family-kids",
+      "title": "Family Communication Plan for Kids \u2014 Ready.gov",
+      "path": "family-resources/emergency-comms/comms-family-kids.pdf",
+      "selected": true,
+      "bytes": 1108252,
+      "sha256": "5880f41d6bee00673022c7b27856ae2a7d65a7e9aa6f95bede26746285170595",
+      "source": "https://www.ready.gov/sites/default/files/2020-03/ready_family-communications-plan_kids.pdf",
+      "repository": "emergency-comms"
+    },
+    {
+      "id": "family-nav-usng",
+      "title": "Reading and Understanding the US National Grid \u2014 FGDC / Delta State",
+      "path": "family-resources/navigation-field/nav-usng.pdf",
+      "selected": true,
+      "bytes": 4744958,
+      "sha256": "e4d044fae593a03fa0db5ffe7e5291682d112800dfc345ab77b58509fc30900c",
+      "source": "https://www.fgdc.gov/training/documents/DeltaStateTrainingMaterials/ReadingUSNGCoordinates.pdf/at_download/file",
+      "repository": "navigation-field"
     }
   ],
   "unmanaged_archives": [

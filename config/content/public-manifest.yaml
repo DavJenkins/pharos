@@ -400,6 +400,34 @@ repositories:
   links:
   - title: Open practical repairs & maintenance guides
     url: /library-files/family-resources/index.html#repairs
+- id: navigation-field
+  title: Navigation & Field Skills
+  description: Topographic symbols, compass and GPS navigation, US National Grid coordinates,
+    trip plans and outdoor emergency preparation.
+  artwork:
+    path: app/static/assets/icons/Navigation.png
+    alt: Compass navigation icon
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open navigation & field skills guides
+    url: /library-files/family-resources/index.html#navigation-field
+- id: emergency-comms
+  title: Emergency Communications
+  description: Radio message forms and procedures, plain language, volunteer coordination
+    and family contact planning. Complements existing incident forms and radio tools.
+  artwork:
+    path: app/static/assets/icons/Radio.png
+    alt: Radio communications icon
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open emergency communications guides
+    url: /library-files/family-resources/index.html#emergency-comms
 assets:
 - id: ifixit-repair-guides
   online_url: https://www.ifixit.com/Guide
@@ -3475,6 +3503,139 @@ assets:
     implied. Retrieved 2026-10-24T17:00:28.266675+00:00
   online_url: https://nevegetable.org/about-guide/ordering-and-downloads
   download_url: https://nevegetable.org/sites/default/files/2024-08/Pest_ID_2018_no%20cover%20date-UA.pdf
+- id: family-nav-symbols
+  repository_id: navigation-field
+  category: pdf_reference
+  title: Topographic Map Symbols — USGS
+  relative_path: family-resources/navigation-field/nav-symbols.pdf
+  service_endpoint: /library-files/family-resources/navigation-field/nav-symbols.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: edb97e137a1831e75f6fddb4971e5e46b9a68cd8ca17ef2c44480b453f49aa59
+  source_note: USGS publisher symbol sheet. Historical topographic symbols; newer
+    US Topo PDFs carry their own attached symbol sheets. Original educational reference.
+    Preserve institutional, copyright and source notices. No endorsement or certification
+    implied. Retrieved 2026-10-24T17:05:55.890764+00:00
+  online_url: https://www.usgs.gov/media/files/topographic-map-symbols
+  download_url: https://pubs.usgs.gov/gip/TopographicMapSymbols/topomapsymbols.pdf
+- id: family-nav-land
+  repository_id: navigation-field
+  category: pdf_reference
+  title: Basic Land Navigation — NWCG
+  relative_path: family-resources/navigation-field/nav-land.pdf
+  service_endpoint: /library-files/family-resources/navigation-field/nav-land.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 35bb97d101435356092ce866d970b21733dd2929747ffb827451c90baaf35019
+  source_note: NWCG PMS 475, May 2016; government archive. Training workbook, not
+    course certification. Original educational reference. Preserve institutional,
+    copyright and source notices. No endorsement or certification implied. Retrieved
+    2026-10-24T17:05:55.893116+00:00
+  online_url: https://www.govinfo.gov/app/details/GOVPUB-A13-PURL-gpo249583
+  download_url: https://www.govinfo.gov/content/pkg/GOVPUB-A13-PURL-gpo249583/pdf/GOVPUB-A13-PURL-gpo249583.pdf
+- id: family-nav-trip
+  repository_id: navigation-field
+  category: pdf_reference
+  title: Trip Planning Guide Package — National Park Service
+  relative_path: family-resources/navigation-field/nav-trip.pdf
+  service_endpoint: /library-files/family-resources/navigation-field/nav-trip.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 4f722870828c8b9b129c6b8d5447c4cda2a75aa4134a23e9ec0f9eafa4d0b271
+  source_note: National Park Service, December 2022. Day and overnight planning, not
+    a complete expedition or technical rescue manual. Original educational reference.
+    Preserve institutional, copyright and source notices. No endorsement or certification
+    implied. Retrieved 2026-10-24T17:05:55.894844+00:00
+  online_url: https://www.nps.gov/subjects/healthandsafety/trip-planning-guide.htm
+  download_url: https://www.nps.gov/subjects/healthandsafety/upload/Trip-Planning-Guide-Package-508c.pdf
+- id: family-comms-radiogram
+  repository_id: emergency-comms
+  category: pdf_reference
+  title: Fillable Radiogram Form — ARRL
+  relative_path: family-resources/emergency-comms/comms-radiogram.pdf
+  service_endpoint: /library-files/family-resources/emergency-comms/comms-radiogram.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: cc886c48a89d7d805a241973a03528fa2a562fb788aa1a5d7274802c01b8180a
+  source_note: ARRL original blank radiogram form. Printed or saved copies should
+    be kept on the user device. Original educational reference. Preserve institutional,
+    copyright and source notices. No endorsement or certification implied. Retrieved
+    2026-10-24T17:05:56.707100+00:00
+  online_url: https://nts2.arrl.org/fillable-radiogram-form/
+  download_url: https://www.arrl.org/files/media/Group/Fillable%20Radiogram%20Form.pdf
+- id: family-comms-format
+  repository_id: emergency-comms
+  category: pdf_reference
+  title: The ARRL Message Format
+  relative_path: family-resources/emergency-comms/comms-format.pdf
+  service_endpoint: /library-files/family-resources/emergency-comms/comms-format.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 9fbd5a54de332bed4fd00c4e3dd5a846ba0780bef0d981ff37c5c7673c24b7f5
+  source_note: ARRL message-format guidance; original edition and operational references
+    retained. Original educational reference. Preserve institutional, copyright and
+    source notices. No endorsement or certification implied. Retrieved 2026-10-24T17:05:57.449560+00:00
+  online_url: https://www.arrl.org/public-service
+  download_url: https://www.arrl.org/files/file/Public%20Service/MPG104A.pdf
+- id: family-comms-ares
+  repository_id: emergency-comms
+  category: pdf_reference
+  title: ARES Manual — ARRL
+  relative_path: family-resources/emergency-comms/comms-ares.pdf
+  service_endpoint: /library-files/family-resources/emergency-comms/comms-ares.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: bb8076506b8797f929381cd33674faecfcc81e26b074bd86939067050c07d299
+  source_note: ARRL ARES Manual, 2015 archived edition. Organizational procedures
+    and contacts may have changed. Original educational reference. Preserve institutional,
+    copyright and source notices. No endorsement or certification implied. Retrieved
+    2026-10-24T17:05:58.010706+00:00
+  online_url: https://www.arrl.org/public-service
+  download_url: https://www.arrl.org/files/file/Public%20Service/ARES/ARESmanual2015.pdf
+- id: family-comms-plain
+  repository_id: emergency-comms
+  category: pdf_reference
+  title: 'Plain Language: Making the Transition from Ten Codes — CISA'
+  relative_path: family-resources/emergency-comms/comms-plain.pdf
+  service_endpoint: /library-files/family-resources/emergency-comms/comms-plain.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: ce8ac08d6771d9d5feb8deb19ad00c9a2cfe4d8a93377b5c7466633aea283b93
+  source_note: DHS / SAFECOM original guidance, archived publisher edition. Public-safety
+    context; not an authorization to use agency radio systems. Original educational
+    reference. Preserve institutional, copyright and source notices. No endorsement
+    or certification implied. Retrieved 2026-10-24T17:05:58.462191+00:00
+  online_url: https://www.cisa.gov/safecom/planning-resources
+  download_url: https://www.cisa.gov/sites/default/files/publications/PlainLanguageGuide.pdf
+- id: family-comms-family-kids
+  repository_id: emergency-comms
+  category: pdf_reference
+  title: Family Communication Plan for Kids — Ready.gov
+  relative_path: family-resources/emergency-comms/comms-family-kids.pdf
+  service_endpoint: /library-files/family-resources/emergency-comms/comms-family-kids.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 5880f41d6bee00673022c7b27856ae2a7d65a7e9aa6f95bede26746285170595
+  source_note: FEMA Ready.gov blank family contact-plan card, March 2020 publisher
+    file. Original educational reference. Preserve institutional, copyright and source
+    notices. No endorsement or certification implied. Retrieved 2026-10-24T17:05:59.052975+00:00
+  online_url: https://www.ready.gov/
+  download_url: https://www.ready.gov/sites/default/files/2020-03/ready_family-communications-plan_kids.pdf
+- id: family-nav-usng
+  repository_id: navigation-field
+  category: pdf_reference
+  title: Reading and Understanding the US National Grid — FGDC / Delta State
+  relative_path: family-resources/navigation-field/nav-usng.pdf
+  service_endpoint: /library-files/family-resources/navigation-field/nav-usng.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: e4d044fae593a03fa0db5ffe7e5291682d112800dfc345ab77b58509fc30900c
+  source_note: FGDC / Delta State University archived education slides, 2008 program.
+    Older GPS examples and software references retained. Original educational reference;
+    funding, institutional and copyright notices retained. No endorsement implied.
+    Retrieved 2026-10-24T17:06:45.621203+00:00
+  online_url: https://www.fgdc.gov/training/documents/DeltaStateTrainingMaterials
+  download_url: https://www.fgdc.gov/training/documents/DeltaStateTrainingMaterials/ReadingUSNGCoordinates.pdf/at_download/file
 resource_sections:
 - title: Local maps
   description: Massachusetts reference maps for Worcester and Middlesex counties.

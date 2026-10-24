@@ -79,3 +79,7 @@ The [first-aid and caregiving collection](FirstAidCare.md) adds original first-a
 ## Growing food and repairs
 
 [Gardening and practical repairs](GardeningRepairs.md) documents the New England gardening collection and the short maintenance references that supplement local iFixit.
+
+## Navigation and emergency communications
+
+[Navigation and communication references](NavigationComms.md) document map and coordinate training, outdoor trip planning, radiograms, plain-language procedures and family contact cards.

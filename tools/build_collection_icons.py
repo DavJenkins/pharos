@@ -15,6 +15,7 @@ ICONS = {
     'shelter-winter': ('Shelter', '#4b6389'),
     'first-aid-care': ('Care', '#667d61'),
     'growing-food': ('Garden', '#4e7752'),
+    'navigation-field': ('Navigation', '#476984'),
     'sanitation': ('Sanitation', '#3a6e78'),
 }
 def render(name, color):
@@ -84,6 +85,11 @@ def render(name, color):
         d.ellipse((129,47,202,103),outline=ink,width=9)
         line([(61,211),(195,211)],9)
         line([(80,171),(116,190),(142,190),(179,171)],7)
+    elif name == 'Navigation':
+        d.ellipse((47,47,209,209),outline=ink,width=8)
+        d.polygon([(166,78),(147,147),(78,178),(109,109)],outline=ink,width=7)
+        d.polygon([(166,78),(128,128),(109,109)],fill=ink)
+        for a,b in [((128,30),(128,43)),((128,213),(128,226)),((30,128),(43,128)),((213,128),(226,128))]:line([a,b],6)
     elif name == 'Sanitation':
         d.rounded_rectangle((48,135,208,207),radius=24,outline=ink,width=8)
         d.ellipse((82,151,174,187),outline=ink,width=6)
