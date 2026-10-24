@@ -1241,6 +1241,46 @@
       "repository": "radio-study"
     },
     {
+      "id": "accord-2017-manual",
+      "title": "2017 Honda Accord Sedan \u2014 Owner\u2019s Manual",
+      "path": "vehicles/accord-2017-manual.pdf",
+      "selected": true,
+      "bytes": 38403007,
+      "sha256": "27131e7c33d2b7a830d4685e79c3cd409b26a9d28e7728cff9fba29a50b09e79",
+      "source": "https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf",
+      "repository": "vehicle-manuals"
+    },
+    {
+      "id": "accord-2017-guide",
+      "title": "2017 Honda Accord Sedan \u2014 Quick Owner\u2019s Guide",
+      "path": "vehicles/accord-2017-guide.pdf",
+      "selected": true,
+      "bytes": 26707760,
+      "sha256": "4c0b913cccb2cfc56e63b521f38d2e046b97b2fc6af85f88970fd6af11e7cd7c",
+      "source": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf",
+      "repository": "vehicle-manuals"
+    },
+    {
+      "id": "civic-2017-manual",
+      "title": "2017 Honda Civic Sedan \u2014 Owner\u2019s Manual",
+      "path": "vehicles/civic-2017-manual.pdf",
+      "selected": true,
+      "bytes": 38389872,
+      "sha256": "fe000335a5046b4f8cc2298329dedf223ea30f587789c039d0fe3617f8d6dafe",
+      "source": "https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf",
+      "repository": "vehicle-manuals"
+    },
+    {
+      "id": "civic-2017-guide",
+      "title": "2017 Honda Civic Sedan \u2014 Quick Owner\u2019s Guide",
+      "path": "vehicles/civic-2017-guide.pdf",
+      "selected": true,
+      "bytes": 25167273,
+      "sha256": "dc3534cb5238c93af62f1df08df70728fbc068cc56b977f832a9657b419a9929",
+      "source": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF",
+      "repository": "vehicle-manuals"
+    },
+    {
       "id": "family-nasa-exoplanets",
       "title": "NASA Exoplanets Coloring Book",
       "path": "family-resources/kids/nasa-exoplanets.pdf",
@@ -1411,44 +1451,54 @@
       "repository": "family-resources"
     },
     {
-      "id": "accord-2017-manual",
-      "title": "2017 Honda Accord Sedan \u2014 Owner\u2019s Manual",
-      "path": "vehicles/accord-2017-manual.pdf",
+      "id": "family-holiday-family",
+      "title": "Holiday Coloring - Family Pages",
+      "path": "family-resources/holidays/holiday-family.pdf",
       "selected": true,
-      "bytes": 38403007,
-      "sha256": "27131e7c33d2b7a830d4685e79c3cd409b26a9d28e7728cff9fba29a50b09e79",
-      "source": "https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf",
-      "repository": "vehicle-manuals"
+      "bytes": 17718,
+      "sha256": "d749e8711c85d23c84680e00a0d581215e40870d416f9cfb89b3176966ad5ba8",
+      "source": null,
+      "repository": "family-resources"
     },
     {
-      "id": "accord-2017-guide",
-      "title": "2017 Honda Accord Sedan \u2014 Quick Owner\u2019s Guide",
-      "path": "vehicles/accord-2017-guide.pdf",
+      "id": "family-holiday-detailed",
+      "title": "Holiday Coloring - Detailed Designs",
+      "path": "family-resources/holidays/holiday-detailed.pdf",
       "selected": true,
-      "bytes": 26707760,
-      "sha256": "4c0b913cccb2cfc56e63b521f38d2e046b97b2fc6af85f88970fd6af11e7cd7c",
-      "source": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf",
-      "repository": "vehicle-manuals"
+      "bytes": 69201,
+      "sha256": "c950a25788ba3a38bc19bd2a53597c0ce4e07d3d2bc96d870ab502a80c42fa13",
+      "source": null,
+      "repository": "family-resources"
     },
     {
-      "id": "civic-2017-manual",
-      "title": "2017 Honda Civic Sedan \u2014 Owner\u2019s Manual",
-      "path": "vehicles/civic-2017-manual.pdf",
+      "id": "family-cook-pantry-resilience",
+      "title": "Preparedness & Resiliency \u2014 Pantry Meals for Seven Days",
+      "path": "family-resources/cookbooks/cook-pantry-resilience.pdf",
       "selected": true,
-      "bytes": 38389872,
-      "sha256": "fe000335a5046b4f8cc2298329dedf223ea30f587789c039d0fe3617f8d6dafe",
-      "source": "https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf",
-      "repository": "vehicle-manuals"
+      "bytes": 3578231,
+      "sha256": "cb8e7b1fc49c626a09f150185078565d3a3105af9e9072691c9b340c94ddab0a",
+      "source": "https://www.uaex.uada.edu/life-skills-wellness/docs/FRM-Resiliency-Cookbook-EFNEP.pdf",
+      "repository": "family-resources"
     },
     {
-      "id": "civic-2017-guide",
-      "title": "2017 Honda Civic Sedan \u2014 Quick Owner\u2019s Guide",
-      "path": "vehicles/civic-2017-guide.pdf",
+      "id": "family-cook-usda-harvest",
+      "title": "A Harvest of Recipes with USDA Foods",
+      "path": "family-resources/cookbooks/cook-usda-harvest.pdf",
       "selected": true,
-      "bytes": 25167273,
-      "sha256": "dc3534cb5238c93af62f1df08df70728fbc068cc56b977f832a9657b419a9929",
-      "source": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF",
-      "repository": "vehicle-manuals"
+      "bytes": 4461627,
+      "sha256": "d7abd79ffea0d097c5f6d0c040d124273af1fc444e4a76a7a9dc25b41762eb75",
+      "source": "https://www.govinfo.gov/content/pkg/GOVPUB-A98-PURL-gpo93692/pdf/GOVPUB-A98-PURL-gpo93692.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-cook-usda-thrifty",
+      "title": "Recipes and Tips for Healthy, Thrifty Meals",
+      "path": "family-resources/cookbooks/cook-usda-thrifty.pdf",
+      "selected": true,
+      "bytes": 258934,
+      "sha256": "ff593b0029d3fbe579273879e6dfebf0e27413fab2468744d93490fe58f5189d",
+      "source": "https://ageconsearch.umn.edu/nanna/record/311366/files/cnpp-11.pdf?registerDownload=1&version=1&withMetadata=0&withWatermark=0",
+      "repository": "family-resources"
     }
   ],
   "unmanaged_archives": [

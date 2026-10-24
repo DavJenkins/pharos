@@ -1,0 +1,74 @@
+{
+  "themes": [
+    {
+      "id": "new-year",
+      "title": "New Year",
+      "motif": "fireworks"
+    },
+    {
+      "id": "lunar-new-year",
+      "title": "Lunar New Year",
+      "motif": "lantern"
+    },
+    {
+      "id": "valentine",
+      "title": "Valentine's Day",
+      "motif": "heart"
+    },
+    {
+      "id": "st-patrick",
+      "title": "St. Patrick's Day",
+      "motif": "shamrock"
+    },
+    {
+      "id": "easter",
+      "title": "Easter",
+      "motif": "egg"
+    },
+    {
+      "id": "earth-day",
+      "title": "Earth Day",
+      "motif": "earth"
+    },
+    {
+      "id": "independence",
+      "title": "Independence Day",
+      "motif": "star"
+    },
+    {
+      "id": "halloween",
+      "title": "Halloween",
+      "motif": "pumpkin"
+    },
+    {
+      "id": "thanksgiving",
+      "title": "Thanksgiving",
+      "motif": "turkey"
+    },
+    {
+      "id": "christmas",
+      "title": "Christmas",
+      "motif": "tree"
+    },
+    {
+      "id": "hanukkah",
+      "title": "Hanukkah",
+      "motif": "menorah"
+    },
+    {
+      "id": "kwanzaa",
+      "title": "Kwanzaa",
+      "motif": "kinara"
+    },
+    {
+      "id": "diwali",
+      "title": "Diwali",
+      "motif": "diya"
+    },
+    {
+      "id": "eid",
+      "title": "Eid",
+      "motif": "crescent"
+    }
+  ]
+}

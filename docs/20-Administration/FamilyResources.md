@@ -47,3 +47,15 @@ The in-app browser did not confirm the SVG download event during verification, a
 ## Adult coloring
 
 The Adult coloring section contains Swarthmore’s 2021 North American Wild Flowers book (28 pages), JMU’s 2020 vintage illustrations (13 pages), and Europeana’s 2022 art collection (20 pages). They are available in the library book picker at `/coloring.html`, as original PDFs in `family-resources/adult-coloring/`, and in the family resources index. Page counts include covers and credits. Preserve each original page’s artist, institution, and license when sharing colored versions. Source URLs and use notes live in `deploy/reference/family-catalogue.json`; installed hashes and page counts live on the content drive in `family-resources/sources.json`.
+
+## Holiday coloring
+
+Two original CC0 packs are available under Holiday coloring in `/coloring.html`: Family Pages and Detailed Designs, each 14 pages. Themes include New Year, Lunar New Year, Valentine’s Day, St. Patrick’s Day, Easter, Earth Day, Independence Day, Halloween, Thanksgiving, Christmas, Hanukkah, Kwanzaa, Diwali and Eid. Suggested audiences describe drawing detail rather than formal age ratings.
+
+The PDFs live in `/mnt/storage/family-resources/holidays/`. Rebuild with `/usr/bin/python3 /opt/dataark/tools/build_holiday_coloring.py`. The readable theme list is `deploy/reference/holiday-themes.json`; all vector artwork is generated from source. The family installer rebuilds and registers both packs during content restoration, and populated drive replication includes them. Source metadata, page counts and hashes are recorded in `family-resources/holidays/sources.json` and merged into the main family catalogue. They may be freely copied, colored, adapted and shared under CC0 1.0.
+
+## Cookbooks and pantry meals
+
+The family index has a Cooking & pantry meals section, linked directly from the landing-page family card. Installed originals are the EFNEP Preparedness & Resiliency guide (48 pages), USDA A Harvest of Recipes with USDA Foods (2013, 98 pages), and USDA Recipes and Tips for Healthy, Thrifty Meals (May 2000, 78 pages). They cover everyday meals, pantry staples, substitutions, kitchen basics and meal planning. Historical prices and nutrition-policy statements remain identified by edition. Original documents and notices are kept unchanged.
+
+Files live in `family-resources/cookbooks/`, with source URLs in `deploy/reference/family-catalogue.json` and verified metadata in `family-resources/sources.json`. The family restoration recipe and populated drive replication include them. Good and Cheap was also considered, but its university mirror blocked retrieval and the author’s old direct download no longer returns a PDF; it is recorded as not installed, not presented as local content.
