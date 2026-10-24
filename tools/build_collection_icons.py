@@ -11,6 +11,7 @@ ICONS = {
     'resilience': ('Resilience', '#43764e'),
     'civic-reference': ('Civic', '#876435'),
     'radio-study': ('Radio', '#345e98'),
+    'sanitation': ('Sanitation', '#3a6e78'),
 }
 def render(name, color):
     image = Image.new('RGBA', (256, 256))
@@ -60,6 +61,10 @@ def render(name, color):
         for y in [172,184]:line([(81,y),(144,y)],5)
         d.arc((114,39,213,138),220,317,fill=ink,width=7)
         d.arc((130,55,197,122),220,317,fill=ink,width=7)
+    elif name == 'Sanitation':
+        d.rounded_rectangle((48,135,208,207),radius=24,outline=ink,width=8)
+        d.ellipse((82,151,174,187),outline=ink,width=6)
+        for x,y,r in [(78,107,12),(118,72,15),(172,109,10)]:d.ellipse((x-r,y-r,x+r,y+r),outline=ink,width=6)
     return image.resize((128,128),Image.Resampling.LANCZOS)
 if __name__ == '__main__':
     out=ROOT/'app/static/assets/icons'

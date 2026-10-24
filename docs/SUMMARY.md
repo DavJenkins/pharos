@@ -64,3 +64,5 @@
 - [Vehicle manuals](20-Administration/VehicleManuals.md)
 
 - [Food preservation and emergency cooking](20-Administration/FoodPreservation.md)
+
+- [Sanitation and hygiene](20-Administration/Sanitation.md)

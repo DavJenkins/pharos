@@ -314,6 +314,21 @@ repositories:
     url: /library-files/family-resources/index.html#food-preservation
   - title: Cookbooks & pantry meals
     url: /library-files/family-resources/index.html#cookbooks
+- id: sanitation
+  category: content_sources
+  title: Sanitation & Hygiene
+  description: Emergency toilets and labels, low-water handwashing, household cleanup,
+    mold references and rodent prevention. Regional guidance and original editions
+    identified.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Sanitation.png
+    alt: Sanitation and hygiene icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open sanitation & hygiene guides
+    url: /library-files/family-resources/index.html#sanitation
 assets:
 - id: ifixit-repair-guides
   online_url: https://www.ifixit.com/Guide
@@ -2691,6 +2706,186 @@ assets:
     FEMA notices retained. Retrieved 2026-10-24T15:29:55.380015+00:00
   online_url: https://www.usfa.fema.gov/prevention/outdoor-fires/
   download_url: https://www.usfa.fema.gov/downloads/pdf/publications/grilling_fire_safety_flyer.pdf
+- id: family-sanitation-osu
+  repository_id: sanitation
+  category: pdf_reference
+  title: 'Survival Basics: Sanitation and Waste Management — OSU Extension'
+  relative_path: family-resources/sanitation/sanitation-osu.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-osu.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 6796b06f1d3265de0805bd8243b6d659cb2a7788ccdf27b2c1816df6dd5eb0d8
+  source_note: Oregon State University Extension EM 9334, published October 2021.
+    Regional disposal guidance is not a local permit. Publicly provided publisher
+    educational original. Retain all author, institutional, copyright, source attribution
+    and use notices. Preserved unchanged; no endorsement implied. Retrieved 2026-10-24T15:43:46.642867+00:00
+  online_url: https://extension.oregonstate.edu/catalog/pub/em9334
+  download_url: https://extension.oregonstate.edu/sites/extd8/files/documents/57811/survival-basics-sanitationdr0.pdf
+- id: family-sanitation-rdpo-guide
+  repository_id: sanitation
+  category: pdf_reference
+  title: Emergency Toilet Guidebook — RDPO
+  relative_path: family-resources/sanitation/sanitation-rdpo-guide.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-rdpo-guide.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: d5789303dc4b19f95ec51123444d3a4b9d43642ebd85ba36bbd905d19d487c06
+  source_note: Regional Disaster Preparedness Organization Emergency Toilet Guidebook,
+    updated February 2025; publisher Google document exported as PDF. Publicly provided
+    publisher educational original. Retain all author, institutional, copyright, source
+    attribution and use notices. Preserved unchanged; no endorsement implied. Retrieved
+    2026-10-24T15:43:46.645215+00:00
+  online_url: https://rdpo.net/emergency-toilet
+  download_url: https://docs.google.com/document/d/1Pt4W2ul_nfBeES0-aI38SFGN9_5-rCDcV45lbfvligA/export?format=pdf
+- id: family-sanitation-twin-bucket
+  repository_id: sanitation
+  category: pdf_reference
+  title: Twin Bucket Emergency Toilet — Quick Leaflet
+  relative_path: family-resources/sanitation/sanitation-twin-bucket.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-twin-bucket.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 11f94a6ff77cb1af65b165b68344b9cdcf2a43b253c3cf6cc1143954d64ae6ad
+  source_note: Regional Disaster Preparedness Organization public outreach leaflet.
+    Publicly provided publisher educational original. Retain all author, institutional,
+    copyright, source attribution and use notices. Preserved unchanged; no endorsement
+    implied. Retrieved 2026-10-24T15:43:46.646869+00:00
+  online_url: https://rdpo.net/emergency-toilet
+  download_url: https://rdpo.net/s/ET-MRC-Leaflet.pdf
+- id: family-sanitation-bucket-en
+  repository_id: sanitation
+  category: pdf_reference
+  title: Emergency Toilet Bucket Labels — English
+  relative_path: family-resources/sanitation/sanitation-bucket-en.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-bucket-en.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: e8a61c9b256c789216cf781d6cae4bc7cdcc8dd67a8faade10def1b36eb12679
+  source_note: RDPO English bucket-sticker file, linked from the publisher Emergency
+    Toilet Project. Publicly provided publisher educational original. Retain all author,
+    institutional, copyright, source attribution and use notices. Preserved unchanged;
+    no endorsement implied. Retrieved 2026-10-24T15:43:47.386841+00:00
+  online_url: https://rdpo.net/emergency-toilet
+  download_url: https://drive.google.com/uc?export=download&id=1NXByvyIEUJzCET1qkDwEM5pwlnswr3kw
+- id: family-sanitation-bucket-es
+  repository_id: sanitation
+  category: pdf_reference
+  title: Emergency Toilet Bucket Labels — Spanish
+  relative_path: family-resources/sanitation/sanitation-bucket-es.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-bucket-es.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: dd30af31e55267e5b274b702c1df425ffa968e54a0949bb3a44d85d1a2adba71
+  source_note: RDPO Spanish bucket-sticker file, linked from the publisher Emergency
+    Toilet Project. Publicly provided publisher educational original. Retain all author,
+    institutional, copyright, source attribution and use notices. Preserved unchanged;
+    no endorsement implied. Retrieved 2026-10-24T15:43:47.402967+00:00
+  online_url: https://rdpo.net/emergency-toilet
+  download_url: https://drive.google.com/uc?export=download&id=1PVpctIrs6JsmVc6CZ4DsKWsmyqK_DvAI
+- id: family-sanitation-siphon
+  repository_id: sanitation
+  category: pdf_reference
+  title: Siphon-Pump Handwashing Station — RDPO
+  relative_path: family-resources/sanitation/sanitation-siphon.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-siphon.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 67b9730a43d9dd909f0fc4c9f0bca55e4b96a385f02563f75ed7a88bbe72449f
+  source_note: Brian Dobecki, Washington County Medical Reserve Corps, revision September
+    30, 2016; original RDPO-hosted plan. Publicly provided publisher educational original.
+    Retain all author, institutional, copyright, source attribution and use notices.
+    Preserved unchanged; no endorsement implied. Retrieved 2026-10-24T15:43:48.591263+00:00
+  online_url: https://rdpo.net/emergency-toilet
+  download_url: https://rdpo.net/s/ET-Siphon-Pump-Hand-Wash.pdf
+- id: family-sanitation-tippy
+  repository_id: sanitation
+  category: pdf_reference
+  title: Tippy Tap — UNICEF Field Demonstration Guide
+  relative_path: family-resources/sanitation/sanitation-tippy.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-tippy.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 9f14278f22d3db3b63bec6ef6e3b2126e051a6b518eec1fa9779cd81e16d05b9
+  source_note: UNICEF South Africa, May 2020 field demonstration guide. COVID-era
+    campaign context retained; included for its low-water handwashing-station plans.
+    Publicly provided publisher educational original. Retain all author, institutional,
+    copyright, source attribution and use notices. Preserved unchanged; no endorsement
+    implied. Retrieved 2026-10-24T15:43:49.347330+00:00
+  online_url: https://www.unicef.org/southafrica/documents/unicefs-tippy-tap-challenge-field-demonstration-guide
+  download_url: https://www.unicef.org/southafrica/media/4856/file/ZAF-Tippy-Tap-field-guide-2020.pdf
+- id: family-sanitation-rodents-wa
+  repository_id: sanitation
+  category: pdf_reference
+  title: Safely Cleaning Up After Rodents — Washington DOH
+  relative_path: family-resources/sanitation/sanitation-rodents-wa.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-rodents-wa.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 7c4ce83fc4e9462306a4d1895b40cc2a9b5b3e40c82ca8a02ff92cce371cd9a9
+  source_note: Washington State Department of Health DOH 420-569, January 2024. Publicly
+    provided publisher educational original. Retain all author, institutional, copyright,
+    source attribution and use notices. Preserved unchanged; no endorsement implied.
+    Retrieved 2026-10-24T15:43:49.605594+00:00
+  online_url: https://doh.wa.gov/community-and-environment/pests/rodents
+  download_url: https://doh.wa.gov/sites/default/files/2024-02/420569-SafelyCleaningAfterRodents-Hantavirus-Poster-English.pdf
+- id: family-sanitation-handwash
+  repository_id: sanitation
+  category: pdf_reference
+  title: Keep Calm & Wash Your Hands — CDC Poster
+  relative_path: family-resources/sanitation/sanitation-handwash.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-handwash.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 615a5a5d0f6dad3cc53ee9092309a4c049b2e6a878d2abf8033c5f29be53eac3
+  source_note: CDC poster, archived 2014/2015 campaign edition hosted by the Global
+    Handwashing Partnership. U.S. federal educational publication; original author,
+    agency and partner notices retained. No endorsement implied. Retrieved 2026-10-24T15:45:33.934784+00:00
+  online_url: https://globalhandwashing.org/resources/keep-calm-wash-your-hands-poster/
+  download_url: https://globalhandwashing.org/wp-content/uploads/2015/03/Keep-Calm-Wash-Your-Hands_8.5x111-EN.pdf
+- id: family-sanitation-mold
+  repository_id: sanitation
+  category: pdf_reference
+  title: Homeowner’s and Renter’s Guide to Mold Cleanup After Disasters
+  relative_path: family-resources/sanitation/sanitation-mold.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-mold.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 1d4cea0b47a1d63e334b3f71a669c0acd5f131a9baec9c43ac2a823bc40dcf89
+  source_note: CDC / EPA / FEMA / HUD Homeowner’s and Renter’s Guide, June 2015; EPA-hosted
+    original. U.S. federal educational publication; original author, agency and partner
+    notices retained. No endorsement implied. Retrieved 2026-10-24T15:45:33.937171+00:00
+  online_url: https://www.epa.gov/mold/mold-cleanup
+  download_url: https://www.epa.gov/sites/default/files/2017-08/documents/mold._homeowners_and_renters_guide_to_cleanup_after_disasters.pdf
+- id: family-sanitation-mold-supplies
+  repository_id: sanitation
+  category: pdf_reference
+  title: Shopping List for Mold Cleanup After a Flood — CDC
+  relative_path: family-resources/sanitation/sanitation-mold-supplies.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-mold-supplies.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 2e571a1424af101cf7f69c66ff241f3673c1905052f4a32843be305efa01b6c1
+  source_note: CDC original checklist, preserved by Winnebago County Health Department
+    in its April 2024 public-health resources. U.S. federal educational publication;
+    original author, agency and partner notices retained. No endorsement implied.
+    Retrieved 2026-10-24T15:45:33.938798+00:00
+  online_url: https://publichealth.wincoil.gov/wp-content/uploads/2024/04/Mold-clean-up-shopping-list.pdf
+  download_url: https://publichealth.wincoil.gov/wp-content/uploads/2024/04/Mold-clean-up-shopping-list.pdf
+- id: family-sanitation-rats-county
+  repository_id: sanitation
+  category: pdf_reference
+  title: Rat Prevention and Control — San Diego County
+  relative_path: family-resources/sanitation/sanitation-rats-county.pdf
+  service_endpoint: /library-files/family-resources/sanitation/sanitation-rats-county.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: d2e3d4914c9d96e7461288fe3b0f71ccb989bfaa3910cd80e4741d241806bcf6
+  source_note: San Diego County Vector Control Program publisher brochure; regional
+    contacts and original notices retained. San Diego County public-health educational
+    original. Preserve original source, institutional and copyright notices; no endorsement
+    implied. Retrieved 2026-10-24T15:45:34.592559+00:00
+  online_url: https://www.sandiegocounty.gov/content/sdc/deh/pests/pamphlet_library.html
+  download_url: https://www.sandiegocounty.gov/content/dam/sdc/deh/Vector/pdf/rat/RatBrochure_English.pdf
 resource_sections:
 - title: Local maps
   description: Massachusetts reference maps for Worcester and Middlesex counties.

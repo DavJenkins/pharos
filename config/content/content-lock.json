@@ -1639,6 +1639,126 @@
       "sha256": "c91167b78d360fb6eb7e3c91a3739ed316700f80947ef9aeb53fa942bd848e22",
       "source": "https://www.usfa.fema.gov/downloads/pdf/publications/grilling_fire_safety_flyer.pdf",
       "repository": "food-preservation"
+    },
+    {
+      "id": "family-sanitation-osu",
+      "title": "Survival Basics: Sanitation and Waste Management \u2014 OSU Extension",
+      "path": "family-resources/sanitation/sanitation-osu.pdf",
+      "selected": true,
+      "bytes": 822769,
+      "sha256": "6796b06f1d3265de0805bd8243b6d659cb2a7788ccdf27b2c1816df6dd5eb0d8",
+      "source": "https://extension.oregonstate.edu/sites/extd8/files/documents/57811/survival-basics-sanitationdr0.pdf",
+      "repository": "sanitation"
+    },
+    {
+      "id": "family-sanitation-rdpo-guide",
+      "title": "Emergency Toilet Guidebook \u2014 RDPO",
+      "path": "family-resources/sanitation/sanitation-rdpo-guide.pdf",
+      "selected": true,
+      "bytes": 1142626,
+      "sha256": "d5789303dc4b19f95ec51123444d3a4b9d43642ebd85ba36bbd905d19d487c06",
+      "source": "https://docs.google.com/document/d/1Pt4W2ul_nfBeES0-aI38SFGN9_5-rCDcV45lbfvligA/export?format=pdf",
+      "repository": "sanitation"
+    },
+    {
+      "id": "family-sanitation-twin-bucket",
+      "title": "Twin Bucket Emergency Toilet \u2014 Quick Leaflet",
+      "path": "family-resources/sanitation/sanitation-twin-bucket.pdf",
+      "selected": true,
+      "bytes": 569585,
+      "sha256": "11f94a6ff77cb1af65b165b68344b9cdcf2a43b253c3cf6cc1143954d64ae6ad",
+      "source": "https://rdpo.net/s/ET-MRC-Leaflet.pdf",
+      "repository": "sanitation"
+    },
+    {
+      "id": "family-sanitation-bucket-en",
+      "title": "Emergency Toilet Bucket Labels \u2014 English",
+      "path": "family-resources/sanitation/sanitation-bucket-en.pdf",
+      "selected": true,
+      "bytes": 204079,
+      "sha256": "e8a61c9b256c789216cf781d6cae4bc7cdcc8dd67a8faade10def1b36eb12679",
+      "source": "https://drive.google.com/uc?export=download&id=1NXByvyIEUJzCET1qkDwEM5pwlnswr3kw",
+      "repository": "sanitation"
+    },
+    {
+      "id": "family-sanitation-bucket-es",
+      "title": "Emergency Toilet Bucket Labels \u2014 Spanish",
+      "path": "family-resources/sanitation/sanitation-bucket-es.pdf",
+      "selected": true,
+      "bytes": 556685,
+      "sha256": "dd30af31e55267e5b274b702c1df425ffa968e54a0949bb3a44d85d1a2adba71",
+      "source": "https://drive.google.com/uc?export=download&id=1PVpctIrs6JsmVc6CZ4DsKWsmyqK_DvAI",
+      "repository": "sanitation"
+    },
+    {
+      "id": "family-sanitation-siphon",
+      "title": "Siphon-Pump Handwashing Station \u2014 RDPO",
+      "path": "family-resources/sanitation/sanitation-siphon.pdf",
+      "selected": true,
+      "bytes": 3349165,
+      "sha256": "67b9730a43d9dd909f0fc4c9f0bca55e4b96a385f02563f75ed7a88bbe72449f",
+      "source": "https://rdpo.net/s/ET-Siphon-Pump-Hand-Wash.pdf",
+      "repository": "sanitation"
+    },
+    {
+      "id": "family-sanitation-tippy",
+      "title": "Tippy Tap \u2014 UNICEF Field Demonstration Guide",
+      "path": "family-resources/sanitation/sanitation-tippy.pdf",
+      "selected": true,
+      "bytes": 3379163,
+      "sha256": "9f14278f22d3db3b63bec6ef6e3b2126e051a6b518eec1fa9779cd81e16d05b9",
+      "source": "https://www.unicef.org/southafrica/media/4856/file/ZAF-Tippy-Tap-field-guide-2020.pdf",
+      "repository": "sanitation"
+    },
+    {
+      "id": "family-sanitation-rodents-wa",
+      "title": "Safely Cleaning Up After Rodents \u2014 Washington DOH",
+      "path": "family-resources/sanitation/sanitation-rodents-wa.pdf",
+      "selected": true,
+      "bytes": 228702,
+      "sha256": "7c4ce83fc4e9462306a4d1895b40cc2a9b5b3e40c82ca8a02ff92cce371cd9a9",
+      "source": "https://doh.wa.gov/sites/default/files/2024-02/420569-SafelyCleaningAfterRodents-Hantavirus-Poster-English.pdf",
+      "repository": "sanitation"
+    },
+    {
+      "id": "family-sanitation-handwash",
+      "title": "Keep Calm & Wash Your Hands \u2014 CDC Poster",
+      "path": "family-resources/sanitation/sanitation-handwash.pdf",
+      "selected": true,
+      "bytes": 167712,
+      "sha256": "615a5a5d0f6dad3cc53ee9092309a4c049b2e6a878d2abf8033c5f29be53eac3",
+      "source": "https://globalhandwashing.org/wp-content/uploads/2015/03/Keep-Calm-Wash-Your-Hands_8.5x111-EN.pdf",
+      "repository": "sanitation"
+    },
+    {
+      "id": "family-sanitation-mold",
+      "title": "Homeowner\u2019s and Renter\u2019s Guide to Mold Cleanup After Disasters",
+      "path": "family-resources/sanitation/sanitation-mold.pdf",
+      "selected": true,
+      "bytes": 3421361,
+      "sha256": "1d4cea0b47a1d63e334b3f71a669c0acd5f131a9baec9c43ac2a823bc40dcf89",
+      "source": "https://www.epa.gov/sites/default/files/2017-08/documents/mold._homeowners_and_renters_guide_to_cleanup_after_disasters.pdf",
+      "repository": "sanitation"
+    },
+    {
+      "id": "family-sanitation-mold-supplies",
+      "title": "Shopping List for Mold Cleanup After a Flood \u2014 CDC",
+      "path": "family-resources/sanitation/sanitation-mold-supplies.pdf",
+      "selected": true,
+      "bytes": 61409,
+      "sha256": "2e571a1424af101cf7f69c66ff241f3673c1905052f4a32843be305efa01b6c1",
+      "source": "https://publichealth.wincoil.gov/wp-content/uploads/2024/04/Mold-clean-up-shopping-list.pdf",
+      "repository": "sanitation"
+    },
+    {
+      "id": "family-sanitation-rats-county",
+      "title": "Rat Prevention and Control \u2014 San Diego County",
+      "path": "family-resources/sanitation/sanitation-rats-county.pdf",
+      "selected": true,
+      "bytes": 2061493,
+      "sha256": "d2e3d4914c9d96e7461288fe3b0f71ccb989bfaa3910cd80e4741d241806bcf6",
+      "source": "https://www.sandiegocounty.gov/content/dam/sdc/deh/Vector/pdf/rat/RatBrochure_English.pdf",
+      "repository": "sanitation"
     }
   ],
   "unmanaged_archives": [
