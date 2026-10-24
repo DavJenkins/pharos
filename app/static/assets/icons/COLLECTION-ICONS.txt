@@ -1,0 +1,3 @@
+Original Data Ark collection pictograms, created for this project.
+Rebuild with: venv/bin/python tools/build_collection_icons.py
+These pictograms identify local collections; they are not publisher logos.

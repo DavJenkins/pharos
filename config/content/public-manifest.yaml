@@ -115,6 +115,9 @@ repositories:
     url: https://www.kiwix.org
     requires_internet: true
 - id: ifixit
+  artwork:
+    path: app/static/assets/icons/Repair.png
+    alt: Repair collection icon
   category: content_sources
   title: iFixit Repair Guides
   description: Step-by-step English repair guides with photos, preserved for offline
@@ -183,6 +186,9 @@ repositories:
     url: https://www.usa.gov
     requires_internet: true
 - id: preparedness
+  artwork:
+    path: app/static/assets/icons/Preparedness.png
+    alt: Preparedness collection icon
   category: content_sources
   title: Emergency preparedness and CERT
   description: FEMA preparedness and CERT manuals, preserved as readable PDFs. Massachusetts
@@ -193,6 +199,9 @@ repositories:
   - title: Open local preparedness references
     url: /library-files/preparedness/index.html
 - id: forms-templates
+  artwork:
+    path: app/static/assets/icons/Forms.png
+    alt: Forms collection icon
   category: content_sources
   title: Forms and Templates
   description: Blank tax and government forms, instructions and openly licensed contract
@@ -204,6 +213,9 @@ repositories:
   - title: Browse local forms and templates
     url: /library-files/forms/index.html
 - id: family-resources
+  artwork:
+    path: app/static/assets/icons/Family.png
+    alt: Family collection icon
   category: content_sources
   title: Paper, Play & Family Resources
   description: Offline paper studio, PDF coloring, browser games, activity books,
@@ -221,6 +233,9 @@ repositories:
   - title: Browse local books & readiness forms
     url: /library-files/family-resources/index.html
 - id: resilience
+  artwork:
+    path: app/static/assets/icons/Resilience.png
+    alt: Resilience collection icon
   title: Wilderness Survival & Off-grid Power
   description: Outdoor survival, navigation, energy planning and generator references
     with source editions.
@@ -234,6 +249,9 @@ repositories:
   - title: Offline power calculators
     url: /power.html
 - id: civic-reference
+  artwork:
+    path: app/static/assets/icons/Civic.png
+    alt: Civic collection icon
   title: Laws, Regulations & Codes
   description: Official federal statute snapshot and clearly scoped Massachusetts/local
     legal and code references.
@@ -251,6 +269,9 @@ repositories:
   - title: Amateur callsign search
     url: /callsigns.html
 - id: radio-study
+  artwork:
+    path: app/static/assets/icons/Radio.png
+    alt: Radio collection icon
   title: Amateur Radio Exam Practice
   description: Technician, General and Amateur Extra question pools, diagrams and
     offline drills.
