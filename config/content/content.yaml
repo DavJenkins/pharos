@@ -1,9 +1,9 @@
 # Public content recipe. Edit enabled flags and source catalogues; keep this folder with the source repository.
 schema: 1
 name: Data Ark content selection
-exported_at: '2026-10-24T17:07:28.447824+00:00'
+exported_at: '2026-10-24T18:41:51.708436+00:00'
 source_repository: https://github.com/DavJenkins/pharos
-source_commit: 3fd015eb28b98894f97e58ae41de59102e1069fb
+source_commit: 94b81fa81920bef08ee637ecad5ffe4d67575eb6
 content_root: /mnt/storage
 manifest: public-manifest.yaml
 reserve_gib: 10

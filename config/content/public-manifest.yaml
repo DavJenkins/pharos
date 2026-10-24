@@ -428,6 +428,20 @@ repositories:
   links:
   - title: Open emergency communications guides
     url: /library-files/family-resources/index.html#emergency-comms
+- id: animals-emergency
+  category: content_sources
+  title: Pets & Livestock
+  description: Pet evacuation, shelter, supplies and sanitation, farm preparedness,
+    poultry biosecurity and backup-care plans. English and Spanish pet guides.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Animals.png
+    alt: Animal paw icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open pet & livestock emergency guides
+    url: /library-files/family-resources/index.html#animals-emergency
 assets:
 - id: ifixit-repair-guides
   online_url: https://www.ifixit.com/Guide
@@ -3636,6 +3650,106 @@ assets:
     Retrieved 2026-10-24T17:06:45.621203+00:00
   online_url: https://www.fgdc.gov/training/documents/DeltaStateTrainingMaterials
   download_url: https://www.fgdc.gov/training/documents/DeltaStateTrainingMaterials/ReadingUSNGCoordinates.pdf/at_download/file
+- id: family-animals-avma-es
+  repository_id: animals-emergency
+  category: pdf_reference
+  title: Salvar a Toda la Familia — AVMA
+  relative_path: family-resources/animals-emergency/animals-avma-es.pdf
+  service_endpoint: /library-files/family-resources/animals-emergency/animals-avma-es.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: ac8d0aacb3beeef554fcaeab5ea115ef5d3f16453dd2ac9ee962a8aba44b8449
+  source_note: AVMA Spanish guide, November 2023 publisher file. Original educational
+    reference. Preserve copyright, institutional and source notices; no endorsement
+    implied. Retrieved 2026-10-24T18:40:18.690418+00:00
+  online_url: https://www.avma.org/resources-tools/pet-owners/emergencycare/pets-and-disasters
+  download_url: https://www.avma.org/sites/default/files/2023-11/aph-save-the-whole-family-pets-spanish-2023.pdf
+- id: family-animals-nyc-plan
+  repository_id: animals-emergency
+  category: pdf_reference
+  title: My Pet’s Emergency Plan — NYC
+  relative_path: family-resources/animals-emergency/animals-nyc-plan.pdf
+  service_endpoint: /library-files/family-resources/animals-emergency/animals-nyc-plan.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 5bc06f1ea472d3f5db15969b600ca46e1c96f2dfb4bb62fb521127c19abebd94
+  source_note: NYC Emergency Management workbook; city-specific contacts and shelter
+    rules retained. Original educational reference. Preserve copyright, institutional
+    and source notices; no endorsement implied. Retrieved 2026-10-24T18:40:18.692119+00:00
+  online_url: https://www.nyc.gov/site/em/ready/pets.page
+  download_url: https://www.nyc.gov/assets/em/downloads/pdf/pets_english.pdf
+- id: family-animals-farm-basics
+  repository_id: animals-emergency
+  category: pdf_reference
+  title: Disaster and Emergency Planning for Small Farms and Ranches — Iowa State
+  relative_path: family-resources/animals-emergency/animals-farm-basics.pdf
+  service_endpoint: /library-files/family-resources/animals-emergency/animals-farm-basics.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 72831064a6ecb21f46e13f57120497bfe3517fc38a309aad9f930e9a2e043a5d
+  source_note: Iowa State Center for Food Security and Public Health, June 2023 publisher
+    file. Original educational reference. Preserve copyright, institutional and source
+    notices; no endorsement implied. Retrieved 2026-10-24T18:40:19.948987+00:00
+  online_url: https://www.cfsph.iastate.edu/thelivestockproject/
+  download_url: https://www.cfsph.iastate.edu/thelivestockproject/wp-content/uploads/sites/5/2023/06/ORG-CE_PREV_disaster-emergency-basics.pdf
+- id: family-animals-poultry
+  repository_id: animals-emergency
+  category: pdf_reference
+  title: Backyard Poultry Biosecurity — USU Extension
+  relative_path: family-resources/animals-emergency/animals-poultry.pdf
+  service_endpoint: /library-files/family-resources/animals-emergency/animals-poultry.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 39941ccc3d1e95a0f6f99529b95b57749b71b5a3fef28775940f89d45e9e4361
+  source_note: USU Extension AG/Poultry/2017-01pr, May 2017. Historical disease references
+    and original notices retained. Original educational reference. Preserve copyright,
+    institutional and source notices; no endorsement implied. Retrieved 2026-10-24T18:40:20.233342+00:00
+  online_url: https://extension.usu.edu/cyberlivestock/
+  download_url: https://extension.usu.edu/cyberlivestock/ou-files/BackyardPoultryBiosecurity.pdf
+- id: family-animals-beef-plan
+  repository_id: animals-emergency
+  category: pdf_reference
+  title: Essential Care Contingency Plan — Beef Producers
+  relative_path: family-resources/animals-emergency/animals-beef-plan.pdf
+  service_endpoint: /library-files/family-resources/animals-emergency/animals-beef-plan.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: e23096758909967788f9b5927f170d656c433722ca2116795aa6c53fe0b3ce7c
+  source_note: University of Minnesota Extension original contingency form, linked
+    from the publisher page reviewed in 2026. Form revision date not inferred from
+    webpage review. UMN Extension original blank care-planning form; institutional
+    and original notices retained. No endorsement implied. Retrieved 2026-10-24T18:40:53.479757+00:00
+  online_url: https://extension.umn.edu/agriculture/animals-and-livestock/dairy/cattle-biosecurity
+  download_url: https://drive.google.com/uc?export=download&id=1xd5vL8Ww5_ki5eibl3Kl8YkHXIdZc5n_
+- id: family-animals-dairy-plan
+  repository_id: animals-emergency
+  category: pdf_reference
+  title: Essential Care Contingency Plan — Dairy Producers
+  relative_path: family-resources/animals-emergency/animals-dairy-plan.pdf
+  service_endpoint: /library-files/family-resources/animals-emergency/animals-dairy-plan.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 0d07b413e3551bc9219d309a699b65a9ac33dbb68578c49d05514677492f4c65
+  source_note: University of Minnesota Extension original contingency form, linked
+    from the publisher page reviewed in 2026. Form revision date not inferred from
+    webpage review. UMN Extension original blank care-planning form; institutional
+    and original notices retained. No endorsement implied. Retrieved 2026-10-24T18:40:53.482170+00:00
+  online_url: https://extension.umn.edu/agriculture/animals-and-livestock/dairy/cattle-biosecurity
+  download_url: https://drive.google.com/uc?export=download&id=1lrBk5_hUVgR5dhkPQeLlqPAdg7punn-h
+- id: family-animals-avma-en
+  repository_id: animals-emergency
+  category: pdf_reference
+  title: Save the Whole Family — AVMA
+  relative_path: family-resources/animals-emergency/animals-avma-en.pdf
+  service_endpoint: /library-files/family-resources/animals-emergency/animals-avma-en.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: b2e2c76442eed7f1c054767fb6b7284f359dd85bc611c57bb17579d81b7e2eda
+  source_note: AVMA pet disaster-preparedness brochure, November 2023 publisher file.
+    Original educational reference. Preserve copyright, institutional and source notices;
+    no endorsement implied. Retrieved 2026-10-24T18:41:09.837959+00:00
+  online_url: https://www.avma.org/resources-tools/pet-owners/emergencycare/pets-and-disasters
+  download_url: https://www.avma.org/sites/default/files/2023-11/aph-save-the-whole-family-pets.pdf
 resource_sections:
 - title: Local maps
   description: Massachusetts reference maps for Worcester and Middlesex counties.

@@ -16,6 +16,7 @@ ICONS = {
     'first-aid-care': ('Care', '#667d61'),
     'growing-food': ('Garden', '#4e7752'),
     'navigation-field': ('Navigation', '#476984'),
+    'animals-emergency': ('Animals', '#84634b'),
     'sanitation': ('Sanitation', '#3a6e78'),
 }
 def render(name, color):
@@ -90,6 +91,9 @@ def render(name, color):
         d.polygon([(166,78),(147,147),(78,178),(109,109)],outline=ink,width=7)
         d.polygon([(166,78),(128,128),(109,109)],fill=ink)
         for a,b in [((128,30),(128,43)),((128,213),(128,226)),((30,128),(43,128)),((213,128),(226,128))]:line([a,b],6)
+    elif name == 'Animals':
+        d.ellipse((79,131,178,211),fill=ink)
+        for x,y,rx,ry in [(63,112,18,24),(103,72,18,25),(151,72,18,25),(193,112,18,24)]:d.ellipse((x-rx,y-ry,x+rx,y+ry),fill=ink)
     elif name == 'Sanitation':
         d.rounded_rectangle((48,135,208,207),radius=24,outline=ink,width=8)
         d.ellipse((82,151,174,187),outline=ink,width=6)

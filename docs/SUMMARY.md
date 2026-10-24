@@ -76,3 +76,5 @@
 - [Growing food and practical repairs](20-Administration/GardeningRepairs.md)
 
 - [Navigation and emergency communications](20-Administration/NavigationComms.md)
+
+- [Pets and livestock in emergencies](20-Administration/AnimalsEmergency.md)

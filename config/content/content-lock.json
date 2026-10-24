@@ -2209,6 +2209,76 @@
       "sha256": "e4d044fae593a03fa0db5ffe7e5291682d112800dfc345ab77b58509fc30900c",
       "source": "https://www.fgdc.gov/training/documents/DeltaStateTrainingMaterials/ReadingUSNGCoordinates.pdf/at_download/file",
       "repository": "navigation-field"
+    },
+    {
+      "id": "family-animals-avma-es",
+      "title": "Salvar a Toda la Familia \u2014 AVMA",
+      "path": "family-resources/animals-emergency/animals-avma-es.pdf",
+      "selected": true,
+      "bytes": 2484101,
+      "sha256": "ac8d0aacb3beeef554fcaeab5ea115ef5d3f16453dd2ac9ee962a8aba44b8449",
+      "source": "https://www.avma.org/sites/default/files/2023-11/aph-save-the-whole-family-pets-spanish-2023.pdf",
+      "repository": "animals-emergency"
+    },
+    {
+      "id": "family-animals-nyc-plan",
+      "title": "My Pet\u2019s Emergency Plan \u2014 NYC",
+      "path": "family-resources/animals-emergency/animals-nyc-plan.pdf",
+      "selected": true,
+      "bytes": 4479071,
+      "sha256": "5bc06f1ea472d3f5db15969b600ca46e1c96f2dfb4bb62fb521127c19abebd94",
+      "source": "https://www.nyc.gov/assets/em/downloads/pdf/pets_english.pdf",
+      "repository": "animals-emergency"
+    },
+    {
+      "id": "family-animals-farm-basics",
+      "title": "Disaster and Emergency Planning for Small Farms and Ranches \u2014 Iowa State",
+      "path": "family-resources/animals-emergency/animals-farm-basics.pdf",
+      "selected": true,
+      "bytes": 120243,
+      "sha256": "72831064a6ecb21f46e13f57120497bfe3517fc38a309aad9f930e9a2e043a5d",
+      "source": "https://www.cfsph.iastate.edu/thelivestockproject/wp-content/uploads/sites/5/2023/06/ORG-CE_PREV_disaster-emergency-basics.pdf",
+      "repository": "animals-emergency"
+    },
+    {
+      "id": "family-animals-poultry",
+      "title": "Backyard Poultry Biosecurity \u2014 USU Extension",
+      "path": "family-resources/animals-emergency/animals-poultry.pdf",
+      "selected": true,
+      "bytes": 874862,
+      "sha256": "39941ccc3d1e95a0f6f99529b95b57749b71b5a3fef28775940f89d45e9e4361",
+      "source": "https://extension.usu.edu/cyberlivestock/ou-files/BackyardPoultryBiosecurity.pdf",
+      "repository": "animals-emergency"
+    },
+    {
+      "id": "family-animals-beef-plan",
+      "title": "Essential Care Contingency Plan \u2014 Beef Producers",
+      "path": "family-resources/animals-emergency/animals-beef-plan.pdf",
+      "selected": true,
+      "bytes": 196286,
+      "sha256": "e23096758909967788f9b5927f170d656c433722ca2116795aa6c53fe0b3ce7c",
+      "source": "https://drive.google.com/uc?export=download&id=1xd5vL8Ww5_ki5eibl3Kl8YkHXIdZc5n_",
+      "repository": "animals-emergency"
+    },
+    {
+      "id": "family-animals-dairy-plan",
+      "title": "Essential Care Contingency Plan \u2014 Dairy Producers",
+      "path": "family-resources/animals-emergency/animals-dairy-plan.pdf",
+      "selected": true,
+      "bytes": 262625,
+      "sha256": "0d07b413e3551bc9219d309a699b65a9ac33dbb68578c49d05514677492f4c65",
+      "source": "https://drive.google.com/uc?export=download&id=1lrBk5_hUVgR5dhkPQeLlqPAdg7punn-h",
+      "repository": "animals-emergency"
+    },
+    {
+      "id": "family-animals-avma-en",
+      "title": "Save the Whole Family \u2014 AVMA",
+      "path": "family-resources/animals-emergency/animals-avma-en.pdf",
+      "selected": true,
+      "bytes": 283609,
+      "sha256": "b2e2c76442eed7f1c054767fb6b7284f359dd85bc611c57bb17579d81b7e2eda",
+      "source": "https://www.avma.org/sites/default/files/2023-11/aph-save-the-whole-family-pets.pdf",
+      "repository": "animals-emergency"
     }
   ],
   "unmanaged_archives": [

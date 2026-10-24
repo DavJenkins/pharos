@@ -83,3 +83,7 @@ The [first-aid and caregiving collection](FirstAidCare.md) adds original first-a
 ## Navigation and emergency communications
 
 [Navigation and communication references](NavigationComms.md) document map and coordinate training, outdoor trip planning, radiograms, plain-language procedures and family contact cards.
+
+## Pets and livestock
+
+[Animal preparedness](AnimalsEmergency.md) documents evacuation, shelter, supplies, sanitation, poultry biosecurity and backup livestock-care forms.
