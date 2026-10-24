@@ -62,3 +62,5 @@
 - [Licenses](40-Legal/Licenses.md)
 
 - [Vehicle manuals](20-Administration/VehicleManuals.md)
+
+- [Food preservation and emergency cooking](20-Administration/FoodPreservation.md)

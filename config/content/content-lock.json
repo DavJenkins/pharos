@@ -1499,6 +1499,146 @@
       "sha256": "ff593b0029d3fbe579273879e6dfebf0e27413fab2468744d93490fe58f5189d",
       "source": "https://ageconsearch.umn.edu/nanna/record/311366/files/cnpp-11.pdf?registerDownload=1&version=1&withMetadata=0&withWatermark=0",
       "repository": "family-resources"
+    },
+    {
+      "id": "family-preserve-usda-intro",
+      "title": "USDA Home Canning \u2014 Introduction",
+      "path": "family-resources/food-preservation/preserve-usda-intro.pdf",
+      "selected": true,
+      "bytes": 467339,
+      "sha256": "c1683833cb4546858445c787f02bb4027710760bbff08c7e1b54889bf5521568",
+      "source": "https://nchfp.uga.edu/papers/guide/INTRO_HomeCanrev0715.pdf",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-usda-01",
+      "title": "USDA Home Canning \u2014 Principles of Home Canning",
+      "path": "family-resources/food-preservation/preserve-usda-01.pdf",
+      "selected": true,
+      "bytes": 3794234,
+      "sha256": "60d1e1a74a9fe61c19e6f5312a76d291905a8ca51b28d0def04c677294416d86",
+      "source": "https://nchfp.uga.edu/papers/guide/GUIDE01_HomeCan_rev0715.pdf",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-usda-02",
+      "title": "USDA Home Canning \u2014 Fruit and Fruit Products",
+      "path": "family-resources/food-preservation/preserve-usda-02.pdf",
+      "selected": true,
+      "bytes": 1098841,
+      "sha256": "5f6918678e1410b72f9f87d652ebab2f5f5d39f3806db676399e5c785be0b58e",
+      "source": "https://nchfp.uga.edu/papers/guide/GUIDE02_HomeCan_rev0715.pdf",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-usda-03",
+      "title": "USDA Home Canning \u2014 Tomatoes and Tomato Products",
+      "path": "family-resources/food-preservation/preserve-usda-03.pdf",
+      "selected": true,
+      "bytes": 976490,
+      "sha256": "6f8d166be89c7260964bfa4746fae72e79164f19a712672b0c1aa3bb902d18ff",
+      "source": "https://nchfp.uga.edu/papers/guide/GUIDE03_HomeCan_rev0715.pdf",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-usda-04",
+      "title": "USDA Home Canning \u2014 Vegetables and Vegetable Products",
+      "path": "family-resources/food-preservation/preserve-usda-04.pdf",
+      "selected": true,
+      "bytes": 2013613,
+      "sha256": "bb1d6ccce65146b5caad8bdaf766424c702119a90aa834b25269816da165641f",
+      "source": "https://nchfp.uga.edu/papers/guide/GUIDE04_HomeCan_rev0715.pdf",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-usda-05",
+      "title": "USDA Home Canning \u2014 Poultry, Red Meats, and Seafood",
+      "path": "family-resources/food-preservation/preserve-usda-05.pdf",
+      "selected": true,
+      "bytes": 1356485,
+      "sha256": "bffe17ee5a99d5b3393894b811508cbe797d30685b1b91d13496d7a768b589b7",
+      "source": "https://nchfp.uga.edu/papers/guide/GUIDE05_HomeCan_rev0715.pdf",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-usda-06",
+      "title": "USDA Home Canning \u2014 Fermented Food and Pickled Vegetables",
+      "path": "family-resources/food-preservation/preserve-usda-06.pdf",
+      "selected": true,
+      "bytes": 3173534,
+      "sha256": "fa4be9f7ac718801178f4f04efa169d74b8c64757d35aa29aa8226fbdaeee4bf",
+      "source": "https://nchfp.uga.edu/papers/guide/GUIDE06_HomeCan_rev0715.pdf",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-usda-07",
+      "title": "USDA Home Canning \u2014 Jams and Jellies",
+      "path": "family-resources/food-preservation/preserve-usda-07.pdf",
+      "selected": true,
+      "bytes": 1300368,
+      "sha256": "6023faf9ea45f8e20078c54c5d273a7717ce17c66eba57a18f363ba54021e411",
+      "source": "https://nchfp.uga.edu/papers/guide/GUIDE07_HomeCan_rev0715.pdf",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-drying",
+      "title": "Drying Fruits and Vegetables \u2014 PNW 397",
+      "path": "family-resources/food-preservation/preserve-drying.pdf",
+      "selected": true,
+      "bytes": 333576,
+      "sha256": "63a3343901058bd31f44daa669b538b7c67dc78343693bd235ed3ac02bb6848c",
+      "source": "https://verso.uidaho.edu/view/pdfCoverPage?download=true&filePid=13325544220001851&instCode=01ALLIANCE_UID",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-storage",
+      "title": "Storing Food for Safety and Quality \u2014 PNW 612",
+      "path": "family-resources/food-preservation/preserve-storage.pdf",
+      "selected": true,
+      "bytes": 1998047,
+      "sha256": "3d5af5e01f4bf9ad888214ac9197cba19c16d532a02f377184555c267e39ae32",
+      "source": "https://extension.oregonstate.edu/sites/default/files/documents/pnw612.pdf",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-emergency-storage",
+      "title": "Emergency Food Storage \u2014 USU Extension",
+      "path": "family-resources/food-preservation/preserve-emergency-storage.pdf",
+      "selected": true,
+      "bytes": 15034616,
+      "sha256": "2c4fa9c0fd081849805328654d3f1efd2b6a5448da946dd09245c77dbd16905a",
+      "source": "https://extension.usu.edu/preserve-the-harvest/files/Food-Storage-Booklet.pdf",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-outage-food-water",
+      "title": "Food and Water Safety During Power Outages and Floods \u2014 FDA",
+      "path": "family-resources/food-preservation/preserve-outage-food-water.pdf",
+      "selected": true,
+      "bytes": 833411,
+      "sha256": "17c43b5520d829966a51f5ae36ede8e24817876f94e0ec27809d1eb27834583d",
+      "source": "https://www.fda.gov/media/72124/download",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-emergency-food-water",
+      "title": "Food and Water in an Emergency \u2014 FEMA / Red Cross",
+      "path": "family-resources/food-preservation/preserve-emergency-food-water.pdf",
+      "selected": true,
+      "bytes": 2398043,
+      "sha256": "96759cddebdf4851596da65ae112d15ce8cbf05f6eb07327bc1d9fc136069672",
+      "source": "https://www.uvu.edu/emergencymanagement/docs/food-and-water-fema.pdf",
+      "repository": "food-preservation"
+    },
+    {
+      "id": "family-preserve-grilling-safety",
+      "title": "Grilling Fire Safety \u2014 U.S. Fire Administration",
+      "path": "family-resources/food-preservation/preserve-grilling-safety.pdf",
+      "selected": true,
+      "bytes": 516765,
+      "sha256": "c91167b78d360fb6eb7e3c91a3739ed316700f80947ef9aeb53fa942bd848e22",
+      "source": "https://www.usfa.fema.gov/downloads/pdf/publications/grilling_fire_safety_flyer.pdf",
+      "repository": "food-preservation"
     }
   ],
   "unmanaged_archives": [

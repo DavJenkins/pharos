@@ -298,6 +298,22 @@ repositories:
   update_policy: manual
   refresh_interval: never
   links: []
+- id: food-preservation
+  category: content_sources
+  title: Food Preservation & Emergency Cooking
+  description: USDA canning guides, fermentation and pickling, drying, pantry storage
+    and emergency food/cooking safety. Original procedures and editions preserved.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Resilience.png
+    alt: Food resilience collection icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Preservation & emergency cooking guides
+    url: /library-files/family-resources/index.html#food-preservation
+  - title: Cookbooks & pantry meals
+    url: /library-files/family-resources/index.html#cookbooks
 assets:
 - id: ifixit-repair-guides
   online_url: https://www.ifixit.com/Guide
@@ -2190,8 +2206,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: 64efb59df3bc9115e91692b195223ed142465ce3272564066b75a40c575141bf
-  source_note: NASA educational and informational use; original notices retained.
-    No endorsement implied. Retrieved 2026-10-24T00:50:50.623637+00:00
+  source_note: ' NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.623637+00:00'
   online_url: https://science.nasa.gov/toolkit/coloring-books/
   download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Exoplanets_Coloring_Book_07-22-2016.pdf
 - id: family-nasa-star-en
@@ -2203,8 +2219,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: e75cf552f55f471a4e3a49d8e01f4a0b6fa41ff604b100ec2c9c7d38b32951c9
-  source_note: NASA educational and informational use; original notices retained.
-    No endorsement implied. Retrieved 2026-10-24T00:50:50.625965+00:00
+  source_note: ' NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.625965+00:00'
   online_url: https://science.nasa.gov/toolkit/coloring-books/
   download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_English.pdf
 - id: family-nasa-star-es
@@ -2216,8 +2232,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: c710dd16abf095effd9e7cad1dd7ee74d034da51c83b88658fc373d74235a326
-  source_note: NASA educational and informational use; original notices retained.
-    No endorsement implied. Retrieved 2026-10-24T00:50:50.627561+00:00
+  source_note: ' NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.627561+00:00'
   online_url: https://science.nasa.gov/toolkit/coloring-books/
   download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_Spanish.pdf
 - id: family-nasa-iss
@@ -2229,8 +2245,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: 483b151756ab6a875333ee2998c851ccfcf00b053d6d0dda0c02a3dc5c881b56
-  source_note: NASA educational and informational use; original notices retained.
-    No endorsement implied. Retrieved 2026-10-24T00:50:50.873597+00:00
+  source_note: ' NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.873597+00:00'
   online_url: https://science.nasa.gov/toolkit/coloring-books/
   download_url: https://science.nasa.gov/wp-content/uploads/2023/10/ISS_Activity_Book.pdf
 - id: family-nps-caves-en
@@ -2242,9 +2258,9 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: 4f37433062bb60fe8b5b236e29e0666347cbe8dd31200277dc7c522c0e05f971
-  source_note: NPS publication with copyrighted material. Non-commercial educational
+  source_note: ' NPS publication with copyrighted material. Non-commercial educational
     use only; original format retained, not for sale or reformatting. Read the original
-    notices. Retrieved 2026-10-24T00:50:51.094343+00:00
+    notices. Retrieved 2026-10-24T00:50:51.094343+00:00'
   online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
   download_url: https://home.nps.gov/subjects/caves/upload/Junior-Cave-Scientist-Booklet_English508_web-compressed.pdf
 - id: family-nps-caves-es
@@ -2256,9 +2272,9 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: 57450605052654930268bec102fe7fa82b671af8e6ccf4ead196ecfda600eaaa
-  source_note: NPS publication with copyrighted material. Non-commercial educational
+  source_note: ' NPS publication with copyrighted material. Non-commercial educational
     use only; original format retained, not for sale or reformatting. Read the original
-    notices. Retrieved 2026-10-24T00:50:51.485281+00:00
+    notices. Retrieved 2026-10-24T00:50:51.485281+00:00'
   online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
   download_url: https://home.nps.gov/subjects/caves/upload/Junior-Ranger-Cave-Scientist-SPANISH-Final508_web-compressed_2.pdf
 - id: family-fema-ics
@@ -2270,8 +2286,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: 1948f66d0732b3e2c0fd2435a13dc45179dbbf374f216216c649deaa317483cc
-  source_note: U.S. federal government publication; publisher notices retained. Retrieved
-    2026-10-24T00:50:51.869640+00:00
+  source_note: FEMA 502-2, September 2010; archived reference edition U.S. federal
+    government publication; publisher notices retained. Retrieved 2026-10-24T00:50:51.869640+00:00
   online_url: https://training.fema.gov/emiweb/is/icsresource/
   download_url: https://training.fema.gov/emiweb/is/icsresource/assets/nims%20ics%20forms%20booklet.v3.pdf
 - id: family-cp-contractor
@@ -2283,8 +2299,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: 786ffa49851ad2761a33f87b115a5140b2a14ab21d58464df4d9aa0cbedd74dc
-  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
-    Retrieved 2026-10-24T00:50:53.082367+00:00
+  source_note: ' Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.082367+00:00'
   online_url: https://commonpaper.com/documents/independent-contractor-agreement
   download_url: https://commonpaper.com/wp-content/uploads/2025/05/Common-Paper-Independent-Contractor-Agreement.docx
 - id: family-cp-amendment
@@ -2296,8 +2312,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: 64b04560d5640a78a23f1978b0d88254929ceb45c59604e0777cc2ecfccf0ce4
-  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
-    Retrieved 2026-10-24T00:50:53.091287+00:00
+  source_note: ' Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.091287+00:00'
   online_url: https://commonpaper.com/documents/amendment
   download_url: https://commonpaper.com/wp-content/uploads/2025/01/Common-Paper-Amendment.docx
 - id: family-cp-sow
@@ -2309,8 +2325,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: 8523d48df8f5330b70e0102dad26761b275a11dfab336201fef04a0fee1b6ac9
-  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
-    Retrieved 2026-10-24T00:50:53.237911+00:00
+  source_note: ' Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.237911+00:00'
   online_url: https://commonpaper.com/documents/statement-of-work
   download_url: https://commonpaper.com/wp-content/uploads/2025/01/Professional-Services-Agreement-SOW-Only.docx
 - id: family-household-a4
@@ -2322,8 +2338,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: e134ca81508e177bcd5b30b5ffc5608dfa1d0042b58a4039c91744c835811367
-  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
-    2026-10-24T00:51:00.656356+00:00
+  source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.656356+00:00'
 - id: family-household-letter
   repository_id: family-resources
   category: pdf_reference
@@ -2333,8 +2349,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: 03c39c8b2287da6eda30d17a2b362392f8f9d24fbd4306cbc00b1a219912293d
-  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
-    2026-10-24T00:51:00.705745+00:00
+  source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.705745+00:00'
 - id: family-paper-a4
   repository_id: family-resources
   category: pdf_reference
@@ -2344,8 +2360,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: ee3e326fb1959dfba80d556ad56803505bd5a61c48ea2761354ccb69b7fd1625
-  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
-    2026-10-24T00:51:00.756146+00:00
+  source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.756146+00:00'
 - id: family-paper-letter
   repository_id: family-resources
   category: pdf_reference
@@ -2355,8 +2371,8 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: d7092412741d5e4675a1cc325c6756d9227984d4a476031cdde0173461c1ecd2
-  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
-    2026-10-24T00:51:00.808860+00:00
+  source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.808860+00:00'
 - id: family-adult-wildflowers
   repository_id: family-resources
   category: pdf_reference
@@ -2366,9 +2382,9 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: 39c635cc44054768210b890dafd02d1c72641b68255d13546c27c62bcd79b7fc
-  source_note: Images from Mary Vaux Walcott, North American Wild Flowers (1925),
-    public domain in the United States. Swarthmore attribution and original notices
-    retained. Retrieved 2026-10-24T15:01:18.012764+00:00
+  source_note: Swarthmore College Libraries, Color Our Collections 2021 Images from
+    Mary Vaux Walcott, North American Wild Flowers (1925), public domain in the United
+    States. Swarthmore attribution and original notices retained. Retrieved 2026-10-24T15:01:18.012764+00:00
   online_url: https://library.nyam.org/colorourcollections/
   download_url: https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2021/01/SwarthmoreCollegeLibraries_ColorOurCollections2021-2.pdf
 - id: family-adult-jmu
@@ -2380,8 +2396,9 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: dabeda22ca9e438f7de53a6630e5df7b9a82ca489edb3042ba1d6ad306fc8e54
-  source_note: Illustrations from 1924 publications, identified by JMU as public domain
-    in the United States. Original source credits retained. Retrieved 2026-10-24T15:01:20.021642+00:00
+  source_note: James Madison University Libraries, Color Our Collections 2020 Illustrations
+    from 1924 publications, identified by JMU as public domain in the United States.
+    Original source credits retained. Retrieved 2026-10-24T15:01:20.021642+00:00
   online_url: https://www.lib.jmu.edu/100-libraries-museums-created-coloring-books-from-their-collections-including-us/
   download_url: https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2020/01/JamesMadisonUniversity_COC20.pdf
 - id: family-adult-europeana
@@ -2393,9 +2410,9 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: 3c3dfdfc357507bdd574ca9b2008eb6cf70673503323f16ab6b83b5950125df4
-  source_note: Per-image CC BY, CC0 and public-domain credits are printed in the original
-    book. Retain the credited artist, institution and license with shared colored
-    versions. Retrieved 2026-10-24T15:01:21.859896+00:00
+  source_note: Europeana, European Year of Youth 2022 Per-image CC BY, CC0 and public-domain
+    credits are printed in the original book. Retain the credited artist, institution
+    and license with shared colored versions. Retrieved 2026-10-24T15:01:21.859896+00:00
   online_url: https://www.europeana.eu/en/stories/european-year-of-youth-colouring-book
   download_url: https://assets.ctfassets.net/i01duvb6kq77/1SRHphnds6UpEF9CdgVL6f/2de18233ec330e24506124bc4e7b55ea/Europeana_Colouring_Book_-_European_Year_of_Youth_-_ColorOurCollections.pdf
 - id: family-holiday-family
@@ -2407,9 +2424,9 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: d749e8711c85d23c84680e00a0d581215e40870d416f9cfb89b3176966ad5ba8
-  source_note: DEJ Software / Data Ark original vector artwork. CC0 1.0 public-domain
-    dedication. Freely copy, color, adapt and share. No agency or religious endorsement
-    implied. Retrieved 2026-10-24T15:18:24.042531+00:00
+  source_note: Original Ark edition 1 DEJ Software / Data Ark original vector artwork.
+    CC0 1.0 public-domain dedication. Freely copy, color, adapt and share. No agency
+    or religious endorsement implied. Retrieved 2026-10-24T15:18:24.042531+00:00
 - id: family-holiday-detailed
   repository_id: family-resources
   category: pdf_reference
@@ -2419,9 +2436,9 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: c950a25788ba3a38bc19bd2a53597c0ce4e07d3d2bc96d870ab502a80c42fa13
-  source_note: DEJ Software / Data Ark original vector artwork. CC0 1.0 public-domain
-    dedication. Freely copy, color, adapt and share. No agency or religious endorsement
-    implied. Retrieved 2026-10-24T15:18:24.430634+00:00
+  source_note: Original Ark edition 1 DEJ Software / Data Ark original vector artwork.
+    CC0 1.0 public-domain dedication. Freely copy, color, adapt and share. No agency
+    or religious endorsement implied. Retrieved 2026-10-24T15:18:24.430634+00:00
 - id: family-cook-pantry-resilience
   repository_id: family-resources
   category: pdf_reference
@@ -2431,9 +2448,10 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: cb8e7b1fc49c626a09f150185078565d3a3105af9e9072691c9b340c94ddab0a
-  source_note: Publicly provided extension education resource. Keep the unmodified
-    original and all workgroup, recipe-source, institutional and publisher notices.
-    No endorsement implied. Retrieved 2026-10-24T15:21:16.718638+00:00
+  source_note: EFNEP multi-university resiliency workgroup; University of Arkansas
+    Extension-hosted edition. Publicly provided extension education resource. Keep
+    the unmodified original and all workgroup, recipe-source, institutional and publisher
+    notices. No endorsement implied. Retrieved 2026-10-24T15:21:16.718638+00:00
   online_url: https://www.uaex.uada.edu/life-skills-wellness/docs/FRM-Resiliency-Cookbook-EFNEP.pdf
   download_url: https://www.uaex.uada.edu/life-skills-wellness/docs/FRM-Resiliency-Cookbook-EFNEP.pdf
 - id: family-cook-usda-harvest
@@ -2445,9 +2463,9 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: d7abd79ffea0d097c5f6d0c040d124273af1fc444e4a76a7a9dc25b41762eb75
-  source_note: U.S. federal publication. Preserve the original USDA and contributor
-    credits and notices. Historical nutrition-policy references remain as published.
-    Retrieved 2026-10-24T15:21:17.551944+00:00
+  source_note: USDA Food and Nutrition Service, 2013; preserved GovInfo edition. U.S.
+    federal publication. Preserve the original USDA and contributor credits and notices.
+    Historical nutrition-policy references remain as published. Retrieved 2026-10-24T15:21:17.551944+00:00
   online_url: https://www.govinfo.gov/app/details/GOVPUB-A98-PURL-gpo93692
   download_url: https://www.govinfo.gov/content/pkg/GOVPUB-A98-PURL-gpo93692/pdf/GOVPUB-A98-PURL-gpo93692.pdf
 - id: family-cook-usda-thrifty
@@ -2459,10 +2477,220 @@ assets:
   update_policy: manual
   refresh_interval: never
   expected_hash: ff593b0029d3fbe579273879e6dfebf0e27413fab2468744d93490fe58f5189d
-  source_note: U.S. federal publication; original USDA notices retained. Archived
-    reference, not a current food-price or nutrition-policy statement. Retrieved 2026-10-24T15:22:09.232182+00:00
+  source_note: USDA CNPP-11, May 2000; historical prices and nutrition guidance, preserved
+    university archive edition. U.S. federal publication; original USDA notices retained.
+    Archived reference, not a current food-price or nutrition-policy statement. Retrieved
+    2026-10-24T15:22:09.232182+00:00
   online_url: https://ageconsearch.umn.edu/record/311366
   download_url: https://ageconsearch.umn.edu/nanna/record/311366/files/cnpp-11.pdf?registerDownload=1&version=1&withMetadata=0&withWatermark=0
+- id: family-preserve-usda-intro
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Introduction
+  relative_path: family-resources/food-preservation/preserve-usda-intro.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-intro.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: c1683833cb4546858445c787f02bb4027710760bbff08c7e1b54889bf5521568
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:51.337000+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/INTRO_HomeCanrev0715.pdf
+- id: family-preserve-usda-01
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Principles of Home Canning
+  relative_path: family-resources/food-preservation/preserve-usda-01.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-01.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 60d1e1a74a9fe61c19e6f5312a76d291905a8ca51b28d0def04c677294416d86
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:51.339228+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE01_HomeCan_rev0715.pdf
+- id: family-preserve-usda-02
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Fruit and Fruit Products
+  relative_path: family-resources/food-preservation/preserve-usda-02.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-02.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 5f6918678e1410b72f9f87d652ebab2f5f5d39f3806db676399e5c785be0b58e
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:51.340899+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE02_HomeCan_rev0715.pdf
+- id: family-preserve-usda-03
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Tomatoes and Tomato Products
+  relative_path: family-resources/food-preservation/preserve-usda-03.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-03.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 6f8d166be89c7260964bfa4746fae72e79164f19a712672b0c1aa3bb902d18ff
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:51.732629+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE03_HomeCan_rev0715.pdf
+- id: family-preserve-usda-04
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Vegetables and Vegetable Products
+  relative_path: family-resources/food-preservation/preserve-usda-04.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-04.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: bb1d6ccce65146b5caad8bdaf766424c702119a90aa834b25269816da165641f
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:51.801413+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE04_HomeCan_rev0715.pdf
+- id: family-preserve-usda-05
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Poultry, Red Meats, and Seafood
+  relative_path: family-resources/food-preservation/preserve-usda-05.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-05.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: bffe17ee5a99d5b3393894b811508cbe797d30685b1b91d13496d7a768b589b7
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:52.126946+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE05_HomeCan_rev0715.pdf
+- id: family-preserve-usda-06
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Fermented Food and Pickled Vegetables
+  relative_path: family-resources/food-preservation/preserve-usda-06.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-06.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: fa4be9f7ac718801178f4f04efa169d74b8c64757d35aa29aa8226fbdaeee4bf
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:52.240240+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE06_HomeCan_rev0715.pdf
+- id: family-preserve-usda-07
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Jams and Jellies
+  relative_path: family-resources/food-preservation/preserve-usda-07.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-07.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 6023faf9ea45f8e20078c54c5d273a7717ce17c66eba57a18f363ba54021e411
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:52.323100+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE07_HomeCan_rev0715.pdf
+- id: family-preserve-drying
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Drying Fruits and Vegetables — PNW 397
+  relative_path: family-resources/food-preservation/preserve-drying.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-drying.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 63a3343901058bd31f44daa669b538b7c67dc78343693bd235ed3ac02bb6848c
+  source_note: PNW 397, third edition, revised August 2009; University of Idaho Extension.
+    Applies to dehydrator and oven drying; preserve the stated limitations. Pacific
+    Northwest Extension publication, copyright retained by its publishers. Open-access
+    educational original, preserved unchanged with author and institutional notices.
+    Retrieved 2026-10-24T15:29:52.485339+00:00
+  online_url: https://extension.oregonstate.edu/catalog/pnw-397-drying-fruits-vegetables
+  download_url: https://verso.uidaho.edu/view/pdfCoverPage?download=true&filePid=13325544220001851&instCode=01ALLIANCE_UID
+- id: family-preserve-storage
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Storing Food for Safety and Quality — PNW 612
+  relative_path: family-resources/food-preservation/preserve-storage.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-storage.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 3d5af5e01f4bf9ad888214ac9197cba19c16d532a02f377184555c267e39ae32
+  source_note: PNW 612, published September 2009; University of Idaho / Oregon State
+    / Washington State Extension. Pacific Northwest Extension publication. Educational
+    original preserved unchanged; copyright and institutional notices retained. Retrieved
+    2026-10-24T15:29:52.858027+00:00
+  online_url: https://extension.oregonstate.edu/sites/default/files/documents/pnw612.pdf
+  download_url: https://extension.oregonstate.edu/sites/default/files/documents/pnw612.pdf
+- id: family-preserve-emergency-storage
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Emergency Food Storage — USU Extension
+  relative_path: family-resources/food-preservation/preserve-emergency-storage.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-emergency-storage.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 2c4fa9c0fd081849805328654d3f1efd2b6a5448da946dd09245c77dbd16905a
+  source_note: Utah State University Extension, copyright 2013, FN/preservation/2013-01pr.
+    Utah State University Extension educational original. Preserve publisher copyright,
+    authorship and notices; no endorsement implied. Retrieved 2026-10-24T15:29:52.885152+00:00
+  online_url: https://extension.usu.edu/preserve-the-harvest/food-storage
+  download_url: https://extension.usu.edu/preserve-the-harvest/files/Food-Storage-Booklet.pdf
+- id: family-preserve-outage-food-water
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Food and Water Safety During Power Outages and Floods — FDA
+  relative_path: family-resources/food-preservation/preserve-outage-food-water.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-outage-food-water.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 17c43b5520d829966a51f5ae36ede8e24817876f94e0ec27809d1eb27834583d
+  source_note: FDA Food Facts, January 2023 edition; original publisher PDF. U.S.
+    federal publication. Original FDA credits and notices retained. Retrieved 2026-10-24T15:29:53.536310+00:00
+  online_url: https://www.fda.gov/food/buy-store-serve-safe-food/food-and-water-safety-during-power-outages-and-floods
+  download_url: https://www.fda.gov/media/72124/download
+- id: family-preserve-emergency-food-water
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Food and Water in an Emergency — FEMA / Red Cross
+  relative_path: family-resources/food-preservation/preserve-emergency-food-water.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-emergency-food-water.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 96759cddebdf4851596da65ae112d15ce8cbf05f6eb07327bc1d9fc136069672
+  source_note: FEMA 477 / American Red Cross, August 2004 archived edition, hosted
+    by Utah Valley University. Pair with the January 2023 FDA outage guide; original
+    recommendations are historical. Original FEMA / American Red Cross educational
+    booklet preserved unchanged. Preserve all publisher marks, credits and notices;
+    no endorsement implied. Retrieved 2026-10-24T15:29:55.155368+00:00
+  online_url: https://www.uvu.edu/emergencymanagement/docs/food-and-water-fema.pdf
+  download_url: https://www.uvu.edu/emergencymanagement/docs/food-and-water-fema.pdf
+- id: family-preserve-grilling-safety
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Grilling Fire Safety — U.S. Fire Administration
+  relative_path: family-resources/food-preservation/preserve-grilling-safety.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-grilling-safety.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: c91167b78d360fb6eb7e3c91a3739ed316700f80947ef9aeb53fa942bd848e22
+  source_note: U.S. Fire Administration publisher safety flyer; follow the appliance
+    instructions and local restrictions. U.S. federal publication. Original USFA /
+    FEMA notices retained. Retrieved 2026-10-24T15:29:55.380015+00:00
+  online_url: https://www.usfa.fema.gov/prevention/outdoor-fires/
+  download_url: https://www.usfa.fema.gov/downloads/pdf/publications/grilling_fire_safety_flyer.pdf
 resource_sections:
 - title: Local maps
   description: Massachusetts reference maps for Worcester and Middlesex counties.

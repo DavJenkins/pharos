@@ -32,4 +32,19 @@ class ContentProfileTests(unittest.TestCase):
    root=Path(tmp);(root/'content.yaml').write_text('schema: 1');(root/'public-manifest.yaml').write_text('assets: []');(root/'secret.txt').write_text('must not be bundled')
    files=list(m.portable_files({'manifest':'public-manifest.yaml','snapshots':[]},root))
    self.assertNotIn('secret.txt',[p.name for p,_ in files])
+ def test_family_restore_includes_separate_preservation_repository(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);family=root/'family-resources';family.mkdir()
+   for name in ['index.html','sources.json','existing.pdf']:(family/name).write_text('fixture')
+   manifest={'assets':[
+    {'id':'ordinary','repository_id':'family-resources','relative_path':'family-resources/existing.pdf'},
+    {'id':'preserve','repository_id':'food-preservation','relative_path':'family-resources/canning.pdf'}]}
+   with patch.object(m,'read',return_value=manifest),patch.object(m.subprocess,'run') as run:
+    m.recipe({'id':'family'},{},root,root)
+    run.assert_called_once()
+    self.assertIn('install_family_resources.py',str(run.call_args))
+   (family/'canning.pdf').write_text('fixture')
+   with patch.object(m,'read',return_value=manifest),patch.object(m.subprocess,'run') as run:
+    m.recipe({'id':'family'},{},root,root)
+    run.assert_not_called()
 if __name__=='__main__':unittest.main()
