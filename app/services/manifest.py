@@ -177,6 +177,15 @@ def validate_resource_sections(sections, depth=0):
             validate_resource_sections(section['sections'], depth + 1)
 
 
+def external_link(target, label, css='external-link'):
+    """Secondary icon-only destination, with a discoverable accessible name."""
+    name = 'Online: ' + label.removesuffix(' (online)')
+    glyph = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7M21 3L10 14M10 5H5v14h14v-5"/></svg>'
+    return ('<a class="' + css + '" href="' + html.escape(target, quote=True) +
+            '" data-requires-internet="true" target="_blank" rel="noopener noreferrer" title="' + html.escape(name, quote=True) +
+            '" aria-label="' + html.escape(name, quote=True) + '">' + glyph + '</a>')
+
+
 def render_resource_sections(sections, root, prefix, hide=False, depth=0):
     rendered = []
     for section in sections:
@@ -200,7 +209,14 @@ def render_resource_sections(sections, root, prefix, hide=False, depth=0):
                 target = item['url']
                 online = item.get('requires_internet', not target.startswith('/'))
             attributes = ' data-requires-internet="true"' if online else ''
-            entries.append('<li><a href="' + html.escape(target, quote=True) + '"' + attributes + '>' + title + '</a></li>')
+            if online:
+                icon = external_link(target, item['title'])
+                if entries:
+                    entries[-1] = entries[-1][:-5] + ' ' + icon + '</li>'
+                else:
+                    entries.append('<li class="reference-external">' + icon + '</li>')
+            else:
+                entries.append('<li><a href="' + html.escape(target, quote=True) + '"' + attributes + '>' + title + '</a></li>')
         if entries:
             parts.append('<ul>' + ''.join(entries) + '</ul>')
         parts.append(render_resource_sections(section.get('sections', []), root, prefix, hide, depth + 1))
@@ -443,9 +459,11 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                     attributes = f' data-manifest-kiwix-port="{port}" data-manifest-kiwix-path="{html.escape(link.get("path", "/"), quote=True)}"'
                 else:
                     target = link['url']
-                label = html.escape(link['title']) + (' (online)' if online else '')
+                label = html.escape(link['title'])
                 if missing and not online:
                     links.append('<span class="manifest-disabled" aria-disabled="true">' + label + '</span>')
+                elif online:
+                    links.append(external_link(target, link['title']))
                 else:
                     links.append('<a href="' + html.escape(target, quote=True) + '"' + attributes + '>' + label + '</a>')
             entries = []
@@ -456,18 +474,17 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                 thumbnail = image_tag(item['artwork'], item['title'])
                 observation = item['upstream']
                 state = observation['status']
-                label = ('Preserved locally — source unavailable' if item['available'] else 'Source unavailable') if state == 'unavailable' else 'Upstream available at last check' if state == 'available' else 'Upstream status unknown'
+                label = 'Source unavailable' if state == 'unavailable' else 'Source OK' if state == 'available' else 'Source unknown'
                 checked = observation['checked_at']
                 checked_text = ''
                 if checked:
-                    fallback = datetime.fromisoformat(checked).strftime('%b %d, %Y at %H:%M %Z')
+                    fallback = datetime.fromisoformat(checked).strftime('%Y-%m-%d %H:%M UTC')
                     checked_text = '<time data-local-time datetime="' + html.escape(checked, quote=True) + '">' + html.escape(fallback) + '</time>'
-                note = '<span class="manifest-upstream">' + label + (' · checked ' + checked_text if checked else ' · not checked') + '</span>'
+                note = '<span class="manifest-upstream" title="Online source status at last check. Preserved locally when marked available above.">' + label + (' · ' + checked_text if checked else ' · unchecked') + '</span>'
                 external = ''
                 source = item.get('online_url')
                 if source:
-                    glyph = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7M21 3L10 14M10 5H5v14h14v-5"/></svg>'
-                    external = '<a class="asset-external" data-requires-internet="true" href="' + html.escape(source, quote=True) + '" target="_blank" rel="noopener noreferrer" title="Read online" aria-label="' + html.escape('Read online: ' + item['title'], quote=True) + '">' + glyph + '</a>'
+                    external = external_link(source, item['title'], 'asset-external')
                 if item['available']:
                     attributes = ''
                     if Path(item['relative_path']).suffix.lower() == '.zim':

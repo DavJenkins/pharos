@@ -214,3 +214,11 @@ body{background-image:none}
 .status-bar:has(.ark-settings[open]) #internet-status{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
 
 .library-summary-heading{font-size:1rem;font-weight:700;margin:.9rem 0 .45rem;padding-top:.65rem;border-top:1px solid #94a8b5}
+
+/* Online sources are secondary icons; local actions keep their text labels. */
+.external-link,.asset-external{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;box-sizing:border-box;min-width:32px;min-height:32px;padding:6px;color:#526779;border-radius:4px;text-decoration:none}
+.external-link svg,.asset-external svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.manifest-links a.external-link{padding:6px;border:0;background:transparent;text-decoration:none}
+.external-link:hover,.asset-external:hover,.external-link:focus-visible,.asset-external:focus-visible{color:#234a62;background:#e5edf3;outline:2px solid #075d89;outline-offset:1px}
+.manifest-upstream{font-size:.75rem;line-height:1.4;color:#626568;font-variant-numeric:tabular-nums}
+.reference-external{list-style:none}
