@@ -63,3 +63,7 @@ Files live in `family-resources/cookbooks/`, with source URLs in `deploy/referen
 ## Sanitation and hygiene
 
 The sanitation catalogue is served through its own landing-page card and the family index’s Sanitation & hygiene section. It contains twelve original guides, posters, plans and printable labels (47 pages). See [Sanitation and hygiene](Sanitation.md) for exact editions, source-mirror details, regional limitations and restoration behavior.
+
+## Drinking water
+
+The dedicated [Drinking water collection](DrinkingWater.md) adds sources, storage, rainwater harvesting, treatment selection and testing. Its six original PDFs are also browsable from the family index.

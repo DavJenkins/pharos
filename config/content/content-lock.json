@@ -1759,6 +1759,66 @@
       "sha256": "d2e3d4914c9d96e7461288fe3b0f71ccb989bfaa3910cd80e4741d241806bcf6",
       "source": "https://www.sandiegocounty.gov/content/dam/sdc/deh/Vector/pdf/rat/RatBrochure_English.pdf",
       "repository": "sanitation"
+    },
+    {
+      "id": "family-water-epa-disinfection",
+      "title": "Emergency Disinfection of Drinking Water \u2014 EPA",
+      "path": "family-resources/drinking-water/water-epa-disinfection.pdf",
+      "selected": true,
+      "bytes": 754723,
+      "sha256": "f404083d00decedc267bf4265eda776bb250ccfe18c1f7b19152aa006ff727c5",
+      "source": "https://www.epa.gov/sites/default/files/2017-09/documents/emergency_disinfection_of_drinking_water_sept2017.pdf",
+      "repository": "drinking-water"
+    },
+    {
+      "id": "family-water-epa-testing",
+      "title": "Home Water Testing \u2014 EPA",
+      "path": "family-resources/drinking-water/water-epa-testing.pdf",
+      "selected": true,
+      "bytes": 581507,
+      "sha256": "3113f58471d5acd1943df4aee4553bc8dec825af5d2b1057e0dbd96c751224eb",
+      "source": "https://www.epa.gov/sites/default/files/2015-11/documents/2005_09_14_faq_fs_homewatertesting.pdf",
+      "repository": "drinking-water"
+    },
+    {
+      "id": "family-water-epa-wells",
+      "title": "Drinking Water From Household Wells \u2014 EPA",
+      "path": "family-resources/drinking-water/water-epa-wells.pdf",
+      "selected": true,
+      "bytes": 1684285,
+      "sha256": "d025d17bb11f5fd3c878949676e4b8dceb00b48f7e50c4811943bc0ebeb1bc8f",
+      "source": "https://www.epa.gov/sites/default/files/2015-10/documents/2003_06_03_privatewells_pdfs_household_wells.pdf",
+      "repository": "drinking-water"
+    },
+    {
+      "id": "family-water-epa-filters",
+      "title": "Guide to Selecting Water Treatment Systems \u2014 EPA WaterSense",
+      "path": "family-resources/drinking-water/water-epa-filters.pdf",
+      "selected": true,
+      "bytes": 1087568,
+      "sha256": "723ed6199a70ff59d18fd34da5968352a0a4d463a4b43438ab8ec49a110e6e0e",
+      "source": "https://www.epa.gov/system/files/documents/2025-01/ws-products-home-water-treatment-guide_v2_508.pdf",
+      "repository": "drinking-water"
+    },
+    {
+      "id": "family-water-rainwater",
+      "title": "Texas Manual on Rainwater Harvesting",
+      "path": "family-resources/drinking-water/water-rainwater.pdf",
+      "selected": true,
+      "bytes": 2436026,
+      "sha256": "a48771a9a34b266ace9a8bb07d454c3b4a19777a7ca1a36dd12cbf6fcaa3ed54",
+      "source": "https://www.twdb.texas.gov/innovativewater/rainwater/doc/RainwaterHarvestingManual_3rdedition.pdf",
+      "repository": "drinking-water"
+    },
+    {
+      "id": "family-water-storage-usu",
+      "title": "Water Storage Tips \u2014 USU Extension",
+      "path": "family-resources/drinking-water/water-storage-usu.pdf",
+      "selected": true,
+      "bytes": 105035,
+      "sha256": "91731851c91bc249cdcc420cae869d3ae573cae22bb8c1f9258339272bd2b07d",
+      "source": "https://extension.usu.edu/news_sections/home_family_and_food/usu-extension-offers-water-storage-tips.pdf",
+      "repository": "drinking-water"
     }
   ],
   "unmanaged_archives": [

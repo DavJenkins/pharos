@@ -66,3 +66,5 @@
 - [Food preservation and emergency cooking](20-Administration/FoodPreservation.md)
 
 - [Sanitation and hygiene](20-Administration/Sanitation.md)
+
+- [Drinking water](20-Administration/DrinkingWater.md)

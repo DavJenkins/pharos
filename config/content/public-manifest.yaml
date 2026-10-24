@@ -329,6 +329,20 @@ repositories:
   links:
   - title: Open sanitation & hygiene guides
     url: /library-files/family-resources/index.html#sanitation
+- id: drinking-water
+  category: content_sources
+  title: Drinking Water
+  description: Water sources and storage, rainwater harvesting, emergency disinfection,
+    treatment selection and well testing. Original editions and regional scope identified.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Water.png
+    alt: Water droplet icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open drinking water guides
+    url: /library-files/family-resources/index.html#drinking-water
 assets:
 - id: ifixit-repair-guides
   online_url: https://www.ifixit.com/Guide
@@ -2886,6 +2900,91 @@ assets:
     implied. Retrieved 2026-10-24T15:45:34.592559+00:00
   online_url: https://www.sandiegocounty.gov/content/sdc/deh/pests/pamphlet_library.html
   download_url: https://www.sandiegocounty.gov/content/dam/sdc/deh/Vector/pdf/rat/RatBrochure_English.pdf
+- id: family-water-epa-disinfection
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Emergency Disinfection of Drinking Water — EPA
+  relative_path: family-resources/drinking-water/water-epa-disinfection.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-epa-disinfection.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: f404083d00decedc267bf4265eda776bb250ccfe18c1f7b19152aa006ff727c5
+  source_note: EPA 816-F-15-003, September 2017. Original public-agency educational
+    reference. Preserve source and original notices; no endorsement implied. Retrieved
+    2026-10-24T15:54:11.006348+00:00
+  online_url: https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water-0
+  download_url: https://www.epa.gov/sites/default/files/2017-09/documents/emergency_disinfection_of_drinking_water_sept2017.pdf
+- id: family-water-epa-testing
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Home Water Testing — EPA
+  relative_path: family-resources/drinking-water/water-epa-testing.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-epa-testing.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 3113f58471d5acd1943df4aee4553bc8dec825af5d2b1057e0dbd96c751224eb
+  source_note: EPA 816-F-05-013, May 2005; historical testing reference, not current
+    regulatory limits. Original public-agency educational reference. Preserve source
+    and original notices; no endorsement implied. Retrieved 2026-10-24T15:54:11.008671+00:00
+  online_url: https://www.epa.gov/ground-water-and-drinking-water/home-drinking-water-testing
+  download_url: https://www.epa.gov/sites/default/files/2015-11/documents/2005_09_14_faq_fs_homewatertesting.pdf
+- id: family-water-epa-wells
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Drinking Water From Household Wells — EPA
+  relative_path: family-resources/drinking-water/water-epa-wells.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-epa-wells.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: d025d17bb11f5fd3c878949676e4b8dceb00b48f7e50c4811943bc0ebeb1bc8f
+  source_note: EPA household-well booklet; archived publisher edition, original date
+    and contacts retained. Original public-agency educational reference. Preserve
+    source and original notices; no endorsement implied. Retrieved 2026-10-24T15:54:11.010291+00:00
+  online_url: https://www.epa.gov/privatewells
+  download_url: https://www.epa.gov/sites/default/files/2015-10/documents/2003_06_03_privatewells_pdfs_household_wells.pdf
+- id: family-water-epa-filters
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Guide to Selecting Water Treatment Systems — EPA WaterSense
+  relative_path: family-resources/drinking-water/water-epa-filters.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-epa-filters.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 723ed6199a70ff59d18fd34da5968352a0a4d463a4b43438ab8ec49a110e6e0e
+  source_note: EPA WaterSense, November 2024; publisher file posted January 2025.
+    Original public-agency educational reference. Preserve source and original notices;
+    no endorsement implied. Retrieved 2026-10-24T15:54:11.565903+00:00
+  online_url: https://www.epa.gov/watersense
+  download_url: https://www.epa.gov/system/files/documents/2025-01/ws-products-home-water-treatment-guide_v2_508.pdf
+- id: family-water-rainwater
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Texas Manual on Rainwater Harvesting
+  relative_path: family-resources/drinking-water/water-rainwater.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-rainwater.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: a48771a9a34b266ace9a8bb07d454c3b4a19777a7ca1a36dd12cbf6fcaa3ed54
+  source_note: Texas Water Development Board, third edition, 2005. Texas climate,
+    costs and legal references are historical and regional. Original public-agency
+    educational reference. Preserve source and original notices; no endorsement implied.
+    Retrieved 2026-10-24T15:54:11.620644+00:00
+  online_url: https://www.twdb.texas.gov/innovativewater/rainwater/docs.asp
+  download_url: https://www.twdb.texas.gov/innovativewater/rainwater/doc/RainwaterHarvestingManual_3rdedition.pdf
+- id: family-water-storage-usu
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Water Storage Tips — USU Extension
+  relative_path: family-resources/drinking-water/water-storage-usu.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-storage-usu.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 91731851c91bc249cdcc420cae869d3ae573cae22bb8c1f9258339272bd2b07d
+  source_note: Utah State University Extension news article; original publication
+    date retained in document. USU Extension educational original. Preserve institutional
+    and original notices; no endorsement implied. Retrieved 2026-10-24T15:54:44.232255+00:00
+  online_url: https://extension.usu.edu/news_sections/home_family_and_food/usu-extension-offers-water-storage-tips
+  download_url: https://extension.usu.edu/news_sections/home_family_and_food/usu-extension-offers-water-storage-tips.pdf
 resource_sections:
 - title: Local maps
   description: Massachusetts reference maps for Worcester and Middlesex counties.

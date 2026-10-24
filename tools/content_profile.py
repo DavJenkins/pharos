@@ -134,7 +134,7 @@ def download(item,root,c,verify_existing=False):
 def recipe(item,c,root,folder):
  name=item['id']
  if name in COLLECTIONS:
-  repositories={'forms':['forms-templates'],'family':['family-resources','food-preservation','sanitation'],'resilience':['resilience','civic-reference'],'callsigns':['civic-reference'],'radio-study':['radio-study']}
+  repositories={'forms':['forms-templates'],'family':['family-resources','food-preservation','sanitation','drinking-water'],'resilience':['resilience','civic-reference'],'callsigns':['civic-reference'],'radio-study':['radio-study']}
   manifest=read(REPO/'dataark.yaml');assets=[a for a in manifest.get('assets',[]) if a.get('repository_id') in repositories[name]]
   if name=='resilience':assets=[a for a in assets if not a['id'].startswith('callbook-')]
   if name=='callsigns':assets=[a for a in assets if a['id'].startswith('callbook-')]

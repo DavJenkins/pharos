@@ -11,6 +11,7 @@ ICONS = {
     'resilience': ('Resilience', '#43764e'),
     'civic-reference': ('Civic', '#876435'),
     'radio-study': ('Radio', '#345e98'),
+    'drinking-water': ('Water', '#286b9a'),
     'sanitation': ('Sanitation', '#3a6e78'),
 }
 def render(name, color):
@@ -61,6 +62,9 @@ def render(name, color):
         for y in [172,184]:line([(81,y),(144,y)],5)
         d.arc((114,39,213,138),220,317,fill=ink,width=7)
         d.arc((130,55,197,122),220,317,fill=ink,width=7)
+    elif name == 'Water':
+        d.polygon([(128,39),(73,118),(61,151),(64,177),(81,199),(104,211),(151,211),(177,197),(193,173),(195,149),(181,117)],fill=ink)
+        d.arc((84,133,169,191),20,135,fill=color,width=9)
     elif name == 'Sanitation':
         d.rounded_rectangle((48,135,208,207),radius=24,outline=ink,width=8)
         d.ellipse((82,151,174,187),outline=ink,width=6)
