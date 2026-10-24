@@ -17,6 +17,7 @@ ICONS = {
     'growing-food': ('Garden', '#4e7752'),
     'navigation-field': ('Navigation', '#476984'),
     'animals-emergency': ('Animals', '#84634b'),
+    'disaster-recovery': ('Recovery', '#856847'),
     'sanitation': ('Sanitation', '#3a6e78'),
 }
 def render(name, color):
@@ -94,6 +95,10 @@ def render(name, color):
     elif name == 'Animals':
         d.ellipse((79,131,178,211),fill=ink)
         for x,y,rx,ry in [(63,112,18,24),(103,72,18,25),(151,72,18,25),(193,112,18,24)]:d.ellipse((x-rx,y-ry,x+rx,y+ry),fill=ink)
+    elif name == 'Recovery':
+        line([(38,120),(128,47),(218,120)],10)
+        line([(61,111),(61,207),(195,207),(195,111)],9)
+        line([(89,156),(117,181),(169,128)],12)
     elif name == 'Sanitation':
         d.rounded_rectangle((48,135,208,207),radius=24,outline=ink,width=8)
         d.ellipse((82,151,174,187),outline=ink,width=6)

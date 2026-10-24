@@ -78,3 +78,5 @@
 - [Navigation and emergency communications](20-Administration/NavigationComms.md)
 
 - [Pets and livestock in emergencies](20-Administration/AnimalsEmergency.md)
+
+- [Disaster recovery and cleanup](20-Administration/DisasterRecovery.md)

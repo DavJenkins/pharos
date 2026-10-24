@@ -33,7 +33,7 @@ class ContentProfileTests(unittest.TestCase):
    files=list(m.portable_files({'manifest':'public-manifest.yaml','snapshots':[]},root))
    self.assertNotIn('secret.txt',[p.name for p,_ in files])
  def test_family_restore_includes_separate_guidance_repositories(self):
-  for repository in ['food-preservation','sanitation','drinking-water','shelter-winter','first-aid-care','growing-food','repairs','navigation-field','emergency-comms','animals-emergency']:
+  for repository in ['food-preservation','sanitation','drinking-water','shelter-winter','first-aid-care','growing-food','repairs','navigation-field','emergency-comms','animals-emergency','disaster-recovery']:
    with self.subTest(repository=repository), tempfile.TemporaryDirectory() as tmp:
     root=Path(tmp);family=root/'family-resources';family.mkdir()
     for name in ['index.html','sources.json','existing.pdf']:(family/name).write_text('fixture')

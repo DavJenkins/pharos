@@ -87,3 +87,7 @@ The [first-aid and caregiving collection](FirstAidCare.md) adds original first-a
 ## Pets and livestock
 
 [Animal preparedness](AnimalsEmergency.md) documents evacuation, shelter, supplies, sanitation, poultry biosecurity and backup livestock-care forms.
+
+## Disaster recovery
+
+[Recovery and cleanup](DisasterRecovery.md) documents flood cleanout, cleanup hazards, contractor fraud and loss records, complementing the existing mold and CERT references.

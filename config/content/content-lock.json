@@ -2279,6 +2279,56 @@
       "sha256": "b2e2c76442eed7f1c054767fb6b7284f359dd85bc611c57bb17579d81b7e2eda",
       "source": "https://www.avma.org/sites/default/files/2023-11/aph-save-the-whole-family-pets.pdf",
       "repository": "animals-emergency"
+    },
+    {
+      "id": "family-recovery-air",
+      "title": "Flood Cleanup and the Air in Your Home \u2014 EPA",
+      "path": "family-resources/disaster-recovery/recovery-air.pdf",
+      "selected": true,
+      "bytes": 2120253,
+      "sha256": "5948bae728f0ab2ef8cbf783d4942a943851d2792794a67d547380f5c91c1cdb",
+      "source": "https://www.epa.gov/sites/default/files/2017-08/documents/flood_cleanup_and_the_air_in_your_home_booklet_0.pdf",
+      "repository": "disaster-recovery"
+    },
+    {
+      "id": "family-recovery-field",
+      "title": "Creating a Healthy Home: Field Guide for Cleanup of Flooded Homes",
+      "path": "family-resources/disaster-recovery/recovery-field.pdf",
+      "selected": true,
+      "bytes": 2863696,
+      "sha256": "dd62d622ec90586dcbdadd6860b28c5301ad907ea54ee433c764d620f28372d9",
+      "source": "https://www.huduser.gov/Publications/pdf/FloodCleanupGuide_NCHH.pdf",
+      "repository": "disaster-recovery"
+    },
+    {
+      "id": "family-recovery-workers",
+      "title": "Keeping Workers Safe During Disaster Cleanup and Recovery \u2014 OSHA",
+      "path": "family-resources/disaster-recovery/recovery-workers.pdf",
+      "selected": true,
+      "bytes": 196143,
+      "sha256": "7e2c91e1984cdf06f86a61de4735c1e9c559bf11f9182ae93f933875147e8663",
+      "source": "https://www.osha.gov/sites/default/files/publications/OSHA_FS-3698.pdf",
+      "repository": "disaster-recovery"
+    },
+    {
+      "id": "family-recovery-fraud",
+      "title": "Avoiding Post-Disaster Scams and Fraud \u2014 HUD",
+      "path": "family-resources/disaster-recovery/recovery-fraud.pdf",
+      "selected": true,
+      "bytes": 76346,
+      "sha256": "f22824b561df6b8ca72d9046f8ca54b02c427f5891b658d3e9a0a76c5b950b75",
+      "source": "https://files.hudexchange.info/resources/documents/OHC-DR-Toolkit-Avoiding-Post-Disaster-Scams-and-Fraud.pdf",
+      "repository": "disaster-recovery"
+    },
+    {
+      "id": "family-recovery-claims",
+      "title": "Post-Disaster Claims Guide \u2014 NAIC / Maine Insurance",
+      "path": "family-resources/disaster-recovery/recovery-claims.pdf",
+      "selected": true,
+      "bytes": 2542546,
+      "sha256": "408fcae75b528ad849c5a885953cea77f95c3466ce07f61ad765f3ab8f70966c",
+      "source": "https://www.maine.gov/pfr/insurance/sites/maine.gov.pfr.insurance/files/inline-files/me-post-disaster-claims-guide.pdf",
+      "repository": "disaster-recovery"
     }
   ],
   "unmanaged_archives": [
