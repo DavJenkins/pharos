@@ -1819,6 +1819,76 @@
       "sha256": "91731851c91bc249cdcc420cae869d3ae573cae22bb8c1f9258339272bd2b07d",
       "source": "https://extension.usu.edu/news_sections/home_family_and_food/usu-extension-offers-water-storage-tips.pdf",
       "repository": "drinking-water"
+    },
+    {
+      "id": "family-winter-nws",
+      "title": "Winter Preparedness Checklist \u2014 National Weather Service",
+      "path": "family-resources/shelter-winter/winter-nws.pdf",
+      "selected": true,
+      "bytes": 785080,
+      "sha256": "fa98f241cc8bf84ebecd7b07b8a3de00599c19329e3ced86d5f8073d01578651",
+      "source": "https://www.weather.gov/media/ilx/Outreach/WinterPrepare.pdf",
+      "repository": "shelter-winter"
+    },
+    {
+      "id": "family-winter-heating",
+      "title": "Heating Your Home Safely \u2014 U.S. Fire Administration",
+      "path": "family-resources/shelter-winter/winter-heating.pdf",
+      "selected": true,
+      "bytes": 167884,
+      "sha256": "316bf8c285bc03b66da4978dbea9b3692a78806b24ce3655edf41820613c4ae6",
+      "source": "https://www.usfa.fema.gov/downloads/pdf/publications/heating_your_home_safely_flyer.pdf",
+      "repository": "shelter-winter"
+    },
+    {
+      "id": "family-winter-generator",
+      "title": "Portable Generator Hazards \u2014 CPSC",
+      "path": "family-resources/shelter-winter/winter-generator.pdf",
+      "selected": true,
+      "bytes": 220471,
+      "sha256": "b382062e22eaad55a455d5452daba0c71cf2f11cf87520ce7361509d436aea99",
+      "source": "https://www.cpsc.gov/s3fs-public/5123_SafetyAlert_PortableGenerators_102021_0.pdf",
+      "repository": "shelter-winter"
+    },
+    {
+      "id": "family-winter-energy",
+      "title": "Energy Saver \u2014 U.S. Department of Energy",
+      "path": "family-resources/shelter-winter/winter-energy.pdf",
+      "selected": true,
+      "bytes": 3251105,
+      "sha256": "416398e39c65d91687a287c6f82a8f63723a5f4e5027702f5d144ccbf1d1f504",
+      "source": "https://www.energy.gov/sites/default/files/2022-08/energy-saver-guide-2022.pdf",
+      "repository": "shelter-winter"
+    },
+    {
+      "id": "family-winter-pipes",
+      "title": "Preventing and Thawing Frozen Pipes \u2014 Texas A&M AgriLife",
+      "path": "family-resources/shelter-winter/winter-pipes.pdf",
+      "selected": true,
+      "bytes": 1285848,
+      "sha256": "d91062ba2f5ce92444eff13a68bb72c19d84f2e7c402d028af4cc153f4f5314e",
+      "source": "https://texashelp.tamu.edu/wp-content/uploads/2016/02/winter-storms-frozen-pipes.pdf",
+      "repository": "shelter-winter"
+    },
+    {
+      "id": "family-winter-storm-guide",
+      "title": "Winter Storms: The Deceptive Killers \u2014 NWS",
+      "path": "family-resources/shelter-winter/winter-storm-guide.pdf",
+      "selected": true,
+      "bytes": 1342342,
+      "sha256": "2cce46003c81e55908c5d167a78a74f99a3aa37a622fc5b839f2716822d3c8d1",
+      "source": "https://www.weather.gov/media/safety/Winter_Storms2008.pdf",
+      "repository": "shelter-winter"
+    },
+    {
+      "id": "family-winter-fema-archive",
+      "title": "How to Prepare for a Winter Storm \u2014 FEMA",
+      "path": "family-resources/shelter-winter/winter-fema-archive.pdf",
+      "selected": true,
+      "bytes": 2159147,
+      "sha256": "91806913dadec72d70c2be38766e1113313d0057a8771300edbe0d3d11a403cd",
+      "source": "https://www.govinfo.gov/content/pkg/GOVPUB-HS5_100-PURL-gpo85639/pdf/GOVPUB-HS5_100-PURL-gpo85639.pdf",
+      "repository": "shelter-winter"
     }
   ],
   "unmanaged_archives": [

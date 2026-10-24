@@ -343,6 +343,20 @@ repositories:
   links:
   - title: Open drinking water guides
     url: /library-files/family-resources/index.html#drinking-water
+- id: shelter-winter
+  category: content_sources
+  title: Shelter & Winter Readiness
+  description: Winter outages, staying warm, heater and generator safety, weatherization
+    and frozen pipes. Original editions and regional scope identified.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Shelter.png
+    alt: Shelter and winter icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open shelter & winter guides
+    url: /library-files/family-resources/index.html#shelter-winter
 assets:
 - id: ifixit-repair-guides
   online_url: https://www.ifixit.com/Guide
@@ -2985,6 +2999,105 @@ assets:
     and original notices; no endorsement implied. Retrieved 2026-10-24T15:54:44.232255+00:00
   online_url: https://extension.usu.edu/news_sections/home_family_and_food/usu-extension-offers-water-storage-tips
   download_url: https://extension.usu.edu/news_sections/home_family_and_food/usu-extension-offers-water-storage-tips.pdf
+- id: family-winter-nws
+  repository_id: shelter-winter
+  category: pdf_reference
+  title: Winter Preparedness Checklist — National Weather Service
+  relative_path: family-resources/shelter-winter/winter-nws.pdf
+  service_endpoint: /library-files/family-resources/shelter-winter/winter-nws.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: fa98f241cc8bf84ebecd7b07b8a3de00599c19329e3ced86d5f8073d01578651
+  source_note: NWS publisher checklist; original revision retained. Original educational
+    reference; institutional and original notices retained. No endorsement implied.
+    Retrieved 2026-10-24T15:58:47.594434+00:00
+  online_url: https://www.weather.gov/safety/winter-before
+  download_url: https://www.weather.gov/media/ilx/Outreach/WinterPrepare.pdf
+- id: family-winter-heating
+  repository_id: shelter-winter
+  category: pdf_reference
+  title: Heating Your Home Safely — U.S. Fire Administration
+  relative_path: family-resources/shelter-winter/winter-heating.pdf
+  service_endpoint: /library-files/family-resources/shelter-winter/winter-heating.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 316bf8c285bc03b66da4978dbea9b3692a78806b24ce3655edf41820613c4ae6
+  source_note: USFA publisher safety flyer; original edition retained. Original educational
+    reference; institutional and original notices retained. No endorsement implied.
+    Retrieved 2026-10-24T15:58:47.596786+00:00
+  online_url: https://www.usfa.fema.gov/prevention/home-fires/prevent-fires/heating/
+  download_url: https://www.usfa.fema.gov/downloads/pdf/publications/heating_your_home_safely_flyer.pdf
+- id: family-winter-generator
+  repository_id: shelter-winter
+  category: pdf_reference
+  title: Portable Generator Hazards — CPSC
+  relative_path: family-resources/shelter-winter/winter-generator.pdf
+  service_endpoint: /library-files/family-resources/shelter-winter/winter-generator.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: b382062e22eaad55a455d5452daba0c71cf2f11cf87520ce7361509d436aea99
+  source_note: CPSC publication 5123, October 2021. Original educational reference;
+    institutional and original notices retained. No endorsement implied. Retrieved
+    2026-10-24T15:58:47.598439+00:00
+  online_url: https://www.cpsc.gov/safety-education/safety-guides/carbon-monoxide/portable-generator-hazards
+  download_url: https://www.cpsc.gov/s3fs-public/5123_SafetyAlert_PortableGenerators_102021_0.pdf
+- id: family-winter-energy
+  repository_id: shelter-winter
+  category: pdf_reference
+  title: Energy Saver — U.S. Department of Energy
+  relative_path: family-resources/shelter-winter/winter-energy.pdf
+  service_endpoint: /library-files/family-resources/shelter-winter/winter-energy.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 416398e39c65d91687a287c6f82a8f63723a5f4e5027702f5d144ccbf1d1f504
+  source_note: DOE/GO-102022-5740, 2022. Historical costs and incentives retained.
+    Original educational reference; institutional and original notices retained. No
+    endorsement implied. Retrieved 2026-10-24T15:58:48.384044+00:00
+  online_url: https://www.energy.gov/energysaver
+  download_url: https://www.energy.gov/sites/default/files/2022-08/energy-saver-guide-2022.pdf
+- id: family-winter-pipes
+  repository_id: shelter-winter
+  category: pdf_reference
+  title: Preventing and Thawing Frozen Pipes — Texas A&M AgriLife
+  relative_path: family-resources/shelter-winter/winter-pipes.pdf
+  service_endpoint: /library-files/family-resources/shelter-winter/winter-pipes.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: d91062ba2f5ce92444eff13a68bb72c19d84f2e7c402d028af4cc153f4f5314e
+  source_note: Texas A&M AgriLife archived handout, hosted in 2016; southern-climate
+    framing retained. Original educational reference; institutional and original notices
+    retained. No endorsement implied. Retrieved 2026-10-24T15:59:24.707508+00:00
+  online_url: https://texashelp.tamu.edu/preparing-for-winter-storms/
+  download_url: https://texashelp.tamu.edu/wp-content/uploads/2016/02/winter-storms-frozen-pipes.pdf
+- id: family-winter-storm-guide
+  repository_id: shelter-winter
+  category: pdf_reference
+  title: 'Winter Storms: The Deceptive Killers — NWS'
+  relative_path: family-resources/shelter-winter/winter-storm-guide.pdf
+  service_endpoint: /library-files/family-resources/shelter-winter/winter-storm-guide.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 2cce46003c81e55908c5d167a78a74f99a3aa37a622fc5b839f2716822d3c8d1
+  source_note: National Weather Service / NOAA, 2008 archived preparedness guide.
+    Historical alert terminology and contacts retained. Original educational reference;
+    institutional and original notices retained. No endorsement implied. Retrieved
+    2026-10-24T15:59:24.709860+00:00
+  online_url: https://www.weather.gov/fsd/winter_preparedness
+  download_url: https://www.weather.gov/media/safety/Winter_Storms2008.pdf
+- id: family-winter-fema-archive
+  repository_id: shelter-winter
+  category: pdf_reference
+  title: How to Prepare for a Winter Storm — FEMA
+  relative_path: family-resources/shelter-winter/winter-fema-archive.pdf
+  service_endpoint: /library-files/family-resources/shelter-winter/winter-fema-archive.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 91806913dadec72d70c2be38766e1113313d0057a8771300edbe0d3d11a403cd
+  source_note: FEMA, 2014 edition preserved by GovInfo; historical reference. Original
+    educational reference; institutional and original notices retained. No endorsement
+    implied. Retrieved 2026-10-24T15:59:24.711441+00:00
+  online_url: https://www.govinfo.gov/app/details/GOVPUB-HS5_100-PURL-gpo85639
+  download_url: https://www.govinfo.gov/content/pkg/GOVPUB-HS5_100-PURL-gpo85639/pdf/GOVPUB-HS5_100-PURL-gpo85639.pdf
 resource_sections:
 - title: Local maps
   description: Massachusetts reference maps for Worcester and Middlesex counties.

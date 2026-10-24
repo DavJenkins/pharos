@@ -67,3 +67,7 @@ The sanitation catalogue is served through its own landing-page card and the fam
 ## Drinking water
 
 The dedicated [Drinking water collection](DrinkingWater.md) adds sources, storage, rainwater harvesting, treatment selection and testing. Its six original PDFs are also browsable from the family index.
+
+## Shelter and winter readiness
+
+The [shelter and winter collection](ShelterWinter.md) adds seven original references for winter outages, heating and generator safety, weatherization and frozen pipes.
