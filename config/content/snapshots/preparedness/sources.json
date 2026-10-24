@@ -1,0 +1,59 @@
+[
+  {
+    "filename": "fema-ready.pdf",
+    "title": "FEMA / Ready.gov \u2014 Are You Ready?",
+    "edition": "2021 hosted edition",
+    "source": "https://www.ready.gov/sites/default/files/2021-11/are-you-ready-guide.pdf",
+    "retrieved": "2026-10-23T04:41:38.052894+00:00",
+    "status": "installed",
+    "bytes": 4233522,
+    "sha256": "3873f8ae7528389adacab72259c37b9ae3c507bd3ae23783122e06586560040c"
+  },
+  {
+    "filename": "cert-participant-2019.pdf",
+    "title": "FEMA CERT Basic Training Participant Manual",
+    "edition": "2019",
+    "source": "https://www.ready.gov/sites/default/files/2019.CERT_.Basic_.PM_FINAL_508c.pdf",
+    "retrieved": "2026-10-23T04:41:38.387182+00:00",
+    "status": "installed",
+    "bytes": 5509166,
+    "sha256": "ca297bbc329c322ccbcb252fae7a1c89fd95f93dbf72b78b165b53cafa664026"
+  },
+  {
+    "filename": "cert-hazards-2019.pdf",
+    "title": "FEMA CERT Hazard Annexes",
+    "edition": "2019",
+    "source": "https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf",
+    "retrieved": "2026-10-23T04:41:38.734186+00:00",
+    "status": "installed",
+    "bytes": 2951425,
+    "sha256": "110abd05cf6dd5760379eaa75b58f09efad5066638e5ded6afeacc16d8a98260"
+  },
+  {
+    "filename": "cert-all-abilities.pdf",
+    "title": "FEMA CERT Annex for All Abilities",
+    "edition": "2015",
+    "source": "https://www.fema.gov/sites/default/files/2020-07/fema_cert-annex-for-all-abilities_091615.pdf",
+    "retrieved": "2026-10-23T04:41:39.009405+00:00",
+    "status": "unavailable",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "filename": "mema-flyer.pdf",
+    "title": "Massachusetts MEMA Emergency Preparedness Flyer",
+    "edition": "edition not specified",
+    "source": "https://www.mass.gov/doc/english-emergency-preparedness-flyer/download",
+    "retrieved": "2026-10-23T04:41:39.122634+00:00",
+    "status": "unavailable",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "filename": "mema-winter-2026.pdf",
+    "title": "Massachusetts MEMA Winter Weather Preparedness Toolkit",
+    "edition": "2026",
+    "source": "https://www.mass.gov/doc/winter-weather-preparedness-toolkit-2026/download",
+    "retrieved": "2026-10-23T04:41:39.264494+00:00",
+    "status": "unavailable",
+    "error": "HTTP Error 403: Forbidden"
+  }
+]

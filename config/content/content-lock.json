@@ -1,0 +1,1391 @@
+{
+  "assets": [
+    {
+      "id": "ifixit-repair-guides",
+      "title": "iFixit Repair Guides \u2014 English with images (December 2025)",
+      "path": "ifixit_en_all_2025-12.zim",
+      "selected": true,
+      "bytes": 3570695757,
+      "sha256": "9bb5f3408707fd0300c6ef47a425c3217187f144cd9154a928183816aa72eead",
+      "source": "https://download.kiwix.org/zim/ifixit/ifixit_en_all_2025-12.zim",
+      "repository": "ifixit"
+    },
+    {
+      "id": "wikipedia-main",
+      "title": "Wikipedia \u2014 English with images (August 2026)",
+      "path": "wikipedia_en_all_maxi_2026-08.zim",
+      "selected": true,
+      "bytes": 127418087648,
+      "sha256": "34162d18b9f96f494eac48a73a309c72e0bc95d85f76be405d0f5de795854aa6",
+      "source": "https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-08.zim",
+      "repository": "wikipedia"
+    },
+    {
+      "id": "wikipedia-nopic",
+      "title": "Wikipedia \u2014 English without images (June 2026)",
+      "path": "wikipedia_en_all_nopic_2026-06.zim",
+      "selected": false,
+      "bytes": null,
+      "sha256": "441a56d9e05b2d98f8ae9acb7986a513ed47904d73852c92dc6b7d50baa122e5",
+      "source": "https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2026-06.zim",
+      "repository": "wikipedia"
+    },
+    {
+      "id": "wikipedia-medicine",
+      "title": "Wikipedia Medicine (October 2026)",
+      "path": "wikipedia_en_medicine_maxi_2026-10.zim",
+      "selected": true,
+      "bytes": 1864210320,
+      "sha256": "9a1570f2f346aa18694ee520e0483f19b7447f69e0970e2f727c53ccf0dcc7d6",
+      "source": "https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-10.zim",
+      "repository": "wikimed"
+    },
+    {
+      "id": "electronics-qa",
+      "title": "Electronics Stack Exchange (October 2026)",
+      "path": "electronics.stackexchange.com_en_all_2026-10.zim",
+      "selected": true,
+      "bytes": 4261397539,
+      "sha256": "b28e58b24ed55c602265729b34b0c6cc4e12228e6fe2f55df5b5e9eae169b266",
+      "source": "https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2026-10.zim",
+      "repository": "technical-qa"
+    },
+    {
+      "id": "unix-qa",
+      "title": "Unix Stack Exchange (October 2026)",
+      "path": "unix.stackexchange.com_en_all_2026-10.zim",
+      "selected": true,
+      "bytes": 1316253305,
+      "sha256": "793f0fbaf64e9eb8d2fd59fec80f62cf94acb22ca94c87eb25ae145dd589e551",
+      "source": "https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2026-10.zim",
+      "repository": "technical-qa"
+    },
+    {
+      "id": "kiwix-windows-reader",
+      "title": "Kiwix Desktop for Windows (copy the entire kiwix-viewer folder)",
+      "path": "kiwix-viewer/kiwix-desktop.exe",
+      "selected": true,
+      "bytes": 5426544,
+      "sha256": null,
+      "source": "https://download.kiwix.org/release/kiwix-desktop/kiwix-desktop_windows_x64_2.5.1.zip",
+      "repository": "technical-qa"
+    },
+    {
+      "id": "gutenberg-en",
+      "title": "Project Gutenberg \u2014 English",
+      "path": "gutenberg_en_all_2025-11.zim",
+      "selected": true,
+      "bytes": 221251590584,
+      "sha256": "01677c8d554a1cab2cbfd020ac99ebca7dd6c74d3ce0d13f266a2ba603dfaf28",
+      "source": "https://download.kiwix.org/zim/gutenberg/gutenberg_en_all_2025-11.zim",
+      "repository": "project-gutenberg"
+    },
+    {
+      "id": "osm-massachusetts",
+      "title": "Massachusetts offline street map (October 22, 2026)",
+      "path": "maps/osm/massachusetts.pmtiles",
+      "selected": true,
+      "bytes": 507811122,
+      "sha256": null,
+      "source": "https://docs.protomaps.com/basemaps/downloads",
+      "repository": "openstreetmap"
+    },
+    {
+      "id": "fema-ready",
+      "title": "FEMA / Ready.gov \u2014 Are You Ready? (2021 hosted edition)",
+      "path": "preparedness/fema-ready.pdf",
+      "selected": true,
+      "bytes": 4233522,
+      "sha256": "3873f8ae7528389adacab72259c37b9ae3c507bd3ae23783122e06586560040c",
+      "source": "https://www.ready.gov/sites/default/files/2021-11/are-you-ready-guide.pdf",
+      "repository": "preparedness"
+    },
+    {
+      "id": "cert-participant-2019",
+      "title": "FEMA CERT Basic Training Participant Manual (2019)",
+      "path": "preparedness/cert-participant-2019.pdf",
+      "selected": true,
+      "bytes": 5509166,
+      "sha256": "ca297bbc329c322ccbcb252fae7a1c89fd95f93dbf72b78b165b53cafa664026",
+      "source": "https://www.ready.gov/sites/default/files/2019.CERT_.Basic_.PM_FINAL_508c.pdf",
+      "repository": "preparedness"
+    },
+    {
+      "id": "cert-hazards-2019",
+      "title": "FEMA CERT Hazard Annexes (2019)",
+      "path": "preparedness/cert-hazards-2019.pdf",
+      "selected": true,
+      "bytes": 2951425,
+      "sha256": "110abd05cf6dd5760379eaa75b58f09efad5066638e5ded6afeacc16d8a98260",
+      "source": "https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf",
+      "repository": "preparedness"
+    },
+    {
+      "id": "forms-f1040-2025",
+      "title": "IRS Individual income tax return \u2014 Tax year 2025",
+      "path": "forms/tax/f1040-2025.pdf",
+      "selected": true,
+      "bytes": 220237,
+      "sha256": "3d31c226df0d189ced80e039d01cf0f8820c1019681a0f0ca6264de277b7e982",
+      "source": "https://www.irs.gov/pub/irs-prior/f1040--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-i1040gi-2025",
+      "title": "IRS 1040 and 1040-SR instructions \u2014 Tax year 2025",
+      "path": "forms/tax/i1040gi-2025.pdf",
+      "selected": true,
+      "bytes": 4434643,
+      "sha256": "482e9c487c608f1bbeaceef35bc3c0933e8b35443cfff447e4279d590468364a",
+      "source": "https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f1040s1-2025",
+      "title": "IRS Schedule 1 \u2014 Additional income and adjustments \u2014 Tax year 2025",
+      "path": "forms/tax/f1040s1-2025.pdf",
+      "selected": true,
+      "bytes": 99940,
+      "sha256": "8dafec719f6a4716c259a2bdaca546d9bb9e262d1eabef885fe116a7327458fa",
+      "source": "https://www.irs.gov/pub/irs-prior/f1040s1--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f1040s1a-2025",
+      "title": "IRS Schedule 1-A \u2014 Additional deductions \u2014 Tax year 2025",
+      "path": "forms/tax/f1040s1a-2025.pdf",
+      "selected": true,
+      "bytes": 94224,
+      "sha256": "64f97b38ff4218e2f188fd55a8aab7043556687487c82bbefe0b6dd1a956ecd4",
+      "source": "https://www.irs.gov/pub/irs-prior/f1040s1a--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f1040s2-2025",
+      "title": "IRS Schedule 2 \u2014 Additional taxes \u2014 Tax year 2025",
+      "path": "forms/tax/f1040s2-2025.pdf",
+      "selected": true,
+      "bytes": 96526,
+      "sha256": "64d867b683334cfc533993e37ccb0d143449ec29428a78206be2e4de333941e8",
+      "source": "https://www.irs.gov/pub/irs-prior/f1040s2--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f1040s3-2025",
+      "title": "IRS Schedule 3 \u2014 Additional credits and payments \u2014 Tax year 2025",
+      "path": "forms/tax/f1040s3-2025.pdf",
+      "selected": true,
+      "bytes": 69852,
+      "sha256": "008cfd3fe3ebd0860452069b90fd0a3d53dda6dd8a5d870278370aa899a63f82",
+      "source": "https://www.irs.gov/pub/irs-prior/f1040s3--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f1040sa-2025",
+      "title": "IRS Schedule A \u2014 Itemized deductions \u2014 Tax year 2025",
+      "path": "forms/tax/f1040sa-2025.pdf",
+      "selected": true,
+      "bytes": 79008,
+      "sha256": "c14acf3478f4c33f27ac6e8ecd9f94b6fb25b16745b341728bd27847d2ef56bb",
+      "source": "https://www.irs.gov/pub/irs-prior/f1040sa--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f1040sb-2025",
+      "title": "IRS Schedule B \u2014 Interest and ordinary dividends \u2014 Tax year 2025",
+      "path": "forms/tax/f1040sb-2025.pdf",
+      "selected": true,
+      "bytes": 76411,
+      "sha256": "dd1ec3719954532bd219343d81385a2ada3c8e9573fc755a3893f1fbbecc63e2",
+      "source": "https://www.irs.gov/pub/irs-prior/f1040sb--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f1040sc-2025",
+      "title": "IRS Schedule C \u2014 Profit or loss from business \u2014 Tax year 2025",
+      "path": "forms/tax/f1040sc-2025.pdf",
+      "selected": true,
+      "bytes": 122589,
+      "sha256": "ddf401dbe060467d39f90ad2abf645df1de31512821a150dc68a3882bbf19716",
+      "source": "https://www.irs.gov/pub/irs-prior/f1040sc--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f1040sd-2025",
+      "title": "IRS Schedule D \u2014 Capital gains and losses \u2014 Tax year 2025",
+      "path": "forms/tax/f1040sd-2025.pdf",
+      "selected": true,
+      "bytes": 97968,
+      "sha256": "90564c8b7e49280363612639b804d113ebedb516c2e87c70649f29c844da1d2e",
+      "source": "https://www.irs.gov/pub/irs-prior/f1040sd--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f1040se-2025",
+      "title": "IRS Schedule E \u2014 Supplemental income and loss \u2014 Tax year 2025",
+      "path": "forms/tax/f1040se-2025.pdf",
+      "selected": true,
+      "bytes": 148367,
+      "sha256": "c5e2c8fa0ec5ee9153a0167734df634afe0ea8bb8483040766e5f4b1b12780f3",
+      "source": "https://www.irs.gov/pub/irs-prior/f1040se--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f1040sse-2025",
+      "title": "IRS Schedule SE \u2014 Self-employment tax \u2014 Tax year 2025",
+      "path": "forms/tax/f1040sse-2025.pdf",
+      "selected": true,
+      "bytes": 80290,
+      "sha256": "05bc2b3e1dfca65d8c6fc6d652af4fa3736e953c6575d6e9f82590484677d347",
+      "source": "https://www.irs.gov/pub/irs-prior/f1040sse--2025.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-fw9",
+      "title": "W-9 \u2014 Taxpayer identification and certification \u2014 Publisher revision at retrieval",
+      "path": "forms/tax/fw9.pdf",
+      "selected": true,
+      "bytes": 140815,
+      "sha256": "2d420cbb4123dcf1fb82595b2359cfbb5d81f00b9df9d359fcc7af361d093f53",
+      "source": "https://www.irs.gov/pub/irs-pdf/fw9.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-fw4",
+      "title": "W-4 \u2014 Employee withholding certificate \u2014 Publisher revision at retrieval",
+      "path": "forms/tax/fw4.pdf",
+      "selected": true,
+      "bytes": 208845,
+      "sha256": "92444d8856ce55d9e25dca8b6d1420634fc68b11e1ab1f760916ea29ddd312b2",
+      "source": "https://www.irs.gov/pub/irs-pdf/fw4.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-fss4",
+      "title": "SS-4 \u2014 Employer identification number application \u2014 Publisher revision at retrieval",
+      "path": "forms/tax/fss4.pdf",
+      "selected": true,
+      "bytes": 122921,
+      "sha256": "23d295529950b05979596cf58d559db6c433a4ec852407b1820265c117cb3ca2",
+      "source": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-iss4",
+      "title": "SS-4 instructions \u2014 Publisher revision at retrieval",
+      "path": "forms/tax/iss4.pdf",
+      "selected": true,
+      "bytes": 196333,
+      "sha256": "cba1fac11f7e152aad7830e3a4f036d3b9b2a26d1af8daa72be19d838f705c44",
+      "source": "https://www.irs.gov/pub/irs-pdf/iss4.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f4506t",
+      "title": "4506-T \u2014 Request for transcript \u2014 Publisher revision at retrieval",
+      "path": "forms/tax/f4506t.pdf",
+      "selected": true,
+      "bytes": 680124,
+      "sha256": "4de7303eee766f31deb9afbb66aa538e8e04909d31307c494b328e69fbbe634e",
+      "source": "https://www.irs.gov/pub/irs-pdf/f4506t.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-f8822",
+      "title": "8822 \u2014 Change of address \u2014 Publisher revision at retrieval",
+      "path": "forms/tax/f8822.pdf",
+      "selected": true,
+      "bytes": 80702,
+      "sha256": "200ec0db82a1f8ea0c37f5ffdad562926dfe26c1d537ff701755989ce4197be6",
+      "source": "https://www.irs.gov/pub/irs-pdf/f8822.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-i9",
+      "title": "USCIS I-9 \u2014 Employment eligibility verification \u2014 Publisher revision at retrieval",
+      "path": "forms/government/i9.pdf",
+      "selected": true,
+      "bytes": 524095,
+      "sha256": "780f348c34df694bb0b4dbbfaf9f22b99b9757b80d16a37ba89aadf069597281",
+      "source": "https://www.uscis.gov/sites/default/files/document/forms/i-9.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-i9-instructions",
+      "title": "USCIS I-9 instructions \u2014 Publisher revision at retrieval",
+      "path": "forms/government/i9-instructions.pdf",
+      "selected": true,
+      "bytes": 297017,
+      "sha256": "c66c3818fbecbfb87b5f0560f4dfd4086905daf72ca29dba15ce4c8d49dc4ca3",
+      "source": "https://www.uscis.gov/sites/default/files/document/forms/i-9instr.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-sf95",
+      "title": "GSA SF 95 \u2014 Claim for damage, injury or death \u2014 Publisher revision at retrieval",
+      "path": "forms/government/sf95.pdf",
+      "selected": true,
+      "bytes": 591001,
+      "sha256": "7c58078520934a0dc2c28ec9e59064548a38df3ac26f63c6a7d83a3280c9afe4",
+      "source": "https://www.gsa.gov/cdnstatic/SF95-07a.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-commonpaper-professional-services-agreement",
+      "title": "Professional Services Agreement \u2014 Common Paper version 1.1",
+      "path": "forms/contracts/commonpaper-professional-services-agreement.docx",
+      "selected": true,
+      "bytes": 55720,
+      "sha256": "d8cc13f589096d1b2afc1917756adea450cd7d966779633613fbecc4dc45d3ba",
+      "source": "https://commonpaper.com/standards/professional-services-agreement/1.1/cover-page-and-standard-terms-docx",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-commonpaper-software-license-agreement",
+      "title": "Software License Agreement \u2014 Common Paper version 1.1",
+      "path": "forms/contracts/commonpaper-software-license-agreement.docx",
+      "selected": true,
+      "bytes": 115916,
+      "sha256": "0a073e0e2087811749bb06215bc9490b9a6a067c5449ed3516bb9d94c0497834",
+      "source": "https://commonpaper.com/standards/software-license-agreement/1.1/cover-page-and-standard-terms-docx",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-commonpaper-partnership-agreement",
+      "title": "Business Partnership Agreement \u2014 Common Paper version 1.1",
+      "path": "forms/contracts/commonpaper-partnership-agreement.docx",
+      "selected": true,
+      "bytes": 53947,
+      "sha256": "ae3023105755ecd9b2312bf53c216319fd0bc79830c4627611a7ac5b0a206895",
+      "source": "https://commonpaper.com/standards/partnership-agreement/1.1/cover-page-and-standard-terms-docx",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-commonpaper-mutual-nda",
+      "title": "Mutual Non-Disclosure Agreement \u2014 Common Paper version 1.0",
+      "path": "forms/contracts/commonpaper-mutual-nda.docx",
+      "selected": true,
+      "bytes": 28664,
+      "sha256": "18e07001c3ebfc749833e10836eda4fe0d302ab0a7519a0388696be3df86b566",
+      "source": "https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-docx",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-commonpaper-mutual-nda-pdf",
+      "title": "Mutual Non-Disclosure Agreement \u2014 printable PDF \u2014 Common Paper version 1.0",
+      "path": "forms/contracts/commonpaper-mutual-nda-pdf.pdf",
+      "selected": true,
+      "bytes": 621567,
+      "sha256": "8d31fe0e0eb96649b180ec4f6eec84617ff2d499576f8dccde981e58c5a829d6",
+      "source": "https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "family-nasa-exoplanets",
+      "title": "NASA Exoplanets Coloring Book",
+      "path": "family-resources/kids/nasa-exoplanets.pdf",
+      "selected": true,
+      "bytes": 4934372,
+      "sha256": "64efb59df3bc9115e91692b195223ed142465ce3272564066b75a40c575141bf",
+      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/Exoplanets_Coloring_Book_07-22-2016.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-nasa-star-en",
+      "title": "NASA Our Very Own Star",
+      "path": "family-resources/kids/nasa-star-en.pdf",
+      "selected": true,
+      "bytes": 99235,
+      "sha256": "e75cf552f55f471a4e3a49d8e01f4a0b6fa41ff604b100ec2c9c7d38b32951c9",
+      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_English.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-nasa-star-es",
+      "title": "NASA Our Very Own Star \u2014 Spanish",
+      "path": "family-resources/kids/nasa-star-es.pdf",
+      "selected": true,
+      "bytes": 99608,
+      "sha256": "c710dd16abf095effd9e7cad1dd7ee74d034da51c83b88658fc373d74235a326",
+      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_Spanish.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-nasa-iss",
+      "title": "NASA International Space Station Activity Book",
+      "path": "family-resources/kids/nasa-iss.pdf",
+      "selected": true,
+      "bytes": 2609216,
+      "sha256": "483b151756ab6a875333ee2998c851ccfcf00b053d6d0dda0c02a3dc5c881b56",
+      "source": "https://science.nasa.gov/wp-content/uploads/2023/10/ISS_Activity_Book.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-nps-caves-en",
+      "title": "Junior Cave Scientist Activity Book",
+      "path": "family-resources/kids/nps-caves-en.pdf",
+      "selected": true,
+      "bytes": 9815633,
+      "sha256": "4f37433062bb60fe8b5b236e29e0666347cbe8dd31200277dc7c522c0e05f971",
+      "source": "https://home.nps.gov/subjects/caves/upload/Junior-Cave-Scientist-Booklet_English508_web-compressed.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-nps-caves-es",
+      "title": "Junior Cave Scientist Activity Book \u2014 Spanish",
+      "path": "family-resources/kids/nps-caves-es.pdf",
+      "selected": true,
+      "bytes": 6998800,
+      "sha256": "57450605052654930268bec102fe7fa82b671af8e6ccf4ead196ecfda600eaaa",
+      "source": "https://home.nps.gov/subjects/caves/upload/Junior-Ranger-Cave-Scientist-SPANISH-Final508_web-compressed_2.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-fema-ics",
+      "title": "FEMA NIMS Incident Command System Forms & Instructions",
+      "path": "family-resources/readiness/fema-ics.pdf",
+      "selected": true,
+      "bytes": 2989866,
+      "sha256": "1948f66d0732b3e2c0fd2435a13dc45179dbbf374f216216c649deaa317483cc",
+      "source": "https://training.fema.gov/emiweb/is/icsresource/assets/nims%20ics%20forms%20booklet.v3.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-cp-contractor",
+      "title": "Common Paper Independent Contractor Agreement",
+      "path": "family-resources/contracts/cp-contractor.docx",
+      "selected": true,
+      "bytes": 149021,
+      "sha256": "786ffa49851ad2761a33f87b115a5140b2a14ab21d58464df4d9aa0cbedd74dc",
+      "source": "https://commonpaper.com/wp-content/uploads/2025/05/Common-Paper-Independent-Contractor-Agreement.docx",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-cp-amendment",
+      "title": "Common Paper Agreement Amendment",
+      "path": "family-resources/contracts/cp-amendment.docx",
+      "selected": true,
+      "bytes": 39017,
+      "sha256": "64b04560d5640a78a23f1978b0d88254929ceb45c59604e0777cc2ecfccf0ce4",
+      "source": "https://commonpaper.com/wp-content/uploads/2025/01/Common-Paper-Amendment.docx",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-cp-sow",
+      "title": "Common Paper Statement of Work",
+      "path": "family-resources/contracts/cp-sow.docx",
+      "selected": true,
+      "bytes": 136347,
+      "sha256": "8523d48df8f5330b70e0102dad26761b275a11dfab336201fef04a0fee1b6ac9",
+      "source": "https://commonpaper.com/wp-content/uploads/2025/01/Professional-Services-Agreement-SOW-Only.docx",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-household-a4",
+      "title": "Household worksheet pack \u2014 A4",
+      "path": "family-resources/generated/household-a4.pdf",
+      "selected": true,
+      "bytes": 16103,
+      "sha256": "e134ca81508e177bcd5b30b5ffc5608dfa1d0042b58a4039c91744c835811367",
+      "source": null,
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-household-letter",
+      "title": "Household worksheet pack \u2014 US Letter",
+      "path": "family-resources/generated/household-letter.pdf",
+      "selected": true,
+      "bytes": 15933,
+      "sha256": "03c39c8b2287da6eda30d17a2b362392f8f9d24fbd4306cbc00b1a219912293d",
+      "source": null,
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-paper-a4",
+      "title": "Paper pattern pack \u2014 A4",
+      "path": "family-resources/generated/paper-a4.pdf",
+      "selected": true,
+      "bytes": 392531,
+      "sha256": "ee3e326fb1959dfba80d556ad56803505bd5a61c48ea2761354ccb69b7fd1625",
+      "source": null,
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-paper-letter",
+      "title": "Paper pattern pack \u2014 US Letter",
+      "path": "family-resources/generated/paper-letter.pdf",
+      "selected": true,
+      "bytes": 376391,
+      "sha256": "d7092412741d5e4675a1cc325c6756d9227984d4a476031cdde0173461c1ecd2",
+      "source": null,
+      "repository": "family-resources"
+    },
+    {
+      "id": "ref-maine-survival",
+      "title": "You Alone in the Maine Woods",
+      "path": "resilience/documents/maine-survival.pdf",
+      "selected": true,
+      "bytes": 9530964,
+      "sha256": "164627936f2f8c03e23732603ef38e542c9da75a1f591914a999571c7a57335b",
+      "source": "https://www.maine.gov/ifw/docs/20-MDIFW-18-You-Alone.pdf",
+      "repository": "resilience"
+    },
+    {
+      "id": "ref-nps-ten-essentials",
+      "title": "National Park Service \u2014 The Ten Essentials",
+      "path": "resilience/documents/nps-ten-essentials.pdf",
+      "selected": true,
+      "bytes": 66817,
+      "sha256": "3251acd6b771db54dbbd101bcd0bf79776527d11ead504cf0c6e110ee46c0572",
+      "source": "https://www.nps.gov/mora/planyourvisit/upload/ten-essentials-web-site-bulletin.pdf",
+      "repository": "resilience"
+    },
+    {
+      "id": "ref-usgs-compass",
+      "title": "USGS \u2014 Finding Your Way with Map and Compass",
+      "path": "resilience/documents/usgs-compass.pdf",
+      "selected": true,
+      "bytes": 204850,
+      "sha256": "bc476fdc38e0949f18941cf361242bce8f0c18583111ce7e10b06eb3fc569922",
+      "source": "https://pubs.usgs.gov/fs/2001/0035/report.pdf",
+      "repository": "resilience"
+    },
+    {
+      "id": "ref-nps-water-sanitation",
+      "title": "NPS \u2014 Wilderness Sanitation and Water Treatment",
+      "path": "resilience/documents/nps-water-sanitation.html",
+      "selected": true,
+      "bytes": 9048,
+      "sha256": "5e6f81a71f6c3fcb431430bf4611239ad5021d0791f6266a57f1179c02d52eb2",
+      "source": "https://www.nps.gov/olym/planyourvisit/wilderness-sanitation.htm",
+      "repository": "resilience"
+    },
+    {
+      "id": "ref-nrel-solar-basics",
+      "title": "DOE / NREL \u2014 Own Your Power: Solar Electricity for the Home",
+      "path": "resilience/documents/nrel-solar-basics.pdf",
+      "selected": true,
+      "bytes": 3592781,
+      "sha256": "27001e4f6cfd00d99e83031b62800266a9d247557f352c9669dc0748503841c2",
+      "source": "https://www1.eere.energy.gov/solar/pdfs/43844.pdf",
+      "repository": "resilience"
+    },
+    {
+      "id": "ref-doe-solar-community",
+      "title": "DOE \u2014 Solar Power in Your Community",
+      "path": "resilience/documents/doe-solar-community.pdf",
+      "selected": true,
+      "bytes": 3126327,
+      "sha256": "25cab9d5b7eb1b0309912d3234d1a7f10e88a27f2bb19f9cd0534df743b9cd07",
+      "source": "https://www.energy.gov/sites/default/files/2022-02/solar-power-in-your-community-guidebook.pdf",
+      "repository": "resilience"
+    },
+    {
+      "id": "ref-doe-small-wind",
+      "title": "DOE \u2014 Small Wind Guidebook",
+      "path": "resilience/documents/doe-small-wind.html",
+      "selected": true,
+      "bytes": 108031,
+      "sha256": "e4a748affffda2e4bfd3a3b64e153806de7f3a916a8347947df9a96b2e4d22b3",
+      "source": "https://www.energy.gov/cmei/systems/windexchange/small-wind-guidebook",
+      "repository": "resilience"
+    },
+    {
+      "id": "ref-doe-small-wind-pdf",
+      "title": "DOE \u2014 Consumer Guide to Small Wind Energy Systems",
+      "path": "resilience/documents/doe-small-wind-pdf.pdf",
+      "selected": true,
+      "bytes": 1761267,
+      "sha256": "73eef391714e861c1dab4ca4b3477db727006f0ef2b91644204fbdabaa652fa8",
+      "source": "https://www.govinfo.gov/content/pkg/GOVPUB-E-PURL-gpo224740/pdf/GOVPUB-E-PURL-gpo224740.pdf",
+      "repository": "resilience"
+    },
+    {
+      "id": "ref-osha-generators",
+      "title": "OSHA \u2014 Using Portable Generators Safely",
+      "path": "resilience/documents/osha-generators.pdf",
+      "selected": true,
+      "bytes": 520196,
+      "sha256": "252d135bc2ad4df3359135cd85ebbad051c5c4a8ea9359bb2d2ad3de484fa21b",
+      "source": "https://www.osha.gov/sites/default/files/publications/OSHA3286.pdf",
+      "repository": "resilience"
+    },
+    {
+      "id": "ref-pnnl-energy-storage",
+      "title": "PNNL \u2014 Introductory Guide to Generating, Using and Storing Energy",
+      "path": "resilience/documents/pnnl-energy-storage.pdf",
+      "selected": true,
+      "bytes": 3299201,
+      "sha256": "c84dcc6ba873dcac3b332ee987fc67d1974d61b7c4ce5063c4ec34d4ecd7c731",
+      "source": "https://www.osti.gov/servlets/purl/2327029",
+      "repository": "resilience"
+    },
+    {
+      "id": "ref-us-constitution",
+      "title": "U.S. Constitution, Declaration of Independence and index \u2014 Pocket Edition",
+      "path": "civic-reference/documents/us-constitution.pdf",
+      "selected": true,
+      "bytes": 764089,
+      "sha256": "a9458f00a29259580ca2e6fd2384c363b26719cd464ff854e1af09dfe516f000",
+      "source": "https://www.govinfo.gov/content/pkg/GPO-CDOC-111sdoc4/pdf/GPO-CDOC-111sdoc4.pdf",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-cfr44-v1",
+      "title": "44 CFR \u2014 Emergency Management and Assistance, Volume 1",
+      "path": "civic-reference/documents/cfr44-v1.pdf",
+      "selected": true,
+      "bytes": 2599063,
+      "sha256": "168f46e490dc1e5147a9e5bf0af3127820f737f89c224185218ebf68f232c907",
+      "source": "https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol1/pdf/CFR-2025-title44-vol1.pdf",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-ma-constitution",
+      "title": "Massachusetts Constitution",
+      "path": "civic-reference/documents/ma-constitution.html",
+      "selected": true,
+      "bytes": 415948,
+      "sha256": "9201120d1b30325b33802783ef5e4e8a40640811947a8ee0a27d30b14eea00f1",
+      "source": "https://malegislature.gov/Laws/Constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-gardner-code-source",
+      "title": "Gardner City Code \u2014 official city source page",
+      "path": "civic-reference/documents/gardner-code-source.html",
+      "selected": true,
+      "bytes": 3669,
+      "sha256": "4bf055059a6279b45b0a97897606e3c90d480d235eea7db29dfa40807547dbb2",
+      "source": "https://www.gardner-ma.gov/1019/City-Code",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-ma-chapter-93a",
+      "title": "Massachusetts General Laws Chapter 93A \u2014 Consumer Protection",
+      "path": "civic-reference/documents/ma-chapter-93A.html",
+      "selected": true,
+      "bytes": 42540,
+      "sha256": "fa39947ba3311dddbfc0f1fb981b909b123d077c47170cf7b0ca6834c209d270",
+      "source": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter93A",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc01",
+      "title": "United States Code \u2014 TITLE 1 - GENERAL PROVISIONS",
+      "path": "civic-reference/us-code/PRELIMusc01.htm",
+      "selected": true,
+      "bytes": 205712,
+      "sha256": "3200aec3ba15b20751918cdbe128e089740a05eb00487b03305fabf38466b30b",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc02",
+      "title": "United States Code \u2014 TITLE 2 - THE CONGRESS",
+      "path": "civic-reference/us-code/PRELIMusc02.htm",
+      "selected": true,
+      "bytes": 6514457,
+      "sha256": "12ee4f567f2957a26668d4a0a3d0f6061628afd8e71398e2820fff31b7503753",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc03",
+      "title": "United States Code \u2014 TITLE 3 - THE PRESIDENT",
+      "path": "civic-reference/us-code/PRELIMusc03.htm",
+      "selected": true,
+      "bytes": 635408,
+      "sha256": "6910cd8f6e69cab5440dcd77ee413ba9533ffceb5a5858a768ba859dd83eb531",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc04",
+      "title": "United States Code \u2014 TITLE 4 - FLAG AND SEAL, SEAT OF GOVERNMENT, AND THE STATES",
+      "path": "civic-reference/us-code/PRELIMusc04.htm",
+      "selected": true,
+      "bytes": 211321,
+      "sha256": "64e23a2b1627972315a7e9d36d56e4420903e9be1923b145928e148be384aaa0",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc05",
+      "title": "United States Code \u2014 TITLE 5 - GOVERNMENT ORGANIZATION AND EMPLOYEES",
+      "path": "civic-reference/us-code/PRELIMusc05.htm",
+      "selected": true,
+      "bytes": 12477064,
+      "sha256": "0ef52b6428c273c447cab7a542b648087d60942fca0399abb3d0cedc6d1fc52f",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc05a",
+      "title": "United States Code \u2014 TITLE 5 - GOVERNMENT ORGANIZATION AND EMPLOYEES",
+      "path": "civic-reference/us-code/PRELIMusc05a.htm",
+      "selected": true,
+      "bytes": 1425844,
+      "sha256": "6d3381ffba1497edec459ec601ee168ed88264524a93d738f435cbb3bfc8b743",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc06",
+      "title": "United States Code \u2014 TITLE 6 - DOMESTIC SECURITY",
+      "path": "civic-reference/us-code/PRELIMusc06.htm",
+      "selected": true,
+      "bytes": 4301851,
+      "sha256": "2a241f43d950910b6401869705c884b1827b5a38ba2ee64485f34959023668cb",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc07",
+      "title": "United States Code \u2014 TITLE 7 - AGRICULTURE",
+      "path": "civic-reference/us-code/PRELIMusc07.htm",
+      "selected": true,
+      "bytes": 19870396,
+      "sha256": "864f75f87b8f682f58bdb0ca73c9f60e94c7a86b2ca34e60700ca3d081ab3d37",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc08",
+      "title": "United States Code \u2014 TITLE 8 - ALIENS AND NATIONALITY",
+      "path": "civic-reference/us-code/PRELIMusc08.htm",
+      "selected": true,
+      "bytes": 5181364,
+      "sha256": "64e13e24a8b318fb557e3513214075683f4be251be4ff019236ede11b746c00f",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc09",
+      "title": "United States Code \u2014 TITLE 9 - ARBITRATION",
+      "path": "civic-reference/us-code/PRELIMusc09.htm",
+      "selected": true,
+      "bytes": 88597,
+      "sha256": "469813c86c3dffa741ab0322ddfa320ff8dcc6feaa7c4d81877d6f7971b8ff6f",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc10",
+      "title": "United States Code \u2014 TITLE 10 - ARMED FORCES",
+      "path": "civic-reference/us-code/PRELIMusc10.htm",
+      "selected": true,
+      "bytes": 37794910,
+      "sha256": "3b4d94cae3ce99688094cf1300c683ba377892bfccfcd3b612f96b1da42eb069",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc11",
+      "title": "United States Code \u2014 TITLE 11 - BANKRUPTCY",
+      "path": "civic-reference/us-code/PRELIMusc11.htm",
+      "selected": true,
+      "bytes": 3018032,
+      "sha256": "1360be2d7bb94a281c67ab898d5d4f25fea24562ed7c2c2a8aafb390e04d48c2",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc11a",
+      "title": "United States Code \u2014 TITLE 11 - BANKRUPTCY",
+      "path": "civic-reference/us-code/PRELIMusc11a.htm",
+      "selected": true,
+      "bytes": 1701792,
+      "sha256": "b90135796b28df79d0679e6f5f5ec3b0589363cabf02196792a5253954129faf",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc12",
+      "title": "United States Code \u2014 TITLE 12 - BANKS AND BANKING",
+      "path": "civic-reference/us-code/PRELIMusc12.htm",
+      "selected": true,
+      "bytes": 17211777,
+      "sha256": "ff1ce2147087f1202f93b6cc7d06eef7a97567d16d65c13d9ba64a33bde6503c",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc13",
+      "title": "United States Code \u2014 TITLE 13 - CENSUS",
+      "path": "civic-reference/us-code/PRELIMusc13.htm",
+      "selected": true,
+      "bytes": 377959,
+      "sha256": "eef2113e16ef0cfa000e4b4d5c0e12cec0ee71ff3be59e5812e225929415bc0e",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc14",
+      "title": "United States Code \u2014 TITLE 14 - COAST GUARD",
+      "path": "civic-reference/us-code/PRELIMusc14.htm",
+      "selected": true,
+      "bytes": 2701397,
+      "sha256": "ecf2aec81a39a490c61b9f576347fbb393d1d341611a3504f94470d993e13926",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc15",
+      "title": "United States Code \u2014 TITLE 15 - COMMERCE AND TRADE",
+      "path": "civic-reference/us-code/PRELIMusc15.htm",
+      "selected": true,
+      "bytes": 21681674,
+      "sha256": "bf894bd2346e4c3796e494bb95c50837b2a40c6945c289b0a3b8ad39c01c9fea",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc16",
+      "title": "United States Code \u2014 TITLE 16 - CONSERVATION",
+      "path": "civic-reference/us-code/PRELIMusc16.htm",
+      "selected": true,
+      "bytes": 24809905,
+      "sha256": "ee5571dbfcefb3a520c03d3342baff651bce08137510e865bc5f6232d52cd67c",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc17",
+      "title": "United States Code \u2014 TITLE 17 - COPYRIGHTS",
+      "path": "civic-reference/us-code/PRELIMusc17.htm",
+      "selected": true,
+      "bytes": 2060606,
+      "sha256": "bb840dbf5ce343010f3efa61a2e7ff00587618e0c22b8cd6d42b5e512daf5701",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc18",
+      "title": "United States Code \u2014 TITLE 18 - CRIMES AND CRIMINAL PROCEDURE",
+      "path": "civic-reference/us-code/PRELIMusc18.htm",
+      "selected": true,
+      "bytes": 8988899,
+      "sha256": "cb747d88f0f205d7443e8f39478a2e387ab2a152ef43af549244d699600d4c1a",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc18a",
+      "title": "United States Code \u2014 TITLE 18 - CRIMES AND CRIMINAL PROCEDURE",
+      "path": "civic-reference/us-code/PRELIMusc18a.htm",
+      "selected": true,
+      "bytes": 1750341,
+      "sha256": "3ffb8d813e96459d4ca38ae26642bc79aef38707043bf91b8605102ff60b34fb",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc19",
+      "title": "United States Code \u2014 TITLE 19 - CUSTOMS DUTIES",
+      "path": "civic-reference/us-code/PRELIMusc19.htm",
+      "selected": true,
+      "bytes": 10302398,
+      "sha256": "4290b5c42cf55ed078bd445f7bda7a660e31ca939607227c0e616f817c3bee01",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc20",
+      "title": "United States Code \u2014 TITLE 20 - EDUCATION",
+      "path": "civic-reference/us-code/PRELIMusc20.htm",
+      "selected": true,
+      "bytes": 15499738,
+      "sha256": "07e70586d2817a69c98ab4bfc08577b8562668c9b5735edfa1293fd66fb7e7a0",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc21",
+      "title": "United States Code \u2014 TITLE 21 - FOOD AND DRUGS",
+      "path": "civic-reference/us-code/PRELIMusc21.htm",
+      "selected": true,
+      "bytes": 8465719,
+      "sha256": "6255ea933b75b90b6f0ed04039346b41915249a56944c985c69729a80cf94283",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc22",
+      "title": "United States Code \u2014 TITLE 22 - FOREIGN RELATIONS AND INTERCOURSE",
+      "path": "civic-reference/us-code/PRELIMusc22.htm",
+      "selected": true,
+      "bytes": 21567510,
+      "sha256": "4a30f42866fccc9918453abc350a62ea8e7097a379daae18f0c62b181c868123",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc23",
+      "title": "United States Code \u2014 TITLE 23 - HIGHWAYS",
+      "path": "civic-reference/us-code/PRELIMusc23.htm",
+      "selected": true,
+      "bytes": 4254981,
+      "sha256": "ed2332858762dfc2306154283f929824605434047cc52177410e30ee1735a823",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc24",
+      "title": "United States Code \u2014 TITLE 24 - HOSPITALS AND ASYLUMS",
+      "path": "civic-reference/us-code/PRELIMusc24.htm",
+      "selected": true,
+      "bytes": 504108,
+      "sha256": "dd2b90b6ccc791e4fca49183fac6133445bc8ffca046c89db37978d0432847d1",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc25",
+      "title": "United States Code \u2014 TITLE 25 - INDIANS",
+      "path": "civic-reference/us-code/PRELIMusc25.htm",
+      "selected": true,
+      "bytes": 7774776,
+      "sha256": "7a45b816d65d65f1c9a8b87234bd918c9bb31047ce3d5ce0af9f46859c1be787",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc26",
+      "title": "United States Code \u2014 TITLE 26 - INTERNAL REVENUE CODE",
+      "path": "civic-reference/us-code/PRELIMusc26.htm",
+      "selected": true,
+      "bytes": 36450320,
+      "sha256": "b034cf58b48c4af3d1378fc04a0edcb15db169ae60d0702d4595ffe1ba2f4ad3",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc27",
+      "title": "United States Code \u2014 TITLE 27 - INTOXICATING LIQUORS",
+      "path": "civic-reference/us-code/PRELIMusc27.htm",
+      "selected": true,
+      "bytes": 184974,
+      "sha256": "f49c470de6947847f1a7586755c5f805d9943d453b11237373af35941ed377ab",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc28",
+      "title": "United States Code \u2014 TITLE 28 - JUDICIARY AND JUDICIAL PROCEDURE",
+      "path": "civic-reference/us-code/PRELIMusc28.htm",
+      "selected": true,
+      "bytes": 6124973,
+      "sha256": "3d642f3a2d87ddb8c2571efaeb1cc78a015175b7b6843850b404e789c65c4061",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc28a",
+      "title": "United States Code \u2014 TITLE 28 - JUDICIARY AND JUDICIAL PROCEDURE",
+      "path": "civic-reference/us-code/PRELIMusc28a.htm",
+      "selected": true,
+      "bytes": 4016914,
+      "sha256": "ce25e7f432c6326f5d054b7f5cc7e9a6b7ab5792e57ed3599bb1fb0dbe4ea46c",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc29",
+      "title": "United States Code \u2014 TITLE 29 - LABOR",
+      "path": "civic-reference/us-code/PRELIMusc29.htm",
+      "selected": true,
+      "bytes": 7981063,
+      "sha256": "1a0b06f1da07f76995c85e526304d1253aa26addd9ccc832eb787284323a7268",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc30",
+      "title": "United States Code \u2014 TITLE 30 - MINERAL LANDS AND MINING",
+      "path": "civic-reference/us-code/PRELIMusc30.htm",
+      "selected": true,
+      "bytes": 3400764,
+      "sha256": "b04fbde97bd8e07286bcf1bb93de6151e19194443547aef4984ebe769b53ef91",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc31",
+      "title": "United States Code \u2014 TITLE 31 - MONEY AND FINANCE",
+      "path": "civic-reference/us-code/PRELIMusc31.htm",
+      "selected": true,
+      "bytes": 5482717,
+      "sha256": "ba0a88b9350282dca5c47ace1e66a4cf015a34792276b97471350484913e5eb7",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc32",
+      "title": "United States Code \u2014 TITLE 32 - NATIONAL GUARD",
+      "path": "civic-reference/us-code/PRELIMusc32.htm",
+      "selected": true,
+      "bytes": 564114,
+      "sha256": "a09354a352733f265e938ccbd3f50e2443f9508b7ab2e0a831102f8c9a33347a",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc33",
+      "title": "United States Code \u2014 TITLE 33 - NAVIGATION AND NAVIGABLE WATERS",
+      "path": "civic-reference/us-code/PRELIMusc33.htm",
+      "selected": true,
+      "bytes": 9176217,
+      "sha256": "ed659b63687f8c2226bb6f23e2baad44cd8ac5937856df9865ae60257945fbe0",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc34",
+      "title": "United States Code \u2014 TITLE 34 - CRIME CONTROL AND LAW ENFORCEMENT",
+      "path": "civic-reference/us-code/PRELIMusc34.htm",
+      "selected": true,
+      "bytes": 6081221,
+      "sha256": "d1be10007f1802b92b4b1ffb651dbc3e1a1b9c19945294eafcd1d228cb59be41",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc35",
+      "title": "United States Code \u2014 TITLE 35 - PATENTS",
+      "path": "civic-reference/us-code/PRELIMusc35.htm",
+      "selected": true,
+      "bytes": 1392795,
+      "sha256": "b19324ab7a3b9235e02f66c00a905cd8f1dc4d987586f9319c26ce0ad6596121",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc36",
+      "title": "United States Code \u2014 TITLE 36 - PATRIOTIC AND NATIONAL OBSERVANCES, CEREMONIES, AND ORGANIZATIONS",
+      "path": "civic-reference/us-code/PRELIMusc36.htm",
+      "selected": true,
+      "bytes": 4112089,
+      "sha256": "948999a958feabf41cbece5a938dec113c8a999cad25f7b3c99df280394e8ac3",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc37",
+      "title": "United States Code \u2014 TITLE 37 - PAY AND ALLOWANCES OF THE UNIFORMED SERVICES",
+      "path": "civic-reference/us-code/PRELIMusc37.htm",
+      "selected": true,
+      "bytes": 2427650,
+      "sha256": "c887ae43eff93d8e9b93dd3f5fa2ceb3d18be6e3aa097cf858c6070393e1362f",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc38",
+      "title": "United States Code \u2014 TITLE 38 - VETERANS' BENEFITS",
+      "path": "civic-reference/us-code/PRELIMusc38.htm",
+      "selected": true,
+      "bytes": 12838140,
+      "sha256": "f720fda706e02dc8a203d0309fb25a9feda58e8dcf067dec8be7e5d377ba859f",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc39",
+      "title": "United States Code \u2014 TITLE 39 - POSTAL SERVICE",
+      "path": "civic-reference/us-code/PRELIMusc39.htm",
+      "selected": true,
+      "bytes": 1279344,
+      "sha256": "ab8c3136c7401e4fa3782e32c04744169a32494049a227ff0ecc6058908a193c",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc40",
+      "title": "United States Code \u2014 TITLE 40 - PUBLIC BUILDINGS, PROPERTY, AND WORKS",
+      "path": "civic-reference/us-code/PRELIMusc40.htm",
+      "selected": true,
+      "bytes": 2944937,
+      "sha256": "48789770663649b3dd8f911f33b621ffc3bed80bc3a1e6460344d1ff46665414",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc41",
+      "title": "United States Code \u2014 TITLE 41 - PUBLIC CONTRACTS",
+      "path": "civic-reference/us-code/PRELIMusc41.htm",
+      "selected": true,
+      "bytes": 2001857,
+      "sha256": "ff43e761daee48f338b24c528f0fb39a1e1b8a1f1bc5754d1501079791446717",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc42",
+      "title": "United States Code \u2014 TITLE 42 - THE PUBLIC HEALTH AND WELFARE",
+      "path": "civic-reference/us-code/PRELIMusc42.htm",
+      "selected": true,
+      "bytes": 79233093,
+      "sha256": "358254355b95f7def220c6d099ae89fbd639ea692189b1271937755b469ef1d0",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc43",
+      "title": "United States Code \u2014 TITLE 43 - PUBLIC LANDS",
+      "path": "civic-reference/us-code/PRELIMusc43.htm",
+      "selected": true,
+      "bytes": 6255420,
+      "sha256": "8c7b837ec25683e112bbe85959f5bd02b45e4d5644be516b158ec8334846657c",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc44",
+      "title": "United States Code \u2014 TITLE 44 - PUBLIC PRINTING AND DOCUMENTS",
+      "path": "civic-reference/us-code/PRELIMusc44.htm",
+      "selected": true,
+      "bytes": 2123648,
+      "sha256": "17d8adb918792a24c5d62557a1314b073bc15efa0ff3666e8aa005c83f17c8a3",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc45",
+      "title": "United States Code \u2014 TITLE 45 - RAILROADS",
+      "path": "civic-reference/us-code/PRELIMusc45.htm",
+      "selected": true,
+      "bytes": 2301140,
+      "sha256": "7f7968ed858d5fb4ca84b8d3df4c6c5438a69d37cade30233a492e86fe0a4467",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc46",
+      "title": "United States Code \u2014 TITLE 46 - SHIPPING",
+      "path": "civic-reference/us-code/PRELIMusc46.htm",
+      "selected": true,
+      "bytes": 6045721,
+      "sha256": "57432943f508b0af8f25c0e1106fbbeecaa8409bd8edec6cba60428bfaa35134",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc47",
+      "title": "United States Code \u2014 TITLE 47 - TELECOMMUNICATIONS",
+      "path": "civic-reference/us-code/PRELIMusc47.htm",
+      "selected": true,
+      "bytes": 4154815,
+      "sha256": "07861a6b0b9246d358019e3fb9337e23e6c58d3ce1ddaee8a1e31c7e487f9070",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc48",
+      "title": "United States Code \u2014 TITLE 48 - TERRITORIES AND INSULAR POSSESSIONS",
+      "path": "civic-reference/us-code/PRELIMusc48.htm",
+      "selected": true,
+      "bytes": 3543060,
+      "sha256": "14e04797605331f110c6a8dfffa1a92473fd0ed6c37b40e987db64e3f47910c6",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc49",
+      "title": "United States Code \u2014 TITLE 49 - TRANSPORTATION",
+      "path": "civic-reference/us-code/PRELIMusc49.htm",
+      "selected": true,
+      "bytes": 16813423,
+      "sha256": "83aa4c462cf47b5715167dd1f0e80a1f5cf573c398da673173f9299bf4e6dd9f",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc50",
+      "title": "United States Code \u2014 TITLE 50 - WAR AND NATIONAL DEFENSE",
+      "path": "civic-reference/us-code/PRELIMusc50.htm",
+      "selected": true,
+      "bytes": 10261443,
+      "sha256": "cbbe24835943c72766b82fde1595603d327c92d3d5c572a67f8507d91bec6806",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc50a",
+      "title": "United States Code \u2014 TITLE 50 - WAR AND NATIONAL DEFENSE",
+      "path": "civic-reference/us-code/PRELIMusc50a.htm",
+      "selected": true,
+      "bytes": 2651,
+      "sha256": "ac1481a078aea7023100939ef0b1c7032d1774ac3e9add56fa9805aa8593ea82",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc51",
+      "title": "United States Code \u2014 TITLE 51 - NATIONAL AND COMMERCIAL SPACE PROGRAMS",
+      "path": "civic-reference/us-code/PRELIMusc51.htm",
+      "selected": true,
+      "bytes": 1824965,
+      "sha256": "0fb65b74a0c4a848ca36534418614620a2b4ccadaf77768778f3dc11d990498b",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc52",
+      "title": "United States Code \u2014 TITLE 52 - VOTING AND ELECTIONS",
+      "path": "civic-reference/us-code/PRELIMusc52.htm",
+      "selected": true,
+      "bytes": 1251436,
+      "sha256": "3f6c16192b992a28b191fed31f92bf756f120539c3f4091686f4f51448c66230",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-prelimusc54",
+      "title": "United States Code \u2014 TITLE 54 - NATIONAL PARK SERVICE AND RELATED PROGRAMS",
+      "path": "civic-reference/us-code/PRELIMusc54.htm",
+      "selected": true,
+      "bytes": 1891127,
+      "sha256": "5da9d1f694d3d62c52a96be92b1c4d1baab48abe616a9ba9ddf72af3d6470f69",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-usc-source-archive",
+      "title": "U.S. Code \u2014 original full publisher XHTML ZIP",
+      "path": "civic-reference/us-code-source.zip",
+      "selected": true,
+      "bytes": 85073930,
+      "sha256": "1242b11ef20dab3287d1c65dfbccfa185e066f5d5cd3fc790ad7a4156fafbe0c",
+      "source": "https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-ma-chapter-186",
+      "title": "Massachusetts General Laws Chapter 186 \u2014 Estates for Years and at Will",
+      "path": "civic-reference/documents/ma-chapter-186.html",
+      "selected": true,
+      "bytes": 143149,
+      "sha256": "6ea9e0d2d1d39a3437d52b5f3aeda0526851b0804db48d23a39b57890260457c",
+      "source": "https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-ma-chapter-76",
+      "title": "Massachusetts General Laws Chapter 76 \u2014 School Attendance",
+      "path": "civic-reference/documents/ma-chapter-76.html",
+      "selected": true,
+      "bytes": 95798,
+      "sha256": "5b78a3b3a2797d60ada85af1b926df910b0e69afbcedf378ad51bc90802c82a5",
+      "source": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter76",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-fcc-part97",
+      "title": "FCC Part 97 \u2014 Amateur Radio Service",
+      "path": "civic-reference/documents/fcc-part97.pdf",
+      "selected": true,
+      "bytes": 355480,
+      "sha256": "fb551de5d1feb7c68b6134b16b765f45585cb352d2dbac34e29c3aed9824b74a",
+      "source": "https://www.govinfo.gov/content/pkg/CFR-2025-title47-vol5/pdf/CFR-2025-title47-vol5-part97.pdf",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "callbook-callsigns-sqlite",
+      "title": "Offline FCC amateur callsign database",
+      "path": "civic-reference/callsigns.sqlite",
+      "selected": true,
+      "bytes": 469094400,
+      "sha256": "787428b4c00201e9e16f37b52c696750fee8b65320e805c25a33efe99a27ec1d",
+      "source": null,
+      "repository": "civic-reference"
+    },
+    {
+      "id": "callbook-fcc-amateur-source-zip",
+      "title": "Original FCC amateur license bulk archive",
+      "path": "civic-reference/fcc-amateur-source.zip",
+      "selected": true,
+      "bytes": 197919941,
+      "sha256": "c3a45d4b0ebc0928ddc85f1c2a920fa6d357776e8b57af9c53ce697b273903ac",
+      "source": "https://data.fcc.gov/download/pub/uls/complete/l_amat.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "callbook-zcta-2025-zip",
+      "title": "2025 Census ZIP-area coordinates",
+      "path": "civic-reference/zcta-2025.zip",
+      "selected": true,
+      "bytes": 952026,
+      "sha256": "51516a4283bab5cd2376eec75609ddc4b363a18297e8adeeaac7b03cf7c84dbe",
+      "source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "radio-technician-json",
+      "title": "Technician 2026-2030 question pool (JSON)",
+      "path": "radio-study/technician-2026-2030/technician-2026-2030.json",
+      "selected": true,
+      "bytes": 165808,
+      "sha256": "7014462c1e2566a6587a153ed1ac8cda682080c3ee9318a526faf2159949fc92",
+      "source": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.json",
+      "repository": "radio-study"
+    },
+    {
+      "id": "radio-technician-txt",
+      "title": "Technician 2026-2030 question pool (TXT)",
+      "path": "radio-study/technician-2026-2030/technician-2026-2030.txt",
+      "selected": true,
+      "bytes": 99927,
+      "sha256": "1bece9ad5385b3958c33bb75b9b43046ae3caff2a35391177fa2e87a47801cf9",
+      "source": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.txt",
+      "repository": "radio-study"
+    },
+    {
+      "id": "radio-general-json",
+      "title": "General 2023-2027 question pool (JSON)",
+      "path": "radio-study/general-2023-2027/general-2023-2027.json",
+      "selected": true,
+      "bytes": 179308,
+      "sha256": "deaaa0f412a00b9f410d50e91542fe4384da558a312f73f95fdc72304d239ca0",
+      "source": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.json",
+      "repository": "radio-study"
+    },
+    {
+      "id": "radio-general-txt",
+      "title": "General 2023-2027 question pool (TXT)",
+      "path": "radio-study/general-2023-2027/general-2023-2027.txt",
+      "selected": true,
+      "bytes": 111223,
+      "sha256": "fd73f164de4900274aafcbb72c90f6d72cbd3e3db2ff7fde63c6f261244bbba4",
+      "source": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.txt",
+      "repository": "radio-study"
+    },
+    {
+      "id": "radio-extra-json",
+      "title": "Amateur Extra 2024-2028 question pool (JSON)",
+      "path": "radio-study/extra-2024-2028/extra-2024-2028.json",
+      "selected": true,
+      "bytes": 259935,
+      "sha256": "1c089f72b26429410e91aee8ae45f404f0a264b55d404a6bfa2da992ebef109b",
+      "source": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.json",
+      "repository": "radio-study"
+    },
+    {
+      "id": "radio-extra-txt",
+      "title": "Amateur Extra 2024-2028 question pool (TXT)",
+      "path": "radio-study/extra-2024-2028/extra-2024-2028.txt",
+      "selected": true,
+      "bytes": 163330,
+      "sha256": "9ffb7891930411d0e889ea93886b18724a0242320b190e8f9c6c99ec50bb56f2",
+      "source": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.txt",
+      "repository": "radio-study"
+    }
+  ],
+  "unmanaged_archives": [
+    {
+      "path": "wikipedia_en_medicine_maxi_2026-01.zim",
+      "bytes": 2190845681,
+      "note": "Not registered; preserve separately or add an explicit source recipe."
+    }
+  ]
+}

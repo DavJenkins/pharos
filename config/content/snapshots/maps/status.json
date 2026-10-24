@@ -1,0 +1,3320 @@
+{
+  "files": {
+    "ma-nfhl": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/state/nfhl.zip",
+      "etag": "\"3e869191f9378b18a375666feb0d53dd-25\"",
+      "modified": "Thu, 24 Jul 2025 18:05:02 GMT",
+      "bytes": 201914783,
+      "sha256": "5f74914158e56dad478d495ef1d47c8fc55e66842b7f8017d926bb030da686c2",
+      "checked": 1792036143.8583522,
+      "saved": 1792036143.8583536,
+      "error": null
+    },
+    "parcels-2": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M002_ACTON.zip",
+      "etag": "\"d8fbc5c406f6abd49a86e8c67b990eca\"",
+      "modified": "Thu, 27 Aug 2026 14:14:24 GMT",
+      "bytes": 5507696,
+      "sha256": "7bdf0849abe93eb7124e64980ad60799436a753bc135af01e7a5509af9def8b0",
+      "checked": 1792036151.243435,
+      "saved": 1792036151.243436,
+      "error": null
+    },
+    "parcels-10": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M010_ARLINGTON.zip",
+      "etag": "\"b5ca7ad88d5b7e8e8352687866e2b6f9\"",
+      "modified": "Tue, 31 Mar 2026 15:20:03 GMT",
+      "bytes": 3728863,
+      "sha256": "d87d7231fcb037eaa703a137505187e2ec31fe2ca95a145d0e38598161d1211f",
+      "checked": 1792036152.1977234,
+      "saved": 1792036152.1977243,
+      "error": null
+    },
+    "parcels-11": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M011_ASHBURNHAM.zip",
+      "etag": "\"233e8fd08c4a6815433c303fa7fc694e\"",
+      "modified": "Tue, 19 Aug 2025 17:09:10 GMT",
+      "bytes": 1523875,
+      "sha256": "da3c49dcfb2ea221c1862b278b01304a314275c05c42e7fc3f3914f682cc8394",
+      "checked": 1792036152.8776364,
+      "saved": 1792036152.877638,
+      "error": null
+    },
+    "parcels-12": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M012_ASHBY.zip",
+      "etag": "\"929eb234e94e684d1b1dfd889cb62482\"",
+      "modified": "Thu, 27 Aug 2026 14:14:28 GMT",
+      "bytes": 851531,
+      "sha256": "9c9417f3267b61c0465b5f7f4fc561f4e7252ef7c1e9712d3c1048c2c790a6a0",
+      "checked": 1792036153.4067278,
+      "saved": 1792036153.4067297,
+      "error": null
+    },
+    "parcels-14": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M014_ASHLAND.zip",
+      "etag": "\"ca3fc911605b283bace4a7d5720adff1\"",
+      "modified": "Tue, 29 Sep 2026 05:49:05 GMT",
+      "bytes": 2137635,
+      "sha256": "56c3078f38227bdcc476595fe2ec873321ae4c7b41dc2ddf6f1d656ea7274dee",
+      "checked": 1792036153.9909918,
+      "saved": 1792036153.9909933,
+      "error": null
+    },
+    "parcels-15": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M015_ATHOL.zip",
+      "etag": "\"95eedbb0a77a4d9fe30784aedb7b6645\"",
+      "modified": "Fri, 22 May 2026 18:10:22 GMT",
+      "bytes": 2010879,
+      "sha256": "9aca07dcfb503b96844cd21dce45d7be343b1678d0af7f71bafa8e4140094441",
+      "checked": 1792036155.0133808,
+      "saved": 1792036155.013382,
+      "error": null
+    },
+    "parcels-17": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M017_AUBURN.zip",
+      "etag": "\"bb0285379e20825f9e12690fbf33dc9c\"",
+      "modified": "Fri, 22 May 2026 18:10:22 GMT",
+      "bytes": 2013258,
+      "sha256": "2b2641df0e4690d28b88632113fd8a3e3efc3df94fb61da0bd5e5c3e15061cc5",
+      "checked": 1792036155.62404,
+      "saved": 1792036155.6240413,
+      "error": null
+    },
+    "parcels-19": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M019_AYER.zip",
+      "etag": "\"f3a62fda13b2d84577ab90a3363fdbc6\"",
+      "modified": "Tue, 19 Aug 2025 17:09:10 GMT",
+      "bytes": 1506013,
+      "sha256": "9d3b881ab763da9f8c58c8305b33db80682817d42a251860f75d937883bf609a",
+      "checked": 1792036156.2008326,
+      "saved": 1792036156.200834,
+      "error": null
+    },
+    "parcels-21": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M021_BARRE.zip",
+      "etag": "\"c09dd217921ea9dc507f178649fc5c3a\"",
+      "modified": "Tue, 28 Apr 2026 14:04:22 GMT",
+      "bytes": 1039919,
+      "sha256": "8a593e906110d94684bf819468d89f902c2effe095fbb434ef1fa72dc40333f4",
+      "checked": 1792036156.7345855,
+      "saved": 1792036156.7345867,
+      "error": null
+    },
+    "parcels-23": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M023_BEDFORD.zip",
+      "etag": "\"1037a4244e41eae86f0ccd124ded926d\"",
+      "modified": "Thu, 22 Aug 2024 14:41:36 GMT",
+      "bytes": 2055635,
+      "sha256": "c21c66da6e0623bb5a47469f0cf109ccd654028c6b62bb4ca6fbfda2efcaff83",
+      "checked": 1792036157.277456,
+      "saved": 1792036157.2774575,
+      "error": null
+    },
+    "parcels-26": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M026_BELMONT.zip",
+      "etag": "\"d1e300ad672943ba5356f324e6c98f51\"",
+      "modified": "Tue, 06 Feb 2024 21:20:42 GMT",
+      "bytes": 2654729,
+      "sha256": "90c63729976c6ebde28b9dc9b69b51bee56889d6d434ac2daec92571a0211461",
+      "checked": 1792036158.0565796,
+      "saved": 1792036158.0565808,
+      "error": null
+    },
+    "parcels-28": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M028_BERLIN.zip",
+      "etag": "\"66ed9bd2ac90ce13dc97a510a29dc830\"",
+      "modified": "Tue, 28 Apr 2026 14:04:26 GMT",
+      "bytes": 847822,
+      "sha256": "5bd0efab115d6f52fc4cc17f4121136f77f040e0d044f19f9038298f1c1f6df1",
+      "checked": 1792036158.5925233,
+      "saved": 1792036158.5925248,
+      "error": null
+    },
+    "parcels-31": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M031_BILLERICA.zip",
+      "etag": "\"b131b52df65a4cb42facde71d1666a59\"",
+      "modified": "Tue, 31 Mar 2026 15:20:06 GMT",
+      "bytes": 6370306,
+      "sha256": "bd47850fd113ec5702053e708510139856bbcf85124807fbd57070ccc0080786",
+      "checked": 1792036159.5980682,
+      "saved": 1792036159.5980694,
+      "error": null
+    },
+    "parcels-32": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M032_BLACKSTONE.zip",
+      "etag": "\"826ca6cdaba50af09b963e89334e2915\"",
+      "modified": "Tue, 19 Aug 2025 17:09:10 GMT",
+      "bytes": 1079863,
+      "sha256": "dfaf697f5e1e0e4876f706f9504e5b5d8fba35992f3c5392b1a084919a807c02",
+      "checked": 1792036160.3323758,
+      "saved": 1792036160.3323774,
+      "error": null
+    },
+    "parcels-34": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M034_BOLTON.zip",
+      "etag": "\"e1e3b011c34ec7ea1e177c037196833f\"",
+      "modified": "Fri, 22 May 2026 18:10:22 GMT",
+      "bytes": 1013532,
+      "sha256": "eac36f523bc1da76ac8c9284d82376c44831b6d9e15c15054f49c66d016124f1",
+      "checked": 1792036160.8011727,
+      "saved": 1792036160.8011742,
+      "error": null
+    },
+    "parcels-37": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M037_BOXBOROUGH.zip",
+      "etag": "\"e5dd29866e4fa06e377bab70d13c741e\"",
+      "modified": "Thu, 27 Aug 2026 14:14:28 GMT",
+      "bytes": 611266,
+      "sha256": "8dfd898959fe6afd536faa0f49cf4a8a535e15d9eddbfc31459e34713a1357d9",
+      "checked": 1792036161.2118027,
+      "saved": 1792036161.2118042,
+      "error": null
+    },
+    "parcels-39": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M039_BOYLSTON.zip",
+      "etag": "\"6c1ed91dabb21a1507a50daa23fb2b7c\"",
+      "modified": "Wed, 22 Jul 2026 17:01:17 GMT",
+      "bytes": 781278,
+      "sha256": "2b07d4e8551cef44e36408b84470d4d9ed1c270a13c2fd7722368d7813f68733",
+      "checked": 1792036161.6636443,
+      "saved": 1792036161.6636453,
+      "error": null
+    },
+    "parcels-45": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M045_BROOKFIELD.zip",
+      "etag": "\"2eaf744d72d1c640880d4cb1b5a46457\"",
+      "modified": "Wed, 22 Jul 2026 17:01:17 GMT",
+      "bytes": 877621,
+      "sha256": "87562074aeaa56fefbfeec95a2861905a8e4f2bbe837c98ef729f68c6c412534",
+      "checked": 1792036162.1168146,
+      "saved": 1792036162.1168168,
+      "error": null
+    },
+    "parcels-48": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M048_BURLINGTON.zip",
+      "etag": "\"b211614871b61289797a25433eadaa9a\"",
+      "modified": "Fri, 22 May 2026 18:10:22 GMT",
+      "bytes": 2754121,
+      "sha256": "3bf3b16b4eea9da0284ac976f95b7c4ee07418b284908fb3f3f7b0f7d829a679",
+      "checked": 1792036162.7563872,
+      "saved": 1792036162.7563884,
+      "error": null
+    },
+    "parcels-49": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M049_CAMBRIDGE.zip",
+      "etag": "\"2826dbdc0beb16fcdbe735b60b60300c\"",
+      "modified": "Wed, 24 Dec 2025 19:38:10 GMT",
+      "bytes": 4473735,
+      "sha256": "fca6ceb1816f16bbde25ea6610fdc30dcb4e0f79c77561b062b04a9abf817b60",
+      "checked": 1792036163.6318102,
+      "saved": 1792036163.6318119,
+      "error": null
+    },
+    "parcels-51": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M051_CARLISLE.zip",
+      "etag": "\"a54724e597eed840c08994b83cca37d5\"",
+      "modified": "Tue, 31 Mar 2026 15:20:06 GMT",
+      "bytes": 1093313,
+      "sha256": "352be73209583613d47563326cc4587368b2154fbfcb18794a43e393a6f0a000",
+      "checked": 1792036164.3522682,
+      "saved": 1792036164.3522701,
+      "error": null
+    },
+    "parcels-54": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M054_CHARLTON.zip",
+      "etag": "\"43397633270dd259e5bba6a10add797e\"",
+      "modified": "Wed, 24 Dec 2025 19:38:10 GMT",
+      "bytes": 3552562,
+      "sha256": "1607f79e3b1ab399c3fe79b90ec268a51efb61438e5763f1a53ee98786249606",
+      "checked": 1792036165.070194,
+      "saved": 1792036165.070195,
+      "error": null
+    },
+    "parcels-56": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M056_CHELMSFORD.zip",
+      "etag": "\"b67ea43b15943c2b42dd7fe748e968a0\"",
+      "modified": "Fri, 22 May 2026 18:10:19 GMT",
+      "bytes": 6693489,
+      "sha256": "8b8665d7aae78bb6debd240d519c9505167912d8a7d4682b1951f4dddcd10358",
+      "checked": 1792036166.11721,
+      "saved": 1792036166.1172109,
+      "error": null
+    },
+    "parcels-64": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M064_CLINTON.zip",
+      "etag": "\"0be7e2ac2b70f824924f9d494fbf60b6\"",
+      "modified": "Thu, 27 Aug 2026 14:14:28 GMT",
+      "bytes": 1368208,
+      "sha256": "4e87c7d12106c26e02b9b583a5d0b4e17ea197f008c2aec8b67fd8a63d2bea87",
+      "checked": 1792036166.8464074,
+      "saved": 1792036166.8464086,
+      "error": null
+    },
+    "parcels-67": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M067_CONCORD.zip",
+      "etag": "\"0c56c10e4b85698aec85b2088e1a486d\"",
+      "modified": "Wed, 22 Jul 2026 17:01:17 GMT",
+      "bytes": 2808118,
+      "sha256": "1c78d39a2a9b4164b2f2f8f651a25ed53fbdaa4bef2b5fd52535e121feafd144",
+      "checked": 1792036167.522372,
+      "saved": 1792036167.5223734,
+      "error": null
+    },
+    "parcels-77": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M077_DOUGLAS.zip",
+      "etag": "\"0a84280a12969df1a0a6cb991019786e\"",
+      "modified": "Tue, 29 Sep 2026 05:49:09 GMT",
+      "bytes": 1659338,
+      "sha256": "9442c4d1e579d6b3f03fceeffc23a85753cf6c6fa72809dfd15478e8a0c277c0",
+      "checked": 1792036168.1808765,
+      "saved": 1792036168.1808782,
+      "error": null
+    },
+    "parcels-79": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M079_DRACUT.zip",
+      "etag": "\"052d1918fb7606c7722e590510abf605\"",
+      "modified": "Thu, 29 Jan 2026 15:02:39 GMT",
+      "bytes": 3709922,
+      "sha256": "4ace946c89c770ac676b4a1df47adddea6348659a057cc3e8f79eb1f28e5d7cc",
+      "checked": 1792036168.9610782,
+      "saved": 1792036168.9610798,
+      "error": null
+    },
+    "parcels-80": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M080_DUDLEY.zip",
+      "etag": "\"1f267beb81d10ae8823e080287bb8707\"",
+      "modified": "Tue, 31 Mar 2026 15:20:06 GMT",
+      "bytes": 1609732,
+      "sha256": "fcf3837baddcb3a1f8a1e055772105f093fec701bef483f59e9ef21ff9feb34c",
+      "checked": 1792036169.6781945,
+      "saved": 1792036169.6781952,
+      "error": null
+    },
+    "parcels-81": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M081_DUNSTABLE.zip",
+      "etag": "\"b82fd52436226af9a0c8ab99f1cf1189\"",
+      "modified": "Fri, 22 May 2026 18:10:19 GMT",
+      "bytes": 630055,
+      "sha256": "7b02d33e07a9cf31a2e618f66a1e393d0f5a47e922189868e44359280f404c68",
+      "checked": 1792036170.2096677,
+      "saved": 1792036170.2096689,
+      "error": null
+    },
+    "parcels-84": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M084_EASTBROOKFIELD.zip",
+      "etag": "\"bc7a38f4754caa5855b56149b9b2bda9\"",
+      "modified": "Tue, 29 Sep 2026 05:49:09 GMT",
+      "bytes": 559180,
+      "sha256": "3bfeb99637b97cce35100ede09c48c5b84b556457e61b10d133fa92276a9588f",
+      "checked": 1792036170.7149324,
+      "saved": 1792036170.7149339,
+      "error": null
+    },
+    "parcels-93": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M093_EVERETT.zip",
+      "etag": "\"8c6b3d91fe7b1ef20e80c57a4a0537b3\"",
+      "modified": "Tue, 19 Aug 2025 17:09:12 GMT",
+      "bytes": 2071046,
+      "sha256": "5c76e4246d531af949cc32ef65cf34fd0cb64d8b05d2438e2d532eaedfeed76d",
+      "checked": 1792036171.332142,
+      "saved": 1792036171.332143,
+      "error": null
+    },
+    "parcels-97": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M097_FITCHBURG.zip",
+      "etag": "\"5bebf98686f3006d58a4351643af6b83\"",
+      "modified": "Fri, 26 Jun 2026 22:18:05 GMT",
+      "bytes": 4125603,
+      "sha256": "25930b434bb90bedc73629abf1756acd84344e24734f12bf633e2e43d9013411",
+      "checked": 1792036172.117972,
+      "saved": 1792036172.1179733,
+      "error": null
+    },
+    "parcels-100": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M100_FRAMINGHAM.zip",
+      "etag": "\"082eff31bbf6b571bf7b6c9fec9de146-2\"",
+      "modified": "Tue, 31 Dec 2024 15:07:29 GMT",
+      "bytes": 8582562,
+      "sha256": "22cfb686ef36cf071878b08746d4cedc91ef03e5d0007fe352f9f428feeaaa67",
+      "checked": 1792036173.3585742,
+      "saved": 1792036173.358575,
+      "error": null
+    },
+    "parcels-103": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M103_GARDNER.zip",
+      "etag": "\"ed0b590f2a3d7ab20671d057d0d77a26\"",
+      "modified": "Fri, 22 May 2026 18:10:21 GMT",
+      "bytes": 2267385,
+      "sha256": "c29507ffa6ff1d74f6604e60515f5f003d0cca0ade02d264320cf210adea0650",
+      "checked": 1792036174.3612354,
+      "saved": 1792036174.3612368,
+      "error": null
+    },
+    "parcels-110": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M110_GRAFTON.zip",
+      "etag": "\"1f7cf73256ed1885597b97f943913727\"",
+      "modified": "Thu, 18 Sep 2025 14:07:43 GMT",
+      "bytes": 3010719,
+      "sha256": "db1de8eda5a844be7275bbbad8895ad101e4aee595983d84acbc5d2e49d89657",
+      "checked": 1792036175.0911102,
+      "saved": 1792036175.0911112,
+      "error": null
+    },
+    "parcels-115": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M115_GROTON.zip",
+      "etag": "\"f1bbbe12fd775300cb9da8b4112fa3ee\"",
+      "modified": "Tue, 28 Apr 2026 14:04:26 GMT",
+      "bytes": 3509236,
+      "sha256": "54823d8fec29286ca24d00da705f1f97f393c0d683141720d084b36287dbb573",
+      "checked": 1792036175.8777864,
+      "saved": 1792036175.8777876,
+      "error": null
+    },
+    "parcels-124": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M124_HARDWICK.zip",
+      "etag": "\"43661d2533e8f5d9d7140349b6c829b6\"",
+      "modified": "Thu, 18 Sep 2025 14:07:43 GMT",
+      "bytes": 738935,
+      "sha256": "94488ccba45043faede0e799e893e827faa34628fe8502cdfa67439609f44ce3",
+      "checked": 1792036176.4116154,
+      "saved": 1792036176.411617,
+      "error": null
+    },
+    "parcels-125": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M125_HARVARD.zip",
+      "etag": "\"fc79469275601531b920871f487e5427\"",
+      "modified": "Tue, 29 Sep 2026 05:49:06 GMT",
+      "bytes": 1224686,
+      "sha256": "cd32874ec0a891de82c2ef3165f1ddd3228db3070090637139e747e3b74aab11",
+      "checked": 1792036176.9506085,
+      "saved": 1792036176.95061,
+      "error": null
+    },
+    "parcels-134": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M134_HOLDEN.zip",
+      "etag": "\"427712bf71047c05ae3e492d5cda40f1\"",
+      "modified": "Tue, 31 Mar 2026 15:20:03 GMT",
+      "bytes": 6060889,
+      "sha256": "d0c0e2129ce7747d3f7a08a77c905ff8b5992e2f14057c5602e87743b69d836f",
+      "checked": 1792036178.0600333,
+      "saved": 1792036178.0600352,
+      "error": null
+    },
+    "parcels-136": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M136_HOLLISTON.zip",
+      "etag": "\"9296b2ef82fc9f37e08a04a1e08fe7b0\"",
+      "modified": "Mon, 28 Jul 2025 18:18:09 GMT",
+      "bytes": 3464789,
+      "sha256": "603444b0c0f85232d9e04883c523356dc687316c8aeda6f47858b125e862bb5d",
+      "checked": 1792036178.9474473,
+      "saved": 1792036178.9474485,
+      "error": null
+    },
+    "parcels-138": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M138_HOPEDALE.zip",
+      "etag": "\"d5195c940f9c26a309f6bd23f6d42d55\"",
+      "modified": "Tue, 29 Sep 2026 05:49:06 GMT",
+      "bytes": 1153014,
+      "sha256": "4f6109831649658afaf765fec37dd5b9af7e10f9b9d81bd8a8784f6d5ff5847b",
+      "checked": 1792036179.6134975,
+      "saved": 1792036179.6134996,
+      "error": null
+    },
+    "parcels-139": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M139_HOPKINTON.zip",
+      "etag": "\"ae240cdc958d7e4b90ec6a0885405f18\"",
+      "modified": "Fri, 30 May 2025 13:47:36 GMT",
+      "bytes": 4009346,
+      "sha256": "2f39b46f30f3eb3502238e5ecdd70eaf6364b39369d0a1dd9cca64e48cd975c5",
+      "checked": 1792036180.4561412,
+      "saved": 1792036180.4561427,
+      "error": null
+    },
+    "parcels-140": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M140_HUBBARDSTON.zip",
+      "etag": "\"cc345c543235a91264dc6037c7a5af66\"",
+      "modified": "Mon, 28 Jul 2025 18:18:08 GMT",
+      "bytes": 1362874,
+      "sha256": "9938b359b212c9a0dc4a16a2566635fe9ae9f5e6a0a0bf77a12aa942eea714f7",
+      "checked": 1792036181.1351938,
+      "saved": 1792036181.1351955,
+      "error": null
+    },
+    "parcels-141": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M141_HUDSON.zip",
+      "etag": "\"53b8dbe84a4e50ef1f6962e695c93dd4\"",
+      "modified": "Mon, 24 Nov 2025 20:01:59 GMT",
+      "bytes": 4048091,
+      "sha256": "74d40c0957843a0e6e1f34ffc08c44f212e3315ef52af9fdf1f91312c4bd84aa",
+      "checked": 1792036181.84159,
+      "saved": 1792036181.8415914,
+      "error": null
+    },
+    "parcels-147": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M147_LANCASTER.zip",
+      "etag": "\"102cac6ef6dec5a2af11892cacf3aa1e\"",
+      "modified": "Wed, 24 Dec 2025 19:38:10 GMT",
+      "bytes": 1358483,
+      "sha256": "02174eb680c6766e3db7dba239c7e76dc6966c9dae2cd2b07340f0d61f68040a",
+      "checked": 1792036182.496499,
+      "saved": 1792036182.4965003,
+      "error": null
+    },
+    "parcels-151": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M151_LEICESTER.zip",
+      "etag": "\"30e35b1d593c943f03ff5d1cb4c00e71\"",
+      "modified": "Thu, 25 Jun 2026 15:38:10 GMT",
+      "bytes": 2576072,
+      "sha256": "9135ed0f80af9e1f2d4140c24c37b28140858982f2fd217f79c3a3d73d12b2a3",
+      "checked": 1792036183.17808,
+      "saved": 1792036183.178082,
+      "error": null
+    },
+    "parcels-153": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M153_LEOMINSTER.zip",
+      "etag": "\"ae4a3a4fa6eea311cd5b9aed3143a4e5\"",
+      "modified": "Wed, 24 Dec 2025 19:38:10 GMT",
+      "bytes": 3598707,
+      "sha256": "9b0108c402bc9ce156dcf580c46544b57f2a9e11b3f4c3b86b5707d90ecc6867",
+      "checked": 1792036183.9252481,
+      "saved": 1792036183.9252493,
+      "error": null
+    },
+    "parcels-155": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M155_LEXINGTON.zip",
+      "etag": "\"136ea8518cb82c4575202101d4cfe29f\"",
+      "modified": "Tue, 28 Apr 2026 14:04:23 GMT",
+      "bytes": 2810060,
+      "sha256": "323de212ca05e184a2aa34a02220fe5d1207dcf46635165b2196588e62232333",
+      "checked": 1792036184.932587,
+      "saved": 1792036184.932589,
+      "error": null
+    },
+    "parcels-157": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M157_LINCOLN.zip",
+      "etag": "\"db72a62dc0f926f9d3e61d302baae58e\"",
+      "modified": "Tue, 19 Aug 2025 17:09:11 GMT",
+      "bytes": 1188278,
+      "sha256": "4861dfeb3006c6da18671fbe11b10f364105380dbd1c46a6b9008938ea873f0b",
+      "checked": 1792036185.5313885,
+      "saved": 1792036185.5313897,
+      "error": null
+    },
+    "parcels-158": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M158_LITTLETON.zip",
+      "etag": "\"29bce14fcdea151d6eec992de0a5c3dc\"",
+      "modified": "Thu, 25 Jun 2026 15:38:07 GMT",
+      "bytes": 2179818,
+      "sha256": "cbaab34655fd3e918622cc0e26555015622a416c0c159474fd198325094e1498",
+      "checked": 1792036186.09586,
+      "saved": 1792036186.0958612,
+      "error": null
+    },
+    "parcels-160": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M160_LOWELL.zip",
+      "etag": "\"c6a7fd5abbbfcae2118e495c790795cc\"",
+      "modified": "Mon, 24 Nov 2025 20:01:57 GMT",
+      "bytes": 6192778,
+      "sha256": "0bee224a3524bba60fad0b840b5e77b33ea1d15bf44947318ec9d47b8e7fd2c3",
+      "checked": 1792036187.2271447,
+      "saved": 1792036187.2271461,
+      "error": null
+    },
+    "parcels-162": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M162_LUNENBURG.zip",
+      "etag": "\"d72947a686386d6a8ad39f17f2580195\"",
+      "modified": "Tue, 29 Sep 2026 05:49:06 GMT",
+      "bytes": 1870921,
+      "sha256": "ef6d8582e9ee694ac3f055aa8e0bac92d75e319432a28ae772e337cf0c92b04c",
+      "checked": 1792036188.0304317,
+      "saved": 1792036188.0304327,
+      "error": null
+    },
+    "parcels-165": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M165_MALDEN.zip",
+      "etag": "\"9f039b63320093bb17b5c95f279d506b\"",
+      "modified": "Thu, 25 Jun 2026 15:38:08 GMT",
+      "bytes": 2783973,
+      "sha256": "69ccba4f8873bce8e6ea9fb4d1b3e0533fbb26054ad5ab4a15b0de9191f92ffa",
+      "checked": 1792036188.7041206,
+      "saved": 1792036188.7041218,
+      "error": null
+    },
+    "parcels-170": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M170_MARLBOROUGH.zip",
+      "etag": "\"80085008714187c638967672b238260d\"",
+      "modified": "Tue, 24 Jun 2025 14:44:07 GMT",
+      "bytes": 3867382,
+      "sha256": "54be23c04b0530d7b4298b6d25740c255a210a9868606beca8a44eb9bf6dd1b4",
+      "checked": 1792036189.7060566,
+      "saved": 1792036189.7060575,
+      "error": null
+    },
+    "parcels-174": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M174_MAYNARD.zip",
+      "etag": "\"66fc544d6f01424cdaf08bd2fb2a0ac3\"",
+      "modified": "Thu, 18 Sep 2025 14:07:44 GMT",
+      "bytes": 1024180,
+      "sha256": "0366cc46978c0b7f3a2b79bd57b6abd08da5df24cd54829864aa6be60876b6dd",
+      "checked": 1792036190.3649235,
+      "saved": 1792036190.3649244,
+      "error": null
+    },
+    "parcels-176": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M176_MEDFORD.zip",
+      "etag": "\"b56bb3889fae458db348ed3108ffa509\"",
+      "modified": "Tue, 31 Mar 2026 15:20:04 GMT",
+      "bytes": 4757499,
+      "sha256": "aef001adfd3e2f4c42a4641bcd09aa51f8b4888d5aca065b80df0ef59024fa6a",
+      "checked": 1792036191.3308883,
+      "saved": 1792036191.3308895,
+      "error": null
+    },
+    "parcels-178": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M178_MELROSE.zip",
+      "etag": "\"35eb0bd3e3a356fddc68543bdfb2fb69\"",
+      "modified": "Tue, 28 Apr 2026 14:04:23 GMT",
+      "bytes": 2083599,
+      "sha256": "c91a0147045e7a3c5ad5bd88332cbcfba173f2567b948f9bfa344918e3e9b6ca",
+      "checked": 1792036192.083828,
+      "saved": 1792036192.0838294,
+      "error": null
+    },
+    "parcels-179": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M179_MENDON.zip",
+      "etag": "\"143dcf649ed7aa3ca738de4ac26bb98e\"",
+      "modified": "Tue, 31 Mar 2026 15:20:04 GMT",
+      "bytes": 1655932,
+      "sha256": "2c32aa98043827289559dc3ee29329fcc439fa7a11d3ce646b1a1c5709ee471d",
+      "checked": 1792036192.7059817,
+      "saved": 1792036192.7059832,
+      "error": null
+    },
+    "parcels-185": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M185_MILFORD.zip",
+      "etag": "\"ff503961e2eadbcadfc3dd3d9fc0c3cf\"",
+      "modified": "Tue, 28 Apr 2026 14:04:23 GMT",
+      "bytes": 2816839,
+      "sha256": "eeb39e4584ce55bb0a647d7fa53675d4fee31b3d2ec533605bc5d9e466c0d204",
+      "checked": 1792036193.323052,
+      "saved": 1792036193.3230534,
+      "error": null
+    },
+    "parcels-186": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M186_MILLBURY.zip",
+      "etag": "\"238fe9528c9e99aa795fec1ccf23e23a\"",
+      "modified": "Fri, 27 Feb 2026 15:46:56 GMT",
+      "bytes": 2857584,
+      "sha256": "564ed46db70297f821680c068156826e4ac6ea68e1cfef5f4cf9c365993a1b4a",
+      "checked": 1792036194.084928,
+      "saved": 1792036194.084929,
+      "error": null
+    },
+    "parcels-188": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M188_MILLVILLE.zip",
+      "etag": "\"12af39c5905743235e928aba7ae5bfb3\"",
+      "modified": "Mon, 24 Nov 2025 20:01:58 GMT",
+      "bytes": 534759,
+      "sha256": "2997f45020e21d42fb731dc217870fa6873d41d61a63fecc9730c006c543bb0d",
+      "checked": 1792036194.5852518,
+      "saved": 1792036194.5852528,
+      "error": null
+    },
+    "parcels-198": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M198_NATICK.zip",
+      "etag": "\"8aa07f38c65b2afb501c4e42ceb2f690\"",
+      "modified": "Tue, 29 Sep 2026 05:49:07 GMT",
+      "bytes": 4115608,
+      "sha256": "985f29140ec99d16bd35a651eb418343bb94b182674f20c151592c1236d56233",
+      "checked": 1792036195.2990785,
+      "saved": 1792036195.2990792,
+      "error": null
+    },
+    "parcels-202": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M202_NEWBRAINTREE.zip",
+      "etag": "\"97adf3b37dbb05ea4403f713cdb7f672\"",
+      "modified": "Fri, 22 May 2026 18:10:22 GMT",
+      "bytes": 630376,
+      "sha256": "ce9805112f8d388c979da203f5e4aec3278dae25509d20b22806a5aae8647191",
+      "checked": 1792036195.946611,
+      "saved": 1792036195.9466126,
+      "error": null
+    },
+    "parcels-207": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M207_NEWTON.zip",
+      "etag": "\"9eb003598b8ff90f63c17bcde1dd25d6-2\"",
+      "modified": "Wed, 24 Dec 2025 19:38:09 GMT",
+      "bytes": 10038669,
+      "sha256": "5338ee105a315d23e0081869248ac612749d7344879af8f76bb6bfcf5fb26f87",
+      "checked": 1792036197.036044,
+      "saved": 1792036197.0360448,
+      "error": null
+    },
+    "parcels-212": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M212_NORTHBROOKFIELD.zip",
+      "etag": "\"62942d15ca4d0682b87a9d296d3f3b4a\"",
+      "modified": "Fri, 22 May 2026 18:10:22 GMT",
+      "bytes": 1127862,
+      "sha256": "a5fb4db540ad7377666216f1b981a2d9f7e151c166bee7caf26974c78dc38709",
+      "checked": 1792036197.93124,
+      "saved": 1792036197.9312413,
+      "error": null
+    },
+    "parcels-213": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M213_NORTHREADING.zip",
+      "etag": "\"07edbf0bb05ec82bba399905bba1e03d\"",
+      "modified": "Thu, 25 Jun 2026 15:38:09 GMT",
+      "bytes": 2060817,
+      "sha256": "a6a2590a26df95873adaade482804f4aeea22f073f21f5418df25ed358a18204",
+      "checked": 1792036198.554684,
+      "saved": 1792036198.554685,
+      "error": null
+    },
+    "parcels-215": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M215_NORTHBOROUGH.zip",
+      "etag": "\"41463abe76cf907dadda10b88bc284f1\"",
+      "modified": "Thu, 29 Jan 2026 15:02:39 GMT",
+      "bytes": 6075310,
+      "sha256": "f8697dd8ac584a7bb0cd9b550bbc72173ebdf29a4f7243e3a6b015bd070b679b",
+      "checked": 1792036199.4739332,
+      "saved": 1792036199.4739344,
+      "error": null
+    },
+    "parcels-216": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M216_NORTHBRIDGE.zip",
+      "etag": "\"83d02a01df35f48c5cf4d876b873e4fa\"",
+      "modified": "Thu, 27 Aug 2026 14:14:28 GMT",
+      "bytes": 2719572,
+      "sha256": "574ff31bd468a10576b85e7c0400bd7fc3b90b8e9561a6909245c0325df71d7d",
+      "checked": 1792036200.4408135,
+      "saved": 1792036200.4408145,
+      "error": null
+    },
+    "parcels-222": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M222_OAKHAM.zip",
+      "etag": "\"ae28ddcd750fc6f37ba8c887e93a0abc\"",
+      "modified": "Tue, 19 Aug 2025 17:09:11 GMT",
+      "bytes": 721208,
+      "sha256": "60b1f062b02d3859d6f53db299008d68c47b311c3c2bf4a5a5767ee7b107567d",
+      "checked": 1792036201.0720801,
+      "saved": 1792036201.0720813,
+      "error": null
+    },
+    "parcels-226": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M226_OXFORD.zip",
+      "etag": "\"8c01d577cd548dada09935899e9bf370\"",
+      "modified": "Wed, 22 Oct 2025 14:47:05 GMT",
+      "bytes": 2103166,
+      "sha256": "fe3e1d39bb2df2df14208a3d0b4cdd6e66721d963963c872b0bbb89af6d38ff4",
+      "checked": 1792036201.6824389,
+      "saved": 1792036201.68244,
+      "error": null
+    },
+    "parcels-228": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M228_PAXTON.zip",
+      "etag": "\"105eaf71c69ac8ee649b8ffc68c9e226\"",
+      "modified": "Thu, 18 Sep 2025 14:07:44 GMT",
+      "bytes": 800075,
+      "sha256": "19fdfa7f40e276bb93fad1fa7be9cea062bf44be38f1d27e677f249685db4a45",
+      "checked": 1792036202.2110693,
+      "saved": 1792036202.211071,
+      "error": null
+    },
+    "parcels-232": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M232_PEPPERELL.zip",
+      "etag": "\"21bc66e095a660434842268d4de07d9a\"",
+      "modified": "Wed, 22 Jul 2026 17:01:18 GMT",
+      "bytes": 1645130,
+      "sha256": "b2dc3aa5cab245d63af36e7d2c69e2e6b1b4127799cb67d8b81b54616a8f2e9d",
+      "checked": 1792036202.7241392,
+      "saved": 1792036202.7241404,
+      "error": null
+    },
+    "parcels-234": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M234_PETERSHAM.zip",
+      "etag": "\"1af29af44b8da35983cce7d63401890e\"",
+      "modified": "Fri, 22 May 2026 18:10:22 GMT",
+      "bytes": 701201,
+      "sha256": "245fa4ce426a773ab279f01ff0fd5f05d3666bab543cce4033e14639a668a1f1",
+      "checked": 1792036203.1978261,
+      "saved": 1792036203.1978276,
+      "error": null
+    },
+    "parcels-235": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M235_PHILLIPSTON.zip",
+      "etag": "\"8c06d24592e2bf73c631e757fcac2ba7\"",
+      "modified": "Fri, 22 May 2026 18:10:22 GMT",
+      "bytes": 806959,
+      "sha256": "67a2fb02d73dab860b7abd5ec2e74bdd4a0c6dc26fdcfc53cad965a32a3e956e",
+      "checked": 1792036203.6300902,
+      "saved": 1792036203.6300914,
+      "error": null
+    },
+    "parcels-241": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M241_PRINCETON.zip",
+      "etag": "\"0cc1e1174d41fe7d45cf13cb7d34979d\"",
+      "modified": "Wed, 24 Dec 2025 19:38:09 GMT",
+      "bytes": 1567497,
+      "sha256": "528bca353cf84341ef59864cc038f15f8ddd89f78f060b14bbaf6d0a9b606399",
+      "checked": 1792036204.1746688,
+      "saved": 1792036204.1746697,
+      "error": null
+    },
+    "parcels-246": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M246_READING.zip",
+      "etag": "\"a9dab483a5ce747122839f4aa08af388\"",
+      "modified": "Thu, 29 Jan 2026 15:02:40 GMT",
+      "bytes": 2536790,
+      "sha256": "b9cda4ecb4e661ef52548074c1c0bc061bea5da0396a2d3e22b4da8449026605",
+      "checked": 1792036204.9152822,
+      "saved": 1792036204.9152832,
+      "error": null
+    },
+    "parcels-255": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M255_ROYALSTON.zip",
+      "etag": "\"aec1ab711da0963ccf8e6fdcc9a4c50b\"",
+      "modified": "Mon, 22 Jul 2024 18:13:40 GMT",
+      "bytes": 906363,
+      "sha256": "660ad7223e22ad568acceda1fde7073f48ca7b68dc24a8b2c0f9f8454b8f58a4",
+      "checked": 1792036205.449317,
+      "saved": 1792036205.4493184,
+      "error": null
+    },
+    "parcels-257": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M257_RUTLAND.zip",
+      "etag": "\"dec61c15cd463f6331bfd8cd227b122f\"",
+      "modified": "Fri, 27 Feb 2026 15:46:55 GMT",
+      "bytes": 1991609,
+      "sha256": "eb630d65935a1f54bbac7660cb6559b9b49f7f3a5350e3a76f60c76b3aba1cf7",
+      "checked": 1792036206.0785856,
+      "saved": 1792036206.0785868,
+      "error": null
+    },
+    "parcels-269": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M269_SHERBORN.zip",
+      "etag": "\"7a4a5e0c7a755234187310af326cd1f4\"",
+      "modified": "Fri, 27 Feb 2026 15:46:55 GMT",
+      "bytes": 1262972,
+      "sha256": "b6ed6e57cf12faa9d2cbe59e903e57b7dc865c78c5c91c16f54c83eba79ca2d6",
+      "checked": 1792036206.660926,
+      "saved": 1792036206.6609278,
+      "error": null
+    },
+    "parcels-270": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M270_SHIRLEY.zip",
+      "etag": "\"6de16940268c4fe8ba1f54a4afea799a\"",
+      "modified": "Thu, 25 Jun 2026 15:38:10 GMT",
+      "bytes": 1739463,
+      "sha256": "6c120e25ba9ce9d49d1668c2d32ee10835e3eb2e16e7d2cba4241964ef86deb5",
+      "checked": 1792036207.3615384,
+      "saved": 1792036207.3615396,
+      "error": null
+    },
+    "parcels-271": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M271_SHREWSBURY.zip",
+      "etag": "\"85ba1877ee5ae8a79e60e85232810b5f\"",
+      "modified": "Thu, 27 Aug 2026 14:14:29 GMT",
+      "bytes": 7413625,
+      "sha256": "6623946b8eb2efa70e71cf21818d999a677fa0fed8a86e31d0cf454ff24d79b1",
+      "checked": 1792036208.5316367,
+      "saved": 1792036208.5316377,
+      "error": null
+    },
+    "parcels-274": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M274_SOMERVILLE.zip",
+      "etag": "\"a55bef0074326b6b7156b1e65ca8b79f\"",
+      "modified": "Fri, 28 Feb 2025 16:41:06 GMT",
+      "bytes": 4051464,
+      "sha256": "e9992a59482163dce46efbb5f8fb28ac0c0ae2bba03331c76c875a1123d97be8",
+      "checked": 1792036209.4780877,
+      "saved": 1792036209.4780886,
+      "error": null
+    },
+    "parcels-277": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M277_SOUTHBOROUGH.zip",
+      "etag": "\"6c79657140196224930f7f30cb309e69\"",
+      "modified": "Wed, 22 Jul 2026 17:01:18 GMT",
+      "bytes": 2462432,
+      "sha256": "ee309b9c2d426bafaa27968d86f0b32e5d2d9319b6b4eb7bcd0d80f027a32c81",
+      "checked": 1792036210.2081544,
+      "saved": 1792036210.2081554,
+      "error": null
+    },
+    "parcels-278": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M278_SOUTHBRIDGE.zip",
+      "etag": "\"e3cf53c6f7cfa084010b75c76c578e14\"",
+      "modified": "Thu, 27 Aug 2026 14:14:29 GMT",
+      "bytes": 3247753,
+      "sha256": "d97b39a0ace6ad4a2dce642833bf13eb94654488e88492298192da35927f5516",
+      "checked": 1792036210.9438667,
+      "saved": 1792036210.943868,
+      "error": null
+    },
+    "parcels-280": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M280_SPENCER.zip",
+      "etag": "\"8265c4470da0b5ff3919e2024b2d88c9\"",
+      "modified": "Thu, 25 Jun 2026 15:38:10 GMT",
+      "bytes": 2816419,
+      "sha256": "00c65c88c4c465c555fd30bb4ff0f4989464c065c3f52a165111db1c925cda0d",
+      "checked": 1792036211.6891425,
+      "saved": 1792036211.6891437,
+      "error": null
+    },
+    "parcels-282": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M282_STERLING.zip",
+      "etag": "\"383b2b15525b62fb59825de0a5f9d029\"",
+      "modified": "Wed, 24 Dec 2025 19:38:09 GMT",
+      "bytes": 1443317,
+      "sha256": "18a2fd6d99e4529311dbd7ad7d9ba2b1379e88ddf438d983534e1f3bb9973db9",
+      "checked": 1792036212.2418303,
+      "saved": 1792036212.241831,
+      "error": null
+    },
+    "parcels-284": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M284_STONEHAM.zip",
+      "etag": "\"4b47ca51944a46089930e01956d784cf\"",
+      "modified": "Wed, 07 Jan 2026 19:32:26 GMT",
+      "bytes": 2173092,
+      "sha256": "76671dd1318ec243b44ef20c20d4497a6b9068f056cea990f538bb1f6a9d9174",
+      "checked": 1792036212.8889942,
+      "saved": 1792036212.8889954,
+      "error": null
+    },
+    "parcels-286": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M286_STOW.zip",
+      "etag": "\"23ef816438281e68b428c19043e1196d\"",
+      "modified": "Fri, 03 Jul 2026 19:30:18 GMT",
+      "bytes": 1399400,
+      "sha256": "79e89331326dc53920808b0086e55abbbeba0358f8855e787cfcbcff28551d2a",
+      "checked": 1792036213.530504,
+      "saved": 1792036213.530505,
+      "error": null
+    },
+    "parcels-287": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M287_STURBRIDGE.zip",
+      "etag": "\"257ac6ef1bc1b4c1d80fa715d190ebbc\"",
+      "modified": "Thu, 27 Aug 2026 14:14:29 GMT",
+      "bytes": 1565599,
+      "sha256": "272bd81b50bc4a4607575743a7da03af0e3048a104c0be30c0dd4501ea4d0e4a",
+      "checked": 1792036214.1314766,
+      "saved": 1792036214.1314776,
+      "error": null
+    },
+    "parcels-288": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M288_SUDBURY.zip",
+      "etag": "\"515381cbc9f72541df172b3509c7a09e\"",
+      "modified": "Thu, 18 Sep 2025 14:07:44 GMT",
+      "bytes": 4906035,
+      "sha256": "eaf0965241c66715740c7d67cee181a5f9539e8314f587b61aea25a5ee3163b4",
+      "checked": 1792036215.0086725,
+      "saved": 1792036215.0086734,
+      "error": null
+    },
+    "parcels-290": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M290_SUTTON.zip",
+      "etag": "\"d811147b9b8e47cf374e1b6db6a590e4\"",
+      "modified": "Fri, 27 Feb 2026 15:46:55 GMT",
+      "bytes": 1866786,
+      "sha256": "a8c33ba9dfb203831ccb5d952087284e330419583eb21a5afae69f94865dc6f7",
+      "checked": 1792036215.672565,
+      "saved": 1792036215.6725662,
+      "error": null
+    },
+    "parcels-294": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M294_TEMPLETON.zip",
+      "etag": "\"e6c5ffda12bab0e901f9cf01f56a7577\"",
+      "modified": "Tue, 31 Mar 2026 15:20:07 GMT",
+      "bytes": 1503732,
+      "sha256": "029be52640c65d5e31b32047e966b071ca7b6d04842b90b1aaba1bd2f092d634",
+      "checked": 1792036216.2565942,
+      "saved": 1792036216.2565954,
+      "error": null
+    },
+    "parcels-295": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M295_TEWKSBURY.zip",
+      "etag": "\"1836eba694de910fc8c1752d682ab11c\"",
+      "modified": "Thu, 27 Aug 2026 14:14:29 GMT",
+      "bytes": 5622836,
+      "sha256": "37f36607a392328761f0c40f59d9b551f69a9b4f812be143d26387ca760870bf",
+      "checked": 1792036217.1516557,
+      "saved": 1792036217.1516566,
+      "error": null
+    },
+    "parcels-299": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M299_TOWNSEND.zip",
+      "etag": "\"0503ef8b35de0fc4128ce99f6f8e6ef6\"",
+      "modified": "Thu, 18 Sep 2025 14:07:44 GMT",
+      "bytes": 1663416,
+      "sha256": "1fec2a0586b76d5de3992f7bf52b54c74beda9d332123ca0efd9777d669ab84d",
+      "checked": 1792036217.9968584,
+      "saved": 1792036217.9968593,
+      "error": null
+    },
+    "parcels-301": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M301_TYNGSBOROUGH.zip",
+      "etag": "\"26c91b111b237757c3884bb257ff99c3\"",
+      "modified": "Tue, 28 Apr 2026 14:04:24 GMT",
+      "bytes": 1435563,
+      "sha256": "b33382f5ff4b8eb454b6e5ef562b288da8e910c023a19927732b8a883218e614",
+      "checked": 1792036218.793417,
+      "saved": 1792036218.7934182,
+      "error": null
+    },
+    "parcels-303": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M303_UPTON.zip",
+      "etag": "\"659b29decc0377b72b769d0e1d83ea39\"",
+      "modified": "Thu, 29 Jan 2026 15:02:39 GMT",
+      "bytes": 1363401,
+      "sha256": "7bae7aaadd58a96c03a7b0037d1f92ec86d076708290c25edfac4c9836d8212d",
+      "checked": 1792036219.337147,
+      "saved": 1792036219.337148,
+      "error": null
+    },
+    "parcels-304": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M304_UXBRIDGE.zip",
+      "etag": "\"64a1d9d524d199c9d0d41b5859123257\"",
+      "modified": "Tue, 31 Mar 2026 15:20:07 GMT",
+      "bytes": 2336716,
+      "sha256": "2904695655a61f34c7f46021bd64abb00e929792d15de6e0e20adb762c12e3d1",
+      "checked": 1792036219.9081724,
+      "saved": 1792036219.9081736,
+      "error": null
+    },
+    "parcels-305": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M305_WAKEFIELD.zip",
+      "etag": "\"7f76fc0ae8a4a8a7ee71afa677b81a93\"",
+      "modified": "Wed, 22 Jul 2026 17:01:18 GMT",
+      "bytes": 2358316,
+      "sha256": "7887035bb164a57f3276968815a75bddaeb5469545aca789a6772e8afa679173",
+      "checked": 1792036220.6349618,
+      "saved": 1792036220.6349628,
+      "error": null
+    },
+    "parcels-308": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M308_WALTHAM.zip",
+      "etag": "\"db199104e271df2baee76759fbfa749e\"",
+      "modified": "Thu, 29 Jan 2026 15:02:40 GMT",
+      "bytes": 7261993,
+      "sha256": "23e524148e456deda3afb3b3be68fd109b83a5373b6caeb639bff48d7e34a1fc",
+      "checked": 1792036221.7844698,
+      "saved": 1792036221.784471,
+      "error": null
+    },
+    "parcels-311": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M311_WARREN.zip",
+      "etag": "\"289cc1976631438d1f76fdbc23895f90\"",
+      "modified": "Tue, 29 Sep 2026 05:49:08 GMT",
+      "bytes": 927088,
+      "sha256": "7e7a0e07ae891890254a8bab58900f0df012805f0808c82ed51c01cc8e7b225e",
+      "checked": 1792036222.5826154,
+      "saved": 1792036222.5826163,
+      "error": null
+    },
+    "parcels-314": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M314_WATERTOWN.zip",
+      "etag": "\"f5fcf24ab4ec8f3e85aba7319c450d93\"",
+      "modified": "Tue, 31 Mar 2026 15:20:07 GMT",
+      "bytes": 2752489,
+      "sha256": "243f50fa060453d858a8adc0355e33b5726a6e7432c4b264c09793b47cdacce2",
+      "checked": 1792036223.238152,
+      "saved": 1792036223.238153,
+      "error": null
+    },
+    "parcels-315": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M315_WAYLAND.zip",
+      "etag": "\"4a8f739ca339ac186b7f2953c1fc3c05\"",
+      "modified": "Wed, 27 Mar 2024 15:10:13 GMT",
+      "bytes": 2973131,
+      "sha256": "150980371b05db63914e74b502266c1746473cb562d2b87a1591c9410df081a7",
+      "checked": 1792036224.1108718,
+      "saved": 1792036224.1108727,
+      "error": null
+    },
+    "parcels-316": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M316_WEBSTER.zip",
+      "etag": "\"ce6948d0595bad601b4e2cad6591f5d4\"",
+      "modified": "Fri, 28 Feb 2025 16:41:06 GMT",
+      "bytes": 1968394,
+      "sha256": "8f08983a7193048bf6e07bc14cbbac7102dbfd060e28e7370e7f96e085d682ce",
+      "checked": 1792036224.8921607,
+      "saved": 1792036224.8921618,
+      "error": null
+    },
+    "parcels-321": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M321_WESTBOYLSTON.zip",
+      "etag": "\"be37c7a03b6722abf42bcfaf67f914a7\"",
+      "modified": "Thu, 18 Sep 2025 14:07:44 GMT",
+      "bytes": 1424150,
+      "sha256": "37ce7b95dc7997cbc5199573f724f80da5a8d89106f78d8d2f5fb2f739ad05f6",
+      "checked": 1792036225.448891,
+      "saved": 1792036225.4488916,
+      "error": null
+    },
+    "parcels-323": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M323_WESTBROOKFIELD.zip",
+      "etag": "\"14a712b4a07ea34f1a812e01f76d94df\"",
+      "modified": "Wed, 24 Dec 2025 19:38:10 GMT",
+      "bytes": 1066233,
+      "sha256": "3671a7f52d54e6c5f318631dc09be8e1e3b4d460f3323aa039631dfe271b39fc",
+      "checked": 1792036225.9440222,
+      "saved": 1792036225.9440234,
+      "error": null
+    },
+    "parcels-328": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M328_WESTBOROUGH.zip",
+      "etag": "\"f21aba6e99bb211219e14d77177b8f12\"",
+      "modified": "Thu, 25 Jun 2026 15:38:10 GMT",
+      "bytes": 5359470,
+      "sha256": "c5ff010038afcb196edbcf4b233096fb32645e92ccdc84116e0eb59f6ebaadae",
+      "checked": 1792036226.7863224,
+      "saved": 1792036226.7863235,
+      "error": null
+    },
+    "parcels-330": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M330_WESTFORD.zip",
+      "etag": "\"7685e1395e986cfa544bbebc34c0c9c6\"",
+      "modified": "Fri, 28 Feb 2025 16:41:06 GMT",
+      "bytes": 3684990,
+      "sha256": "9010f6866c0be6c9ffa86945a5a17fb90450f77f4f5ed373b0b1e0cc1bdf3a6e",
+      "checked": 1792036227.8497388,
+      "saved": 1792036227.8497396,
+      "error": null
+    },
+    "parcels-332": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M332_WESTMINSTER.zip",
+      "etag": "\"49aa094b78ef79dd43d8a4f1b0a2ac22\"",
+      "modified": "Tue, 19 Aug 2025 17:09:10 GMT",
+      "bytes": 2565987,
+      "sha256": "13c4eccae4a85461a1611f6b07e93f28c0dfbde5573e357af4c2d0bf6a4300b6",
+      "checked": 1792036228.652427,
+      "saved": 1792036228.6524277,
+      "error": null
+    },
+    "parcels-333": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M333_WESTON.zip",
+      "etag": "\"b11714f5cc9dd2b05abb62162e420999\"",
+      "modified": "Mon, 24 Nov 2025 20:01:59 GMT",
+      "bytes": 4683997,
+      "sha256": "5b377d59588afcd40c8fa5e6dbb1ce72eab3f51332bf347c038a7ee07c929f12",
+      "checked": 1792036229.4899073,
+      "saved": 1792036229.4899087,
+      "error": null
+    },
+    "parcels-342": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M342_WILMINGTON.zip",
+      "etag": "\"47924f83020042d9ae79d30e166a740b\"",
+      "modified": "Fri, 22 May 2026 18:10:22 GMT",
+      "bytes": 3662697,
+      "sha256": "c4c8c68e25f80860d3ddce19326387bd7b43a18689945fc1805f373ffe0249e0",
+      "checked": 1792036230.7461667,
+      "saved": 1792036230.746168,
+      "error": null
+    },
+    "parcels-343": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M343_WINCHENDON.zip",
+      "etag": "\"d1b7c7cece6de9e39f30983902c6bc6f\"",
+      "modified": "Tue, 28 Apr 2026 14:04:25 GMT",
+      "bytes": 2612046,
+      "sha256": "c1093e9bacd5ebb8a3040417a5dfac4ab115fed113d619cae38fd54110990a22",
+      "checked": 1792036232.1363673,
+      "saved": 1792036232.1363692,
+      "error": null
+    },
+    "parcels-344": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M344_WINCHESTER.zip",
+      "etag": "\"28200521d8336665edc2174c05b011f3\"",
+      "modified": "Tue, 31 Mar 2026 15:20:07 GMT",
+      "bytes": 2753381,
+      "sha256": "f6a152427b94ce5bec0a50fc79b9141bd63ebec5bfe01dfe9b9453e858bba0d3",
+      "checked": 1792036233.0297136,
+      "saved": 1792036233.0297146,
+      "error": null
+    },
+    "parcels-347": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M347_WOBURN.zip",
+      "etag": "\"74b28a3ae74c9f661f5c033cd1a2de24\"",
+      "modified": "Fri, 22 May 2026 18:10:22 GMT",
+      "bytes": 3372338,
+      "sha256": "b9881b2a02d1af859c3db8065c316e42f1dd8d9655367d3fb657e595189f482c",
+      "checked": 1792036233.8330152,
+      "saved": 1792036233.8330166,
+      "error": null
+    },
+    "parcels-348": {
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M348_WORCESTER.zip",
+      "etag": "\"9c359e1491ffa719356c95ba5fe55470-2\"",
+      "modified": "Fri, 22 May 2026 18:10:23 GMT",
+      "bytes": 12883758,
+      "sha256": "8f92b7d358cd90dc4432ce35aa4647293b0fd171c7d4f4905ca8271249a0931a",
+      "checked": 1792036235.452131,
+      "saved": 1792036235.4521332,
+      "error": null
+    },
+    "topo-ad9172b923050fcb": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ashburnham_20240507_TM_geo.pdf",
+      "etag": "\"b908c8757721529380a96da0725481c9-7\"",
+      "modified": "Thu, 15 Aug 2024 01:07:32 GMT",
+      "bytes": 57344823,
+      "sha256": "16bf5bdbcdc8ab1e55e1ae7ba821b031020df41f7f9f34aa55892b5f55c3677d",
+      "checked": 1792036251.4202902,
+      "saved": 1792036251.4202914,
+      "error": null
+    },
+    "topo-7862ffa829c849f5": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ashby_20240507_TM_geo.pdf",
+      "etag": "\"14137c1dce0d697531da6f315fa529ed-7\"",
+      "modified": "Thu, 15 Aug 2024 01:07:32 GMT",
+      "bytes": 58153102,
+      "sha256": "8ce6cf570254450f11dd83d2389dd1d061d5eb8c5ce26545d48f8497fcdbc342",
+      "checked": 1792036258.316105,
+      "saved": 1792036258.3161063,
+      "error": null
+    },
+    "topo-b573d54cc63515fb": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ayer_20240816_TM_geo.pdf",
+      "etag": "\"e9fe03613fcdf82a386138fa86595ccd-7\"",
+      "modified": "Thu, 22 Aug 2024 01:03:49 GMT",
+      "bytes": 54962226,
+      "sha256": "2300401843898018aed37bb9b49238cf8a7f5be0fa57528cd8e25bed7b4aa6e1",
+      "checked": 1792036265.7161925,
+      "saved": 1792036265.7161946,
+      "error": null
+    },
+    "topo-f26b1ea319f19555": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Billerica_20240816_TM_geo.pdf",
+      "etag": "\"b9a5c54dc5fe7abe76bdbd34beef7938-7\"",
+      "modified": "Thu, 22 Aug 2024 01:03:58 GMT",
+      "bytes": 55843257,
+      "sha256": "18a3399de3816f6e93923fa27dc99721f0ccd2c4f31c43434dacef15662818f2",
+      "checked": 1792036271.8153336,
+      "saved": 1792036271.8153355,
+      "error": null
+    },
+    "topo-d94d9d3e513c4c43": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Boston_North_20240816_TM_geo.pdf",
+      "etag": "\"ee7c570e58d4b53915a60b31553e8c89-7\"",
+      "modified": "Thu, 22 Aug 2024 01:04:17 GMT",
+      "bytes": 55649689,
+      "sha256": "726d618187ca58269ff3d33349fcf866085e0d02af576540e05582df3d4a99fe",
+      "checked": 1792036281.4406168,
+      "saved": 1792036281.4406183,
+      "error": null
+    },
+    "topo-9b41bc9dbb3b8de2": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Boston_South_20240816_TM_geo.pdf",
+      "etag": "\"1b3a6a94e4736935db08d117d816ae1e-6\"",
+      "modified": "Thu, 22 Aug 2024 01:04:25 GMT",
+      "bytes": 47256088,
+      "sha256": "5bd0a49c0178e5de8d34582c99a00029080b3764bbac7635bfacb73684fb7979",
+      "checked": 1792036286.5954473,
+      "saved": 1792036286.5954485,
+      "error": null
+    },
+    "topo-bab690ce9da9a578": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Concord_20240816_TM_geo.pdf",
+      "etag": "\"d1713ec88010b6fe9e3576c489cd8674-7\"",
+      "modified": "Thu, 22 Aug 2024 01:04:30 GMT",
+      "bytes": 55718041,
+      "sha256": "c1a2901cc2e4b458481beaa547ef1c07ffb9f1624e874437a4bc86ed120f4c1e",
+      "checked": 1792036294.7556493,
+      "saved": 1792036294.75565,
+      "error": null
+    },
+    "topo-e652624794ea486f": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Framingham_20240816_TM_geo.pdf",
+      "etag": "\"7c53088a17798761bc289ffb49c8f02d-7\"",
+      "modified": "Thu, 22 Aug 2024 01:04:49 GMT",
+      "bytes": 57007986,
+      "sha256": "7429263f03badef09d91edca8cf23de3ad619a63d7cb9af7d555be38d300d921",
+      "checked": 1792036300.5139775,
+      "saved": 1792036300.5139787,
+      "error": null
+    },
+    "topo-f866729b25f41464": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Holliston_20240816_TM_geo.pdf",
+      "etag": "\"c1802d11f01b089638a1ee9c5eee0c42-7\"",
+      "modified": "Thu, 22 Aug 2024 01:05:28 GMT",
+      "bytes": 57561278,
+      "sha256": "94a7218abaac8d93035f614c0b0f6b9dde4c4fd2101a31d37510163ae04b3bd1",
+      "checked": 1792036306.745262,
+      "saved": 1792036306.7452629,
+      "error": null
+    },
+    "topo-a6c0cfaeee5847c6": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Hudson_20240816_TM_geo.pdf",
+      "etag": "\"464e439e019f3bf6d43e1c0a17a54441-8\"",
+      "modified": "Thu, 22 Aug 2024 01:05:34 GMT",
+      "bytes": 59227147,
+      "sha256": "8fd04836d941b2bd88187ac4771fe151e051e63e46b394016d9b1f41a714e2b6",
+      "checked": 1792036313.1284192,
+      "saved": 1792036313.1284204,
+      "error": null
+    },
+    "topo-524c577a2b56b221": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Lawrence_20240816_TM_geo.pdf",
+      "etag": "\"213a270a2947455c6d192d022613421c-7\"",
+      "modified": "Thu, 22 Aug 2024 01:05:40 GMT",
+      "bytes": 55238929,
+      "sha256": "e788e50431d1bac5479af82debacc733d60bf84ddc66cf12749fa6cb17743730",
+      "checked": 1792036338.691803,
+      "saved": 1792036338.6918044,
+      "error": null
+    },
+    "topo-12d299acddcf9344": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Lexington_20240822_TM_geo.pdf",
+      "etag": "\"db1bac3523d47ec33a8736f440100f51-7\"",
+      "modified": "Sat, 24 Aug 2024 01:03:21 GMT",
+      "bytes": 56266582,
+      "sha256": "4be36e205d62564352ce6ba5cfcfa75f02d6e492d8c4ebc6d460a3bd336d9120",
+      "checked": 1792036345.4257042,
+      "saved": 1792036345.4257054,
+      "error": null
+    },
+    "topo-0f84f3799ee60cf6": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Lowell_20240816_TM_geo.pdf",
+      "etag": "\"6432e3a737752ad2a247f9f4637bd4a2-7\"",
+      "modified": "Thu, 22 Aug 2024 01:05:53 GMT",
+      "bytes": 56164990,
+      "sha256": "36ebc9f9dc99c47e8783b1386d9d916b238e540b6b0640087fde197d848da49e",
+      "checked": 1792036364.9190536,
+      "saved": 1792036364.9190547,
+      "error": null
+    },
+    "topo-067b29009a348eed": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Marlborough_20240822_TM_geo.pdf",
+      "etag": "\"b745085469f2a51c37d669b10763f6c4-7\"",
+      "modified": "Sat, 24 Aug 2024 01:03:38 GMT",
+      "bytes": 57850489,
+      "sha256": "b4c74db43053a4da9135583fc9f18e55766a49198e1689ed3d9673a24db2a091",
+      "checked": 1792036372.0442472,
+      "saved": 1792036372.044248,
+      "error": null
+    },
+    "topo-fe479fa400edcb38": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Maynard_20240816_TM_geo.pdf",
+      "etag": "\"97dc02c3200cada6aaae05510d2e689c-7\"",
+      "modified": "Thu, 22 Aug 2024 01:06:06 GMT",
+      "bytes": 56535306,
+      "sha256": "ca7b53763dfdc085b131fa3607a9334abacdbf9aee576dfc18d6f947497ec286",
+      "checked": 1792036378.6093044,
+      "saved": 1792036378.6093054,
+      "error": null
+    },
+    "topo-b916d181265bea6f": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Medfield_20240507_TM_geo.pdf",
+      "etag": "\"0da39734cef5ed264016a4563624648d-7\"",
+      "modified": "Thu, 15 Aug 2024 01:08:36 GMT",
+      "bytes": 56142838,
+      "sha256": "8ca8ecbc95a7199aa0406e3def5e037ee435e68de944545518b5e40ed5c262f7",
+      "checked": 1792036385.2788022,
+      "saved": 1792036385.2788033,
+      "error": null
+    },
+    "topo-9f6a00f1c2f04630": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Milford_20240816_TM_geo.pdf",
+      "etag": "\"3daca01a56506bc76138d519d904f10b-8\"",
+      "modified": "Thu, 22 Aug 2024 01:06:13 GMT",
+      "bytes": 59700042,
+      "sha256": "f0625023a3b3439a8189ba009b50d2be48efd8786d863cd68bbff1ec18dde7eb",
+      "checked": 1792036392.5706642,
+      "saved": 1792036392.5706654,
+      "error": null
+    },
+    "topo-c1a34a482b81fd6d": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/NH/NH_Nashua_South_20240816_TM_geo.pdf",
+      "etag": "\"a7913d10ea593c636a9d7defa528532a-7\"",
+      "modified": "Sat, 17 Aug 2024 01:18:06 GMT",
+      "bytes": 56676889,
+      "sha256": "0329ee41abcbf408d1166dad311026a4dad068ef5e3efdbd0d20f20ef36f809c",
+      "checked": 1792036399.6102903,
+      "saved": 1792036399.6102915,
+      "error": null
+    },
+    "topo-4f28f00ffcd955f3": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Natick_20240816_TM_geo.pdf",
+      "etag": "\"291647e5a4381d0464b8bc15d6cc6da8-7\"",
+      "modified": "Thu, 22 Aug 2024 01:06:19 GMT",
+      "bytes": 56970165,
+      "sha256": "ec324478dde5091b28caa232b23bd1b2a087b1ce177f68d17daa7161a533a043",
+      "checked": 1792036406.2589417,
+      "saved": 1792036406.2589426,
+      "error": null
+    },
+    "topo-e8df7a5f873e06f2": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Newton_20240816_TM_geo.pdf",
+      "etag": "\"9f59be13eff6708b76e6d2097e848290-7\"",
+      "modified": "Thu, 22 Aug 2024 01:06:24 GMT",
+      "bytes": 56412713,
+      "sha256": "26e7bf711c3b547b131069d5408111d2eaa1f661cb2f1efc90b75e2fc3b452ea",
+      "checked": 1792036412.2762117,
+      "saved": 1792036412.2762134,
+      "error": null
+    },
+    "topo-e8e6da4ad93384d0": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Pepperell_20240507_TM_geo.pdf",
+      "etag": "\"87fc08b71fa5fb94a05591ec83e4eb34-7\"",
+      "modified": "Thu, 15 Aug 2024 01:09:20 GMT",
+      "bytes": 57583476,
+      "sha256": "90925e776d30cca93e5f5b5f65e526c43c2d46dfc5585f5feb6f92a8bbd20fc1",
+      "checked": 1792036418.2865107,
+      "saved": 1792036418.2865114,
+      "error": null
+    },
+    "topo-dc041ca160655d94": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Reading_20240816_TM_geo.pdf",
+      "etag": "\"8f8dd20a4bf803f5dd2a2b15b095a118-7\"",
+      "modified": "Thu, 22 Aug 2024 01:06:56 GMT",
+      "bytes": 58085632,
+      "sha256": "e20554e98b4f3ea2d80920ef936b3411fc45d2c3fcd4dacd00b5c2e2be7db0be",
+      "checked": 1792036434.2481215,
+      "saved": 1792036434.248123,
+      "error": null
+    },
+    "topo-d161d12d047ad0ac": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Shirley_20240816_TM_geo.pdf",
+      "etag": "\"c97ec26cc94058a311b71e7920026614-7\"",
+      "modified": "Thu, 22 Aug 2024 01:07:05 GMT",
+      "bytes": 56359044,
+      "sha256": "4d9b7966ac3614d7a510f6adaa5dd53a093ac151090a7b4f2538bca092269ef1",
+      "checked": 1792036440.1670754,
+      "saved": 1792036440.1670766,
+      "error": null
+    },
+    "topo-af8322f2dd60e3dd": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Shrewsbury_20240816_TM_geo.pdf",
+      "etag": "\"a8e108522c67828105be4eb2284b915a-7\"",
+      "modified": "Thu, 22 Aug 2024 01:07:12 GMT",
+      "bytes": 58099436,
+      "sha256": "9c817254d3375fe0d6afd71ec5790d64a9d9b74ca3ed6aee257e73a521306c4e",
+      "checked": 1792036465.131762,
+      "saved": 1792036465.1317637,
+      "error": null
+    },
+    "topo-bb520c5ee6b5dd3c": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Townsend_20240816_TM_geo.pdf",
+      "etag": "\"75bd5f5d33787417a97a1d1a7e93b487-8\"",
+      "modified": "Thu, 22 Aug 2024 01:07:34 GMT",
+      "bytes": 61190032,
+      "sha256": "d87246d799d8743c6af3745000353202ebe6eb83b3dff667d145d391a4b623b3",
+      "checked": 1792036491.1886182,
+      "saved": 1792036491.1886196,
+      "error": null
+    },
+    "topo-a9735de5055e2b30": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Westford_20240816_TM_geo.pdf",
+      "etag": "\"32eb01cb3244b9be7ce934a43857f082-7\"",
+      "modified": "Thu, 22 Aug 2024 01:07:47 GMT",
+      "bytes": 56464167,
+      "sha256": "b327a5b70b16c122aed0d81a08535655facc4ab39eebefd54567a72821fae59a",
+      "checked": 1792036497.9956927,
+      "saved": 1792036497.995694,
+      "error": null
+    },
+    "topo-e8a342a4dc28fd53": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Wilmington_20240816_TM_geo.pdf",
+      "etag": "\"9d9c4227ddcdaab598a124996cab37ba-7\"",
+      "modified": "Thu, 22 Aug 2024 01:07:54 GMT",
+      "bytes": 55491800,
+      "sha256": "1ba78d76fd7e1101ce255a9a46b28aecb84681c54b4e46601647ab038e04717c",
+      "checked": 1792036505.2982059,
+      "saved": 1792036505.2982078,
+      "error": null
+    },
+    "topo-9dc7a5f21b70104c": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Athol_20240816_TM_geo.pdf",
+      "etag": "\"50669e2c2401e14ed5b09d254c9dd929-7\"",
+      "modified": "Tue, 20 Aug 2024 01:03:09 GMT",
+      "bytes": 57993203,
+      "sha256": "58c3657019228ac9d731c2d65dc14addf67fcd6d728b344b705b9ea66732d4ff",
+      "checked": 1792036511.2638333,
+      "saved": 1792036511.2638361,
+      "error": null
+    },
+    "topo-cf351f0e59d6d5fe": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Barre_20240812_TM_geo.pdf",
+      "etag": "\"505cb70c0a97acf010cdc504ad3a2f75-8\"",
+      "modified": "Thu, 15 Aug 2024 01:07:46 GMT",
+      "bytes": 63076682,
+      "sha256": "70087b8c7e1ed47214075fe7666840c4b89af19dac878d8ec643256fcaee09de",
+      "checked": 1792036520.2674284,
+      "saved": 1792036520.2674294,
+      "error": null
+    },
+    "topo-8ce85384402a5e97": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Blackstone_20240816_TM_geo.pdf",
+      "etag": "\"4a0fa7840eaf932f6ea1e0c0e1fd5d59-7\"",
+      "modified": "Thu, 22 Aug 2024 01:04:06 GMT",
+      "bytes": 56580918,
+      "sha256": "61cef5cb60b8ea3ad9d65a0ab4eaef2f957c588bb1b8f01498ebebeff63b8d29",
+      "checked": 1792036526.75033,
+      "saved": 1792036526.7503319,
+      "error": null
+    },
+    "topo-e41ead3955814741": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Clinton_20240822_TM_geo.pdf",
+      "etag": "\"462d2a199dd499c47b22d08ee691c73d-7\"",
+      "modified": "Sat, 24 Aug 2024 01:03:21 GMT",
+      "bytes": 55519630,
+      "sha256": "d54a1975b8c15a84307f9c6e88a6fb90acfdca1d42ef5c8c9bc943c372153895",
+      "checked": 1792036548.1196992,
+      "saved": 1792036548.1197004,
+      "error": null
+    },
+    "topo-9c7911ef2f595af4": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_East_Brookfield_20240816_TM_geo.pdf",
+      "etag": "\"ac6994a082772f6a3e9c69a8b7e29f72-7\"",
+      "modified": "Tue, 20 Aug 2024 01:03:36 GMT",
+      "bytes": 56799428,
+      "sha256": "bb6174fdc01ea9d8780ca5c311db51676cb159e422c4e119baa1194e36e2898b",
+      "checked": 1792036554.0886457,
+      "saved": 1792036554.0886467,
+      "error": null
+    },
+    "topo-e8a8847de811205d": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Fitchburg_20240507_TM_geo.pdf",
+      "etag": "\"7286449cee802e06328f709b3d92cc1e-7\"",
+      "modified": "Thu, 15 Aug 2024 01:08:12 GMT",
+      "bytes": 58225294,
+      "sha256": "764916c252974a23d7d45688a41349bc1337b6a81339934738c2946962d821d8",
+      "checked": 1792036560.4762928,
+      "saved": 1792036560.4762936,
+      "error": null
+    },
+    "topo-5fe67a186873a2b4": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Franklin_20240816_TM_geo.pdf",
+      "etag": "\"6623cdfbe5219fb15e1d2644e254375d-7\"",
+      "modified": "Thu, 22 Aug 2024 01:04:57 GMT",
+      "bytes": 56173025,
+      "sha256": "510104c9e131426ea4f7dddee5590288a8eb7413ef9b1d626ffe2de347645d77",
+      "checked": 1792036566.367488,
+      "saved": 1792036566.367489,
+      "error": null
+    },
+    "topo-3f121fe5dc8a741d": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Gardner_20240816_TM_geo.pdf",
+      "etag": "\"1a3875dde9211e49557b7ed027c0cea3-7\"",
+      "modified": "Thu, 22 Aug 2024 01:05:00 GMT",
+      "bytes": 58266361,
+      "sha256": "8134c1e8eee3a3720a00c37fb3504bf8664d00a7ce17d841ddebb11cb808064c",
+      "checked": 1792036572.2120705,
+      "saved": 1792036572.212072,
+      "error": null
+    },
+    "topo-7c0d014da3d1fe2b": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Grafton_20240816_TM_geo.pdf",
+      "etag": "\"31fd5a158e015d0617afa0594f94d095-7\"",
+      "modified": "Thu, 22 Aug 2024 01:05:08 GMT",
+      "bytes": 57302888,
+      "sha256": "1435b132a797b128234f47e2511f343c1b2432187b8521f0de133ec27e10daab",
+      "checked": 1792036578.0236657,
+      "saved": 1792036578.023667,
+      "error": null
+    },
+    "topo-3563991696011016": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Leicester_20240816_TM_geo.pdf",
+      "etag": "\"721d7e0d2b5ea30b9a9bd197636d6f41-7\"",
+      "modified": "Thu, 22 Aug 2024 01:05:46 GMT",
+      "bytes": 56595242,
+      "sha256": "3d966cf3ee3132756dbe4d7cee9193031e487aa0e3731e09448fea1b4626fe3e",
+      "checked": 1792036586.357492,
+      "saved": 1792036586.3574932,
+      "error": null
+    },
+    "topo-81aa530b191f0403": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Mount_Grace_20240812_TM_geo.pdf",
+      "etag": "\"80da2a3d75f7507ac64becb879cd08d1-8\"",
+      "modified": "Thu, 15 Aug 2024 01:08:47 GMT",
+      "bytes": 60770664,
+      "sha256": "04992649d0af165e42e85a5733759207dec09421366a5e4501e174cc0581cb0d",
+      "checked": 1792036592.6141357,
+      "saved": 1792036592.6141372,
+      "error": null
+    },
+    "topo-5b830b06f3e37fe5": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_North_Brookfield_20240816_TM_geo.pdf",
+      "etag": "\"64ec8ab48c91816ca7de4f2b4a65ec07-8\"",
+      "modified": "Tue, 20 Aug 2024 01:04:26 GMT",
+      "bytes": 59189247,
+      "sha256": "bbafed6b8c87e7382eb3be1c38f8abf9311aead6c8401d7afe090bdc3e8c69a3",
+      "checked": 1792036599.91953,
+      "saved": 1792036599.9195318,
+      "error": null
+    },
+    "topo-1289d01af1fa7864": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Orange_20240816_TM_geo.pdf",
+      "etag": "\"ce84a20cfc1b06e7328f52a9ea8cb83f-7\"",
+      "modified": "Tue, 20 Aug 2024 01:04:31 GMT",
+      "bytes": 55423974,
+      "sha256": "578f1d1f7d00fde3b931e7a43fb85b26f144a83f171280365b543ba567c3758b",
+      "checked": 1792036606.5555818,
+      "saved": 1792036606.555583,
+      "error": null
+    },
+    "topo-e8de8bdb81a22fc9": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Oxford_20240816_TM_geo.pdf",
+      "etag": "\"20503811ca31542e231143a6cb459edf-7\"",
+      "modified": "Thu, 22 Aug 2024 01:06:45 GMT",
+      "bytes": 55514517,
+      "sha256": "a0f2e5ca00bb7b45d2df17f70284492d826d9481d3e90a4de5f084a5097cb4b4",
+      "checked": 1792036612.399828,
+      "saved": 1792036612.3998294,
+      "error": null
+    },
+    "topo-a4174cf7164869a5": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Palmer_20240812_TM_geo.pdf",
+      "etag": "\"44430eaa250bd7d24e0f11638f85976b-7\"",
+      "modified": "Thu, 15 Aug 2024 01:09:15 GMT",
+      "bytes": 54966457,
+      "sha256": "e3e88622fb1865f1c76a683572941829cf37a5c22efa611dc2da2f8ed51d0c71",
+      "checked": 1792036617.9069695,
+      "saved": 1792036617.9069715,
+      "error": null
+    },
+    "topo-c89ffc975cc6dbbc": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Paxton_20240816_TM_geo.pdf",
+      "etag": "\"8be72390737db13654833022618aeb2f-7\"",
+      "modified": "Thu, 22 Aug 2024 01:06:50 GMT",
+      "bytes": 56725792,
+      "sha256": "73fd1133049b4845dec2d89e86b7b3932fd2b1eb8789078a6ed637a991cfdcd0",
+      "checked": 1792036624.7734892,
+      "saved": 1792036624.7734902,
+      "error": null
+    },
+    "topo-cebfd111b063f4a8": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Petersham_20240816_TM_geo.pdf",
+      "etag": "\"96720b674d7c96519e62882252ce489f-8\"",
+      "modified": "Tue, 20 Aug 2024 01:04:42 GMT",
+      "bytes": 59672368,
+      "sha256": "acd626bf0e49d1188545e0dac1e37216c4e103f30c1126ce07fc692d980401d8",
+      "checked": 1792036630.841688,
+      "saved": 1792036630.8416889,
+      "error": null
+    },
+    "topo-a8630a2d946e0021": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Quabbin_Reservoir_20240816_TM_geo.pdf",
+      "etag": "\"33553b5689736cd7bee8c5022331d1bc-6\"",
+      "modified": "Tue, 20 Aug 2024 01:05:03 GMT",
+      "bytes": 45570773,
+      "sha256": "df644fa7e47c8a3d0ef1b1c1ffe530eab05c5782e177d6af95a71b5ae6f26113",
+      "checked": 1792036635.60542,
+      "saved": 1792036635.605421,
+      "error": null
+    },
+    "topo-755bc7c42804066c": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Royalston_20240812_TM_geo.pdf",
+      "etag": "\"fcbdb3b867e699802c6b8b7bb9329eca-8\"",
+      "modified": "Thu, 15 Aug 2024 01:09:34 GMT",
+      "bytes": 59178441,
+      "sha256": "2c01907ad8bcf778873a007c9cb3cf20e476cd27a1d7499ed325e5b2e540c7cc",
+      "checked": 1792036641.8974104,
+      "saved": 1792036641.8974113,
+      "error": null
+    },
+    "topo-b73d1aa4e53a16b8": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Southbridge_20240812_TM_geo.pdf",
+      "etag": "\"fb95516058e6cb4eb272a790c1b3521e-8\"",
+      "modified": "Thu, 15 Aug 2024 01:09:55 GMT",
+      "bytes": 62187765,
+      "sha256": "d0a77224f0a24097a066b114607aff2033f9f2a543ff7fbae5f4e11a82ce1cf9",
+      "checked": 1792036649.623429,
+      "saved": 1792036649.6234312,
+      "error": null
+    },
+    "topo-de6bc330b8433510": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Sterling_20240816_TM_geo.pdf",
+      "etag": "\"4a31af9419f030b583c4622734d448be-8\"",
+      "modified": "Thu, 22 Aug 2024 01:07:18 GMT",
+      "bytes": 61737233,
+      "sha256": "be2396e08626038f9310923b70d9d9874551673d24e82be00198f623ac0aa267",
+      "checked": 1792036657.4493074,
+      "saved": 1792036657.4493086,
+      "error": null
+    },
+    "topo-5d3e3c93bfe92054": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Templeton_20240812_TM_geo.pdf",
+      "etag": "\"76d574aa37de955975f03e193121ed27-7\"",
+      "modified": "Thu, 15 Aug 2024 01:10:10 GMT",
+      "bytes": 57001433,
+      "sha256": "3ac82de5eca9a2e5effc41e9ea43e7b1c7071d63f6ed264826a7bd2c46930aaa",
+      "checked": 1792036663.6405852,
+      "saved": 1792036663.6405866,
+      "error": null
+    },
+    "topo-421f5e041225ca0b": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Uxbridge_20240816_TM_geo.pdf",
+      "etag": "\"ba0d7d123a08a699dedcc89a0707c9b8-7\"",
+      "modified": "Thu, 22 Aug 2024 01:07:42 GMT",
+      "bytes": 55029908,
+      "sha256": "b75fa7ba52b107eca8f28097482800e0e2113799c1a00e31c0889939ddeb3540",
+      "checked": 1792036671.5406158,
+      "saved": 1792036671.5406168,
+      "error": null
+    },
+    "topo-3e5152b897a08634": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Wachusett_Mountain_20240507_TM_geo.pdf",
+      "etag": "\"089b6feff234583fafd51320e072e699-8\"",
+      "modified": "Thu, 15 Aug 2024 01:10:15 GMT",
+      "bytes": 62719728,
+      "sha256": "c37e5182b5a04be06d90b10f8bab999a1f9efaa521ff86b2d9497585a535fe09",
+      "checked": 1792036679.2654219,
+      "saved": 1792036679.2654228,
+      "error": null
+    },
+    "topo-0ebd6a50fff70ced": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Wales_20240816_TM_geo.pdf",
+      "etag": "\"cd36aa824fb5eeb22eb1249f232af359-8\"",
+      "modified": "Tue, 20 Aug 2024 01:05:25 GMT",
+      "bytes": 61439658,
+      "sha256": "f12e57ea095672e1ace5990296b0034a716f20a8d368841f7258ed1dbdc4cd27",
+      "checked": 1792036687.3286912,
+      "saved": 1792036687.328693,
+      "error": null
+    },
+    "topo-e1ed96d36e59b704": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ware_20240812_TM_geo.pdf",
+      "etag": "\"3bfdb7b9bfc3915f11afd98b0b999b59-7\"",
+      "modified": "Thu, 15 Aug 2024 01:10:20 GMT",
+      "bytes": 55105997,
+      "sha256": "241405c0918751c8bc95ceed14c869bd791860c16a0614deaa8d676964ce5fcd",
+      "checked": 1792036693.6895545,
+      "saved": 1792036693.6895561,
+      "error": null
+    },
+    "topo-8c1241c258a9c68b": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Warren_20240816_TM_geo.pdf",
+      "etag": "\"38e886bd4753b9c0ec2070f105b4e9a6-7\"",
+      "modified": "Tue, 20 Aug 2024 01:05:31 GMT",
+      "bytes": 54805412,
+      "sha256": "b7f055a3e8c20107cfd86c13798e92ba10508a6116709f31673735b248458f0c",
+      "checked": 1792036700.073982,
+      "saved": 1792036700.073984,
+      "error": null
+    },
+    "topo-a7dff18cae422827": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Webster_20240507_TM_geo.pdf",
+      "etag": "\"1da1022b5b2fd2ea4d00619b4a657546-7\"",
+      "modified": "Thu, 15 Aug 2024 01:10:26 GMT",
+      "bytes": 58033248,
+      "sha256": "b632fff1eb277718a38d20b44677b2c15916d6701261a24387167780d6bd88cb",
+      "checked": 1792036719.3953042,
+      "saved": 1792036719.395308,
+      "error": null
+    },
+    "topo-654573cddcb89fb7": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Winchendon_20240816_TM_geo.pdf",
+      "etag": "\"dbdd48de02c7133c4afe0c3fa6ae9d01-7\"",
+      "modified": "Tue, 20 Aug 2024 01:05:52 GMT",
+      "bytes": 57745751,
+      "sha256": "90a714d1d540bc4733c8c512f2ff13db13b5e84977354e8be184403a8e242179",
+      "checked": 1792036725.516965,
+      "saved": 1792036725.5169663,
+      "error": null
+    },
+    "topo-04e57dc2a05f0830": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Winsor_Dam_20240816_TM_geo.pdf",
+      "etag": "\"6cceb8732786e177c621bbf838988024-6\"",
+      "modified": "Tue, 20 Aug 2024 01:05:59 GMT",
+      "bytes": 46847055,
+      "sha256": "0eb11623733cb48bb22a9fb13796371ef8e71a1dd56c415bff05d68e491dd867",
+      "checked": 1792036730.95766,
+      "saved": 1792036730.9576614,
+      "error": null
+    },
+    "topo-cae4e9c873506a89": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Worcester_North_20240816_TM_geo.pdf",
+      "etag": "\"fd90f187bc2cdb6d6d630ed8f37a7114-8\"",
+      "modified": "Thu, 22 Aug 2024 01:08:01 GMT",
+      "bytes": 58726688,
+      "sha256": "65e1f7a396f94a53a8e48e2238abfb0b4cad3433a7b9cdc0231f26baa62cd182",
+      "checked": 1792036740.2600644,
+      "saved": 1792036740.260066,
+      "error": null
+    },
+    "topo-992e1ad5789cdcea": {
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Worcester_South_20240816_TM_geo.pdf",
+      "etag": "\"84b85cad55331cc0c6b9418baa25293b-7\"",
+      "modified": "Thu, 22 Aug 2024 01:08:06 GMT",
+      "bytes": 56355963,
+      "sha256": "566e6c993ae8f9ef3833ba09a096530fa0c9ef4f252f56ba2a47619239949ff1",
+      "checked": 1792036746.3361688,
+      "saved": 1792036746.33617,
+      "error": null
+    }
+  },
+  "items": [
+    {
+      "id": "ma-nfhl",
+      "group": "flood",
+      "title": "Massachusetts flood hazards (statewide published coverage)",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/state/nfhl.zip",
+      "path": "flood/massachusetts-nfhl.zip",
+      "format": "GIS ZIP"
+    },
+    {
+      "id": "parcels-2",
+      "group": "parcels",
+      "title": "ACTON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M002_ACTON.zip",
+      "path": "parcels/town-002.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-10",
+      "group": "parcels",
+      "title": "ARLINGTON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M010_ARLINGTON.zip",
+      "path": "parcels/town-010.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-11",
+      "group": "parcels",
+      "title": "ASHBURNHAM \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M011_ASHBURNHAM.zip",
+      "path": "parcels/town-011.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-12",
+      "group": "parcels",
+      "title": "ASHBY \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M012_ASHBY.zip",
+      "path": "parcels/town-012.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-14",
+      "group": "parcels",
+      "title": "ASHLAND \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M014_ASHLAND.zip",
+      "path": "parcels/town-014.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-15",
+      "group": "parcels",
+      "title": "ATHOL \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M015_ATHOL.zip",
+      "path": "parcels/town-015.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-17",
+      "group": "parcels",
+      "title": "AUBURN \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M017_AUBURN.zip",
+      "path": "parcels/town-017.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-19",
+      "group": "parcels",
+      "title": "AYER \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M019_AYER.zip",
+      "path": "parcels/town-019.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-21",
+      "group": "parcels",
+      "title": "BARRE \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M021_BARRE.zip",
+      "path": "parcels/town-021.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-23",
+      "group": "parcels",
+      "title": "BEDFORD \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M023_BEDFORD.zip",
+      "path": "parcels/town-023.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-26",
+      "group": "parcels",
+      "title": "BELMONT \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M026_BELMONT.zip",
+      "path": "parcels/town-026.zip",
+      "format": "GIS ZIP",
+      "edition": "2024"
+    },
+    {
+      "id": "parcels-28",
+      "group": "parcels",
+      "title": "BERLIN \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M028_BERLIN.zip",
+      "path": "parcels/town-028.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-31",
+      "group": "parcels",
+      "title": "BILLERICA \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M031_BILLERICA.zip",
+      "path": "parcels/town-031.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-32",
+      "group": "parcels",
+      "title": "BLACKSTONE \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M032_BLACKSTONE.zip",
+      "path": "parcels/town-032.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-34",
+      "group": "parcels",
+      "title": "BOLTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M034_BOLTON.zip",
+      "path": "parcels/town-034.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-37",
+      "group": "parcels",
+      "title": "BOXBOROUGH \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M037_BOXBOROUGH.zip",
+      "path": "parcels/town-037.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-39",
+      "group": "parcels",
+      "title": "BOYLSTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M039_BOYLSTON.zip",
+      "path": "parcels/town-039.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-45",
+      "group": "parcels",
+      "title": "BROOKFIELD \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M045_BROOKFIELD.zip",
+      "path": "parcels/town-045.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-48",
+      "group": "parcels",
+      "title": "BURLINGTON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M048_BURLINGTON.zip",
+      "path": "parcels/town-048.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-49",
+      "group": "parcels",
+      "title": "CAMBRIDGE \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M049_CAMBRIDGE.zip",
+      "path": "parcels/town-049.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-51",
+      "group": "parcels",
+      "title": "CARLISLE \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M051_CARLISLE.zip",
+      "path": "parcels/town-051.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-54",
+      "group": "parcels",
+      "title": "CHARLTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M054_CHARLTON.zip",
+      "path": "parcels/town-054.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-56",
+      "group": "parcels",
+      "title": "CHELMSFORD \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M056_CHELMSFORD.zip",
+      "path": "parcels/town-056.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-64",
+      "group": "parcels",
+      "title": "CLINTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M064_CLINTON.zip",
+      "path": "parcels/town-064.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-67",
+      "group": "parcels",
+      "title": "CONCORD \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M067_CONCORD.zip",
+      "path": "parcels/town-067.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-77",
+      "group": "parcels",
+      "title": "DOUGLAS \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M077_DOUGLAS.zip",
+      "path": "parcels/town-077.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-79",
+      "group": "parcels",
+      "title": "DRACUT \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M079_DRACUT.zip",
+      "path": "parcels/town-079.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-80",
+      "group": "parcels",
+      "title": "DUDLEY \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M080_DUDLEY.zip",
+      "path": "parcels/town-080.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-81",
+      "group": "parcels",
+      "title": "DUNSTABLE \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M081_DUNSTABLE.zip",
+      "path": "parcels/town-081.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-84",
+      "group": "parcels",
+      "title": "EAST BROOKFIELD \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M084_EASTBROOKFIELD.zip",
+      "path": "parcels/town-084.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-93",
+      "group": "parcels",
+      "title": "EVERETT \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M093_EVERETT.zip",
+      "path": "parcels/town-093.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-97",
+      "group": "parcels",
+      "title": "FITCHBURG \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M097_FITCHBURG.zip",
+      "path": "parcels/town-097.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-100",
+      "group": "parcels",
+      "title": "FRAMINGHAM \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M100_FRAMINGHAM.zip",
+      "path": "parcels/town-100.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-103",
+      "group": "parcels",
+      "title": "GARDNER \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M103_GARDNER.zip",
+      "path": "parcels/town-103.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-110",
+      "group": "parcels",
+      "title": "GRAFTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M110_GRAFTON.zip",
+      "path": "parcels/town-110.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-115",
+      "group": "parcels",
+      "title": "GROTON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M115_GROTON.zip",
+      "path": "parcels/town-115.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-124",
+      "group": "parcels",
+      "title": "HARDWICK \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M124_HARDWICK.zip",
+      "path": "parcels/town-124.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-125",
+      "group": "parcels",
+      "title": "HARVARD \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M125_HARVARD.zip",
+      "path": "parcels/town-125.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-134",
+      "group": "parcels",
+      "title": "HOLDEN \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M134_HOLDEN.zip",
+      "path": "parcels/town-134.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-136",
+      "group": "parcels",
+      "title": "HOLLISTON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M136_HOLLISTON.zip",
+      "path": "parcels/town-136.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-138",
+      "group": "parcels",
+      "title": "HOPEDALE \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M138_HOPEDALE.zip",
+      "path": "parcels/town-138.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-139",
+      "group": "parcels",
+      "title": "HOPKINTON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M139_HOPKINTON.zip",
+      "path": "parcels/town-139.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-140",
+      "group": "parcels",
+      "title": "HUBBARDSTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M140_HUBBARDSTON.zip",
+      "path": "parcels/town-140.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-141",
+      "group": "parcels",
+      "title": "HUDSON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M141_HUDSON.zip",
+      "path": "parcels/town-141.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-147",
+      "group": "parcels",
+      "title": "LANCASTER \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M147_LANCASTER.zip",
+      "path": "parcels/town-147.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-151",
+      "group": "parcels",
+      "title": "LEICESTER \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M151_LEICESTER.zip",
+      "path": "parcels/town-151.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-153",
+      "group": "parcels",
+      "title": "LEOMINSTER \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M153_LEOMINSTER.zip",
+      "path": "parcels/town-153.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-155",
+      "group": "parcels",
+      "title": "LEXINGTON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M155_LEXINGTON.zip",
+      "path": "parcels/town-155.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-157",
+      "group": "parcels",
+      "title": "LINCOLN \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M157_LINCOLN.zip",
+      "path": "parcels/town-157.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-158",
+      "group": "parcels",
+      "title": "LITTLETON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M158_LITTLETON.zip",
+      "path": "parcels/town-158.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-160",
+      "group": "parcels",
+      "title": "LOWELL \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M160_LOWELL.zip",
+      "path": "parcels/town-160.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-162",
+      "group": "parcels",
+      "title": "LUNENBURG \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M162_LUNENBURG.zip",
+      "path": "parcels/town-162.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-165",
+      "group": "parcels",
+      "title": "MALDEN \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M165_MALDEN.zip",
+      "path": "parcels/town-165.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-170",
+      "group": "parcels",
+      "title": "MARLBOROUGH \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M170_MARLBOROUGH.zip",
+      "path": "parcels/town-170.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-174",
+      "group": "parcels",
+      "title": "MAYNARD \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M174_MAYNARD.zip",
+      "path": "parcels/town-174.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-176",
+      "group": "parcels",
+      "title": "MEDFORD \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M176_MEDFORD.zip",
+      "path": "parcels/town-176.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-178",
+      "group": "parcels",
+      "title": "MELROSE \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M178_MELROSE.zip",
+      "path": "parcels/town-178.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-179",
+      "group": "parcels",
+      "title": "MENDON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M179_MENDON.zip",
+      "path": "parcels/town-179.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-185",
+      "group": "parcels",
+      "title": "MILFORD \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M185_MILFORD.zip",
+      "path": "parcels/town-185.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-186",
+      "group": "parcels",
+      "title": "MILLBURY \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M186_MILLBURY.zip",
+      "path": "parcels/town-186.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-188",
+      "group": "parcels",
+      "title": "MILLVILLE \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M188_MILLVILLE.zip",
+      "path": "parcels/town-188.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-198",
+      "group": "parcels",
+      "title": "NATICK \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M198_NATICK.zip",
+      "path": "parcels/town-198.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-202",
+      "group": "parcels",
+      "title": "NEW BRAINTREE \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M202_NEWBRAINTREE.zip",
+      "path": "parcels/town-202.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-207",
+      "group": "parcels",
+      "title": "NEWTON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M207_NEWTON.zip",
+      "path": "parcels/town-207.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-212",
+      "group": "parcels",
+      "title": "NORTH BROOKFIELD \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M212_NORTHBROOKFIELD.zip",
+      "path": "parcels/town-212.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-213",
+      "group": "parcels",
+      "title": "NORTH READING \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M213_NORTHREADING.zip",
+      "path": "parcels/town-213.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-215",
+      "group": "parcels",
+      "title": "NORTHBOROUGH \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M215_NORTHBOROUGH.zip",
+      "path": "parcels/town-215.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-216",
+      "group": "parcels",
+      "title": "NORTHBRIDGE \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M216_NORTHBRIDGE.zip",
+      "path": "parcels/town-216.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-222",
+      "group": "parcels",
+      "title": "OAKHAM \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M222_OAKHAM.zip",
+      "path": "parcels/town-222.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-226",
+      "group": "parcels",
+      "title": "OXFORD \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M226_OXFORD.zip",
+      "path": "parcels/town-226.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-228",
+      "group": "parcels",
+      "title": "PAXTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M228_PAXTON.zip",
+      "path": "parcels/town-228.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-232",
+      "group": "parcels",
+      "title": "PEPPERELL \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M232_PEPPERELL.zip",
+      "path": "parcels/town-232.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-234",
+      "group": "parcels",
+      "title": "PETERSHAM \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M234_PETERSHAM.zip",
+      "path": "parcels/town-234.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-235",
+      "group": "parcels",
+      "title": "PHILLIPSTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M235_PHILLIPSTON.zip",
+      "path": "parcels/town-235.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-241",
+      "group": "parcels",
+      "title": "PRINCETON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M241_PRINCETON.zip",
+      "path": "parcels/town-241.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-246",
+      "group": "parcels",
+      "title": "READING \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M246_READING.zip",
+      "path": "parcels/town-246.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-255",
+      "group": "parcels",
+      "title": "ROYALSTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M255_ROYALSTON.zip",
+      "path": "parcels/town-255.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-257",
+      "group": "parcels",
+      "title": "RUTLAND \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M257_RUTLAND.zip",
+      "path": "parcels/town-257.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-269",
+      "group": "parcels",
+      "title": "SHERBORN \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M269_SHERBORN.zip",
+      "path": "parcels/town-269.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-270",
+      "group": "parcels",
+      "title": "SHIRLEY \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M270_SHIRLEY.zip",
+      "path": "parcels/town-270.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-271",
+      "group": "parcels",
+      "title": "SHREWSBURY \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M271_SHREWSBURY.zip",
+      "path": "parcels/town-271.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-274",
+      "group": "parcels",
+      "title": "SOMERVILLE \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M274_SOMERVILLE.zip",
+      "path": "parcels/town-274.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-277",
+      "group": "parcels",
+      "title": "SOUTHBOROUGH \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M277_SOUTHBOROUGH.zip",
+      "path": "parcels/town-277.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-278",
+      "group": "parcels",
+      "title": "SOUTHBRIDGE \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M278_SOUTHBRIDGE.zip",
+      "path": "parcels/town-278.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-280",
+      "group": "parcels",
+      "title": "SPENCER \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M280_SPENCER.zip",
+      "path": "parcels/town-280.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-282",
+      "group": "parcels",
+      "title": "STERLING \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M282_STERLING.zip",
+      "path": "parcels/town-282.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-284",
+      "group": "parcels",
+      "title": "STONEHAM \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M284_STONEHAM.zip",
+      "path": "parcels/town-284.zip",
+      "format": "GIS ZIP",
+      "edition": "2024"
+    },
+    {
+      "id": "parcels-286",
+      "group": "parcels",
+      "title": "STOW \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M286_STOW.zip",
+      "path": "parcels/town-286.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-287",
+      "group": "parcels",
+      "title": "STURBRIDGE \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M287_STURBRIDGE.zip",
+      "path": "parcels/town-287.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-288",
+      "group": "parcels",
+      "title": "SUDBURY \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M288_SUDBURY.zip",
+      "path": "parcels/town-288.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-290",
+      "group": "parcels",
+      "title": "SUTTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M290_SUTTON.zip",
+      "path": "parcels/town-290.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-294",
+      "group": "parcels",
+      "title": "TEMPLETON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M294_TEMPLETON.zip",
+      "path": "parcels/town-294.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-295",
+      "group": "parcels",
+      "title": "TEWKSBURY \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M295_TEWKSBURY.zip",
+      "path": "parcels/town-295.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-299",
+      "group": "parcels",
+      "title": "TOWNSEND \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M299_TOWNSEND.zip",
+      "path": "parcels/town-299.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-301",
+      "group": "parcels",
+      "title": "TYNGSBOROUGH \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M301_TYNGSBOROUGH.zip",
+      "path": "parcels/town-301.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-303",
+      "group": "parcels",
+      "title": "UPTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M303_UPTON.zip",
+      "path": "parcels/town-303.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-304",
+      "group": "parcels",
+      "title": "UXBRIDGE \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M304_UXBRIDGE.zip",
+      "path": "parcels/town-304.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-305",
+      "group": "parcels",
+      "title": "WAKEFIELD \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M305_WAKEFIELD.zip",
+      "path": "parcels/town-305.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-308",
+      "group": "parcels",
+      "title": "WALTHAM \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M308_WALTHAM.zip",
+      "path": "parcels/town-308.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-311",
+      "group": "parcels",
+      "title": "WARREN \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M311_WARREN.zip",
+      "path": "parcels/town-311.zip",
+      "format": "GIS ZIP",
+      "edition": "2027"
+    },
+    {
+      "id": "parcels-314",
+      "group": "parcels",
+      "title": "WATERTOWN \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M314_WATERTOWN.zip",
+      "path": "parcels/town-314.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-315",
+      "group": "parcels",
+      "title": "WAYLAND \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M315_WAYLAND.zip",
+      "path": "parcels/town-315.zip",
+      "format": "GIS ZIP",
+      "edition": "2024"
+    },
+    {
+      "id": "parcels-316",
+      "group": "parcels",
+      "title": "WEBSTER \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M316_WEBSTER.zip",
+      "path": "parcels/town-316.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-321",
+      "group": "parcels",
+      "title": "WEST BOYLSTON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M321_WESTBOYLSTON.zip",
+      "path": "parcels/town-321.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-323",
+      "group": "parcels",
+      "title": "WEST BROOKFIELD \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M323_WESTBROOKFIELD.zip",
+      "path": "parcels/town-323.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-328",
+      "group": "parcels",
+      "title": "WESTBOROUGH \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M328_WESTBOROUGH.zip",
+      "path": "parcels/town-328.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-330",
+      "group": "parcels",
+      "title": "WESTFORD \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M330_WESTFORD.zip",
+      "path": "parcels/town-330.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-332",
+      "group": "parcels",
+      "title": "WESTMINSTER \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M332_WESTMINSTER.zip",
+      "path": "parcels/town-332.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-333",
+      "group": "parcels",
+      "title": "WESTON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M333_WESTON.zip",
+      "path": "parcels/town-333.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-342",
+      "group": "parcels",
+      "title": "WILMINGTON \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M342_WILMINGTON.zip",
+      "path": "parcels/town-342.zip",
+      "format": "GIS ZIP",
+      "edition": "2025"
+    },
+    {
+      "id": "parcels-343",
+      "group": "parcels",
+      "title": "WINCHENDON \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M343_WINCHENDON.zip",
+      "path": "parcels/town-343.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-344",
+      "group": "parcels",
+      "title": "WINCHESTER \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M344_WINCHESTER.zip",
+      "path": "parcels/town-344.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-347",
+      "group": "parcels",
+      "title": "WOBURN \u2014 Middlesex County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M347_WOBURN.zip",
+      "path": "parcels/town-347.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "parcels-348",
+      "group": "parcels",
+      "title": "WORCESTER \u2014 Worcester County",
+      "url": "https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M348_WORCESTER.zip",
+      "path": "parcels/town-348.zip",
+      "format": "GIS ZIP",
+      "edition": "2026"
+    },
+    {
+      "id": "topo-ad9172b923050fcb",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Ashburnham, MA,NH",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ashburnham_20240507_TM_geo.pdf",
+      "path": "topographic/ad9172b923050fcb.pdf",
+      "format": "PDF",
+      "edition": "2024-05-07"
+    },
+    {
+      "id": "topo-7862ffa829c849f5",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Ashby, MA,NH",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ashby_20240507_TM_geo.pdf",
+      "path": "topographic/7862ffa829c849f5.pdf",
+      "format": "PDF",
+      "edition": "2024-05-07"
+    },
+    {
+      "id": "topo-b573d54cc63515fb",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Ayer, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ayer_20240816_TM_geo.pdf",
+      "path": "topographic/b573d54cc63515fb.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-f26b1ea319f19555",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Billerica, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Billerica_20240816_TM_geo.pdf",
+      "path": "topographic/f26b1ea319f19555.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-d94d9d3e513c4c43",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Boston North, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Boston_North_20240816_TM_geo.pdf",
+      "path": "topographic/d94d9d3e513c4c43.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-9b41bc9dbb3b8de2",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Boston South, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Boston_South_20240816_TM_geo.pdf",
+      "path": "topographic/9b41bc9dbb3b8de2.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-bab690ce9da9a578",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Concord, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Concord_20240816_TM_geo.pdf",
+      "path": "topographic/bab690ce9da9a578.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-e652624794ea486f",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Framingham, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Framingham_20240816_TM_geo.pdf",
+      "path": "topographic/e652624794ea486f.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-f866729b25f41464",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Holliston, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Holliston_20240816_TM_geo.pdf",
+      "path": "topographic/f866729b25f41464.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-a6c0cfaeee5847c6",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Hudson, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Hudson_20240816_TM_geo.pdf",
+      "path": "topographic/a6c0cfaeee5847c6.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-524c577a2b56b221",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Lawrence, MA,NH",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Lawrence_20240816_TM_geo.pdf",
+      "path": "topographic/524c577a2b56b221.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-12d299acddcf9344",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Lexington, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Lexington_20240822_TM_geo.pdf",
+      "path": "topographic/12d299acddcf9344.pdf",
+      "format": "PDF",
+      "edition": "2024-08-22"
+    },
+    {
+      "id": "topo-0f84f3799ee60cf6",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Lowell, MA,NH",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Lowell_20240816_TM_geo.pdf",
+      "path": "topographic/0f84f3799ee60cf6.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-067b29009a348eed",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Marlborough, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Marlborough_20240822_TM_geo.pdf",
+      "path": "topographic/067b29009a348eed.pdf",
+      "format": "PDF",
+      "edition": "2024-08-22"
+    },
+    {
+      "id": "topo-fe479fa400edcb38",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Maynard, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Maynard_20240816_TM_geo.pdf",
+      "path": "topographic/fe479fa400edcb38.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-b916d181265bea6f",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Medfield, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Medfield_20240507_TM_geo.pdf",
+      "path": "topographic/b916d181265bea6f.pdf",
+      "format": "PDF",
+      "edition": "2024-05-07"
+    },
+    {
+      "id": "topo-9f6a00f1c2f04630",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Milford, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Milford_20240816_TM_geo.pdf",
+      "path": "topographic/9f6a00f1c2f04630.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-c1a34a482b81fd6d",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Nashua South, NH,MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/NH/NH_Nashua_South_20240816_TM_geo.pdf",
+      "path": "topographic/c1a34a482b81fd6d.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-4f28f00ffcd955f3",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Natick, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Natick_20240816_TM_geo.pdf",
+      "path": "topographic/4f28f00ffcd955f3.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-e8df7a5f873e06f2",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Newton, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Newton_20240816_TM_geo.pdf",
+      "path": "topographic/e8df7a5f873e06f2.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-e8e6da4ad93384d0",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Pepperell, MA,NH",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Pepperell_20240507_TM_geo.pdf",
+      "path": "topographic/e8e6da4ad93384d0.pdf",
+      "format": "PDF",
+      "edition": "2024-05-07"
+    },
+    {
+      "id": "topo-dc041ca160655d94",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Reading, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Reading_20240816_TM_geo.pdf",
+      "path": "topographic/dc041ca160655d94.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-d161d12d047ad0ac",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Shirley, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Shirley_20240816_TM_geo.pdf",
+      "path": "topographic/d161d12d047ad0ac.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-af8322f2dd60e3dd",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Shrewsbury, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Shrewsbury_20240816_TM_geo.pdf",
+      "path": "topographic/af8322f2dd60e3dd.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-bb520c5ee6b5dd3c",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Townsend, MA,NH",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Townsend_20240816_TM_geo.pdf",
+      "path": "topographic/bb520c5ee6b5dd3c.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-a9735de5055e2b30",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Westford, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Westford_20240816_TM_geo.pdf",
+      "path": "topographic/a9735de5055e2b30.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-e8a342a4dc28fd53",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Wilmington, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Wilmington_20240816_TM_geo.pdf",
+      "path": "topographic/e8a342a4dc28fd53.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-9dc7a5f21b70104c",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Athol, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Athol_20240816_TM_geo.pdf",
+      "path": "topographic/9dc7a5f21b70104c.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-cf351f0e59d6d5fe",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Barre, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Barre_20240812_TM_geo.pdf",
+      "path": "topographic/cf351f0e59d6d5fe.pdf",
+      "format": "PDF",
+      "edition": "2024-08-12"
+    },
+    {
+      "id": "topo-8ce85384402a5e97",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Blackstone, MA,RI",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Blackstone_20240816_TM_geo.pdf",
+      "path": "topographic/8ce85384402a5e97.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-e41ead3955814741",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Clinton, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Clinton_20240822_TM_geo.pdf",
+      "path": "topographic/e41ead3955814741.pdf",
+      "format": "PDF",
+      "edition": "2024-08-22"
+    },
+    {
+      "id": "topo-9c7911ef2f595af4",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for East Brookfield, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_East_Brookfield_20240816_TM_geo.pdf",
+      "path": "topographic/9c7911ef2f595af4.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-e8a8847de811205d",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Fitchburg, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Fitchburg_20240507_TM_geo.pdf",
+      "path": "topographic/e8a8847de811205d.pdf",
+      "format": "PDF",
+      "edition": "2024-05-07"
+    },
+    {
+      "id": "topo-5fe67a186873a2b4",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Franklin, MA,RI",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Franklin_20240816_TM_geo.pdf",
+      "path": "topographic/5fe67a186873a2b4.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-3f121fe5dc8a741d",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Gardner, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Gardner_20240816_TM_geo.pdf",
+      "path": "topographic/3f121fe5dc8a741d.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-7c0d014da3d1fe2b",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Grafton, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Grafton_20240816_TM_geo.pdf",
+      "path": "topographic/7c0d014da3d1fe2b.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-3563991696011016",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Leicester, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Leicester_20240816_TM_geo.pdf",
+      "path": "topographic/3563991696011016.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-81aa530b191f0403",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Mount Grace, MA,NH",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Mount_Grace_20240812_TM_geo.pdf",
+      "path": "topographic/81aa530b191f0403.pdf",
+      "format": "PDF",
+      "edition": "2024-08-12"
+    },
+    {
+      "id": "topo-5b830b06f3e37fe5",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for North Brookfield, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_North_Brookfield_20240816_TM_geo.pdf",
+      "path": "topographic/5b830b06f3e37fe5.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-1289d01af1fa7864",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Orange, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Orange_20240816_TM_geo.pdf",
+      "path": "topographic/1289d01af1fa7864.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-e8de8bdb81a22fc9",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Oxford, MA,CT,RI",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Oxford_20240816_TM_geo.pdf",
+      "path": "topographic/e8de8bdb81a22fc9.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-a4174cf7164869a5",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Palmer, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Palmer_20240812_TM_geo.pdf",
+      "path": "topographic/a4174cf7164869a5.pdf",
+      "format": "PDF",
+      "edition": "2024-08-12"
+    },
+    {
+      "id": "topo-c89ffc975cc6dbbc",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Paxton, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Paxton_20240816_TM_geo.pdf",
+      "path": "topographic/c89ffc975cc6dbbc.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-cebfd111b063f4a8",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Petersham, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Petersham_20240816_TM_geo.pdf",
+      "path": "topographic/cebfd111b063f4a8.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-a8630a2d946e0021",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Quabbin Reservoir, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Quabbin_Reservoir_20240816_TM_geo.pdf",
+      "path": "topographic/a8630a2d946e0021.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-755bc7c42804066c",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Royalston, MA,NH",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Royalston_20240812_TM_geo.pdf",
+      "path": "topographic/755bc7c42804066c.pdf",
+      "format": "PDF",
+      "edition": "2024-08-12"
+    },
+    {
+      "id": "topo-b73d1aa4e53a16b8",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Southbridge, MA,CT",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Southbridge_20240812_TM_geo.pdf",
+      "path": "topographic/b73d1aa4e53a16b8.pdf",
+      "format": "PDF",
+      "edition": "2024-08-12"
+    },
+    {
+      "id": "topo-de6bc330b8433510",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Sterling, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Sterling_20240816_TM_geo.pdf",
+      "path": "topographic/de6bc330b8433510.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-5d3e3c93bfe92054",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Templeton, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Templeton_20240812_TM_geo.pdf",
+      "path": "topographic/5d3e3c93bfe92054.pdf",
+      "format": "PDF",
+      "edition": "2024-08-12"
+    },
+    {
+      "id": "topo-421f5e041225ca0b",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Uxbridge, MA,RI",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Uxbridge_20240816_TM_geo.pdf",
+      "path": "topographic/421f5e041225ca0b.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-3e5152b897a08634",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Wachusett Mountain, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Wachusett_Mountain_20240507_TM_geo.pdf",
+      "path": "topographic/3e5152b897a08634.pdf",
+      "format": "PDF",
+      "edition": "2024-05-07"
+    },
+    {
+      "id": "topo-0ebd6a50fff70ced",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Wales, MA,CT",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Wales_20240816_TM_geo.pdf",
+      "path": "topographic/0ebd6a50fff70ced.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-e1ed96d36e59b704",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Ware, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ware_20240812_TM_geo.pdf",
+      "path": "topographic/e1ed96d36e59b704.pdf",
+      "format": "PDF",
+      "edition": "2024-08-12"
+    },
+    {
+      "id": "topo-8c1241c258a9c68b",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Warren, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Warren_20240816_TM_geo.pdf",
+      "path": "topographic/8c1241c258a9c68b.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-a7dff18cae422827",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Webster, MA,CT",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Webster_20240507_TM_geo.pdf",
+      "path": "topographic/a7dff18cae422827.pdf",
+      "format": "PDF",
+      "edition": "2024-05-07"
+    },
+    {
+      "id": "topo-654573cddcb89fb7",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Winchendon, MA,NH",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Winchendon_20240816_TM_geo.pdf",
+      "path": "topographic/654573cddcb89fb7.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-04e57dc2a05f0830",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Winsor Dam, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Winsor_Dam_20240816_TM_geo.pdf",
+      "path": "topographic/04e57dc2a05f0830.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-cae4e9c873506a89",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Worcester North, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Worcester_North_20240816_TM_geo.pdf",
+      "path": "topographic/cae4e9c873506a89.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    },
+    {
+      "id": "topo-992e1ad5789cdcea",
+      "group": "topographic",
+      "title": "US Topo 7.5-minute map for Worcester South, MA",
+      "url": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Worcester_South_20240816_TM_geo.pdf",
+      "path": "topographic/992e1ad5789cdcea.pdf",
+      "format": "PDF",
+      "edition": "2024-08-16"
+    }
+  ],
+  "group_checked": {
+    "flood": 1792036123.8486073,
+    "parcels": 1792036124.4012964,
+    "topographic": 1792036129.1124907
+  },
+  "group_errors": {},
+  "signature": "0c410041b555abc3e3ff158ee6e2c29dc868fd2b377acebeb60473d8b9742bd3",
+  "status": "Up to date",
+  "updated": 1792791432.8281841
+}

@@ -148,7 +148,7 @@ def main():
  if not MOUNT.is_mount():raise SystemExit('Content SSD must be mounted')
  catalogue=json.loads((ROOT/'deploy/reference/resilience-catalogue.json').read_text())
  with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:records=list(pool.map(download,catalogue))
- for url,n,title in [('https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186','186','Estates for Years and at Will'),('https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter93A','93A','Consumer Protection'),('https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter76','76','School Attendance')]:records.append(chapter(url,n,title))
+ for entry in json.loads((ROOT/'deploy/reference/resilience-settings.json').read_text())['massachusetts_chapters']:records.append(chapter(entry['url'],entry['number'],entry['title']))
  records+=us_code()
  for collection in ['resilience','civic-reference']:
   rows=[r for r in records if r['collection']==collection];atomic(MOUNT/collection/'sources.json',(json.dumps(rows,ensure_ascii=False,indent=2)+'\n').encode());index(collection,rows)

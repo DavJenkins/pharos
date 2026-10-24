@@ -1,0 +1,68 @@
+{
+  "mirror_repository": "russolsen/ham_radio_question_pool",
+  "commit": "6122699c9541f26d88298db379b5e252885c42a2",
+  "pools": [
+    {
+      "id": "technician",
+      "edition": "2026-2030",
+      "valid_from": "2026-07-01",
+      "valid_through": "2030-06-30",
+      "questions": 409,
+      "exam_questions": 35,
+      "passing": 26,
+      "figures": [
+        "t-1.png",
+        "t-2.png",
+        "t-3.png"
+      ]
+    },
+    {
+      "id": "general",
+      "edition": "2023-2027",
+      "valid_from": "2023-07-01",
+      "valid_through": "2027-06-30",
+      "questions": 423,
+      "exam_questions": 35,
+      "passing": 26,
+      "figures": [
+        "g7-1.png"
+      ]
+    },
+    {
+      "id": "extra",
+      "edition": "2024-2028",
+      "valid_from": "2024-07-01",
+      "valid_through": "2028-06-30",
+      "questions": 599,
+      "exam_questions": 50,
+      "passing": 37,
+      "figures": [
+        "e5-1.png",
+        "e6-1.png",
+        "e6-2.png",
+        "e6-3.png",
+        "e7-1.png",
+        "e7-2.png",
+        "e7-3.png",
+        "e9-1.png",
+        "e9-2.png",
+        "e9-3.png"
+      ]
+    }
+  ],
+  "withdrawn": [
+    "G1A04",
+    "G1C08",
+    "G1C09",
+    "G1C10",
+    "G1E09",
+    "G6B09",
+    "G8C01",
+    "G9C06",
+    "G9D13",
+    "E2A13",
+    "E4D05",
+    "E6D07",
+    "E9E10"
+  ]
+}

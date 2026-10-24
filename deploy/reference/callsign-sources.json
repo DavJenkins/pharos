@@ -1,0 +1,6 @@
+{
+  "fcc_url": "https://data.fcc.gov/download/pub/uls/complete/l_amat.zip",
+  "census_url": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+  "census_edition": "2025",
+  "coverage": "US amateur licensing; public mailing ZIP areas, not station positions."
+}

@@ -3,11 +3,12 @@
 import hashlib,json,re,sys,urllib.request
 from datetime import datetime,timezone
 from pathlib import Path
-COMMIT='6122699c9541f26d88298db379b5e252885c42a2'
-BASE='https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/'+COMMIT+'/'
+SETTINGS=json.loads((Path(__file__).resolve().parents[1]/'deploy/reference/radio-pools.json').read_text())
+COMMIT=SETTINGS['commit']
+BASE='https://raw.githubusercontent.com/'+SETTINGS['mirror_repository']+'/'+COMMIT+'/'
 ROOT=Path('/mnt/storage/radio-study')
-POOLS=[('technician','2026-2030','2026-07-01','2030-06-30',409,35,26,['t-1.png','t-2.png','t-3.png']),('general','2023-2027','2023-07-01','2027-06-30',423,35,26,['g7-1.png']),('extra','2024-2028','2024-07-01','2028-06-30',599,50,37,['e5-1.png','e6-1.png','e6-2.png','e6-3.png','e7-1.png','e7-2.png','e7-3.png','e9-1.png','e9-2.png','e9-3.png'])]
-WITHDRAWN=set('G1A04 G1C08 G1C09 G1C10 G1E09 G6B09 G8C01 G9C06 G9D13 E2A13 E4D05 E6D07 E9E10'.split())
+POOLS=[(p['id'],p['edition'],p['valid_from'],p['valid_through'],p['questions'],p['exam_questions'],p['passing'],p['figures']) for p in SETTINGS['pools']]
+WITHDRAWN=set(SETTINGS['withdrawn'])
 def get(path):
  with urllib.request.urlopen(BASE+path,timeout=30) as r:data=r.read(8*1024**2+1)
  if len(data)>8*1024**2:raise ValueError('Source exceeds cap')
@@ -28,7 +29,7 @@ def main():
     assert re.fullmatch('[TGE][0-9][A-Z][0-9]{2}',r['id']) and len(r['answers'])==4
     assert isinstance(r['correct'],int) and 0<=r['correct']<4 and r['correct_letter']=='ABCD'[r['correct']]
     assert r.get('figure','') in ['']+figures,'Unknown figure'
-   if key=='technician':
+   if key=='technician' and edition=='2026-2030':
     expected={'T1C01':'For which classes of amateur radio licenses does the FCC currently issue new licenses?','T5A05':'A difference in which of the following causes electron flow?','T7A09':'What is the function of the switch which selects either SSB or CW-FM on some VHF power amplifiers?','T0A10':'What hazard exists when rapidly charging or discharging an unprotected battery?'}
     for id,text in expected.items():assert next(r['question'] for r in rows if r['id']==id)==text
    assert len({r['id'][:3] for r in rows})==exam,'Exam group coverage mismatch'
@@ -49,5 +50,5 @@ def main():
     name=p['directory']+'/'+p['directory']+'.'+suffix;data=files[name];id='radio-'+p['id']+'-'+suffix;a={'id':id,'repository_id':'radio-study','category':'pdf_reference','title':p['title']+' '+p['edition']+' question pool ('+suffix.upper()+')','relative_path':'radio-study/'+name,'service_endpoint':'/library-files/radio-study/'+name,'expected_hash':hashlib.sha256(data).hexdigest(),'update_policy':'manual','refresh_interval':'never','online_url':BASE+name,'download_url':BASE+name,'source_note':'Pinned licensed transcription; reinstall using tools/install_radio_study.py. Figures and source record accompany collection.'};m['assets']=[x for x in m['assets'] if x['id']!=id]+[a]
   atomic_write(path,serialize(m).encode())
   from tools.publish_content import publish
-  publish(Path('/mnt/storage'));print('Installed 1431 questions and 14 diagrams',flush=True)
+  publish(Path('/mnt/storage'));print('Installed',sum(p[4] for p in POOLS),'questions and',sum(len(p[7]) for p in POOLS),'diagrams',flush=True)
 if __name__=='__main__':main()

@@ -81,6 +81,13 @@ Use the dashboard for supported downloads and removals so readers, catalogue
 entries and content files stay in step. Do not put completed forms, passwords
 or private work in the public library.
 
+Desired content configuration: /opt/dataark/config/content/content.yaml
+Portable mirror: /mnt/storage/DATA-ARK-CONFIG
+Preview a rebuild: /usr/bin/python3 /opt/dataark/tools/content_profile.py plan
+After intentional library changes, capture a fresh profile with:
+  sudo /usr/bin/python3 /opt/dataark/tools/content_profile.py export
+Guide: http://dataark/docs/20-Administration/ContentRestoration.html
+
 Reference collections have source dates and coverage notes. A stored file is
 not necessarily the latest edition. Additional manually installed collections
 have documented reinstall/update commands, including radio pools and callbook:

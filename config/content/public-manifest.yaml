@@ -1,0 +1,2305 @@
+system:
+  project_name: Data Ark
+  version: '1.4'
+  theme: Ark of the Covenant
+  base_mount: /mnt/storage
+  hide_missing: true
+  services:
+    kiwix_port: 8080
+    samba_share_path: /mnt/storage
+    web_root: /var/www/html
+    content_url_prefix: /library-files/
+  artwork:
+    path: app/static/assets/Pharos Data Ark.png
+    alt: Data Ark lighthouse
+geography:
+  country: US
+  state:
+    code: MA
+    name: Massachusetts
+  counties:
+  - name: Worcester
+    focus: Northern Worcester County
+  - name: Middlesex
+maps:
+  enabled: true
+  refresh_days: 30
+  reserve_gib: 10
+  max_run_gib: 8
+  sources:
+  - flood
+  - parcels
+  - topographic
+categories:
+- id: content_sources
+  title: Content sources
+  description: Explore the sources and content collected on this Ark. Local availability
+    is shown for each registered asset.
+- id: zim_archives
+  title: Offline knowledge libraries
+  description: Read locally preserved archives with Kiwix, or download the original
+    files.
+- id: reference
+  title: Reference sources
+  description: Online sources to explore and build your own collection.
+- id: pdf_reference
+  title: PDF reference vault
+  description: Medical, communications, engineering, and administrative documents.
+- id: utilities_binaries
+  title: Portable utilities
+  description: Readers and tools to take with the content.
+scenarios:
+- id: general
+  title: General reference
+- id: medical
+  title: Medical reference
+- id: technical
+  title: Technical reference
+repositories:
+- id: wikipedia
+  category: content_sources
+  title: Wikipedia
+  description: English encyclopedias preserved on this Ark.
+  artwork:
+    path: app/static/assets/icons/Wikipedia.png
+    alt: Wikipedia
+  update_policy: manual
+  refresh_interval: never
+  tags:
+  - encyclopedia
+  scenarios:
+  - general
+  links:
+  - title: Wikipedia (local)
+    service: kiwix
+    path: /#name=wikipedia_en_all
+  - title: Wikipedia
+    url: https://www.wikipedia.org
+    requires_internet: true
+- id: technical-qa
+  category: content_sources
+  title: Technical Q&A
+  description: Electronics and Unix/Linux questions and answers, with a portable reader.
+  artwork:
+    path: app/static/assets/icons/Kiwix.png
+    alt: Kiwix
+  update_policy: manual
+  refresh_interval: never
+  scenarios:
+  - technical
+  links:
+  - title: Read local technical Q&A
+    service: kiwix
+    path: /#category=stack_exchange
+  - title: Electronics Q&A
+    url: https://electronics.stackexchange.com
+    requires_internet: true
+  - title: Unix and Linux Q&A
+    url: https://unix.stackexchange.com
+    requires_internet: true
+- id: wikimed
+  category: content_sources
+  title: WikiMed
+  description: A locally preserved medical encyclopedia.
+  artwork:
+    path: app/static/assets/icons/WikiMed.png
+    alt: WikiMed
+  update_policy: manual
+  scenarios:
+  - medical
+  links:
+  - title: Read local WikiMed
+    service: kiwix
+    path: /#name=wikipedia_en_medicine
+  - title: Kiwix medical resources
+    url: https://www.kiwix.org
+    requires_internet: true
+- id: ifixit
+  category: content_sources
+  title: iFixit Repair Guides
+  description: Step-by-step English repair guides with photos, preserved for offline
+    use. By iFixit and its contributors, CC BY-NC-SA 3.0.
+  update_policy: on_network_available
+  refresh_interval: 1d
+  tags:
+  - repair
+  - maintenance
+  - illustrated
+  scenarios:
+  - technical
+  - general
+  links:
+  - title: Read repair guides (local)
+    service: kiwix
+    path: /#name=ifixit_en_all
+  - title: Attribution and license
+    url: /legal/ifixit.html
+  - title: iFixit (online)
+    url: https://www.ifixit.com
+    requires_internet: true
+- id: openstreetmap
+  enabled: true
+  category: content_sources
+  title: Offline street map
+  description: Massachusetts and adjoining border areas. Local OpenStreetMap-derived
+    vector map with offline pan and zoom; no routing or search.
+  artwork:
+    path: app/static/assets/icons/OpenStreetmap.png
+    alt: OpenStreetMap
+  links:
+  - title: Open the offline street map
+    url: /maps.html
+  - title: Map sources and maintenance
+    url: /docs/20-Administration/OfflineReferences.html
+  update_policy: manual
+  refresh_interval: never
+- id: project-gutenberg
+  enabled: true
+  category: content_sources
+  title: Project Gutenberg
+  description: English-language books in a searchable Kiwix archive. Project Gutenberg
+    terms and individual book notices apply; copyright status varies outside the United
+    States.
+  artwork:
+    path: app/static/assets/icons/ProjectGutenberg.png
+    alt: Project Gutenberg
+  links:
+  - title: Read books (local)
+    service: kiwix
+    path: /#name=gutenberg_en_all
+  - title: Project Gutenberg
+    url: https://www.gutenberg.org
+    requires_internet: true
+- id: usa-gov
+  enabled: false
+  category: content_sources
+  title: USA.gov
+  description: Government reference and information sources.
+  artwork:
+    path: app/static/assets/icons/USAGov.png
+    alt: USA.gov
+  links:
+  - title: USA.gov
+    url: https://www.usa.gov
+    requires_internet: true
+- id: preparedness
+  category: content_sources
+  title: Emergency preparedness and CERT
+  description: FEMA preparedness and CERT manuals, preserved as readable PDFs. Massachusetts
+    MEMA downloads are pending publisher access.
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open local preparedness references
+    url: /library-files/preparedness/index.html
+- id: forms-templates
+  category: content_sources
+  title: Forms and Templates
+  description: Blank tax and government forms, instructions and openly licensed contract
+    templates. Tax years, revisions and sources are preserved.
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Browse local forms and templates
+    url: /library-files/forms/index.html
+- id: family-resources
+  category: content_sources
+  title: Paper, Play & Family Resources
+  description: Offline paper studio, PDF coloring, browser games, activity books,
+    household worksheets and incident forms. English and Spanish selections.
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Learning at home
+    url: /learning.html
+  - title: Paper studio & household templates
+    url: /printables.html
+  - title: Games, drawing & PDF coloring
+    url: /activities.html
+  - title: Browse local books & readiness forms
+    url: /library-files/family-resources/index.html
+- id: resilience
+  title: Wilderness Survival & Off-grid Power
+  description: Outdoor survival, navigation, energy planning and generator references
+    with source editions.
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Read local field & power references
+    url: /library-files/resilience/index.html
+  - title: Offline power calculators
+    url: /power.html
+- id: civic-reference
+  title: Laws, Regulations & Codes
+  description: Official federal statute snapshot and clearly scoped Massachusetts/local
+    legal and code references.
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Browse local laws & code coverage
+    url: /library-files/civic-reference/index.html
+  - title: U.S. Code title index
+    url: /library-files/civic-reference/us-code/index.html
+  - title: Fill PDF forms locally
+    url: /pdf-forms.html
+  - title: Amateur callsign search
+    url: /callsigns.html
+- id: radio-study
+  title: Amateur Radio Exam Practice
+  description: Technician, General and Amateur Extra question pools, diagrams and
+    offline drills.
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Practice radio exam questions
+    url: /radio-study.html
+  - title: Pool sources and editions
+    url: /library-files/radio-study/source.json
+assets:
+- id: ifixit-repair-guides
+  online_url: https://www.ifixit.com/Guide
+  repository_id: ifixit
+  category: zim_archives
+  title: iFixit Repair Guides — English with images (December 2025)
+  relative_path: ifixit_en_all_2025-12.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/ifixit/
+    filename_prefix: ifixit_en_all_
+  download_url: https://download.kiwix.org/zim/ifixit/ifixit_en_all_2025-12.zim
+  expected_hash: 9bb5f3408707fd0300c6ef47a425c3217187f144cd9154a928183816aa72eead
+  source_note: Kiwix English archive, latest listed release checked October 22, 2026.
+    iFixit and contributors; CC BY-NC-SA 3.0; archived content unchanged.
+  tags:
+  - repair
+  - images
+  version_pin: null
+- id: wikipedia-main
+  online_url: https://en.wikipedia.org/
+  repository_id: wikipedia
+  category: zim_archives
+  title: Wikipedia — English with images (August 2026)
+  relative_path: wikipedia_en_all_maxi_2026-08.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/wikipedia/
+    filename_prefix: wikipedia_en_all_maxi_
+  download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-08.zim
+  expected_hash: 34162d18b9f96f494eac48a73a309c72e0bc95d85f76be405d0f5de795854aa6
+  tags:
+  - encyclopedia
+  - images
+  version_pin: null
+- id: wikipedia-nopic
+  online_url: https://en.wikipedia.org/
+  repository_id: wikipedia
+  category: zim_archives
+  title: Wikipedia — English without images (June 2026)
+  relative_path: wikipedia_en_all_nopic_2026-06.zim
+  update_policy: manual
+  refresh_interval: never
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/wikipedia/
+    filename_prefix: wikipedia_en_all_nopic_
+  download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2026-06.zim
+  expected_hash: 441a56d9e05b2d98f8ae9acb7986a513ed47904d73852c92dc6b7d50baa122e5
+  version_pin: null
+  removed: true
+- id: wikipedia-medicine
+  online_url: https://en.wikipedia.org/wiki/Portal:Medicine
+  repository_id: wikimed
+  category: zim_archives
+  title: Wikipedia Medicine (October 2026)
+  relative_path: wikipedia_en_medicine_maxi_2026-10.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/wikipedia/
+    filename_prefix: wikipedia_en_medicine_maxi_
+  download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-10.zim
+  expected_hash: 9a1570f2f346aa18694ee520e0483f19b7447f69e0970e2f727c53ccf0dcc7d6
+  version_pin: null
+- id: electronics-qa
+  online_url: https://electronics.stackexchange.com/
+  repository_id: technical-qa
+  category: zim_archives
+  title: Electronics Stack Exchange (October 2026)
+  relative_path: electronics.stackexchange.com_en_all_2026-10.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/stack_exchange/
+    filename_prefix: electronics.stackexchange.com_en_all_
+  download_url: https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2026-10.zim
+  expected_hash: b28e58b24ed55c602265729b34b0c6cc4e12228e6fe2f55df5b5e9eae169b266
+  version_pin: null
+- id: unix-qa
+  online_url: https://unix.stackexchange.com/
+  repository_id: technical-qa
+  category: zim_archives
+  title: Unix Stack Exchange (October 2026)
+  relative_path: unix.stackexchange.com_en_all_2026-10.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/stack_exchange/
+    filename_prefix: unix.stackexchange.com_en_all_
+  download_url: https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2026-10.zim
+  expected_hash: 793f0fbaf64e9eb8d2fd59fec80f62cf94acb22ca94c87eb25ae145dd589e551
+  version_pin: null
+- id: kiwix-windows-reader
+  online_url: https://kiwix.org/en/applications/
+  repository_id: technical-qa
+  category: utilities_binaries
+  title: Kiwix Desktop for Windows (copy the entire kiwix-viewer folder)
+  relative_path: kiwix-viewer/kiwix-desktop.exe
+  download_url: https://download.kiwix.org/release/kiwix-desktop/kiwix-desktop_windows_x64_2.5.1.zip
+  source_note: Windows ZIP distribution with dependencies; embedded executable version
+    string is 2.5.1. Byte identity not checked.
+  architecture: x86_64
+  executable: true
+  tags:
+  - windows
+  - reader
+  update_policy: manual
+  refresh_interval: never
+  version_pin: null
+- id: gutenberg-en
+  repository_id: project-gutenberg
+  category: zim_archives
+  title: Project Gutenberg — English
+  relative_path: gutenberg_en_all_2025-11.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/gutenberg/
+    filename_prefix: gutenberg_en_all_
+  download_url: https://download.kiwix.org/zim/gutenberg/gutenberg_en_all_2025-11.zim
+  expected_hash: 01677c8d554a1cab2cbfd020ac99ebca7dd6c74d3ce0d13f266a2ba603dfaf28
+  version_pin: null
+- id: osm-massachusetts
+  repository_id: openstreetmap
+  category: reference
+  title: Massachusetts offline street map (October 22, 2026)
+  relative_path: maps/osm/massachusetts.pmtiles
+  service_endpoint: /maps.html
+  update_policy: manual
+  refresh_interval: never
+  source_note: Regional extract only; bbox -73.51,41.23,-69.90,42.89, zoom 0–15; OSM
+    ODbL, Protomaps and Natural Earth attribution. Do not download the source planet
+    file as a replacement.
+  version_pin: null
+  online_url: https://docs.protomaps.com/basemaps/downloads
+- id: fema-ready
+  repository_id: preparedness
+  category: pdf_reference
+  title: FEMA / Ready.gov — Are You Ready? (2021 hosted edition)
+  relative_path: preparedness/fema-ready.pdf
+  online_url: https://www.ready.gov/sites/default/files/2021-11/are-you-ready-guide.pdf
+  download_url: https://www.ready.gov/sites/default/files/2021-11/are-you-ready-guide.pdf
+  expected_hash: 3873f8ae7528389adacab72259c37b9ae3c507bd3ae23783122e06586560040c
+  update_policy: manual
+  refresh_interval: never
+  source_note: Official source; retrieved 2026-10-23T04:41:38.052894+00:00
+  version_pin: null
+- id: cert-participant-2019
+  repository_id: preparedness
+  category: pdf_reference
+  title: FEMA CERT Basic Training Participant Manual (2019)
+  relative_path: preparedness/cert-participant-2019.pdf
+  online_url: https://www.ready.gov/sites/default/files/2019.CERT_.Basic_.PM_FINAL_508c.pdf
+  download_url: https://www.ready.gov/sites/default/files/2019.CERT_.Basic_.PM_FINAL_508c.pdf
+  expected_hash: ca297bbc329c322ccbcb252fae7a1c89fd95f93dbf72b78b165b53cafa664026
+  update_policy: manual
+  refresh_interval: never
+  source_note: Official source; retrieved 2026-10-23T04:41:38.387182+00:00
+  version_pin: null
+- id: cert-hazards-2019
+  repository_id: preparedness
+  category: pdf_reference
+  title: FEMA CERT Hazard Annexes (2019)
+  relative_path: preparedness/cert-hazards-2019.pdf
+  online_url: https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf
+  download_url: https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf
+  expected_hash: 110abd05cf6dd5760379eaa75b58f09efad5066638e5ded6afeacc16d8a98260
+  update_policy: manual
+  refresh_interval: never
+  source_note: Official source; retrieved 2026-10-23T04:41:38.734186+00:00
+  version_pin: null
+- id: forms-f1040-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS Individual income tax return — Tax year 2025
+  relative_path: forms/tax/f1040-2025.pdf
+  service_endpoint: /library-files/forms/tax/f1040-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/f1040--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/f1040--2025.pdf
+  expected_hash: 3d31c226df0d189ced80e039d01cf0f8820c1019681a0f0ca6264de277b7e982
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:57.857835+00:00
+  version_pin: null
+- id: forms-i1040gi-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS 1040 and 1040-SR instructions — Tax year 2025
+  relative_path: forms/tax/i1040gi-2025.pdf
+  service_endpoint: /library-files/forms/tax/i1040gi-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf
+  expected_hash: 482e9c487c608f1bbeaceef35bc3c0933e8b35443cfff447e4279d590468364a
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:57.860189+00:00
+  version_pin: null
+- id: forms-f1040s1-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS Schedule 1 — Additional income and adjustments — Tax year 2025
+  relative_path: forms/tax/f1040s1-2025.pdf
+  service_endpoint: /library-files/forms/tax/f1040s1-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/f1040s1--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/f1040s1--2025.pdf
+  expected_hash: 8dafec719f6a4716c259a2bdaca546d9bb9e262d1eabef885fe116a7327458fa
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:57.861808+00:00
+  version_pin: null
+- id: forms-f1040s1a-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS Schedule 1-A — Additional deductions — Tax year 2025
+  relative_path: forms/tax/f1040s1a-2025.pdf
+  service_endpoint: /library-files/forms/tax/f1040s1a-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/f1040s1a--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/f1040s1a--2025.pdf
+  expected_hash: 64f97b38ff4218e2f188fd55a8aab7043556687487c82bbefe0b6dd1a956ecd4
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:58.319899+00:00
+  version_pin: null
+- id: forms-f1040s2-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS Schedule 2 — Additional taxes — Tax year 2025
+  relative_path: forms/tax/f1040s2-2025.pdf
+  service_endpoint: /library-files/forms/tax/f1040s2-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/f1040s2--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/f1040s2--2025.pdf
+  expected_hash: 64d867b683334cfc533993e37ccb0d143449ec29428a78206be2e4de333941e8
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:58.508373+00:00
+  version_pin: null
+- id: forms-f1040s3-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS Schedule 3 — Additional credits and payments — Tax year 2025
+  relative_path: forms/tax/f1040s3-2025.pdf
+  service_endpoint: /library-files/forms/tax/f1040s3-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/f1040s3--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/f1040s3--2025.pdf
+  expected_hash: 008cfd3fe3ebd0860452069b90fd0a3d53dda6dd8a5d870278370aa899a63f82
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:58.578129+00:00
+  version_pin: null
+- id: forms-f1040sa-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS Schedule A — Itemized deductions — Tax year 2025
+  relative_path: forms/tax/f1040sa-2025.pdf
+  service_endpoint: /library-files/forms/tax/f1040sa-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/f1040sa--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/f1040sa--2025.pdf
+  expected_hash: c14acf3478f4c33f27ac6e8ecd9f94b6fb25b16745b341728bd27847d2ef56bb
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:58.621695+00:00
+  version_pin: null
+- id: forms-f1040sb-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS Schedule B — Interest and ordinary dividends — Tax year 2025
+  relative_path: forms/tax/f1040sb-2025.pdf
+  service_endpoint: /library-files/forms/tax/f1040sb-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/f1040sb--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/f1040sb--2025.pdf
+  expected_hash: dd1ec3719954532bd219343d81385a2ada3c8e9573fc755a3893f1fbbecc63e2
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:58.834223+00:00
+  version_pin: null
+- id: forms-f1040sc-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS Schedule C — Profit or loss from business — Tax year 2025
+  relative_path: forms/tax/f1040sc-2025.pdf
+  service_endpoint: /library-files/forms/tax/f1040sc-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/f1040sc--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/f1040sc--2025.pdf
+  expected_hash: ddf401dbe060467d39f90ad2abf645df1de31512821a150dc68a3882bbf19716
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:58.872060+00:00
+  version_pin: null
+- id: forms-f1040sd-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS Schedule D — Capital gains and losses — Tax year 2025
+  relative_path: forms/tax/f1040sd-2025.pdf
+  service_endpoint: /library-files/forms/tax/f1040sd-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/f1040sd--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/f1040sd--2025.pdf
+  expected_hash: 90564c8b7e49280363612639b804d113ebedb516c2e87c70649f29c844da1d2e
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:58.939074+00:00
+  version_pin: null
+- id: forms-f1040se-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS Schedule E — Supplemental income and loss — Tax year 2025
+  relative_path: forms/tax/f1040se-2025.pdf
+  service_endpoint: /library-files/forms/tax/f1040se-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/f1040se--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/f1040se--2025.pdf
+  expected_hash: c5e2c8fa0ec5ee9153a0167734df634afe0ea8bb8483040766e5f4b1b12780f3
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:59.121639+00:00
+  version_pin: null
+- id: forms-f1040sse-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: IRS Schedule SE — Self-employment tax — Tax year 2025
+  relative_path: forms/tax/f1040sse-2025.pdf
+  service_endpoint: /library-files/forms/tax/f1040sse-2025.pdf
+  online_url: https://www.irs.gov/pub/irs-prior/f1040sse--2025.pdf
+  download_url: https://www.irs.gov/pub/irs-prior/f1040sse--2025.pdf
+  expected_hash: 05bc2b3e1dfca65d8c6fc6d652af4fa3736e953c6575d6e9f82590484677d347
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Use instructions for the same tax year. Retrieved
+    2026-10-23T04:56:59.160622+00:00
+  version_pin: null
+- id: forms-fw9
+  repository_id: forms-templates
+  category: pdf_reference
+  title: W-9 — Taxpayer identification and certification — Publisher revision at retrieval
+  relative_path: forms/tax/fw9.pdf
+  service_endpoint: /library-files/forms/tax/fw9.pdf
+  online_url: https://www.irs.gov/pub/irs-pdf/fw9.pdf
+  download_url: https://www.irs.gov/pub/irs-pdf/fw9.pdf
+  expected_hash: 2d420cbb4123dcf1fb82595b2359cfbb5d81f00b9df9d359fcc7af361d093f53
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Revision is recorded from the PDF; not a tax-year
+    return. Retrieved 2026-10-23T04:56:59.248853+00:00
+  version_pin: null
+- id: forms-fw4
+  repository_id: forms-templates
+  category: pdf_reference
+  title: W-4 — Employee withholding certificate — Publisher revision at retrieval
+  relative_path: forms/tax/fw4.pdf
+  service_endpoint: /library-files/forms/tax/fw4.pdf
+  online_url: https://www.irs.gov/pub/irs-pdf/fw4.pdf
+  download_url: https://www.irs.gov/pub/irs-pdf/fw4.pdf
+  expected_hash: 92444d8856ce55d9e25dca8b6d1420634fc68b11e1ab1f760916ea29ddd312b2
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Revision is recorded from the PDF; not a tax-year
+    return. Retrieved 2026-10-23T04:56:59.425658+00:00
+  version_pin: null
+- id: forms-fss4
+  repository_id: forms-templates
+  category: pdf_reference
+  title: SS-4 — Employer identification number application — Publisher revision at
+    retrieval
+  relative_path: forms/tax/fss4.pdf
+  service_endpoint: /library-files/forms/tax/fss4.pdf
+  online_url: https://www.irs.gov/pub/irs-pdf/fss4.pdf
+  download_url: https://www.irs.gov/pub/irs-pdf/fss4.pdf
+  expected_hash: 23d295529950b05979596cf58d559db6c433a4ec852407b1820265c117cb3ca2
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Revision is recorded from the PDF; not a tax-year
+    return. Retrieved 2026-10-23T04:56:59.471745+00:00
+  version_pin: null
+- id: forms-iss4
+  repository_id: forms-templates
+  category: pdf_reference
+  title: SS-4 instructions — Publisher revision at retrieval
+  relative_path: forms/tax/iss4.pdf
+  service_endpoint: /library-files/forms/tax/iss4.pdf
+  online_url: https://www.irs.gov/pub/irs-pdf/iss4.pdf
+  download_url: https://www.irs.gov/pub/irs-pdf/iss4.pdf
+  expected_hash: cba1fac11f7e152aad7830e3a4f036d3b9b2a26d1af8daa72be19d838f705c44
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Revision is recorded from the PDF; not a tax-year
+    return. Retrieved 2026-10-23T04:56:59.571419+00:00
+  version_pin: null
+- id: forms-f4506t
+  repository_id: forms-templates
+  category: pdf_reference
+  title: 4506-T — Request for transcript — Publisher revision at retrieval
+  relative_path: forms/tax/f4506t.pdf
+  service_endpoint: /library-files/forms/tax/f4506t.pdf
+  online_url: https://www.irs.gov/pub/irs-pdf/f4506t.pdf
+  download_url: https://www.irs.gov/pub/irs-pdf/f4506t.pdf
+  expected_hash: 4de7303eee766f31deb9afbb66aa538e8e04909d31307c494b328e69fbbe634e
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Revision is recorded from the PDF; not a tax-year
+    return. Retrieved 2026-10-23T04:56:59.752843+00:00
+  version_pin: null
+- id: forms-f8822
+  repository_id: forms-templates
+  category: pdf_reference
+  title: 8822 — Change of address — Publisher revision at retrieval
+  relative_path: forms/tax/f8822.pdf
+  service_endpoint: /library-files/forms/tax/f8822.pdf
+  online_url: https://www.irs.gov/pub/irs-pdf/f8822.pdf
+  download_url: https://www.irs.gov/pub/irs-pdf/f8822.pdf
+  expected_hash: 200ec0db82a1f8ea0c37f5ffdad562926dfe26c1d537ff701755989ce4197be6
+  update_policy: manual
+  refresh_interval: never
+  source_note: Federal — United States. Revision is recorded from the PDF; not a tax-year
+    return. Retrieved 2026-10-23T04:56:59.794158+00:00
+  version_pin: null
+- id: forms-i9
+  repository_id: forms-templates
+  category: pdf_reference
+  title: USCIS I-9 — Employment eligibility verification — Publisher revision at retrieval
+  relative_path: forms/government/i9.pdf
+  service_endpoint: /library-files/forms/government/i9.pdf
+  online_url: https://www.uscis.gov/sites/default/files/document/forms/i-9.pdf
+  download_url: https://www.uscis.gov/sites/default/files/document/forms/i-9.pdf
+  expected_hash: 780f348c34df694bb0b4dbbfaf9f22b99b9757b80d16a37ba89aadf069597281
+  update_policy: manual
+  refresh_interval: never
+  source_note: United States; check accepted edition before use. Retrieved 2026-10-23T04:57:00.069546+00:00
+  version_pin: null
+- id: forms-i9-instructions
+  repository_id: forms-templates
+  category: pdf_reference
+  title: USCIS I-9 instructions — Publisher revision at retrieval
+  relative_path: forms/government/i9-instructions.pdf
+  service_endpoint: /library-files/forms/government/i9-instructions.pdf
+  online_url: https://www.uscis.gov/sites/default/files/document/forms/i-9instr.pdf
+  download_url: https://www.uscis.gov/sites/default/files/document/forms/i-9instr.pdf
+  expected_hash: c66c3818fbecbfb87b5f0560f4dfd4086905daf72ca29dba15ce4c8d49dc4ca3
+  update_policy: manual
+  refresh_interval: never
+  source_note: United States. Retrieved 2026-10-23T04:57:00.114847+00:00
+  version_pin: null
+- id: forms-sf95
+  repository_id: forms-templates
+  category: pdf_reference
+  title: GSA SF 95 — Claim for damage, injury or death — Publisher revision at retrieval
+  relative_path: forms/government/sf95.pdf
+  service_endpoint: /library-files/forms/government/sf95.pdf
+  online_url: https://www.gsa.gov/cdnstatic/SF95-07a.pdf
+  download_url: https://www.gsa.gov/cdnstatic/SF95-07a.pdf
+  expected_hash: 7c58078520934a0dc2c28ec9e59064548a38df3ac26f63c6a7d83a3280c9afe4
+  update_policy: manual
+  refresh_interval: never
+  source_note: Claims against the United States; instructions included. Not a general
+    insurance claim form. Retrieved 2026-10-23T04:57:00.243750+00:00
+  version_pin: null
+- id: forms-commonpaper-professional-services-agreement
+  repository_id: forms-templates
+  category: pdf_reference
+  title: Professional Services Agreement — Common Paper version 1.1
+  relative_path: forms/contracts/commonpaper-professional-services-agreement.docx
+  service_endpoint: /library-files/forms/contracts/commonpaper-professional-services-agreement.docx
+  online_url: https://commonpaper.com/standards/professional-services-agreement/1.1/cover-page-and-standard-terms-docx
+  download_url: https://commonpaper.com/standards/professional-services-agreement/1.1/cover-page-and-standard-terms-docx
+  expected_hash: d8cc13f589096d1b2afc1917756adea450cd7d966779633613fbecc4dc45d3ba
+  update_policy: manual
+  refresh_interval: never
+  source_note: CC BY 4.0 — Common Paper. Complete cover page and terms. Governing
+    law and transaction details must be chosen; not jurisdiction-specific. Retrieved
+    2026-10-23T04:57:00.370964+00:00
+  version_pin: null
+- id: forms-commonpaper-software-license-agreement
+  repository_id: forms-templates
+  category: pdf_reference
+  title: Software License Agreement — Common Paper version 1.1
+  relative_path: forms/contracts/commonpaper-software-license-agreement.docx
+  service_endpoint: /library-files/forms/contracts/commonpaper-software-license-agreement.docx
+  online_url: https://commonpaper.com/standards/software-license-agreement/1.1/cover-page-and-standard-terms-docx
+  download_url: https://commonpaper.com/standards/software-license-agreement/1.1/cover-page-and-standard-terms-docx
+  expected_hash: 0a073e0e2087811749bb06215bc9490b9a6a067c5449ed3516bb9d94c0497834
+  update_policy: manual
+  refresh_interval: never
+  source_note: CC BY 4.0 — Common Paper. Complete cover page and terms. Governing
+    law and transaction details must be chosen; not jurisdiction-specific. Retrieved
+    2026-10-23T04:57:00.608844+00:00
+  version_pin: null
+- id: forms-commonpaper-partnership-agreement
+  repository_id: forms-templates
+  category: pdf_reference
+  title: Business Partnership Agreement — Common Paper version 1.1
+  relative_path: forms/contracts/commonpaper-partnership-agreement.docx
+  service_endpoint: /library-files/forms/contracts/commonpaper-partnership-agreement.docx
+  online_url: https://commonpaper.com/standards/partnership-agreement/1.1/cover-page-and-standard-terms-docx
+  download_url: https://commonpaper.com/standards/partnership-agreement/1.1/cover-page-and-standard-terms-docx
+  expected_hash: ae3023105755ecd9b2312bf53c216319fd0bc79830c4627611a7ac5b0a206895
+  update_policy: manual
+  refresh_interval: never
+  source_note: CC BY 4.0 — Common Paper. Complete cover page and terms. Governing
+    law and transaction details must be chosen; not jurisdiction-specific. Retrieved
+    2026-10-23T04:57:00.635594+00:00
+  version_pin: null
+- id: forms-commonpaper-mutual-nda
+  repository_id: forms-templates
+  category: pdf_reference
+  title: Mutual Non-Disclosure Agreement — Common Paper version 1.0
+  relative_path: forms/contracts/commonpaper-mutual-nda.docx
+  service_endpoint: /library-files/forms/contracts/commonpaper-mutual-nda.docx
+  online_url: https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-docx
+  download_url: https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-docx
+  expected_hash: 18e07001c3ebfc749833e10836eda4fe0d302ab0a7519a0388696be3df86b566
+  update_policy: manual
+  refresh_interval: never
+  source_note: CC BY 4.0 — Common Paper. Complete cover page and terms. Governing
+    law and transaction details must be chosen; not jurisdiction-specific. Retrieved
+    2026-10-23T04:57:01.524730+00:00
+  version_pin: null
+- id: forms-commonpaper-mutual-nda-pdf
+  repository_id: forms-templates
+  category: pdf_reference
+  title: Mutual Non-Disclosure Agreement — printable PDF — Common Paper version 1.0
+  relative_path: forms/contracts/commonpaper-mutual-nda-pdf.pdf
+  service_endpoint: /library-files/forms/contracts/commonpaper-mutual-nda-pdf.pdf
+  online_url: https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-pdf
+  download_url: https://commonpaper.com/standards/mutual-nda/1.0/mutual-nda-cover-page-and-standard-terms-pdf
+  expected_hash: 8d31fe0e0eb96649b180ec4f6eec84617ff2d499576f8dccde981e58c5a829d6
+  update_policy: manual
+  refresh_interval: never
+  source_note: CC BY 4.0 — Common Paper. Complete cover page and terms; governing
+    law must be chosen. Retrieved 2026-10-23T04:57:01.848997+00:00
+  version_pin: null
+- id: family-nasa-exoplanets
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA Exoplanets Coloring Book
+  relative_path: family-resources/kids/nasa-exoplanets.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-exoplanets.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 64efb59df3bc9115e91692b195223ed142465ce3272564066b75a40c575141bf
+  source_note: NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.623637+00:00
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Exoplanets_Coloring_Book_07-22-2016.pdf
+  version_pin: null
+- id: family-nasa-star-en
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA Our Very Own Star
+  relative_path: family-resources/kids/nasa-star-en.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-star-en.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: e75cf552f55f471a4e3a49d8e01f4a0b6fa41ff604b100ec2c9c7d38b32951c9
+  source_note: NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.625965+00:00
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_English.pdf
+  version_pin: null
+- id: family-nasa-star-es
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA Our Very Own Star — Spanish
+  relative_path: family-resources/kids/nasa-star-es.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-star-es.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: c710dd16abf095effd9e7cad1dd7ee74d034da51c83b88658fc373d74235a326
+  source_note: NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.627561+00:00
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_Spanish.pdf
+  version_pin: null
+- id: family-nasa-iss
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA International Space Station Activity Book
+  relative_path: family-resources/kids/nasa-iss.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-iss.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 483b151756ab6a875333ee2998c851ccfcf00b053d6d0dda0c02a3dc5c881b56
+  source_note: NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.873597+00:00
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/ISS_Activity_Book.pdf
+  version_pin: null
+- id: family-nps-caves-en
+  repository_id: family-resources
+  category: pdf_reference
+  title: Junior Cave Scientist Activity Book
+  relative_path: family-resources/kids/nps-caves-en.pdf
+  service_endpoint: /library-files/family-resources/kids/nps-caves-en.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 4f37433062bb60fe8b5b236e29e0666347cbe8dd31200277dc7c522c0e05f971
+  source_note: NPS publication with copyrighted material. Non-commercial educational
+    use only; original format retained, not for sale or reformatting. Read the original
+    notices. Retrieved 2026-10-24T00:50:51.094343+00:00
+  online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
+  download_url: https://home.nps.gov/subjects/caves/upload/Junior-Cave-Scientist-Booklet_English508_web-compressed.pdf
+  version_pin: null
+- id: family-nps-caves-es
+  repository_id: family-resources
+  category: pdf_reference
+  title: Junior Cave Scientist Activity Book — Spanish
+  relative_path: family-resources/kids/nps-caves-es.pdf
+  service_endpoint: /library-files/family-resources/kids/nps-caves-es.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 57450605052654930268bec102fe7fa82b671af8e6ccf4ead196ecfda600eaaa
+  source_note: NPS publication with copyrighted material. Non-commercial educational
+    use only; original format retained, not for sale or reformatting. Read the original
+    notices. Retrieved 2026-10-24T00:50:51.485281+00:00
+  online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
+  download_url: https://home.nps.gov/subjects/caves/upload/Junior-Ranger-Cave-Scientist-SPANISH-Final508_web-compressed_2.pdf
+  version_pin: null
+- id: family-fema-ics
+  repository_id: family-resources
+  category: pdf_reference
+  title: FEMA NIMS Incident Command System Forms & Instructions
+  relative_path: family-resources/readiness/fema-ics.pdf
+  service_endpoint: /library-files/family-resources/readiness/fema-ics.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 1948f66d0732b3e2c0fd2435a13dc45179dbbf374f216216c649deaa317483cc
+  source_note: U.S. federal government publication; publisher notices retained. Retrieved
+    2026-10-24T00:50:51.869640+00:00
+  online_url: https://training.fema.gov/emiweb/is/icsresource/
+  download_url: https://training.fema.gov/emiweb/is/icsresource/assets/nims%20ics%20forms%20booklet.v3.pdf
+  version_pin: null
+- id: family-cp-contractor
+  repository_id: family-resources
+  category: pdf_reference
+  title: Common Paper Independent Contractor Agreement
+  relative_path: family-resources/contracts/cp-contractor.docx
+  service_endpoint: /library-files/family-resources/contracts/cp-contractor.docx
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 786ffa49851ad2761a33f87b115a5140b2a14ab21d58464df4d9aa0cbedd74dc
+  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.082367+00:00
+  online_url: https://commonpaper.com/documents/independent-contractor-agreement
+  download_url: https://commonpaper.com/wp-content/uploads/2025/05/Common-Paper-Independent-Contractor-Agreement.docx
+  version_pin: null
+- id: family-cp-amendment
+  repository_id: family-resources
+  category: pdf_reference
+  title: Common Paper Agreement Amendment
+  relative_path: family-resources/contracts/cp-amendment.docx
+  service_endpoint: /library-files/family-resources/contracts/cp-amendment.docx
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 64b04560d5640a78a23f1978b0d88254929ceb45c59604e0777cc2ecfccf0ce4
+  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.091287+00:00
+  online_url: https://commonpaper.com/documents/amendment
+  download_url: https://commonpaper.com/wp-content/uploads/2025/01/Common-Paper-Amendment.docx
+  version_pin: null
+- id: family-cp-sow
+  repository_id: family-resources
+  category: pdf_reference
+  title: Common Paper Statement of Work
+  relative_path: family-resources/contracts/cp-sow.docx
+  service_endpoint: /library-files/family-resources/contracts/cp-sow.docx
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 8523d48df8f5330b70e0102dad26761b275a11dfab336201fef04a0fee1b6ac9
+  source_note: Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.237911+00:00
+  online_url: https://commonpaper.com/documents/statement-of-work
+  download_url: https://commonpaper.com/wp-content/uploads/2025/01/Professional-Services-Agreement-SOW-Only.docx
+  version_pin: null
+- id: family-household-a4
+  repository_id: family-resources
+  category: pdf_reference
+  title: Household worksheet pack — A4
+  relative_path: family-resources/generated/household-a4.pdf
+  service_endpoint: /library-files/family-resources/generated/household-a4.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: e134ca81508e177bcd5b30b5ffc5608dfa1d0042b58a4039c91744c835811367
+  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.656356+00:00
+  version_pin: null
+- id: family-household-letter
+  repository_id: family-resources
+  category: pdf_reference
+  title: Household worksheet pack — US Letter
+  relative_path: family-resources/generated/household-letter.pdf
+  service_endpoint: /library-files/family-resources/generated/household-letter.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 03c39c8b2287da6eda30d17a2b362392f8f9d24fbd4306cbc00b1a219912293d
+  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.705745+00:00
+  version_pin: null
+- id: family-paper-a4
+  repository_id: family-resources
+  category: pdf_reference
+  title: Paper pattern pack — A4
+  relative_path: family-resources/generated/paper-a4.pdf
+  service_endpoint: /library-files/family-resources/generated/paper-a4.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: ee3e326fb1959dfba80d556ad56803505bd5a61c48ea2761354ccb69b7fd1625
+  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.756146+00:00
+  version_pin: null
+- id: family-paper-letter
+  repository_id: family-resources
+  category: pdf_reference
+  title: Paper pattern pack — US Letter
+  relative_path: family-resources/generated/paper-letter.pdf
+  service_endpoint: /library-files/family-resources/generated/paper-letter.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: d7092412741d5e4675a1cc325c6756d9227984d4a476031cdde0173461c1ecd2
+  source_note: DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.808860+00:00
+  version_pin: null
+- id: ref-maine-survival
+  repository_id: resilience
+  category: pdf_reference
+  title: You Alone in the Maine Woods
+  relative_path: resilience/documents/maine-survival.pdf
+  service_endpoint: /library-files/resilience/documents/maine-survival.pdf
+  online_url: https://www.maine.gov/ifw/docs/20-MDIFW-18-You-Alone.pdf
+  download_url: https://www.maine.gov/ifw/docs/20-MDIFW-18-You-Alone.pdf
+  expected_hash: 164627936f2f8c03e23732603ef38e542c9da75a1f591914a999571c7a57335b
+  update_policy: manual
+  refresh_interval: never
+  source_note: Maine IFW 2020 file; read publisher dates and cautions; Illustrated
+    state-agency survival reference; preserve original publisher notices.; retrieved
+    2026-10-24T01:21:49.283255+00:00
+  version_pin: null
+- id: ref-nps-ten-essentials
+  repository_id: resilience
+  category: pdf_reference
+  title: National Park Service — The Ten Essentials
+  relative_path: resilience/documents/nps-ten-essentials.pdf
+  service_endpoint: /library-files/resilience/documents/nps-ten-essentials.pdf
+  online_url: https://www.nps.gov/mora/planyourvisit/upload/ten-essentials-web-site-bulletin.pdf
+  download_url: https://www.nps.gov/mora/planyourvisit/upload/ten-essentials-web-site-bulletin.pdf
+  expected_hash: 3251acd6b771db54dbbd101bcd0bf79776527d11ead504cf0c6e110ee46c0572
+  update_policy: manual
+  refresh_interval: never
+  source_note: Mount Rainier NPS bulletin; archived publisher edition; Basic trip
+    equipment and preparation. U.S. government publication.; retrieved 2026-10-24T01:21:50.321238+00:00
+  version_pin: null
+- id: ref-usgs-compass
+  repository_id: resilience
+  category: pdf_reference
+  title: USGS — Finding Your Way with Map and Compass
+  relative_path: resilience/documents/usgs-compass.pdf
+  service_endpoint: /library-files/resilience/documents/usgs-compass.pdf
+  online_url: https://pubs.usgs.gov/fs/2001/0035/report.pdf
+  download_url: https://pubs.usgs.gov/fs/2001/0035/report.pdf
+  expected_hash: bc476fdc38e0949f18941cf361242bce8f0c18583111ce7e10b06eb3fc569922
+  update_policy: manual
+  refresh_interval: never
+  source_note: 'USGS Fact Sheet 035-01 (2001); Map and compass fundamentals. Magnetic
+    declination changes: obtain appropriate current local data.; retrieved 2026-10-24T01:21:50.640759+00:00'
+  version_pin: null
+- id: ref-nps-water-sanitation
+  repository_id: resilience
+  category: pdf_reference
+  title: NPS — Wilderness Sanitation and Water Treatment
+  relative_path: resilience/documents/nps-water-sanitation.html
+  service_endpoint: /library-files/resilience/documents/nps-water-sanitation.html
+  online_url: https://www.nps.gov/olym/planyourvisit/wilderness-sanitation.htm
+  download_url: https://www.nps.gov/olym/planyourvisit/wilderness-sanitation.htm
+  expected_hash: 5e6f81a71f6c3fcb431430bf4611239ad5021d0791f6266a57f1179c02d52eb2
+  update_policy: manual
+  refresh_interval: never
+  source_note: Olympic National Park text snapshot at retrieval; Park-specific context
+    and restrictions remain relevant to interpretation; text-only copy. U.S. government
+    source.; retrieved 2026-10-24T01:21:50.749012+00:00
+  version_pin: null
+- id: ref-nrel-solar-basics
+  repository_id: resilience
+  category: pdf_reference
+  title: 'DOE / NREL — Own Your Power: Solar Electricity for the Home'
+  relative_path: resilience/documents/nrel-solar-basics.pdf
+  service_endpoint: /library-files/resilience/documents/nrel-solar-basics.pdf
+  online_url: https://www1.eere.energy.gov/solar/pdfs/43844.pdf
+  download_url: https://www1.eere.energy.gov/solar/pdfs/43844.pdf
+  expected_hash: 27001e4f6cfd00d99e83031b62800266a9d247557f352c9669dc0748503841c2
+  update_policy: manual
+  refresh_interval: never
+  source_note: DOE/NREL 2009 archived consumer guide; Solar fundamentals; incentives,
+    costs and code references are historical, not current installation specifications.;
+    retrieved 2026-10-24T01:21:50.841058+00:00
+  version_pin: null
+- id: ref-doe-solar-community
+  repository_id: resilience
+  category: pdf_reference
+  title: DOE — Solar Power in Your Community
+  relative_path: resilience/documents/doe-solar-community.pdf
+  service_endpoint: /library-files/resilience/documents/doe-solar-community.pdf
+  online_url: https://www.energy.gov/sites/default/files/2022-02/solar-power-in-your-community-guidebook.pdf
+  download_url: https://www.energy.gov/sites/default/files/2022-02/solar-power-in-your-community-guidebook.pdf
+  expected_hash: 25cab9d5b7eb1b0309912d3234d1a7f10e88a27f2bb19f9cd0534df743b9cd07
+  update_policy: manual
+  refresh_interval: never
+  source_note: 2022 guidebook; Planning, solar deployment and policy reference. Verify
+    current law and incentives separately.; retrieved 2026-10-24T01:21:50.877829+00:00
+  version_pin: null
+- id: ref-doe-small-wind
+  repository_id: resilience
+  category: pdf_reference
+  title: DOE — Small Wind Guidebook
+  relative_path: resilience/documents/doe-small-wind.html
+  service_endpoint: /library-files/resilience/documents/doe-small-wind.html
+  online_url: https://www.energy.gov/cmei/systems/windexchange/small-wind-guidebook
+  download_url: https://www.energy.gov/cmei/systems/windexchange/small-wind-guidebook
+  expected_hash: e4a748affffda2e4bfd3a3b64e153806de7f3a916a8347947df9a96b2e4d22b3
+  update_policy: manual
+  refresh_interval: never
+  source_note: Text snapshot at retrieval; Small wind, siting, system components and
+    off-grid considerations. Images/video not included in the text snapshot.; retrieved
+    2026-10-24T01:21:51.534182+00:00
+  version_pin: null
+- id: ref-doe-small-wind-pdf
+  repository_id: resilience
+  category: pdf_reference
+  title: DOE — Consumer Guide to Small Wind Energy Systems
+  relative_path: resilience/documents/doe-small-wind-pdf.pdf
+  service_endpoint: /library-files/resilience/documents/doe-small-wind-pdf.pdf
+  online_url: https://www.govinfo.gov/content/pkg/GOVPUB-E-PURL-gpo224740/pdf/GOVPUB-E-PURL-gpo224740.pdf
+  download_url: https://www.govinfo.gov/content/pkg/GOVPUB-E-PURL-gpo224740/pdf/GOVPUB-E-PURL-gpo224740.pdf
+  expected_hash: 73eef391714e861c1dab4ca4b3477db727006f0ef2b91644204fbdabaa652fa8
+  update_policy: manual
+  refresh_interval: never
+  source_note: 2021 archived consumer guide; U.S. government publication. Pair technical
+    basics with current equipment instructions and local requirements.; retrieved
+    2026-10-24T01:21:51.554828+00:00
+  version_pin: null
+- id: ref-osha-generators
+  repository_id: resilience
+  category: pdf_reference
+  title: OSHA — Using Portable Generators Safely
+  relative_path: resilience/documents/osha-generators.pdf
+  service_endpoint: /library-files/resilience/documents/osha-generators.pdf
+  online_url: https://www.osha.gov/sites/default/files/publications/OSHA3286.pdf
+  download_url: https://www.osha.gov/sites/default/files/publications/OSHA3286.pdf
+  expected_hash: 252d135bc2ad4df3359135cd85ebbad051c5c4a8ea9359bb2d2ad3de484fa21b
+  update_policy: manual
+  refresh_interval: never
+  source_note: OSHA 3286 publisher edition at retrieval; Generator electrical, carbon-monoxide,
+    fire and fuel hazards. U.S. government publication.; retrieved 2026-10-24T01:21:51.737453+00:00
+  version_pin: null
+- id: ref-pnnl-energy-storage
+  repository_id: resilience
+  category: pdf_reference
+  title: PNNL — Introductory Guide to Generating, Using and Storing Energy
+  relative_path: resilience/documents/pnnl-energy-storage.pdf
+  service_endpoint: /library-files/resilience/documents/pnnl-energy-storage.pdf
+  online_url: https://www.osti.gov/servlets/purl/2327029
+  download_url: https://www.osti.gov/servlets/purl/2327029
+  expected_hash: c84dcc6ba873dcac3b332ee987fc67d1974d61b7c4ce5063c4ec34d4ecd7c731
+  update_policy: manual
+  refresh_interval: never
+  source_note: PNNL-33984, April 2023; Electricity, household loads, batteries, solar
+    sizing and microgrids. Public DOE-sponsored report; original notices retained.;
+    retrieved 2026-10-24T01:28:47.587288+00:00
+  version_pin: null
+- id: ref-us-constitution
+  repository_id: civic-reference
+  category: pdf_reference
+  title: U.S. Constitution, Declaration of Independence and index — Pocket Edition
+  relative_path: civic-reference/documents/us-constitution.pdf
+  service_endpoint: /library-files/civic-reference/documents/us-constitution.pdf
+  online_url: https://www.govinfo.gov/content/pkg/GPO-CDOC-111sdoc4/pdf/GPO-CDOC-111sdoc4.pdf
+  download_url: https://www.govinfo.gov/content/pkg/GPO-CDOC-111sdoc4/pdf/GPO-CDOC-111sdoc4.pdf
+  expected_hash: a9458f00a29259580ca2e6fd2384c363b26719cd464ff854e1af09dfe516f000
+  update_policy: manual
+  refresh_interval: never
+  source_note: Senate document 111-4, 2010 pocket edition; Constitutional text and
+    index, not current case-law commentary. U.S. government publication.; retrieved
+    2026-10-24T01:21:52.173281+00:00
+  version_pin: null
+- id: ref-cfr44-v1
+  repository_id: civic-reference
+  category: pdf_reference
+  title: 44 CFR — Emergency Management and Assistance, Volume 1
+  relative_path: civic-reference/documents/cfr44-v1.pdf
+  service_endpoint: /library-files/civic-reference/documents/cfr44-v1.pdf
+  online_url: https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol1/pdf/CFR-2025-title44-vol1.pdf
+  download_url: https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol1/pdf/CFR-2025-title44-vol1.pdf
+  expected_hash: 168f46e490dc1e5147a9e5bf0af3127820f737f89c224185218ebf68f232c907
+  update_policy: manual
+  refresh_interval: never
+  source_note: 2025 annual CFR edition; not live eCFR; Selected federal regulations
+    only. Subsequent rules, emergency orders and other CFR titles are not included.;
+    retrieved 2026-10-24T01:21:52.182788+00:00
+  version_pin: null
+- id: ref-ma-constitution
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts Constitution
+  relative_path: civic-reference/documents/ma-constitution.html
+  service_endpoint: /library-files/civic-reference/documents/ma-constitution.html
+  online_url: https://malegislature.gov/Laws/Constitution
+  download_url: https://malegislature.gov/Laws/Constitution
+  expected_hash: 9201120d1b30325b33802783ef5e4e8a40640811947a8ee0a27d30b14eea00f1
+  update_policy: manual
+  refresh_interval: never
+  source_note: Unofficial legislature text snapshot at retrieval; Publisher page text,
+    not a certified official copy or a guarantee of current legal effect.; retrieved
+    2026-10-24T01:21:52.696977+00:00
+  version_pin: null
+- id: ref-gardner-code-source
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Gardner City Code — official city source page
+  relative_path: civic-reference/documents/gardner-code-source.html
+  service_endpoint: /library-files/civic-reference/documents/gardner-code-source.html
+  online_url: https://www.gardner-ma.gov/1019/City-Code
+  download_url: https://www.gardner-ma.gov/1019/City-Code
+  expected_hash: 4bf055059a6279b45b0a97897606e3c90d480d235eea7db29dfa40807547dbb2
+  update_policy: manual
+  refresh_interval: never
+  source_note: City information page at retrieval; Official source directory only,
+    not the ordinance text itself. The actual code is on the city's chosen external
+    publisher.; retrieved 2026-10-24T01:21:53.285155+00:00
+  version_pin: null
+- id: ref-ma-chapter-93a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts General Laws Chapter 93A — Consumer Protection
+  relative_path: civic-reference/documents/ma-chapter-93A.html
+  service_endpoint: /library-files/civic-reference/documents/ma-chapter-93A.html
+  online_url: https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter93A
+  download_url: https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter93A
+  expected_hash: fa39947ba3311dddbfc0f1fb981b909b123d077c47170cf7b0ca6834c209d270
+  update_policy: manual
+  refresh_interval: never
+  source_note: Unofficial legislature sections captured at retrieval; Selected chapter
+    only; other General Laws, session laws, orders and case law are not included.;
+    retrieved 2026-10-24T01:22:01.785997+00:00
+  version_pin: null
+- id: ref-usc-prelimusc01
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 1 - GENERAL PROVISIONS
+  relative_path: civic-reference/us-code/PRELIMusc01.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc01.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 3200aec3ba15b20751918cdbe128e089740a05eb00487b03305fabf38466b30b
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:07.824814+00:00
+  version_pin: null
+- id: ref-usc-prelimusc02
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 2 - THE CONGRESS
+  relative_path: civic-reference/us-code/PRELIMusc02.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc02.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 12ee4f567f2957a26668d4a0a3d0f6061628afd8e71398e2820fff31b7503753
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:07.972854+00:00
+  version_pin: null
+- id: ref-usc-prelimusc03
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 3 - THE PRESIDENT
+  relative_path: civic-reference/us-code/PRELIMusc03.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc03.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 6910cd8f6e69cab5440dcd77ee413ba9533ffceb5a5858a768ba859dd83eb531
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:08.034940+00:00
+  version_pin: null
+- id: ref-usc-prelimusc04
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 4 - FLAG AND SEAL, SEAT OF GOVERNMENT, AND THE
+    STATES
+  relative_path: civic-reference/us-code/PRELIMusc04.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc04.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 64e23a2b1627972315a7e9d36d56e4420903e9be1923b145928e148be384aaa0
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:08.044671+00:00
+  version_pin: null
+- id: ref-usc-prelimusc05
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 5 - GOVERNMENT ORGANIZATION AND EMPLOYEES
+  relative_path: civic-reference/us-code/PRELIMusc05.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc05.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 0ef52b6428c273c447cab7a542b648087d60942fca0399abb3d0cedc6d1fc52f
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:08.544564+00:00
+  version_pin: null
+- id: ref-usc-prelimusc05a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 5 - GOVERNMENT ORGANIZATION AND EMPLOYEES
+  relative_path: civic-reference/us-code/PRELIMusc05a.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc05a.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 6d3381ffba1497edec459ec601ee168ed88264524a93d738f435cbb3bfc8b743
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:08.672104+00:00
+  version_pin: null
+- id: ref-usc-prelimusc06
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 6 - DOMESTIC SECURITY
+  relative_path: civic-reference/us-code/PRELIMusc06.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc06.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 2a241f43d950910b6401869705c884b1827b5a38ba2ee64485f34959023668cb
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:08.759152+00:00
+  version_pin: null
+- id: ref-usc-prelimusc07
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 7 - AGRICULTURE
+  relative_path: civic-reference/us-code/PRELIMusc07.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc07.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 864f75f87b8f682f58bdb0ca73c9f60e94c7a86b2ca34e60700ca3d081ab3d37
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:09.278814+00:00
+  version_pin: null
+- id: ref-usc-prelimusc08
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 8 - ALIENS AND NATIONALITY
+  relative_path: civic-reference/us-code/PRELIMusc08.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc08.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 64e13e24a8b318fb557e3513214075683f4be251be4ff019236ede11b746c00f
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:09.538188+00:00
+  version_pin: null
+- id: ref-usc-prelimusc09
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 9 - ARBITRATION
+  relative_path: civic-reference/us-code/PRELIMusc09.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc09.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 469813c86c3dffa741ab0322ddfa320ff8dcc6feaa7c4d81877d6f7971b8ff6f
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:09.577463+00:00
+  version_pin: null
+- id: ref-usc-prelimusc10
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 10 - ARMED FORCES
+  relative_path: civic-reference/us-code/PRELIMusc10.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc10.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 3b4d94cae3ce99688094cf1300c683ba377892bfccfcd3b612f96b1da42eb069
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:10.732399+00:00
+  version_pin: null
+- id: ref-usc-prelimusc11
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 11 - BANKRUPTCY
+  relative_path: civic-reference/us-code/PRELIMusc11.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc11.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 1360be2d7bb94a281c67ab898d5d4f25fea24562ed7c2c2a8aafb390e04d48c2
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:11.067816+00:00
+  version_pin: null
+- id: ref-usc-prelimusc11a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 11 - BANKRUPTCY
+  relative_path: civic-reference/us-code/PRELIMusc11a.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc11a.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: b90135796b28df79d0679e6f5f5ec3b0589363cabf02196792a5253954129faf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:11.131627+00:00
+  version_pin: null
+- id: ref-usc-prelimusc12
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 12 - BANKS AND BANKING
+  relative_path: civic-reference/us-code/PRELIMusc12.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc12.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: ff1ce2147087f1202f93b6cc7d06eef7a97567d16d65c13d9ba64a33bde6503c
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:11.560977+00:00
+  version_pin: null
+- id: ref-usc-prelimusc13
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 13 - CENSUS
+  relative_path: civic-reference/us-code/PRELIMusc13.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc13.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: eef2113e16ef0cfa000e4b4d5c0e12cec0ee71ff3be59e5812e225929415bc0e
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:11.696393+00:00
+  version_pin: null
+- id: ref-usc-prelimusc14
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 14 - COAST GUARD
+  relative_path: civic-reference/us-code/PRELIMusc14.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc14.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: ecf2aec81a39a490c61b9f576347fbb393d1d341611a3504f94470d993e13926
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:11.758999+00:00
+  version_pin: null
+- id: ref-usc-prelimusc15
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 15 - COMMERCE AND TRADE
+  relative_path: civic-reference/us-code/PRELIMusc15.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc15.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: bf894bd2346e4c3796e494bb95c50837b2a40c6945c289b0a3b8ad39c01c9fea
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:12.494818+00:00
+  version_pin: null
+- id: ref-usc-prelimusc16
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 16 - CONSERVATION
+  relative_path: civic-reference/us-code/PRELIMusc16.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc16.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: ee5571dbfcefb3a520c03d3342baff651bce08137510e865bc5f6232d52cd67c
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:13.214650+00:00
+  version_pin: null
+- id: ref-usc-prelimusc17
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 17 - COPYRIGHTS
+  relative_path: civic-reference/us-code/PRELIMusc17.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc17.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: bb840dbf5ce343010f3efa61a2e7ff00587618e0c22b8cd6d42b5e512daf5701
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:13.445959+00:00
+  version_pin: null
+- id: ref-usc-prelimusc18
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 18 - CRIMES AND CRIMINAL PROCEDURE
+  relative_path: civic-reference/us-code/PRELIMusc18.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc18.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: cb747d88f0f205d7443e8f39478a2e387ab2a152ef43af549244d699600d4c1a
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:13.621749+00:00
+  version_pin: null
+- id: ref-usc-prelimusc18a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 18 - CRIMES AND CRIMINAL PROCEDURE
+  relative_path: civic-reference/us-code/PRELIMusc18a.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc18a.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 3ffb8d813e96459d4ca38ae26642bc79aef38707043bf91b8605102ff60b34fb
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:13.720130+00:00
+  version_pin: null
+- id: ref-usc-prelimusc19
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 19 - CUSTOMS DUTIES
+  relative_path: civic-reference/us-code/PRELIMusc19.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc19.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 4290b5c42cf55ed078bd445f7bda7a660e31ca939607227c0e616f817c3bee01
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:13.945730+00:00
+  version_pin: null
+- id: ref-usc-prelimusc20
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 20 - EDUCATION
+  relative_path: civic-reference/us-code/PRELIMusc20.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc20.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 07e70586d2817a69c98ab4bfc08577b8562668c9b5735edfa1293fd66fb7e7a0
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:14.330078+00:00
+  version_pin: null
+- id: ref-usc-prelimusc21
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 21 - FOOD AND DRUGS
+  relative_path: civic-reference/us-code/PRELIMusc21.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc21.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 6255ea933b75b90b6f0ed04039346b41915249a56944c985c69729a80cf94283
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:14.588933+00:00
+  version_pin: null
+- id: ref-usc-prelimusc22
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 22 - FOREIGN RELATIONS AND INTERCOURSE
+  relative_path: civic-reference/us-code/PRELIMusc22.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc22.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 4a30f42866fccc9918453abc350a62ea8e7097a379daae18f0c62b181c868123
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:15.411882+00:00
+  version_pin: null
+- id: ref-usc-prelimusc23
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 23 - HIGHWAYS
+  relative_path: civic-reference/us-code/PRELIMusc23.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc23.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: ed2332858762dfc2306154283f929824605434047cc52177410e30ee1735a823
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:15.689335+00:00
+  version_pin: null
+- id: ref-usc-prelimusc24
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 24 - HOSPITALS AND ASYLUMS
+  relative_path: civic-reference/us-code/PRELIMusc24.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc24.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: dd2b90b6ccc791e4fca49183fac6133445bc8ffca046c89db37978d0432847d1
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:15.729259+00:00
+  version_pin: null
+- id: ref-usc-prelimusc25
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 25 - INDIANS
+  relative_path: civic-reference/us-code/PRELIMusc25.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc25.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 7a45b816d65d65f1c9a8b87234bd918c9bb31047ce3d5ce0af9f46859c1be787
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:15.903805+00:00
+  version_pin: null
+- id: ref-usc-prelimusc26
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 26 - INTERNAL REVENUE CODE
+  relative_path: civic-reference/us-code/PRELIMusc26.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc26.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: b034cf58b48c4af3d1378fc04a0edcb15db169ae60d0702d4595ffe1ba2f4ad3
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:16.929871+00:00
+  version_pin: null
+- id: ref-usc-prelimusc27
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 27 - INTOXICATING LIQUORS
+  relative_path: civic-reference/us-code/PRELIMusc27.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc27.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: f49c470de6947847f1a7586755c5f805d9943d453b11237373af35941ed377ab
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:17.210025+00:00
+  version_pin: null
+- id: ref-usc-prelimusc28
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 28 - JUDICIARY AND JUDICIAL PROCEDURE
+  relative_path: civic-reference/us-code/PRELIMusc28.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc28.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 3d642f3a2d87ddb8c2571efaeb1cc78a015175b7b6843850b404e789c65c4061
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:17.320179+00:00
+  version_pin: null
+- id: ref-usc-prelimusc28a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 28 - JUDICIARY AND JUDICIAL PROCEDURE
+  relative_path: civic-reference/us-code/PRELIMusc28a.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc28a.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: ce25e7f432c6326f5d054b7f5cc7e9a6b7ab5792e57ed3599bb1fb0dbe4ea46c
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:17.953790+00:00
+  version_pin: null
+- id: ref-usc-prelimusc29
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 29 - LABOR
+  relative_path: civic-reference/us-code/PRELIMusc29.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc29.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 1a0b06f1da07f76995c85e526304d1253aa26addd9ccc832eb787284323a7268
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:18.659625+00:00
+  version_pin: null
+- id: ref-usc-prelimusc30
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 30 - MINERAL LANDS AND MINING
+  relative_path: civic-reference/us-code/PRELIMusc30.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc30.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: b04fbde97bd8e07286bcf1bb93de6151e19194443547aef4984ebe769b53ef91
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:18.777586+00:00
+  version_pin: null
+- id: ref-usc-prelimusc31
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 31 - MONEY AND FINANCE
+  relative_path: civic-reference/us-code/PRELIMusc31.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc31.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: ba0a88b9350282dca5c47ace1e66a4cf015a34792276b97471350484913e5eb7
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:18.904548+00:00
+  version_pin: null
+- id: ref-usc-prelimusc32
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 32 - NATIONAL GUARD
+  relative_path: civic-reference/us-code/PRELIMusc32.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc32.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: a09354a352733f265e938ccbd3f50e2443f9508b7ab2e0a831102f8c9a33347a
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:18.954586+00:00
+  version_pin: null
+- id: ref-usc-prelimusc33
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 33 - NAVIGATION AND NAVIGABLE WATERS
+  relative_path: civic-reference/us-code/PRELIMusc33.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc33.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: ed659b63687f8c2226bb6f23e2baad44cd8ac5937856df9865ae60257945fbe0
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.122387+00:00
+  version_pin: null
+- id: ref-usc-prelimusc34
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 34 - CRIME CONTROL AND LAW ENFORCEMENT
+  relative_path: civic-reference/us-code/PRELIMusc34.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc34.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: d1be10007f1802b92b4b1ffb651dbc3e1a1b9c19945294eafcd1d228cb59be41
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.300752+00:00
+  version_pin: null
+- id: ref-usc-prelimusc35
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 35 - PATENTS
+  relative_path: civic-reference/us-code/PRELIMusc35.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc35.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: b19324ab7a3b9235e02f66c00a905cd8f1dc4d987586f9319c26ce0ad6596121
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.371054+00:00
+  version_pin: null
+- id: ref-usc-prelimusc36
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 36 - PATRIOTIC AND NATIONAL OBSERVANCES, CEREMONIES,
+    AND ORGANIZATIONS
+  relative_path: civic-reference/us-code/PRELIMusc36.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc36.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 948999a958feabf41cbece5a938dec113c8a999cad25f7b3c99df280394e8ac3
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.455952+00:00
+  version_pin: null
+- id: ref-usc-prelimusc37
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 37 - PAY AND ALLOWANCES OF THE UNIFORMED SERVICES
+  relative_path: civic-reference/us-code/PRELIMusc37.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc37.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: c887ae43eff93d8e9b93dd3f5fa2ceb3d18be6e3aa097cf858c6070393e1362f
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.528162+00:00
+  version_pin: null
+- id: ref-usc-prelimusc38
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 38 - VETERANS' BENEFITS
+  relative_path: civic-reference/us-code/PRELIMusc38.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc38.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: f720fda706e02dc8a203d0309fb25a9feda58e8dcf067dec8be7e5d377ba859f
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.790739+00:00
+  version_pin: null
+- id: ref-usc-prelimusc39
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 39 - POSTAL SERVICE
+  relative_path: civic-reference/us-code/PRELIMusc39.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc39.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: ab8c3136c7401e4fa3782e32c04744169a32494049a227ff0ecc6058908a193c
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.905412+00:00
+  version_pin: null
+- id: ref-usc-prelimusc40
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 40 - PUBLIC BUILDINGS, PROPERTY, AND WORKS
+  relative_path: civic-reference/us-code/PRELIMusc40.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc40.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 48789770663649b3dd8f911f33b621ffc3bed80bc3a1e6460344d1ff46665414
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.990282+00:00
+  version_pin: null
+- id: ref-usc-prelimusc41
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 41 - PUBLIC CONTRACTS
+  relative_path: civic-reference/us-code/PRELIMusc41.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc41.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: ff43e761daee48f338b24c528f0fb39a1e1b8a1f1bc5754d1501079791446717
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:20.060480+00:00
+  version_pin: null
+- id: ref-usc-prelimusc42
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 42 - THE PUBLIC HEALTH AND WELFARE
+  relative_path: civic-reference/us-code/PRELIMusc42.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc42.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 358254355b95f7def220c6d099ae89fbd639ea692189b1271937755b469ef1d0
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:22.652490+00:00
+  version_pin: null
+- id: ref-usc-prelimusc43
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 43 - PUBLIC LANDS
+  relative_path: civic-reference/us-code/PRELIMusc43.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc43.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 8c7b837ec25683e112bbe85959f5bd02b45e4d5644be516b158ec8334846657c
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:24.504162+00:00
+  version_pin: null
+- id: ref-usc-prelimusc44
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 44 - PUBLIC PRINTING AND DOCUMENTS
+  relative_path: civic-reference/us-code/PRELIMusc44.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc44.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 17d8adb918792a24c5d62557a1314b073bc15efa0ff3666e8aa005c83f17c8a3
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:24.588025+00:00
+  version_pin: null
+- id: ref-usc-prelimusc45
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 45 - RAILROADS
+  relative_path: civic-reference/us-code/PRELIMusc45.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc45.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 7f7968ed858d5fb4ca84b8d3df4c6c5438a69d37cade30233a492e86fe0a4467
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:24.653789+00:00
+  version_pin: null
+- id: ref-usc-prelimusc46
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 46 - SHIPPING
+  relative_path: civic-reference/us-code/PRELIMusc46.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc46.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 57432943f508b0af8f25c0e1106fbbeecaa8409bd8edec6cba60428bfaa35134
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:24.806489+00:00
+  version_pin: null
+- id: ref-usc-prelimusc47
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 47 - TELECOMMUNICATIONS
+  relative_path: civic-reference/us-code/PRELIMusc47.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc47.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 07861a6b0b9246d358019e3fb9337e23e6c58d3ce1ddaee8a1e31c7e487f9070
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:24.926459+00:00
+  version_pin: null
+- id: ref-usc-prelimusc48
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 48 - TERRITORIES AND INSULAR POSSESSIONS
+  relative_path: civic-reference/us-code/PRELIMusc48.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc48.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 14e04797605331f110c6a8dfffa1a92473fd0ed6c37b40e987db64e3f47910c6
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:25.038429+00:00
+  version_pin: null
+- id: ref-usc-prelimusc49
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 49 - TRANSPORTATION
+  relative_path: civic-reference/us-code/PRELIMusc49.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc49.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 83aa4c462cf47b5715167dd1f0e80a1f5cf573c398da673173f9299bf4e6dd9f
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:25.520659+00:00
+  version_pin: null
+- id: ref-usc-prelimusc50
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 50 - WAR AND NATIONAL DEFENSE
+  relative_path: civic-reference/us-code/PRELIMusc50.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc50.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: cbbe24835943c72766b82fde1595603d327c92d3d5c572a67f8507d91bec6806
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:26.722376+00:00
+  version_pin: null
+- id: ref-usc-prelimusc50a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 50 - WAR AND NATIONAL DEFENSE
+  relative_path: civic-reference/us-code/PRELIMusc50a.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc50a.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: ac1481a078aea7023100939ef0b1c7032d1774ac3e9add56fa9805aa8593ea82
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:26.805258+00:00
+  version_pin: null
+- id: ref-usc-prelimusc51
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 51 - NATIONAL AND COMMERCIAL SPACE PROGRAMS
+  relative_path: civic-reference/us-code/PRELIMusc51.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc51.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 0fb65b74a0c4a848ca36534418614620a2b4ccadaf77768778f3dc11d990498b
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:26.841073+00:00
+  version_pin: null
+- id: ref-usc-prelimusc52
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 52 - VOTING AND ELECTIONS
+  relative_path: civic-reference/us-code/PRELIMusc52.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc52.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 3f6c16192b992a28b191fed31f92bf756f120539c3f4091686f4f51448c66230
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:26.878742+00:00
+  version_pin: null
+- id: ref-usc-prelimusc54
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 54 - NATIONAL PARK SERVICE AND RELATED PROGRAMS
+  relative_path: civic-reference/us-code/PRELIMusc54.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc54.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 5da9d1f694d3d62c52a96be92b1c4d1baab48abe616a9ba9ddf72af3d6470f69
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:26.937215+00:00
+  version_pin: null
+- id: ref-usc-source-archive
+  repository_id: civic-reference
+  category: pdf_reference
+  title: U.S. Code — original full publisher XHTML ZIP
+  relative_path: civic-reference/us-code-source.zip
+  service_endpoint: /library-files/civic-reference/us-code-source.zip
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  expected_hash: 1242b11ef20dab3287d1c65dfbccfa185e066f5d5cd3fc790ad7a4156fafbe0c
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Unmodified official bulk archive;
+    extract on your device.; retrieved 2026-10-24T01:22:26.951670+00:00
+  version_pin: null
+- id: ref-ma-chapter-186
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts General Laws Chapter 186 — Estates for Years and at Will
+  relative_path: civic-reference/documents/ma-chapter-186.html
+  service_endpoint: /library-files/civic-reference/documents/ma-chapter-186.html
+  online_url: https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186
+  download_url: https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186
+  expected_hash: 6ea9e0d2d1d39a3437d52b5f3aeda0526851b0804db48d23a39b57890260457c
+  update_policy: manual
+  refresh_interval: never
+  source_note: Unofficial legislature sections captured at retrieval; Selected chapter
+    only; other General Laws, session laws, orders and case law are not included.;
+    retrieved 2026-10-24T01:28:05.430493+00:00
+  version_pin: null
+- id: ref-ma-chapter-76
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts General Laws Chapter 76 — School Attendance
+  relative_path: civic-reference/documents/ma-chapter-76.html
+  service_endpoint: /library-files/civic-reference/documents/ma-chapter-76.html
+  online_url: https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter76
+  download_url: https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter76
+  expected_hash: 5b78a3b3a2797d60ada85af1b926df910b0e69afbcedf378ad51bc90802c82a5
+  update_policy: manual
+  refresh_interval: never
+  source_note: Unofficial legislature sections captured at retrieval; Selected chapter
+    only; other General Laws, session laws, orders and case law are not included.;
+    retrieved 2026-10-24T01:28:09.962304+00:00
+  version_pin: null
+- id: ref-fcc-part97
+  repository_id: civic-reference
+  category: pdf_reference
+  title: FCC Part 97 — Amateur Radio Service
+  relative_path: civic-reference/documents/fcc-part97.pdf
+  service_endpoint: /library-files/civic-reference/documents/fcc-part97.pdf
+  online_url: https://www.govinfo.gov/content/pkg/CFR-2025-title47-vol5/pdf/CFR-2025-title47-vol5-part97.pdf
+  download_url: https://www.govinfo.gov/content/pkg/CFR-2025-title47-vol5/pdf/CFR-2025-title47-vol5-part97.pdf
+  expected_hash: fb551de5d1feb7c68b6134b16b765f45585cb352d2dbac34e29c3aed9824b74a
+  update_policy: manual
+  refresh_interval: never
+  source_note: 47 CFR Part 97, October 1, 2025 annual edition; Complete Part 97 annual
+    snapshot including emergency communications. Not live eCFR; check later amendments
+    before relying on current regulatory requirements.; retrieved 2026-10-24T01:35:34.631817+00:00
+  version_pin: null
+- id: callbook-callsigns-sqlite
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Offline FCC amateur callsign database
+  relative_path: civic-reference/callsigns.sqlite
+  service_endpoint: /library-files/civic-reference/callsigns.sqlite
+  expected_hash: 787428b4c00201e9e16f37b52c696750fee8b65320e805c25a33efe99a27ec1d
+  update_policy: manual
+  refresh_interval: never
+  source_note: Rebuild or refresh with tools/install_callsigns.py; see callsigns-source.json
+    for dates and source hashes.
+  version_pin: null
+- id: callbook-fcc-amateur-source-zip
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Original FCC amateur license bulk archive
+  relative_path: civic-reference/fcc-amateur-source.zip
+  service_endpoint: /library-files/civic-reference/fcc-amateur-source.zip
+  expected_hash: c3a45d4b0ebc0928ddc85f1c2a920fa6d357776e8b57af9c53ce697b273903ac
+  update_policy: manual
+  refresh_interval: never
+  source_note: Rebuild or refresh with tools/install_callsigns.py; see callsigns-source.json
+    for dates and source hashes.
+  online_url: https://data.fcc.gov/download/pub/uls/complete/l_amat.zip
+  download_url: https://data.fcc.gov/download/pub/uls/complete/l_amat.zip
+  version_pin: null
+- id: callbook-zcta-2025-zip
+  repository_id: civic-reference
+  category: pdf_reference
+  title: 2025 Census ZIP-area coordinates
+  relative_path: civic-reference/zcta-2025.zip
+  service_endpoint: /library-files/civic-reference/zcta-2025.zip
+  expected_hash: 51516a4283bab5cd2376eec75609ddc4b363a18297e8adeeaac7b03cf7c84dbe
+  update_policy: manual
+  refresh_interval: never
+  source_note: Rebuild or refresh with tools/install_callsigns.py; see callsigns-source.json
+    for dates and source hashes.
+  online_url: https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip
+  download_url: https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip
+  version_pin: null
+- id: radio-technician-json
+  repository_id: radio-study
+  category: pdf_reference
+  title: Technician 2026-2030 question pool (JSON)
+  relative_path: radio-study/technician-2026-2030/technician-2026-2030.json
+  service_endpoint: /library-files/radio-study/technician-2026-2030/technician-2026-2030.json
+  expected_hash: 7014462c1e2566a6587a153ed1ac8cda682080c3ee9318a526faf2159949fc92
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.json
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.json
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+- id: radio-technician-txt
+  repository_id: radio-study
+  category: pdf_reference
+  title: Technician 2026-2030 question pool (TXT)
+  relative_path: radio-study/technician-2026-2030/technician-2026-2030.txt
+  service_endpoint: /library-files/radio-study/technician-2026-2030/technician-2026-2030.txt
+  expected_hash: 1bece9ad5385b3958c33bb75b9b43046ae3caff2a35391177fa2e87a47801cf9
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.txt
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.txt
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+- id: radio-general-json
+  repository_id: radio-study
+  category: pdf_reference
+  title: General 2023-2027 question pool (JSON)
+  relative_path: radio-study/general-2023-2027/general-2023-2027.json
+  service_endpoint: /library-files/radio-study/general-2023-2027/general-2023-2027.json
+  expected_hash: deaaa0f412a00b9f410d50e91542fe4384da558a312f73f95fdc72304d239ca0
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.json
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.json
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+- id: radio-general-txt
+  repository_id: radio-study
+  category: pdf_reference
+  title: General 2023-2027 question pool (TXT)
+  relative_path: radio-study/general-2023-2027/general-2023-2027.txt
+  service_endpoint: /library-files/radio-study/general-2023-2027/general-2023-2027.txt
+  expected_hash: fd73f164de4900274aafcbb72c90f6d72cbd3e3db2ff7fde63c6f261244bbba4
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.txt
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.txt
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+- id: radio-extra-json
+  repository_id: radio-study
+  category: pdf_reference
+  title: Amateur Extra 2024-2028 question pool (JSON)
+  relative_path: radio-study/extra-2024-2028/extra-2024-2028.json
+  service_endpoint: /library-files/radio-study/extra-2024-2028/extra-2024-2028.json
+  expected_hash: 1c089f72b26429410e91aee8ae45f404f0a264b55d404a6bfa2da992ebef109b
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.json
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.json
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+- id: radio-extra-txt
+  repository_id: radio-study
+  category: pdf_reference
+  title: Amateur Extra 2024-2028 question pool (TXT)
+  relative_path: radio-study/extra-2024-2028/extra-2024-2028.txt
+  service_endpoint: /library-files/radio-study/extra-2024-2028/extra-2024-2028.txt
+  expected_hash: 9ffb7891930411d0e889ea93886b18724a0242320b190e8f9c6c99ec50bb56f2
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.txt
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.txt
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+resource_sections:
+- title: Local maps
+  description: Massachusetts reference maps for Worcester and Middlesex counties.
+    Northern Worcester is the focus; the flood archive contains statewide published
+    coverage.
+  items:
+  - title: Local map collection and update status
+    path: maps/index.html
+  sections:
+  - title: Flood hazards
+    description: Published flood-hazard GIS data, not live flooding. Missing mapping
+      does not mean no risk.
+    items:
+    - title: Local flood data and status
+      path: maps/flood/index.html
+    - title: MassGIS FEMA flood data (online)
+      url: https://www.mass.gov/info-details/massgis-data-fema-national-flood-hazard-layer
+  - title: Property boundaries
+    description: Town parcel GIS archives for the configured counties. Parcel boundaries
+      are not a survey.
+    items:
+    - title: Local parcel data and status
+      path: maps/parcels/index.html
+    - title: MassGIS property maps (online)
+      url: https://www.mass.gov/info-details/massgis-data-property-tax-parcels
+  - title: Terrain and topographic maps
+    description: Latest available USGS topographic PDFs intersecting the configured
+      counties, suitable for offline reading and printing.
+    items:
+    - title: Local topographic PDFs and status
+      path: maps/topographic/index.html
+    - title: USGS topographic maps (online)
+      url: https://www.usgs.gov/programs/national-geospatial-program/us-topo-maps-america

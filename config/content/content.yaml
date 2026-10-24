@@ -1,0 +1,1276 @@
+# Public content recipe. Edit enabled flags and source catalogues; keep this folder with the source repository.
+schema: 1
+name: Data Ark content selection
+exported_at: '2026-10-24T02:04:19.818437+00:00'
+source_repository: https://github.com/DavJenkins/pharos
+source_commit: 0b8b03c62c0740c31d26e92c2072c0a5765d070f
+content_root: /mnt/storage
+manifest: public-manifest.yaml
+reserve_gib: 10
+download_rate_kib: 0
+notes:
+- This file and referenced catalogues describe public content, not passwords, networking
+  or private backups.
+- enabled=false preserves an uninstalled choice without downloading it.
+- Pinned archives require the recorded hash. Rolling publisher datasets and regenerated
+  HTML may differ from the export.
+- No content is deleted by restoration. Source availability and network access are
+  required unless files are supplied separately.
+archives:
+- id: ifixit-repair-guides
+  title: iFixit Repair Guides — English with images (December 2025)
+  enabled: true
+  path: ifixit_en_all_2025-12.zim
+  url: https://download.kiwix.org/zim/ifixit/ifixit_en_all_2025-12.zim
+  bytes: 3570695757
+  sha256: 9bb5f3408707fd0300c6ef47a425c3217187f144cd9154a928183816aa72eead
+- id: wikipedia-main
+  title: Wikipedia — English with images (August 2026)
+  enabled: true
+  path: wikipedia_en_all_maxi_2026-08.zim
+  url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-08.zim
+  bytes: 127418087648
+  sha256: 34162d18b9f96f494eac48a73a309c72e0bc95d85f76be405d0f5de795854aa6
+- id: wikipedia-nopic
+  title: Wikipedia — English without images (June 2026)
+  enabled: false
+  path: wikipedia_en_all_nopic_2026-06.zim
+  url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2026-06.zim
+  bytes: null
+  sha256: 441a56d9e05b2d98f8ae9acb7986a513ed47904d73852c92dc6b7d50baa122e5
+- id: wikipedia-medicine
+  title: Wikipedia Medicine (October 2026)
+  enabled: true
+  path: wikipedia_en_medicine_maxi_2026-10.zim
+  url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-10.zim
+  bytes: 1864210320
+  sha256: 9a1570f2f346aa18694ee520e0483f19b7447f69e0970e2f727c53ccf0dcc7d6
+- id: electronics-qa
+  title: Electronics Stack Exchange (October 2026)
+  enabled: true
+  path: electronics.stackexchange.com_en_all_2026-10.zim
+  url: https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2026-10.zim
+  bytes: 4261397539
+  sha256: b28e58b24ed55c602265729b34b0c6cc4e12228e6fe2f55df5b5e9eae169b266
+- id: unix-qa
+  title: Unix Stack Exchange (October 2026)
+  enabled: true
+  path: unix.stackexchange.com_en_all_2026-10.zim
+  url: https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2026-10.zim
+  bytes: 1316253305
+  sha256: 793f0fbaf64e9eb8d2fd59fec80f62cf94acb22ca94c87eb25ae145dd589e551
+- id: gutenberg-en
+  title: Project Gutenberg — English
+  enabled: true
+  path: gutenberg_en_all_2025-11.zim
+  url: https://download.kiwix.org/zim/gutenberg/gutenberg_en_all_2025-11.zim
+  bytes: 221251590584
+  sha256: 01677c8d554a1cab2cbfd020ac99ebca7dd6c74d3ce0d13f266a2ba603dfaf28
+direct_files:
+- id: fema-ready
+  path: preparedness/fema-ready.pdf
+  url: https://www.ready.gov/sites/default/files/2021-11/are-you-ready-guide.pdf
+  bytes: 4233522
+  sha256: 3873f8ae7528389adacab72259c37b9ae3c507bd3ae23783122e06586560040c
+- id: cert-participant-2019
+  path: preparedness/cert-participant-2019.pdf
+  url: https://www.ready.gov/sites/default/files/2019.CERT_.Basic_.PM_FINAL_508c.pdf
+  bytes: 5509166
+  sha256: ca297bbc329c322ccbcb252fae7a1c89fd95f93dbf72b78b165b53cafa664026
+- id: cert-hazards-2019
+  path: preparedness/cert-hazards-2019.pdf
+  url: https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf
+  bytes: 2951425
+  sha256: 110abd05cf6dd5760379eaa75b58f09efad5066638e5ded6afeacc16d8a98260
+map_files:
+- id: ma-nfhl
+  path: maps/flood/massachusetts-nfhl.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/state/nfhl.zip
+  bytes: 201914783
+  sha256: 5f74914158e56dad478d495ef1d47c8fc55e66842b7f8017d926bb030da686c2
+- id: parcels-2
+  path: maps/parcels/town-002.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M002_ACTON.zip
+  bytes: 5507696
+  sha256: 7bdf0849abe93eb7124e64980ad60799436a753bc135af01e7a5509af9def8b0
+- id: parcels-10
+  path: maps/parcels/town-010.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M010_ARLINGTON.zip
+  bytes: 3728863
+  sha256: d87d7231fcb037eaa703a137505187e2ec31fe2ca95a145d0e38598161d1211f
+- id: parcels-11
+  path: maps/parcels/town-011.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M011_ASHBURNHAM.zip
+  bytes: 1523875
+  sha256: da3c49dcfb2ea221c1862b278b01304a314275c05c42e7fc3f3914f682cc8394
+- id: parcels-12
+  path: maps/parcels/town-012.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M012_ASHBY.zip
+  bytes: 851531
+  sha256: 9c9417f3267b61c0465b5f7f4fc561f4e7252ef7c1e9712d3c1048c2c790a6a0
+- id: parcels-14
+  path: maps/parcels/town-014.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M014_ASHLAND.zip
+  bytes: 2137635
+  sha256: 56c3078f38227bdcc476595fe2ec873321ae4c7b41dc2ddf6f1d656ea7274dee
+- id: parcels-15
+  path: maps/parcels/town-015.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M015_ATHOL.zip
+  bytes: 2010879
+  sha256: 9aca07dcfb503b96844cd21dce45d7be343b1678d0af7f71bafa8e4140094441
+- id: parcels-17
+  path: maps/parcels/town-017.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M017_AUBURN.zip
+  bytes: 2013258
+  sha256: 2b2641df0e4690d28b88632113fd8a3e3efc3df94fb61da0bd5e5c3e15061cc5
+- id: parcels-19
+  path: maps/parcels/town-019.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M019_AYER.zip
+  bytes: 1506013
+  sha256: 9d3b881ab763da9f8c58c8305b33db80682817d42a251860f75d937883bf609a
+- id: parcels-21
+  path: maps/parcels/town-021.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M021_BARRE.zip
+  bytes: 1039919
+  sha256: 8a593e906110d94684bf819468d89f902c2effe095fbb434ef1fa72dc40333f4
+- id: parcels-23
+  path: maps/parcels/town-023.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M023_BEDFORD.zip
+  bytes: 2055635
+  sha256: c21c66da6e0623bb5a47469f0cf109ccd654028c6b62bb4ca6fbfda2efcaff83
+- id: parcels-26
+  path: maps/parcels/town-026.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M026_BELMONT.zip
+  bytes: 2654729
+  sha256: 90c63729976c6ebde28b9dc9b69b51bee56889d6d434ac2daec92571a0211461
+- id: parcels-28
+  path: maps/parcels/town-028.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M028_BERLIN.zip
+  bytes: 847822
+  sha256: 5bd0efab115d6f52fc4cc17f4121136f77f040e0d044f19f9038298f1c1f6df1
+- id: parcels-31
+  path: maps/parcels/town-031.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M031_BILLERICA.zip
+  bytes: 6370306
+  sha256: bd47850fd113ec5702053e708510139856bbcf85124807fbd57070ccc0080786
+- id: parcels-32
+  path: maps/parcels/town-032.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M032_BLACKSTONE.zip
+  bytes: 1079863
+  sha256: dfaf697f5e1e0e4876f706f9504e5b5d8fba35992f3c5392b1a084919a807c02
+- id: parcels-34
+  path: maps/parcels/town-034.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M034_BOLTON.zip
+  bytes: 1013532
+  sha256: eac36f523bc1da76ac8c9284d82376c44831b6d9e15c15054f49c66d016124f1
+- id: parcels-37
+  path: maps/parcels/town-037.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M037_BOXBOROUGH.zip
+  bytes: 611266
+  sha256: 8dfd898959fe6afd536faa0f49cf4a8a535e15d9eddbfc31459e34713a1357d9
+- id: parcels-39
+  path: maps/parcels/town-039.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M039_BOYLSTON.zip
+  bytes: 781278
+  sha256: 2b07d4e8551cef44e36408b84470d4d9ed1c270a13c2fd7722368d7813f68733
+- id: parcels-45
+  path: maps/parcels/town-045.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M045_BROOKFIELD.zip
+  bytes: 877621
+  sha256: 87562074aeaa56fefbfeec95a2861905a8e4f2bbe837c98ef729f68c6c412534
+- id: parcels-48
+  path: maps/parcels/town-048.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M048_BURLINGTON.zip
+  bytes: 2754121
+  sha256: 3bf3b16b4eea9da0284ac976f95b7c4ee07418b284908fb3f3f7b0f7d829a679
+- id: parcels-49
+  path: maps/parcels/town-049.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M049_CAMBRIDGE.zip
+  bytes: 4473735
+  sha256: fca6ceb1816f16bbde25ea6610fdc30dcb4e0f79c77561b062b04a9abf817b60
+- id: parcels-51
+  path: maps/parcels/town-051.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M051_CARLISLE.zip
+  bytes: 1093313
+  sha256: 352be73209583613d47563326cc4587368b2154fbfcb18794a43e393a6f0a000
+- id: parcels-54
+  path: maps/parcels/town-054.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M054_CHARLTON.zip
+  bytes: 3552562
+  sha256: 1607f79e3b1ab399c3fe79b90ec268a51efb61438e5763f1a53ee98786249606
+- id: parcels-56
+  path: maps/parcels/town-056.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M056_CHELMSFORD.zip
+  bytes: 6693489
+  sha256: 8b8665d7aae78bb6debd240d519c9505167912d8a7d4682b1951f4dddcd10358
+- id: parcels-64
+  path: maps/parcels/town-064.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M064_CLINTON.zip
+  bytes: 1368208
+  sha256: 4e87c7d12106c26e02b9b583a5d0b4e17ea197f008c2aec8b67fd8a63d2bea87
+- id: parcels-67
+  path: maps/parcels/town-067.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M067_CONCORD.zip
+  bytes: 2808118
+  sha256: 1c78d39a2a9b4164b2f2f8f651a25ed53fbdaa4bef2b5fd52535e121feafd144
+- id: parcels-77
+  path: maps/parcels/town-077.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M077_DOUGLAS.zip
+  bytes: 1659338
+  sha256: 9442c4d1e579d6b3f03fceeffc23a85753cf6c6fa72809dfd15478e8a0c277c0
+- id: parcels-79
+  path: maps/parcels/town-079.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M079_DRACUT.zip
+  bytes: 3709922
+  sha256: 4ace946c89c770ac676b4a1df47adddea6348659a057cc3e8f79eb1f28e5d7cc
+- id: parcels-80
+  path: maps/parcels/town-080.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M080_DUDLEY.zip
+  bytes: 1609732
+  sha256: fcf3837baddcb3a1f8a1e055772105f093fec701bef483f59e9ef21ff9feb34c
+- id: parcels-81
+  path: maps/parcels/town-081.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M081_DUNSTABLE.zip
+  bytes: 630055
+  sha256: 7b02d33e07a9cf31a2e618f66a1e393d0f5a47e922189868e44359280f404c68
+- id: parcels-84
+  path: maps/parcels/town-084.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M084_EASTBROOKFIELD.zip
+  bytes: 559180
+  sha256: 3bfeb99637b97cce35100ede09c48c5b84b556457e61b10d133fa92276a9588f
+- id: parcels-93
+  path: maps/parcels/town-093.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M093_EVERETT.zip
+  bytes: 2071046
+  sha256: 5c76e4246d531af949cc32ef65cf34fd0cb64d8b05d2438e2d532eaedfeed76d
+- id: parcels-97
+  path: maps/parcels/town-097.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M097_FITCHBURG.zip
+  bytes: 4125603
+  sha256: 25930b434bb90bedc73629abf1756acd84344e24734f12bf633e2e43d9013411
+- id: parcels-100
+  path: maps/parcels/town-100.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M100_FRAMINGHAM.zip
+  bytes: 8582562
+  sha256: 22cfb686ef36cf071878b08746d4cedc91ef03e5d0007fe352f9f428feeaaa67
+- id: parcels-103
+  path: maps/parcels/town-103.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M103_GARDNER.zip
+  bytes: 2267385
+  sha256: c29507ffa6ff1d74f6604e60515f5f003d0cca0ade02d264320cf210adea0650
+- id: parcels-110
+  path: maps/parcels/town-110.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M110_GRAFTON.zip
+  bytes: 3010719
+  sha256: db1de8eda5a844be7275bbbad8895ad101e4aee595983d84acbc5d2e49d89657
+- id: parcels-115
+  path: maps/parcels/town-115.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M115_GROTON.zip
+  bytes: 3509236
+  sha256: 54823d8fec29286ca24d00da705f1f97f393c0d683141720d084b36287dbb573
+- id: parcels-124
+  path: maps/parcels/town-124.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M124_HARDWICK.zip
+  bytes: 738935
+  sha256: 94488ccba45043faede0e799e893e827faa34628fe8502cdfa67439609f44ce3
+- id: parcels-125
+  path: maps/parcels/town-125.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M125_HARVARD.zip
+  bytes: 1224686
+  sha256: cd32874ec0a891de82c2ef3165f1ddd3228db3070090637139e747e3b74aab11
+- id: parcels-134
+  path: maps/parcels/town-134.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M134_HOLDEN.zip
+  bytes: 6060889
+  sha256: d0c0e2129ce7747d3f7a08a77c905ff8b5992e2f14057c5602e87743b69d836f
+- id: parcels-136
+  path: maps/parcels/town-136.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M136_HOLLISTON.zip
+  bytes: 3464789
+  sha256: 603444b0c0f85232d9e04883c523356dc687316c8aeda6f47858b125e862bb5d
+- id: parcels-138
+  path: maps/parcels/town-138.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M138_HOPEDALE.zip
+  bytes: 1153014
+  sha256: 4f6109831649658afaf765fec37dd5b9af7e10f9b9d81bd8a8784f6d5ff5847b
+- id: parcels-139
+  path: maps/parcels/town-139.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M139_HOPKINTON.zip
+  bytes: 4009346
+  sha256: 2f39b46f30f3eb3502238e5ecdd70eaf6364b39369d0a1dd9cca64e48cd975c5
+- id: parcels-140
+  path: maps/parcels/town-140.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M140_HUBBARDSTON.zip
+  bytes: 1362874
+  sha256: 9938b359b212c9a0dc4a16a2566635fe9ae9f5e6a0a0bf77a12aa942eea714f7
+- id: parcels-141
+  path: maps/parcels/town-141.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M141_HUDSON.zip
+  bytes: 4048091
+  sha256: 74d40c0957843a0e6e1f34ffc08c44f212e3315ef52af9fdf1f91312c4bd84aa
+- id: parcels-147
+  path: maps/parcels/town-147.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M147_LANCASTER.zip
+  bytes: 1358483
+  sha256: 02174eb680c6766e3db7dba239c7e76dc6966c9dae2cd2b07340f0d61f68040a
+- id: parcels-151
+  path: maps/parcels/town-151.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M151_LEICESTER.zip
+  bytes: 2576072
+  sha256: 9135ed0f80af9e1f2d4140c24c37b28140858982f2fd217f79c3a3d73d12b2a3
+- id: parcels-153
+  path: maps/parcels/town-153.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M153_LEOMINSTER.zip
+  bytes: 3598707
+  sha256: 9b0108c402bc9ce156dcf580c46544b57f2a9e11b3f4c3b86b5707d90ecc6867
+- id: parcels-155
+  path: maps/parcels/town-155.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M155_LEXINGTON.zip
+  bytes: 2810060
+  sha256: 323de212ca05e184a2aa34a02220fe5d1207dcf46635165b2196588e62232333
+- id: parcels-157
+  path: maps/parcels/town-157.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M157_LINCOLN.zip
+  bytes: 1188278
+  sha256: 4861dfeb3006c6da18671fbe11b10f364105380dbd1c46a6b9008938ea873f0b
+- id: parcels-158
+  path: maps/parcels/town-158.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M158_LITTLETON.zip
+  bytes: 2179818
+  sha256: cbaab34655fd3e918622cc0e26555015622a416c0c159474fd198325094e1498
+- id: parcels-160
+  path: maps/parcels/town-160.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M160_LOWELL.zip
+  bytes: 6192778
+  sha256: 0bee224a3524bba60fad0b840b5e77b33ea1d15bf44947318ec9d47b8e7fd2c3
+- id: parcels-162
+  path: maps/parcels/town-162.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M162_LUNENBURG.zip
+  bytes: 1870921
+  sha256: ef6d8582e9ee694ac3f055aa8e0bac92d75e319432a28ae772e337cf0c92b04c
+- id: parcels-165
+  path: maps/parcels/town-165.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M165_MALDEN.zip
+  bytes: 2783973
+  sha256: 69ccba4f8873bce8e6ea9fb4d1b3e0533fbb26054ad5ab4a15b0de9191f92ffa
+- id: parcels-170
+  path: maps/parcels/town-170.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M170_MARLBOROUGH.zip
+  bytes: 3867382
+  sha256: 54be23c04b0530d7b4298b6d25740c255a210a9868606beca8a44eb9bf6dd1b4
+- id: parcels-174
+  path: maps/parcels/town-174.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M174_MAYNARD.zip
+  bytes: 1024180
+  sha256: 0366cc46978c0b7f3a2b79bd57b6abd08da5df24cd54829864aa6be60876b6dd
+- id: parcels-176
+  path: maps/parcels/town-176.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M176_MEDFORD.zip
+  bytes: 4757499
+  sha256: aef001adfd3e2f4c42a4641bcd09aa51f8b4888d5aca065b80df0ef59024fa6a
+- id: parcels-178
+  path: maps/parcels/town-178.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M178_MELROSE.zip
+  bytes: 2083599
+  sha256: c91a0147045e7a3c5ad5bd88332cbcfba173f2567b948f9bfa344918e3e9b6ca
+- id: parcels-179
+  path: maps/parcels/town-179.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M179_MENDON.zip
+  bytes: 1655932
+  sha256: 2c32aa98043827289559dc3ee29329fcc439fa7a11d3ce646b1a1c5709ee471d
+- id: parcels-185
+  path: maps/parcels/town-185.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M185_MILFORD.zip
+  bytes: 2816839
+  sha256: eeb39e4584ce55bb0a647d7fa53675d4fee31b3d2ec533605bc5d9e466c0d204
+- id: parcels-186
+  path: maps/parcels/town-186.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M186_MILLBURY.zip
+  bytes: 2857584
+  sha256: 564ed46db70297f821680c068156826e4ac6ea68e1cfef5f4cf9c365993a1b4a
+- id: parcels-188
+  path: maps/parcels/town-188.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M188_MILLVILLE.zip
+  bytes: 534759
+  sha256: 2997f45020e21d42fb731dc217870fa6873d41d61a63fecc9730c006c543bb0d
+- id: parcels-198
+  path: maps/parcels/town-198.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M198_NATICK.zip
+  bytes: 4115608
+  sha256: 985f29140ec99d16bd35a651eb418343bb94b182674f20c151592c1236d56233
+- id: parcels-202
+  path: maps/parcels/town-202.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M202_NEWBRAINTREE.zip
+  bytes: 630376
+  sha256: ce9805112f8d388c979da203f5e4aec3278dae25509d20b22806a5aae8647191
+- id: parcels-207
+  path: maps/parcels/town-207.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M207_NEWTON.zip
+  bytes: 10038669
+  sha256: 5338ee105a315d23e0081869248ac612749d7344879af8f76bb6bfcf5fb26f87
+- id: parcels-212
+  path: maps/parcels/town-212.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M212_NORTHBROOKFIELD.zip
+  bytes: 1127862
+  sha256: a5fb4db540ad7377666216f1b981a2d9f7e151c166bee7caf26974c78dc38709
+- id: parcels-213
+  path: maps/parcels/town-213.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M213_NORTHREADING.zip
+  bytes: 2060817
+  sha256: a6a2590a26df95873adaade482804f4aeea22f073f21f5418df25ed358a18204
+- id: parcels-215
+  path: maps/parcels/town-215.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M215_NORTHBOROUGH.zip
+  bytes: 6075310
+  sha256: f8697dd8ac584a7bb0cd9b550bbc72173ebdf29a4f7243e3a6b015bd070b679b
+- id: parcels-216
+  path: maps/parcels/town-216.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M216_NORTHBRIDGE.zip
+  bytes: 2719572
+  sha256: 574ff31bd468a10576b85e7c0400bd7fc3b90b8e9561a6909245c0325df71d7d
+- id: parcels-222
+  path: maps/parcels/town-222.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M222_OAKHAM.zip
+  bytes: 721208
+  sha256: 60b1f062b02d3859d6f53db299008d68c47b311c3c2bf4a5a5767ee7b107567d
+- id: parcels-226
+  path: maps/parcels/town-226.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M226_OXFORD.zip
+  bytes: 2103166
+  sha256: fe3e1d39bb2df2df14208a3d0b4cdd6e66721d963963c872b0bbb89af6d38ff4
+- id: parcels-228
+  path: maps/parcels/town-228.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M228_PAXTON.zip
+  bytes: 800075
+  sha256: 19fdfa7f40e276bb93fad1fa7be9cea062bf44be38f1d27e677f249685db4a45
+- id: parcels-232
+  path: maps/parcels/town-232.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M232_PEPPERELL.zip
+  bytes: 1645130
+  sha256: b2dc3aa5cab245d63af36e7d2c69e2e6b1b4127799cb67d8b81b54616a8f2e9d
+- id: parcels-234
+  path: maps/parcels/town-234.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M234_PETERSHAM.zip
+  bytes: 701201
+  sha256: 245fa4ce426a773ab279f01ff0fd5f05d3666bab543cce4033e14639a668a1f1
+- id: parcels-235
+  path: maps/parcels/town-235.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M235_PHILLIPSTON.zip
+  bytes: 806959
+  sha256: 67a2fb02d73dab860b7abd5ec2e74bdd4a0c6dc26fdcfc53cad965a32a3e956e
+- id: parcels-241
+  path: maps/parcels/town-241.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M241_PRINCETON.zip
+  bytes: 1567497
+  sha256: 528bca353cf84341ef59864cc038f15f8ddd89f78f060b14bbaf6d0a9b606399
+- id: parcels-246
+  path: maps/parcels/town-246.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M246_READING.zip
+  bytes: 2536790
+  sha256: b9cda4ecb4e661ef52548074c1c0bc061bea5da0396a2d3e22b4da8449026605
+- id: parcels-255
+  path: maps/parcels/town-255.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M255_ROYALSTON.zip
+  bytes: 906363
+  sha256: 660ad7223e22ad568acceda1fde7073f48ca7b68dc24a8b2c0f9f8454b8f58a4
+- id: parcels-257
+  path: maps/parcels/town-257.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M257_RUTLAND.zip
+  bytes: 1991609
+  sha256: eb630d65935a1f54bbac7660cb6559b9b49f7f3a5350e3a76f60c76b3aba1cf7
+- id: parcels-269
+  path: maps/parcels/town-269.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M269_SHERBORN.zip
+  bytes: 1262972
+  sha256: b6ed6e57cf12faa9d2cbe59e903e57b7dc865c78c5c91c16f54c83eba79ca2d6
+- id: parcels-270
+  path: maps/parcels/town-270.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M270_SHIRLEY.zip
+  bytes: 1739463
+  sha256: 6c120e25ba9ce9d49d1668c2d32ee10835e3eb2e16e7d2cba4241964ef86deb5
+- id: parcels-271
+  path: maps/parcels/town-271.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M271_SHREWSBURY.zip
+  bytes: 7413625
+  sha256: 6623946b8eb2efa70e71cf21818d999a677fa0fed8a86e31d0cf454ff24d79b1
+- id: parcels-274
+  path: maps/parcels/town-274.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M274_SOMERVILLE.zip
+  bytes: 4051464
+  sha256: e9992a59482163dce46efbb5f8fb28ac0c0ae2bba03331c76c875a1123d97be8
+- id: parcels-277
+  path: maps/parcels/town-277.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M277_SOUTHBOROUGH.zip
+  bytes: 2462432
+  sha256: ee309b9c2d426bafaa27968d86f0b32e5d2d9319b6b4eb7bcd0d80f027a32c81
+- id: parcels-278
+  path: maps/parcels/town-278.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M278_SOUTHBRIDGE.zip
+  bytes: 3247753
+  sha256: d97b39a0ace6ad4a2dce642833bf13eb94654488e88492298192da35927f5516
+- id: parcels-280
+  path: maps/parcels/town-280.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M280_SPENCER.zip
+  bytes: 2816419
+  sha256: 00c65c88c4c465c555fd30bb4ff0f4989464c065c3f52a165111db1c925cda0d
+- id: parcels-282
+  path: maps/parcels/town-282.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M282_STERLING.zip
+  bytes: 1443317
+  sha256: 18a2fd6d99e4529311dbd7ad7d9ba2b1379e88ddf438d983534e1f3bb9973db9
+- id: parcels-284
+  path: maps/parcels/town-284.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M284_STONEHAM.zip
+  bytes: 2173092
+  sha256: 76671dd1318ec243b44ef20c20d4497a6b9068f056cea990f538bb1f6a9d9174
+- id: parcels-286
+  path: maps/parcels/town-286.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M286_STOW.zip
+  bytes: 1399400
+  sha256: 79e89331326dc53920808b0086e55abbbeba0358f8855e787cfcbcff28551d2a
+- id: parcels-287
+  path: maps/parcels/town-287.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M287_STURBRIDGE.zip
+  bytes: 1565599
+  sha256: 272bd81b50bc4a4607575743a7da03af0e3048a104c0be30c0dd4501ea4d0e4a
+- id: parcels-288
+  path: maps/parcels/town-288.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M288_SUDBURY.zip
+  bytes: 4906035
+  sha256: eaf0965241c66715740c7d67cee181a5f9539e8314f587b61aea25a5ee3163b4
+- id: parcels-290
+  path: maps/parcels/town-290.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M290_SUTTON.zip
+  bytes: 1866786
+  sha256: a8c33ba9dfb203831ccb5d952087284e330419583eb21a5afae69f94865dc6f7
+- id: parcels-294
+  path: maps/parcels/town-294.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M294_TEMPLETON.zip
+  bytes: 1503732
+  sha256: 029be52640c65d5e31b32047e966b071ca7b6d04842b90b1aaba1bd2f092d634
+- id: parcels-295
+  path: maps/parcels/town-295.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M295_TEWKSBURY.zip
+  bytes: 5622836
+  sha256: 37f36607a392328761f0c40f59d9b551f69a9b4f812be143d26387ca760870bf
+- id: parcels-299
+  path: maps/parcels/town-299.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M299_TOWNSEND.zip
+  bytes: 1663416
+  sha256: 1fec2a0586b76d5de3992f7bf52b54c74beda9d332123ca0efd9777d669ab84d
+- id: parcels-301
+  path: maps/parcels/town-301.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M301_TYNGSBOROUGH.zip
+  bytes: 1435563
+  sha256: b33382f5ff4b8eb454b6e5ef562b288da8e910c023a19927732b8a883218e614
+- id: parcels-303
+  path: maps/parcels/town-303.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M303_UPTON.zip
+  bytes: 1363401
+  sha256: 7bae7aaadd58a96c03a7b0037d1f92ec86d076708290c25edfac4c9836d8212d
+- id: parcels-304
+  path: maps/parcels/town-304.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M304_UXBRIDGE.zip
+  bytes: 2336716
+  sha256: 2904695655a61f34c7f46021bd64abb00e929792d15de6e0e20adb762c12e3d1
+- id: parcels-305
+  path: maps/parcels/town-305.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M305_WAKEFIELD.zip
+  bytes: 2358316
+  sha256: 7887035bb164a57f3276968815a75bddaeb5469545aca789a6772e8afa679173
+- id: parcels-308
+  path: maps/parcels/town-308.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M308_WALTHAM.zip
+  bytes: 7261993
+  sha256: 23e524148e456deda3afb3b3be68fd109b83a5373b6caeb639bff48d7e34a1fc
+- id: parcels-311
+  path: maps/parcels/town-311.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M311_WARREN.zip
+  bytes: 927088
+  sha256: 7e7a0e07ae891890254a8bab58900f0df012805f0808c82ed51c01cc8e7b225e
+- id: parcels-314
+  path: maps/parcels/town-314.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M314_WATERTOWN.zip
+  bytes: 2752489
+  sha256: 243f50fa060453d858a8adc0355e33b5726a6e7432c4b264c09793b47cdacce2
+- id: parcels-315
+  path: maps/parcels/town-315.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M315_WAYLAND.zip
+  bytes: 2973131
+  sha256: 150980371b05db63914e74b502266c1746473cb562d2b87a1591c9410df081a7
+- id: parcels-316
+  path: maps/parcels/town-316.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M316_WEBSTER.zip
+  bytes: 1968394
+  sha256: 8f08983a7193048bf6e07bc14cbbac7102dbfd060e28e7370e7f96e085d682ce
+- id: parcels-321
+  path: maps/parcels/town-321.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M321_WESTBOYLSTON.zip
+  bytes: 1424150
+  sha256: 37ce7b95dc7997cbc5199573f724f80da5a8d89106f78d8d2f5fb2f739ad05f6
+- id: parcels-323
+  path: maps/parcels/town-323.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M323_WESTBROOKFIELD.zip
+  bytes: 1066233
+  sha256: 3671a7f52d54e6c5f318631dc09be8e1e3b4d460f3323aa039631dfe271b39fc
+- id: parcels-328
+  path: maps/parcels/town-328.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M328_WESTBOROUGH.zip
+  bytes: 5359470
+  sha256: c5ff010038afcb196edbcf4b233096fb32645e92ccdc84116e0eb59f6ebaadae
+- id: parcels-330
+  path: maps/parcels/town-330.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M330_WESTFORD.zip
+  bytes: 3684990
+  sha256: 9010f6866c0be6c9ffa86945a5a17fb90450f77f4f5ed373b0b1e0cc1bdf3a6e
+- id: parcels-332
+  path: maps/parcels/town-332.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M332_WESTMINSTER.zip
+  bytes: 2565987
+  sha256: 13c4eccae4a85461a1611f6b07e93f28c0dfbde5573e357af4c2d0bf6a4300b6
+- id: parcels-333
+  path: maps/parcels/town-333.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M333_WESTON.zip
+  bytes: 4683997
+  sha256: 5b377d59588afcd40c8fa5e6dbb1ce72eab3f51332bf347c038a7ee07c929f12
+- id: parcels-342
+  path: maps/parcels/town-342.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M342_WILMINGTON.zip
+  bytes: 3662697
+  sha256: c4c8c68e25f80860d3ddce19326387bd7b43a18689945fc1805f373ffe0249e0
+- id: parcels-343
+  path: maps/parcels/town-343.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M343_WINCHENDON.zip
+  bytes: 2612046
+  sha256: c1093e9bacd5ebb8a3040417a5dfac4ab115fed113d619cae38fd54110990a22
+- id: parcels-344
+  path: maps/parcels/town-344.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M344_WINCHESTER.zip
+  bytes: 2753381
+  sha256: f6a152427b94ce5bec0a50fc79b9141bd63ebec5bfe01dfe9b9453e858bba0d3
+- id: parcels-347
+  path: maps/parcels/town-347.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M347_WOBURN.zip
+  bytes: 3372338
+  sha256: b9881b2a02d1af859c3db8065c316e42f1dd8d9655367d3fb657e595189f482c
+- id: parcels-348
+  path: maps/parcels/town-348.zip
+  url: https://s3.us-east-1.amazonaws.com/download.massgis.digital.mass.gov/shapefiles/l3parcels/L3_SHP_M348_WORCESTER.zip
+  bytes: 12883758
+  sha256: 8f92b7d358cd90dc4432ce35aa4647293b0fd171c7d4f4905ca8271249a0931a
+- id: topo-ad9172b923050fcb
+  path: maps/topographic/ad9172b923050fcb.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ashburnham_20240507_TM_geo.pdf
+  bytes: 57344823
+  sha256: 16bf5bdbcdc8ab1e55e1ae7ba821b031020df41f7f9f34aa55892b5f55c3677d
+- id: topo-7862ffa829c849f5
+  path: maps/topographic/7862ffa829c849f5.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ashby_20240507_TM_geo.pdf
+  bytes: 58153102
+  sha256: 8ce6cf570254450f11dd83d2389dd1d061d5eb8c5ce26545d48f8497fcdbc342
+- id: topo-b573d54cc63515fb
+  path: maps/topographic/b573d54cc63515fb.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ayer_20240816_TM_geo.pdf
+  bytes: 54962226
+  sha256: 2300401843898018aed37bb9b49238cf8a7f5be0fa57528cd8e25bed7b4aa6e1
+- id: topo-f26b1ea319f19555
+  path: maps/topographic/f26b1ea319f19555.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Billerica_20240816_TM_geo.pdf
+  bytes: 55843257
+  sha256: 18a3399de3816f6e93923fa27dc99721f0ccd2c4f31c43434dacef15662818f2
+- id: topo-d94d9d3e513c4c43
+  path: maps/topographic/d94d9d3e513c4c43.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Boston_North_20240816_TM_geo.pdf
+  bytes: 55649689
+  sha256: 726d618187ca58269ff3d33349fcf866085e0d02af576540e05582df3d4a99fe
+- id: topo-9b41bc9dbb3b8de2
+  path: maps/topographic/9b41bc9dbb3b8de2.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Boston_South_20240816_TM_geo.pdf
+  bytes: 47256088
+  sha256: 5bd0a49c0178e5de8d34582c99a00029080b3764bbac7635bfacb73684fb7979
+- id: topo-bab690ce9da9a578
+  path: maps/topographic/bab690ce9da9a578.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Concord_20240816_TM_geo.pdf
+  bytes: 55718041
+  sha256: c1a2901cc2e4b458481beaa547ef1c07ffb9f1624e874437a4bc86ed120f4c1e
+- id: topo-e652624794ea486f
+  path: maps/topographic/e652624794ea486f.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Framingham_20240816_TM_geo.pdf
+  bytes: 57007986
+  sha256: 7429263f03badef09d91edca8cf23de3ad619a63d7cb9af7d555be38d300d921
+- id: topo-f866729b25f41464
+  path: maps/topographic/f866729b25f41464.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Holliston_20240816_TM_geo.pdf
+  bytes: 57561278
+  sha256: 94a7218abaac8d93035f614c0b0f6b9dde4c4fd2101a31d37510163ae04b3bd1
+- id: topo-a6c0cfaeee5847c6
+  path: maps/topographic/a6c0cfaeee5847c6.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Hudson_20240816_TM_geo.pdf
+  bytes: 59227147
+  sha256: 8fd04836d941b2bd88187ac4771fe151e051e63e46b394016d9b1f41a714e2b6
+- id: topo-524c577a2b56b221
+  path: maps/topographic/524c577a2b56b221.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Lawrence_20240816_TM_geo.pdf
+  bytes: 55238929
+  sha256: e788e50431d1bac5479af82debacc733d60bf84ddc66cf12749fa6cb17743730
+- id: topo-12d299acddcf9344
+  path: maps/topographic/12d299acddcf9344.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Lexington_20240822_TM_geo.pdf
+  bytes: 56266582
+  sha256: 4be36e205d62564352ce6ba5cfcfa75f02d6e492d8c4ebc6d460a3bd336d9120
+- id: topo-0f84f3799ee60cf6
+  path: maps/topographic/0f84f3799ee60cf6.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Lowell_20240816_TM_geo.pdf
+  bytes: 56164990
+  sha256: 36ebc9f9dc99c47e8783b1386d9d916b238e540b6b0640087fde197d848da49e
+- id: topo-067b29009a348eed
+  path: maps/topographic/067b29009a348eed.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Marlborough_20240822_TM_geo.pdf
+  bytes: 57850489
+  sha256: b4c74db43053a4da9135583fc9f18e55766a49198e1689ed3d9673a24db2a091
+- id: topo-fe479fa400edcb38
+  path: maps/topographic/fe479fa400edcb38.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Maynard_20240816_TM_geo.pdf
+  bytes: 56535306
+  sha256: ca7b53763dfdc085b131fa3607a9334abacdbf9aee576dfc18d6f947497ec286
+- id: topo-b916d181265bea6f
+  path: maps/topographic/b916d181265bea6f.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Medfield_20240507_TM_geo.pdf
+  bytes: 56142838
+  sha256: 8ca8ecbc95a7199aa0406e3def5e037ee435e68de944545518b5e40ed5c262f7
+- id: topo-9f6a00f1c2f04630
+  path: maps/topographic/9f6a00f1c2f04630.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Milford_20240816_TM_geo.pdf
+  bytes: 59700042
+  sha256: f0625023a3b3439a8189ba009b50d2be48efd8786d863cd68bbff1ec18dde7eb
+- id: topo-c1a34a482b81fd6d
+  path: maps/topographic/c1a34a482b81fd6d.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/NH/NH_Nashua_South_20240816_TM_geo.pdf
+  bytes: 56676889
+  sha256: 0329ee41abcbf408d1166dad311026a4dad068ef5e3efdbd0d20f20ef36f809c
+- id: topo-4f28f00ffcd955f3
+  path: maps/topographic/4f28f00ffcd955f3.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Natick_20240816_TM_geo.pdf
+  bytes: 56970165
+  sha256: ec324478dde5091b28caa232b23bd1b2a087b1ce177f68d17daa7161a533a043
+- id: topo-e8df7a5f873e06f2
+  path: maps/topographic/e8df7a5f873e06f2.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Newton_20240816_TM_geo.pdf
+  bytes: 56412713
+  sha256: 26e7bf711c3b547b131069d5408111d2eaa1f661cb2f1efc90b75e2fc3b452ea
+- id: topo-e8e6da4ad93384d0
+  path: maps/topographic/e8e6da4ad93384d0.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Pepperell_20240507_TM_geo.pdf
+  bytes: 57583476
+  sha256: 90925e776d30cca93e5f5b5f65e526c43c2d46dfc5585f5feb6f92a8bbd20fc1
+- id: topo-dc041ca160655d94
+  path: maps/topographic/dc041ca160655d94.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Reading_20240816_TM_geo.pdf
+  bytes: 58085632
+  sha256: e20554e98b4f3ea2d80920ef936b3411fc45d2c3fcd4dacd00b5c2e2be7db0be
+- id: topo-d161d12d047ad0ac
+  path: maps/topographic/d161d12d047ad0ac.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Shirley_20240816_TM_geo.pdf
+  bytes: 56359044
+  sha256: 4d9b7966ac3614d7a510f6adaa5dd53a093ac151090a7b4f2538bca092269ef1
+- id: topo-af8322f2dd60e3dd
+  path: maps/topographic/af8322f2dd60e3dd.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Shrewsbury_20240816_TM_geo.pdf
+  bytes: 58099436
+  sha256: 9c817254d3375fe0d6afd71ec5790d64a9d9b74ca3ed6aee257e73a521306c4e
+- id: topo-bb520c5ee6b5dd3c
+  path: maps/topographic/bb520c5ee6b5dd3c.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Townsend_20240816_TM_geo.pdf
+  bytes: 61190032
+  sha256: d87246d799d8743c6af3745000353202ebe6eb83b3dff667d145d391a4b623b3
+- id: topo-a9735de5055e2b30
+  path: maps/topographic/a9735de5055e2b30.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Westford_20240816_TM_geo.pdf
+  bytes: 56464167
+  sha256: b327a5b70b16c122aed0d81a08535655facc4ab39eebefd54567a72821fae59a
+- id: topo-e8a342a4dc28fd53
+  path: maps/topographic/e8a342a4dc28fd53.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Wilmington_20240816_TM_geo.pdf
+  bytes: 55491800
+  sha256: 1ba78d76fd7e1101ce255a9a46b28aecb84681c54b4e46601647ab038e04717c
+- id: topo-9dc7a5f21b70104c
+  path: maps/topographic/9dc7a5f21b70104c.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Athol_20240816_TM_geo.pdf
+  bytes: 57993203
+  sha256: 58c3657019228ac9d731c2d65dc14addf67fcd6d728b344b705b9ea66732d4ff
+- id: topo-cf351f0e59d6d5fe
+  path: maps/topographic/cf351f0e59d6d5fe.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Barre_20240812_TM_geo.pdf
+  bytes: 63076682
+  sha256: 70087b8c7e1ed47214075fe7666840c4b89af19dac878d8ec643256fcaee09de
+- id: topo-8ce85384402a5e97
+  path: maps/topographic/8ce85384402a5e97.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Blackstone_20240816_TM_geo.pdf
+  bytes: 56580918
+  sha256: 61cef5cb60b8ea3ad9d65a0ab4eaef2f957c588bb1b8f01498ebebeff63b8d29
+- id: topo-e41ead3955814741
+  path: maps/topographic/e41ead3955814741.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Clinton_20240822_TM_geo.pdf
+  bytes: 55519630
+  sha256: d54a1975b8c15a84307f9c6e88a6fb90acfdca1d42ef5c8c9bc943c372153895
+- id: topo-9c7911ef2f595af4
+  path: maps/topographic/9c7911ef2f595af4.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_East_Brookfield_20240816_TM_geo.pdf
+  bytes: 56799428
+  sha256: bb6174fdc01ea9d8780ca5c311db51676cb159e422c4e119baa1194e36e2898b
+- id: topo-e8a8847de811205d
+  path: maps/topographic/e8a8847de811205d.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Fitchburg_20240507_TM_geo.pdf
+  bytes: 58225294
+  sha256: 764916c252974a23d7d45688a41349bc1337b6a81339934738c2946962d821d8
+- id: topo-5fe67a186873a2b4
+  path: maps/topographic/5fe67a186873a2b4.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Franklin_20240816_TM_geo.pdf
+  bytes: 56173025
+  sha256: 510104c9e131426ea4f7dddee5590288a8eb7413ef9b1d626ffe2de347645d77
+- id: topo-3f121fe5dc8a741d
+  path: maps/topographic/3f121fe5dc8a741d.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Gardner_20240816_TM_geo.pdf
+  bytes: 58266361
+  sha256: 8134c1e8eee3a3720a00c37fb3504bf8664d00a7ce17d841ddebb11cb808064c
+- id: topo-7c0d014da3d1fe2b
+  path: maps/topographic/7c0d014da3d1fe2b.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Grafton_20240816_TM_geo.pdf
+  bytes: 57302888
+  sha256: 1435b132a797b128234f47e2511f343c1b2432187b8521f0de133ec27e10daab
+- id: topo-3563991696011016
+  path: maps/topographic/3563991696011016.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Leicester_20240816_TM_geo.pdf
+  bytes: 56595242
+  sha256: 3d966cf3ee3132756dbe4d7cee9193031e487aa0e3731e09448fea1b4626fe3e
+- id: topo-81aa530b191f0403
+  path: maps/topographic/81aa530b191f0403.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Mount_Grace_20240812_TM_geo.pdf
+  bytes: 60770664
+  sha256: 04992649d0af165e42e85a5733759207dec09421366a5e4501e174cc0581cb0d
+- id: topo-5b830b06f3e37fe5
+  path: maps/topographic/5b830b06f3e37fe5.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_North_Brookfield_20240816_TM_geo.pdf
+  bytes: 59189247
+  sha256: bbafed6b8c87e7382eb3be1c38f8abf9311aead6c8401d7afe090bdc3e8c69a3
+- id: topo-1289d01af1fa7864
+  path: maps/topographic/1289d01af1fa7864.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Orange_20240816_TM_geo.pdf
+  bytes: 55423974
+  sha256: 578f1d1f7d00fde3b931e7a43fb85b26f144a83f171280365b543ba567c3758b
+- id: topo-e8de8bdb81a22fc9
+  path: maps/topographic/e8de8bdb81a22fc9.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Oxford_20240816_TM_geo.pdf
+  bytes: 55514517
+  sha256: a0f2e5ca00bb7b45d2df17f70284492d826d9481d3e90a4de5f084a5097cb4b4
+- id: topo-a4174cf7164869a5
+  path: maps/topographic/a4174cf7164869a5.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Palmer_20240812_TM_geo.pdf
+  bytes: 54966457
+  sha256: e3e88622fb1865f1c76a683572941829cf37a5c22efa611dc2da2f8ed51d0c71
+- id: topo-c89ffc975cc6dbbc
+  path: maps/topographic/c89ffc975cc6dbbc.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Paxton_20240816_TM_geo.pdf
+  bytes: 56725792
+  sha256: 73fd1133049b4845dec2d89e86b7b3932fd2b1eb8789078a6ed637a991cfdcd0
+- id: topo-cebfd111b063f4a8
+  path: maps/topographic/cebfd111b063f4a8.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Petersham_20240816_TM_geo.pdf
+  bytes: 59672368
+  sha256: acd626bf0e49d1188545e0dac1e37216c4e103f30c1126ce07fc692d980401d8
+- id: topo-a8630a2d946e0021
+  path: maps/topographic/a8630a2d946e0021.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Quabbin_Reservoir_20240816_TM_geo.pdf
+  bytes: 45570773
+  sha256: df644fa7e47c8a3d0ef1b1c1ffe530eab05c5782e177d6af95a71b5ae6f26113
+- id: topo-755bc7c42804066c
+  path: maps/topographic/755bc7c42804066c.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Royalston_20240812_TM_geo.pdf
+  bytes: 59178441
+  sha256: 2c01907ad8bcf778873a007c9cb3cf20e476cd27a1d7499ed325e5b2e540c7cc
+- id: topo-b73d1aa4e53a16b8
+  path: maps/topographic/b73d1aa4e53a16b8.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Southbridge_20240812_TM_geo.pdf
+  bytes: 62187765
+  sha256: d0a77224f0a24097a066b114607aff2033f9f2a543ff7fbae5f4e11a82ce1cf9
+- id: topo-de6bc330b8433510
+  path: maps/topographic/de6bc330b8433510.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Sterling_20240816_TM_geo.pdf
+  bytes: 61737233
+  sha256: be2396e08626038f9310923b70d9d9874551673d24e82be00198f623ac0aa267
+- id: topo-5d3e3c93bfe92054
+  path: maps/topographic/5d3e3c93bfe92054.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Templeton_20240812_TM_geo.pdf
+  bytes: 57001433
+  sha256: 3ac82de5eca9a2e5effc41e9ea43e7b1c7071d63f6ed264826a7bd2c46930aaa
+- id: topo-421f5e041225ca0b
+  path: maps/topographic/421f5e041225ca0b.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Uxbridge_20240816_TM_geo.pdf
+  bytes: 55029908
+  sha256: b75fa7ba52b107eca8f28097482800e0e2113799c1a00e31c0889939ddeb3540
+- id: topo-3e5152b897a08634
+  path: maps/topographic/3e5152b897a08634.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Wachusett_Mountain_20240507_TM_geo.pdf
+  bytes: 62719728
+  sha256: c37e5182b5a04be06d90b10f8bab999a1f9efaa521ff86b2d9497585a535fe09
+- id: topo-0ebd6a50fff70ced
+  path: maps/topographic/0ebd6a50fff70ced.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Wales_20240816_TM_geo.pdf
+  bytes: 61439658
+  sha256: f12e57ea095672e1ace5990296b0034a716f20a8d368841f7258ed1dbdc4cd27
+- id: topo-e1ed96d36e59b704
+  path: maps/topographic/e1ed96d36e59b704.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Ware_20240812_TM_geo.pdf
+  bytes: 55105997
+  sha256: 241405c0918751c8bc95ceed14c869bd791860c16a0614deaa8d676964ce5fcd
+- id: topo-8c1241c258a9c68b
+  path: maps/topographic/8c1241c258a9c68b.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Warren_20240816_TM_geo.pdf
+  bytes: 54805412
+  sha256: b7f055a3e8c20107cfd86c13798e92ba10508a6116709f31673735b248458f0c
+- id: topo-a7dff18cae422827
+  path: maps/topographic/a7dff18cae422827.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Webster_20240507_TM_geo.pdf
+  bytes: 58033248
+  sha256: b632fff1eb277718a38d20b44677b2c15916d6701261a24387167780d6bd88cb
+- id: topo-654573cddcb89fb7
+  path: maps/topographic/654573cddcb89fb7.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Winchendon_20240816_TM_geo.pdf
+  bytes: 57745751
+  sha256: 90a714d1d540bc4733c8c512f2ff13db13b5e84977354e8be184403a8e242179
+- id: topo-04e57dc2a05f0830
+  path: maps/topographic/04e57dc2a05f0830.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Winsor_Dam_20240816_TM_geo.pdf
+  bytes: 46847055
+  sha256: 0eb11623733cb48bb22a9fb13796371ef8e71a1dd56c415bff05d68e491dd867
+- id: topo-cae4e9c873506a89
+  path: maps/topographic/cae4e9c873506a89.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Worcester_North_20240816_TM_geo.pdf
+  bytes: 58726688
+  sha256: 65e1f7a396f94a53a8e48e2238abfb0b4cad3433a7b9cdc0231f26baa62cd182
+- id: topo-992e1ad5789cdcea
+  path: maps/topographic/992e1ad5789cdcea.pdf
+  url: https://prd-tnm.s3.amazonaws.com/StagedProducts/Maps/USTopo/PDF/MA/MA_Worcester_South_20240816_TM_geo.pdf
+  bytes: 56355963
+  sha256: 566e6c993ae8f9ef3833ba09a096530fa0c9ef4f252f56ba2a47619239949ff1
+recipes:
+- id: portable-reader
+  enabled: true
+  url: https://download.kiwix.org/release/kiwix-desktop/kiwix-desktop_windows_x64_2.5.1.zip
+  target: kiwix-viewer
+  files:
+  - path: Qt6Core.dll
+    bytes: 5692048
+  - path: Qt6Gui.dll
+    bytes: 7726224
+  - path: Qt6Network.dll
+    bytes: 1408144
+  - path: Qt6OpenGL.dll
+    bytes: 1924752
+  - path: Qt6Positioning.dll
+    bytes: 493712
+  - path: Qt6PrintSupport.dll
+    bytes: 393872
+  - path: Qt6Qml.dll
+    bytes: 4508816
+  - path: Qt6QmlModels.dll
+    bytes: 674960
+  - path: Qt6Quick.dll
+    bytes: 5162128
+  - path: Qt6QuickWidgets.dll
+    bytes: 112784
+  - path: Qt6Svg.dll
+    bytes: 359056
+  - path: Qt6WebChannel.dll
+    bytes: 253072
+  - path: Qt6WebEngineCore.dll
+    bytes: 133659280
+  - path: Qt6WebEngineWidgets.dll
+    bytes: 153232
+  - path: Qt6Widgets.dll
+    bytes: 6049936
+  - path: QtWebEngineProcess.exe
+    bytes: 629392
+  - path: aria2c.exe
+    bytes: 5649408
+  - path: d3dcompiler_47.dll
+    bytes: 4741464
+  - path: iconengines/qsvgicon.dll
+    bytes: 65168
+  - path: icudt74.dll
+    bytes: 30786560
+  - path: icuin74.dll
+    bytes: 3099648
+  - path: icuio74.dll
+    bytes: 61440
+  - path: icutu74.dll
+    bytes: 243712
+  - path: icuuc74.dll
+    bytes: 2345984
+  - path: imageformats/qgif.dll
+    bytes: 48784
+  - path: imageformats/qico.dll
+    bytes: 47248
+  - path: imageformats/qjpeg.dll
+    bytes: 456336
+  - path: imageformats/qsvg.dll
+    bytes: 41104
+  - path: kiwix-desktop.exe
+    bytes: 5426544
+  - path: libcrypto-3-x64.dll
+    bytes: 7311360
+  - path: libssl-3-x64.dll
+    bytes: 1317376
+  - path: networkinformation/qnetworklistmanager.dll
+    bytes: 73360
+  - path: networkinformation/qnetworklistmanagerd.dll
+    bytes: 360592
+  - path: opengl32sw.dll
+    bytes: 20633208
+  - path: platforms/qwindows.dll
+    bytes: 832656
+  - path: position/qtposition_nmea.dll
+    bytes: 82576
+  - path: position/qtposition_nmead.dll
+    bytes: 280208
+  - path: position/qtposition_positionpoll.dll
+    bytes: 75920
+  - path: position/qtposition_positionpolld.dll
+    bytes: 253584
+  - path: position/qtposition_winrt.dll
+    bytes: 67728
+  - path: position/qtposition_winrtd.dll
+    bytes: 1024144
+  - path: resources/icudtl.dat
+    bytes: 10397952
+  - path: resources/qtwebengine_devtools_resources.pak
+    bytes: 8000500
+  - path: resources/qtwebengine_resources.pak
+    bytes: 2304173
+  - path: resources/qtwebengine_resources_100p.pak
+    bytes: 149980
+  - path: resources/qtwebengine_resources_200p.pak
+    bytes: 195208
+  - path: styles/qwindowsvistastyle.dll
+    bytes: 153744
+  - path: testplug.dll
+    bytes: 11264
+  - path: tls/qcertonlybackend.dll
+    bytes: 98960
+  - path: tls/qcertonlybackendd.dll
+    bytes: 406160
+  - path: tls/qopensslbackend.dll
+    bytes: 303248
+  - path: tls/qopensslbackendd.dll
+    bytes: 1025680
+  - path: tls/qschannelbackend.dll
+    bytes: 218768
+  - path: tls/qschannelbackendd.dll
+    bytes: 803984
+  - path: translations/qt_ar.qm
+    bytes: 160604
+  - path: translations/qt_bg.qm
+    bytes: 236116
+  - path: translations/qt_ca.qm
+    bytes: 304039
+  - path: translations/qt_cs.qm
+    bytes: 174701
+  - path: translations/qt_da.qm
+    bytes: 251481
+  - path: translations/qt_de.qm
+    bytes: 318992
+  - path: translations/qt_en.qm
+    bytes: 33
+  - path: translations/qt_es.qm
+    bytes: 225002
+  - path: translations/qt_fa.qm
+    bytes: 178019
+  - path: translations/qt_fi.qm
+    bytes: 245716
+  - path: translations/qt_fr.qm
+    bytes: 213901
+  - path: translations/qt_gd.qm
+    bytes: 189580
+  - path: translations/qt_he.qm
+    bytes: 138690
+  - path: translations/qt_hr.qm
+    bytes: 210554
+  - path: translations/qt_hu.qm
+    bytes: 221280
+  - path: translations/qt_it.qm
+    bytes: 161133
+  - path: translations/qt_ja.qm
+    bytes: 175181
+  - path: translations/qt_ko.qm
+    bytes: 207002
+  - path: translations/qt_lv.qm
+    bytes: 207499
+  - path: translations/qt_nl.qm
+    bytes: 277794
+  - path: translations/qt_nn.qm
+    bytes: 197245
+  - path: translations/qt_pl.qm
+    bytes: 227121
+  - path: translations/qt_pt_BR.qm
+    bytes: 291514
+  - path: translations/qt_ru.qm
+    bytes: 270851
+  - path: translations/qt_sk.qm
+    bytes: 174373
+  - path: translations/qt_tr.qm
+    bytes: 264884
+  - path: translations/qt_uk.qm
+    bytes: 231553
+  - path: translations/qt_zh_CN.qm
+    bytes: 199729
+  - path: translations/qt_zh_TW.qm
+    bytes: 126796
+  - path: translations/qtwebengine_locales/am.pak
+    bytes: 553213
+  - path: translations/qtwebengine_locales/ar.pak
+    bytes: 589808
+  - path: translations/qtwebengine_locales/bg.pak
+    bytes: 633425
+  - path: translations/qtwebengine_locales/bn.pak
+    bytes: 815704
+  - path: translations/qtwebengine_locales/ca.pak
+    bytes: 385843
+  - path: translations/qtwebengine_locales/cs.pak
+    bytes: 393982
+  - path: translations/qtwebengine_locales/da.pak
+    bytes: 355837
+  - path: translations/qtwebengine_locales/de.pak
+    bytes: 382486
+  - path: translations/qtwebengine_locales/el.pak
+    bytes: 692562
+  - path: translations/qtwebengine_locales/en-GB.pak
+    bytes: 312280
+  - path: translations/qtwebengine_locales/en-US.pak
+    bytes: 315271
+  - path: translations/qtwebengine_locales/es-419.pak
+    bytes: 380679
+  - path: translations/qtwebengine_locales/es.pak
+    bytes: 381730
+  - path: translations/qtwebengine_locales/et.pak
+    bytes: 344185
+  - path: translations/qtwebengine_locales/fa.pak
+    bytes: 559314
+  - path: translations/qtwebengine_locales/fi.pak
+    bytes: 353497
+  - path: translations/qtwebengine_locales/fil.pak
+    bytes: 396718
+  - path: translations/qtwebengine_locales/fr.pak
+    bytes: 412660
+  - path: translations/qtwebengine_locales/gu.pak
+    bytes: 790945
+  - path: translations/qtwebengine_locales/he.pak
+    bytes: 487577
+  - path: translations/qtwebengine_locales/hi.pak
+    bytes: 825180
+  - path: translations/qtwebengine_locales/hr.pak
+    bytes: 380282
+  - path: translations/qtwebengine_locales/hu.pak
+    bytes: 412381
+  - path: translations/qtwebengine_locales/id.pak
+    bytes: 338741
+  - path: translations/qtwebengine_locales/it.pak
+    bytes: 376027
+  - path: translations/qtwebengine_locales/ja.pak
+    bytes: 459383
+  - path: translations/qtwebengine_locales/kn.pak
+    bytes: 911501
+  - path: translations/qtwebengine_locales/ko.pak
+    bytes: 386666
+  - path: translations/qtwebengine_locales/lt.pak
+    bytes: 411104
+  - path: translations/qtwebengine_locales/lv.pak
+    bytes: 409814
+  - path: translations/qtwebengine_locales/ml.pak
+    bytes: 957606
+  - path: translations/qtwebengine_locales/mr.pak
+    bytes: 777983
+  - path: translations/qtwebengine_locales/ms.pak
+    bytes: 354569
+  - path: translations/qtwebengine_locales/nb.pak
+    bytes: 346902
+  - path: translations/qtwebengine_locales/nl.pak
+    bytes: 358646
+  - path: translations/qtwebengine_locales/pl.pak
+    bytes: 395558
+  - path: translations/qtwebengine_locales/pt-BR.pak
+    bytes: 374876
+  - path: translations/qtwebengine_locales/pt-PT.pak
+    bytes: 378954
+  - path: translations/qtwebengine_locales/ro.pak
+    bytes: 389227
+  - path: translations/qtwebengine_locales/ru.pak
+    bytes: 627343
+  - path: translations/qtwebengine_locales/sk.pak
+    bytes: 401294
+  - path: translations/qtwebengine_locales/sl.pak
+    bytes: 383232
+  - path: translations/qtwebengine_locales/sr.pak
+    bytes: 594802
+  - path: translations/qtwebengine_locales/sv.pak
+    bytes: 349076
+  - path: translations/qtwebengine_locales/sw.pak
+    bytes: 366143
+  - path: translations/qtwebengine_locales/ta.pak
+    bytes: 939457
+  - path: translations/qtwebengine_locales/te.pak
+    bytes: 873702
+  - path: translations/qtwebengine_locales/th.pak
+    bytes: 735098
+  - path: translations/qtwebengine_locales/tr.pak
+    bytes: 373098
+  - path: translations/qtwebengine_locales/uk.pak
+    bytes: 627937
+  - path: translations/qtwebengine_locales/vi.pak
+    bytes: 444334
+  - path: translations/qtwebengine_locales/zh-CN.pak
+    bytes: 321585
+  - path: translations/qtwebengine_locales/zh-TW.pak
+    bytes: 318891
+  - path: vc_redist.x64.exe
+    bytes: 25635768
+  note: Keep the entire extracted Windows reader folder.
+- id: osm
+  enabled: true
+  configuration: deploy/reference/osm-massachusetts.json
+- id: forms
+  enabled: true
+  catalogue: deploy/reference/forms-catalogue.json
+- id: family
+  enabled: true
+  catalogue: deploy/reference/family-catalogue.json
+  requires:
+  - forms
+- id: resilience
+  enabled: true
+  catalogue: deploy/reference/resilience-catalogue.json
+  settings: deploy/reference/resilience-settings.json
+  us_code_release: deploy/reference/us-code-release.json
+- id: callsigns
+  enabled: true
+  configuration: deploy/reference/callsign-sources.json
+  note: FCC complete ZIP is a rolling source. Preserved source ZIP restores the old
+    snapshot; otherwise a new snapshot is imported.
+- id: radio-study
+  enabled: true
+  configuration: deploy/reference/radio-pools.json
+- id: indexes
+  enabled: true
+snapshots:
+- snapshots/maps/status.json
+- snapshots/preparedness/sources.json
+- snapshots/forms/sources.json
+- snapshots/family-resources/sources.json
+- snapshots/resilience/sources.json
+- snapshots/civic-reference/sources.json
+- snapshots/civic-reference/us-code-source.json
+- snapshots/civic-reference/callsigns-source.json
+- snapshots/radio-study/source.json
+unmanaged_archives:
+- path: wikipedia_en_medicine_maxi_2026-01.zim
+  bytes: 2190845681
+  note: Not registered; preserve separately or add an explicit source recipe.

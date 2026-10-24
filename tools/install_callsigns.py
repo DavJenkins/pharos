@@ -4,8 +4,9 @@ import argparse,csv,hashlib,io,json,os,sqlite3,sys,tempfile,urllib.request,zipfi
 from datetime import datetime,timezone
 from pathlib import Path
 ROOT=Path('/mnt/storage/civic-reference')
-FCC='https://data.fcc.gov/download/pub/uls/complete/l_amat.zip'
-CENSUS='https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip'
+SOURCES=json.loads((Path(__file__).resolve().parents[1]/'deploy/reference/callsign-sources.json').read_text())
+FCC=SOURCES['fcc_url']
+CENSUS=SOURCES['census_url']
 def acquire(path,url,limit,refresh=False):
  if path.exists() and not refresh:return
  part=path.with_suffix(path.suffix+'.part')
@@ -59,7 +60,7 @@ def build():
   total=db.execute('SELECT count(*) FROM licenses').fetchone()[0];mapped=db.execute('SELECT count(*) FROM licenses JOIN zcta USING(zip)').fetchone()[0]
   if total<500000 or mapped<total*.5:raise ValueError('Suspiciously incomplete import')
   assert db.execute('PRAGMA quick_check').fetchone()[0]=='ok'
-  metadata={'retrieved_at':datetime.now(timezone.utc).isoformat(),'fcc_archive_record_dates':dates,'license_count':total,'zip_matched_count':mapped,'scope':'FCC U.S. amateur licenses, including historical statuses; no applications, GMRS, international callbooks or real-time station positions.','proximity':'2025 Census ZCTA representative point matched to FCC licensee mailing ZIP; not an operating location. Unmatched ZIPs excluded from proximity results.','sources':[{'url':FCC,'file':archive.name,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest()},{'url':CENSUS,'file':gaz.name,'sha256':hashlib.sha256(gaz.read_bytes()).hexdigest()}]}
+  metadata={'retrieved_at':datetime.now(timezone.utc).isoformat(),'fcc_archive_record_dates':dates,'license_count':total,'zip_matched_count':mapped,'scope':'FCC U.S. amateur licenses, including historical statuses; no applications, GMRS, international callbooks or real-time station positions.','census_edition':SOURCES['census_edition'],'proximity':SOURCES['census_edition']+' Census ZCTA representative point matched to FCC licensee mailing ZIP; not an operating location. Unmatched ZIPs excluded from proximity results.','sources':[{'url':FCC,'file':archive.name,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest()},{'url':CENSUS,'file':gaz.name,'sha256':hashlib.sha256(gaz.read_bytes()).hexdigest()}]}
   db.execute('CREATE TABLE metadata(json TEXT)');db.execute('INSERT INTO metadata VALUES(?)',(json.dumps(metadata),));db.commit();db.close();stage.chmod(0o644);stage.replace(target);(ROOT/'callsigns-source.json').write_text(json.dumps(metadata,indent=2)+'\n');print('Installed',total,'licenses;',mapped,'with approximate ZIP location',flush=True)
  except BaseException:
   db.close();stage.unlink(missing_ok=True);raise

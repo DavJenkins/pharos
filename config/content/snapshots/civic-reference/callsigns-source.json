@@ -1,0 +1,30 @@
+{
+  "retrieved_at": "2026-10-24T01:42:37.562923+00:00",
+  "fcc_archive_record_dates": {
+    "counts": "2026-10-18",
+    "AM.dat": "2026-10-18",
+    "CO.dat": "2026-10-18",
+    "EN.dat": "2026-10-18",
+    "HD.dat": "2026-10-18",
+    "HS.dat": "2026-10-18",
+    "LA.dat": "2026-10-18",
+    "SC.dat": "2026-10-18",
+    "SF.dat": "2026-10-18"
+  },
+  "license_count": 1698520,
+  "zip_matched_count": 1629614,
+  "scope": "FCC U.S. amateur licenses, including historical statuses; no applications, GMRS, international callbooks or real-time station positions.",
+  "proximity": "2025 Census ZCTA representative point matched to FCC licensee mailing ZIP; not an operating location. Unmatched ZIPs excluded from proximity results.",
+  "sources": [
+    {
+      "url": "https://data.fcc.gov/download/pub/uls/complete/l_amat.zip",
+      "file": "fcc-amateur-source.zip",
+      "sha256": "c3a45d4b0ebc0928ddc85f1c2a920fa6d357776e8b57af9c53ce697b273903ac"
+    },
+    {
+      "url": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip",
+      "file": "zcta-2025.zip",
+      "sha256": "51516a4283bab5cd2376eec75609ddc4b363a18297e8adeeaac7b03cf7c84dbe"
+    }
+  ]
+}

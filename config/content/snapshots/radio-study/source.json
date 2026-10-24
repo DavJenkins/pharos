@@ -1,0 +1,198 @@
+{
+  "source": "NCVEC public-domain pools; machine-readable transcription and figures by russolsen/ham_radio_question_pool (Apache-2.0)",
+  "mirror_commit": "6122699c9541f26d88298db379b5e252885c42a2",
+  "retrieved_at": "2026-10-24T01:48:55.933263+00:00",
+  "errata_check": "Technician February 19, 2026 wording verified; General/Extra withdrawn questions checked against ARRL withdrawn list October 23, 2026. No official teaching explanations are supplied.",
+  "sources": [
+    "https://www.ncvec.org/index.php/2026-2030-technician-question-pool",
+    "https://www.ncvec.org/index.php/2023-2027-general-question-pool-release",
+    "https://www.ncvec.org/index.php/2024-2028-extra-class-question-pool-release",
+    "https://www.arrl.org/withdrawn-questions"
+  ],
+  "pools": [
+    {
+      "id": "technician",
+      "title": "Technician",
+      "edition": "2026-2030",
+      "valid_from": "2026-07-01",
+      "valid_through": "2030-06-30",
+      "count": 409,
+      "exam_questions": 35,
+      "passing": 26,
+      "data": "technician-2026-2030/technician-2026-2030.json",
+      "directory": "technician-2026-2030",
+      "figures": [
+        "t-1.png",
+        "t-2.png",
+        "t-3.png"
+      ]
+    },
+    {
+      "id": "general",
+      "title": "General",
+      "edition": "2023-2027",
+      "valid_from": "2023-07-01",
+      "valid_through": "2027-06-30",
+      "count": 423,
+      "exam_questions": 35,
+      "passing": 26,
+      "data": "general-2023-2027/general-2023-2027.json",
+      "directory": "general-2023-2027",
+      "figures": [
+        "g7-1.png"
+      ]
+    },
+    {
+      "id": "extra",
+      "title": "Amateur Extra",
+      "edition": "2024-2028",
+      "valid_from": "2024-07-01",
+      "valid_through": "2028-06-30",
+      "count": 599,
+      "exam_questions": 50,
+      "passing": 37,
+      "data": "extra-2024-2028/extra-2024-2028.json",
+      "directory": "extra-2024-2028",
+      "figures": [
+        "e5-1.png",
+        "e6-1.png",
+        "e6-2.png",
+        "e6-3.png",
+        "e7-1.png",
+        "e7-2.png",
+        "e7-3.png",
+        "e9-1.png",
+        "e9-2.png",
+        "e9-3.png"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "LICENSE.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/LICENSE.txt"
+    },
+    {
+      "path": "technician-2026-2030/technician-2026-2030.json",
+      "bytes": 165808,
+      "sha256": "7014462c1e2566a6587a153ed1ac8cda682080c3ee9318a526faf2159949fc92",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.json"
+    },
+    {
+      "path": "technician-2026-2030/technician-2026-2030.txt",
+      "bytes": 99927,
+      "sha256": "1bece9ad5385b3958c33bb75b9b43046ae3caff2a35391177fa2e87a47801cf9",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.txt"
+    },
+    {
+      "path": "technician-2026-2030/t-1.png",
+      "bytes": 38410,
+      "sha256": "ec2af4f5074067d28ce082023d09b4f0d91b891ac842f47f6ef32c979b48e14c",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/t-1.png"
+    },
+    {
+      "path": "technician-2026-2030/t-2.png",
+      "bytes": 46564,
+      "sha256": "1612455556ea1254bac9ae0f44e0fbef49ba5f6b60fa7d20ee96318ecf753fef",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/t-2.png"
+    },
+    {
+      "path": "technician-2026-2030/t-3.png",
+      "bytes": 27559,
+      "sha256": "ead47db0b67f6319aaede95d9a690c6a3e9cbcc01cc15a762e45143d1ae41e8a",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/t-3.png"
+    },
+    {
+      "path": "general-2023-2027/general-2023-2027.json",
+      "bytes": 179308,
+      "sha256": "deaaa0f412a00b9f410d50e91542fe4384da558a312f73f95fdc72304d239ca0",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.json"
+    },
+    {
+      "path": "general-2023-2027/general-2023-2027.txt",
+      "bytes": 111223,
+      "sha256": "fd73f164de4900274aafcbb72c90f6d72cbd3e3db2ff7fde63c6f261244bbba4",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.txt"
+    },
+    {
+      "path": "general-2023-2027/g7-1.png",
+      "bytes": 143463,
+      "sha256": "5156633baf65bac5d52ec78aeec472204abd1c00c6c60c167af0bea385b16246",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/g7-1.png"
+    },
+    {
+      "path": "extra-2024-2028/extra-2024-2028.json",
+      "bytes": 259935,
+      "sha256": "1c089f72b26429410e91aee8ae45f404f0a264b55d404a6bfa2da992ebef109b",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.json"
+    },
+    {
+      "path": "extra-2024-2028/extra-2024-2028.txt",
+      "bytes": 163330,
+      "sha256": "9ffb7891930411d0e889ea93886b18724a0242320b190e8f9c6c99ec50bb56f2",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.txt"
+    },
+    {
+      "path": "extra-2024-2028/e5-1.png",
+      "bytes": 77699,
+      "sha256": "8a9a0b366eef6965fcb3218a21f1927f48b6db6efa57bf5b56815ebc9e308b38",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/e5-1.png"
+    },
+    {
+      "path": "extra-2024-2028/e6-1.png",
+      "bytes": 35430,
+      "sha256": "a01554e01337e718a12b6cbe1f2c0db6846e8d6ca5a7961d3a96396a3067aaf9",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/e6-1.png"
+    },
+    {
+      "path": "extra-2024-2028/e6-2.png",
+      "bytes": 33945,
+      "sha256": "0211be02e9c58dd1c2d483b3041d5570e698b0c75922576f84d1d49c354f3e23",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/e6-2.png"
+    },
+    {
+      "path": "extra-2024-2028/e6-3.png",
+      "bytes": 25422,
+      "sha256": "ff974cc8d43d008125192b6444c2a0907b734569d85cfbc3349277e4534c25be",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/e6-3.png"
+    },
+    {
+      "path": "extra-2024-2028/e7-1.png",
+      "bytes": 35425,
+      "sha256": "4498a71e130338424987f841c2f5b2685f86e1d7235d6321a69295f50643737e",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/e7-1.png"
+    },
+    {
+      "path": "extra-2024-2028/e7-2.png",
+      "bytes": 38938,
+      "sha256": "eec9084a24e79922493ba5243fa250a1cbdccf8f35748da794b1c9199ca8f52d",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/e7-2.png"
+    },
+    {
+      "path": "extra-2024-2028/e7-3.png",
+      "bytes": 23865,
+      "sha256": "e9eb6b8b605a867711d06fcf3d6505c0e10e79af44387abd6d54901271b41281",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/e7-3.png"
+    },
+    {
+      "path": "extra-2024-2028/e9-1.png",
+      "bytes": 76448,
+      "sha256": "4223eb3d07f5afa03055d0ed6f3418ecfe255faa05e611edf64ef351c08de41f",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/e9-1.png"
+    },
+    {
+      "path": "extra-2024-2028/e9-2.png",
+      "bytes": 64814,
+      "sha256": "674d3529baae7066a92ec8376f752c1b9307771b59b4f2dd6b839090326da96f",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/e9-2.png"
+    },
+    {
+      "path": "extra-2024-2028/e9-3.png",
+      "bytes": 28204,
+      "sha256": "b07d7057a30fc200dc6869d2c6c75e8ee7d9673480e93590eb508a4a1cf313e0",
+      "url": "https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/e9-3.png"
+    }
+  ]
+}
