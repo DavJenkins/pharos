@@ -94,3 +94,7 @@ That is a goal, not an existing one-command installer. The [Bootstrap plan](../3
 ## Keep this record useful
 
 Update the relevant guide, installer/template, configuration reference and acceptance evidence together when behavior changes. Record why a decision was made, not just its latest value. Keep dated incident findings distinguishable from permanent limitations. Never write that something is installed, live, complete or tested merely because code exists for it.
+
+## Content gaps before the v1 baseline
+
+The [content download gap register](../20-Administration/ContentGaps.md) consolidates unavailable files, rejected candidates, installed alternatives and unresolved needs. A download failure does not itself prove an uncovered subject, and a related guide is not necessarily an equivalent replacement.
