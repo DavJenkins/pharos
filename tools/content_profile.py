@@ -127,6 +127,16 @@ def download(item,root,c,verify_existing=False):
 def recipe(item,c,root,folder):
  name=item['id']
  if name in COLLECTIONS:
+  repositories={'forms':['forms-templates'],'family':['family-resources'],'resilience':['resilience','civic-reference'],'callsigns':['civic-reference'],'radio-study':['radio-study']}
+  manifest=read(REPO/'dataark.yaml');assets=[a for a in manifest.get('assets',[]) if a.get('repository_id') in repositories[name]]
+  if name=='resilience':assets=[a for a in assets if not a['id'].startswith('callbook-')]
+  if name=='callsigns':assets=[a for a in assets if a['id'].startswith('callbook-')]
+  indexes={'forms':['forms/index.html','forms/sources.json','forms/cc-by-4.0.txt'],'family':['family-resources/index.html','family-resources/sources.json'],'resilience':['resilience/index.html','civic-reference/index.html'],'callsigns':['civic-reference/callsigns-source.json'],'radio-study':['radio-study/source.json']}
+  complete=bool(assets) and all(inside(root,a['relative_path']).is_file() for a in assets) and all(inside(root,p).is_file() for p in indexes[name])
+  if complete and name=='radio-study':
+   metadata=json.loads((root/'radio-study/source.json').read_text());complete=all(inside(root/'radio-study',f['path']).is_file() for f in metadata['files'])
+  if complete:print('Existing complete collection reused:',name,flush=True);return
+
   script,args,_=COLLECTIONS[name]
   if name=='resilience':
    meta=REPO/'deploy/reference/us-code-release.json';m=json.loads(meta.read_text());target=root/'civic-reference/us-code-source.zip'

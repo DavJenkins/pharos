@@ -4,7 +4,7 @@
 
 The intended installation experience is: flash a supported Pi image, boot with local access, run one bootstrap command, provide site-specific settings, and receive a working, verified Data Ark. Content can be selected/downloaded afterward rather than making a multi-hundred-gigabyte preload mandatory.
 
-There is not yet a complete one-command bootstrap. Existing scripts install individual features on an already prepared appliance. Treating their concatenation as a clean-image installer would omit base users, disks, interfaces, API/vhost setup, Docker deployment and recovery validation.
+An experimental coordinator now exists: `deploy/bootstrap_stock_pi.py`, launched from an installation drive by `START-ARK.sh`. See [stock-Pi setup and replication](StockPiSetup.md). It is not yet a tested/supported one-command bootstrap. Existing scripts install individual features on an already prepared appliance. Treating their concatenation as a clean-image installer would omit base users, disks, interfaces, API/vhost setup, Docker deployment and recovery validation.
 
 ## Supported baseline must be explicit
 

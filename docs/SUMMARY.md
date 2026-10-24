@@ -44,6 +44,7 @@
 
 ## Developer
 
+- [Stock-Pi setup and Ark-drive replication](30-Developer/StockPiSetup.md)
 - [Image-to-Ark bootstrap plan](30-Developer/BootstrapPlan.md)
 - [Developer Guide](30-Developer/DeveloperGuide.md)
 - [Development tools on the Ark](30-Developer/DevelopmentTools.md)
