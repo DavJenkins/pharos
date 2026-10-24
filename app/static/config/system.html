@@ -4,22 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Data Ark Network Settings</title>
-<style>
-body {font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;color:#222}
-label {display:block;margin-top:1rem} input,select,button {font:inherit;padding:.6rem;box-sizing:border-box;max-width:100%}
-input:not([type=checkbox]),select {display:block;width:100%;margin-top:.3rem}
-button {margin-top:1rem} .notice {padding:1rem;background:#fff4d6;border-left:4px solid #a65e00}
-#result {white-space:pre-wrap;overflow-wrap:anywhere} nav a {margin-right:1rem}
-</style>
-</head>
-<body data-action="rename">
+
+<link rel="stylesheet" href="/assets/css/ark-pages.css?v=1f02d0e4ff3a6caf"></head>
+<body data-action="rename"><main class="network-settings-card"><a class="ark-page-brand" href="/">Data Ark</a>
 <nav><a href="/">Dashboard</a><a href="/config/wifi.html">Upstream Wi-Fi</a><a href="/config/system.html">Access point</a></nav>
 <h1>Rename the DataArk access point</h1>
 <p id="current" role="status">Loading current network…</p>
 <form id="network-form">
-<label>Network administration password (user: admin)
+<label>Caretaker password
 <input id="admin-password" type="password" autocomplete="off" required></label>
-<p>This is the separate password created by the network administration installer.</p>
+
 <label>Access-point name (SSID)<input id="ssid" required autocomplete="off"></label>
 <p class="notice">Renaming the access point disconnects its connected devices. Reconnect to the new Wi-Fi name, then open http://192.168.4.1/.</p>
 <label><input id="acknowledge" type="checkbox" required> I understand that devices may need to reconnect.</label>
@@ -27,5 +21,5 @@ button {margin-top:1rem} .notice {padding:1rem;background:#fff4d6;border-left:4p
 </form>
 <p id="result" role="status" aria-live="polite"></p>
 <script src="/assets/js/network-settings.js?v=51e5c74f154289f1"></script>
-</body>
+</main></body>
 </html>
