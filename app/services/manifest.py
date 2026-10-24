@@ -441,11 +441,12 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
         compiled_assets.append(compiled)
         asset_rows.setdefault(asset['repository_id'], []).append(compiled)
     sections = []
+    source_check_summary = ""
     if batch and any(item['upstream']['checked_at'] for item in compiled_assets):
         finished = batch[1].isoformat(timespec='seconds')
-        sections.append('<p class="source-check-summary">Sources checked: <time data-local-time datetime="' +
+        source_check_summary = ('<span class="source-check-summary">Sources checked: <time data-local-time datetime="' +
                         html.escape(finished, quote=True) + '">' +
-                        html.escape(batch[1].strftime('%Y-%m-%d %H:%M %Z')) + '</time></p>')
+                        html.escape(batch[1].strftime('%Y-%m-%d %H:%M %Z')) + '</time></span>')
     for category in data.get('categories', []):
         cards = []
         for repo in data.get('repositories', []):
@@ -527,7 +528,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                          '</span><div class="manifest-tags">' + tags + '</div><nav class="manifest-links">' + ' '.join(links) +
                          '</nav>' + asset_list + '</article>')
         if cards:
-            sections.append('<section class="manifest-category"><h2>' + html.escape(category['title']) + '</h2><p>' +
+            sections.append('<section class="manifest-category"><h2>' + html.escape(category['title']) + (' ' + source_check_summary if category['title'] == 'Content sources' else '') + '</h2><p>' +
                             html.escape(str(category.get('description', ''))) + '</p><div class="manifest-grid">' +
                             ''.join(cards) + '</div></section>')
     template = Path(template_path).read_text(encoding='utf-8')
