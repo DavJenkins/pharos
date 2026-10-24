@@ -27,20 +27,23 @@ const DataArkStatus = {
             };
             const active = [];
             for (const [key, label] of [["ethernet", "Ethernet"], ["wifi", "Wi-Fi"]]) {
-                if (this.data?.network?.[key]?.connected !== true) continue;
-                active.push(label);
+                const network = this.data?.network?.[key];
+                const disabled = network?.enabled === false;
+                if (network?.connected !== true && !disabled) continue;
+                active.push(label + (disabled ? " disabled" : " connected"));
                 const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                icon.classList.toggle("upstream-disabled", disabled);
                 icon.setAttribute("viewBox", "0 0 24 24");
                 icon.setAttribute("role", "img");
-                icon.setAttribute("aria-label", label + " connected");
+                icon.setAttribute("aria-label", label + (disabled ? " disabled" : " connected"));
                 const title = document.createElementNS(icon.namespaceURI, "title");
-                title.textContent = label + " connected (upstream link)";
+                title.textContent = label + (disabled ? " disabled" : " connected (upstream link)");
                 const path = document.createElementNS(icon.namespaceURI, "path");
                 path.setAttribute("d", paths[key]);
                 icon.append(title, path);
                 links.append(icon);
             }
-            links.setAttribute("aria-label", active.length ? "Connected upstream links: " + active.join(" and ") : "No connected upstream links reported");
+            links.setAttribute("aria-label", active.length ? "Upstream links: " + active.join(" and ") : "No connected upstream links reported");
         }
 
         return this.data;
@@ -148,6 +151,8 @@ const DataArkStatus = {
         return [
             "Ethernet",
             "",
+            `Enabled   : ${e.enabled === false ? "No — disabled" : e.enabled === true ? "Yes" : "Unknown"}`,
+            `Cable link: ${e.carrier === true ? "Connected" : e.carrier === false ? "Disconnected" : "Unknown"}`,
             `Connected : ${e.connected === true ? "Yes" : e.connected === false ? "No" : "Unavailable"}`,
             `IP        : ${e.ip ?? "-"}`,
             `Gateway   : ${e.gateway ?? "-"}`
@@ -161,6 +166,7 @@ const DataArkStatus = {
         return [
             "Wi-Fi",
             "",
+            `Enabled   : ${w.enabled === false ? "No — disabled" : w.enabled === true ? "Yes" : "Unknown"}`,
             `SSID      : ${w.ssid ?? "-"}`,
             `Connected : ${w.connected === true ? "Yes" : w.connected === false ? "No" : "Unavailable"}`,
             `Signal    : ${w.signal?.dbm ?? "-"} dBm`,

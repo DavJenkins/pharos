@@ -7,6 +7,7 @@ class Signal(BaseModel):
 
 
 class Ethernet(BaseModel):
+    carrier: bool | None = None
     enabled: bool | None = None
     state: str
     connected: bool | None

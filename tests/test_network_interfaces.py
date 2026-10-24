@@ -42,6 +42,17 @@ class ConcurrentNetworkTests(unittest.TestCase):
         self.assertEqual(data['wifi']['state'], 'disabled')
         self.assertTrue(data['access_point']['active'])
 
+    def test_disabled_ethernet_can_retain_cable_carrier(self):
+        def disabled(cmd, **kwargs):
+            if cmd == ['nmcli','-g','GENERAL.AUTOCONNECT','device','show','eth0']:return 'no'
+            if cmd == ['nmcli','-g','WIRED-PROPERTIES.CARRIER','device','show','eth0']:return 'on'
+            return output(cmd)
+        with patch.object(network, 'run', side_effect=disabled), patch.object(network.Path, 'read_text', return_value='down'):
+            data = Network.model_validate(network.collect()).model_dump()
+        self.assertTrue(data['ethernet']['carrier'])
+        self.assertFalse(data['ethernet']['enabled'])
+        self.assertFalse(data['ethernet']['connected'])
+
     def test_missing_ethernet_does_not_hide_wireless(self):
         with patch.object(network,'run',side_effect=output), patch.object(network.Path,'read_text',side_effect=FileNotFoundError):
             data=Network.model_validate(network.collect()).model_dump()

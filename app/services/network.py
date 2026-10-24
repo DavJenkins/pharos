@@ -23,6 +23,7 @@ def _gateway(dev: str) -> str:
 
 
 def ethernet():
+    carrier = run(["nmcli", "-g", "WIRED-PROPERTIES.CARRIER", "device", "show", "eth0"]).strip()
     autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", "eth0"]).strip()
     try:
         state = Path("/sys/class/net/eth0/operstate").read_text().strip()
@@ -30,9 +31,10 @@ def ethernet():
         state = "unknown"
 
     return {
+        "carrier": True if carrier == "on" else False if carrier == "off" else None,
         "enabled": True if autoconnect == "yes" else False if autoconnect == "no" else None,
-        "state": state,
-        "connected": None if state == "unknown" else state == "up",
+        "state": "disabled" if autoconnect == "no" else state,
+        "connected": False if autoconnect == "no" else None if state == "unknown" else state == "up",
         "ip": _ip4("eth0"),
         "gateway": _gateway("eth0"),
     }

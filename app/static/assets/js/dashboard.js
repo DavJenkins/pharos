@@ -109,11 +109,11 @@ const Dashboard = {
 
         this.byId("eth-button").className =
             "status-button " +
-            (eth.connected === true ? "on" : eth.connected === false ? "off" : "error");
+            (eth.enabled === false ? "disabled" : eth.connected === true ? "on" : eth.connected === false ? "off" : "error");
 
         this.byId("wifi-button").className =
             "status-button " +
-            (wifi.connected === true ? "on" : wifi.connected === false ? "off" : "error");
+            (wifi.enabled === false ? "disabled" : wifi.connected === true ? "on" : wifi.connected === false ? "off" : "error");
 
         this.byId("ap-button").className =
             "status-button " +
