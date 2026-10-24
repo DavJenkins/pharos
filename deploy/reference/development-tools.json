@@ -1,0 +1,31 @@
+{
+  "checked": "2026-10-23",
+  "packages": [
+    "code 1.143.1-1792691836 arm64",
+    "ghex 46.2-2 arm64",
+    "openjdk-21-jdk-headless 21.0.12.1+1-1~deb13u1 arm64"
+  ],
+  "idea": {
+    "product": "IntelliJ IDEA",
+    "version": "2026.2.3",
+    "build": "262.10968.63",
+    "architecture": "arm64",
+    "url": "https://download.jetbrains.com/idea/idea-2026.2.3-aarch64.tar.gz",
+    "checksum_url": "https://download.jetbrains.com/idea/idea-2026.2.3-aarch64.tar.gz.sha256",
+    "bytes": 1642914136,
+    "sha256": "873286dd6406971a2311827edd66c56060c345582a4a6b1774e3925183b02ec5"
+  },
+  "codex": {
+    "version": "0.164.0",
+    "url": "https://github.com/openai/codex/releases/download/rust-v0.164.0/codex-aarch64-unknown-linux-musl.tar.gz",
+    "digest": "sha256:29a507a2a3fd8f6cd94b96b762d281d299d15d7902dee6132d314b78cf9108eb"
+  },
+  "cache": "/var/cache/dataark/ide",
+  "launchers": [
+    "code",
+    "idea",
+    "ghex",
+    "codex"
+  ],
+  "gui_first_launch_tested": false
+}

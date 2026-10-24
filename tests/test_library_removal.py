@@ -29,6 +29,8 @@ class RemovalTests(unittest.TestCase):
         p=patch.object(removal,'check_container',return_value=True);p.start();self.addCleanup(p.stop)
         p=patch.object(removal.Path,'is_mount',return_value=True);p.start();self.addCleanup(p.stop)
         p=patch.object(removal,'load_manifest',side_effect=lambda path:yaml.safe_load(path.read_text()));p.start();self.addCleanup(p.stop)
+        # Never read or write the live updater history during reinstatement tests.
+        p=patch.object(removal,'Path',side_effect=lambda *args: self.state/'checked.json' if str(Path(*args))=='/var/lib/dataark/updates/checked.json' else Path(*args));p.start();self.addCleanup(p.stop)
         # Route the fixed worker lock into this disposable fixture only.
         self.original_open=Path.open
         def opening(path,*args,**kwargs):
