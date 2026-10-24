@@ -1,0 +1,4 @@
+config.json
+native-host.json
+native-host.cmd
+__pycache__/

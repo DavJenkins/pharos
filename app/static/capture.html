@@ -1,0 +1,8 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Browser download capture — Data Ark</title>
+<style>body{font:18px/1.55 system-ui;max-width:1000px;margin:24px auto;padding:0 18px;background:#fffaf1;color:#163b53}a{color:#075b91}section{padding:20px 0;border-bottom:1px solid #a7b5ba}button{font:inherit;padding:12px;cursor:pointer;margin:8px 12px 8px 0}small{display:block}#setup{background:#e5edf2;padding:18px}</style>
+<nav><a href="/library.html">Manage library</a> · <a href="/docs/20-Administration/ContentGaps.html">Gap report</a> · <a href="/docs/20-Administration/BrowserCapture.html">Setup and operation</a></nav>
+<h1>Capture a public download</h1><p>Choose a missing public reference. Chrome downloads it normally; the paired desktop helper validates it and imports it into the Ark. Files already installed are hidden. Completed personal forms must never be imported.</p>
+<div id="setup"><a href="/assets/downloads/dataark-browser-capture.zip">Download Chrome capture package</a>. One-time setup: extract it, run install.ps1, then load its folder in Chrome Extensions with Developer mode → Load unpacked. <a href="/docs/20-Administration/BrowserCapture.html">Full instructions</a>.<p id="connection" role="status">Checking for the extension…</p></div>
+<p>If automatic downloading is refused, use Open publisher, then click the PDF viewer’s download button. Capture remains armed for ten minutes. Chrome may still ask where to save if “Ask where to save each file” is enabled.</p>
+<button id="retry-capture">Retry captured files</button><p id="error" role="status"></p><main id="items"></main>
+<script src="/assets/js/browser-capture.js?v=e7ed49a6b1ddc84d"></script></html>

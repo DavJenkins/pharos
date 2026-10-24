@@ -236,3 +236,7 @@ The machine-readable, human-editable assessment is `deploy/reference/content-gap
 ## Keeping the register honest
 
 After an authorized retry, validate the actual file and edition, update source metadata and registration, then update this assessment and republish. Preserve the old failure as history if useful. Do not change a gap to installed merely because an HTTP request returned 200, or because a different guide mentions the topic. Avoid blind scheduled retries of every blocked source. This register adds no download job or new content collection.
+
+## Assisted browser retrieval
+
+[Browser capture](/capture.html) can automatically import explicitly selected public PDFs downloaded by a paired Chrome browser. It does not bypass publisher controls. Its live inventory reflects later imports; this narrative remains a dated audit. [Setup and operation](BrowserCapture.md).

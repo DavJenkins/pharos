@@ -1,0 +1,98 @@
+[
+  {
+    "id": "cdc-wrigley-en",
+    "title": "Ready Wrigley: Coping After a Disaster",
+    "url": "https://stacks.cdc.gov/view/cdc/58346/cdc_58346_DS1.pdf",
+    "collection": "family-resources"
+  },
+  {
+    "id": "cdc-wrigley-es",
+    "title": "Ready Wrigley: Coping After a Disaster — Spanish",
+    "url": "https://stacks.cdc.gov/view/cdc/58345/cdc_58345_DS1.pdf",
+    "collection": "family-resources"
+  },
+  {
+    "id": "cdc-backpack",
+    "title": "CDC Backpack Emergency Contact Card",
+    "url": "https://stacks.cdc.gov/view/cdc/34175/cdc_34175_DS1.pdf",
+    "collection": "family-resources"
+  },
+  {
+    "id": "cdc-pet-kit",
+    "title": "CDC Pet Emergency Kit Checklist",
+    "url": "https://stacks.cdc.gov/view/cdc/139819/cdc_139819_DS1.pdf",
+    "collection": "family-resources"
+  },
+  {
+    "id": "cdc-family-plan",
+    "title": "CDC My Family Communication Plan",
+    "url": "https://stacks.cdc.gov/view/cdc/139817/cdc_139817_DS1.pdf",
+    "collection": "family-resources"
+  },
+  {
+    "id": "cook-good-cheap",
+    "title": "Good and Cheap — Leanne Brown",
+    "url": "https://ecuphysicians.ecu.edu/wp-content/pv-uploads/sites/78/2020/06/good-and-cheap.pdf",
+    "collection": "family-resources"
+  },
+  {
+    "id": "ma-form1-2025",
+    "title": "Massachusetts Form 1 — Resident income tax return",
+    "url": "https://www.mass.gov/doc/2025-form-1-massachusetts-resident-income-tax-return/download",
+    "collection": "forms"
+  },
+  {
+    "id": "ma-form1-instructions-2025",
+    "title": "Massachusetts Form 1 instructions",
+    "url": "https://www.mass.gov/doc/2025-form-1-instructions/download",
+    "collection": "forms"
+  },
+  {
+    "id": "ss5",
+    "title": "SSA SS-5 — Application for a Social Security card",
+    "url": "https://www.ssa.gov/online/ss-5.pdf",
+    "collection": "forms"
+  },
+  {
+    "id": "usfs-before-you-go",
+    "title": "US Forest Service — Know Before You Go",
+    "url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5300292.pdf",
+    "collection": "resilience"
+  },
+  {
+    "id": "usfs-outdoor-safety",
+    "title": "US Forest Service — Outdoor Safety",
+    "url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd524522.pdf",
+    "collection": "resilience"
+  },
+  {
+    "id": "ma-electrical",
+    "title": "Massachusetts electrical-code amendments — 527 CMR 12.00",
+    "url": "https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download",
+    "collection": "civic-reference"
+  },
+  {
+    "id": "ma-fire",
+    "title": "Massachusetts fire-code amendments — 527 CMR 1.00",
+    "url": "https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download",
+    "collection": "civic-reference"
+  },
+  {
+    "id": "ma-building-preamble",
+    "title": "Massachusetts Building Code 780 CMR — tenth-edition preamble",
+    "url": "https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download",
+    "collection": "civic-reference"
+  },
+  {
+    "id": "ma-building-toc",
+    "title": "Massachusetts Building Code 780 CMR — tenth-edition contents",
+    "url": "https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download",
+    "collection": "civic-reference"
+  },
+  {
+    "id": "colorado-microhydro",
+    "title": "Colorado Small Hydropower Handbook",
+    "url": "https://extension.colostate.edu/docs/energy/hydro-handbook.pdf",
+    "collection": "resilience"
+  }
+]

@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const events=()=>({listeners:[],addListener(fn){this.listeners.push(fn);}});
+const state={};let captures=0;let downloads=0;
+const chrome={storage:{local:{async get(key){return {[key]:structuredClone(state[key])};},async set(value){Object.assign(state,structuredClone(value));}}},runtime:{onMessage:events(),onStartup:events(),getURL:x=>'extension://'+x,connectNative(){captures++;const p={onMessage:events(),onDisconnect:events(),postMessage(message){assert.equal(message.id,'ss5');queueMicrotask(()=>p.onMessage.listeners.forEach(fn=>fn({ok:true,message:'Installed.'})));},disconnect(){p.onDisconnect.listeners.forEach(fn=>fn());}};return p;}},downloads:{onChanged:events(),onCreated:events(),async download(options){downloads++;assert.equal(options.saveAs,false);return 7;},async search(){return [{id:7,state:'complete',url:'https://www.ssa.gov/online/ss-5.pdf',filename:'C:\\Users\\Dave\\Downloads\\DataArk\\ss5.pdf'}];}}};
+const context=vm.createContext({chrome,URL,Map,Set,Date,fetch:async()=>({json:async()=>[{id:'ss5',url:'https://www.ssa.gov/online/ss-5.pdf'}]})});
+vm.runInContext(fs.readFileSync(new URL('../tools/browser-capture/background.js',import.meta.url),'utf8'),context);
+const send=(message,url='http://dataark/capture.html')=>new Promise(resolve=>chrome.runtime.onMessage.listeners[0](message,{url},resolve));
+assert.match((await send({action:'start',id:'ss5'},'https://evil.example/capture.html')).error,/capture page/);assert.equal(downloads,0);
+assert.match((await send({action:'start',id:'other'})).error,/approved/);assert.equal(downloads,0);
+assert.equal((await send({action:'start',id:'ss5'})).ok,true);
+await new Promise(resolve=>setImmediate(resolve));
+assert.equal(captures,1);assert.equal(state.status.ss5.state,'installed');assert.deepEqual(state.downloads,{});
+await send({action:'arm',id:'ss5'});
+await chrome.downloads.onCreated.listeners[0]({id:10,url:'https://unrelated.example/private.pdf'});
+assert.equal(captures,1);assert.equal(Object.keys(state.downloads).length,0);
+console.log('Browser capture: wrong origin/target rejected; selected download imported; unrelated download ignored.');
