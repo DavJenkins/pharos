@@ -148,18 +148,6 @@
       "evidence": "/mnt/storage/forms/sources.json"
     },
     {
-      "id": "ma-health-proxy",
-      "collection": "forms",
-      "title": "Massachusetts Health Care Proxy",
-      "source_url": "https://www.mass.gov/doc/download-the-massachusetts-healthcare-proxy-form/download",
-      "last_attempt": "2026-10-23T04:57:00.165041+00:00",
-      "observed_failure": "HTTP Error 403: Forbidden",
-      "assessment": "Open need",
-      "installed_alternative": "Caregiver plans and medication records are not a Massachusetts health-care proxy.",
-      "retry_priority": "High for local readiness; obtain an authorized, jurisdiction-correct blank form.",
-      "evidence": "/mnt/storage/forms/sources.json"
-    },
-    {
       "id": "usfs-before-you-go",
       "collection": "resilience",
       "title": "US Forest Service — Know Before You Go",
@@ -190,9 +178,9 @@
       "source_url": "https://www.energy.gov/energysaver/microhydropower-systems",
       "last_attempt": "2026-10-24T01:21:52.763383+00:00",
       "observed_failure": "HTTP Error 404: Not Found",
-      "assessment": "Open need",
-      "installed_alternative": "Power planner estimates hydro output; no standalone hydro installation handbook verified.",
-      "retry_priority": "Medium: seek current official planning guidance; calculator is not engineering instruction.",
+      "assessment": "Covered differently",
+      "installed_alternative": "NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation, February 2011, 28 pages, installed from NCAT. Archived engineering/planning reference, not current Massachusetts permitting or electrical code.",
+      "retry_priority": "Low: exact failed titles optional; retain historical source failures.",
       "evidence": "/mnt/storage/resilience/sources.json"
     },
     {
@@ -202,22 +190,10 @@
       "source_url": "https://extension.colostate.edu/docs/energy/hydro-handbook.pdf",
       "last_attempt": "2026-10-24T01:28:51.083228+00:00",
       "observed_failure": "HTTP Error 404: Not Found",
-      "assessment": "Open need",
-      "installed_alternative": "Same hydro-documentation gap; general PNNL energy guide installed.",
-      "retry_priority": "Medium: one suitable handbook could address both failed hydro candidates.",
+      "assessment": "Covered differently",
+      "installed_alternative": "NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation, February 2011, 28 pages, installed from NCAT. Archived engineering/planning reference, not current Massachusetts permitting or electrical code.",
+      "retry_priority": "Low: exact failed titles optional; retain historical source failures.",
       "evidence": "/mnt/storage/resilience/sources.json"
-    },
-    {
-      "id": "cfr44-v2",
-      "collection": "civic-reference",
-      "title": "44 CFR — Emergency Management and Assistance, Volume 2",
-      "source_url": "https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol2/pdf/CFR-2025-title44-vol2.pdf",
-      "last_attempt": "2026-10-24T01:21:52.768246+00:00",
-      "observed_failure": "Publisher did not return a PDF",
-      "assessment": "Questionable target",
-      "installed_alternative": "Installed 2025 Title 44 volume 1 is 606 pages; official contents list Chapters I and IV plus finding aids.",
-      "retry_priority": "Verify intended publication before retry: failed volume-2 URL alone does not establish missing regulations.",
-      "evidence": "/mnt/storage/civic-reference/sources.json"
     },
     {
       "id": "ma-electrical",
@@ -382,6 +358,54 @@
       "priority": "Medium: equivalent easy-read and screen-reader accessibility is not verified.",
       "evidence": "DisabilityPreparedness.md",
       "url": "https://www.redcross.org.au/globalassets/cms/downloads/pdfs/disaster-plan/easy-english-rediplan-accessible.pdf"
+    }
+  ],
+  "updated_at": "2026-10-24T19:14:28.132458+00:00",
+  "resolved_entries": [
+    {
+      "id": "ma-health-proxy",
+      "collection": "forms",
+      "title": "Massachusetts Health Care Proxy",
+      "source_url": "https://www.mass.gov/doc/download-the-massachusetts-healthcare-proxy-form/download",
+      "last_attempt": "2026-10-23T04:57:00.165041+00:00",
+      "observed_failure": "HTTP Error 403: Forbidden",
+      "assessment": "Open need",
+      "installed_alternative": "Caregiver plans and medication records are not a Massachusetts health-care proxy.",
+      "retry_priority": "High for local readiness; obtain an authorized, jurisdiction-correct blank form.",
+      "evidence": "/mnt/storage/forms/sources.json",
+      "resolution": "Installed replacement: Honoring Choices Massachusetts September 2025 instructions and blank proxy; two pages, reproduction notice preserved.",
+      "local_url": "/library-files/forms/government/ma-health-proxy.pdf"
+    },
+    {
+      "id": "cfr44-v2",
+      "collection": "civic-reference",
+      "title": "44 CFR — Emergency Management and Assistance, Volume 2",
+      "source_url": "https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol2/pdf/CFR-2025-title44-vol2.pdf",
+      "last_attempt": "2026-10-24T01:21:52.768246+00:00",
+      "observed_failure": "Publisher did not return a PDF",
+      "assessment": "Questionable target",
+      "installed_alternative": "Installed 2025 Title 44 volume 1 is 606 pages; official contents list Chapters I and IV plus finding aids.",
+      "retry_priority": "Verify intended publication before retry: failed volume-2 URL alone does not establish missing regulations.",
+      "evidence": "/mnt/storage/civic-reference/sources.json",
+      "resolution": "Retired invalid catalogue target. Official GovInfo 2025 Title 44 bulk directory lists only volume 1, already installed (606 pages). This closes a false gap, not a successful volume-2 download.",
+      "evidence_url": "https://www.govinfo.gov/bulkdata/CFR/2025/title-44"
+    }
+  ],
+  "retry_notes": [
+    {
+      "date": "2026-10-24",
+      "resource": "CDC Ready Wrigley EN/ES",
+      "result": "CDC current media endpoint remained 403; UNDRR PreservationWeb media endpoints returned non-PDF content. Not installed."
+    },
+    {
+      "date": "2026-10-24",
+      "resource": "Massachusetts 2025 Form 1 and instructions",
+      "result": "Official downloads still 403 from desktop network. Not installed."
+    },
+    {
+      "date": "2026-10-24",
+      "resource": "SSA SS-5",
+      "result": "Current /forms/ss-5.pdf endpoint still 403 from Ark. Not installed."
     }
   ]
 }

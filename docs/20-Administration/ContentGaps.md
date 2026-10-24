@@ -2,14 +2,14 @@
 
 Audit date: October 24, 2026. This is the v1 content-gap register, not another expansion list.
 
-27 unavailable catalogue entries, plus 7 omitted candidates documented below. An alternative covers a purpose differently; it does not mean the requested document or edition is installed. Counts describe recorded attempts, not current publisher availability. No publishers were retried during this inventory audit.
+25 unavailable catalogue entries, plus 7 omitted candidates documented below. An alternative covers a purpose differently; it does not mean the requested document or edition is installed. Counts describe recorded attempts, not current publisher availability. An initial inventory audit was followed by targeted retries on October 24; results are recorded below.
 
 ## What needs attention before claims of completeness
 
 - Child-focused disaster coping activities, especially Spanish: no equivalent verified.
-- Massachusetts health-care proxy and 2025 state tax form/instructions: no jurisdiction-correct substitute installed.
+- Massachusetts 2025 state tax form/instructions: no matching state return set installed. The health-care proxy gap is now addressed.
 - State code/amendment packages, Gardner ordinance text and small-claims procedure: substantive local-law gaps. General safety references do not close them.
-- Hydro planning/installation handbook: estimates exist, but technical handbook coverage remains absent.
+- Hydro planning now has an installed 28-page NCAT design guide; current local permits, codes and site-specific engineering remain outside that archived guide.
 - Pregnancy-specific readiness and easy-read/screen-reader equivalence: partial or unverified coverage.
 
 These do not prevent a useful v1 offline library. They do prevent describing it as complete local legal, medical, accessibility or engineering coverage. Freeze with explicit scope rather than promising every subject is resolved.
@@ -86,12 +86,6 @@ Each source link below requires internet. Local alternatives remain offline. The
 - Coverage: Open need. No equivalent SSA application installed.
 - Decision: Medium: optional administrative form; verify accepted edition before use.
 
-[Massachusetts Health Care Proxy](https://www.mass.gov/doc/download-the-massachusetts-healthcare-proxy-form/download) — HTTP Error 403: Forbidden; last attempt 2026-10-23
-
-- Coverage: Open need. Caregiver plans and medication records are not a Massachusetts health-care proxy.
-- Decision: High for local readiness; obtain an authorized, jurisdiction-correct blank form.
-
-
 ### resilience
 
 [US Forest Service — Know Before You Go](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5300292.pdf) — HTTP Error 404: Not Found; last attempt 2026-10-24
@@ -106,21 +100,16 @@ Each source link below requires internet. Local alternatives remain offline. The
 
 [DOE — Microhydropower Systems](https://www.energy.gov/energysaver/microhydropower-systems) — HTTP Error 404: Not Found; last attempt 2026-10-24
 
-- Coverage: Open need. Power planner estimates hydro output; no standalone hydro installation handbook verified.
-- Decision: Medium: seek current official planning guidance; calculator is not engineering instruction.
+- Coverage: Covered differently. NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation (2011), 28 pages, is now installed. Historical design/planning guidance, not current Massachusetts permitting or code.
+- Decision: Low: exact failed title is optional now; retain its source failure as history.
 
 [Colorado Small Hydropower Handbook](https://extension.colostate.edu/docs/energy/hydro-handbook.pdf) — HTTP Error 404: Not Found; last attempt 2026-10-24
 
-- Coverage: Open need. Same hydro-documentation gap; general PNNL energy guide installed.
-- Decision: Medium: one suitable handbook could address both failed hydro candidates.
+- Coverage: Covered differently. The installed NCAT 28-page microhydro guide now supplies dedicated design/planning coverage. The Colorado title itself remains unavailable.
+- Decision: Low: exact failed title is optional now; retain its source failure as history.
 
 
 ### civic-reference
-
-[44 CFR — Emergency Management and Assistance, Volume 2](https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol2/pdf/CFR-2025-title44-vol2.pdf) — Publisher did not return a PDF; last attempt 2026-10-24
-
-- Coverage: Questionable target. Installed 2025 Title 44 volume 1 is 606 pages; official contents list Chapters I and IV plus finding aids.
-- Decision: Verify intended publication before retry: failed volume-2 URL alone does not establish missing regulations.
 
 [Massachusetts electrical-code amendments — 527 CMR 12.00](https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download) — HTTP Error 403: Forbidden; last attempt 2026-10-24
 
@@ -216,9 +205,13 @@ Archived Iowa State farm disaster plan — HTTP 404 at old test server; omitted 
 - Newer FEMA winter PDF blocked: explicitly archived FEMA edition and NWS references installed; not a claim of the newer edition. A Red Cross mirror returned non-PDF content and was replaced with Texas A&M frozen-pipe guidance. See [Shelter/winter](ShelterWinter.md).
 - AVMA e-business URL delivered a different publication: correct 2023 English pet brochure obtained before registration; it is installed. See [Animals](AnimalsEmergency.md).
 
-## Source-target correction to investigate
+## Resolved during targeted follow-up
 
-The attempted `CFR-2025-title44-vol2` returned a GovInfo error page rather than a PDF. Do not equate that with a missing second volume. The [official installed volume 1](https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol1/pdf/CFR-2025-title44-vol1.pdf) contains Chapters I and IV and finding aids; verify annual title structure before retaining or replacing the volume-2 recipe. It is an annual 2025 snapshot, not current eCFR.
+- [Massachusetts health-care proxy and instructions](/library-files/forms/government/ma-health-proxy.pdf): two-page Honoring Choices Massachusetts English edition, September 2025, installed and parsed. Original source/copyright and reproduction permission are preserved. This is an alternate Massachusetts proxy, not the previously blocked publisher file. Blank reference only; keep completed records on your own device.
+- [Micro-Hydro Power: A Beginners Guide to Design and Installation](/library-files/resilience/documents/ncat-microhydro.pdf): NCAT IP383, February 2011, 28 pages. Dedicated site/design/installation planning reference now installed; old costs and regulatory references are labeled. It does not establish current local compliance or replace an engineer.
+- False Title 44 gap corrected: the [official GovInfo 2025 Title 44 bulk directory](https://www.govinfo.gov/bulkdata/CFR/2025/title-44) lists volume 1 only. Its 606-page PDF is already installed. The invented volume-2 target was removed from the recipe and unavailable index, with its history retained in the JSON register. This is a catalogue correction, not a new download. Annual 2025 coverage is not live eCFR.
+
+CDC English/Spanish coping PDFs still returned 403 at the current CDC media endpoint; UNDRR backup endpoints returned non-PDF content. The Massachusetts 2025 return/instructions remained 403 from the desktop network, and SSA's current SS-5 endpoint remained 403 from the Ark. These remain gaps. No challenge or access control was bypassed.
 
 ## Deliberate scope and licensing omissions
 

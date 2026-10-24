@@ -140,16 +140,6 @@
     "note": "Selected federal regulations only. Subsequent rules, emergency orders and other CFR titles are not included."
   },
   {
-    "id": "cfr44-v2",
-    "collection": "civic-reference",
-    "group": "Federal regulations",
-    "title": "44 CFR — Emergency Management and Assistance, Volume 2",
-    "format": "pdf",
-    "url": "https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol2/pdf/CFR-2025-title44-vol2.pdf",
-    "edition": "2025 annual CFR edition; not live eCFR",
-    "note": "Selected federal regulations only. Subsequent rules, emergency orders and other CFR titles are not included."
-  },
-  {
     "id": "ma-constitution",
     "collection": "civic-reference",
     "group": "Massachusetts law",
@@ -288,5 +278,15 @@
     "format": "pdf",
     "edition": "47 CFR Part 97, October 1, 2025 annual edition",
     "note": "Complete Part 97 annual snapshot including emergency communications. Not live eCFR; check later amendments before relying on current regulatory requirements."
+  },
+  {
+    "id": "ncat-microhydro",
+    "collection": "resilience",
+    "group": "Off-grid power",
+    "title": "Micro-Hydro Power: A Beginners Guide to Design and Installation — NCAT",
+    "format": "pdf",
+    "url": "https://www.ncat.org/wp-content/uploads/2025/12/microhydrodesign.pdf",
+    "edition": "NCAT IP383, originally published February 2011; publisher-hosted archive",
+    "note": "Archived design and site-assessment reference; historical costs and permitting context retained. Not current electrical code or a site-specific engineering design. Original notices retained."
   }
 ]

@@ -377,15 +377,20 @@
   },
   {
     "id": "ma-health-proxy",
-    "title": "Massachusetts Health Care Proxy",
-    "url": "https://www.mass.gov/doc/download-the-massachusetts-healthcare-proxy-form/download",
+    "title": "Massachusetts Health Care Proxy — Honoring Choices (instructions and form)",
+    "url": "https://www.honoringchoicesmass.com/wp-content/uploads/2025/08/Health-Care-Proxy-Instructions-Document-ENGLISH-2025-09-01.pdf",
     "group": "government",
-    "edition": "Publisher revision at retrieval",
-    "note": "Massachusetts. Execution and witness requirements apply.",
-    "checked_at": "2026-10-23T04:57:00.165041+00:00",
+    "edition": "Honoring Choices Massachusetts, September 1, 2025 English edition",
+    "note": "Massachusetts instructions plus blank form; follow execution and witness requirements. Reproduce only in entirety with source and copyright shown; no resale. Publisher permission: https://www.honoringchoicesmass.com/about-us/terms-of-use/",
+    "checked_at": "2026-10-24T19:12:05.927242+00:00",
     "filename": "government/ma-health-proxy.pdf",
-    "status": "unavailable",
-    "error": "HTTP Error 403: Forbidden"
+    "resolved_url": "https://www.honoringchoicesmass.com/wp-content/uploads/2025/08/Health-Care-Proxy-Instructions-Document-ENGLISH-2025-09-01.pdf",
+    "pages": 2,
+    "pdf_form": "none",
+    "document_header": "Massachusetts Health Care Proxy Instructions and Document Instructions: Every competent adult, 18 years old and older, has the right to appoint a Health Care Agent in a Health Care Proxy. To create your Health Care Proxy, print this two page form and place the instructions page and the blank document in front of you. Follow the step-by-step instructions and sign and date the Health Care Proxy in front of two witnesses, who sign and date the document after you. 1. Your Name and Address (Required) Print your full name in the blank space. Print your address. 2. My Health Care Agent is: (Required) Print the name, address and phone numbers of your Health Care Agent.  Choose a person you trust to",
+    "status": "installed",
+    "bytes": 42749,
+    "sha256": "4861b9385714a9fd08498a5589a42f5e8b5fe6cd2db82e436df23fb5ccaeaeed"
   },
   {
     "id": "sf95",

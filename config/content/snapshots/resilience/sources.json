@@ -232,5 +232,23 @@
     "checked_at": "2026-10-24T01:28:51.083228+00:00",
     "status": "unavailable",
     "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "ncat-microhydro",
+    "collection": "resilience",
+    "group": "Off-grid power",
+    "title": "Micro-Hydro Power: A Beginners Guide to Design and Installation — NCAT",
+    "format": "pdf",
+    "url": "https://www.ncat.org/wp-content/uploads/2025/12/microhydrodesign.pdf",
+    "edition": "NCAT IP383, originally published February 2011; publisher-hosted archive",
+    "note": "Archived design and site-assessment reference; historical costs and permitting context retained. Not current electrical code or a site-specific engineering design. Original notices retained.",
+    "filename": "documents/ncat-microhydro.pdf",
+    "checked_at": "2026-10-24T19:12:09.467510+00:00",
+    "resolved_url": "https://www.ncat.org/wp-content/uploads/2025/12/microhydrodesign.pdf",
+    "pages": 28,
+    "document_header": "A project of the National Center for Appropriate Technology 1-800-346-9140 • www.attra.ncat.org Micro-Hydro Power: A Beginners Guide to Design and Installation By Leif Kindberg NCAT Energy Specialist Published February 2011 © NCAT IP383 Farm hydropower projects have existed for many years, from waterwheels used for grinding grain and forging to modern hydroelectric turbines designed to run compressors and motors. Micro-hydro systems—those that produce less than 100 kilowatts of electricity—can offer a sustainable and continuous source of renewable energy on farms. This publication is designed ",
+    "status": "installed",
+    "bytes": 922736,
+    "sha256": "206cb85606fbfc326ebc037396fe4beb95ceb4476049a5ab0b6ea4b378795a19"
   }
 ]

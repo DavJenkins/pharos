@@ -2369,6 +2369,26 @@
       "sha256": "2216e66e47334284d8d831f04008912e6ad3b2d4a5e289f1aae01038cb2599e5",
       "source": "https://www.ohsu.edu/sites/default/files/2026-05/all-combined_ready-now-tool-kit-oct2423.pdf",
       "repository": "disability-preparedness"
+    },
+    {
+      "id": "forms-ma-health-proxy",
+      "title": "Massachusetts Health Care Proxy \u2014 Honoring Choices (instructions and form) \u2014 Honoring Choices Massachusetts, September 1, 2025 English edition",
+      "path": "forms/government/ma-health-proxy.pdf",
+      "selected": true,
+      "bytes": 42749,
+      "sha256": "4861b9385714a9fd08498a5589a42f5e8b5fe6cd2db82e436df23fb5ccaeaeed",
+      "source": "https://www.honoringchoicesmass.com/wp-content/uploads/2025/08/Health-Care-Proxy-Instructions-Document-ENGLISH-2025-09-01.pdf",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "ref-ncat-microhydro",
+      "title": "Micro-Hydro Power: A Beginners Guide to Design and Installation \u2014 NCAT",
+      "path": "resilience/documents/ncat-microhydro.pdf",
+      "selected": true,
+      "bytes": 922736,
+      "sha256": "206cb85606fbfc326ebc037396fe4beb95ceb4476049a5ab0b6ea4b378795a19",
+      "source": "https://www.ncat.org/wp-content/uploads/2025/12/microhydrodesign.pdf",
+      "repository": "resilience"
     }
   ],
   "unmanaged_archives": [

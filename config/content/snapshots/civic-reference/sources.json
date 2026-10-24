@@ -36,21 +36,6 @@
     "sha256": "168f46e490dc1e5147a9e5bf0af3127820f737f89c224185218ebf68f232c907"
   },
   {
-    "id": "cfr44-v2",
-    "collection": "civic-reference",
-    "group": "Federal regulations",
-    "title": "44 CFR — Emergency Management and Assistance, Volume 2",
-    "format": "pdf",
-    "url": "https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol2/pdf/CFR-2025-title44-vol2.pdf",
-    "edition": "2025 annual CFR edition; not live eCFR",
-    "note": "Selected federal regulations only. Subsequent rules, emergency orders and other CFR titles are not included.",
-    "filename": "documents/cfr44-v2.pdf",
-    "checked_at": "2026-10-24T01:21:52.768246+00:00",
-    "resolved_url": "https://www.govinfo.gov/error",
-    "status": "unavailable",
-    "error": "Publisher did not return a PDF"
-  },
-  {
     "id": "ma-constitution",
     "collection": "civic-reference",
     "group": "Massachusetts law",

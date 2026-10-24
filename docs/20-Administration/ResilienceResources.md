@@ -22,7 +22,7 @@ Sixty-seven civic files were verified:
 - Official OLRC U.S. Code bulk release through Public Law 119-124, October 15, 2026: 58 title/appendix HTML files plus the unmodified source ZIP. This is a preliminary statutory snapshot, not all federal law. Uncodified laws, decisions, later amendments and most regulations are outside its coverage.
 - U.S. Constitution, Senate document 111-4 (2010 pocket edition).
 - FCC Part 97, Amateur Radio Service: complete October 1, 2025 annual PDF including emergency communications; not live eCFR.
-- CFR Title 44 volume 1, 2025 annual edition. Volume 2 failed retrieval; this is not the full CFR or live eCFR.
+- CFR Title 44 volume 1, 2025 annual edition. The official 2025 Title 44 bulk directory lists only volume 1; a mistakenly requested volume-2 target was removed on October 24. This is not all CFR titles or live eCFR.
 - Massachusetts Constitution and selected General Laws: Chapter 186 (41/41 listed sections), Chapter 93A (11/11), Chapter 76 (31/31), including brief repeal notices. These are unofficial legislature website snapshots, not all Massachusetts law or court rules.
 - Gardner's official City Code information page. The underlying ordinance text was not retrievable and is **not installed**.
 
@@ -34,7 +34,7 @@ Massachusetts electrical, building and fire sources returned publisher access er
 
 Copyrighted ICC/NFPA base books have not been mirrored. An amendment does not contain the complete referenced model code. Massachusetts small-claims rules and Gardner ordinance text remain gaps. Legal currency, jurisdiction, applicability and later emergency orders must be checked; a retrieval timestamp is not an effective date.
 
-Four survival/power source URLs also failed: two Forest Service PDFs, an older DOE microhydro page, and a Colorado hydro handbook. They are listed under unavailable sources. The power tool includes a hydro estimate, but no standalone hydro installation handbook was obtained in this pass.
+Four survival/power source URLs also failed: two Forest Service PDFs, an older DOE microhydro page, and a Colorado hydro handbook. They are listed under unavailable sources. Those failed URLs remain historical records. On October 24 the publisher-hosted NCAT IP383 Micro-Hydro Power design/installation guide (February 2011, 28 pages) was installed as a dedicated alternative. Historical costs and permitting references are retained; it does not replace current codes or site-specific engineering. There are now eleven installed survival/power references.
 
 ## Power planner
 

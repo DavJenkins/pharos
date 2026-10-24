@@ -235,9 +235,6 @@ repositories:
   - title: Browse local books & readiness forms
     url: /library-files/family-resources/index.html
 - id: resilience
-  artwork:
-    path: app/static/assets/icons/Resilience.png
-    alt: Resilience collection icon
   title: Wilderness Survival & Off-grid Power
   description: Outdoor survival, navigation, energy planning and generator references
     with source editions.
@@ -250,10 +247,10 @@ repositories:
     url: /library-files/resilience/index.html
   - title: Offline power calculators
     url: /power.html
-- id: civic-reference
   artwork:
-    path: app/static/assets/icons/Civic.png
-    alt: Civic collection icon
+    path: app/static/assets/icons/Resilience.png
+    alt: Resilience collection icon
+- id: civic-reference
   title: Laws, Regulations & Codes
   description: Official federal statute snapshot and clearly scoped Massachusetts/local
     legal and code references.
@@ -270,6 +267,9 @@ repositories:
     url: /pdf-forms.html
   - title: Amateur callsign search
     url: /callsigns.html
+  artwork:
+    path: app/static/assets/icons/Civic.png
+    alt: Civic collection icon
 - id: radio-study
   artwork:
     path: app/static/assets/icons/Radio.png
@@ -3909,6 +3909,39 @@ assets:
     unmodified redistribution only. Retrieved 2026-10-24T18:56:17.069165+00:00
   online_url: https://www.ohsu.edu/university-center-excellence-development-disability/ready-now-emergency-preparedness-tool-kit
   download_url: https://www.ohsu.edu/sites/default/files/2026-05/all-combined_ready-now-tool-kit-oct2423.pdf
+- id: forms-ma-health-proxy
+  repository_id: forms-templates
+  category: pdf_reference
+  title: Massachusetts Health Care Proxy — Honoring Choices (instructions and form)
+    — Honoring Choices Massachusetts, September 1, 2025 English edition
+  relative_path: forms/government/ma-health-proxy.pdf
+  service_endpoint: /library-files/forms/government/ma-health-proxy.pdf
+  online_url: https://www.honoringchoicesmass.com/wp-content/uploads/2025/08/Health-Care-Proxy-Instructions-Document-ENGLISH-2025-09-01.pdf
+  download_url: https://www.honoringchoicesmass.com/wp-content/uploads/2025/08/Health-Care-Proxy-Instructions-Document-ENGLISH-2025-09-01.pdf
+  expected_hash: 4861b9385714a9fd08498a5589a42f5e8b5fe6cd2db82e436df23fb5ccaeaeed
+  update_policy: manual
+  refresh_interval: never
+  source_note: 'Massachusetts instructions plus blank form; follow execution and witness
+    requirements. Reproduce only in entirety with source and copyright shown; no resale.
+    Publisher permission: https://www.honoringchoicesmass.com/about-us/terms-of-use/
+    Retrieved 2026-10-24T19:12:05.927242+00:00'
+  version_pin: null
+- id: ref-ncat-microhydro
+  repository_id: resilience
+  category: pdf_reference
+  title: 'Micro-Hydro Power: A Beginners Guide to Design and Installation — NCAT'
+  relative_path: resilience/documents/ncat-microhydro.pdf
+  service_endpoint: /library-files/resilience/documents/ncat-microhydro.pdf
+  online_url: https://www.ncat.org/wp-content/uploads/2025/12/microhydrodesign.pdf
+  download_url: https://www.ncat.org/wp-content/uploads/2025/12/microhydrodesign.pdf
+  expected_hash: 206cb85606fbfc326ebc037396fe4beb95ceb4476049a5ab0b6ea4b378795a19
+  update_policy: manual
+  refresh_interval: never
+  source_note: NCAT IP383, originally published February 2011; publisher-hosted archive;
+    Archived design and site-assessment reference; historical costs and permitting
+    context retained. Not current electrical code or a site-specific engineering design.
+    Original notices retained.; retrieved 2026-10-24T19:12:09.467510+00:00
+  version_pin: null
 resource_sections:
 - title: Local maps
   description: Massachusetts reference maps for Worcester and Middlesex counties.
