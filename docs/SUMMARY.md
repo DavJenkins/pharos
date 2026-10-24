@@ -29,6 +29,7 @@
 - [Local reference maps](20-Administration/Maps.md)
 - [Offline maps and preparedness references](20-Administration/OfflineReferences.md)
 - [Forms and Templates](20-Administration/Forms.md)
+- [Paper, play and family resources](20-Administration/FamilyResources.md)
 - [Browser terminal](20-Administration/BrowserTerminal.md)
 - [VNC desktop access](20-Administration/VNC.md)
 - [Project status: October 21, 2026](20-Administration/ProjectStatus-2026-10-21.md)

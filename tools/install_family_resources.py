@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+"""Explicitly install/update approved family resources; never uploads or stores personal work.
+Run with system Python (python3-reportlab), then deploy/deploy-web.sh to publish links.
+Re-running reinstates listed files. Publisher failures retain verified existing copies.
+"""
+import argparse,concurrent.futures,hashlib,html,io,json,os,re,subprocess,sys,tempfile,urllib.request,zipfile
+from datetime import datetime,timezone
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
+CONTENT=Path('/mnt/storage/family-resources');CATALOGUE=ROOT/'deploy/reference/family-catalogue.json'
+def atomic(path,data):
+ path.parent.mkdir(parents=True,exist_ok=True)
+ with tempfile.NamedTemporaryFile(dir=path.parent,delete=False) as f:f.write(data);temp=Path(f.name)
+ temp.chmod(0o644);temp.replace(path)
+def download(item):
+ item=dict(item);item['filename']=item['collection']+'/'+item['id']+'.'+item['format'];item['checked_at']=datetime.now(timezone.utc).isoformat();dest=CONTENT/item['filename']
+ try:
+  req=urllib.request.Request(item['url'],headers={'User-Agent':'Mozilla/5.0 (Data Ark offline educational archive)'})
+  with urllib.request.urlopen(req,timeout=45) as r:data=r.read(30*1024**2+1);item['resolved_url']=r.url
+  if len(data)>30*1024**2:raise ValueError('Publisher file exceeds 30 MiB limit')
+  if item['format']=='pdf':
+   if not data.startswith(b'%PDF-'):raise ValueError('Publisher did not return a PDF')
+   with tempfile.NamedTemporaryFile(suffix='.pdf') as f:
+    f.write(data);f.flush();info=subprocess.check_output(['pdfinfo',f.name],text=True,stderr=subprocess.STDOUT);item['pages']=int(re.search(r'^Pages:\s+(\d+)',info,re.M)[1]);text=subprocess.check_output(['pdftotext','-f','1','-l','2',f.name,'-'],text=True,stderr=subprocess.DEVNULL)
+   item['document_header']=' '.join(text.split())[:600]
+  else:
+   with zipfile.ZipFile(io.BytesIO(data)) as z:
+    if 'word/document.xml' not in z.namelist() or any('vbaproject' in n.lower() for n in z.namelist()):raise ValueError('Not a macro-free Word document')
+    from xml.etree import ElementTree as ET
+    text=' '.join(''.join(ET.fromstring(z.read(n)).itertext()) for n in z.namelist() if re.match(r'word/(document|footer\d*|header\d*)\.xml$',n))
+    if len(text.strip())<100:raise ValueError('Empty agreement')
+    expected={'cp-contractor':'TERMS AND CONDITIONS','cp-amendment':'Amendment','cp-sow':'SOW'}[item['id']]
+    if expected not in text:raise ValueError('Expected agreement title missing')
+    item['document_header']=' '.join(text.split())[:600]
+  atomic(dest,data);item.update(status='installed',bytes=len(data),sha256=hashlib.sha256(data).hexdigest())
+ except Exception as e:
+  item.update(status='unavailable',error=str(e));old=CONTENT/'sources.json'
+  if dest.is_file() and old.is_file():
+   previous=next((p for p in json.loads(old.read_text()) if p['id']==item['id'] and p.get('sha256')==hashlib.sha256(dest.read_bytes()).hexdigest()),None)
+   if previous:item={**previous,'last_check_error':str(e),'checked_at':item['checked_at']}
+ print(item['status'],item['id'],item.get('error',''),flush=True);return item
+def write_index(records):
+ e=html.escape
+ page=['<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Family activities & readiness — Data Ark</title><link rel="stylesheet" href="/assets/css/activities.css?v=20261023-family1"></head><body><nav><a href="/">Library</a> · <a href="/activities.html">Play & color</a> · <a href="/printables.html">Paper & worksheets</a> · <a href="/library-files/forms/index.html">Official forms</a></nav><header><p class="eyebrow">SOMETHING FOR THE WHOLE HOUSEHOLD</p><h1>Activity books & readiness</h1><p>Books and practical records stored on the Ark. Read on screen or print selected pages. English and Spanish resources are labeled below.</p></header><main><section class="panel"><h2>Find a resource</h2><div class="controls"><label>Search title or purpose<input id="resource-search" type="search"></label><label>Language<select id="resource-language"><option value="">All languages</option><option>English</option><option>Spanish</option></select></label><label>Purpose<select id="resource-group"><option value="">All purposes</option><option value="kids">Children & activities</option><option value="readiness">Readiness & coordination</option><option value="contracts">Agreements</option><option value="generated">Paper & household worksheets</option></select></label></div><p id="resource-count" role="status"></p></section>']
+ for group,title in [('kids','Coloring, puzzles & learning'),('readiness','Readiness & coordination'),('contracts','Agreements & project templates'),('generated','Paper & household worksheets')]:
+  page.append('<section class="panel resource-section"><h2>'+title+'</h2>')
+  if group=='kids':page.append('<p>Books can be read on screen. For coloring and written activities, print a page or use the <a href="/coloring.html">PDF coloring tool</a> where the book permits it. Suggested audiences are browsing aids, not formal age ratings. Some books need adult help.</p>')
+  if group=='readiness':page.append('<p>The FEMA booklet includes ICS 201–225 forms and completion instructions, including radio plans, general messages (213), activity logs (214), check-ins and resource records. Its archived September 2010 edition is labeled; follow the forms and procedures required by your organization. <a href="/library-files/preparedness/index.html">Existing FEMA, CERT & preparedness guides</a>.</p>')
+  if group=='contracts':page.append('<p>Common Paper templates, CC BY 4.0. Download Word files to edit. The Statement of Work accompanies the Professional Services Agreement in <a href="/library-files/forms/index.html">Forms & Templates</a>. Preserve standard terms and fill the required business terms. Jurisdiction-specific personal, property and consumer agreements are not supplied as universally valid contracts.</p>')
+  page.append('<ul class="book-list">')
+  for r in records:
+   if r['collection']!=group or r['status']!='installed':continue
+   search=e(' '.join(str(r.get(k,'')) for k in ['title','purpose','age','language']).lower(),quote=True)
+   page.append('<li data-resource data-form-id="family-'+e(r['id'],quote=True)+'" data-search="'+search+'" data-language="'+e(r['language'],quote=True)+'" data-group="'+group+'"><a data-form-file href="'+e(r['filename'],quote=True)+'">'+e(r['title'])+'</a><div class="tags">'+e(r['language']+' · '+r['age']+' · '+r['purpose'])+'</div><div class="tags">'+e((str(r['pages'])+' pages · ' if r.get('pages') else '')+r['format'].upper()+' · '+r.get('edition','Publisher edition retrieved '+r['checked_at'][:10]))+'</div><details><summary>Source, use & edition</summary><p>'+e(r['license'])+'</p><p>'+e(r.get('document_header',''))+'</p><p>Retrieved '+e(r['checked_at'])+' · <a href="'+e(r['source_page'],quote=True)+'">Publisher / source (internet required)</a></p></details></li>')
+  page.append('</ul></section>')
+ unavailable=[r for r in records if r['status']!='installed']
+ if unavailable:
+  page.append('<details><summary>Publisher downloads not installed ('+str(len(unavailable))+')</summary><ul>')
+  for r in unavailable:page.append('<li>'+e(r['title'])+' — '+e(r['error'])+'</li>')
+  page.append('</ul></details>')
+ page.append('</main><footer><p><a href="sources.json">Sources, retrieval dates, editions, sizes & SHA-256 hashes</a> · <a href="cc-by-4.0.txt">Common Paper offline license</a> · <a href="/docs/20-Administration/FamilyResources.html">Maintenance guide</a></p><p>NASA, CDC, FEMA and NPS originals retain their notices. Source: CDC. CDC materials are also available free from CDC.gov. Reference to products, companies or services does not imply endorsement by CDC, HHS or the U.S. Government. No agency endorsement is implied. NPS Cave Scientist booklets are kept unmodified for non-commercial educational use; do not reformat or sell them. Original Ark worksheets and patterns may be freely copied and adapted. Keep completed private records on your own device.</p></footer><script src="/assets/js/forms-availability.js"></script><script src="/assets/js/family-resources.js?v=20261023-family1"></script></body></html>')
+ atomic(CONTENT/'index.html',''.join(page).encode())
+def register(records):
+ import fcntl
+ from app.services.manifest import load_manifest,atomic_write
+ from tools.library_removal import serialize
+ with Path('/var/lib/dataark/updates/worker.lock').open('a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);data=load_manifest(ROOT/'dataark.yaml')
+  repo={'id':'family-resources','category':'content_sources','title':'Paper, Play & Family Resources','description':'Offline paper studio, PDF coloring, browser games, activity books, household worksheets and incident forms. English and Spanish selections.','collapse_assets':True,'update_policy':'manual','refresh_interval':'never','links':[{'title':'Learning at home','url':'/learning.html'},{'title':'Paper studio & household templates','url':'/printables.html'},{'title':'Games, drawing & PDF coloring','url':'/activities.html'},{'title':'Browse local books & readiness forms','url':'/library-files/family-resources/index.html'}]}
+  data['repositories']=[r for r in data['repositories'] if r['id']!=repo['id']]+[repo]
+  for r in records:
+   if r['status']!='installed':continue
+   identifier='family-'+r['id'];asset={'id':identifier,'repository_id':'family-resources','category':'pdf_reference','title':r['title'],'relative_path':'family-resources/'+r['filename'],'service_endpoint':'/library-files/family-resources/'+r['filename'],'update_policy':'manual','refresh_interval':'never','expected_hash':r['sha256'],'source_note':r['license']+' Retrieved '+r['checked_at']}
+   if r.get('url'):asset.update(online_url=r['source_page'],download_url=r['url'])
+   data['assets']=[a for a in data['assets'] if a['id']!=identifier]+[asset]
+  atomic_write(ROOT/'dataark.yaml',serialize(data).encode())
+def main():
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--register',action='store_true');a=p.parse_args()
+ if not CONTENT.parent.is_mount():raise SystemExit('Content SSD must be mounted')
+ with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:records=list(pool.map(download,json.loads(CATALOGUE.read_text())))
+ subprocess.run(['/usr/bin/python3',str(ROOT/'tools/build_print_packs.py')],check=True)
+ for file in sorted((CONTENT/'generated').glob('*.pdf')):
+  data=file.read_bytes();info=subprocess.check_output(['pdfinfo',str(file)],text=True)
+  records.append({'id':file.stem,'title':('Paper pattern pack' if file.name.startswith('paper') else 'Household worksheet pack')+' — '+('A4' if 'a4' in file.stem else 'US Letter'),'collection':'generated','format':'pdf','filename':'generated/'+file.name,'status':'installed','language':'English','age':'All ages / adult records','purpose':'Print selected pages; paper and pencil needed','license':'DEJ Software / Data Ark original. Freely copy and adapt.','source_page':'/printables.html','checked_at':datetime.now(timezone.utc).isoformat(),'bytes':len(data),'pages':int(re.search(r'^Pages:\s+(\d+)',info,re.M)[1]),'sha256':hashlib.sha256(data).hexdigest()})
+ atomic(CONTENT/'sources.json',(json.dumps(records,ensure_ascii=False,indent=2)+'\n').encode())
+ # Reuse the verified attribution text already preserved with the existing forms.
+ license=Path('/mnt/storage/forms/cc-by-4.0.txt')
+ if not license.is_file():raise SystemExit('Existing CC BY 4.0 license text is required')
+ atomic(CONTENT/'cc-by-4.0.txt',license.read_bytes());write_index(records)
+ if a.register:register(records)
+ from tools.publish_content import publish
+ print('Portable catalogue refreshed:',publish(CONTENT.parent),'files',flush=True)
+ print('Installed',sum(r['status']=='installed' for r in records),'of',len(records),'documents',flush=True)
+if __name__=='__main__':main()
