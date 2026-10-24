@@ -146,3 +146,11 @@ For a complete offline test, disable upstream Wi-Fi, unplug the Ark’s Ethernet
 and disconnect other internet routes on the client (Ethernet or cellular data).
 Keep the client on DataArk Wi-Fi. Disabling through the upstream address can end
 that browser connection; use `192.168.4.1` so the controls remain reachable.
+
+
+The dashboard’s Wi-Fi and Ethernet pop-ups each have an enable checkbox. Every
+change prompts for the caretaker password. Ethernet uses a fixed `eth0` device
+disconnect/connect operation and retains its saved profile. Both controls are
+temporary until re-enabled or restarted. Use the hotspot address `192.168.4.1`
+before disabling either upstream route; disabling both simulates isolation
+without unplugging cables. Client-side Ethernet/cellular routes must also be off.

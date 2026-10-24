@@ -23,12 +23,14 @@ def _gateway(dev: str) -> str:
 
 
 def ethernet():
+    autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", "eth0"]).strip()
     try:
         state = Path("/sys/class/net/eth0/operstate").read_text().strip()
     except OSError:
         state = "unknown"
 
     return {
+        "enabled": True if autoconnect == "yes" else False if autoconnect == "no" else None,
         "state": state,
         "connected": None if state == "unknown" else state == "up",
         "ip": _ip4("eth0"),

@@ -3,21 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Data Ark Network Settings</title>
-<style>
-body {font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;color:#222}
-label {display:block;margin-top:1rem} input,select,button {font:inherit;padding:.6rem;box-sizing:border-box;max-width:100%}
-input:not([type=checkbox]),select {display:block;width:100%;margin-top:.3rem}
-button {margin-top:1rem} .notice {padding:1rem;background:#fff4d6;border-left:4px solid #a65e00}
-#result {white-space:pre-wrap;overflow-wrap:anywhere} nav a {margin-right:1rem}
-</style>
+<title>Data Ark · Upstream Wi-Fi</title>
+<link rel="stylesheet" href="/assets/css/network-settings.css?v=5260464803abba8a">
+
 </head>
-<body data-action="connect">
+<body data-action="connect"><main class="network-settings-card">
 <nav><a href="/">Dashboard</a><a href="/config/wifi.html">Upstream Wi-Fi</a><a href="/config/system.html">Access point</a></nav>
 <h1>Upstream Wi-Fi</h1>
 <p id="current" role="status">Loading current network…</p>
 <form id="network-form">
-<label>Network administration password (user: admin)
+<label>Caretaker password
 <input id="admin-password" type="password" autocomplete="off" required></label>
 <section aria-labelledby="uplink-heading">
 <h2 id="uplink-heading">Enable or disable upstream Wi-Fi</h2>
@@ -39,5 +34,5 @@ button {margin-top:1rem} .notice {padding:1rem;background:#fff4d6;border-left:4p
 </form>
 <p id="result" role="status" aria-live="polite"></p>
 <script src="/assets/js/network-settings.js?v=51e5c74f154289f1"></script>
-</body>
+</main></body>
 </html>

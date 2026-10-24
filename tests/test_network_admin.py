@@ -88,10 +88,16 @@ class HelperTests(unittest.TestCase):
                 self.assertEqual(nm.call_args.args, ('device', command, 'wlan1'))
                 self.assertEqual(nm.call_count, 1)
 
+    def test_ethernet_switch_only_changes_eth0(self):
+        for enabled, command in [(False, 'disconnect'), (True, 'connect')]:
+            with self.subTest(enabled=enabled), patch.object(helper, 'ap_details', return_value='DataArk'), patch.object(helper, 'nm') as nm:
+                self.assertTrue(helper.execute({'action':'ethernet','enabled':enabled})['ok'])
+                self.assertEqual(nm.call_args.args, ('device',command,'eth0'))
+
     def test_uplink_is_password_protected(self):
         with patch.object(routes, 'authorized', return_value=False), patch.object(routes, 'invoke') as invoke:
             with self.assertRaises(HTTPException) as error:
-                asyncio.run(routes.network_action('uplink', Request(b'{"enabled":false}')))
+                asyncio.run(routes.network_action('ethernet', Request(b'{"enabled":false}')))
             self.assertEqual(error.exception.status_code, 401)
             invoke.assert_not_called()
 

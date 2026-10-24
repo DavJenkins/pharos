@@ -7,7 +7,7 @@ router = APIRouter(prefix='/network/admin', tags=['Network administration'])
 
 @router.post('/{action}')
 async def network_action(action: str, request: Request):
-    if action not in ('scan', 'connect', 'rename', 'uplink'):
+    if action not in ('scan', 'connect', 'rename', 'uplink', 'ethernet'):
         raise HTTPException(404, 'Unknown network operation')
     header = request.headers.get('authorization', '')
     if len(header) > 2048 or not await run_in_threadpool(authorized, header):
