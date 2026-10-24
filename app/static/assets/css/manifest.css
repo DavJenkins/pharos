@@ -234,3 +234,5 @@ body{background-image:none}
 .status-bar .status-button.disabled{color:#8c5600;background:rgba(255,224,160,.55)}
 .status-bar .status-button.disabled::after{content:"";position:absolute;right:3px;bottom:3px;width:9px;height:9px;border-radius:50%;background:#df8a00;border:1px solid #925600;box-shadow:0 0 3px #df8a0077}
 #upstream-links svg.upstream-disabled{color:#a45f00;opacity:1}
+
+.caretaker-dialog label:has(input[type=checkbox]){display:flex;align-items:center;gap:.6rem;margin-top:1rem}.caretaker-dialog input[type=checkbox]{display:inline-block;width:1.15rem;height:1.15rem;margin:0;flex:0 0 auto}

@@ -117,7 +117,7 @@ const Dashboard = {
 
         this.byId("ap-button").className =
             "status-button " +
-            (ap.active === true ? "on" : ap.active === false ? "off" : "error");
+            (ap.enabled === false ? "disabled" : ap.active === true ? "on" : ap.active === false ? "off" : "error");
 
         this.byId("system-button").className =
             "status-button " +

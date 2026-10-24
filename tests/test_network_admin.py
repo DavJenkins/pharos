@@ -53,7 +53,7 @@ class RouteTests(unittest.TestCase):
     def test_authenticated_dispatch(self):
         with patch.object(routes, 'authorized', return_value=True), patch.object(routes, 'invoke', return_value={'ok': True, 'networks': ['one']}) as invoke:
             self.assertTrue(asyncio.run(routes.network_action('scan', Request()))['ok'])
-            invoke.assert_called_once_with({'action': 'scan'})
+            invoke.assert_called_once_with({'action': 'scan', 'peer':''})
 
     def test_rejects_bad_and_oversize_requests(self):
         for body, expected in [(b'[]', 400), (b'{', 400), (b'{"action":"rename"}', 400), (b' ' * 4097, 413)]:
@@ -68,6 +68,11 @@ class RouteTests(unittest.TestCase):
             self.assertEqual(error.exception.status_code, 415)
 
 class HelperTests(unittest.TestCase):
+    def setUp(self):
+        guard = patch.object(helper, 'protect_access')
+        guard.start()
+        self.addCleanup(guard.stop)
+
     def test_invalid_input_never_reaches_nmcli(self):
         for data in [
             {'action':'other'}, {'action':'uplink','enabled':'false'},
@@ -160,6 +165,37 @@ class HelperTests(unittest.TestCase):
                 helper.execute({'action':'connect','ssid':'Other','security':'open','password':''})
         self.assertIn(('connection','up','uuid',previous,'ifname','wlan1'), calls)
         self.assertTrue(any(call[:2] == ('connection','delete') for call in calls))
+
+class AccessGuardTests(unittest.TestCase):
+    def test_current_interface_and_return_route_are_protected(self):
+        addresses = {'wlan0':'192.168.4.1/24', 'wlan1':'192.168.40.123/24', 'eth0':'192.168.40.70/24'}
+        def nm(*args, **kwargs):return addresses[args[-1]]
+        route = SimpleNamespace(stdout='[{"dev":"eth0"}]')
+        sockets = SimpleNamespace(stdout='0 0 192.168.40.123:80 192.168.40.127:50100')
+        with patch.object(helper, 'nm', side_effect=nm), patch.object(helper.subprocess,'run',side_effect=[sockets,route]):
+            protected = helper.access_interfaces({'peer':'192.168.40.127','server':'192.168.40.123'})
+        self.assertEqual(protected,['eth0','wlan1'])
+
+    def test_hotspot_peer_protected_even_when_using_lan_address(self):
+        def nm(*args, **kwargs):return {'wlan0':'192.168.4.1/24','wlan1':'192.168.40.123/24','eth0':'192.168.40.70/24'}[args[-1]]
+        with patch.object(helper,'nm',side_effect=nm), patch.object(helper.subprocess,'run',side_effect=[SimpleNamespace(stdout=''),SimpleNamespace(stdout='[{"dev":"wlan0"}]')]):
+            with self.assertRaisesRegex(helper.NetworkError,'current session'):
+                helper.protect_access({'peer':'192.168.4.149','server':'192.168.40.70'},'wlan0')
+
+    def test_missing_or_unknown_metadata_fails_closed(self):
+        for data in [{},{'peer':'invalid','server':'192.168.4.1'}]:
+            with self.subTest(data=data),patch.object(helper,'nm',return_value='192.168.4.1/24'):
+                with self.assertRaises(helper.NetworkError):helper.protect_access(data,'wlan0')
+
+    def test_refused_disable_never_disconnects(self):
+        with patch.object(helper,'ap_details',return_value='DataArk'),patch.object(helper,'access_interfaces',return_value=['wlan0']),patch.object(helper,'nm') as nm:
+            with self.assertRaises(helper.NetworkError):helper.execute({'action':'hotspot','enabled':False})
+            nm.assert_not_called()
+
+    def test_hotspot_enable_uses_only_saved_ap_profile(self):
+        with patch.object(helper,'ap_details',return_value='DataArk'),patch.object(helper,'nm') as nm:
+            helper.execute({'action':'hotspot','enabled':True})
+            nm.assert_called_once_with('connection','up','id','DataArk','ifname','wlan0',timeout=30)
 
 if __name__ == '__main__':
     unittest.main()

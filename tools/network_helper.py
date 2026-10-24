@@ -1,6 +1,7 @@
 #!/usr/bin/python3 -I
 """Root-owned, fixed-scope NetworkManager helper. One JSON request on stdin."""
 import json
+import ipaddress
 import os
 from pathlib import Path
 import re
@@ -32,12 +33,14 @@ def validate(data):
         raise ValueError('Expected a JSON object.')
     action = data.get('action')
     allowed = {'scan': {'action'}, 'connect': {'action', 'ssid', 'security', 'password'},
-               'rename': {'action', 'ssid'}, 'uplink': {'action', 'enabled'}, 'ethernet': {'action', 'enabled'}}
+               'rename': {'action', 'ssid'}, 'uplink': {'action', 'enabled'}, 'ethernet': {'action', 'enabled'}, 'hotspot': {'action', 'enabled'}, 'access': {'action'}}
+    for fields in allowed.values():
+        fields.update({'peer'})
     if action not in allowed or set(data) - allowed[action]:
         raise ValueError('Unsupported network operation.')
-    if action in ('uplink', 'ethernet') and type(data.get('enabled')) is not bool:
+    if action in ('uplink', 'ethernet', 'hotspot') and type(data.get('enabled')) is not bool:
         raise ValueError('Enabled must be true or false.')
-    if action not in ('scan', 'uplink', 'ethernet'):
+    if action not in ('scan', 'access', 'uplink', 'ethernet', 'hotspot'):
         ssid = data.get('ssid')
         if not isinstance(ssid, str) or not 1 <= len(ssid.encode('utf-8')) <= 32:
             raise ValueError('Network names must contain 1 to 32 UTF-8 bytes.')
@@ -65,16 +68,61 @@ def ap_details():
         raise NetworkError('DataArk is not the expected wlan0 access-point profile.')
     return nm('--escape', 'no', '-g', '802-11-wireless.ssid', 'connection', 'show', 'id', 'DataArk')
 
+def access_interfaces(data):
+    try:
+        peer = ipaddress.ip_address(data.get('peer', ''))
+    except ValueError:
+        raise NetworkError('Cannot determine your access path. Reopen the Ark directly through a known network address.') from None
+    protected = set()
+    local_interfaces = {}
+    for interface in ('wlan0', 'wlan1', 'eth0'):
+        addresses = nm('-g', 'IP4.ADDRESS,IP6.ADDRESS', 'device', 'show', interface)
+        for address in addresses.splitlines():
+            try: local = ipaddress.ip_interface(address)
+            except ValueError: continue
+            local_interfaces[str(local.ip)] = interface
+            if interface == 'wlan0' and peer in local.network:
+                protected.add(interface)
+    try:
+        # Kernel socket records identify the receiving interface without trusting Host or forwarded server headers.
+        sockets = subprocess.run(['/usr/bin/ss','-H','-tn','state','established'],
+                                 capture_output=True,text=True,timeout=3,check=True)
+        for line in sockets.stdout.splitlines():
+            fields = line.split()
+            if len(fields) < 4: continue
+            local, remote = fields[2], fields[3]
+            host, port = local.rsplit(':',1)
+            remote_host = remote.rsplit(':',1)[0].strip('[]').split('%')[0]
+            if port == '80' and ipaddress.ip_address(remote_host) == peer:
+                interface = local_interfaces.get(host.strip('[]').split('%')[0])
+                if interface: protected.add(interface)
+        route = subprocess.run(['/usr/sbin/ip', '-j', 'route', 'get', str(peer)],
+                               capture_output=True,text=True,timeout=3,check=True)
+        interface = json.loads(route.stdout)[0].get('dev')
+        if interface in ('wlan0','wlan1','eth0'): protected.add(interface)
+    except (OSError,ValueError,IndexError,subprocess.SubprocessError):
+        raise NetworkError('Cannot verify your connection. No network connection was changed.') from None
+    if not protected:
+        raise NetworkError('Cannot identify a safe access path. No network connection was changed.')
+    return sorted(protected)
+
+def protect_access(data, interface):
+    if interface in access_interfaces(data):
+        raise NetworkError('This connection is carrying your current session. Connect through another interface before disabling or reconfiguring it.')
+
 def execute(data):
     action = validate(data)
-    if action in ('uplink', 'ethernet'):
+    if action == 'access':
+        return {'ok': True, 'protected': access_interfaces(data)}
+    if action in ('uplink', 'ethernet', 'hotspot'):
         ap_details()
-        interface = 'eth0' if action == 'ethernet' else 'wlan1'
-        label = 'Ethernet' if action == 'ethernet' else 'Upstream Wi-Fi'
+        interface = {'ethernet':'eth0', 'uplink':'wlan1', 'hotspot':'wlan0'}[action]
+        label = {'ethernet':'Ethernet', 'uplink':'Upstream Wi-Fi', 'hotspot':'Hotspot'}[action]
         # Never use radio wifi off: it also disables the hotspot adapter.
         if data['enabled']:
-            nm('device', 'connect', interface, timeout=30)
+            nm('connection', 'up', 'id', 'DataArk', 'ifname', 'wlan0', timeout=30) if action == 'hotspot' else nm('device', 'connect', interface, timeout=30)
         else:
+            protect_access(data, interface)
             nm('device', 'disconnect', interface, timeout=15)
         return {'ok': True, 'enabled': data['enabled'],
                 'message': label + ' enabled.' if data['enabled'] else
@@ -88,6 +136,7 @@ def execute(data):
     ssid = data['ssid']
     old_ap = ap_details()
     if action == 'rename':
+        protect_access(data, 'wlan0')
         if ssid == old_ap:
             return {'ok': True, 'ssid': ssid, 'message': 'AP name unchanged.'}
         nm('connection', 'modify', 'id', 'DataArk', '802-11-wireless.ssid', ssid)
@@ -103,6 +152,7 @@ def execute(data):
         return {'ok': True, 'ssid': ssid, 'message': 'AP name updated.'}
     if ssid == old_ap:
         raise ValueError('Choose an upstream network, not this appliance’s own access point.')
+    protect_access(data, 'wlan1')
     previous = nm('-g', 'GENERAL.CON-UUID', 'device', 'show', 'wlan1')
     connection_id = str(uuid.uuid4())
     args = ['connection', 'add', 'type', 'wifi', 'ifname', 'wlan1',

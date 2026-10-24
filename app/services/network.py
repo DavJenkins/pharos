@@ -97,6 +97,7 @@ def wifi():
 
 
 def access_point():
+    autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", "wlan0"]).strip()
     info = run(["iw", "dev", "wlan0", "info"])
     fields = {}
     for line in info.splitlines():
@@ -133,6 +134,7 @@ def access_point():
 
     return {
         "ssid": ssid,
+        "enabled": True if autoconnect == "yes" else False if autoconnect == "no" else None,
         "active": active,
         "state": "unknown" if active is None else "active" if active else "inactive",
         "ip": _ip4("wlan0"),

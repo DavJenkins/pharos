@@ -3,7 +3,7 @@
     const items = {
         "eth-button": {name:"Ethernet", description:"The Ark's wired upstream connection. Disabling it preserves its configuration and leaves the DataArk hotspot available. A restart can reconnect it.", toggle:true},
         "wifi-button": {name:"Wi-Fi", description:"The Ark’s upstream Wi-Fi. Disabling it retains saved networks and leaves the DataArk hotspot available. A restart can reconnect it.", settings:"/config/wifi.html", settingsLabel:"Choose a Wi-Fi network", toggle:true},
-        "ap-button": {name:"Hotspot", description:"The DataArk Wi-Fi network your devices join to use the Ark.", settings:"/config/system.html", settingsLabel:"Change hotspot settings"},
+        "ap-button": {name:"Hotspot", description:"The DataArk Wi-Fi network your devices join to use the Ark.", settings:"/config/system.html", settingsLabel:"Change hotspot settings", toggle:true},
         "portal-continue": {name:"Internet pass-through", description:"Allow this device to reach the internet through the Ark. This does not change access for other devices. Permission lasts up to six hours and resets when the Ark restarts.", toggle:true},
         "system-button": {name:"System", description:"The Ark's health, running time, and library storage.", settings:"/library.html", settingsLabel:"Manage Library"},
         "refresh-button": {name:"Auto refresh", description:"Update the displayed dashboard status every five seconds. Pausing this does not stop the Ark's services.", toggle:true},
@@ -38,22 +38,41 @@
         document.getElementById("status-dialog-toggle-row").after(wifiMessage);
         const passwordDialog = document.createElement("dialog");
         passwordDialog.className = "caretaker-dialog";
-        passwordDialog.innerHTML = '<form method="dialog"><h2>Caretaker password</h2><p>Authorize the network change.</p><label>Password<input type="password" name="password" autocomplete="off" required></label><p class="dialog-actions"><button value="cancel" type="button">Cancel</button><button value="apply" type="submit">Apply</button></p></form>';
+        passwordDialog.innerHTML = '<form method="dialog"><h2>Caretaker password</h2><p>Authorize the network change.</p><label>Password<input type="password" name="password" autocomplete="off" required></label><label><input type="checkbox" name="remember"> Remember for 10 minutes</label><p class="dialog-actions"><button value="cancel" type="button">Cancel</button><button value="apply" type="submit">Apply</button></p></form>';
         document.body.append(passwordDialog);
         passwordDialog.querySelector('[value="cancel"]').addEventListener("click", () => passwordDialog.close("cancel"));
+        let cachedPassword = null;
+        let passwordExpires = 0;
+        let passwordTimer;
+        function forgetPassword() { cachedPassword = null; passwordExpires = 0; clearTimeout(passwordTimer); }
         function askPassword() {
+            if (cachedPassword && Date.now() < passwordExpires) return Promise.resolve(cachedPassword);
+            forgetPassword();
             const input = passwordDialog.querySelector("input");
             input.value = "";
+            passwordDialog.querySelector("[name=remember]").checked = false;
             passwordDialog.returnValue = "cancel";
             return new Promise(resolve => {
                 passwordDialog.addEventListener("close", () => {
                     const password = passwordDialog.returnValue === "apply" ? input.value : null;
+                    if (password && passwordDialog.querySelector("[name=remember]").checked) {
+                        cachedPassword = password;
+                        passwordExpires = Date.now() + 600000;
+                        passwordTimer = setTimeout(forgetPassword, 600000);
+                    }
                     input.value = "";
                     resolve(password);
                 }, {once:true});
                 passwordDialog.showModal();
                 input.focus();
             });
+        }
+        let access = {known:false, protected:[]};
+        async function refreshAccess() {
+            try { const response = await fetch("/api/network/admin/access", {cache:"no-store"});
+                if (!response.ok) throw new Error(); access = await response.json();
+            } catch (_) { access = {known:false, protected:[]}; }
+            render();
         }
         let wifiBusy = false;
         let selected = null;
@@ -121,19 +140,22 @@
             heading.textContent = item.name;
             description.textContent = item.description;
             renderDetails(item, original.title);
-            value.hidden = !!item.url || (!!item.toggle && !["wifi-button", "eth-button"].includes(selected));
-            wifiMessage.hidden = !["wifi-button", "eth-button"].includes(selected);
+            value.hidden = !!item.url || (!!item.toggle && !["wifi-button", "eth-button", "ap-button"].includes(selected));
+            wifiMessage.hidden = !["wifi-button", "eth-button", "ap-button"].includes(selected);
             document.getElementById("status-dialog-toggle-row").hidden = !item.toggle;
             if (item.toggle) {
-                const enabled = ["wifi-button", "eth-button"].includes(selected) ? ((selected === "eth-button" ? DataArkStatus.ethernet : DataArkStatus.wifi).enabled ?? (selected === "eth-button" ? DataArkStatus.ethernet : DataArkStatus.wifi).connected) === true : original.classList.contains("on");
+                const enabled = ["wifi-button", "eth-button", "ap-button"].includes(selected) ? ((selected === "ap-button" ? DataArkStatus.accessPoint : selected === "eth-button" ? DataArkStatus.ethernet : DataArkStatus.wifi).enabled ?? (selected === "ap-button" ? DataArkStatus.accessPoint.active : selected === "eth-button" ? DataArkStatus.ethernet.connected : DataArkStatus.wifi.connected)) === true : original.classList.contains("on");
                 const unavailable = original.getAttribute("data-action-disabled") === "true" || original.classList.contains("error");
                 if (pending && pending.id === selected && enabled === pending.checked) {
                     pending = null;
                     clearTimeout(pendingTimer);
                 }
-                action.disabled = wifiBusy || unavailable || original.getAttribute("aria-busy") === "true" || !!pending;
+                const interfaceName = {"ap-button":"wlan0", "wifi-button":"wlan1", "eth-button":"eth0"}[selected];
+                const protectedPath = interfaceName && enabled && (!access.known || access.protected.includes(interfaceName));
+                if (interfaceName && !wifiBusy && protectedPath) wifiMessage.textContent = protectedPath ? (access.known ? "This is your current access path. Connect through another interface to disable it." : "Checking your access path; disabling is blocked until it can be verified.") : "";
+                action.disabled = !!protectedPath || wifiBusy || unavailable || original.getAttribute("aria-busy") === "true" || !!pending;
                 action.checked = pending && pending.id === selected ? pending.checked : enabled;
-                document.getElementById("status-dialog-toggle-label").textContent = selected === "eth-button" ? "Enable Ethernet" : selected === "wifi-button" ? "Enable upstream Wi-Fi" : selected === "debug-button" ? "Enable debug diagnostics" : selected === "refresh-button" ? "Update status automatically" : "Use the Ark's internet connection on this device";
+                document.getElementById("status-dialog-toggle-label").textContent = selected === "ap-button" ? "Enable hotspot" : selected === "eth-button" ? "Enable Ethernet" : selected === "wifi-button" ? "Enable upstream Wi-Fi" : selected === "debug-button" ? "Enable debug diagnostics" : selected === "refresh-button" ? "Update status automatically" : "Use the Ark's internet connection on this device";
             }
             terminalLink.hidden = selected !== "system-button";
             link.hidden = !(item.settings || item.url);
@@ -149,8 +171,10 @@
                 if (allowAction) return;
                 event.preventDefault();
                 event.stopImmediatePropagation();
+                if (selected !== id) wifiMessage.textContent = "";
                 selected = id;
                 render();
+                if (["ap-button","wifi-button","eth-button"].includes(id)) refreshAccess();
                 if (!dialog.open) dialog.showModal();
                 if(id==="system-button")refreshLibrary();
                 close.focus();
@@ -159,9 +183,10 @@
         }
         action.addEventListener("change", async () => {
             if (!selected || action.disabled) return;
-            if (["wifi-button", "eth-button"].includes(selected)) {
+            if (["wifi-button", "eth-button", "ap-button"].includes(selected)) {
                 const wired = selected === "eth-button";
-                const networkName = wired ? "Ethernet" : "upstream Wi-Fi";
+                const hotspot = selected === "ap-button";
+                const networkName = hotspot ? "hotspot" : wired ? "Ethernet" : "upstream Wi-Fi";
                 const enabled = action.checked;
                 wifiBusy = true;
                 action.disabled = true;
@@ -174,13 +199,14 @@
                     let response;
                     try {
                         const bytes = new TextEncoder().encode("admin:" + password);
-                        response = await fetch("/api/network/admin/" + (wired ? "ethernet" : "uplink"), {
+                        response = await fetch("/api/network/admin/" + (hotspot ? "hotspot" : wired ? "ethernet" : "uplink"), {
                             method:"POST", cache:"no-store", signal:controller.signal,
                             headers:{"Content-Type":"application/json", "Authorization":"Basic " + btoa(Array.from(bytes, b => String.fromCharCode(b)).join(""))},
                             body:JSON.stringify({enabled})
                         });
                     } finally { clearTimeout(timeout); }
                     const result = await response.json();
+                    if (response.status === 401) forgetPassword();
                     if (!response.ok) throw new Error(response.status === 401 ? "Incorrect caretaker password. The connection was not changed." : result.detail || "Network change failed.");
                     wifiMessage.textContent = result.message;
                     await DataArkStatus.refresh();

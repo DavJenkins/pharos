@@ -27,6 +27,7 @@ class Wifi(BaseModel):
 
 
 class AccessPoint(BaseModel):
+    enabled: bool | None = None
     active: bool | None = None
     state: str = "unknown"
     ip: str = ""

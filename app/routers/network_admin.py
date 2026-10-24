@@ -7,7 +7,7 @@ router = APIRouter(prefix='/network/admin', tags=['Network administration'])
 
 @router.post('/{action}')
 async def network_action(action: str, request: Request):
-    if action not in ('scan', 'connect', 'rename', 'uplink', 'ethernet'):
+    if action not in ('scan', 'connect', 'rename', 'uplink', 'ethernet', 'hotspot'):
         raise HTTPException(404, 'Unknown network operation')
     header = request.headers.get('authorization', '')
     if len(header) > 2048 or not await run_in_threadpool(authorized, header):
@@ -23,9 +23,16 @@ async def network_action(action: str, request: Request):
         data = json.loads(body)
     except (ValueError, UnicodeError):
         raise HTTPException(400, 'Invalid JSON') from None
-    if not isinstance(data, dict) or 'action' in data:
+    if not isinstance(data, dict) or set(data) & {'action', 'peer', 'server'}:
         raise HTTPException(400, 'Invalid network request')
-    result = await run_in_threadpool(invoke, {'action': action, **data})
+    result = await run_in_threadpool(invoke, {'action': action, **data, 'peer': request.headers.get('x-dataark-peer', '')})
     if not result['ok']:
         raise HTTPException(400, result.get('error', 'Network operation failed'))
     return result
+
+
+@router.get('/access')
+async def current_access(request: Request):
+    result = await run_in_threadpool(invoke, {'action':'access',
+        'peer':request.headers.get('x-dataark-peer','')})
+    return {'protected': result.get('protected', []), 'known': bool(result.get('ok'))}

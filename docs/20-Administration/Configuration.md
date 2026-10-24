@@ -154,3 +154,21 @@ disconnect/connect operation and retains its saved profile. Both controls are
 temporary until re-enabled or restarted. Use the hotspot address `192.168.4.1`
 before disabling either upstream route; disabling both simulates isolation
 without unplugging cables. Client-side Ethernet/cellular routes must also be off.
+
+
+### Protect the current access path
+
+Wi-Fi, Ethernet and Hotspot pop-ups provide password-protected enable checkboxes.
+The hotspot uses only the saved DataArk profile on wlan0. Disabling or changing
+the current access path is refused by the privileged helper, using Apache's
+overwritten client address, local kernel HTTP socket records and the return
+route. On a shared upstream subnet both receiving and return interfaces may be
+protected. Missing or unrecognized connection information fails closed.
+Hotspot clients cannot disable or rename the hotspot even using a LAN URL.
+Use a different interface before changing the current connection. The Pi's
+local keyboard/KVM remains an independent recovery path.
+
+The password prompt optionally remembers the password in that page's JavaScript
+memory for ten minutes. It is not written to browser storage. Reload, expiry,
+or an authentication failure clears it. The server authenticates every request
+and rechecks the access path regardless of the password cache.
