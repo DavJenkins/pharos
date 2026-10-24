@@ -1,0 +1,292 @@
+[
+  {
+    "id": "maine-survival",
+    "collection": "resilience",
+    "group": "Wilderness survival",
+    "title": "You Alone in the Maine Woods",
+    "format": "pdf",
+    "url": "https://www.maine.gov/ifw/docs/20-MDIFW-18-You-Alone.pdf",
+    "edition": "Maine IFW 2020 file; read publisher dates and cautions",
+    "note": "Illustrated state-agency survival reference; preserve original publisher notices."
+  },
+  {
+    "id": "usfs-before-you-go",
+    "collection": "resilience",
+    "group": "Wilderness survival",
+    "title": "US Forest Service — Know Before You Go",
+    "format": "pdf",
+    "url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5300292.pdf",
+    "edition": "Publisher file retrieved at installation",
+    "note": "Trip preparation and what to do if lost. U.S. government publication."
+  },
+  {
+    "id": "usfs-outdoor-safety",
+    "collection": "resilience",
+    "group": "Wilderness survival",
+    "title": "US Forest Service — Outdoor Safety",
+    "format": "pdf",
+    "url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd524522.pdf",
+    "edition": "Publisher file retrieved at installation",
+    "note": "Outdoor hazards, exposure and lost-person guidance. Reference, not a substitute for first-aid training."
+  },
+  {
+    "id": "nps-ten-essentials",
+    "collection": "resilience",
+    "group": "Wilderness survival",
+    "title": "National Park Service — The Ten Essentials",
+    "format": "pdf",
+    "url": "https://www.nps.gov/mora/planyourvisit/upload/ten-essentials-web-site-bulletin.pdf",
+    "edition": "Mount Rainier NPS bulletin; archived publisher edition",
+    "note": "Basic trip equipment and preparation. U.S. government publication."
+  },
+  {
+    "id": "usgs-compass",
+    "collection": "resilience",
+    "group": "Wilderness survival",
+    "title": "USGS — Finding Your Way with Map and Compass",
+    "format": "pdf",
+    "url": "https://pubs.usgs.gov/fs/2001/0035/report.pdf",
+    "edition": "USGS Fact Sheet 035-01 (2001)",
+    "note": "Map and compass fundamentals. Magnetic declination changes: obtain appropriate current local data."
+  },
+  {
+    "id": "nps-water-sanitation",
+    "collection": "resilience",
+    "group": "Wilderness survival",
+    "title": "NPS — Wilderness Sanitation and Water Treatment",
+    "format": "html",
+    "url": "https://www.nps.gov/olym/planyourvisit/wilderness-sanitation.htm",
+    "edition": "Olympic National Park text snapshot at retrieval",
+    "note": "Park-specific context and restrictions remain relevant to interpretation; text-only copy. U.S. government source."
+  },
+  {
+    "id": "nrel-solar-basics",
+    "collection": "resilience",
+    "group": "Off-grid power",
+    "title": "DOE / NREL — Own Your Power: Solar Electricity for the Home",
+    "format": "pdf",
+    "url": "https://www1.eere.energy.gov/solar/pdfs/43844.pdf",
+    "edition": "DOE/NREL 2009 archived consumer guide",
+    "note": "Solar fundamentals; incentives, costs and code references are historical, not current installation specifications."
+  },
+  {
+    "id": "doe-solar-community",
+    "collection": "resilience",
+    "group": "Off-grid power",
+    "title": "DOE — Solar Power in Your Community",
+    "format": "pdf",
+    "url": "https://www.energy.gov/sites/default/files/2022-02/solar-power-in-your-community-guidebook.pdf",
+    "edition": "2022 guidebook",
+    "note": "Planning, solar deployment and policy reference. Verify current law and incentives separately."
+  },
+  {
+    "id": "doe-small-wind",
+    "collection": "resilience",
+    "group": "Off-grid power",
+    "title": "DOE — Small Wind Guidebook",
+    "format": "html",
+    "url": "https://www.energy.gov/cmei/systems/windexchange/small-wind-guidebook",
+    "edition": "Text snapshot at retrieval",
+    "note": "Small wind, siting, system components and off-grid considerations. Images/video not included in the text snapshot."
+  },
+  {
+    "id": "doe-small-wind-pdf",
+    "collection": "resilience",
+    "group": "Off-grid power",
+    "title": "DOE — Consumer Guide to Small Wind Energy Systems",
+    "format": "pdf",
+    "url": "https://www.govinfo.gov/content/pkg/GOVPUB-E-PURL-gpo224740/pdf/GOVPUB-E-PURL-gpo224740.pdf",
+    "edition": "2021 archived consumer guide",
+    "note": "U.S. government publication. Pair technical basics with current equipment instructions and local requirements."
+  },
+  {
+    "id": "osha-generators",
+    "collection": "resilience",
+    "group": "Off-grid power",
+    "title": "OSHA — Using Portable Generators Safely",
+    "format": "pdf",
+    "url": "https://www.osha.gov/sites/default/files/publications/OSHA3286.pdf",
+    "edition": "OSHA 3286 publisher edition at retrieval",
+    "note": "Generator electrical, carbon-monoxide, fire and fuel hazards. U.S. government publication."
+  },
+  {
+    "id": "doe-microhydro",
+    "collection": "resilience",
+    "group": "Off-grid power",
+    "title": "DOE — Microhydropower Systems",
+    "format": "html",
+    "url": "https://www.energy.gov/energysaver/microhydropower-systems",
+    "edition": "Text snapshot if publisher endpoint is available",
+    "note": "Energy Saver micro-hydro guide. A failed endpoint is not treated as installed content."
+  },
+  {
+    "id": "us-constitution",
+    "collection": "civic-reference",
+    "group": "Federal law",
+    "title": "U.S. Constitution, Declaration of Independence and index — Pocket Edition",
+    "format": "pdf",
+    "url": "https://www.govinfo.gov/content/pkg/GPO-CDOC-111sdoc4/pdf/GPO-CDOC-111sdoc4.pdf",
+    "edition": "Senate document 111-4, 2010 pocket edition",
+    "note": "Constitutional text and index, not current case-law commentary. U.S. government publication."
+  },
+  {
+    "id": "cfr44-v1",
+    "collection": "civic-reference",
+    "group": "Federal regulations",
+    "title": "44 CFR — Emergency Management and Assistance, Volume 1",
+    "format": "pdf",
+    "url": "https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol1/pdf/CFR-2025-title44-vol1.pdf",
+    "edition": "2025 annual CFR edition; not live eCFR",
+    "note": "Selected federal regulations only. Subsequent rules, emergency orders and other CFR titles are not included."
+  },
+  {
+    "id": "cfr44-v2",
+    "collection": "civic-reference",
+    "group": "Federal regulations",
+    "title": "44 CFR — Emergency Management and Assistance, Volume 2",
+    "format": "pdf",
+    "url": "https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol2/pdf/CFR-2025-title44-vol2.pdf",
+    "edition": "2025 annual CFR edition; not live eCFR",
+    "note": "Selected federal regulations only. Subsequent rules, emergency orders and other CFR titles are not included."
+  },
+  {
+    "id": "ma-constitution",
+    "collection": "civic-reference",
+    "group": "Massachusetts law",
+    "title": "Massachusetts Constitution",
+    "format": "html",
+    "url": "https://malegislature.gov/Laws/Constitution",
+    "edition": "Unofficial legislature text snapshot at retrieval",
+    "note": "Publisher page text, not a certified official copy or a guarantee of current legal effect."
+  },
+  {
+    "id": "ma-electrical",
+    "collection": "civic-reference",
+    "group": "Electrical, building and fire codes",
+    "title": "Massachusetts electrical-code amendments — 527 CMR 12.00",
+    "format": "pdf",
+    "url": "https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download",
+    "edition": "State page identifies effective April 24, 2026; NFPA 70 2026 base",
+    "note": "Massachusetts amendments only. The copyrighted NEC base book is not included. Verify requirements with the authority having jurisdiction."
+  },
+  {
+    "id": "ma-fire",
+    "collection": "civic-reference",
+    "group": "Electrical, building and fire codes",
+    "title": "Massachusetts fire-code amendments — 527 CMR 1.00",
+    "format": "pdf",
+    "url": "https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download",
+    "edition": "2021 state edition, effective May 12, 2023; verify later amendments",
+    "note": "State amendment package, not the full NFPA 1 model-code book. Proposed 2024 amendments are not treated as adopted law."
+  },
+  {
+    "id": "ma-building-preamble",
+    "collection": "civic-reference",
+    "group": "Electrical, building and fire codes",
+    "title": "Massachusetts Building Code 780 CMR — tenth-edition preamble",
+    "format": "pdf",
+    "url": "https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download",
+    "edition": "Tenth edition; concurrency ended June 30, 2025",
+    "note": "Preamble and adoption context only; not the complete building code or the copyrighted model-code books."
+  },
+  {
+    "id": "ma-building-toc",
+    "collection": "civic-reference",
+    "group": "Electrical, building and fire codes",
+    "title": "Massachusetts Building Code 780 CMR — tenth-edition contents",
+    "format": "pdf",
+    "url": "https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download",
+    "edition": "Tenth-edition table of contents",
+    "note": "Contents only; individual amendments and referenced ICC base texts must also be consulted."
+  },
+  {
+    "id": "ma-electrical-adoption",
+    "collection": "civic-reference",
+    "group": "Electrical, building and fire codes",
+    "title": "Massachusetts Electrical Code — adoption and source information",
+    "format": "html",
+    "url": "https://www.mass.gov/info-details/massachusetts-electrical-code",
+    "edition": "State information-page snapshot at retrieval",
+    "note": "Source information, not a substitute for the actual code and amendments. Outside links require internet."
+  },
+  {
+    "id": "ma-fire-adoption",
+    "collection": "civic-reference",
+    "group": "Electrical, building and fire codes",
+    "title": "Massachusetts Fire Code — adoption and source information",
+    "format": "html",
+    "url": "https://www.mass.gov/info-details/massachusetts-fire-code",
+    "edition": "State information-page snapshot at retrieval",
+    "note": "Includes both adopted and proposed material; proposed amendments are not current law. Refer to original labels."
+  },
+  {
+    "id": "ma-building-adoption",
+    "collection": "civic-reference",
+    "group": "Electrical, building and fire codes",
+    "title": "Massachusetts Building Code — tenth-edition amendment index",
+    "format": "html",
+    "url": "https://www.mass.gov/regulations/780-cmr-tenth-edition-table-of-contents",
+    "edition": "State index snapshot at retrieval",
+    "note": "Index to state amendments; not the full ICC model code. Individual downloads may be unavailable."
+  },
+  {
+    "id": "gardner-code",
+    "collection": "civic-reference",
+    "group": "Gardner local law",
+    "title": "Gardner City Code",
+    "format": "html",
+    "url": "https://www.ecode360.com/GA3020",
+    "edition": "Municipal-code publisher snapshot if publicly retrievable",
+    "note": "City-selected code publisher. If access is blocked the code remains not installed; no access controls are bypassed."
+  },
+  {
+    "id": "gardner-code-source",
+    "collection": "civic-reference",
+    "group": "Gardner local law",
+    "title": "Gardner City Code — official city source page",
+    "format": "html",
+    "url": "https://www.gardner-ma.gov/1019/City-Code",
+    "edition": "City information page at retrieval",
+    "note": "Official source directory only, not the ordinance text itself. The actual code is on the city's chosen external publisher."
+  },
+  {
+    "id": "ma-small-claims",
+    "collection": "civic-reference",
+    "group": "Massachusetts court rules",
+    "title": "Massachusetts Uniform Small Claims Rules — source index",
+    "format": "html",
+    "url": "https://www.mass.gov/rules-of-court/uniform-small-claims-rules",
+    "edition": "Court-rules index at retrieval",
+    "note": "Index is not the full rules. Linked individual rules are archived where accessible. Verify amendments and local court requirements."
+  },
+  {
+    "id": "pnnl-energy-storage",
+    "collection": "resilience",
+    "group": "Off-grid power",
+    "title": "PNNL — Introductory Guide to Generating, Using and Storing Energy",
+    "url": "https://www.osti.gov/servlets/purl/2327029",
+    "format": "pdf",
+    "edition": "PNNL-33984, April 2023",
+    "note": "Electricity, household loads, batteries, solar sizing and microgrids. Public DOE-sponsored report; original notices retained."
+  },
+  {
+    "id": "colorado-microhydro",
+    "collection": "resilience",
+    "group": "Off-grid power",
+    "title": "Colorado Small Hydropower Handbook",
+    "url": "https://extension.colostate.edu/docs/energy/hydro-handbook.pdf",
+    "format": "pdf",
+    "edition": "Colorado Energy Office handbook; edition retained in publisher file",
+    "note": "Micro-hydro planning and engineering reference. Colorado permitting context is not Massachusetts law. Original publisher notices retained."
+  },
+  {
+    "id": "fcc-part97",
+    "collection": "civic-reference",
+    "group": "Radio communications",
+    "title": "FCC Part 97 — Amateur Radio Service",
+    "url": "https://www.govinfo.gov/content/pkg/CFR-2025-title47-vol5/pdf/CFR-2025-title47-vol5-part97.pdf",
+    "format": "pdf",
+    "edition": "47 CFR Part 97, October 1, 2025 annual edition",
+    "note": "Complete Part 97 annual snapshot including emergency communications. Not live eCFR; check later amendments before relying on current regulatory requirements."
+  }
+]

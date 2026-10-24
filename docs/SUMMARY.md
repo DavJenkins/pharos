@@ -33,6 +33,7 @@
 - [Browser terminal](20-Administration/BrowserTerminal.md)
 - [VNC desktop access](20-Administration/VNC.md)
 - [Project status: October 21, 2026](20-Administration/ProjectStatus-2026-10-21.md)
+- [Survival, power, laws and PDF forms](20-Administration/ResilienceResources.md)
 - [System Inventory](20-Administration/SystemInventory.md)
 - [Release Notes](20-Administration/ReleaseNotes.md)
 

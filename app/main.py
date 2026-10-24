@@ -37,3 +37,6 @@ def root():
 
 from app.routers.library import router as library_router
 app.include_router(library_router)
+
+from app.routers.callsigns import router as callsigns_router
+app.include_router(callsigns_router)
