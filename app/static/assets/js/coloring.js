@@ -1,3 +1,4 @@
+import {fillRegion} from './coloring-fill.js?v=c6b5ce9a9826dd04';
 import * as pdfjs from '/assets/vendor/pdfjs/build/pdf.mjs';
 pdfjs.GlobalWorkerOptions.workerSrc='/assets/vendor/pdfjs/build/pdf.worker.mjs';
 const el=id=>document.getElementById(id),base=el('pdf-layer'),ink=el('ink-layer'),ctx=ink.getContext('2d',{willReadFrequently:true});
@@ -15,11 +16,14 @@ el('blank').onclick=async()=>{if((changed||pages.size)&&!confirm('Clear this ses
 el('previous').onclick=()=>show(page-1);el('next').onclick=()=>show(page+1);const go=()=>{if(pdf)show(Math.max(1,Math.min(pdf.numPages,Number(el('page-number').value)||1)));};el('go-page').onclick=go;el('page-number').onkeydown=e=>{if(e.key==='Enter')go();};
 function point(e){const r=ink.getBoundingClientRect();return [(e.clientX-r.left)*ink.width/r.width,(e.clientY-r.top)*ink.height/r.height];}
 function fill(x,y){
+  if(x<0||y<0||x>=ink.width||y>=ink.height)return;
   const composite=document.createElement('canvas');composite.width=base.width;composite.height=base.height;const c=composite.getContext('2d',{willReadFrequently:true});c.drawImage(base,0,0);c.drawImage(ink,0,0);const image=c.getImageData(0,0,ink.width,ink.height),p=image.data,W=ink.width,H=ink.height,offset=(Math.floor(y)*W+Math.floor(x))*4,target=Array.from(p.slice(offset,offset+3));
   if(target.every(v=>v<110)){status('Tap inside an area rather than on a dark outline.');return;}
+  const rgb=el('paint-color').value.match(/\w\w/g).map(v=>parseInt(v,16)),paint=ctx.getImageData(0,0,W,H);
+  const filled=fillRegion(p,paint.data,W,H,x,y,rgb,el('brush-size').value);
+  if(!filled){status('The brush is too wide for this area. Try a smaller brush size.');return;}
   checkpoint();
-  const rgb=el('paint-color').value.match(/\w\w/g).map(v=>parseInt(v,16)),paint=ctx.getImageData(0,0,W,H),out=paint.data,visited=new Uint8Array(W*H),stack=[Math.floor(y)*W+Math.floor(x)];
-  while(stack.length){const n=stack.pop();if(visited[n])continue;visited[n]=1;const i=n*4;if(Math.max(...target.map((v,k)=>Math.abs(v-p[i+k])))>45)continue;out[i]=rgb[0];out[i+1]=rgb[1];out[i+2]=rgb[2];out[i+3]=255;const xx=n%W,yy=Math.floor(n/W);if(xx>0)stack.push(n-1);if(xx<W-1)stack.push(n+1);if(yy>0)stack.push(n-W);if(yy<H-1)stack.push(n+W);}
+  status('Area filled. Brush width controls which gaps the fill can pass through.');
   ctx.putImageData(paint,0,0);
 }
 ink.onpointerdown=e=>{if(busy)return;e.preventDefault();ink.setPointerCapture(e.pointerId);last=point(e);if(el('tool').value==='fill'){fill(...last);return;}checkpoint();drawing=true;stroke(last,last);};
