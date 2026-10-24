@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """Fixed SSH entry point for explicitly selected public PDFs; never imports private forms."""
-import base64, contextlib, fcntl, hashlib, io, json, re, subprocess, sys, tempfile
+import base64, contextlib, fcntl, hashlib, io, json, re, subprocess, sys, tempfile, urllib.request, urllib.error, shutil, concurrent.futures
+from datetime import datetime,timezone
 from pathlib import Path
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 MAX=30*1024*1024
+STATE=Path('/var/lib/dataark/browser-capture')
+PUBLIC_STATUS=Path('/mnt/storage/browser-capture-status.json')
+MOUNT=Path('/mnt/storage')
 IDENTITY={
  'cdc-wrigley-en':['coping','disaster'], 'cdc-wrigley-es':['desastre','emocionales'],
  'cdc-backpack':['contact','emergency'], 'cdc-pet-kit':['pet','emergency'],
@@ -41,11 +45,73 @@ def target(identifier):
     collection=folder or item['collection'];records_path=Path('/mnt/storage')/collection/'sources.json'
     records=json.loads(records_path.read_text());old=next((x for x in records if x.get('id')==identifier),None)
     if old is None:raise ValueError('Reference has no recorded inventory entry.')
-    if old['status']=='installed' and not old.get('acquisition',{}).get('method','').startswith('user-selected browser'):
-     raise ValueError('Already installed; browser capture never overwrites installed content.')
     if item.get('format','pdf')!='pdf' or identifier not in IDENTITY:raise ValueError('Only approved PDF targets are supported.')
     return catalogue,collection,item,records_path,records
  raise ValueError('Unknown reference ID.')
+
+def now():return datetime.now(timezone.utc).isoformat()
+
+def save_status(identifier,value):
+ from tools.install_family_resources import atomic
+ STATE.mkdir(parents=True,exist_ok=True);STATE.chmod(0o700)
+ p=STATE/'update-checks.json';data=json.loads(p.read_text()) if p.exists() else {}
+ data[identifier]=value;encoded=(json.dumps(data,ensure_ascii=False,indent=2)+'\n').encode()
+ atomic(p,encoded);p.chmod(0o600);atomic(PUBLIC_STATUS,encoded)
+
+def compare_download(data,old,identifier):
+ validate_pdf(data,identifier)
+ digest=hashlib.sha256(data).hexdigest()
+ return {'state':'current' if digest==old['sha256'] else 'changed','candidate_sha256':digest,
+         'installed_sha256':old['sha256'],'checked_at':now(),
+         'message':'Publisher file matches installed copy.' if digest==old['sha256'] else 'Publisher PDF has changed. Review and capture the replacement; changed bytes do not prove a newer edition.'}
+
+def inspect_source(identifier):
+ _,_,item,_,records=target(identifier);old=next(x for x in records if x.get('id')==identifier)
+ if old['status']!='installed':return None
+ try:
+  with urllib.request.urlopen(urllib.request.Request(item['url'],headers={'User-Agent':'Mozilla/5.0 (Data Ark reference update check)'}),timeout=35) as response:
+   data=response.read(MAX+1)
+  result=compare_download(data,old,identifier)
+ except Exception as e:
+  verified=old.get('acquisition',{}).get('verified_at',old.get('checked_at')) if old.get('acquisition') else None
+  policy=json.loads((ROOT/'deploy/reference/browser-capture-policy.json').read_text())
+  age_days=(datetime.now(timezone.utc)-datetime.fromisoformat(verified)).total_seconds()/86400 if verified else float('inf')
+  result={'state':'blocked' if isinstance(e,urllib.error.HTTPError) and e.code==403 else 'unknown',
+          'installed_sha256':old['sha256'],'checked_at':now(),
+          'browser_verified_at':verified,'review_due':age_days>=policy['manual_review_after_days'],
+          'message':('Automated check could not verify the publisher file. Installed copy remains available; browser review is due. ' if age_days>=policy['manual_review_after_days'] else 'Automated publisher check was blocked or inconclusive. Recent browser verification still stands; no review is due. ')+str(e)[:200]}
+ return result
+
+def check_updates():
+ results={}
+ # Explicit request only, not a timer; a failed check never removes a local file.
+ def one(identifier):
+  try:return identifier,inspect_source(identifier)
+  except ValueError:return identifier,None
+ with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+  for identifier,result in pool.map(one,IDENTITY):
+   if result is not None:save_status(identifier,result);results[identifier]=result
+ return {'ok':True,'updates':results,'message':'Publisher checks finished; blocked checks are not announcements of a new edition.'}
+
+def preserve_previous(old,collection,payload,data):
+ """Compare-and-swap guard plus verified recovery copy, before any replacement."""
+ digest=hashlib.sha256(data).hexdigest()
+ path=MOUNT/collection/old['filename']
+ if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest()!=old['sha256']:
+  raise ValueError('Installed file does not match its recorded hash; replacement refused.')
+ if digest==old['sha256']:return None
+ if payload.get('expected_sha256')!=old['sha256']:
+  raise ValueError('Installed copy changed or replacement was not explicitly selected. Refresh the capture page.')
+ if shutil.disk_usage(STATE.parent).free<len(data)+256*1024*1024:
+  raise ValueError('Not enough system-disk space to preserve the previous verified copy.')
+ from tools.install_family_resources import atomic
+ folder=STATE/'history'/old['id'];folder.mkdir(parents=True,exist_ok=True);STATE.chmod(0o700)
+ backup=folder/(old['sha256']+'.pdf')
+ if backup.exists() and hashlib.sha256(backup.read_bytes()).hexdigest()!=old['sha256']:
+  raise ValueError('Existing recovery copy failed verification.')
+ if not backup.exists():atomic(backup,path.read_bytes());backup.chmod(0o600)
+ atomic(folder/(old['sha256']+'.json'),(json.dumps(old,ensure_ascii=False,indent=2)+'\n').encode())
+ return str(backup)
 
 def install(payload):
  identifier=payload.get('id');catalogue,collection,item,records_path,records=target(identifier)
@@ -56,14 +122,18 @@ def install(payload):
  class Response(io.BytesIO):
   url=item['url']
  old=next(x for x in records if x.get('id')==identifier)
- if old['status']=='installed':
-  if old.get('sha256')!=hashlib.sha256(data).hexdigest():raise ValueError('Already installed with different bytes; overwrite refused.')
+ replacing=old['status']=='installed' and old['sha256']!=hashlib.sha256(data).hexdigest()
+ backup=preserve_previous(old,collection,payload,data) if old['status']=='installed' else None
+ if old['status']=='installed' and not replacing:
   record=old  # Re-publish after a lost acknowledgement/deploy failure; never rewrite the PDF.
  else:
   with contextlib.redirect_stdout(sys.stderr),patch('urllib.request.urlopen',return_value=Response(data)):
    record=module.download(item)
  if record['status']!='installed' or record['sha256']!=hashlib.sha256(data).hexdigest():raise ValueError('Installer validation failed.')
- record['acquisition']={'method':'user-selected browser download via paired SSH helper','captured_url':str(payload.get('captured_url',''))[:2048], 'checks':'PDF parser, identity/year checks, SHA-256; not a publisher digital signature'}
+ record['acquisition']={**old.get('acquisition',{}),'method':'user-selected browser download via paired SSH helper','verified_at':now(),'captured_url':str(payload.get('captured_url',''))[:2048], 'checks':'PDF parser, identity/year checks, SHA-256; not a publisher digital signature'}
+ if replacing:
+  record['acquisition'].update(previous_sha256=old['sha256'],previous_copy=backup)
+  record['edition']='Browser-verified replacement captured '+now()[:10]+'. Pinned catalogue reference: '+item.get('edition','unspecified')+'. Consult the PDF for its revision; changed bytes alone do not establish a newer edition.'
  records=[record if x.get('id')==identifier else x for x in records]
  module.atomic(records_path,(json.dumps(records,ensure_ascii=False,indent=2)+'\n').encode())
  with contextlib.redirect_stdout(sys.stderr):
@@ -85,9 +155,10 @@ def install(payload):
   if row:
    report['unavailable_entries'].remove(row);row.update(resolution='Imported from explicitly selected browser download; PDF identity/year validated.',local_url='/library-files/'+collection+'/'+record['filename'],sha256=record['sha256'],pages=pages)
    report.setdefault('resolved_entries',[]).append(row);report['updated_at']=record['checked_at'];module.atomic(gap,(json.dumps(report,ensure_ascii=False,indent=2)+'\n').encode())
-  for command in [[str(ROOT/'venv/bin/python'),'tools/content_profile.py','export'],[str(ROOT/'venv/bin/python'),'tools/publish_content.py'],['bash','deploy/deploy-web.sh']]:
+  save_status(identifier,{'state':'current','installed_sha256':record['sha256'],'candidate_sha256':record['sha256'],'checked_at':now(),'message':'Browser file verified; installed copy is current as of this check.'})
+  for command in [['/usr/bin/python3','tools/build_content_gap_report.py'],[str(ROOT/'venv/bin/python'),'tools/content_profile.py','export'],[str(ROOT/'venv/bin/python'),'tools/publish_content.py'],['bash','deploy/deploy-web.sh']]:
    subprocess.run(command,cwd=ROOT,check=True,stdout=sys.stderr,stderr=sys.stderr,timeout=120)
- return {'ok':True,'message':record['title']+' installed on the Ark ('+str(pages)+' pages).','url':'/library-files/'+collection+'/'+record['filename']}
+ return {'ok':True,'message':record['title']+(' updated' if replacing else ' verified and installed')+' on the Ark ('+str(pages)+' pages).','url':'/library-files/'+collection+'/'+record['filename']}
 
 def main():
  try:
@@ -96,7 +167,8 @@ def main():
   payload=json.loads(raw)
   if not Path('/mnt/storage').is_mount():raise ValueError('Content drive is not mounted.')
   with Path('/var/lib/dataark/updates/browser-capture.lock').open('a') as lock:
-   fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);answer=install(payload)
+   fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+   answer=check_updates() if payload.get('operation')=='check_updates' else install(payload)
   print(json.dumps(answer))
  except Exception as e:
   print(json.dumps({'ok':False,'error':str(e)}));sys.exit(1)

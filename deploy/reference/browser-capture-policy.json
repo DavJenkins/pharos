@@ -1,0 +1,6 @@
+{
+  "schema": 1,
+  "automatic_checks": false,
+  "manual_review_after_days": 30,
+  "note": "Blocked/unknown source checks do not reopen a recently browser-verified capture. Changed validated bytes always require review. Checks are explicitly requested, not scheduled."
+}

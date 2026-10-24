@@ -134,9 +134,18 @@
     "source_page": "https://stacks.cdc.gov/view/cdc/58346/",
     "edition": "2018 CDC Stacks archived edition; retained as a coping activity book",
     "filename": "kids/cdc-wrigley-en.pdf",
-    "checked_at": "2026-10-24T00:50:51.591172+00:00",
-    "status": "unavailable",
-    "error": "HTTP Error 403: Forbidden"
+    "checked_at": "2026-10-24T20:08:17.970926+00:00",
+    "resolved_url": "https://stacks.cdc.gov/view/cdc/58346/cdc_58346_DS1.pdf",
+    "pages": 20,
+    "document_header": "COPING AFTER A DISASTER This series has been endorsed by: www.healthychildren.org",
+    "status": "installed",
+    "bytes": 1974241,
+    "sha256": "88b8d50decd75418792e6253f8380166c2707127e69acc0ef16837a18d5b5c56",
+    "acquisition": {
+      "method": "user-selected browser download via paired SSH helper",
+      "captured_url": "https://stacks.cdc.gov/view/cdc/58346/cdc_58346_DS1.pdf",
+      "checks": "PDF parser, identity/year checks, SHA-256; not a publisher digital signature"
+    }
   },
   {
     "id": "cdc-wrigley-es",
@@ -151,9 +160,18 @@
     "source_page": "https://stacks.cdc.gov/view/cdc/58345/",
     "edition": "2018 CDC Stacks archived edition; retained as a coping activity book",
     "filename": "kids/cdc-wrigley-es.pdf",
-    "checked_at": "2026-10-24T00:50:51.734627+00:00",
-    "status": "unavailable",
-    "error": "HTTP Error 403: Forbidden"
+    "checked_at": "2026-10-24T20:08:46.234501+00:00",
+    "resolved_url": "https://stacks.cdc.gov/view/cdc/58345/cdc_58345_DS1.pdf",
+    "pages": 20,
+    "document_header": "CÓMO SOBRELLEVAR LOS EFECTOS EMOCIONALES DE UN DESASTRE Esta serie cuenta con el respaldo de: www.healthychildren.org /spanish/paginas/default.aspx",
+    "status": "installed",
+    "bytes": 2117830,
+    "sha256": "e5769356462a4ba2023c4b616f1fdfe977f76420aef3b3f1dfd452f91eb132ff",
+    "acquisition": {
+      "method": "user-selected browser download via paired SSH helper",
+      "captured_url": "https://stacks.cdc.gov/view/cdc/58345/cdc_58345_DS1.pdf",
+      "checks": "PDF parser, identity/year checks, SHA-256; not a publisher digital signature"
+    }
   },
   {
     "id": "fema-ics",
@@ -246,9 +264,18 @@
     "purpose": "Family preparedness / contacts / planning",
     "license": "Source: CDC. Public-domain agency material; original notices retained. Free from CDC.gov. No CDC/HHS/U.S. Government endorsement implied.",
     "filename": "readiness/cdc-backpack.pdf",
-    "checked_at": "2026-10-24T00:50:53.241072+00:00",
-    "status": "unavailable",
-    "error": "HTTP Error 403: Forbidden"
+    "checked_at": "2026-10-24T20:09:08.975222+00:00",
+    "resolved_url": "https://stacks.cdc.gov/view/cdc/34175/cdc_34175_DS1.pdf",
+    "pages": 1,
+    "document_header": "BACKPACK EM ERGENCY CARD It is important to have your emergency contact information with you in case of an emergency. Complete the cards below and keep one in your wallet and one in your child's backpack. Cut Here Fold Here BACKPACK EMERGENCY CARD Parent/Guardian/Caregiver Child’s Name: Cell Phone: Alternate Phone: Date of Birth: Text Okay: Yes Employer: Home Phone: Name: E-mail: Cell Phone: □ No □ Name: E-mail: School Name: Cell Phone: Alternate Phone: School Phone Number: Text Okay: Yes Employer: Special needs, medical conditions, allergies, important information: □ No □ Out of Town Contact ",
+    "status": "installed",
+    "bytes": 498982,
+    "sha256": "e6bce25e49dc92a655fc5eadb9073aa019aa58323631c56a072c28cde1d1d0fa",
+    "acquisition": {
+      "method": "user-selected browser download via paired SSH helper",
+      "captured_url": "https://stacks.cdc.gov/view/cdc/34175/cdc_34175_DS1.pdf",
+      "checks": "PDF parser, identity/year checks, SHA-256; not a publisher digital signature"
+    }
   },
   {
     "id": "cdc-pet-kit",
@@ -263,9 +290,18 @@
     "purpose": "Family preparedness / contacts / planning",
     "license": "Source: CDC. Public-domain agency material; original notices retained. Free from CDC.gov. No CDC/HHS/U.S. Government endorsement implied.",
     "filename": "readiness/cdc-pet-kit.pdf",
-    "checked_at": "2026-10-24T00:50:53.335237+00:00",
-    "status": "unavailable",
-    "error": "HTTP Error 403: Forbidden"
+    "checked_at": "2026-10-24T20:09:28.790357+00:00",
+    "resolved_url": "https://stacks.cdc.gov/view/cdc/139819/cdc_139819_DS1.pdf",
+    "pages": 1,
+    "document_header": "PET EMERGENCY KIT CHECKLIST Stock up on items your pet may need during a disaster. Below are some items to help you get started. □ Pet first aid kit □ Food □ Water □ Bowls □ Extra collar □ Extra leash □ Medical records □ Two-week supply of medications □ Crate or sturdy carrier □ Blanket □ Recent photos of your pets (in case you are separated and need to make “Lost” posters) □ Toys and bones □ Disposable litter trays □ Litter or paper toweling □ Disposable bags for clean-up CS259306-C",
+    "status": "installed",
+    "bytes": 181456,
+    "sha256": "22b1967034a8725c01d864301dcca240e53ffd05ca51aa81c9b763d70b7b4627",
+    "acquisition": {
+      "method": "user-selected browser download via paired SSH helper",
+      "captured_url": "https://stacks.cdc.gov/view/cdc/139819/cdc_139819_DS1.pdf",
+      "checks": "PDF parser, identity/year checks, SHA-256; not a publisher digital signature"
+    }
   },
   {
     "id": "cdc-family-plan",
@@ -280,9 +316,18 @@
     "purpose": "Family preparedness / contacts / planning",
     "license": "Source: CDC. Public-domain agency material; original notices retained. Free from CDC.gov. No CDC/HHS/U.S. Government endorsement implied.",
     "filename": "readiness/cdc-family-plan.pdf",
-    "checked_at": "2026-10-24T00:50:53.358920+00:00",
-    "status": "unavailable",
-    "error": "HTTP Error 403: Forbidden"
+    "checked_at": "2026-10-24T20:09:45.285677+00:00",
+    "resolved_url": "https://stacks.cdc.gov/view/cdc/139817/cdc_139817_DS1.pdf",
+    "pages": 1,
+    "document_header": "Wrigley and her family sit down to go over their family communication plan. Fill out a plan with your family to have in an emergency. Cut Here MY FAMILY COMMUNICATION PLAN My Name: My Address: My Telephone Number: Meeting Place: Family Information Work Number: Cell Number: Email: Neighbor/Relative name and number: Out of town contact name and number: Always remember to dial 911 in emergencies. CS259306-A",
+    "status": "installed",
+    "bytes": 615730,
+    "sha256": "f3000f00a27c8bc5d2edc7a9d18389daefef042e7b498065f923ed9f7e011b13",
+    "acquisition": {
+      "method": "user-selected browser download via paired SSH helper",
+      "captured_url": "https://stacks.cdc.gov/view/cdc/139817/cdc_139817_DS1.pdf",
+      "checks": "PDF parser, identity/year checks, SHA-256; not a publisher digital signature"
+    }
   },
   {
     "id": "household-a4",

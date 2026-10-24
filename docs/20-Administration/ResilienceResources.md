@@ -109,3 +109,7 @@ sudo bash /opt/dataark/deploy/deploy-web.sh
 ```
 
 The installer uses the updater lock and pinned source files, validates the complete set before writing, registers the pools on the landing page and in Manage Library, and refreshes the portable catalogue. Updates are manual. To introduce a new pool or errata, review primary NCVEC/ARRL sources, update the pinned commit, expected counts, withdrawals, figures and dates, then revalidate the tool; rerunning the pinned installer alone does not promise new questions.
+
+## Browser-captured state references
+
+The Massachusetts electrical and fire amendment PDFs were subsequently captured successfully through the paired Chrome helper after automated requests failed. Their original edition notes and source hashes remain in civic-reference/sources.json. This does not supply the full copyrighted base codes, resolve every state-code gap, or establish later legal currency.

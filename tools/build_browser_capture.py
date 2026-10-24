@@ -11,7 +11,7 @@ def main():
  targets=[]
  for group,folder in [('family','family-resources'),('forms','forms'),('resilience',None)]:
   for item in json.loads((ROOT/('deploy/reference/'+group+'-catalogue.json')).read_text()):
-   if item['id'] in IDENTITY and item['id'] in missing:
+   if item['id'] in IDENTITY:
     targets.append({'id':item['id'],'title':item['title'],'url':item['url'],'collection':folder or item['collection']})
  source=ROOT/'tools/browser-capture';data=(json.dumps(targets,ensure_ascii=False,indent=2)+'\n').encode();(source/'targets.json').write_bytes(data)
  output=ROOT/'app/static/assets/downloads';output.mkdir(parents=True,exist_ok=True);(output/'capture-targets.json').write_bytes(data)
@@ -19,5 +19,5 @@ def main():
  with zipfile.ZipFile(output/'dataark-browser-capture.zip','w',compression=zipfile.ZIP_DEFLATED) as archive:
   for name in names:
    entry=zipfile.ZipInfo(name,(2026,10,24,0,0,0));entry.compress_type=zipfile.ZIP_DEFLATED;entry.external_attr=0o644<<16;archive.writestr(entry,(source/name).read_bytes())
- print('Built capture package for',len(targets),'approved missing PDFs')
+ print('Built capture package for',len(targets),'approved PDF targets, including installed captures')
 if __name__=='__main__':main()

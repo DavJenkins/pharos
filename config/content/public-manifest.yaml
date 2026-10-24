@@ -2367,6 +2367,7 @@ assets:
     No endorsement implied. Retrieved 2026-10-24T00:50:50.623637+00:00'
   online_url: https://science.nasa.gov/toolkit/coloring-books/
   download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Exoplanets_Coloring_Book_07-22-2016.pdf
+  version_pin: null
 - id: family-nasa-star-en
   repository_id: family-resources
   category: pdf_reference
@@ -2380,6 +2381,7 @@ assets:
     No endorsement implied. Retrieved 2026-10-24T00:50:50.625965+00:00'
   online_url: https://science.nasa.gov/toolkit/coloring-books/
   download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_English.pdf
+  version_pin: null
 - id: family-nasa-star-es
   repository_id: family-resources
   category: pdf_reference
@@ -2393,6 +2395,7 @@ assets:
     No endorsement implied. Retrieved 2026-10-24T00:50:50.627561+00:00'
   online_url: https://science.nasa.gov/toolkit/coloring-books/
   download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_Spanish.pdf
+  version_pin: null
 - id: family-nasa-iss
   repository_id: family-resources
   category: pdf_reference
@@ -2406,6 +2409,7 @@ assets:
     No endorsement implied. Retrieved 2026-10-24T00:50:50.873597+00:00'
   online_url: https://science.nasa.gov/toolkit/coloring-books/
   download_url: https://science.nasa.gov/wp-content/uploads/2023/10/ISS_Activity_Book.pdf
+  version_pin: null
 - id: family-nps-caves-en
   repository_id: family-resources
   category: pdf_reference
@@ -2420,6 +2424,7 @@ assets:
     notices. Retrieved 2026-10-24T00:50:51.094343+00:00'
   online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
   download_url: https://home.nps.gov/subjects/caves/upload/Junior-Cave-Scientist-Booklet_English508_web-compressed.pdf
+  version_pin: null
 - id: family-nps-caves-es
   repository_id: family-resources
   category: pdf_reference
@@ -2434,6 +2439,7 @@ assets:
     notices. Retrieved 2026-10-24T00:50:51.485281+00:00'
   online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
   download_url: https://home.nps.gov/subjects/caves/upload/Junior-Ranger-Cave-Scientist-SPANISH-Final508_web-compressed_2.pdf
+  version_pin: null
 - id: family-fema-ics
   repository_id: family-resources
   category: pdf_reference
@@ -2447,6 +2453,7 @@ assets:
     government publication; publisher notices retained. Retrieved 2026-10-24T00:50:51.869640+00:00
   online_url: https://training.fema.gov/emiweb/is/icsresource/
   download_url: https://training.fema.gov/emiweb/is/icsresource/assets/nims%20ics%20forms%20booklet.v3.pdf
+  version_pin: null
 - id: family-cp-contractor
   repository_id: family-resources
   category: pdf_reference
@@ -2460,6 +2467,7 @@ assets:
     Retrieved 2026-10-24T00:50:53.082367+00:00'
   online_url: https://commonpaper.com/documents/independent-contractor-agreement
   download_url: https://commonpaper.com/wp-content/uploads/2025/05/Common-Paper-Independent-Contractor-Agreement.docx
+  version_pin: null
 - id: family-cp-amendment
   repository_id: family-resources
   category: pdf_reference
@@ -2473,6 +2481,7 @@ assets:
     Retrieved 2026-10-24T00:50:53.091287+00:00'
   online_url: https://commonpaper.com/documents/amendment
   download_url: https://commonpaper.com/wp-content/uploads/2025/01/Common-Paper-Amendment.docx
+  version_pin: null
 - id: family-cp-sow
   repository_id: family-resources
   category: pdf_reference
@@ -2486,6 +2495,7 @@ assets:
     Retrieved 2026-10-24T00:50:53.237911+00:00'
   online_url: https://commonpaper.com/documents/statement-of-work
   download_url: https://commonpaper.com/wp-content/uploads/2025/01/Professional-Services-Agreement-SOW-Only.docx
+  version_pin: null
 - id: family-household-a4
   repository_id: family-resources
   category: pdf_reference
@@ -2497,6 +2507,7 @@ assets:
   expected_hash: e134ca81508e177bcd5b30b5ffc5608dfa1d0042b58a4039c91744c835811367
   source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
     2026-10-24T00:51:00.656356+00:00'
+  version_pin: null
 - id: family-household-letter
   repository_id: family-resources
   category: pdf_reference
@@ -2508,6 +2519,7 @@ assets:
   expected_hash: 03c39c8b2287da6eda30d17a2b362392f8f9d24fbd4306cbc00b1a219912293d
   source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
     2026-10-24T00:51:00.705745+00:00'
+  version_pin: null
 - id: family-paper-a4
   repository_id: family-resources
   category: pdf_reference
@@ -2519,6 +2531,7 @@ assets:
   expected_hash: ee3e326fb1959dfba80d556ad56803505bd5a61c48ea2761354ccb69b7fd1625
   source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
     2026-10-24T00:51:00.756146+00:00'
+  version_pin: null
 - id: family-paper-letter
   repository_id: family-resources
   category: pdf_reference
@@ -2530,6 +2543,7 @@ assets:
   expected_hash: d7092412741d5e4675a1cc325c6756d9227984d4a476031cdde0173461c1ecd2
   source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
     2026-10-24T00:51:00.808860+00:00'
+  version_pin: null
 - id: family-adult-wildflowers
   repository_id: family-resources
   category: pdf_reference
@@ -2544,6 +2558,7 @@ assets:
     States. Swarthmore attribution and original notices retained. Retrieved 2026-10-24T15:01:18.012764+00:00
   online_url: https://library.nyam.org/colorourcollections/
   download_url: https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2021/01/SwarthmoreCollegeLibraries_ColorOurCollections2021-2.pdf
+  version_pin: null
 - id: family-adult-jmu
   repository_id: family-resources
   category: pdf_reference
@@ -2558,6 +2573,7 @@ assets:
     Original source credits retained. Retrieved 2026-10-24T15:01:20.021642+00:00
   online_url: https://www.lib.jmu.edu/100-libraries-museums-created-coloring-books-from-their-collections-including-us/
   download_url: https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2020/01/JamesMadisonUniversity_COC20.pdf
+  version_pin: null
 - id: family-adult-europeana
   repository_id: family-resources
   category: pdf_reference
@@ -2572,6 +2588,7 @@ assets:
     and license with shared colored versions. Retrieved 2026-10-24T15:01:21.859896+00:00
   online_url: https://www.europeana.eu/en/stories/european-year-of-youth-colouring-book
   download_url: https://assets.ctfassets.net/i01duvb6kq77/1SRHphnds6UpEF9CdgVL6f/2de18233ec330e24506124bc4e7b55ea/Europeana_Colouring_Book_-_European_Year_of_Youth_-_ColorOurCollections.pdf
+  version_pin: null
 - id: family-holiday-family
   repository_id: family-resources
   category: pdf_reference
@@ -2584,6 +2601,7 @@ assets:
   source_note: Original Ark edition 1 DEJ Software / Data Ark original vector artwork.
     CC0 1.0 public-domain dedication. Freely copy, color, adapt and share. No agency
     or religious endorsement implied. Retrieved 2026-10-24T15:18:24.042531+00:00
+  version_pin: null
 - id: family-holiday-detailed
   repository_id: family-resources
   category: pdf_reference
@@ -2596,6 +2614,7 @@ assets:
   source_note: Original Ark edition 1 DEJ Software / Data Ark original vector artwork.
     CC0 1.0 public-domain dedication. Freely copy, color, adapt and share. No agency
     or religious endorsement implied. Retrieved 2026-10-24T15:18:24.430634+00:00
+  version_pin: null
 - id: family-cook-pantry-resilience
   repository_id: family-resources
   category: pdf_reference
@@ -2611,6 +2630,7 @@ assets:
     notices. No endorsement implied. Retrieved 2026-10-24T15:21:16.718638+00:00
   online_url: https://www.uaex.uada.edu/life-skills-wellness/docs/FRM-Resiliency-Cookbook-EFNEP.pdf
   download_url: https://www.uaex.uada.edu/life-skills-wellness/docs/FRM-Resiliency-Cookbook-EFNEP.pdf
+  version_pin: null
 - id: family-cook-usda-harvest
   repository_id: family-resources
   category: pdf_reference
@@ -2625,6 +2645,7 @@ assets:
     Historical nutrition-policy references remain as published. Retrieved 2026-10-24T15:21:17.551944+00:00
   online_url: https://www.govinfo.gov/app/details/GOVPUB-A98-PURL-gpo93692
   download_url: https://www.govinfo.gov/content/pkg/GOVPUB-A98-PURL-gpo93692/pdf/GOVPUB-A98-PURL-gpo93692.pdf
+  version_pin: null
 - id: family-cook-usda-thrifty
   repository_id: family-resources
   category: pdf_reference
@@ -2640,6 +2661,7 @@ assets:
     2026-10-24T15:22:09.232182+00:00
   online_url: https://ageconsearch.umn.edu/record/311366
   download_url: https://ageconsearch.umn.edu/nanna/record/311366/files/cnpp-11.pdf?registerDownload=1&version=1&withMetadata=0&withWatermark=0
+  version_pin: null
 - id: family-preserve-usda-intro
   repository_id: food-preservation
   category: pdf_reference
@@ -2655,6 +2677,7 @@ assets:
     2026-10-24T15:29:51.337000+00:00
   online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
   download_url: https://nchfp.uga.edu/papers/guide/INTRO_HomeCanrev0715.pdf
+  version_pin: null
 - id: family-preserve-usda-01
   repository_id: food-preservation
   category: pdf_reference
@@ -2670,6 +2693,7 @@ assets:
     2026-10-24T15:29:51.339228+00:00
   online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
   download_url: https://nchfp.uga.edu/papers/guide/GUIDE01_HomeCan_rev0715.pdf
+  version_pin: null
 - id: family-preserve-usda-02
   repository_id: food-preservation
   category: pdf_reference
@@ -2685,6 +2709,7 @@ assets:
     2026-10-24T15:29:51.340899+00:00
   online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
   download_url: https://nchfp.uga.edu/papers/guide/GUIDE02_HomeCan_rev0715.pdf
+  version_pin: null
 - id: family-preserve-usda-03
   repository_id: food-preservation
   category: pdf_reference
@@ -2700,6 +2725,7 @@ assets:
     2026-10-24T15:29:51.732629+00:00
   online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
   download_url: https://nchfp.uga.edu/papers/guide/GUIDE03_HomeCan_rev0715.pdf
+  version_pin: null
 - id: family-preserve-usda-04
   repository_id: food-preservation
   category: pdf_reference
@@ -2715,6 +2741,7 @@ assets:
     2026-10-24T15:29:51.801413+00:00
   online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
   download_url: https://nchfp.uga.edu/papers/guide/GUIDE04_HomeCan_rev0715.pdf
+  version_pin: null
 - id: family-preserve-usda-05
   repository_id: food-preservation
   category: pdf_reference
@@ -2730,6 +2757,7 @@ assets:
     2026-10-24T15:29:52.126946+00:00
   online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
   download_url: https://nchfp.uga.edu/papers/guide/GUIDE05_HomeCan_rev0715.pdf
+  version_pin: null
 - id: family-preserve-usda-06
   repository_id: food-preservation
   category: pdf_reference
@@ -2745,6 +2773,7 @@ assets:
     2026-10-24T15:29:52.240240+00:00
   online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
   download_url: https://nchfp.uga.edu/papers/guide/GUIDE06_HomeCan_rev0715.pdf
+  version_pin: null
 - id: family-preserve-usda-07
   repository_id: food-preservation
   category: pdf_reference
@@ -2760,6 +2789,7 @@ assets:
     2026-10-24T15:29:52.323100+00:00
   online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
   download_url: https://nchfp.uga.edu/papers/guide/GUIDE07_HomeCan_rev0715.pdf
+  version_pin: null
 - id: family-preserve-drying
   repository_id: food-preservation
   category: pdf_reference
@@ -2776,6 +2806,7 @@ assets:
     Retrieved 2026-10-24T15:29:52.485339+00:00
   online_url: https://extension.oregonstate.edu/catalog/pnw-397-drying-fruits-vegetables
   download_url: https://verso.uidaho.edu/view/pdfCoverPage?download=true&filePid=13325544220001851&instCode=01ALLIANCE_UID
+  version_pin: null
 - id: family-preserve-storage
   repository_id: food-preservation
   category: pdf_reference
@@ -2791,6 +2822,7 @@ assets:
     2026-10-24T15:29:52.858027+00:00
   online_url: https://extension.oregonstate.edu/sites/default/files/documents/pnw612.pdf
   download_url: https://extension.oregonstate.edu/sites/default/files/documents/pnw612.pdf
+  version_pin: null
 - id: family-preserve-emergency-storage
   repository_id: food-preservation
   category: pdf_reference
@@ -2805,6 +2837,7 @@ assets:
     authorship and notices; no endorsement implied. Retrieved 2026-10-24T15:29:52.885152+00:00
   online_url: https://extension.usu.edu/preserve-the-harvest/food-storage
   download_url: https://extension.usu.edu/preserve-the-harvest/files/Food-Storage-Booklet.pdf
+  version_pin: null
 - id: family-preserve-outage-food-water
   repository_id: food-preservation
   category: pdf_reference
@@ -2818,6 +2851,7 @@ assets:
     federal publication. Original FDA credits and notices retained. Retrieved 2026-10-24T15:29:53.536310+00:00
   online_url: https://www.fda.gov/food/buy-store-serve-safe-food/food-and-water-safety-during-power-outages-and-floods
   download_url: https://www.fda.gov/media/72124/download
+  version_pin: null
 - id: family-preserve-emergency-food-water
   repository_id: food-preservation
   category: pdf_reference
@@ -2834,6 +2868,7 @@ assets:
     no endorsement implied. Retrieved 2026-10-24T15:29:55.155368+00:00
   online_url: https://www.uvu.edu/emergencymanagement/docs/food-and-water-fema.pdf
   download_url: https://www.uvu.edu/emergencymanagement/docs/food-and-water-fema.pdf
+  version_pin: null
 - id: family-preserve-grilling-safety
   repository_id: food-preservation
   category: pdf_reference
@@ -2848,6 +2883,7 @@ assets:
     FEMA notices retained. Retrieved 2026-10-24T15:29:55.380015+00:00
   online_url: https://www.usfa.fema.gov/prevention/outdoor-fires/
   download_url: https://www.usfa.fema.gov/downloads/pdf/publications/grilling_fire_safety_flyer.pdf
+  version_pin: null
 - id: family-sanitation-osu
   repository_id: sanitation
   category: pdf_reference
@@ -2863,6 +2899,7 @@ assets:
     and use notices. Preserved unchanged; no endorsement implied. Retrieved 2026-10-24T15:43:46.642867+00:00
   online_url: https://extension.oregonstate.edu/catalog/pub/em9334
   download_url: https://extension.oregonstate.edu/sites/extd8/files/documents/57811/survival-basics-sanitationdr0.pdf
+  version_pin: null
 - id: family-sanitation-rdpo-guide
   repository_id: sanitation
   category: pdf_reference
@@ -2879,6 +2916,7 @@ assets:
     2026-10-24T15:43:46.645215+00:00
   online_url: https://rdpo.net/emergency-toilet
   download_url: https://docs.google.com/document/d/1Pt4W2ul_nfBeES0-aI38SFGN9_5-rCDcV45lbfvligA/export?format=pdf
+  version_pin: null
 - id: family-sanitation-twin-bucket
   repository_id: sanitation
   category: pdf_reference
@@ -2894,6 +2932,7 @@ assets:
     implied. Retrieved 2026-10-24T15:43:46.646869+00:00
   online_url: https://rdpo.net/emergency-toilet
   download_url: https://rdpo.net/s/ET-MRC-Leaflet.pdf
+  version_pin: null
 - id: family-sanitation-bucket-en
   repository_id: sanitation
   category: pdf_reference
@@ -2909,6 +2948,7 @@ assets:
     no endorsement implied. Retrieved 2026-10-24T15:43:47.386841+00:00
   online_url: https://rdpo.net/emergency-toilet
   download_url: https://drive.google.com/uc?export=download&id=1NXByvyIEUJzCET1qkDwEM5pwlnswr3kw
+  version_pin: null
 - id: family-sanitation-bucket-es
   repository_id: sanitation
   category: pdf_reference
@@ -2924,6 +2964,7 @@ assets:
     no endorsement implied. Retrieved 2026-10-24T15:43:47.402967+00:00
   online_url: https://rdpo.net/emergency-toilet
   download_url: https://drive.google.com/uc?export=download&id=1PVpctIrs6JsmVc6CZ4DsKWsmyqK_DvAI
+  version_pin: null
 - id: family-sanitation-siphon
   repository_id: sanitation
   category: pdf_reference
@@ -2939,6 +2980,7 @@ assets:
     Preserved unchanged; no endorsement implied. Retrieved 2026-10-24T15:43:48.591263+00:00
   online_url: https://rdpo.net/emergency-toilet
   download_url: https://rdpo.net/s/ET-Siphon-Pump-Hand-Wash.pdf
+  version_pin: null
 - id: family-sanitation-tippy
   repository_id: sanitation
   category: pdf_reference
@@ -2955,6 +2997,7 @@ assets:
     implied. Retrieved 2026-10-24T15:43:49.347330+00:00
   online_url: https://www.unicef.org/southafrica/documents/unicefs-tippy-tap-challenge-field-demonstration-guide
   download_url: https://www.unicef.org/southafrica/media/4856/file/ZAF-Tippy-Tap-field-guide-2020.pdf
+  version_pin: null
 - id: family-sanitation-rodents-wa
   repository_id: sanitation
   category: pdf_reference
@@ -2970,6 +3013,7 @@ assets:
     Retrieved 2026-10-24T15:43:49.605594+00:00
   online_url: https://doh.wa.gov/community-and-environment/pests/rodents
   download_url: https://doh.wa.gov/sites/default/files/2024-02/420569-SafelyCleaningAfterRodents-Hantavirus-Poster-English.pdf
+  version_pin: null
 - id: family-sanitation-handwash
   repository_id: sanitation
   category: pdf_reference
@@ -2984,6 +3028,7 @@ assets:
     agency and partner notices retained. No endorsement implied. Retrieved 2026-10-24T15:45:33.934784+00:00
   online_url: https://globalhandwashing.org/resources/keep-calm-wash-your-hands-poster/
   download_url: https://globalhandwashing.org/wp-content/uploads/2015/03/Keep-Calm-Wash-Your-Hands_8.5x111-EN.pdf
+  version_pin: null
 - id: family-sanitation-mold
   repository_id: sanitation
   category: pdf_reference
@@ -2998,6 +3043,7 @@ assets:
     notices retained. No endorsement implied. Retrieved 2026-10-24T15:45:33.937171+00:00
   online_url: https://www.epa.gov/mold/mold-cleanup
   download_url: https://www.epa.gov/sites/default/files/2017-08/documents/mold._homeowners_and_renters_guide_to_cleanup_after_disasters.pdf
+  version_pin: null
 - id: family-sanitation-mold-supplies
   repository_id: sanitation
   category: pdf_reference
@@ -3013,6 +3059,7 @@ assets:
     Retrieved 2026-10-24T15:45:33.938798+00:00
   online_url: https://publichealth.wincoil.gov/wp-content/uploads/2024/04/Mold-clean-up-shopping-list.pdf
   download_url: https://publichealth.wincoil.gov/wp-content/uploads/2024/04/Mold-clean-up-shopping-list.pdf
+  version_pin: null
 - id: family-sanitation-rats-county
   repository_id: sanitation
   category: pdf_reference
@@ -3028,6 +3075,7 @@ assets:
     implied. Retrieved 2026-10-24T15:45:34.592559+00:00
   online_url: https://www.sandiegocounty.gov/content/sdc/deh/pests/pamphlet_library.html
   download_url: https://www.sandiegocounty.gov/content/dam/sdc/deh/Vector/pdf/rat/RatBrochure_English.pdf
+  version_pin: null
 - id: family-water-epa-disinfection
   repository_id: drinking-water
   category: pdf_reference
@@ -3042,6 +3090,7 @@ assets:
     2026-10-24T15:54:11.006348+00:00
   online_url: https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water-0
   download_url: https://www.epa.gov/sites/default/files/2017-09/documents/emergency_disinfection_of_drinking_water_sept2017.pdf
+  version_pin: null
 - id: family-water-epa-testing
   repository_id: drinking-water
   category: pdf_reference
@@ -3056,6 +3105,7 @@ assets:
     and original notices; no endorsement implied. Retrieved 2026-10-24T15:54:11.008671+00:00
   online_url: https://www.epa.gov/ground-water-and-drinking-water/home-drinking-water-testing
   download_url: https://www.epa.gov/sites/default/files/2015-11/documents/2005_09_14_faq_fs_homewatertesting.pdf
+  version_pin: null
 - id: family-water-epa-wells
   repository_id: drinking-water
   category: pdf_reference
@@ -3070,6 +3120,7 @@ assets:
     source and original notices; no endorsement implied. Retrieved 2026-10-24T15:54:11.010291+00:00
   online_url: https://www.epa.gov/privatewells
   download_url: https://www.epa.gov/sites/default/files/2015-10/documents/2003_06_03_privatewells_pdfs_household_wells.pdf
+  version_pin: null
 - id: family-water-epa-filters
   repository_id: drinking-water
   category: pdf_reference
@@ -3084,6 +3135,7 @@ assets:
     no endorsement implied. Retrieved 2026-10-24T15:54:11.565903+00:00
   online_url: https://www.epa.gov/watersense
   download_url: https://www.epa.gov/system/files/documents/2025-01/ws-products-home-water-treatment-guide_v2_508.pdf
+  version_pin: null
 - id: family-water-rainwater
   repository_id: drinking-water
   category: pdf_reference
@@ -3099,6 +3151,7 @@ assets:
     Retrieved 2026-10-24T15:54:11.620644+00:00
   online_url: https://www.twdb.texas.gov/innovativewater/rainwater/docs.asp
   download_url: https://www.twdb.texas.gov/innovativewater/rainwater/doc/RainwaterHarvestingManual_3rdedition.pdf
+  version_pin: null
 - id: family-water-storage-usu
   repository_id: drinking-water
   category: pdf_reference
@@ -3113,6 +3166,7 @@ assets:
     and original notices; no endorsement implied. Retrieved 2026-10-24T15:54:44.232255+00:00
   online_url: https://extension.usu.edu/news_sections/home_family_and_food/usu-extension-offers-water-storage-tips
   download_url: https://extension.usu.edu/news_sections/home_family_and_food/usu-extension-offers-water-storage-tips.pdf
+  version_pin: null
 - id: family-winter-nws
   repository_id: shelter-winter
   category: pdf_reference
@@ -3127,6 +3181,7 @@ assets:
     Retrieved 2026-10-24T15:58:47.594434+00:00
   online_url: https://www.weather.gov/safety/winter-before
   download_url: https://www.weather.gov/media/ilx/Outreach/WinterPrepare.pdf
+  version_pin: null
 - id: family-winter-heating
   repository_id: shelter-winter
   category: pdf_reference
@@ -3141,6 +3196,7 @@ assets:
     Retrieved 2026-10-24T15:58:47.596786+00:00
   online_url: https://www.usfa.fema.gov/prevention/home-fires/prevent-fires/heating/
   download_url: https://www.usfa.fema.gov/downloads/pdf/publications/heating_your_home_safely_flyer.pdf
+  version_pin: null
 - id: family-winter-generator
   repository_id: shelter-winter
   category: pdf_reference
@@ -3155,6 +3211,7 @@ assets:
     2026-10-24T15:58:47.598439+00:00
   online_url: https://www.cpsc.gov/safety-education/safety-guides/carbon-monoxide/portable-generator-hazards
   download_url: https://www.cpsc.gov/s3fs-public/5123_SafetyAlert_PortableGenerators_102021_0.pdf
+  version_pin: null
 - id: family-winter-energy
   repository_id: shelter-winter
   category: pdf_reference
@@ -3169,6 +3226,7 @@ assets:
     endorsement implied. Retrieved 2026-10-24T15:58:48.384044+00:00
   online_url: https://www.energy.gov/energysaver
   download_url: https://www.energy.gov/sites/default/files/2022-08/energy-saver-guide-2022.pdf
+  version_pin: null
 - id: family-winter-pipes
   repository_id: shelter-winter
   category: pdf_reference
@@ -3183,6 +3241,7 @@ assets:
     retained. No endorsement implied. Retrieved 2026-10-24T15:59:24.707508+00:00
   online_url: https://texashelp.tamu.edu/preparing-for-winter-storms/
   download_url: https://texashelp.tamu.edu/wp-content/uploads/2016/02/winter-storms-frozen-pipes.pdf
+  version_pin: null
 - id: family-winter-storm-guide
   repository_id: shelter-winter
   category: pdf_reference
@@ -3198,6 +3257,7 @@ assets:
     2026-10-24T15:59:24.709860+00:00
   online_url: https://www.weather.gov/fsd/winter_preparedness
   download_url: https://www.weather.gov/media/safety/Winter_Storms2008.pdf
+  version_pin: null
 - id: family-winter-fema-archive
   repository_id: shelter-winter
   category: pdf_reference
@@ -3212,6 +3272,7 @@ assets:
     implied. Retrieved 2026-10-24T15:59:24.711441+00:00
   online_url: https://www.govinfo.gov/app/details/GOVPUB-HS5_100-PURL-gpo85639
   download_url: https://www.govinfo.gov/content/pkg/GOVPUB-HS5_100-PURL-gpo85639/pdf/GOVPUB-HS5_100-PURL-gpo85639.pdf
+  version_pin: null
 - id: family-aid-ifrc-2025
   repository_id: first-aid-care
   category: pdf_reference
@@ -3227,6 +3288,7 @@ assets:
     and notices retained; no endorsement or certification implied. Retrieved 2026-10-24T16:03:34.955117+00:00
   online_url: https://www.ifrc.org/document/ifrc-international-first-aid-resuscitation-and-education-guidelines-2025
   download_url: https://www.ifrc.org/sites/default/files/2026-03/IFRC%20International%20First%20Aid%2C%20Resuscitation%20and%20Education%20Guidelines%202025.pdf
+  version_pin: null
 - id: family-aid-medicine-record
   repository_id: first-aid-care
   category: pdf_reference
@@ -3242,6 +3304,7 @@ assets:
     2026-10-24T16:03:34.959958+00:00
   online_url: https://www.fda.gov/drugs/resources-drugs/my-medicine-record
   download_url: https://www.fda.gov/media/73856/download
+  version_pin: null
 - id: family-aid-older-adults
   repository_id: first-aid-care
   category: pdf_reference
@@ -3257,6 +3320,7 @@ assets:
     2026-10-24T16:03:35.297122+00:00
   online_url: https://www.nia.nih.gov/health
   download_url: https://www.nia.nih.gov/sites/default/files/disaster-preparedness-infographic-508.pdf
+  version_pin: null
 - id: family-aid-caregivers
   repository_id: first-aid-care
   category: pdf_reference
@@ -3271,6 +3335,7 @@ assets:
     no endorsement implied. Not a training certification. Retrieved 2026-10-24T16:03:35.706014+00:00
   online_url: https://www.ready.gov/caregivers
   download_url: https://www.ready.gov/sites/default/files/2024-02/ready-gov_caregivers-preparedness-guide.pdf
+  version_pin: null
 - id: family-aid-access-en
   repository_id: first-aid-care
   category: pdf_reference
@@ -3286,6 +3351,7 @@ assets:
     2026-10-24T16:03:35.840466+00:00
   online_url: https://www.nyc.gov/site/em/ready/guides-resources.page
   download_url: https://www1.nyc.gov/assets/em/downloads/pdf/myemergencyplan_english.pdf
+  version_pin: null
 - id: family-aid-access-es
   repository_id: first-aid-care
   category: pdf_reference
@@ -3301,6 +3367,7 @@ assets:
     2026-10-24T16:03:36.171084+00:00
   online_url: https://www.nyc.gov/site/em/ready/guides-resources.page
   download_url: https://www.nyc.gov/assets/em/downloads/pdf/myemergencyplan_spanish.pdf
+  version_pin: null
 - id: family-aid-disaster-medicines
   repository_id: first-aid-care
   category: pdf_reference
@@ -3316,6 +3383,7 @@ assets:
     2026-10-24T16:03:36.369036+00:00
   online_url: https://www.fda.gov/drugs/emergency-preparedness-drugs/safe-drug-use-after-natural-disaster
   download_url: https://www.meshcoalition.org/_files/ugd/a8547b_94aaa54bb4a043ce9655db707cbc8d09.pdf
+  version_pin: null
 - id: family-aid-bleeding
   repository_id: first-aid-care
   category: pdf_reference
@@ -3332,6 +3400,7 @@ assets:
     2026-10-24T16:04:12.592357+00:00
   online_url: https://secure.in.gov/dhs/get-prepared/emergencies/stop-the-bleed-bleeding-control-for-the-injured/
   download_url: https://secure.in.gov/dhs/files/stop-the-bleed-booklet.pdf
+  version_pin: null
 - id: family-aid-family-aap
   repository_id: first-aid-care
   category: pdf_reference
@@ -3347,6 +3416,7 @@ assets:
     Retrieved 2026-10-24T16:05:02.639822+00:00
   online_url: https://www.aap.org/en/patient-care/disasters-and-children/resources-for-families/
   download_url: https://downloads.aap.org/AAP/PDF/disasters_family_readiness_kit.pdf
+  version_pin: null
 - id: family-repair-tools
   repository_id: repairs
   category: pdf_reference
@@ -3361,6 +3431,7 @@ assets:
     notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.236322+00:00
   online_url: https://www.osha.gov/publications/publication-products?publication_title=Hand+and+Power+Tools
   download_url: https://www.osha.gov/sites/default/files/publications/osha3080.pdf
+  version_pin: null
 - id: family-repair-electrical
   repository_id: repairs
   category: pdf_reference
@@ -3375,6 +3446,7 @@ assets:
     implied. Retrieved 2026-10-24T17:00:23.238596+00:00
   online_url: https://www.cpsc.gov/safety-education/safety-guides/electronics-and-electrical-home/home-electrical-safety-checklist
   download_url: https://www.cpsc.gov/s3fs-public/513.pdf
+  version_pin: null
 - id: family-repair-water
   repository_id: repairs
   category: pdf_reference
@@ -3389,6 +3461,7 @@ assets:
     2026-10-24T17:00:23.240268+00:00
   online_url: https://www.epa.gov/watersense/home-maintenance
   download_url: https://www.epa.gov/system/files/documents/2024-03/watersense_homemaintenancechecklist_508.pdf
+  version_pin: null
 - id: family-repair-bike
   repository_id: repairs
   category: pdf_reference
@@ -3403,6 +3476,7 @@ assets:
     source notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.686013+00:00
   online_url: https://www.portland.gov/transportation/walking-biking-transit-safety/portland-biking-guide
   download_url: https://www.portland.gov/transportation/walking-biking-transit-safety/documents/instructions-bike-maintenance-and-repairing/download
+  version_pin: null
 - id: family-repair-engine
   repository_id: repairs
   category: pdf_reference
@@ -3417,6 +3491,7 @@ assets:
     copyright and source notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.820557+00:00
   online_url: https://www.briggsandstratton.com/en-us/support/manuals
   download_url: https://www.briggsandstratton.com/hubfs/briggsandstratton/EMEA/Maintenance/pdfs/Lawn%20Mower%20Tune%20Up%20Schedule%20-%20Document.pdf
+  version_pin: null
 - id: family-repair-buttons
   repository_id: repairs
   category: pdf_reference
@@ -3431,6 +3506,7 @@ assets:
     source notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.857754+00:00
   online_url: https://www.karmacoop.org/fabric-repair-guides
   download_url: https://www.karmacoop.org/s/Beginning-hand-sewing-and-replacing-buttons.pdf
+  version_pin: null
 - id: family-repair-seams
   repository_id: repairs
   category: pdf_reference
@@ -3445,6 +3521,7 @@ assets:
     source notices. No endorsement implied. Retrieved 2026-10-24T17:00:24.365681+00:00
   online_url: https://www.karmacoop.org/fabric-repair-guides
   download_url: https://www.karmacoop.org/s/Hand-stitches-to-secure-seams.pdf
+  version_pin: null
 - id: family-repair-holes
   repository_id: repairs
   category: pdf_reference
@@ -3459,6 +3536,7 @@ assets:
     source notices. No endorsement implied. Retrieved 2026-10-24T17:00:24.373655+00:00
   online_url: https://www.karmacoop.org/fabric-repair-guides
   download_url: https://www.karmacoop.org/s/Repairing-holes-in-fabric.pdf
+  version_pin: null
 - id: family-garden-calendar-ma
   repository_id: growing-food
   category: pdf_reference
@@ -3473,6 +3551,7 @@ assets:
     copyright and source notices. No endorsement implied. Retrieved 2026-10-24T17:00:27.195327+00:00
   online_url: https://www.umass.edu/agriculture-food-environment/home-lawn-garden/fact-sheets/vegetable-planting-chart
   download_url: https://ag.umass.edu/sites/ag.umass.edu/files/fact-sheets/pdf/vegetable_planting_chart_1_-ua.pdf
+  version_pin: null
 - id: family-garden-seeds
   repository_id: growing-food
   category: pdf_reference
@@ -3487,6 +3566,7 @@ assets:
     No endorsement implied. Retrieved 2026-10-24T17:00:27.280920+00:00
   online_url: https://www.umass.edu/agriculture-food-environment/
   download_url: https://ag.umass.edu/sites/ag.umass.edu/files/fact-sheets/pdf/seed_saving.pdf
+  version_pin: null
 - id: family-garden-handbook-nh
   repository_id: growing-food
   category: pdf_reference
@@ -3503,6 +3583,7 @@ assets:
     implied. Retrieved 2026-10-24T17:00:27.499353+00:00
   online_url: https://extension.unh.edu/
   download_url: https://extension.unh.edu/sites/default/files/migrated_unmanaged_files/Resource006378_Rep9131.pdf
+  version_pin: null
 - id: family-garden-compost
   repository_id: growing-food
   category: pdf_reference
@@ -3517,6 +3598,7 @@ assets:
     source notices. No endorsement implied. Retrieved 2026-10-24T17:00:27.761632+00:00
   online_url: https://extension.umaine.edu/publications/1159e/
   download_url: https://extension.umaine.edu/publications/wp-content/uploads/sites/52/2021/05/1159_updated2021.pdf
+  version_pin: null
 - id: family-garden-varieties
   repository_id: growing-food
   category: pdf_reference
@@ -3531,6 +3613,7 @@ assets:
     copyright and source notices. No endorsement implied. Retrieved 2026-10-24T17:00:27.824156+00:00
   online_url: https://extension.umaine.edu/publications/2190e/
   download_url: https://extension.umaine.edu/publications/wp-content/uploads/sites/52/2022/01/2190-Vegetable-Varieties-for-Maine-Gardens.pdf
+  version_pin: null
 - id: family-garden-pests
   repository_id: growing-food
   category: pdf_reference
@@ -3546,6 +3629,7 @@ assets:
     implied. Retrieved 2026-10-24T17:00:28.266675+00:00
   online_url: https://nevegetable.org/about-guide/ordering-and-downloads
   download_url: https://nevegetable.org/sites/default/files/2024-08/Pest_ID_2018_no%20cover%20date-UA.pdf
+  version_pin: null
 - id: family-nav-symbols
   repository_id: navigation-field
   category: pdf_reference
@@ -3561,6 +3645,7 @@ assets:
     implied. Retrieved 2026-10-24T17:05:55.890764+00:00
   online_url: https://www.usgs.gov/media/files/topographic-map-symbols
   download_url: https://pubs.usgs.gov/gip/TopographicMapSymbols/topomapsymbols.pdf
+  version_pin: null
 - id: family-nav-land
   repository_id: navigation-field
   category: pdf_reference
@@ -3576,6 +3661,7 @@ assets:
     2026-10-24T17:05:55.893116+00:00
   online_url: https://www.govinfo.gov/app/details/GOVPUB-A13-PURL-gpo249583
   download_url: https://www.govinfo.gov/content/pkg/GOVPUB-A13-PURL-gpo249583/pdf/GOVPUB-A13-PURL-gpo249583.pdf
+  version_pin: null
 - id: family-nav-trip
   repository_id: navigation-field
   category: pdf_reference
@@ -3591,6 +3677,7 @@ assets:
     implied. Retrieved 2026-10-24T17:05:55.894844+00:00
   online_url: https://www.nps.gov/subjects/healthandsafety/trip-planning-guide.htm
   download_url: https://www.nps.gov/subjects/healthandsafety/upload/Trip-Planning-Guide-Package-508c.pdf
+  version_pin: null
 - id: family-comms-radiogram
   repository_id: emergency-comms
   category: pdf_reference
@@ -3606,6 +3693,7 @@ assets:
     2026-10-24T17:05:56.707100+00:00
   online_url: https://nts2.arrl.org/fillable-radiogram-form/
   download_url: https://www.arrl.org/files/media/Group/Fillable%20Radiogram%20Form.pdf
+  version_pin: null
 - id: family-comms-format
   repository_id: emergency-comms
   category: pdf_reference
@@ -3620,6 +3708,7 @@ assets:
     source notices. No endorsement or certification implied. Retrieved 2026-10-24T17:05:57.449560+00:00
   online_url: https://www.arrl.org/public-service
   download_url: https://www.arrl.org/files/file/Public%20Service/MPG104A.pdf
+  version_pin: null
 - id: family-comms-ares
   repository_id: emergency-comms
   category: pdf_reference
@@ -3635,6 +3724,7 @@ assets:
     2026-10-24T17:05:58.010706+00:00
   online_url: https://www.arrl.org/public-service
   download_url: https://www.arrl.org/files/file/Public%20Service/ARES/ARESmanual2015.pdf
+  version_pin: null
 - id: family-comms-plain
   repository_id: emergency-comms
   category: pdf_reference
@@ -3650,6 +3740,7 @@ assets:
     or certification implied. Retrieved 2026-10-24T17:05:58.462191+00:00
   online_url: https://www.cisa.gov/safecom/planning-resources
   download_url: https://www.cisa.gov/sites/default/files/publications/PlainLanguageGuide.pdf
+  version_pin: null
 - id: family-comms-family-kids
   repository_id: emergency-comms
   category: pdf_reference
@@ -3664,6 +3755,7 @@ assets:
     notices. No endorsement or certification implied. Retrieved 2026-10-24T17:05:59.052975+00:00
   online_url: https://www.ready.gov/
   download_url: https://www.ready.gov/sites/default/files/2020-03/ready_family-communications-plan_kids.pdf
+  version_pin: null
 - id: family-nav-usng
   repository_id: navigation-field
   category: pdf_reference
@@ -3679,6 +3771,7 @@ assets:
     Retrieved 2026-10-24T17:06:45.621203+00:00
   online_url: https://www.fgdc.gov/training/documents/DeltaStateTrainingMaterials
   download_url: https://www.fgdc.gov/training/documents/DeltaStateTrainingMaterials/ReadingUSNGCoordinates.pdf/at_download/file
+  version_pin: null
 - id: family-animals-avma-es
   repository_id: animals-emergency
   category: pdf_reference
@@ -3693,6 +3786,7 @@ assets:
     implied. Retrieved 2026-10-24T18:40:18.690418+00:00
   online_url: https://www.avma.org/resources-tools/pet-owners/emergencycare/pets-and-disasters
   download_url: https://www.avma.org/sites/default/files/2023-11/aph-save-the-whole-family-pets-spanish-2023.pdf
+  version_pin: null
 - id: family-animals-nyc-plan
   repository_id: animals-emergency
   category: pdf_reference
@@ -3707,6 +3801,7 @@ assets:
     and source notices; no endorsement implied. Retrieved 2026-10-24T18:40:18.692119+00:00
   online_url: https://www.nyc.gov/site/em/ready/pets.page
   download_url: https://www.nyc.gov/assets/em/downloads/pdf/pets_english.pdf
+  version_pin: null
 - id: family-animals-farm-basics
   repository_id: animals-emergency
   category: pdf_reference
@@ -3721,6 +3816,7 @@ assets:
     notices; no endorsement implied. Retrieved 2026-10-24T18:40:19.948987+00:00
   online_url: https://www.cfsph.iastate.edu/thelivestockproject/
   download_url: https://www.cfsph.iastate.edu/thelivestockproject/wp-content/uploads/sites/5/2023/06/ORG-CE_PREV_disaster-emergency-basics.pdf
+  version_pin: null
 - id: family-animals-poultry
   repository_id: animals-emergency
   category: pdf_reference
@@ -3735,6 +3831,7 @@ assets:
     institutional and source notices; no endorsement implied. Retrieved 2026-10-24T18:40:20.233342+00:00
   online_url: https://extension.usu.edu/cyberlivestock/
   download_url: https://extension.usu.edu/cyberlivestock/ou-files/BackyardPoultryBiosecurity.pdf
+  version_pin: null
 - id: family-animals-beef-plan
   repository_id: animals-emergency
   category: pdf_reference
@@ -3750,6 +3847,7 @@ assets:
     and original notices retained. No endorsement implied. Retrieved 2026-10-24T18:40:53.479757+00:00
   online_url: https://extension.umn.edu/agriculture/animals-and-livestock/dairy/cattle-biosecurity
   download_url: https://drive.google.com/uc?export=download&id=1xd5vL8Ww5_ki5eibl3Kl8YkHXIdZc5n_
+  version_pin: null
 - id: family-animals-dairy-plan
   repository_id: animals-emergency
   category: pdf_reference
@@ -3765,6 +3863,7 @@ assets:
     and original notices retained. No endorsement implied. Retrieved 2026-10-24T18:40:53.482170+00:00
   online_url: https://extension.umn.edu/agriculture/animals-and-livestock/dairy/cattle-biosecurity
   download_url: https://drive.google.com/uc?export=download&id=1lrBk5_hUVgR5dhkPQeLlqPAdg7punn-h
+  version_pin: null
 - id: family-animals-avma-en
   repository_id: animals-emergency
   category: pdf_reference
@@ -3779,6 +3878,7 @@ assets:
     no endorsement implied. Retrieved 2026-10-24T18:41:09.837959+00:00
   online_url: https://www.avma.org/resources-tools/pet-owners/emergencycare/pets-and-disasters
   download_url: https://www.avma.org/sites/default/files/2023-11/aph-save-the-whole-family-pets.pdf
+  version_pin: null
 - id: family-recovery-air
   repository_id: disaster-recovery
   category: pdf_reference
@@ -3793,6 +3893,7 @@ assets:
     copyright and source notices retained. No endorsement implied. Retrieved 2026-10-24T18:44:41.362717+00:00'
   online_url: https://www.epa.gov/mold/flood-cleanup-and-air-your-home-booklet
   download_url: https://www.epa.gov/sites/default/files/2017-08/documents/flood_cleanup_and_the_air_in_your_home_booklet_0.pdf
+  version_pin: null
 - id: family-recovery-field
   repository_id: disaster-recovery
   category: pdf_reference
@@ -3808,6 +3909,7 @@ assets:
     implied. Retrieved 2026-10-24T18:44:41.365079+00:00
   online_url: https://www.huduser.gov/
   download_url: https://www.huduser.gov/Publications/pdf/FloodCleanupGuide_NCHH.pdf
+  version_pin: null
 - id: family-recovery-workers
   repository_id: disaster-recovery
   category: pdf_reference
@@ -3822,6 +3924,7 @@ assets:
     and source notices retained. No endorsement implied. Retrieved 2026-10-24T18:44:41.366646+00:00
   online_url: https://www.osha.gov/publications/bytopic/flood-cleanup
   download_url: https://www.osha.gov/sites/default/files/publications/OSHA_FS-3698.pdf
+  version_pin: null
 - id: family-recovery-fraud
   repository_id: disaster-recovery
   category: pdf_reference
@@ -3836,6 +3939,7 @@ assets:
     source notices retained. No endorsement implied. Retrieved 2026-10-24T18:44:42.169115+00:00
   online_url: https://www.hudexchange.info/
   download_url: https://files.hudexchange.info/resources/documents/OHC-DR-Toolkit-Avoiding-Post-Disaster-Scams-and-Fraud.pdf
+  version_pin: null
 - id: family-recovery-claims
   repository_id: disaster-recovery
   category: pdf_reference
@@ -3850,6 +3954,7 @@ assets:
     and source notices retained. No endorsement implied. Retrieved 2026-10-24T18:44:42.280192+00:00
   online_url: https://www.maine.gov/pfr/insurance/
   download_url: https://www.maine.gov/pfr/insurance/sites/maine.gov.pfr.insurance/files/inline-files/me-post-disaster-claims-guide.pdf
+  version_pin: null
 - id: family-access-redcross
   repository_id: disability-preparedness
   category: pdf_reference
@@ -3865,6 +3970,7 @@ assets:
     implied. Retrieved 2026-10-24T18:55:19.501773+00:00
   online_url: https://ready.alaska.gov/
   download_url: https://ready.alaska.gov/Documents/Preparedness/Outreach/Red%20Cross%20Guide%20for%20those%20with%20Disabilities.pdf
+  version_pin: null
 - id: family-access-power
   repository_id: disability-preparedness
   category: pdf_reference
@@ -3879,6 +3985,7 @@ assets:
     and source notices retained. No endorsement implied. Retrieved 2026-10-24T18:55:19.504058+00:00
   online_url: https://www.fda.gov/medical-devices/products-and-medical-procedures/home-health-and-consumer-devices
   download_url: https://www.fda.gov/media/80782/download
+  version_pin: null
 - id: family-access-ms-temperature
   repository_id: disability-preparedness
   category: pdf_reference
@@ -3893,6 +4000,7 @@ assets:
     institutional and source notices retained. No endorsement implied. Retrieved 2026-10-24T18:55:19.505708+00:00
   online_url: https://www.mssociety.org.uk/about-ms/signs-and-symptoms/effects-temperature-ms
   download_url: https://onlineshop.mssociety.org.uk/download/sample/46
+  version_pin: null
 - id: family-access-ready-now
   repository_id: disability-preparedness
   category: pdf_reference
@@ -3909,6 +4017,7 @@ assets:
     unmodified redistribution only. Retrieved 2026-10-24T18:56:17.069165+00:00
   online_url: https://www.ohsu.edu/university-center-excellence-development-disability/ready-now-emergency-preparedness-tool-kit
   download_url: https://www.ohsu.edu/sites/default/files/2026-05/all-combined_ready-now-tool-kit-oct2423.pdf
+  version_pin: null
 - id: forms-ma-health-proxy
   repository_id: forms-templates
   category: pdf_reference
@@ -3941,6 +4050,137 @@ assets:
     Archived design and site-assessment reference; historical costs and permitting
     context retained. Not current electrical code or a site-specific engineering design.
     Original notices retained.; retrieved 2026-10-24T19:12:09.467510+00:00
+  version_pin: null
+- id: family-cdc-wrigley-en
+  repository_id: family-resources
+  category: pdf_reference
+  title: 'Ready Wrigley: Coping After a Disaster'
+  relative_path: family-resources/kids/cdc-wrigley-en.pdf
+  service_endpoint: /library-files/family-resources/kids/cdc-wrigley-en.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 88b8d50decd75418792e6253f8380166c2707127e69acc0ef16837a18d5b5c56
+  source_note: 2018 CDC Stacks archived edition; retained as a coping activity book
+    CDC public educational material, agency and original notices retained. No endorsement
+    implied. Retrieved 2026-10-24T20:08:17.970926+00:00
+  online_url: https://stacks.cdc.gov/view/cdc/58346/
+  download_url: https://stacks.cdc.gov/view/cdc/58346/cdc_58346_DS1.pdf
+  version_pin: null
+- id: family-cdc-wrigley-es
+  repository_id: family-resources
+  category: pdf_reference
+  title: 'Ready Wrigley: Coping After a Disaster — Spanish'
+  relative_path: family-resources/kids/cdc-wrigley-es.pdf
+  service_endpoint: /library-files/family-resources/kids/cdc-wrigley-es.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: e5769356462a4ba2023c4b616f1fdfe977f76420aef3b3f1dfd452f91eb132ff
+  source_note: 2018 CDC Stacks archived edition; retained as a coping activity book
+    CDC public educational material, agency and original notices retained. No endorsement
+    implied. Retrieved 2026-10-24T20:08:46.234501+00:00
+  online_url: https://stacks.cdc.gov/view/cdc/58345/
+  download_url: https://stacks.cdc.gov/view/cdc/58345/cdc_58345_DS1.pdf
+  version_pin: null
+- id: family-cdc-backpack
+  repository_id: family-resources
+  category: pdf_reference
+  title: CDC Backpack Emergency Contact Card
+  relative_path: family-resources/readiness/cdc-backpack.pdf
+  service_endpoint: /library-files/family-resources/readiness/cdc-backpack.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: e6bce25e49dc92a655fc5eadb9073aa019aa58323631c56a072c28cde1d1d0fa
+  source_note: 'CDC Stacks 2019 labeled edition Source: CDC. Public-domain agency
+    material; original notices retained. Free from CDC.gov. No CDC/HHS/U.S. Government
+    endorsement implied. Retrieved 2026-10-24T20:09:08.975222+00:00'
+  online_url: https://stacks.cdc.gov/view/cdc/34175
+  download_url: https://stacks.cdc.gov/view/cdc/34175/cdc_34175_DS1.pdf
+  version_pin: null
+- id: family-cdc-pet-kit
+  repository_id: family-resources
+  category: pdf_reference
+  title: CDC Pet Emergency Kit Checklist
+  relative_path: family-resources/readiness/cdc-pet-kit.pdf
+  service_endpoint: /library-files/family-resources/readiness/cdc-pet-kit.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 22b1967034a8725c01d864301dcca240e53ffd05ca51aa81c9b763d70b7b4627
+  source_note: 'CDC Stacks archived edition Source: CDC. Public-domain agency material;
+    original notices retained. Free from CDC.gov. No CDC/HHS/U.S. Government endorsement
+    implied. Retrieved 2026-10-24T20:09:28.790357+00:00'
+  online_url: https://stacks.cdc.gov/view/cdc/139819
+  download_url: https://stacks.cdc.gov/view/cdc/139819/cdc_139819_DS1.pdf
+  version_pin: null
+- id: family-cdc-family-plan
+  repository_id: family-resources
+  category: pdf_reference
+  title: CDC My Family Communication Plan
+  relative_path: family-resources/readiness/cdc-family-plan.pdf
+  service_endpoint: /library-files/family-resources/readiness/cdc-family-plan.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: f3000f00a27c8bc5d2edc7a9d18389daefef042e7b498065f923ed9f7e011b13
+  source_note: 'CDC Stacks 2019 labeled edition Source: CDC. Public-domain agency
+    material; original notices retained. Free from CDC.gov. No CDC/HHS/U.S. Government
+    endorsement implied. Retrieved 2026-10-24T20:09:45.285677+00:00'
+  online_url: https://stacks.cdc.gov/view/cdc/139817
+  download_url: https://stacks.cdc.gov/view/cdc/139817/cdc_139817_DS1.pdf
+  version_pin: null
+- id: forms-ma-form1-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: Massachusetts Form 1 — Resident income tax return — Tax year 2025
+  relative_path: forms/tax/ma-form1-2025.pdf
+  service_endpoint: /library-files/forms/tax/ma-form1-2025.pdf
+  online_url: https://www.mass.gov/doc/2025-form-1-massachusetts-resident-income-tax-return/download
+  download_url: https://www.mass.gov/doc/2025-form-1-massachusetts-resident-income-tax-return/download
+  expected_hash: 0bb62498fda14b515084b83fb4467f379f17d08a712f6390b1cd2fceecb04a07
+  update_policy: manual
+  refresh_interval: never
+  source_note: Massachusetts. Instructions must match the tax year. Retrieved 2026-10-24T20:10:51.979036+00:00
+  version_pin: null
+- id: forms-ma-form1-instructions-2025
+  repository_id: forms-templates
+  category: pdf_reference
+  title: Massachusetts Form 1 instructions — Tax year 2025
+  relative_path: forms/tax/ma-form1-instructions-2025.pdf
+  service_endpoint: /library-files/forms/tax/ma-form1-instructions-2025.pdf
+  online_url: https://www.mass.gov/doc/2025-form-1-instructions/download
+  download_url: https://www.mass.gov/doc/2025-form-1-instructions/download
+  expected_hash: f99acc9db3a4c83da890b7e2a26fd310f1a0ec6fa9e2744e4f975e32f64dd2cd
+  update_policy: manual
+  refresh_interval: never
+  source_note: Massachusetts. Exclude draft editions. Retrieved 2026-10-24T20:11:13.467288+00:00
+  version_pin: null
+- id: ref-ma-electrical
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts electrical-code amendments — 527 CMR 12.00
+  relative_path: civic-reference/documents/ma-electrical.pdf
+  service_endpoint: /library-files/civic-reference/documents/ma-electrical.pdf
+  online_url: https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download
+  download_url: https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download
+  expected_hash: ddafaa0ea7f8db8e6a58e398a26ac5b711932ae812b3327b45e9979f5959f76e
+  update_policy: manual
+  refresh_interval: never
+  source_note: State page identifies effective April 24, 2026; NFPA 70 2026 base;
+    Massachusetts amendments only. The copyrighted NEC base book is not included.
+    Verify requirements with the authority having jurisdiction.; retrieved 2026-10-24T20:12:02.896550+00:00
+  version_pin: null
+- id: ref-ma-fire
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts fire-code amendments — 527 CMR 1.00
+  relative_path: civic-reference/documents/ma-fire.pdf
+  service_endpoint: /library-files/civic-reference/documents/ma-fire.pdf
+  online_url: https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download
+  download_url: https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download
+  expected_hash: 2096abb22f66daf14520b104dcb3798e9000df9a8f03cdb2c58dd0c0a44d585e
+  update_policy: manual
+  refresh_interval: never
+  source_note: 2021 state edition, effective May 12, 2023; verify later amendments;
+    State amendment package, not the full NFPA 1 model-code book. Proposed 2024 amendments
+    are not treated as adopted law.; retrieved 2026-10-24T20:12:23.278749+00:00
   version_pin: null
 resource_sections:
 - title: Local maps

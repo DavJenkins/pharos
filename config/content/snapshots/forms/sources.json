@@ -312,10 +312,21 @@
     "group": "tax",
     "edition": "Tax year 2025",
     "note": "Massachusetts. Instructions must match the tax year.",
-    "checked_at": "2026-10-23T04:56:59.876987+00:00",
+    "checked_at": "2026-10-24T20:10:51.979036+00:00",
     "filename": "tax/ma-form1-2025.pdf",
-    "status": "unavailable",
-    "error": "HTTP Error 403: Forbidden"
+    "resolved_url": "https://www.mass.gov/doc/2025-form-1-massachusetts-resident-income-tax-return/download",
+    "pages": 4,
+    "pdf_form": "AcroForm",
+    "document_header": "Fill out in black ink. For a faster refund, fle your return electronically at mass.gov/dor. You must also complete and enclose Schedule HC. 2025 Massachusetts Department of Revenue Form 1 Massachusetts Resident Income Tax Return TAXPAYER’S FIRST NAME MI LAST NAME TAXPAYER’S SOCIAL SECURITY NUMBER SPOUSE’S FIRST NAME MI LAST NAME SPOUSE’S SOCIAL SECURITY NUMBER MAILING ADDRESS (no. & street; apt./suite/postal box). If you have a foreign address, also complete line below. CITY/TOWN STATE FOREIGN PROVINCE/STATE/COUNTY FOREIGN COUNTRY (OR COUNTRY CODE) FOREIGN POSTAL CODE Fill in if (see instructions): MM D D Y Y Y Y Amended return Other jurisdiction change (enter date of change) Federal amendme",
+    "status": "installed",
+    "bytes": 558273,
+    "sha256": "0bb62498fda14b515084b83fb4467f379f17d08a712f6390b1cd2fceecb04a07",
+    "acquisition": {
+      "method": "user-selected browser download via paired SSH helper",
+      "captured_url": "https://www.mass.gov/doc/2025-form-1-massachusetts-resident-income-tax-return/download",
+      "checks": "PDF parser, identity/year checks, SHA-256; not a publisher digital signature",
+      "verified_at": "2026-10-24T20:10:51.979036+00:00"
+    }
   },
   {
     "id": "ma-form1-instructions-2025",
@@ -324,10 +335,20 @@
     "group": "tax",
     "edition": "Tax year 2025",
     "note": "Massachusetts. Exclude draft editions.",
-    "checked_at": "2026-10-23T04:56:59.963386+00:00",
+    "checked_at": "2026-10-24T20:11:13.467288+00:00",
     "filename": "tax/ma-form1-instructions-2025.pdf",
-    "status": "unavailable",
-    "error": "HTTP Error 403: Forbidden"
+    "resolved_url": "https://www.mass.gov/doc/2025-form-1-instructions/download",
+    "pages": 40,
+    "pdf_form": "AcroForm",
+    "document_header": "Department of Revenue Commonwealth of Massachusetts Form 1 2025 Massachusetts Resident Income Tax (Revised August 4, 2026) e l i F e / v o g . s s a M Before using paper, consider Fast — Filing electronically, rather than on paper, can mean faster processing of your refund and money in your account sooner. Accurate — Generally, electronic filings have fewer errors than paper forms. Online programs make it easy to ensure you don’t miss anything important. Ecofriendly — A great majority of Massachusetts taxpayers file electronically. Help us to continue reducing our carbon footprint. Affordable — Many Massachusetts taxpayers qualify to use commercial tax preparation software at no charge. Chec",
+    "status": "installed",
+    "bytes": 637936,
+    "sha256": "f99acc9db3a4c83da890b7e2a26fd310f1a0ec6fa9e2744e4f975e32f64dd2cd",
+    "acquisition": {
+      "method": "user-selected browser download via paired SSH helper",
+      "captured_url": "https://www.mass.gov/doc/2025-form-1-instructions/download",
+      "checks": "PDF parser, identity/year checks, SHA-256; not a publisher digital signature"
+    }
   },
   {
     "id": "ss5",

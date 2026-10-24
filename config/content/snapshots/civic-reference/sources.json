@@ -62,9 +62,18 @@
     "edition": "State page identifies effective April 24, 2026; NFPA 70 2026 base",
     "note": "Massachusetts amendments only. The copyrighted NEC base book is not included. Verify requirements with the authority having jurisdiction.",
     "filename": "documents/ma-electrical.pdf",
-    "checked_at": "2026-10-24T01:21:52.873768+00:00",
-    "status": "unavailable",
-    "error": "HTTP Error 403: Forbidden"
+    "checked_at": "2026-10-24T20:12:02.896550+00:00",
+    "resolved_url": "https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download",
+    "pages": 14,
+    "document_header": "527 CMR: BOARD OF FIRE PREVENTION REGULATIONS 527 CMR 12.00: MASSACHUSETTS ELECTRICAL CODE (AMENDMENTS) The Massachusetts Electrical Code (527 CMR 12.00) of the Board of Fire Prevention Regulations (BFPR) shall be the 2026 National Electrical Code (NEC), as published by the National Fire Protection Association (NFPA) as NFPA 70 in the form released by vote of the NFPA Standards Council on August 20, 2025, including all modifications made by the BFPR and duly promulgated from time to time in the Code of Massachusetts Regulations. Amendments made by NFPA subsequent to this date have no force or ",
+    "status": "installed",
+    "bytes": 147480,
+    "sha256": "ddafaa0ea7f8db8e6a58e398a26ac5b711932ae812b3327b45e9979f5959f76e",
+    "acquisition": {
+      "method": "user-selected browser download via paired SSH helper",
+      "captured_url": "https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download",
+      "checks": "PDF parser, identity/year checks, SHA-256; not a publisher digital signature"
+    }
   },
   {
     "id": "ma-fire",
@@ -76,9 +85,18 @@
     "edition": "2021 state edition, effective May 12, 2023; verify later amendments",
     "note": "State amendment package, not the full NFPA 1 model-code book. Proposed 2024 amendments are not treated as adopted law.",
     "filename": "documents/ma-fire.pdf",
-    "checked_at": "2026-10-24T01:21:52.994022+00:00",
-    "status": "unavailable",
-    "error": "HTTP Error 403: Forbidden"
+    "checked_at": "2026-10-24T20:12:23.278749+00:00",
+    "resolved_url": "https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download",
+    "pages": 182,
+    "document_header": "UNOFFICAL Massachusetts Amendments to NFPA ®1, 2021 (effective May 12, 2023) 527 CMR: BOARD OF FIRE PREVENTION REGULATIONS 527 CMR 1.00: MASSACHUSETTS COMPREHENSIVE FIRE SAFETY CODE Section 1.01: 1.02: 1.03: 1.04: 1.05: Title Purpose Scope Adoption by Reference Modifications to NFPA 1 Fire Code - 2021 Edition 1.01: Title 527 CMR 1.00, as referred to as “this Code”, shall be known as the Massachusetts Comprehensive Fire Safety Code. 1.02: Purpose The purpose and the intent of 527 CMR 1.00 is to prescribe minimum requirements and controls to safeguard life, property, and public welfare from the ",
+    "status": "installed",
+    "bytes": 1760584,
+    "sha256": "2096abb22f66daf14520b104dcb3798e9000df9a8f03cdb2c58dd0c0a44d585e",
+    "acquisition": {
+      "method": "user-selected browser download via paired SSH helper",
+      "captured_url": "https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download",
+      "checks": "PDF parser, identity/year checks, SHA-256; not a publisher digital signature"
+    }
   },
   {
     "id": "ma-building-preamble",

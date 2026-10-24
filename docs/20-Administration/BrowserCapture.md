@@ -1,6 +1,6 @@
 # Browser download capture
 
-[Open capture page](/capture.html). This provides the missing last mile when a public reference downloads in a normal browser but automated retrieval fails. It is limited to explicitly selected missing PDFs; it does not collect unrelated downloads or completed personal forms.
+[Open capture page](/capture.html). This provides the missing last mile when a public reference downloads in a normal browser but automated retrieval fails. It is limited to explicitly selected public PDFs and verified replacements; it does not collect unrelated downloads or completed personal forms.
 
 ## One-time Windows / Chrome setup
 
@@ -22,9 +22,9 @@ Status progresses through downloading, validating/importing, and installed or an
 
 The server derives destination, source and collection from its own catalogue, not a browser path. Approved PDF IDs and identity checks are fixed in tools/import_browser_reference.py. Limits: 30 MiB, 2,000 pages, PDF parser timeout and unencrypted files. Required document identity/year text must appear in the first three pages; mismatches and draft tax returns are rejected. Conservative rejection is intentional: an administrator can review an unusual scanned document separately. Signature/hash validation proves structural identity and records the imported bytes; it is not a cryptographic publisher signature.
 
-The existing family/forms/resilience installer performs its normal validation and registration. Already installed entries are never overwritten. The helper updates sources.json with browser-acquisition provenance, collection index, manifest, public content configuration and portable catalogue, then redeploys the web interface. A mounted content drive and existing filesystem/SSH administrator authorization are required. A capture lock serializes capture imports; existing installer worker-lock checks still apply. Publication errors are reported; inspect the inventory before retrying because a validated file may already have been recorded before a later deployment failure.
+The existing family/forms/resilience installer performs its normal validation and registration. Installed files can be replaced only after an explicit selection carrying their current SHA-256. A stale baseline is rejected; same-byte comparisons are idempotent. Previous verified bytes and metadata are retained under /var/lib/dataark/browser-capture/history, outside public content shares. The helper updates sources.json with browser-acquisition provenance, collection index, manifest, public content configuration and portable catalogue, then redeploys the web interface. A mounted content drive and existing filesystem/SSH administrator authorization are required. A capture lock serializes capture imports; existing installer worker-lock checks still apply. Publication errors are reported; inspect the inventory before retrying because a validated file may already have been recorded before a later deployment failure.
 
-The machine-readable gap register removes an imported entry from unavailable_entries and records it in resolved_entries. The narrative ContentGaps guide is a dated audit and requires later editorial review; the capture page's live inventory is the current operational view. Automatic imports do not create commits or push GitHub. Review provenance and exported configuration before the next intentional source/recovery checkpoint.
+The machine-readable gap register removes an imported entry from unavailable_entries and records it in resolved_entries. The narrative ContentGaps guide is now regenerated from the gap JSON after each import, so successful captures appear under resolved entries. Subject-coverage assessments still require editorial review. Automatic imports do not create commits or push GitHub. Review provenance and exported configuration before the next intentional source/recovery checkpoint.
 
 ## Sources and rebuild
 
@@ -36,3 +36,13 @@ The machine-readable gap register removes an imported entry from unavailable_ent
 - [GitHub source](https://github.com/DavJenkins/pharos), branch feature/readme-foundation.
 
 No SSH key or local config.json belongs in Git or the public ZIP. Uninstall the extension in Chrome, remove its current-user native-host registry key, then remove the extracted folder. Existing content and original downloaded copies remain.
+
+## Version 1.1 update lifecycle
+
+Installed captures remain in a collapsed section, outside the pending list. Check installed captures for updates explicitly asks the paired desktop helper to run bounded publisher checks on the Ark. No periodic scheduler is added. Validated PDF bytes are compared to the installed SHA-256: identical means current; different means changed and needing review, not proof of a newer edition. An unparseable file or failed HTTP request is unknown/blocked; the installed copy stays usable.
+
+A blocked check does not reopen a recently browser-verified item. deploy/reference/browser-capture-policy.json sets manual_review_after_days (30 by default). Older unknown checks can request browser review after the next explicit check; there is no promise of detecting an update while nobody runs a check. A browser comparison of identical bytes clears that request immediately. A valid changed copy requires the current baseline hash, preserves the previous verified PDF and metadata privately, and then publishes the replacement. Year-specific forms retain their year; 2026 forms require a separate entry instead of replacing 2025. Fixed editions and source notes remain visible, and a changed PDF is labeled as a browser-verified replacement rather than silently asserting a new publication date.
+
+Update observations live in /var/lib/dataark/browser-capture/update-checks.json, with a public non-sensitive view at /library-files/browser-capture-status.json. They are runtime observations rather than content selection. Previous-copy history is on the system disk; it is not included in the public library or automatically replicated as payload. An administrator can recover an earlier PDF and its saved sources record after checking its SHA-256. No automatic history deletion policy is installed.
+
+When upgrading this unpacked extension, replace package files while retaining local config.json and the native-host launcher/registration, then click Reload on its card at chrome://extensions and refresh the capture page. Permissions and extension ID are unchanged.

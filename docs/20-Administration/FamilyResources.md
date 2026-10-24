@@ -22,7 +22,7 @@ Rendered pages are capped at roughly 1200 by 1600 pixels; large books and intric
 
 The curated catalogue is deploy/reference/family-catalogue.json. NASA activity/coloring books, NPS Cave Scientist booklets, CDC coping/contact/planning materials, FEMA's archived September 2010 ICS booklet, and Common Paper agreements retain publisher format, attribution and edition. NPS Cave Scientist explicitly restricts reformatting/sale; those files are available unmodified for non-commercial educational use and excluded from the coloring tool's built-in list. CDC archive editions are labeled. Follow organization-required current incident forms rather than assuming an archived reference edition is the latest filing format. Contract templates require appropriate business and jurisdiction choices; the SOW accompanies the existing Common Paper PSA.
 
-CDC publisher file downloads currently return HTTP 403 from this network, including its own archive. The five CDC candidates remain explicitly not installed; they are not advertised as local coping books.
+CDC automated downloads initially returned HTTP 403, including archive requests. All five CDC candidates were subsequently captured successfully through the paired browser workflow, including the English and Spanish coping books. Current provenance is in sources.json.
 
 The book index links publisher pages and keeps sources.json with resolved URLs, retrieval time, size, PDF page count, title excerpt, SHA-256 and rights notes. Failed publisher downloads are shown as not installed; an earlier local copy is retained only if it matches its recorded checksum. A retrieval date is not a new publication date. No publisher endorsement is implied.
 

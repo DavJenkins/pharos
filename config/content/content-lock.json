@@ -2389,6 +2389,96 @@
       "sha256": "206cb85606fbfc326ebc037396fe4beb95ceb4476049a5ab0b6ea4b378795a19",
       "source": "https://www.ncat.org/wp-content/uploads/2025/12/microhydrodesign.pdf",
       "repository": "resilience"
+    },
+    {
+      "id": "family-cdc-wrigley-en",
+      "title": "Ready Wrigley: Coping After a Disaster",
+      "path": "family-resources/kids/cdc-wrigley-en.pdf",
+      "selected": true,
+      "bytes": 1974241,
+      "sha256": "88b8d50decd75418792e6253f8380166c2707127e69acc0ef16837a18d5b5c56",
+      "source": "https://stacks.cdc.gov/view/cdc/58346/cdc_58346_DS1.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-cdc-wrigley-es",
+      "title": "Ready Wrigley: Coping After a Disaster \u2014 Spanish",
+      "path": "family-resources/kids/cdc-wrigley-es.pdf",
+      "selected": true,
+      "bytes": 2117830,
+      "sha256": "e5769356462a4ba2023c4b616f1fdfe977f76420aef3b3f1dfd452f91eb132ff",
+      "source": "https://stacks.cdc.gov/view/cdc/58345/cdc_58345_DS1.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-cdc-backpack",
+      "title": "CDC Backpack Emergency Contact Card",
+      "path": "family-resources/readiness/cdc-backpack.pdf",
+      "selected": true,
+      "bytes": 498982,
+      "sha256": "e6bce25e49dc92a655fc5eadb9073aa019aa58323631c56a072c28cde1d1d0fa",
+      "source": "https://stacks.cdc.gov/view/cdc/34175/cdc_34175_DS1.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-cdc-pet-kit",
+      "title": "CDC Pet Emergency Kit Checklist",
+      "path": "family-resources/readiness/cdc-pet-kit.pdf",
+      "selected": true,
+      "bytes": 181456,
+      "sha256": "22b1967034a8725c01d864301dcca240e53ffd05ca51aa81c9b763d70b7b4627",
+      "source": "https://stacks.cdc.gov/view/cdc/139819/cdc_139819_DS1.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "family-cdc-family-plan",
+      "title": "CDC My Family Communication Plan",
+      "path": "family-resources/readiness/cdc-family-plan.pdf",
+      "selected": true,
+      "bytes": 615730,
+      "sha256": "f3000f00a27c8bc5d2edc7a9d18389daefef042e7b498065f923ed9f7e011b13",
+      "source": "https://stacks.cdc.gov/view/cdc/139817/cdc_139817_DS1.pdf",
+      "repository": "family-resources"
+    },
+    {
+      "id": "forms-ma-form1-2025",
+      "title": "Massachusetts Form 1 \u2014 Resident income tax return \u2014 Tax year 2025",
+      "path": "forms/tax/ma-form1-2025.pdf",
+      "selected": true,
+      "bytes": 558273,
+      "sha256": "0bb62498fda14b515084b83fb4467f379f17d08a712f6390b1cd2fceecb04a07",
+      "source": "https://www.mass.gov/doc/2025-form-1-massachusetts-resident-income-tax-return/download",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "forms-ma-form1-instructions-2025",
+      "title": "Massachusetts Form 1 instructions \u2014 Tax year 2025",
+      "path": "forms/tax/ma-form1-instructions-2025.pdf",
+      "selected": true,
+      "bytes": 637936,
+      "sha256": "f99acc9db3a4c83da890b7e2a26fd310f1a0ec6fa9e2744e4f975e32f64dd2cd",
+      "source": "https://www.mass.gov/doc/2025-form-1-instructions/download",
+      "repository": "forms-templates"
+    },
+    {
+      "id": "ref-ma-electrical",
+      "title": "Massachusetts electrical-code amendments \u2014 527 CMR 12.00",
+      "path": "civic-reference/documents/ma-electrical.pdf",
+      "selected": true,
+      "bytes": 147480,
+      "sha256": "ddafaa0ea7f8db8e6a58e398a26ac5b711932ae812b3327b45e9979f5959f76e",
+      "source": "https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "ref-ma-fire",
+      "title": "Massachusetts fire-code amendments \u2014 527 CMR 1.00",
+      "path": "civic-reference/documents/ma-fire.pdf",
+      "selected": true,
+      "bytes": 1760584,
+      "sha256": "2096abb22f66daf14520b104dcb3798e9000df9a8f03cdb2c58dd0c0a44d585e",
+      "source": "https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download",
+      "repository": "civic-reference"
     }
   ],
   "unmanaged_archives": [
