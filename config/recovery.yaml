@@ -1,0 +1,20 @@
+# Paired-media recovery design. Readiness is reported separately from intent.
+schema: 1
+name: Mutually recoverable Data Ark media
+system_drive:
+  authoritative_content_profile: /opt/dataark/config/content/content.yaml
+  rebuild_content_drive: /usr/bin/python3 /opt/dataark/tools/content_profile.py restore --apply
+content_drive:
+  configuration_mirror: /mnt/storage/DATA-ARK-CONFIG
+  recovery_kit: /mnt/storage/DATA-ARK-RECOVERY
+  source_archive: dataark-source.tar.gz
+  dependency_inventory: software-baseline.json
+policy:
+  restore_on_boot: false
+  format_disks: false
+  copy_credentials_to_public_content: false
+  desired_selection_survives_missing_content: true
+acceptance:
+  - Original boot card and replacement content drive restore the selected library.
+  - Original content drive and replacement boot card restore the appliance and read its existing library.
+  - Both restored appliances pass client, offline, reader, management and recovery checks.

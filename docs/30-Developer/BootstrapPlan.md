@@ -87,3 +87,7 @@ See [Configuration reference](../20-Administration/Configuration.md), [Source an
 ## Peripheral resource inventory
 
 A future bootstrap report should list incidental usable capabilities alongside the primary library: installed tools, available local interfaces, access methods, offline dependencies and recovery instructions. Separate installed/tested functions from possibilities requiring more hardware or configuration. Do not silently enable administration, writable workspaces or code execution merely because the hardware supports them. Verify optional functions do not compromise content service.
+
+## Reciprocal media recovery
+
+The stronger acceptance target is two-way regeneration: original boot card plus replacement content drive, and original content drive plus replacement boot card. The desired content profile is now implemented under `config/content`; the public media mirror and source checkpoint support the reverse path, but do not yet supply a tested base-image bootstrap. See [paired recovery](../20-Administration/PairedRecovery.md) and `config/recovery.yaml`.
