@@ -1443,5 +1443,61 @@
     "age": "Adults / household recovery / supervised cleanup",
     "license": "Original educational reference; institutional, copyright and source notices retained. No endorsement implied.",
     "no_coloring_derivative": true
+  },
+  {
+    "id": "access-ready-now",
+    "title": "Ready Now! Emergency Preparedness Tool Kit — OHSU",
+    "url": "https://www.ohsu.edu/sites/default/files/2026-05/all-combined_ready-now-tool-kit-oct2423.pdf",
+    "source_page": "https://www.ohsu.edu/university-center-excellence-development-disability/ready-now-emergency-preparedness-tool-kit",
+    "edition": "Oregon Office on Disability and Health / OHSU, second edition updated October 2023; publisher file hosted May 2026. Regional services retained; digital accessibility improvements pending per publisher.",
+    "purpose": "Plain language / personal assessment / backup support / communication / mobility / evacuation / service animals",
+    "collection": "disability-preparedness",
+    "format": "pdf",
+    "language": "English",
+    "age": "People with disabilities / support people / caregivers",
+    "license": "OHSU / Oregon Office on Disability and Health. CC BY-NC-ND 3.0 US. Preserve original attribution; noncommercial, unmodified redistribution only.",
+    "no_coloring_derivative": true
+  },
+  {
+    "id": "access-power",
+    "title": "Home Use Devices: Power Outages — FDA",
+    "url": "https://www.fda.gov/media/80782/download",
+    "source_page": "https://www.fda.gov/medical-devices/products-and-medical-procedures/home-health-and-consumer-devices",
+    "edition": "FDA home medical-device power-outage booklet, 2011 archived edition still linked by FDA.",
+    "purpose": "Medical equipment / battery runtime / backup power / device information / emergency contacts",
+    "collection": "disability-preparedness",
+    "format": "pdf",
+    "language": "English",
+    "age": "People with disabilities / support people / caregivers",
+    "license": "Original educational reference; copyright, institutional and source notices retained. No endorsement implied.",
+    "no_coloring_derivative": true
+  },
+  {
+    "id": "access-ms-temperature",
+    "title": "Hot and Cold: The Effects of Temperature on MS — MS Society",
+    "url": "https://onlineshop.mssociety.org.uk/download/sample/46",
+    "source_page": "https://www.mssociety.org.uk/about-ms/signs-and-symptoms/effects-temperature-ms",
+    "edition": "MS Society UK information sheet, May 2016 archived edition. UK services and historical references retained.",
+    "purpose": "Multiple sclerosis / temperature sensitivity / cooling / heat / cold / fatigue",
+    "collection": "disability-preparedness",
+    "format": "pdf",
+    "language": "English",
+    "age": "People with disabilities / support people / caregivers",
+    "license": "Original educational reference; copyright, institutional and source notices retained. No endorsement implied.",
+    "no_coloring_derivative": true
+  },
+  {
+    "id": "access-redcross",
+    "title": "Disaster Preparedness for People With Disabilities — American Red Cross",
+    "url": "https://ready.alaska.gov/Documents/Preparedness/Outreach/Red%20Cross%20Guide%20for%20those%20with%20Disabilities.pdf",
+    "source_page": "https://ready.alaska.gov/",
+    "edition": "Archived American Red Cross A5091 edition, hosted by Alaska emergency management. Historical contacts and procedures retained.",
+    "purpose": "Personal support network / mobility / evacuation / medication refrigeration / service animals",
+    "collection": "disability-preparedness",
+    "format": "pdf",
+    "language": "English",
+    "age": "People with disabilities / support people / caregivers",
+    "license": "Original educational reference; copyright, institutional and source notices retained. No endorsement implied.",
+    "no_coloring_derivative": true
   }
 ]

@@ -80,3 +80,5 @@
 - [Pets and livestock in emergencies](20-Administration/AnimalsEmergency.md)
 
 - [Disaster recovery and cleanup](20-Administration/DisasterRecovery.md)
+
+- [Disability preparedness](20-Administration/DisabilityPreparedness.md)

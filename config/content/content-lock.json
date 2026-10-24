@@ -2329,6 +2329,46 @@
       "sha256": "408fcae75b528ad849c5a885953cea77f95c3466ce07f61ad765f3ab8f70966c",
       "source": "https://www.maine.gov/pfr/insurance/sites/maine.gov.pfr.insurance/files/inline-files/me-post-disaster-claims-guide.pdf",
       "repository": "disaster-recovery"
+    },
+    {
+      "id": "family-access-redcross",
+      "title": "Disaster Preparedness for People With Disabilities \u2014 American Red Cross",
+      "path": "family-resources/disability-preparedness/access-redcross.pdf",
+      "selected": true,
+      "bytes": 1411128,
+      "sha256": "81b28cd37a30ccca37e383dea01ddd00dbd46a2d67a780247e918d024974b54f",
+      "source": "https://ready.alaska.gov/Documents/Preparedness/Outreach/Red%20Cross%20Guide%20for%20those%20with%20Disabilities.pdf",
+      "repository": "disability-preparedness"
+    },
+    {
+      "id": "family-access-power",
+      "title": "Home Use Devices: Power Outages \u2014 FDA",
+      "path": "family-resources/disability-preparedness/access-power.pdf",
+      "selected": true,
+      "bytes": 5361444,
+      "sha256": "4d3e36fb91df472750ca7a2993fdf8e8501363d90c9bdf61b30ef9fbec8c55da",
+      "source": "https://www.fda.gov/media/80782/download",
+      "repository": "disability-preparedness"
+    },
+    {
+      "id": "family-access-ms-temperature",
+      "title": "Hot and Cold: The Effects of Temperature on MS \u2014 MS Society",
+      "path": "family-resources/disability-preparedness/access-ms-temperature.pdf",
+      "selected": true,
+      "bytes": 168159,
+      "sha256": "4f4d4cddba9d80ee1180869da43215e12a578b4a124443a30585ae934542eb12",
+      "source": "https://onlineshop.mssociety.org.uk/download/sample/46",
+      "repository": "disability-preparedness"
+    },
+    {
+      "id": "family-access-ready-now",
+      "title": "Ready Now! Emergency Preparedness Tool Kit \u2014 OHSU",
+      "path": "family-resources/disability-preparedness/access-ready-now.pdf",
+      "selected": true,
+      "bytes": 2174332,
+      "sha256": "2216e66e47334284d8d831f04008912e6ad3b2d4a5e289f1aae01038cb2599e5",
+      "source": "https://www.ohsu.edu/sites/default/files/2026-05/all-combined_ready-now-tool-kit-oct2423.pdf",
+      "repository": "disability-preparedness"
     }
   ],
   "unmanaged_archives": [

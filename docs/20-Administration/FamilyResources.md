@@ -91,3 +91,7 @@ The [first-aid and caregiving collection](FirstAidCare.md) adds original first-a
 ## Disaster recovery
 
 [Recovery and cleanup](DisasterRecovery.md) documents flood cleanout, cleanup hazards, contractor fraud and loss records, complementing the existing mold and CERT references.
+
+## Disability preparedness
+
+[Disability preparedness and MS temperature sensitivity](DisabilityPreparedness.md) adds original planning, medical-device power and temperature-sensitivity guides, linked to existing caregiver and medicine resources.

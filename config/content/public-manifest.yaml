@@ -456,6 +456,21 @@ repositories:
   links:
   - title: Open recovery & cleanup guides
     url: /library-files/family-resources/index.html#disaster-recovery
+- id: disability-preparedness
+  category: content_sources
+  title: Disability Preparedness
+  description: Accessible evacuation, communication and mobility planning, backup
+    support, medical-device power outages and MS temperature sensitivity. Complements
+    existing caregiver and medication guides.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Accessibility.png
+    alt: Person with outstretched arms accessibility icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open disability preparedness guides
+    url: /library-files/family-resources/index.html#disability-preparedness
 assets:
 - id: ifixit-repair-guides
   online_url: https://www.ifixit.com/Guide
@@ -3835,6 +3850,65 @@ assets:
     and source notices retained. No endorsement implied. Retrieved 2026-10-24T18:44:42.280192+00:00
   online_url: https://www.maine.gov/pfr/insurance/
   download_url: https://www.maine.gov/pfr/insurance/sites/maine.gov.pfr.insurance/files/inline-files/me-post-disaster-claims-guide.pdf
+- id: family-access-redcross
+  repository_id: disability-preparedness
+  category: pdf_reference
+  title: Disaster Preparedness for People With Disabilities — American Red Cross
+  relative_path: family-resources/disability-preparedness/access-redcross.pdf
+  service_endpoint: /library-files/family-resources/disability-preparedness/access-redcross.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 81b28cd37a30ccca37e383dea01ddd00dbd46a2d67a780247e918d024974b54f
+  source_note: Archived American Red Cross A5091 edition, hosted by Alaska emergency
+    management. Historical contacts and procedures retained. Original educational
+    reference; copyright, institutional and source notices retained. No endorsement
+    implied. Retrieved 2026-10-24T18:55:19.501773+00:00
+  online_url: https://ready.alaska.gov/
+  download_url: https://ready.alaska.gov/Documents/Preparedness/Outreach/Red%20Cross%20Guide%20for%20those%20with%20Disabilities.pdf
+- id: family-access-power
+  repository_id: disability-preparedness
+  category: pdf_reference
+  title: 'Home Use Devices: Power Outages — FDA'
+  relative_path: family-resources/disability-preparedness/access-power.pdf
+  service_endpoint: /library-files/family-resources/disability-preparedness/access-power.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 4d3e36fb91df472750ca7a2993fdf8e8501363d90c9bdf61b30ef9fbec8c55da
+  source_note: FDA home medical-device power-outage booklet, 2011 archived edition
+    still linked by FDA. Original educational reference; copyright, institutional
+    and source notices retained. No endorsement implied. Retrieved 2026-10-24T18:55:19.504058+00:00
+  online_url: https://www.fda.gov/medical-devices/products-and-medical-procedures/home-health-and-consumer-devices
+  download_url: https://www.fda.gov/media/80782/download
+- id: family-access-ms-temperature
+  repository_id: disability-preparedness
+  category: pdf_reference
+  title: 'Hot and Cold: The Effects of Temperature on MS — MS Society'
+  relative_path: family-resources/disability-preparedness/access-ms-temperature.pdf
+  service_endpoint: /library-files/family-resources/disability-preparedness/access-ms-temperature.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 4f4d4cddba9d80ee1180869da43215e12a578b4a124443a30585ae934542eb12
+  source_note: MS Society UK information sheet, May 2016 archived edition. UK services
+    and historical references retained. Original educational reference; copyright,
+    institutional and source notices retained. No endorsement implied. Retrieved 2026-10-24T18:55:19.505708+00:00
+  online_url: https://www.mssociety.org.uk/about-ms/signs-and-symptoms/effects-temperature-ms
+  download_url: https://onlineshop.mssociety.org.uk/download/sample/46
+- id: family-access-ready-now
+  repository_id: disability-preparedness
+  category: pdf_reference
+  title: Ready Now! Emergency Preparedness Tool Kit — OHSU
+  relative_path: family-resources/disability-preparedness/access-ready-now.pdf
+  service_endpoint: /library-files/family-resources/disability-preparedness/access-ready-now.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 2216e66e47334284d8d831f04008912e6ad3b2d4a5e289f1aae01038cb2599e5
+  source_note: Oregon Office on Disability and Health / OHSU, second edition updated
+    October 2023; publisher file hosted May 2026. Regional services retained; digital
+    accessibility improvements pending per publisher. OHSU / Oregon Office on Disability
+    and Health. CC BY-NC-ND 3.0 US. Preserve original attribution; noncommercial,
+    unmodified redistribution only. Retrieved 2026-10-24T18:56:17.069165+00:00
+  online_url: https://www.ohsu.edu/university-center-excellence-development-disability/ready-now-emergency-preparedness-tool-kit
+  download_url: https://www.ohsu.edu/sites/default/files/2026-05/all-combined_ready-now-tool-kit-oct2423.pdf
 resource_sections:
 - title: Local maps
   description: Massachusetts reference maps for Worcester and Middlesex counties.
