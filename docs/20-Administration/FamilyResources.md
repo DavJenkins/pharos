@@ -71,3 +71,7 @@ The dedicated [Drinking water collection](DrinkingWater.md) adds sources, storag
 ## Shelter and winter readiness
 
 The [shelter and winter collection](ShelterWinter.md) adds seven original references for winter outages, heating and generator safety, weatherization and frozen pipes.
+
+## First aid and caregiving
+
+The [first-aid and caregiving collection](FirstAidCare.md) adds original first-aid references, medication records and caregiver planning workbooks, including children, older adults and disability/access needs.

@@ -13,6 +13,7 @@ ICONS = {
     'radio-study': ('Radio', '#345e98'),
     'drinking-water': ('Water', '#286b9a'),
     'shelter-winter': ('Shelter', '#4b6389'),
+    'first-aid-care': ('Care', '#667d61'),
     'sanitation': ('Sanitation', '#3a6e78'),
 }
 def render(name, color):
@@ -72,6 +73,10 @@ def render(name, color):
         d.rectangle((111,149,146,207),outline=ink,width=7)
         for x,y in [(78,155),(173,157)]:
             line([(x-13,y),(x+13,y)],5);line([(x,y-13),(x,y+13)],5)
+    elif name == 'Care':
+        d.ellipse((75,58,133,116),fill=ink);d.ellipse((123,58,181,116),fill=ink)
+        d.polygon([(76,95),(180,95),(128,159)],fill=ink)
+        line([(49,161),(80,191),(175,191),(207,160)],12)
     elif name == 'Sanitation':
         d.rounded_rectangle((48,135,208,207),radius=24,outline=ink,width=8)
         d.ellipse((82,151,174,187),outline=ink,width=6)

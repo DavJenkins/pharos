@@ -70,3 +70,5 @@
 - [Drinking water](20-Administration/DrinkingWater.md)
 
 - [Shelter and winter readiness](20-Administration/ShelterWinter.md)
+
+- [First aid and caregiving](20-Administration/FirstAidCare.md)
