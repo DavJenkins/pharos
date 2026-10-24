@@ -159,6 +159,32 @@ class ManifestTests(unittest.TestCase):
         _, page = self.render()
         self.assertNotIn('class="asset-external"',page)
 
+    def test_shared_sweep_time_preserves_older_and_unknown_observations(self):
+        cache = self.root / '.cache'
+        cache.mkdir()
+        records = {}
+        for key, status, checked in [
+                ('book', 'available', '2026-10-24T08:30:00+00:00'),
+                ('older', 'available', '2026-10-23T08:30:00+00:00'),
+                ('uncertain', 'unknown', '2026-10-24T08:30:01+00:00')]:
+            asset = deepcopy(self.data['assets'][0])
+            asset.update(id=key, title=key, relative_path=key+'.pdf',
+                         download_url='https://example.invalid/'+key+'.pdf')
+            if key == 'book': self.data['assets'][0] = asset
+            else: self.data['assets'].append(asset)
+            (self.content/(key+'.pdf')).touch()
+            records[key] = {'status':status, 'sources':[asset['download_url']], 'checked_at':checked}
+        (cache/'manifest-upstream.json').write_text(json.dumps({
+            'version':1, 'batch_started_at':'2026-10-24T08:29:00+00:00',
+            'batch_finished_at':'2026-10-24T08:31:00+00:00', 'assets':records}))
+        _, page = self.render()
+        self.assertEqual(page.count('Sources checked:'), 1)
+        self.assertEqual(page.count('<time data-local-time'), 2)  # Sweep and genuinely older check.
+        self.assertIn('Older check · Source OK', page)
+        self.assertIn('Source unknown</span>', page)
+        self.assertNotIn('2026-10-24T08:30:00+00:00', page)
+        self.assertNotIn('2026-10-24T08:30:01+00:00', page)
+
     def test_invalid_manifest_preserves_previous_page(self):
         self.render()
         previous = self.output.read_bytes()

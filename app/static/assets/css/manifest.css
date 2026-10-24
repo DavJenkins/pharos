@@ -222,3 +222,5 @@ body{background-image:none}
 .external-link:hover,.asset-external:hover,.external-link:focus-visible,.asset-external:focus-visible{color:#234a62;background:#e5edf3;outline:2px solid #075d89;outline-offset:1px}
 .manifest-upstream{font-size:.75rem;line-height:1.4;color:#626568;font-variant-numeric:tabular-nums}
 .reference-external{list-style:none}
+
+.source-check-summary{margin:.7rem 0 -1rem;padding:.5rem .8rem;width:fit-content;border-radius:6px;background:rgba(248,245,235,.94);font-size:.8rem;color:#4d5357}

@@ -19,7 +19,7 @@ import warnings
 
 from PIL import Image
 import yaml
-from app.services.upstream import read_state, asset_state
+from app.services.upstream import read_state, read_batch, asset_state
 
 MAX_IMAGE = 5 * 1024 * 1024
 POLICIES = {'manual', 'auto', 'pin_version', 'on_network_available'}
@@ -423,7 +423,9 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
     port = system.get('services', {}).get('kiwix_port', 8080)
     hide = system.get('hide_missing', False)
     background = prepare_artwork(system.get('artwork'), manifest_path.parent, destination, cache, refresh_artwork)
-    upstream = read_state(manifest_path.parent / '.cache/manifest-upstream.json')
+    upstream_path = manifest_path.parent / '.cache/manifest-upstream.json'
+    upstream = read_state(upstream_path)
+    batch = read_batch(upstream_path)
     asset_rows = {}
     compiled_assets = []
     for asset in data.get('assets', []):
@@ -439,6 +441,11 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
         compiled_assets.append(compiled)
         asset_rows.setdefault(asset['repository_id'], []).append(compiled)
     sections = []
+    if batch and any(item['upstream']['checked_at'] for item in compiled_assets):
+        finished = batch[1].isoformat(timespec='seconds')
+        sections.append('<p class="source-check-summary">Sources checked: <time data-local-time datetime="' +
+                        html.escape(finished, quote=True) + '">' +
+                        html.escape(batch[1].strftime('%Y-%m-%d %H:%M %Z')) + '</time></p>')
     for category in data.get('categories', []):
         cards = []
         for repo in data.get('repositories', []):
@@ -480,7 +487,16 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                 if checked:
                     fallback = datetime.fromisoformat(checked).strftime('%Y-%m-%d %H:%M UTC')
                     checked_text = '<time data-local-time datetime="' + html.escape(checked, quote=True) + '">' + html.escape(fallback) + '</time>'
-                note = '<span class="manifest-upstream" title="Online source status at last check. Preserved locally when marked available above.">' + label + (' · ' + checked_text if checked else ' · unchecked') + '</span>'
+                recent = bool(batch and checked and batch[0] <= datetime.fromisoformat(checked) <= batch[1])
+                if recent and state == 'available':
+                    note = ''
+                else:
+                    label = label if checked else 'Source unchecked'
+                    older = bool(batch and checked and datetime.fromisoformat(checked) < batch[0])
+                    detail = ('Older check · ' if older else '') + label
+                    if checked and not recent:
+                        detail += ' · ' + checked_text
+                    note = '<span class="manifest-upstream" title="Online source status at last check. Preserved locally when marked available above.">' + detail + '</span>'
                 external = ''
                 source = item.get('online_url')
                 if source:

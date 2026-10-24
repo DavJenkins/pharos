@@ -32,6 +32,7 @@ def probe(address):
 
 
 def check_assets(assets):
+    started = datetime.now(timezone.utc).isoformat(timespec="seconds")
     results = {}
     for asset in assets:
         addresses = source_urls(asset)
@@ -42,7 +43,24 @@ def check_assets(assets):
         status = 'available' if 'available' in states else 'unavailable' if all(s == 'unavailable' for s in states) else 'unknown'
         results[asset['id']] = {'status': status, 'sources': addresses,
             'checked_at': datetime.now(timezone.utc).isoformat(timespec='seconds'), 'observations': observations}
-    return {'version': 1, 'assets': results}
+    return {'version': 1, 'batch_started_at': started,
+            'batch_finished_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+            'assets': results}
+
+
+def read_batch(path):
+    """Return validated sweep boundaries; legacy caches keep per-item times."""
+    try:
+        value = json.loads(Path(path).read_text(encoding='utf-8'))
+        if value.get('version') != 1:
+            return None
+        start = datetime.fromisoformat(value['batch_started_at'])
+        end = datetime.fromisoformat(value['batch_finished_at'])
+        if start.tzinfo is not None and end.tzinfo is not None and start <= end:
+            return start, end
+    except (OSError, ValueError, TypeError, KeyError, AttributeError):
+        pass
+    return None
 
 
 def read_state(path):
