@@ -2,6 +2,8 @@
 
 Inventory checked October 23, 2026. Source is /opt/dataark; the additional remote copy is [DavJenkins/pharos](https://github.com/DavJenkins/pharos). Use the admin Linux account for development, not root. This is the live working checkout; make Git checkpoints and review changes before deploying.
 
+New terminal sessions provide a brief orientation. Run `ark-help` anywhere, or choose `ark-help status`, `library`, `develop`, `recovery` or `basics`. See [shell welcome and administration guide](../20-Administration/ShellWelcome.md).
+
 ## Available tools
 
 - VS Code 1.143.1 ARM64: desktop application menu or `code /opt/dataark`.

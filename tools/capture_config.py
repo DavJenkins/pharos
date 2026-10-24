@@ -13,6 +13,7 @@ import tarfile
 import tempfile
 
 CONFIG_PATHS = [
+    "/etc/bash.bashrc", "/etc/profile.d/dataark-welcome.sh", "/usr/local/bin/ark-help",
     "/home/admin/.config/dataark-vnc", "/home/admin/.vnc/passwd", "/etc/pam.d/wayvnc", "/usr/local/libexec/dataark-vnc",
     "/etc/dataark-terminal", "/var/lib/shellinabox/known_hosts",
     "/etc/vsftpd.conf", "/etc/ssh", "/etc/docker", "/etc/sudoers", "/etc/sudoers.d",
