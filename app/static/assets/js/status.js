@@ -18,6 +18,30 @@ const DataArkStatus = {
     async refresh() {
 
         this.data = await DataArkAPI.getStatus();
+        const links = document.getElementById("upstream-links");
+        if (links) {
+            links.replaceChildren();
+            const paths = {
+                ethernet: "M3 4h18v13h-5v4H8v-4H3V4zm2 2v9h5v4h4v-4h5V6H5zm2 2h2v4H7V8zm4 0h2v4h-2V8zm4 0h2v4h-2V8z",
+                wifi: "M2 8a16 16 0 0 1 20 0l-2 2a13 13 0 0 0-16 0L2 8zm4 4a10 10 0 0 1 12 0l-2 2a7 7 0 0 0-8 0l-2-2zm4 4a3 3 0 0 1 4 0l-2 3-2-3z"
+            };
+            const active = [];
+            for (const [key, label] of [["ethernet", "Ethernet"], ["wifi", "Wi-Fi"]]) {
+                if (this.data?.network?.[key]?.connected !== true) continue;
+                active.push(label);
+                const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                icon.setAttribute("viewBox", "0 0 24 24");
+                icon.setAttribute("role", "img");
+                icon.setAttribute("aria-label", label + " connected");
+                const title = document.createElementNS(icon.namespaceURI, "title");
+                title.textContent = label + " connected (upstream link)";
+                const path = document.createElementNS(icon.namespaceURI, "path");
+                path.setAttribute("d", paths[key]);
+                icon.append(title, path);
+                links.append(icon);
+            }
+            links.setAttribute("aria-label", active.length ? "Connected upstream links: " + active.join(" and ") : "No connected upstream links reported");
+        }
 
         return this.data;
     },

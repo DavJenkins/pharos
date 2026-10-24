@@ -224,3 +224,7 @@ body{background-image:none}
 .reference-external{list-style:none}
 
 .source-check-summary{display:inline-block;margin-left:.75rem;font-size:.8rem;font-weight:400;color:#4d5357;vertical-align:middle}
+
+.ark-connection-line{display:flex;align-items:center;gap:.35rem;min-width:0}
+#upstream-links{display:inline-flex;align-items:center;gap:.25rem;flex-shrink:0}
+#upstream-links svg{width:1rem;height:1rem;fill:currentColor}
