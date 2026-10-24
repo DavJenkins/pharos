@@ -75,3 +75,7 @@ The [shelter and winter collection](ShelterWinter.md) adds seven original refere
 ## First aid and caregiving
 
 The [first-aid and caregiving collection](FirstAidCare.md) adds original first-aid references, medication records and caregiver planning workbooks, including children, older adults and disability/access needs.
+
+## Growing food and repairs
+
+[Gardening and practical repairs](GardeningRepairs.md) documents the New England gardening collection and the short maintenance references that supplement local iFixit.

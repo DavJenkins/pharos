@@ -372,6 +372,34 @@ repositories:
   links:
   - title: Open first-aid & caregiving guides
     url: /library-files/family-resources/index.html#first-aid-care
+- id: growing-food
+  title: Growing Food
+  description: New England planting charts, vegetable varieties, seed saving, composting,
+    soils and pest identification. Regional and archived editions identified.
+  artwork:
+    path: app/static/assets/icons/Garden.png
+    alt: Seedling garden icon
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open growing food guides
+    url: /library-files/family-resources/index.html#growing-food
+- id: repairs
+  title: Practical Repairs & Maintenance
+  description: Bicycle flats, hand sewing, leak checks, electrical inspection, tool
+    safety and small-engine maintenance. Supplements the local iFixit library.
+  artwork:
+    path: app/static/assets/icons/Repair.png
+    alt: Repair tools icon
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open practical repairs & maintenance guides
+    url: /library-files/family-resources/index.html#repairs
 assets:
 - id: ifixit-repair-guides
   online_url: https://www.ifixit.com/Guide
@@ -3248,6 +3276,205 @@ assets:
     Retrieved 2026-10-24T16:05:02.639822+00:00
   online_url: https://www.aap.org/en/patient-care/disasters-and-children/resources-for-families/
   download_url: https://downloads.aap.org/AAP/PDF/disasters_family_readiness_kit.pdf
+- id: family-repair-tools
+  repository_id: repairs
+  category: pdf_reference
+  title: Hand and Power Tools — OSHA
+  relative_path: family-resources/repairs/repair-tools.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-tools.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: f1cfa8f10e7603d0ffebf6548dd9d65ca9067c380f3643bdb9b0b964be0c1ae0
+  source_note: OSHA 3080, 2002; archived safety reference, not a complete current
+    code. Original educational reference. Preserve institutional, copyright and source
+    notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.236322+00:00
+  online_url: https://www.osha.gov/publications/publication-products?publication_title=Hand+and+Power+Tools
+  download_url: https://www.osha.gov/sites/default/files/publications/osha3080.pdf
+- id: family-repair-electrical
+  repository_id: repairs
+  category: pdf_reference
+  title: Home Electrical Safety Checklist — CPSC
+  relative_path: family-resources/repairs/repair-electrical.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-electrical.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 6cdf87362ede2d56ce2df27fe146a3f6aa8af628b89071fce3f008d05253ff2a
+  source_note: CPSC publication 513, original publisher edition. Original educational
+    reference. Preserve institutional, copyright and source notices. No endorsement
+    implied. Retrieved 2026-10-24T17:00:23.238596+00:00
+  online_url: https://www.cpsc.gov/safety-education/safety-guides/electronics-and-electrical-home/home-electrical-safety-checklist
+  download_url: https://www.cpsc.gov/s3fs-public/513.pdf
+- id: family-repair-water
+  repository_id: repairs
+  category: pdf_reference
+  title: WaterSense Home Maintenance Checklist — EPA
+  relative_path: family-resources/repairs/repair-water.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-water.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: f7aa5fd8deabab14e0e0b93b86c8ac37593e9224121c197072e977fb338bdc22
+  source_note: EPA 832-F-24-002, March 2024. Original educational reference. Preserve
+    institutional, copyright and source notices. No endorsement implied. Retrieved
+    2026-10-24T17:00:23.240268+00:00
+  online_url: https://www.epa.gov/watersense/home-maintenance
+  download_url: https://www.epa.gov/system/files/documents/2024-03/watersense_homemaintenancechecklist_508.pdf
+- id: family-repair-bike
+  repository_id: repairs
+  category: pdf_reference
+  title: Bicycle Maintenance and Flat-Tire Repair — Portland
+  relative_path: family-resources/repairs/repair-bike.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-bike.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 7d28314badcd98522676ec76af9364ee9f3e0725bedb2e3136f324fd9abdb439
+  source_note: Portland Bureau of Transportation publisher handout; regional contacts
+    retained. Original educational reference. Preserve institutional, copyright and
+    source notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.686013+00:00
+  online_url: https://www.portland.gov/transportation/walking-biking-transit-safety/portland-biking-guide
+  download_url: https://www.portland.gov/transportation/walking-biking-transit-safety/documents/instructions-bike-maintenance-and-repairing/download
+- id: family-repair-engine
+  repository_id: repairs
+  category: pdf_reference
+  title: Small Engine Tune-Up Schedule — Briggs & Stratton
+  relative_path: family-resources/repairs/repair-engine.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-engine.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: c39d0049535fc2fa0c9c098bdea700f660fa07be7e81646bab49517fc62b7826
+  source_note: Briggs & Stratton generic maintenance schedule; engine-specific operator
+    manual takes precedence. Original educational reference. Preserve institutional,
+    copyright and source notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.820557+00:00
+  online_url: https://www.briggsandstratton.com/en-us/support/manuals
+  download_url: https://www.briggsandstratton.com/hubfs/briggsandstratton/EMEA/Maintenance/pdfs/Lawn%20Mower%20Tune%20Up%20Schedule%20-%20Document.pdf
+- id: family-repair-buttons
+  repository_id: repairs
+  category: pdf_reference
+  title: Beginning Hand Sewing and Replacing Buttons — Karma Co-op
+  relative_path: family-resources/repairs/repair-buttons.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-buttons.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 044b1652c9dc3a83f834a06d35fea6981f0cca41f25ee7bbf98348e9df82f977
+  source_note: Karma Co-op Fabric Cafe original public repair handout; original edition
+    retained. Original educational reference. Preserve institutional, copyright and
+    source notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.857754+00:00
+  online_url: https://www.karmacoop.org/fabric-repair-guides
+  download_url: https://www.karmacoop.org/s/Beginning-hand-sewing-and-replacing-buttons.pdf
+- id: family-repair-seams
+  repository_id: repairs
+  category: pdf_reference
+  title: Hand Stitches to Secure Seams — Karma Co-op
+  relative_path: family-resources/repairs/repair-seams.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-seams.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 60a643889da7d16e7e64550fcd1e14abfdeb2c821f4fafeb4045b060b1900b56
+  source_note: Karma Co-op Fabric Cafe original public repair handout; original edition
+    retained. Original educational reference. Preserve institutional, copyright and
+    source notices. No endorsement implied. Retrieved 2026-10-24T17:00:24.365681+00:00
+  online_url: https://www.karmacoop.org/fabric-repair-guides
+  download_url: https://www.karmacoop.org/s/Hand-stitches-to-secure-seams.pdf
+- id: family-repair-holes
+  repository_id: repairs
+  category: pdf_reference
+  title: Repairing Holes in Fabric — Karma Co-op
+  relative_path: family-resources/repairs/repair-holes.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-holes.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 4138e6dabe89303a26a01efbea4879dd00f9de6f5d09652335f8ebbd3ea48976
+  source_note: Karma Co-op Fabric Cafe original public repair handout; original edition
+    retained. Original educational reference. Preserve institutional, copyright and
+    source notices. No endorsement implied. Retrieved 2026-10-24T17:00:24.373655+00:00
+  online_url: https://www.karmacoop.org/fabric-repair-guides
+  download_url: https://www.karmacoop.org/s/Repairing-holes-in-fabric.pdf
+- id: family-garden-calendar-ma
+  repository_id: growing-food
+  category: pdf_reference
+  title: Vegetable Planting Chart — UMass
+  relative_path: family-resources/growing-food/garden-calendar-ma.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-calendar-ma.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: aff28dc2d957fb3c097c3f7e5f053e8f54f549aecc73f5078a84132964809f78
+  source_note: UMass Extension publisher chart; Massachusetts regional guidance, adjust
+    to local frost and conditions. Original educational reference. Preserve institutional,
+    copyright and source notices. No endorsement implied. Retrieved 2026-10-24T17:00:27.195327+00:00
+  online_url: https://www.umass.edu/agriculture-food-environment/home-lawn-garden/fact-sheets/vegetable-planting-chart
+  download_url: https://ag.umass.edu/sites/ag.umass.edu/files/fact-sheets/pdf/vegetable_planting_chart_1_-ua.pdf
+- id: family-garden-seeds
+  repository_id: growing-food
+  category: pdf_reference
+  title: Seed Saving — UMass
+  relative_path: family-resources/growing-food/garden-seeds.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-seeds.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 46efb6724fbb4f5aaeef6d1931d57f5b1835d63bb5896c8db0ade1479b4852bf
+  source_note: UMass Extension seed-saving fact sheet; original edition retained.
+    Original educational reference. Preserve institutional, copyright and source notices.
+    No endorsement implied. Retrieved 2026-10-24T17:00:27.280920+00:00
+  online_url: https://www.umass.edu/agriculture-food-environment/
+  download_url: https://ag.umass.edu/sites/ag.umass.edu/files/fact-sheets/pdf/seed_saving.pdf
+- id: family-garden-handbook-nh
+  repository_id: growing-food
+  category: pdf_reference
+  title: Gardening Reference Chapters — UNH Extension
+  relative_path: family-resources/growing-food/garden-handbook-nh.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-handbook-nh.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 19499b8d2f4fe40cbeecf1d60cb911b79a97543e6eedb6dfe3480b5be798617e
+  source_note: UNH Extension archived chapter compilation; PDF assembled January 2017
+    (file metadata), original chapter dates unspecified. Includes the planting chart,
+    soils and vegetable growing. Historical references retained. Original educational
+    reference. Preserve institutional, copyright and source notices. No endorsement
+    implied. Retrieved 2026-10-24T17:00:27.499353+00:00
+  online_url: https://extension.unh.edu/
+  download_url: https://extension.unh.edu/sites/default/files/migrated_unmanaged_files/Resource006378_Rep9131.pdf
+- id: family-garden-compost
+  repository_id: growing-food
+  category: pdf_reference
+  title: How Compost Happens — UMaine
+  relative_path: family-resources/growing-food/garden-compost.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-compost.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 81b710ae7a81572b5e104d58bc95a58b2d0511a2673bcd102005a4da74ffd04f
+  source_note: UMaine Bulletin 1159, updated 2021 publisher file; original notices
+    retained. Original educational reference. Preserve institutional, copyright and
+    source notices. No endorsement implied. Retrieved 2026-10-24T17:00:27.761632+00:00
+  online_url: https://extension.umaine.edu/publications/1159e/
+  download_url: https://extension.umaine.edu/publications/wp-content/uploads/sites/52/2021/05/1159_updated2021.pdf
+- id: family-garden-varieties
+  repository_id: growing-food
+  category: pdf_reference
+  title: Vegetable Varieties for Maine Gardens — UMaine
+  relative_path: family-resources/growing-food/garden-varieties.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-varieties.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: 90dd6a48b65bb113407b3c50a613225c407223e9070e62e910a399f884c7c85f
+  source_note: UMaine Bulletin 2190, January 2022 publisher file; Maine variety recommendations,
+    availability may change. Original educational reference. Preserve institutional,
+    copyright and source notices. No endorsement implied. Retrieved 2026-10-24T17:00:27.824156+00:00
+  online_url: https://extension.umaine.edu/publications/2190e/
+  download_url: https://extension.umaine.edu/publications/wp-content/uploads/sites/52/2022/01/2190-Vegetable-Varieties-for-Maine-Gardens.pdf
+- id: family-garden-pests
+  repository_id: growing-food
+  category: pdf_reference
+  title: Northeast Vegetable and Strawberry Pest Identification Guide
+  relative_path: family-resources/growing-food/garden-pests.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-pests.pdf
+  update_policy: manual
+  refresh_interval: never
+  expected_hash: a23addbbbc24ee08a86096c2d40f6aa2086ce5d660236c55f6927c0bd0eca144
+  source_note: Northeast Extension Systems, 2018 publisher file posted August 2024;
+    identification reference, not a current pesticide label. Original educational
+    reference. Preserve institutional, copyright and source notices. No endorsement
+    implied. Retrieved 2026-10-24T17:00:28.266675+00:00
+  online_url: https://nevegetable.org/about-guide/ordering-and-downloads
+  download_url: https://nevegetable.org/sites/default/files/2024-08/Pest_ID_2018_no%20cover%20date-UA.pdf
 resource_sections:
 - title: Local maps
   description: Massachusetts reference maps for Worcester and Middlesex counties.

@@ -1979,6 +1979,146 @@
       "sha256": "e8922a23b4ea3fcc4574c0cc9eb12f97b388792dccc3bcb067cba3b244bfc867",
       "source": "https://downloads.aap.org/AAP/PDF/disasters_family_readiness_kit.pdf",
       "repository": "first-aid-care"
+    },
+    {
+      "id": "family-repair-tools",
+      "title": "Hand and Power Tools \u2014 OSHA",
+      "path": "family-resources/repairs/repair-tools.pdf",
+      "selected": true,
+      "bytes": 1649574,
+      "sha256": "f1cfa8f10e7603d0ffebf6548dd9d65ca9067c380f3643bdb9b0b964be0c1ae0",
+      "source": "https://www.osha.gov/sites/default/files/publications/osha3080.pdf",
+      "repository": "repairs"
+    },
+    {
+      "id": "family-repair-electrical",
+      "title": "Home Electrical Safety Checklist \u2014 CPSC",
+      "path": "family-resources/repairs/repair-electrical.pdf",
+      "selected": true,
+      "bytes": 1021754,
+      "sha256": "6cdf87362ede2d56ce2df27fe146a3f6aa8af628b89071fce3f008d05253ff2a",
+      "source": "https://www.cpsc.gov/s3fs-public/513.pdf",
+      "repository": "repairs"
+    },
+    {
+      "id": "family-repair-water",
+      "title": "WaterSense Home Maintenance Checklist \u2014 EPA",
+      "path": "family-resources/repairs/repair-water.pdf",
+      "selected": true,
+      "bytes": 162388,
+      "sha256": "f7aa5fd8deabab14e0e0b93b86c8ac37593e9224121c197072e977fb338bdc22",
+      "source": "https://www.epa.gov/system/files/documents/2024-03/watersense_homemaintenancechecklist_508.pdf",
+      "repository": "repairs"
+    },
+    {
+      "id": "family-repair-bike",
+      "title": "Bicycle Maintenance and Flat-Tire Repair \u2014 Portland",
+      "path": "family-resources/repairs/repair-bike.pdf",
+      "selected": true,
+      "bytes": 1100234,
+      "sha256": "7d28314badcd98522676ec76af9364ee9f3e0725bedb2e3136f324fd9abdb439",
+      "source": "https://www.portland.gov/transportation/walking-biking-transit-safety/documents/instructions-bike-maintenance-and-repairing/download",
+      "repository": "repairs"
+    },
+    {
+      "id": "family-repair-engine",
+      "title": "Small Engine Tune-Up Schedule \u2014 Briggs & Stratton",
+      "path": "family-resources/repairs/repair-engine.pdf",
+      "selected": true,
+      "bytes": 587179,
+      "sha256": "c39d0049535fc2fa0c9c098bdea700f660fa07be7e81646bab49517fc62b7826",
+      "source": "https://www.briggsandstratton.com/hubfs/briggsandstratton/EMEA/Maintenance/pdfs/Lawn%20Mower%20Tune%20Up%20Schedule%20-%20Document.pdf",
+      "repository": "repairs"
+    },
+    {
+      "id": "family-repair-buttons",
+      "title": "Beginning Hand Sewing and Replacing Buttons \u2014 Karma Co-op",
+      "path": "family-resources/repairs/repair-buttons.pdf",
+      "selected": true,
+      "bytes": 1140863,
+      "sha256": "044b1652c9dc3a83f834a06d35fea6981f0cca41f25ee7bbf98348e9df82f977",
+      "source": "https://www.karmacoop.org/s/Beginning-hand-sewing-and-replacing-buttons.pdf",
+      "repository": "repairs"
+    },
+    {
+      "id": "family-repair-seams",
+      "title": "Hand Stitches to Secure Seams \u2014 Karma Co-op",
+      "path": "family-resources/repairs/repair-seams.pdf",
+      "selected": true,
+      "bytes": 957752,
+      "sha256": "60a643889da7d16e7e64550fcd1e14abfdeb2c821f4fafeb4045b060b1900b56",
+      "source": "https://www.karmacoop.org/s/Hand-stitches-to-secure-seams.pdf",
+      "repository": "repairs"
+    },
+    {
+      "id": "family-repair-holes",
+      "title": "Repairing Holes in Fabric \u2014 Karma Co-op",
+      "path": "family-resources/repairs/repair-holes.pdf",
+      "selected": true,
+      "bytes": 409141,
+      "sha256": "4138e6dabe89303a26a01efbea4879dd00f9de6f5d09652335f8ebbd3ea48976",
+      "source": "https://www.karmacoop.org/s/Repairing-holes-in-fabric.pdf",
+      "repository": "repairs"
+    },
+    {
+      "id": "family-garden-calendar-ma",
+      "title": "Vegetable Planting Chart \u2014 UMass",
+      "path": "family-resources/growing-food/garden-calendar-ma.pdf",
+      "selected": true,
+      "bytes": 271760,
+      "sha256": "aff28dc2d957fb3c097c3f7e5f053e8f54f549aecc73f5078a84132964809f78",
+      "source": "https://ag.umass.edu/sites/ag.umass.edu/files/fact-sheets/pdf/vegetable_planting_chart_1_-ua.pdf",
+      "repository": "growing-food"
+    },
+    {
+      "id": "family-garden-seeds",
+      "title": "Seed Saving \u2014 UMass",
+      "path": "family-resources/growing-food/garden-seeds.pdf",
+      "selected": true,
+      "bytes": 41753,
+      "sha256": "46efb6724fbb4f5aaeef6d1931d57f5b1835d63bb5896c8db0ade1479b4852bf",
+      "source": "https://ag.umass.edu/sites/ag.umass.edu/files/fact-sheets/pdf/seed_saving.pdf",
+      "repository": "growing-food"
+    },
+    {
+      "id": "family-garden-handbook-nh",
+      "title": "Gardening Reference Chapters \u2014 UNH Extension",
+      "path": "family-resources/growing-food/garden-handbook-nh.pdf",
+      "selected": true,
+      "bytes": 4962796,
+      "sha256": "19499b8d2f4fe40cbeecf1d60cb911b79a97543e6eedb6dfe3480b5be798617e",
+      "source": "https://extension.unh.edu/sites/default/files/migrated_unmanaged_files/Resource006378_Rep9131.pdf",
+      "repository": "growing-food"
+    },
+    {
+      "id": "family-garden-compost",
+      "title": "How Compost Happens \u2014 UMaine",
+      "path": "family-resources/growing-food/garden-compost.pdf",
+      "selected": true,
+      "bytes": 188953,
+      "sha256": "81b710ae7a81572b5e104d58bc95a58b2d0511a2673bcd102005a4da74ffd04f",
+      "source": "https://extension.umaine.edu/publications/wp-content/uploads/sites/52/2021/05/1159_updated2021.pdf",
+      "repository": "growing-food"
+    },
+    {
+      "id": "family-garden-varieties",
+      "title": "Vegetable Varieties for Maine Gardens \u2014 UMaine",
+      "path": "family-resources/growing-food/garden-varieties.pdf",
+      "selected": true,
+      "bytes": 165526,
+      "sha256": "90dd6a48b65bb113407b3c50a613225c407223e9070e62e910a399f884c7c85f",
+      "source": "https://extension.umaine.edu/publications/wp-content/uploads/sites/52/2022/01/2190-Vegetable-Varieties-for-Maine-Gardens.pdf",
+      "repository": "growing-food"
+    },
+    {
+      "id": "family-garden-pests",
+      "title": "Northeast Vegetable and Strawberry Pest Identification Guide",
+      "path": "family-resources/growing-food/garden-pests.pdf",
+      "selected": true,
+      "bytes": 5837686,
+      "sha256": "a23addbbbc24ee08a86096c2d40f6aa2086ce5d660236c55f6927c0bd0eca144",
+      "source": "https://nevegetable.org/sites/default/files/2024-08/Pest_ID_2018_no%20cover%20date-UA.pdf",
+      "repository": "growing-food"
     }
   ],
   "unmanaged_archives": [

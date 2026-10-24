@@ -72,3 +72,5 @@
 - [Shelter and winter readiness](20-Administration/ShelterWinter.md)
 
 - [First aid and caregiving](20-Administration/FirstAidCare.md)
+
+- [Growing food and practical repairs](20-Administration/GardeningRepairs.md)
