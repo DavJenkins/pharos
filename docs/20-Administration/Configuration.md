@@ -130,3 +130,19 @@ Run tools/capture_config.py as root before significant changes. Its root-only ar
 ## Known reconstruction gaps
 
 Existing installers cover feature-specific configuration but do not fully provision a clean Pi image. The base image, API unit/vhost creation, Docker/image pinning, physical interface mapping, user creation, storage provisioning and full rebuild validation need integration into the bootstrap described in [Bootstrap plan](../30-Developer/BootstrapPlan.md). The settings above are an observed reference, not a fully tested reinstall recipe.
+
+
+## Temporarily disable upstream Wi-Fi
+
+Open `/config/wifi.html` through the DataArk hotspot at `http://192.168.4.1`.
+The enable/disable buttons require the existing network administration (caretaker) password.
+Disable disconnects only `wlan1` using NetworkManager’s per-device disconnect operation;
+it preserves saved SSIDs, passwords and profile autoconnect settings. The `wlan0` hotspot
+remains running. Enable reconnects `wlan1` to a suitable saved network. A restart can
+also restore upstream Wi-Fi; this is an offline-test control, not a persistent radio block.
+Never use `nmcli radio wifi off` for this purpose: that disables both wireless adapters.
+
+For a complete offline test, disable upstream Wi-Fi, unplug the Ark’s Ethernet,
+and disconnect other internet routes on the client (Ethernet or cellular data).
+Keep the client on DataArk Wi-Fi. Disabling through the upstream address can end
+that browser connection; use `192.168.4.1` so the controls remain reachable.

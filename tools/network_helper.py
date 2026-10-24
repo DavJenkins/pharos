@@ -32,10 +32,12 @@ def validate(data):
         raise ValueError('Expected a JSON object.')
     action = data.get('action')
     allowed = {'scan': {'action'}, 'connect': {'action', 'ssid', 'security', 'password'},
-               'rename': {'action', 'ssid'}}
+               'rename': {'action', 'ssid'}, 'uplink': {'action', 'enabled'}}
     if action not in allowed or set(data) - allowed[action]:
         raise ValueError('Unsupported network operation.')
-    if action != 'scan':
+    if action == 'uplink' and type(data.get('enabled')) is not bool:
+        raise ValueError('Enabled must be true or false.')
+    if action not in ('scan', 'uplink'):
         ssid = data.get('ssid')
         if not isinstance(ssid, str) or not 1 <= len(ssid.encode('utf-8')) <= 32:
             raise ValueError('Network names must contain 1 to 32 UTF-8 bytes.')
@@ -65,6 +67,16 @@ def ap_details():
 
 def execute(data):
     action = validate(data)
+    if action == 'uplink':
+        ap_details()
+        # Never use radio wifi off: it also disables the hotspot adapter.
+        if data['enabled']:
+            nm('device', 'connect', 'wlan1', timeout=30)
+        else:
+            nm('device', 'disconnect', 'wlan1', timeout=15)
+        return {'ok': True, 'enabled': data['enabled'],
+                'message': 'Upstream Wi-Fi enabled.' if data['enabled'] else
+                'Upstream Wi-Fi disabled until enabled again or the Ark restarts. Saved networks are retained.'}
     if action == 'scan':
         own_ssid = ap_details()
         output = nm('--terse', '--escape', 'no', '--fields', 'SSID', 'device', 'wifi', 'list',

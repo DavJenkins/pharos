@@ -70,7 +70,8 @@ class RouteTests(unittest.TestCase):
 class HelperTests(unittest.TestCase):
     def test_invalid_input_never_reaches_nmcli(self):
         for data in [
-            {'action':'other'}, {'action':'scan','command':'id'},
+            {'action':'other'}, {'action':'uplink','enabled':'false'},
+            {'action':'uplink','enabled':False,'interface':'wlan0'}, {'action':'scan','command':'id'},
             {'action':'rename','ssid':'é' * 17}, {'action':'rename','ssid':'bad\nssid'},
             {'action':'connect','ssid':'x','security':'wpa-psk','password':'short'},
             {'action':'connect','ssid':'x','security':'enterprise','password':'12345678'},
@@ -79,6 +80,20 @@ class HelperTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     helper.execute(data)
                 nm.assert_not_called()
+
+    def test_uplink_switch_only_changes_wlan1_and_retains_profiles(self):
+        for enabled, command in [(False, 'disconnect'), (True, 'connect')]:
+            with self.subTest(enabled=enabled), patch.object(helper, 'ap_details', return_value='DataArk'), patch.object(helper, 'nm') as nm:
+                self.assertTrue(helper.execute({'action': 'uplink', 'enabled': enabled})['ok'])
+                self.assertEqual(nm.call_args.args, ('device', command, 'wlan1'))
+                self.assertEqual(nm.call_count, 1)
+
+    def test_uplink_is_password_protected(self):
+        with patch.object(routes, 'authorized', return_value=False), patch.object(routes, 'invoke') as invoke:
+            with self.assertRaises(HTTPException) as error:
+                asyncio.run(routes.network_action('uplink', Request(b'{"enabled":false}')))
+            self.assertEqual(error.exception.status_code, 401)
+            invoke.assert_not_called()
 
     def test_scan_uses_wlan1_and_preserves_names(self):
         with patch.object(helper, 'ap_details', return_value='DataArk'), patch.object(helper, 'nm', return_value='DataArk\nA:B\\C\nA:B\\C\nOther\n') as nm:

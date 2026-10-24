@@ -14,12 +14,19 @@ button {margin-top:1rem} .notice {padding:1rem;background:#fff4d6;border-left:4p
 </head>
 <body data-action="connect">
 <nav><a href="/">Dashboard</a><a href="/config/wifi.html">Upstream Wi-Fi</a><a href="/config/system.html">Access point</a></nav>
-<h1>Connect upstream Wi-Fi</h1>
+<h1>Upstream Wi-Fi</h1>
 <p id="current" role="status">Loading current network…</p>
 <form id="network-form">
 <label>Network administration password (user: admin)
 <input id="admin-password" type="password" autocomplete="off" required></label>
-<p>This is the separate password created by the network administration installer.</p>
+<section aria-labelledby="uplink-heading">
+<h2 id="uplink-heading">Enable or disable upstream Wi-Fi</h2>
+<p>Saved network names and passwords are retained. Disabling affects only the Ark’s upstream Wi-Fi; the DataArk hotspot stays on. Upstream Wi-Fi can reconnect after an Ark restart.</p>
+<p>For an offline test, connect this device to DataArk and open <a href="http://192.168.4.1/config/wifi.html">this page through the hotspot</a>, disable upstream Wi-Fi, then unplug the Ark’s Ethernet cable. Disconnect any other internet connection on your test device too.</p>
+<button id="uplink-disable" type="button">Disable upstream Wi-Fi</button>
+<button id="uplink-enable" type="button">Enable upstream Wi-Fi</button>
+</section>
+<h2>Choose an upstream network</h2>
 <button id="scan" type="button">Find networks</button>
 <label>Network name (SSID)<input id="ssid" list="networks" required autocomplete="off"></label>
 <datalist id="networks"></datalist>
@@ -31,6 +38,6 @@ button {margin-top:1rem} .notice {padding:1rem;background:#fff4d6;border-left:4p
 <button id="save" type="submit">Save & Connect</button>
 </form>
 <p id="result" role="status" aria-live="polite"></p>
-<script src="/assets/js/network-settings.js?v=494ffd9ecb7fbb8d"></script>
+<script src="/assets/js/network-settings.js?v=51e5c74f154289f1"></script>
 </body>
 </html>

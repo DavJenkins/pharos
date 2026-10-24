@@ -37,11 +37,14 @@ def ethernet():
 
 
 def wifi():
+    autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", "wlan1"]).strip()
+    enabled = True if autoconnect == "yes" else False if autoconnect == "no" else None
     link = run(["iw", "dev", "wlan1", "link"])
 
     if "SSID:" not in link:
         return {
-            "state": "disconnected" if "Not connected" in link else "unknown",
+            "enabled": enabled,
+            "state": "disabled" if enabled is False else "disconnected" if "Not connected" in link else "unknown",
             "connected": False if "Not connected" in link else None,
             "ssid": None,
             "signal": {
@@ -75,6 +78,7 @@ def wifi():
     percent = None if dbm is None else max(0, min(100, int((dbm + 90) * 100 / 60)))
 
     return {
+        "enabled": enabled,
         "state": "connected",
         "connected": True,
         "ssid": ssid,

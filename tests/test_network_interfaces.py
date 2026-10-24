@@ -29,6 +29,19 @@ class ConcurrentNetworkTests(unittest.TestCase):
         self.assertEqual(data['access_point']['ip'],'192.168.4.1')
         self.assertNotEqual(data['ethernet']['ip'],data['wifi']['ip'])
 
+    def test_disabled_uplink_state_survives_response_model(self):
+        def disabled(cmd, **kwargs):
+            if cmd == ['nmcli','-g','GENERAL.AUTOCONNECT','device','show','wlan1']:
+                return 'no'
+            if cmd == ['iw','dev','wlan1','link']:
+                return 'Not connected.'
+            return output(cmd)
+        with patch.object(network, 'run', side_effect=disabled), patch.object(network.Path, 'read_text', return_value='up'):
+            data = Network.model_validate(network.collect()).model_dump()
+        self.assertFalse(data['wifi']['enabled'])
+        self.assertEqual(data['wifi']['state'], 'disabled')
+        self.assertTrue(data['access_point']['active'])
+
     def test_missing_ethernet_does_not_hide_wireless(self):
         with patch.object(network,'run',side_effect=output), patch.object(network.Path,'read_text',side_effect=FileNotFoundError):
             data=Network.model_validate(network.collect()).model_dump()

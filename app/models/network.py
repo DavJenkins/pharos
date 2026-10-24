@@ -14,6 +14,7 @@ class Ethernet(BaseModel):
 
 
 class Wifi(BaseModel):
+    enabled: bool | None = None
     state: str
     connected: bool | None
     ssid: str | None

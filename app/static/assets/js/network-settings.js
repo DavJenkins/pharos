@@ -45,7 +45,8 @@ async function operation(name, payload) {
             });
             el("result").textContent = data.networks.length + " networks found. Choose or enter a network name.";
         } else {
-            el("result").textContent = data.message + " Reconnect if needed, then reload this page to verify.";
+            el("result").textContent = data.message + (name === "uplink" ? "" : " Reconnect if needed, then reload this page to verify.");
+
             if (el("wifi-password")) el("wifi-password").value = "";
         }
     } catch (error) {
@@ -53,6 +54,7 @@ async function operation(name, payload) {
     } finally {
         busy = false;
         document.querySelectorAll("button").forEach(button => button.disabled = false);
+        if (action === "connect") await refreshNetwork();
     }
 }
 
@@ -77,11 +79,24 @@ el("network-form").addEventListener("submit", event => {
     operation(action, payload);
 });
 
-fetch("/api/status", {cache: "no-store"}).then(response => {
+async function refreshNetwork() {
+return fetch("/api/status", {cache: "no-store"}).then(response => {
     if (!response.ok) throw new Error("Status unavailable");
     return response.json();
 }).then(data => {
+    if (action === "connect") {
+        const wifi = data.network?.wifi;
+        el("uplink-disable").disabled = wifi?.enabled === false;
+        el("uplink-enable").disabled = wifi?.connected === true;
+    }
     const name = action === "rename" ? data.network?.access_point?.ssid : data.network?.wifi?.ssid;
-    el("current").textContent = name ? "Current network: " + name : "Current network unavailable or disconnected.";
+    el("current").textContent = action === "connect" && data.network?.wifi?.enabled === false ? "Upstream Wi-Fi disabled. Saved networks retained." : name ? "Current network: " + name : "Current network unavailable or disconnected.";
     if (!el("ssid").value && name) el("ssid").value = name;
 }).catch(() => {el("current").textContent = "Current network unavailable.";});
+
+}
+refreshNetwork();
+el("uplink-disable")?.addEventListener("click", () => {
+    if (confirm("Disable the Ark’s upstream Wi-Fi? Stay connected through the DataArk hotspot at 192.168.4.1. Saved networks will be retained.")) operation("uplink", {enabled: false});
+});
+el("uplink-enable")?.addEventListener("click", () => operation("uplink", {enabled: true}));
