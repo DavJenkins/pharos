@@ -227,3 +227,7 @@ current service, then run as admin:
 `/opt/dataark/venv/bin/python /opt/dataark/tools/check_reference_sources.py --retry-errors`.
 A worker lock prevents overlapping passes. Honda checks use the recorded
 intermediate certificate with system roots and hostname verification intact.
+Package hosts that refuse HEAD (HTTP 403/405/501) get a one-byte Range GET fallback.
+The response is closed without reading the package body, and Content-Range's
+full size is used rather than the one-byte response length. This permits FCC
+metadata checks without downloading the roughly 200 MB callbook on each check.

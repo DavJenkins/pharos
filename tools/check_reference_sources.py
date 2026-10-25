@@ -66,7 +66,7 @@ def check(url, assets, previous, config, root, opener=urlopen):
     if urlsplit(url).scheme != 'https':
         raise ValueError('Only explicit HTTPS publisher sources are checked')
     metadata_only = any(urlsplit(url).path.lower().endswith(ext) for ext in ('.zip', '.pmtiles'))
-    headers = {'User-Agent': 'DataArk/1.4 (offline reference source check)'}
+    headers = {'User-Agent': 'Mozilla/5.0 (DataArk offline reference source check)'}
     if previous.get('etag'): headers['If-None-Match'] = previous['etag']
     elif previous.get('last_modified'): headers['If-Modified-Since'] = previous['last_modified']
     # Honda omits its intermediate certificate. Add the recorded chain while
@@ -77,7 +77,13 @@ def check(url, assets, previous, config, root, opener=urlopen):
         context.load_verify_locations(cafile=str(ROOT / 'deploy/reference/honda-intermediate.pem'))
         options['context'] = context
     try:
-        response = opener(Request(url, headers=headers, method='HEAD' if metadata_only else 'GET'), **options)
+        try:
+            response = opener(Request(url, headers=headers, method='HEAD' if metadata_only else 'GET'), **options)
+        except HTTPError as error:
+            if not metadata_only or error.code not in (403, 405, 501): raise
+            # Some public package hosts (including FCC) refuse HEAD. Ask for
+            # one byte, inspect headers, then close without reading the body.
+            response = opener(Request(url, headers={**headers, 'Range': 'bytes=0-0'}, method='GET'), **options)
     except HTTPError as error:
         if error.code == 304:
             return dict(previous, status='changed' if previous.get('pending_change') else 'unchanged', detail='Publisher confirms the previously checked version.')
@@ -88,7 +94,11 @@ def check(url, assets, previous, config, root, opener=urlopen):
         if metadata_only:
             if 'html' in response.headers.get('Content-Type', '').lower():
                 raise ValueError('Publisher returned an HTML page instead of package metadata')
-            fingerprint = '|'.join(str(response.headers.get(h, '')) for h in ('ETag', 'Last-Modified', 'Content-Length'))
+            length = response.headers.get('Content-Length', '')
+            content_range = response.headers.get('Content-Range', '')
+            match = re.fullmatch(r'bytes 0-0/(\d+)', content_range)
+            if match: length = match[1]
+            fingerprint = '|'.join([response.headers.get('ETag', ''), response.headers.get('Last-Modified', ''), length])
             if fingerprint == '||':
                 return dict(result, status='reachable', detail='Source reachable; publisher provides no version metadata. Package needs collection-specific review.', pending_change=previous.get('pending_change', False))
             kind = 'metadata'

@@ -68,6 +68,17 @@ class ReferenceChecksTests(unittest.TestCase):
         result = worker.check('https://publisher.test/code.zip', [self.asset], {'baseline': 'old||'}, self.cfg, Path('/tmp'), opener)
         self.assertTrue(result['pending_change'])
 
+    def test_head_refusal_falls_back_to_one_byte_range_and_uses_total_size(self):
+        methods = []
+        def opener(request, **kwargs):
+            methods.append(request.method)
+            if request.method == 'HEAD': raise HTTPError(request.full_url, 403, '', {}, None)
+            self.assertEqual(request.get_header('Range'), 'bytes=0-0')
+            return Response(headers={'ETag': 'v1', 'Content-Length': '1', 'Content-Range': 'bytes 0-0/200000000'})
+        result = worker.check('https://publisher.test/code.zip', [self.asset], {'baseline': 'v1||200000000'}, self.cfg, Path('/tmp'), opener)
+        self.assertEqual(methods, ['HEAD', 'GET'])
+        self.assertEqual(result['status'], 'unchanged')
+
     def test_first_html_baseline_does_not_claim_installed_freshness(self):
         data = ('<html><script>random tracking</script><p>' + 'Useful content ' * 20 + '</p></html>').encode()
         self.asset['relative_path'] = 'docs/page.html'
