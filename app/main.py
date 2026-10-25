@@ -43,3 +43,6 @@ app.include_router(callsigns_router)
 
 from app.routers.community import router as community_router
 app.include_router(community_router)
+
+from app.routers.source_check import router as source_check_router
+app.include_router(source_check_router)

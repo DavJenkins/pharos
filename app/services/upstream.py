@@ -1,5 +1,6 @@
 """Explicit, bounded HTTP source checks. Never read or alter content payloads."""
 from datetime import datetime, timezone
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 from pathlib import Path
 from urllib.error import HTTPError, URLError
@@ -31,18 +32,23 @@ def probe(address):
     return {'url': address, 'status': 'unknown'}
 
 
-def check_assets(assets):
+def check_assets(assets, progress=None):
     started = datetime.now(timezone.utc).isoformat(timespec="seconds")
     results = {}
-    for asset in assets:
+    selected = [asset for asset in assets if source_urls(asset)]
+    def one(asset):
         addresses = source_urls(asset)
-        if not addresses:
-            continue
         observations = [probe(address) for address in addresses]
         states = [result['status'] for result in observations]
         status = 'available' if 'available' in states else 'unavailable' if all(s == 'unavailable' for s in states) else 'unknown'
-        results[asset['id']] = {'status': status, 'sources': addresses,
+        return asset['id'], {'status': status, 'sources': addresses,
             'checked_at': datetime.now(timezone.utc).isoformat(timespec='seconds'), 'observations': observations}
+    if progress: progress(0, len(selected))
+    with ThreadPoolExecutor(max_workers=4, thread_name_prefix='source-probe') as pool:
+        for future in as_completed([pool.submit(one, asset) for asset in selected]):
+            identifier, record = future.result()
+            results[identifier] = record
+            if progress: progress(len(results), len(selected))
     return {'version': 1, 'batch_started_at': started,
             'batch_finished_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
             'assets': results}

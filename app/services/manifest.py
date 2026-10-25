@@ -441,12 +441,13 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
         compiled_assets.append(compiled)
         asset_rows.setdefault(asset['repository_id'], []).append(compiled)
     sections = []
-    source_check_summary = ""
+    source_check_summary = '<span class="source-check-summary">Last checked: <span id="source-check-time">Not yet</span></span>'
     if batch and any(item['upstream']['checked_at'] for item in compiled_assets):
         finished = batch[1].isoformat(timespec='seconds')
-        source_check_summary = ('<span class="source-check-summary">Last checked: <time data-local-time datetime="' +
+        source_check_summary = ('<span class="source-check-summary">Last checked: <span id="source-check-time"><time data-local-time datetime="' +
                         html.escape(finished, quote=True) + '">' +
-                        html.escape(batch[1].strftime('%Y-%m-%d %H:%M %Z')) + '</time></span>')
+                        html.escape(batch[1].strftime('%Y-%m-%d %H:%M %Z')) + '</time></span></span>')
+    source_check_summary += '<button type="button" id="source-check-now" class="source-check-now">Check now</button><span id="source-check-status" class="source-check-status" role="status" aria-live="polite"></span>'
     for category in data.get('categories', []):
         cards = []
         for repo in data.get('repositories', []):
@@ -490,14 +491,14 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                     checked_text = '<time data-local-time datetime="' + html.escape(checked, quote=True) + '">' + html.escape(fallback) + '</time>'
                 recent = bool(batch and checked and batch[0] <= datetime.fromisoformat(checked) <= batch[1])
                 if recent and state == 'available':
-                    note = ''
+                    note = '<span class="manifest-upstream" data-source-asset="' + html.escape(item['id'], quote=True) + '" hidden></span>'
                 else:
                     label = label if checked else 'Source unchecked'
                     older = bool(batch and checked and datetime.fromisoformat(checked) < batch[0])
                     detail = ('Older check · ' if older else '') + label
                     if checked and not recent:
                         detail += ' · ' + checked_text
-                    note = '<span class="manifest-upstream" title="Online source status at last check. Preserved locally when marked available above.">' + detail + '</span>'
+                    note = '<span class="manifest-upstream" data-source-asset="' + html.escape(item['id'], quote=True) + '" title="Online source status at last check. Preserved locally when marked available above.">' + detail + '</span>'
                 external = ''
                 source = item.get('online_url')
                 if source:

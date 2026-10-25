@@ -160,6 +160,7 @@ class ManifestTests(unittest.TestCase):
         self.assertNotIn('class="asset-external"',page)
 
     def test_shared_sweep_time_preserves_older_and_unknown_observations(self):
+        self.data['categories'][0]['title']='Content sources'
         cache = self.root / '.cache'
         cache.mkdir()
         records = {}
@@ -178,7 +179,8 @@ class ManifestTests(unittest.TestCase):
             'version':1, 'batch_started_at':'2026-10-24T08:29:00+00:00',
             'batch_finished_at':'2026-10-24T08:31:00+00:00', 'assets':records}))
         _, page = self.render()
-        self.assertEqual(page.count('Sources checked:'), 1)
+        self.assertEqual(page.count('Last checked:'), 1)
+        self.assertEqual(page.count('id="source-check-now"'),1)
         self.assertEqual(page.count('<time data-local-time'), 2)  # Sweep and genuinely older check.
         self.assertIn('Older check · Source OK', page)
         self.assertIn('Source unknown</span>', page)
