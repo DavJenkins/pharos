@@ -4,6 +4,7 @@
   const $ = s => document.querySelector(s);
   const endpoint = '/api/community';
   let categories = {}, offset = 0, current = null, removal = null;
+  const links=window.ArkCommunityLinks;
   function text(tag, value, className) {
     const node = document.createElement(tag); node.textContent = value;
     if (className) node.className = className; return node;
@@ -27,7 +28,10 @@
   }
   function message(error) { $('#status').textContent=error ? error.message : ''; }
   function showReceipt(result) {
-    $('#deletion-code').value=result.deletion_code; $('#copy-result').textContent=''; $('#receipt').showModal();
+    $('#deletion-code').value=result.deletion_code;
+    $('#receipt-public').href=links.link(result.thread_id,result.id);
+    $('#private-link').value=links.link(result.thread_id,result.id,result.deletion_code);
+    $('#open-private-link').href=$('#private-link').value; $('#copy-result').textContent=''; $('#receipt').showModal();
   }
   async function list() {
     const result=await request('/threads?category='+encodeURIComponent($('#category').value)+'&offset='+offset);
@@ -53,26 +57,35 @@
     article.append(text('p',item.body,'message-body'));
     const footer=document.createElement('div');footer.className='message-footer';
     const remove=text('button','Remove…','remove-message');remove.type='button';
-    remove.addEventListener('click',()=>{
-      removal=item;$('#remove-form').reset();$('#remove .form-error').textContent='';
-      $('#code-row').hidden=false;$('#password-row').hidden=true;
-      $('#remove-note').textContent=root?'This permanently removes the post and all its replies. Daily backups may retain an earlier copy.':'This permanently removes this reply. Daily backups may retain an earlier copy.';
-      $('#remove').showModal();
-    });
-    footer.append(text('small',`${item.name} · ${date(item.created_at)}`),remove);article.append(footer);return article;
+    remove.addEventListener('click',()=>openRemoval(item,root));
+    const permalink=text('a','Permalink','message-permalink');permalink.href=links.link(current,item.id);permalink.title='Open or bookmark this message';
+    article.id='message-'+item.id;
+    footer.append(text('small',`${item.name} · ${date(item.created_at)}`),permalink,remove);article.append(footer);return article;
+  }
+  function openRemoval(item,root,code='') {
+    removal=item;$('#remove-form').reset();$('#remove .form-error').textContent='';
+    $('#code-row').hidden=false;$('#password-row').hidden=true;$('#remove-code').value=code;
+    $('#remove-preview').textContent=(item.title?item.title+'\n':'')+item.name+' · '+date(item.created_at)+'\n\n'+item.body;
+    $('#remove-note').textContent=root?'This permanently removes the post and all its replies. Daily backups may retain an earlier copy.':'This permanently removes this reply. Daily backups may retain an earlier copy.';
+    if(!$('#remove').open)$('#remove').showModal();
   }
   async function navigate() {
-    message();const match=location.hash.match(/^#thread=(\d+)$/);current=match?Number(match[1]):null;
+    message();const bookmark=links.parse(location.hash);current=bookmark.thread;
     $('#list-panel').hidden=!!current;$('#thread-panel').hidden=!current;
     if (!current) return list();
     const data=await request('/threads/'+current);
     $('#conversation').replaceChildren(renderMessage(data.post,true),...data.replies.map(item=>renderMessage(item,false)));
+    const selected=bookmark.message?[data.post,...data.replies].find(item=>item.id===bookmark.message):data.post;
+    if(bookmark.message && !selected){$('#status').textContent='This message is no longer available. The rest of the conversation is shown below.';return;}
+    if(bookmark.message){const article=document.getElementById('message-'+selected.id);article.classList.add('bookmarked-message');article.scrollIntoView({block:'center'});}
+    if(bookmark.code && selected)openRemoval(selected,selected.id===data.post.id,bookmark.code);
   }
   async function refresh() { try { await navigate(); } catch(error) {message(error);} }
   for (const close of document.querySelectorAll('[data-close]')) close.addEventListener('click',()=>close.closest('dialog').close());
   for (const dialog of document.querySelectorAll('dialog')) dialog.addEventListener('close',()=>{
     for (const input of dialog.querySelectorAll('input[type=password]')) input.value='';
-    if (dialog.id==='receipt') $('#deletion-code').value='';
+    if (dialog.id==='receipt') {$('#deletion-code').value='';$('#private-link').value='';$('#open-private-link').removeAttribute('href');}
+    if(dialog.id==='remove')$('#remove-code').value='';
   });
   $('#new-post').addEventListener('click',()=>{$('#post-form').reset();$('#post-form .form-error').textContent='';$('#compose').showModal();});
   $('#refresh').addEventListener('click',refresh);
@@ -99,13 +112,19 @@
     submit(form,async()=>{
       const moderator=$('#moderator').checked;
       const result=await request('/messages/'+removal.id+'/remove',moderator?{moderator:true}:{code:$('#remove-code').value.trim()},moderator?$('#password').value:undefined);
-      $('#remove').close();if(!result.thread_id)location.hash='';else await refresh();
+      $('#remove').close();history.replaceState(null,'',result.thread_id?links.link(result.thread_id,result.thread_id):new URL('/community.html',location.href).href);await refresh();
     });
   });
   $('#copy-code').addEventListener('click',async()=>{
     try {await navigator.clipboard.writeText($('#deletion-code').value);$('#copy-result').textContent='Code copied.';}
     catch (_) {$('#deletion-code').focus();$('#deletion-code').select();$('#copy-result').textContent='Code selected. Use Copy, or write it down.';}
   });
+  $('#copy-private-link').addEventListener('click',async()=>{
+    const input=$('#private-link');
+    try{await navigator.clipboard.writeText(input.value);$('#copy-result').textContent='Private link copied. Keep it to yourself.';}
+    catch(_){input.focus();input.select();$('#copy-result').textContent='Private link selected. Use Copy, then save it somewhere private.';}
+  });
+  $('#open-private-link').addEventListener('click',()=>$('#receipt').close());
   $('#backup').addEventListener('click',()=>{$('#backup-form').reset();$('#backup-form .form-error').textContent='';$('#backup-dialog').showModal();});
   $('#backup-form').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;
     submit(form,async()=>{

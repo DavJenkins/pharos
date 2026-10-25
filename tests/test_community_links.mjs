@@ -1,0 +1,11 @@
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
+const context=vm.createContext({URL,URLSearchParams,location:{href:'http://dataark/community.html?old=1#delete=secret'},window:{}});
+vm.runInContext(fs.readFileSync(new URL('../app/static/assets/js/community-links.js',import.meta.url),'utf8'),context);
+const links=context.window.ArkCommunityLinks,secret='abcdefghijklmnopqrstuvwxyz'.slice(0,24);
+const privateURL=new URL(links.link(12,15,secret));assert.equal(privateURL.search,'');assert.equal(privateURL.pathname,'/community.html');assert(!privateURL.href.split('#')[0].includes(secret));
+const parsed=links.parse(privateURL.hash);assert.equal(parsed.thread,12);assert.equal(parsed.message,15);assert.equal(parsed.code,secret);
+assert.equal(links.parse('#thread=12').thread,12);assert.equal(links.parse('#thread=12').code,null);
+assert(!links.link(12,15).includes('delete'));assert.equal(links.parse('#thread=1&message=15&delete=bad').code,null);
+for(const value of ['0','-1','2147483648','1e3','<script>'])assert.equal(links.parse('#thread='+value).thread,null);
+assert.throws(()=>links.link(1,2,'bad'));assert.throws(()=>links.link(0,2));
+console.log('Community bookmark URL tests passed.');
