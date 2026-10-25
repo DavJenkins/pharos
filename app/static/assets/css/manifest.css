@@ -252,3 +252,5 @@ body{background-image:none}
 .source-heading>.source-check-status{grid-column:1/-1;grid-row:3;margin:0}.source-check-status:empty{display:none}
 .source-heading-stacked{grid-template-columns:auto 32px 1fr}.source-heading-stacked>.source-check-now{grid-column:2}.source-heading-stacked>.source-check-summary{grid-column:1/-1;grid-row:2;white-space:normal}
 .source-check-now.checking svg{animation:source-check-spin 1.2s linear infinite}@keyframes source-check-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.source-check-now.checking svg{animation:none}}
+
+.source-heading>.source-check-now{background:#203e54;color:#e5c366;border:1px solid #af9145;border-radius:50%;box-shadow:0 1px 3px #0002;padding:5px}.source-heading>.source-check-now:hover{background:#2c526c;color:#ffe29a;border-color:#d4af37}.source-check-now svg{width:20px;height:20px;stroke-width:1.9}

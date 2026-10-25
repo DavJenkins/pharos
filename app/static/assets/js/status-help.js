@@ -84,8 +84,8 @@
         let selected = null;
         let libraryInfo = null;
         let libraryBusy = false;
-        async function refreshLibrary(){
-            if(libraryBusy||selected!=="system-button"||!dialog.open)return;
+        async function refreshLibrary(prefetch=false){
+            if(libraryBusy||(!prefetch&&(selected!=="system-button"||!dialog.open)))return;
             libraryBusy=true;
             const controller=new AbortController();
             const timer=setTimeout(()=>controller.abort(),6000);
@@ -96,6 +96,7 @@
             }catch(_){libraryInfo={unavailable:true};}
             finally{clearTimeout(timer);libraryBusy=false;if(selected==="system-button"&&dialog.open)render();}
         }
+        refreshLibrary(true);
         setInterval(refreshLibrary,5000);
         let allowAction = false;
         let pending = null;
@@ -127,8 +128,9 @@
                 const summary=document.createElement("dl");summary.className="status-details-list";
                 const row=(label,text)=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=label;dd.textContent=text;summary.append(dt,dd);};
                 const gib=n=>(n/1024**3).toFixed(1)+" GiB";
-                if(!libraryInfo){row("Status","Loading…");}
-                else if(libraryInfo.unavailable){row("Status","Unavailable — reconnect and reopen System.");}
+                if(!libraryInfo || libraryInfo.unavailable){
+                    for(const label of ["Installed","Pending","Not installed","Storage","Activity"])row(label,libraryInfo?.unavailable?"Unavailable":"Checking…");
+                }
                 else{
                     row("Installed",libraryInfo.installed.length+(libraryInfo.installed.length===1?" registered item":" registered items"));
                     row("Pending",libraryInfo.pending.length+(libraryInfo.pending.length===1?" download":" downloads"));
