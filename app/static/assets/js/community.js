@@ -115,4 +115,30 @@
   });
   window.addEventListener('hashchange',refresh);
   (async()=>{try {await list();await navigate();}catch(error){message(error);}})();
+
+  function previewNotice() {
+    const value=$('#notice-text').value;
+    $('#notice-preview').textContent=value;$('#notice-preview').hidden=!value.trim();
+    $('#notice-counter').textContent=value.length+' / 300';
+  }
+  $('#notice-text').addEventListener('input',previewNotice);
+  $('#manage-notice').addEventListener('click',async()=>{
+    const form=$('#notice-form');form.reset();form.querySelector('.form-error').textContent='';previewNotice();
+    $('#notice-dialog').showModal();
+    const button=form.querySelector('[type=submit]');button.disabled=true;
+    try {const data=await request('/notice');$('#notice-text').value=data.text;previewNotice();}
+    catch(error) {form.querySelector('.form-error').textContent=error.message;}
+    finally {button.disabled=false;}
+  });
+  function saveNotice(clear) {
+    const form=$('#notice-form');
+    if(form.querySelector('[type=submit]').disabled || !form.reportValidity())return;
+    submit(form,async()=>{
+      await request('/notice',{text:clear?'':$('#notice-text').value},form.elements.password.value);
+      $('#notice-dialog').close();window.dispatchEvent(new Event('ark-notice-changed'));
+      $('#status').textContent=clear?'The Ark banner has been cleared.':'The Ark banner has been saved. Open landing pages update within a minute.';
+    });
+  }
+  $('#notice-form').addEventListener('submit',event=>{event.preventDefault();saveNotice(false);});
+  $('#clear-notice').addEventListener('click',()=>saveNotice(true));
 })();

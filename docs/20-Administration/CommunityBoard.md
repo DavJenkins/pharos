@@ -10,6 +10,14 @@ Every message has a Remove button. Enter its deletion code, or select caretaker 
 
 Read access is open. Posting is bounded by per-device and board-wide limits. Default limits are six messages per minute per device, 100 per minute overall, 5,000 total posts/replies, 200 replies per thread, 4,000 characters per message, 120 for titles, and 40 for names. At capacity the board asks the caretaker to clear old conversations; it does not silently expire discussions. Different people behind the same proxy may share a rate limit. Rate-limit identifiers are salted hashes of addresses, kept for approximately one minute; raw addresses are not stored in the board database. Apache may still record its normal access logs.
 
+## Message of the day
+
+Choose **Ark banner…** on the community board to set a short caretaker announcement. A live preview shows the text before saving. The message appears above the Data Ark heading on the landing page and above the brand on the board. It is plain text, at most 300 characters, and requires the caretaker password to save, replace or clear. An empty message hides the banner entirely. No announcement is published by the installer.
+
+The banner persists through restarts until deliberately cleared or replaced; “message of the day” does not imply automatic daily expiry. Open pages check once a minute while visible, and when brought back into view. A newly opened page loads the current message immediately. The previous displayed message remains during a temporary API failure. The board updates its own banner immediately after saving. There are no third-party dependencies or internet checks.
+
+The announcement is stored in the board database's metadata table and included in its private snapshots and caretaker backup download. It remains readable/settable even when normal board posting is disabled in configuration. API: public GET and caretaker-authenticated POST `/api/community/notice`. The heading banner assets are `ark-notice.js` and `ark-notice.css`.
+
 ## Storage and backup
 
 Live SQLite database: `/var/lib/dataark/community/board.sqlite3`, owned by admin, private directory mode 0700 and database mode 0600. WAL journaling and transactions keep concurrent posts consistent. The board is separate from the SSD content catalogue and public HTTP/FTP/SMB file shares. No user messages, credentials, or deletion hashes belong in Git, the public content profile, or the source recovery archive.

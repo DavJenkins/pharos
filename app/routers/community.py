@@ -74,3 +74,14 @@ async def backup(request:Request):
     await caretaker(request)
     return Response(await call(export_backup),media_type='application/vnd.sqlite3',headers={
        'Content-Disposition':'attachment; filename="dataark-community.sqlite3"','Cache-Control':'no-store'})
+
+@router.get('/notice')
+async def notice():
+    return await call(board.notice)
+
+@router.post('/notice')
+async def set_notice(request:Request):
+    data=await payload(request)
+    if set(data)!={'text'}:raise HTTPException(400,'Enter a banner message.')
+    await caretaker(request)
+    return await call(board.set_notice,data['text'])

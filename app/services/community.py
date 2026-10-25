@@ -177,3 +177,16 @@ def snapshot(destination):
     finally:
         temporary.unlink(missing_ok=True)
     return target
+
+def notice():
+    with connect() as db:
+        row=db.execute('SELECT value FROM metadata WHERE key=?',('notice',)).fetchone()
+    return json.loads(row['value']) if row else {'text':'','updated_at':None}
+
+def set_notice(value):
+    text=clean(value,'Banner message',300,False)
+    result={'text':text,'updated_at':datetime.now(timezone.utc).isoformat()}
+    with connect() as db:
+        db.execute('INSERT INTO metadata(key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value',
+                   ('notice',json.dumps(result)))
+    return result

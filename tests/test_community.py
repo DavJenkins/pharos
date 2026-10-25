@@ -1,4 +1,5 @@
 import asyncio
+from contextlib import closing
 import json
 from pathlib import Path
 import sqlite3
@@ -87,13 +88,24 @@ class StorageTests(unittest.TestCase):
     def test_backup_integrity_and_restored_deletion_code(self):
         post=self.post();file=board.snapshot(self.root/'backup.sqlite3')
         board.remove(post['id'],moderator=True)
-        with sqlite3.connect(file) as db:
+        with closing(sqlite3.connect(file)) as db:
             self.assertEqual(db.execute('PRAGMA integrity_check').fetchone()[0],'ok')
             self.assertEqual(db.execute('PRAGMA journal_mode').fetchone()[0],'delete')
         self.assertFalse(list(self.root.glob('*.partial*')))
         with patch.object(board,'DATABASE',file):
             self.assertEqual(board.thread(post['id'])['post']['title'],'Can offer a ride')
             board.remove(post['id'],post['deletion_code'],peer='device')
+    def test_notice_persists_is_plain_text_and_can_be_cleared(self):
+        self.assertEqual(board.notice()['text'],'')
+        value=board.set_notice('<b>Water pickup at noon</b>')
+        self.assertEqual(board.notice()['text'],value['text'])
+        self.assertTrue(value['updated_at'])
+        with self.assertRaises(board.BoardError):board.set_notice('x'*301)
+        self.assertEqual(board.notice()['text'],value['text'])
+        file=board.snapshot(self.root/'notice-backup.sqlite3')
+        board.set_notice('')
+        self.assertEqual(board.notice()['text'],'')
+        with patch.object(board,'DATABASE',file):self.assertEqual(board.notice()['text'],value['text'])
 
 class Request:
     def __init__(self,value=None,headers=None,raw=None):
@@ -125,5 +137,14 @@ class RouteTests(unittest.TestCase):
         with patch.object(board,'auth_attempt'),patch.object(routes,'authorized',return_value=True),patch.object(routes,'export_backup',return_value=b'SQLite fixture'):
             result=asyncio.run(routes.backup(Request()))
             self.assertEqual(result.headers['cache-control'],'no-store')
+    def test_notice_write_requires_caretaker_but_read_is_public(self):
+        with patch.object(board,'notice',return_value={'text':'Announcement'}):
+            self.assertEqual(asyncio.run(routes.notice())['text'],'Announcement')
+        with patch.object(board,'auth_attempt'),patch.object(routes,'authorized',return_value=False),patch.object(board,'set_notice') as save:
+            with self.assertRaises(HTTPException) as caught:asyncio.run(routes.set_notice(Request({'text':'Message'})))
+            self.assertEqual(caught.exception.status_code,401);save.assert_not_called()
+        with patch.object(board,'auth_attempt'),patch.object(routes,'authorized',return_value=True),patch.object(board,'set_notice',return_value={'text':''}) as save:
+            self.assertEqual(asyncio.run(routes.set_notice(Request({'text':''})))['text'],'')
+            save.assert_called_once_with('')
 
 if __name__=='__main__':unittest.main()
