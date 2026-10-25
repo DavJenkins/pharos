@@ -129,6 +129,7 @@
     try{await navigator.clipboard.writeText(input.value);$('#copy-result').textContent='Private link copied. Keep it to yourself.';}
     catch(_){input.focus();input.select();$('#copy-result').textContent='Private link selected. Use Copy, then save it somewhere private.';}
   });
+  $('#receipt-public').addEventListener('click',event=>{event.preventDefault();const target=event.currentTarget.href;$('#receipt').close();location.href=target;});
   $('#open-private-link').addEventListener('click',event=>{event.preventDefault();const target=event.currentTarget.href;$('#receipt').close();location.href=target;});
   $('#edit-form').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;
     submit(form,async()=>{
