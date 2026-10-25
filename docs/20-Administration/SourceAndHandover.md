@@ -71,3 +71,7 @@ Hand over the caretaker credential through an appropriate private channel, along
 A configuration tar is an inspection/reconstruction input, not a command to overwrite a running /etc tree. Review the new disk identifiers, account IDs, interface roles, network overlap, SSH host identity and package versions first. Restore private settings deliberately, install source-controlled helpers, validate candidate configs, then start services in dependency order. See [Configuration reference](Configuration.md) and [Bootstrap plan](../30-Developer/BootstrapPlan.md).
 
 A successful spare-media rebuild should prove independent access to real articles/images, files, maps, docs, public transfer methods and protected management; it should also demonstrate recovery from an interrupted transaction. Update the acceptance record with the actual result and date.
+
+## Community messages
+
+The community board is live user data, separate from the content catalogue and source recovery kit. Its private SQLite database is `/var/lib/dataark/community/board.sqlite3`; daily private snapshots are in `/var/backups/dataark-community`. They are on the same system card. Use the board’s caretaker backup download to keep a copy on another device. See [Community board](CommunityBoard.md) for limits, retention, and restore instructions. Never commit messages or publish the private database in the shared library.

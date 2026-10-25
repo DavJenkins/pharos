@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "enabled": true,
+  "categories": {"announcements": "Announcements", "requests": "Requests", "offers": "Offers", "general": "General discussion"},
+  "max_messages": 5000,
+  "max_replies": 200,
+  "body_characters": 4000,
+  "posts_per_minute_per_device": 6,
+  "posts_per_minute_total": 100,
+  "backup_copies": 7
+}

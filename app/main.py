@@ -40,3 +40,6 @@ app.include_router(library_router)
 
 from app.routers.callsigns import router as callsigns_router
 app.include_router(callsigns_router)
+
+from app.routers.community import router as community_router
+app.include_router(community_router)
