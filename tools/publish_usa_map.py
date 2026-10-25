@@ -72,6 +72,13 @@ The street basemap remains manually updated, independent of monthly GIS and Kiwi
         subprocess.run(['bash','deploy/deploy-web.sh'],cwd=ROOT,check=True)
         subprocess.run(['/usr/bin/python3','tools/prepare_recovery.py'],cwd=ROOT,check=True)
         git('bundle','create','/var/lib/dataark/maps/usa-map-published.bundle','feature/readme-foundation')
+        # Confirm the public viewer and byte-range archive endpoint before reporting ready.
+        from urllib.request import Request,urlopen
+        with urlopen('http://127.0.0.1/maps.html',timeout=20) as response:
+            viewer=response.read().decode()
+            if '/library-files/maps/osm/usa.pmtiles' not in viewer or 'data-map-region="alaska"' not in viewer:raise RuntimeError('The national viewer did not deploy correctly.')
+        with urlopen(Request('http://127.0.0.1/library-files/maps/osm/usa.pmtiles',headers={'Range':'bytes=0-126'}),timeout=20) as response:
+            if response.status!=206 or response.read(128)[:8]!=b'PMTiles\x03':raise RuntimeError('The published map byte-range endpoint failed verification.')
         record['state']='published';STATE.write_text(json.dumps(record,indent=2)+'\n')
 def main():
     deadline=time.monotonic()+48*3600
