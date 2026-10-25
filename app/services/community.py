@@ -180,13 +180,14 @@ def snapshot(destination):
     return target
 
 def notice_appearance(value, legacy=False):
-    defaults={'color':'#fff0bd' if legacy else '#203e54','text_color':'auto' if legacy else '#d4af37','width':'full','margin':5,'margin_top':12,'margin_bottom':12,'font':'system'}
+    defaults={'color':'#fff0bd' if legacy else '#203e54','text_color':'auto' if legacy else '#d4af37','width':'full','margin':5,'margin_top':12,'margin_bottom':12,'font':'system','position':'top'}
     result={key:value.get(key,default) for key,default in defaults.items()}
     for key in ['color','text_color']:
         color=result[key]
         if key=='text_color' and color=='auto':continue
         if not isinstance(color,str) or not re.fullmatch(r'#[0-9a-fA-F]{6}',color):raise BoardError(400,'Choose six-digit background and text colors, or automatic text color.')
         result[key]=color.lower()
+    if result['position'] not in ['top','below-header','bottom']:raise BoardError(400,'Choose top, below header, or fixed bottom.')
     if result['font'] not in ['system','old-english','serif','monospace']:raise BoardError(400,'Choose a supported banner font.')
     if result['width'] not in ['full','fit','margin']:raise BoardError(400,'Choose full width, fit text, or custom margins.')
     if type(result['margin']) not in [int,float] or not 0<=result['margin']<=40:raise BoardError(400,'Side margins must be between 0 and 40 percent.')

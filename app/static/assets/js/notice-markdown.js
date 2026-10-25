@@ -87,6 +87,7 @@
   }
   function applyAppearance(target,data) {
     applyColor(target,data.color,data.text_color);
+    target.setAttribute('data-banner-position',['below-header','bottom'].includes(data.position)?data.position:'top');
     target.setAttribute('data-banner-font',['old-english','serif','monospace'].includes(data.font)?data.font:'system');
     target.setAttribute('data-banner-width',['fit','margin'].includes(data.width)?data.width:'full');
     const margin=Number.isFinite(Number(data.margin))?Math.max(0,Math.min(40,Number(data.margin))):5;

@@ -20,3 +20,6 @@
 .ark-notice[data-banner-font="serif"]{font-family:Georgia,'Times New Roman',serif}
 .ark-notice[data-banner-font="monospace"]{font-family:ui-monospace,'Courier New',monospace}
 .ark-notice[data-banner-font="system"]{font-family:system-ui,sans-serif}
+
+#ark-notice[data-banner-position="bottom"]{position:fixed;z-index:900;bottom:var(--ark-notice-margin-bottom,12px);left:50%;transform:translateX(-50%);margin:0;max-height:40vh;max-height:40dvh;overflow-y:auto}
+#ark-notice-below-header:empty{display:none}

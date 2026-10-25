@@ -61,3 +61,5 @@ System → Ark banner offers a background picker, manual text color or automatic
 Top and bottom banner margins are independently configurable from 0–200 CSS pixels in every width mode, defaulting to 12 px each. They are previewed and preserved in backups.
 
 Banner font choices are Modern (system sans serif), Old English (UnifrakturCook), Classic (Georgia/serif), and Typewriter (monospace). Old English is bundled locally with its SIL Open Font License and pinned source/hash record in `app/static/assets/fonts/unifrakturcook`; it does not contact Google or require internet. Existing banners retain Modern until changed. Font selection survives backup/restore.
+
+Banner position can be Top of page (existing behavior), Below the header, or Fixed at the bottom. Fixed banners remain visible during scrolling, reserve space at the end of the page, and have a scrollable height limit on small screens. Placement applies on the dashboard and community board and survives backup/restore. The editor preview stays within the dialog.
