@@ -1,0 +1,15 @@
+[Unit]
+Description=Publish verified 50-state map after extraction
+After=network-online.target
+RequiresMountsFor=/mnt/storage
+[Service]
+Type=exec
+WorkingDirectory=/opt/dataark
+ExecStart=/usr/bin/python3 /opt/dataark/tools/publish_usa_map.py
+MemoryMax=512M
+CPUWeight=10
+IOWeight=10
+Nice=10
+TimeoutStartSec=infinity
+StandardOutput=append:/var/lib/dataark/maps/usa-publication.log
+StandardError=append:/var/lib/dataark/maps/usa-publication.log

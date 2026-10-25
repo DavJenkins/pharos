@@ -15,7 +15,7 @@ COLLECTIONS={
  'resilience':('tools/install_resilience.py',['--register'],'deploy/reference/resilience-catalogue.json'),
  'callsigns':('tools/install_callsigns.py',[],'deploy/reference/callsign-sources.json'),
  'radio-study':('tools/install_radio_study.py',[],'deploy/reference/radio-pools.json')}
-REFERENCE_FILES=['jurisdictions.json','family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','vehicle-manuals.json','honda-intermediate.pem','holiday-themes.json']
+REFERENCE_FILES=['jurisdictions.json','family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','osm-usa.json','osm-usa.geojson','vehicle-manuals.json','honda-intermediate.pem','holiday-themes.json']
 PUBLIC_KEYS=['system','geography','maps','categories','scenarios','repositories','assets','resource_sections']
 def read(path):return yaml.safe_load(Path(path).read_text())
 def write(path,data):
@@ -170,11 +170,13 @@ def recipe(item,c,root,folder):
     tmp.replace(out)
   return
  if name=='osm':
-  m=json.loads((REPO/item['configuration']).read_text());target=root/'maps/osm/massachusetts.pmtiles'
+  m=json.loads((REPO/item['configuration']).read_text());target=inside(root,m.get('path','maps/osm/massachusetts.pmtiles'))
   if target.is_file():return
   if not shutil.which('pmtiles'):raise RuntimeError('Install the documented pmtiles CLI first')
   target.parent.mkdir(parents=True,exist_ok=True);part=target.with_suffix('.restore-part')
-  subprocess.run(['pmtiles','extract',m['source'],str(part),'--bbox='+','.join(map(str,m['bbox'])),'--maxzoom='+str(m['maxzoom'])],check=True)
+  region='--region='+str(inside(REPO,m['region'])) if m.get('region') else '--bbox='+','.join(map(str,m['bbox']))
+  subprocess.run(['pmtiles','extract',m['source'],str(part),region,'--maxzoom='+str(m['maxzoom']),'--download-threads=2'],check=True)
+  subprocess.run(['pmtiles','verify',str(part)],check=True)
   if m.get('sha256') and digest(part)!=m['sha256']:raise ValueError('Map checksum mismatch; review extractor/source edition before accepting')
   part.replace(target);return
  if name=='indexes':
