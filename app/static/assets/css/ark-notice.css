@@ -14,3 +14,9 @@
 .ark-banner-dialog select{display:block;font:inherit;padding:.65rem;margin-top:.35rem;border:1px solid #90a5b5;border-radius:7px;background:#fffdf7;color:#294761;max-width:100%}
 
 .ark-notice[data-banner-width],.ark-page .ark-notice[data-banner-width],#notice-preview[data-banner-width]{margin-top:var(--ark-notice-margin-top,12px);margin-bottom:var(--ark-notice-margin-bottom,12px)}
+
+@font-face{font-family:ArkOldEnglish;src:url('/assets/fonts/unifrakturcook/UnifrakturCook-Bold.ttf') format('truetype');font-style:normal;font-weight:700;font-display:swap}
+.ark-notice[data-banner-font="old-english"]{font-family:ArkOldEnglish,Georgia,serif;font-weight:700;font-size:1.4rem;line-height:1.5}
+.ark-notice[data-banner-font="serif"]{font-family:Georgia,'Times New Roman',serif}
+.ark-notice[data-banner-font="monospace"]{font-family:ui-monospace,'Courier New',monospace}
+.ark-notice[data-banner-font="system"]{font-family:system-ui,sans-serif}

@@ -59,3 +59,5 @@ The API under `/api/community` is described by the Ark's Developer API. JSON mut
 System → Ark banner offers a background picker, manual text color or automatic contrast, and Full width / Fit text / Custom side margins. Margins are equal percentages on each side (0–40%); fit text wraps within the screen. New banners default to DEJ-style gold (#d4af37) on dark blue (#203e54). Existing banner colors are retained. These settings are stored with the message and survive backup/restore. The preview shows appearance before saving.
 
 Top and bottom banner margins are independently configurable from 0–200 CSS pixels in every width mode, defaulting to 12 px each. They are previewed and preserved in backups.
+
+Banner font choices are Modern (system sans serif), Old English (UnifrakturCook), Classic (Georgia/serif), and Typewriter (monospace). Old English is bundled locally with its SIL Open Font License and pinned source/hash record in `app/static/assets/fonts/unifrakturcook`; it does not contact Google or require internet. Existing banners retain Modern until changed. Font selection survives backup/restore.

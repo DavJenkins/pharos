@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/google/fonts/tree/fa02673f3b360ca4b9a8ba4f6d5a4aeb59eecd32/ofl/unifrakturcook",
+  "revision": "fa02673f3b360ca4b9a8ba4f6d5a4aeb59eecd32",
+  "sha256": {
+    "UnifrakturCook-Bold.ttf": "ea002fa9c65f1a612af100e00d87ab65f16381f450020ec3d021f3dbf79a6dcd",
+    "OFL.txt": "99d2f30e282d6174af8ff68597f58bb53c0dcb2b104a4c1b8d19da49021d00d3"
+  },
+  "license": "SIL Open Font License 1.1"
+}

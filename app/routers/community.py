@@ -83,7 +83,7 @@ async def notice():
 @router.post('/notice')
 async def set_notice(request:Request):
     data=await payload(request)
-    if 'text' not in data or set(data)-{'text','color','text_color','width','margin','margin_top','margin_bottom'}:raise HTTPException(400,'Enter a banner message and supported appearance settings.')
+    if 'text' not in data or set(data)-{'text','color','text_color','width','margin','margin_top','margin_bottom','font'}:raise HTTPException(400,'Enter a banner message and supported appearance settings.')
     await caretaker(request)
     return await call(board.set_notice,data['text'],**{key:value for key,value in data.items() if key!='text'})
 
