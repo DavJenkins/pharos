@@ -42,7 +42,7 @@ def fingerprint(db):
     value=hashlib.sha256()
     for row in db.execute('SELECT '+','.join(COLUMNS)+' FROM messages ORDER BY id'):
         value.update(json.dumps(tuple(row),ensure_ascii=False,separators=(',',':')).encode())
-    for row in db.execute("SELECT key,value FROM metadata WHERE key GLOB 'edited:*' ORDER BY key"):
+    for row in db.execute("SELECT key,value FROM metadata WHERE key GLOB 'edited:*' OR key GLOB 'reply_to:*' ORDER BY key"):
         value.update(json.dumps(tuple(row),ensure_ascii=False).encode())
     row=db.execute("SELECT value FROM metadata WHERE key='notice'").fetchone()
     value.update((row[0] if row else '').encode())
@@ -123,6 +123,13 @@ def normalize(source,destination):
                 timestamp(marker['edited_at'])
                 if type(marker['revisions'])!=int or not 1<=marker['revisions']<=2147483647:raise ValueError('Invalid edit revision count.')
                 new.execute('INSERT INTO metadata VALUES (?,?)',(record['key'],json.dumps(marker)))
+            for record in old.execute("SELECT key,value FROM metadata WHERE key GLOB 'reply_to:*'"):
+                if not re.fullmatch(r'reply_to:[1-9][0-9]{0,9}',record['key']) or not re.fullmatch(r'[1-9][0-9]{0,9}',record['value']):raise ValueError('Invalid reply relationship.')
+                child=int(record['key'].split(':')[1]);parent=int(record['value'])
+                a=new.execute('SELECT parent_id FROM messages WHERE id=?',(child,)).fetchone()
+                b=new.execute('SELECT parent_id FROM messages WHERE id=?',(parent,)).fetchone()
+                if not a or not b or a[0] is None or a[0]!=b[0] or parent>=child:raise ValueError('Invalid nested reply target.')
+                new.execute('INSERT INTO metadata VALUES (?,?)',(record['key'],str(parent)))
             new.commit()
             return summary(new)
 
@@ -173,11 +180,11 @@ def apply(token,peer):
                 # write reservation prevents intervening posts, deletions or banner edits.
                 board.snapshot(safety)
                 with closing(sqlite3.connect(source.resolve().as_uri()+'?mode=ro&immutable=1',uri=True)) as staged:
-                    live.execute("DELETE FROM metadata WHERE key GLOB 'edited:*'")
+                    live.execute("DELETE FROM metadata WHERE key GLOB 'edited:*' OR key GLOB 'reply_to:*'")
                     live.execute('DELETE FROM messages')
                     for row in staged.execute('SELECT '+','.join(COLUMNS)+' FROM messages ORDER BY id'):
                         live.execute('INSERT INTO messages('+','.join(COLUMNS)+') VALUES (?,?,?,?,?,?,?,?)',row)
-                    for marker in staged.execute("SELECT key,value FROM metadata WHERE key GLOB 'edited:*'"):
+                    for marker in staged.execute("SELECT key,value FROM metadata WHERE key GLOB 'edited:*' OR key GLOB 'reply_to:*'"):
                         live.execute('INSERT INTO metadata VALUES (?,?)',marker)
                     notice=staged.execute("SELECT value FROM metadata WHERE key='notice'").fetchone()
                     live.execute("DELETE FROM metadata WHERE key='notice'")

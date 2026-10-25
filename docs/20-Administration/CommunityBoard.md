@@ -73,3 +73,9 @@ Keep private links confidential: anyone holding one can remove that message. Bro
 ### Caretaker edits
 
 The caretaker can remove any message or edit its title/body through Edit… with the caretaker password. Display name, original timestamp, category and author deletion code are preserved. Every changed message carries “Edited by caretaker” and the last edit time; the public thread list marks an edited root post too. Unchanged saves create no marker. A stale editor is refused rather than overwriting a newer version. Markers and revision counts survive backup/restore and are removed with the corresponding message. This is a last-edit marker, not a retained history of original message contents.
+
+### Markdown and nested replies
+
+Messages and replies support offline Markdown through the same allowlisted DOM renderer as banners. Titles/names stay plain text. Formatting help and optional live Preview are available in New post, Reply and caretaker Edit. Raw HTML remains literal; images become alt text without remote requests; unsafe link protocols are not made clickable. Source text is saved unchanged and can be edited again.
+
+Every message has Reply. Responses appear beneath their target; the shared reply composer identifies that target and can return to replying to the conversation. Existing flat replies remain direct replies to the root. Removing a reply preserves its responses and moves them up to its parent. Removing the root conversation still removes all replies. Relationships remain inside one conversation and survive backup/restore; malformed or cyclic/forward relationships are rejected on restore. Deep indentation is capped visually on narrow screens.

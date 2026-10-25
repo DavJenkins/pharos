@@ -55,6 +55,10 @@ async def create(request:Request):
 async def reply(identifier:int,request:Request):
     return await call(board.create,await payload(request),peer(request),identifier)
 
+@router.post('/messages/{identifier}/replies',status_code=201)
+async def nested_reply(identifier:int,request:Request):
+    return await call(board.reply_to,identifier,await payload(request),peer(request))
+
 @router.post('/messages/{identifier}/edit')
 async def edit(identifier:int,request:Request):
     data=await payload(request)

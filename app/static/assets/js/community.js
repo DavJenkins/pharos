@@ -1,9 +1,9 @@
-/* All user content is rendered as text, never HTML or Markdown. */
+/* Message Markdown uses the shared DOM-only renderer; names and titles stay text. */
 (() => {
   'use strict';
   const $ = s => document.querySelector(s);
   const endpoint = '/api/community';
-  let categories = {}, offset = 0, current = null, removal = null, editing = null;
+  let categories = {}, offset = 0, current = null, removal = null, editing = null, replyTarget = null;
   const links=window.ArkCommunityLinks;
   function text(tag, value, className) {
     const node = document.createElement(tag); node.textContent = value;
@@ -55,7 +55,7 @@
   function renderMessage(item, root) {
     const article=document.createElement('article'); article.className='message';
     if (root) article.append(text('h2',item.title),text('small',categories[item.category]||item.category));
-    article.append(text('p',item.body,'message-body'));
+    const body=text('div','','message-body message-markdown');window.ArkNoticeMarkdown.render(body,item.body);article.append(body);
     const footer=document.createElement('div');footer.className='message-footer';
     const remove=text('button','Remove…','remove-message');remove.type='button';
     remove.addEventListener('click',()=>openRemoval(item,root));
@@ -65,7 +65,8 @@
       editing=item;$('#edit-form').reset();$('#edit-form .form-error').textContent='';$('#edit-title').value=item.title;$('#edit-title-row').hidden=!root;$('#edit-body').value=item.body;$('#edit-author').textContent='Posted by '+item.name+' · '+date(item.created_at);$('#edit-dialog').showModal();
     });
     if(item.caretaker_edit)article.append(text('p','Edited by caretaker · '+date(item.caretaker_edit.edited_at),'caretaker-edit'));
-    footer.append(text('small',`${item.name} · ${date(item.created_at)}`),permalink,edit,remove);article.append(footer);return article;
+    const reply=text('button','Reply','reply-message');reply.type='button';reply.addEventListener('click',()=>{replyTarget=item.id;$('#reply-heading').textContent='Reply to '+item.name;$('#reply-context').textContent=item.body.slice(0,180);$('#reply-context').hidden=false;$('#reply-root').hidden=false;$('#reply-form').scrollIntoView({block:'start'});$('#reply-form textarea').focus();});
+    footer.append(text('small',`${item.name} · ${date(item.created_at)}`),permalink,reply,edit,remove);article.append(footer);return article;
   }
   function openRemoval(item,root,code='') {
     removal=item;$('#remove-form').reset();$('#remove .form-error').textContent='';
@@ -79,7 +80,10 @@
     $('#list-panel').hidden=!!current;$('#thread-panel').hidden=!current;
     if (!current) return list();
     const data=await request('/threads/'+current);
-    $('#conversation').replaceChildren(renderMessage(data.post,true),...data.replies.map(item=>renderMessage(item,false)));
+    $('#conversation').replaceChildren(renderMessage(data.post,true));
+    const containers=new Map(),rootReplies=text('div','','thread-replies');$('#conversation').append(rootReplies);containers.set(data.post.id,rootReplies);
+    for(const item of data.replies){const branch=text('div','','thread-branch'),children=text('div','','thread-replies');branch.append(renderMessage(item,false),children);(containers.get(item.reply_to)||rootReplies).append(branch);containers.set(item.id,children);}
+    if(![data.post,...data.replies].some(item=>item.id===replyTarget))resetReply();
     const selected=bookmark.message?[data.post,...data.replies].find(item=>item.id===bookmark.message):data.post;
     if(bookmark.message && !selected){$('#status').textContent='This message is no longer available. The rest of the conversation is shown below.';return;}
     if(bookmark.message){const article=document.getElementById('message-'+selected.id);article.classList.add('bookmarked-message');article.scrollIntoView({block:'center'});}
@@ -110,8 +114,10 @@
       $('#compose').close();form.reset();showReceipt(result);location.hash='thread='+result.thread_id;
     });
   });
+  function resetReply(){replyTarget=null;$('#reply-heading').textContent='Reply to conversation';$('#reply-context').hidden=true;$('#reply-root').hidden=true;}
+  $('#reply-root').addEventListener('click',resetReply);
   $('#reply-form').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;
-    submit(form,async()=>{const result=await request('/threads/'+current+'/replies',Object.fromEntries(new FormData(form)));form.reset();showReceipt(result);await refresh();});
+    submit(form,async()=>{const result=await request('/messages/'+(replyTarget||current)+'/replies',Object.fromEntries(new FormData(form)));form.reset();resetReply();showReceipt(result);await refresh();});
   });
   $('#remove-form').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;
     submit(form,async()=>{
@@ -144,6 +150,21 @@
       a.href=url;a.download='dataark-community.sqlite3';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);$('#backup-dialog').close();
     });
   });
+  for(const formId of ['post-form','reply-form','edit-form']) {
+    const form=document.getElementById(formId),input=form.querySelector('textarea');
+    const tools=text('div','','markdown-tools'),help=document.createElement('details');help.className='markdown-help';
+    help.append(text('summary','Formatting help'));
+    for(const [syntax,description] of [['**bold**','Bold'],['*italic*','Italic'],['# Heading','Heading'],['- Item','Bullet list'],['1. Item','Numbered list'],['> Quote','Quoted text'],['[label](/community.html)','Link'],['`code`','Inline code'],['```\ncode\n```','Code block']]){const line=text('p','');line.append(text('code',syntax),document.createTextNode(' — '+description));help.append(line);}
+    help.append(text('p','Blank lines separate paragraphs. Raw HTML is displayed as text. Images show their descriptions; they are not loaded.'));
+    const button=text('button','Preview','markdown-preview-toggle');button.type='button';button.setAttribute('aria-expanded','false');
+    const preview=text('div','','markdown-preview');preview.hidden=true;preview.id=formId+'-preview';button.setAttribute('aria-controls',preview.id);
+    const body=text('div','','message-markdown');preview.append(text('h3','Preview'),body);
+    const render=()=>window.ArkNoticeMarkdown.render(body,input.value||'Nothing to preview yet.');
+    button.addEventListener('click',()=>{preview.hidden=!preview.hidden;button.textContent=preview.hidden?'Preview':'Hide preview';button.setAttribute('aria-expanded',String(!preview.hidden));if(!preview.hidden)render();});
+    input.addEventListener('input',()=>{if(!preview.hidden)render();});
+    form.addEventListener('reset',()=>{preview.hidden=true;button.textContent='Preview';button.setAttribute('aria-expanded','false');});
+    tools.append(button,help);input.closest('label').after(tools,preview);
+  }
   window.addEventListener('hashchange',refresh);
   (async()=>{try {await list();await navigate();}catch(error){message(error);}})();
 

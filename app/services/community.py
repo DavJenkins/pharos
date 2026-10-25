@@ -92,7 +92,10 @@ def edit_marker(db, identifier):
 
 def public(row,db=None):
     result={key:row[key] for key in ('id','parent_id','category','title','name','body','created_at')}
-    if db is not None:result['caretaker_edit']=edit_marker(db,row['id'])
+    if db is not None:
+        result['caretaker_edit']=edit_marker(db,row['id'])
+        target=db.execute('SELECT value FROM metadata WHERE key=?',('reply_to:'+str(row['id']),)).fetchone()
+        result['reply_to']=int(target[0]) if target else row['parent_id']
     return result
 
 def listing(category='', offset=0):
@@ -121,7 +124,7 @@ def thread(identifier):
         replies = db.execute('SELECT * FROM messages WHERE parent_id=? ORDER BY id',(identifier,)).fetchall()
         return {'post':public(post,db),'replies':[public(row,db) for row in replies]}
 
-def create(payload, peer, parent=None):
+def create(payload, peer, parent=None, reply_to=None):
     config = settings()
     expected = {'name','body'} if parent else {'name','body','title','category'}
     if set(payload) != expected:
@@ -141,12 +144,16 @@ def create(payload, peer, parent=None):
             category = post['category']
             if db.execute('SELECT count(*) FROM messages WHERE parent_id=?',(parent,)).fetchone()[0]>=min(200,config['max_replies']):
                 raise BoardError(409, 'This conversation has reached its reply limit.')
+        if reply_to is not None and reply_to!=parent:
+            target=db.execute('SELECT parent_id FROM messages WHERE id=?',(reply_to,)).fetchone()
+            if not target or target['parent_id']!=parent:raise BoardError(404,'The message you are replying to is no longer available.')
         if db.execute('SELECT count(*) FROM messages').fetchone()[0]>=min(5000,config['max_messages']):
             raise BoardError(507, 'The board is full. Ask the caretaker to remove old conversations.')
         limit(db,peer,'posting',config['posts_per_minute_per_device'],config['posts_per_minute_total'])
         cursor = db.execute('INSERT INTO messages(parent_id,category,title,name,body,created_at,delete_hash) VALUES (?,?,?,?,?,?,?)',
            (parent,category,title,name,body,datetime.now(timezone.utc).isoformat(),hashlib.sha256(code.encode()).hexdigest()))
         identifier = cursor.lastrowid
+        if reply_to is not None and reply_to!=parent:db.execute('INSERT INTO metadata VALUES (?,?)',('reply_to:'+str(identifier),str(reply_to)))
     return {'id':identifier,'thread_id':parent or identifier,'deletion_code':code}
 
 def remove(identifier, code=None, moderator=False, peer=''):
@@ -162,7 +169,14 @@ def remove(identifier, code=None, moderator=False, peer=''):
                 # Keep failed attempts even though the caller receives an error.
                 db.commit()
                 raise BoardError(403, 'Deletion code not accepted. Nothing was removed.')
-        db.execute("DELETE FROM metadata WHERE key IN (SELECT 'edited:' || id FROM messages WHERE id=? OR parent_id=?)",(identifier,identifier))
+        # Retain other people's responses when their immediate parent reply is removed.
+        if row['parent_id'] is not None:
+            ancestor=db.execute('SELECT value FROM metadata WHERE key=?',('reply_to:'+str(identifier),)).fetchone()
+            children=db.execute("SELECT key FROM metadata WHERE key GLOB 'reply_to:*' AND value=?",(str(identifier),)).fetchall()
+            for child in children:
+                if ancestor:db.execute('UPDATE metadata SET value=? WHERE key=?',(ancestor[0],child['key']))
+                else:db.execute('DELETE FROM metadata WHERE key=?',(child['key'],))
+        db.execute("DELETE FROM metadata WHERE key IN (SELECT 'edited:' || id FROM messages WHERE id=? OR parent_id=?) OR key IN (SELECT 'reply_to:' || id FROM messages WHERE id=? OR parent_id=?)",(identifier,identifier,identifier,identifier))
         db.execute('DELETE FROM messages WHERE id=?',(identifier,))
     return {'removed':True,'thread_id':row['parent_id']}
 
@@ -238,3 +252,11 @@ def edit(identifier, payload):
         db.execute('UPDATE messages SET title=?,body=? WHERE id=?',(title,body,identifier))
         db.execute('INSERT INTO metadata VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value',('edited:'+str(identifier),json.dumps(marker)))
     return {'edited':True,'thread_id':row['parent_id'] or identifier,'caretaker_edit':marker}
+
+
+def reply_to(identifier,payload,peer):
+    with connect() as db:
+        row=db.execute('SELECT id,parent_id FROM messages WHERE id=?',(identifier,)).fetchone()
+        if not row:raise BoardError(404,'This message is no longer available.')
+        root=row['parent_id'] or row['id']
+    return create(payload,peer,root,identifier)
