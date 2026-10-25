@@ -172,3 +172,7 @@ The password prompt optionally remembers the password in that page's JavaScript
 memory for ten minutes. It is not written to browser storage. Reload, expiry,
 or an authentication failure clears it. The server authenticates every request
 and rechecks the access path regardless of the password cache.
+
+## Reboot diagnostics
+
+`deploy/install_reliability_logging.py` installs `/etc/systemd/journald.conf.d/dataark-reliability.conf`: persistent local journal, SystemMaxUse=64M, RuntimeMaxUse=16M, SystemKeepFree=512M, MaxRetentionSec=7day, SyncIntervalSec=30s. Logs remain on the system disk; they are not a public library asset. The stock-Pi coordinator includes this installer. Use `journalctl --list-boots` and `sudo journalctl -b -1 -k` after another incident. A sudden power loss or kernel lockup can still prevent the last records from being written. This does not change watchdog or network settings and does not by itself establish or fix a reboot cause.
