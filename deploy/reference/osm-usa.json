@@ -1,0 +1,10 @@
+{
+  "source": "https://build.protomaps.com/20261022.pmtiles",
+  "region": "deploy/reference/osm-usa.geojson",
+  "maxzoom": 15,
+  "title": "All 50 U.S. states, with adjoining areas",
+  "scope": "Contiguous 48 states, Alaska including the Aleutians, and Hawaii including the Northwestern Hawaiian Islands. Rectangular cutouts include neighboring areas; territories are not a promised coverage set.",
+  "expected_archive_gb_approx": 21,
+  "reserve_gib": 40,
+  "configuration_state": "prepared; awaiting memory-controller reboot and verified extraction"
+}
