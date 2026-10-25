@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 
 // Minimal DOM fixture exercises the actual vendored lexer and DOM-only renderer.
 class Node {
- constructor(tag='',value=''){this.tag=tag;this.value=value;this.children=[];this.attributes={};this.style={};}
+ constructor(tag='',value=''){this.tag=tag;this.value=value;this.children=[];this.attributes={};this.style={setProperty(key,value){this[key]=value;}};}
  append(...nodes){for(const node of nodes){if(node.tag==='#fragment')this.children.push(...node.children);else this.children.push(node);}}
  replaceChildren(...nodes){this.children=[];this.value='';this.append(...nodes);}
  setAttribute(key,value){this.attributes[key]=value;}
@@ -44,4 +44,8 @@ root=render('```\n<b>literal</b>\n```');assert(tags(root).includes('pre'));asser
 root=render('Line one\nLine two');assert(tags(root).includes('br'));
 root=render('&lt;b&gt; &amp; &#65;');assert.equal(root.textContent,'<b> & A');assert(!tags(root).includes('b'));
 root=render('`&amp;`');assert.equal(root.textContent,'&amp;');
+context.ArkNoticeMarkdown.applyColor(root,'#003355');assert.equal(root.style['--ark-notice-bg'],'#003355');assert.equal(root.style['--ark-notice-fg'],'#ffffff');
+context.ArkNoticeMarkdown.applyColor(root,'#ff0000');assert.equal(root.style['--ark-notice-fg'],'#000000');
+context.ArkNoticeMarkdown.applyColor(root,'#fff0bd');assert.equal(root.style['--ark-notice-fg'],'#203e54');
+context.ArkNoticeMarkdown.applyColor(root,'url(javascript:bad)');assert.equal(root.style['--ark-notice-bg'],'#fff0bd');
 console.log('Banner Markdown: formatting, lists, links, tables, code, line breaks and unsafe content handling passed.');

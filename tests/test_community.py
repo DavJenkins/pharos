@@ -107,6 +107,22 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(board.notice()['text'],'')
         with patch.object(board,'DATABASE',file):self.assertEqual(board.notice()['text'],value['text'])
 
+    def test_notice_color_validation_legacy_fallback_and_backup(self):
+        with board.connect() as db:
+            db.execute('INSERT INTO metadata VALUES (?,?)',('notice',json.dumps({'text':'Legacy banner','updated_at':None})))
+        self.assertEqual(board.notice()['color'],'#fff0bd')
+        self.assertEqual(board.notice()['text'],'Legacy banner')
+        board.set_notice('New banner',color='#123ABC')
+        self.assertEqual(board.notice()['color'],'#123abc')
+        for color in ['red','url(javascript:bad)','#12345','#12345678',{'color':'bad'}]:
+            with self.assertRaises(board.BoardError):board.set_notice('Bad replacement',color=color)
+        self.assertEqual(board.notice()['text'],'New banner')
+        board.set_notice('Updated text')
+        self.assertEqual(board.notice()['color'],'#123abc')
+        file=board.snapshot(self.root/'color-backup.sqlite3')
+        board.set_notice('',color='#ffffff')
+        with patch.object(board,'DATABASE',file):self.assertEqual(board.notice()['color'],'#123abc')
+
 class Request:
     def __init__(self,value=None,headers=None,raw=None):
         self.body=json.dumps(value or {}).encode() if raw is None else raw
@@ -146,5 +162,10 @@ class RouteTests(unittest.TestCase):
         with patch.object(board,'auth_attempt'),patch.object(routes,'authorized',return_value=True),patch.object(board,'set_notice',return_value={'text':''}) as save:
             self.assertEqual(asyncio.run(routes.set_notice(Request({'text':''})))['text'],'')
             save.assert_called_once_with('')
+
+    def test_notice_route_accepts_valid_color_with_caretaker_auth(self):
+        with patch.object(board,'auth_attempt'),patch.object(routes,'authorized',return_value=True),patch.object(board,'set_notice',return_value={'text':'Banner','color':'#123abc'}) as save:
+            value=asyncio.run(routes.set_notice(Request({'text':'Banner','color':'#123abc'})))
+            self.assertEqual(value['color'],'#123abc');save.assert_called_once_with('Banner',color='#123abc')
 
 if __name__=='__main__':unittest.main()

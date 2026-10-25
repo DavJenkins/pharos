@@ -31,6 +31,12 @@
         terminalLink.href = terminalUrl.href;
         terminalLink.title = "Linux admin login required";
         link.after(terminalLink);
+        const bannerButton=document.createElement("button");
+        bannerButton.id="status-banner-admin";bannerButton.type="button";bannerButton.textContent="Ark banner…";
+        bannerButton.hidden=true;bannerButton.setAttribute("aria-haspopup","dialog");bannerButton.setAttribute("aria-controls","notice-dialog");
+        terminalLink.before(bannerButton);
+        bannerButton.addEventListener("click",()=>{dialog.close();window.ArkBannerAdmin.open();});
+
 
         const wifiMessage = document.createElement("p");
         wifiMessage.setAttribute("role", "status");
@@ -158,6 +164,7 @@
                 document.getElementById("status-dialog-toggle-label").textContent = selected === "ap-button" ? "Enable hotspot" : selected === "eth-button" ? "Enable Ethernet" : selected === "wifi-button" ? "Enable upstream Wi-Fi" : selected === "debug-button" ? "Enable debug diagnostics" : selected === "refresh-button" ? "Update status automatically" : "Use the Ark's internet connection on this device";
             }
             terminalLink.hidden = selected !== "system-button";
+            bannerButton.hidden = selected !== "system-button" || !window.ArkBannerAdmin;
             link.hidden = !(item.settings || item.url);
             link.href = item.settings || item.url || "#";
             link.textContent = item.settingsLabel || item.openLabel || "";

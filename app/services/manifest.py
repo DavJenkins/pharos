@@ -447,7 +447,8 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
         source_check_summary = ('<span class="source-check-summary">Last checked: <span id="source-check-time"><time data-local-time datetime="' +
                         html.escape(finished, quote=True) + '">' +
                         html.escape(batch[1].strftime('%Y-%m-%d %H:%M %Z')) + '</time></span></span>')
-    source_check_summary += '<button type="button" id="source-check-now" class="source-check-now">Check now</button><span id="source-check-status" class="source-check-status" role="status" aria-live="polite"></span>'
+    source_check_button = '<button type="button" id="source-check-now" class="source-check-now">Check now</button>'
+    source_check_status = '<span id="source-check-status" class="source-check-status" role="status" aria-live="polite"></span>'
     for category in data.get('categories', []):
         cards = []
         for repo in data.get('repositories', []):
@@ -529,7 +530,10 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                          '</span><div class="manifest-tags">' + tags + '</div><nav class="manifest-links">' + ' '.join(links) +
                          '</nav>' + asset_list + '</article>')
         if cards:
-            sections.append('<section class="manifest-category"><h2>' + html.escape(category['title']) + (' ' + source_check_summary if category['title'] == 'Content sources' else '') + '</h2><p>' +
+            heading = '<h2>' + html.escape(category['title']) + '</h2>'
+            if category['title'] == 'Content sources':
+                heading = '<div class="source-heading"><div class="source-title-row">' + heading + source_check_button + '</div><div class="source-meta-row">' + source_check_summary + source_check_status + '</div></div>'
+            sections.append('<section class="manifest-category">' + heading + '<p>' +
                             html.escape(str(category.get('description', ''))) + '</p><div class="manifest-grid">' +
                             ''.join(cards) + '</div></section>')
     template = Path(template_path).read_text(encoding='utf-8')

@@ -4,6 +4,7 @@ from contextlib import contextmanager
 import hmac
 import json
 import os
+import re
 from pathlib import Path
 import secrets
 import sqlite3
@@ -181,11 +182,15 @@ def snapshot(destination):
 def notice():
     with connect() as db:
         row=db.execute('SELECT value FROM metadata WHERE key=?',('notice',)).fetchone()
-    return json.loads(row['value']) if row else {'text':'','updated_at':None}
+    result=json.loads(row['value']) if row else {'text':'','updated_at':None}
+    if not re.fullmatch(r'#[0-9a-fA-F]{6}',str(result.get('color',''))):result['color']='#fff0bd'
+    return result
 
-def set_notice(value):
+def set_notice(value,color=None):
     text=clean(value,'Banner message',300,False)
-    result={'text':text,'updated_at':datetime.now(timezone.utc).isoformat()}
+    if color is None:color=notice()['color']
+    if not isinstance(color,str) or not re.fullmatch(r'#[0-9a-fA-F]{6}',color):raise BoardError(400,'Choose a six-digit banner color, such as #fff0bd.')
+    result={'text':text,'color':color.lower(),'updated_at':datetime.now(timezone.utc).isoformat()}
     with connect() as db:
         db.execute('INSERT INTO metadata(key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value',
                    ('notice',json.dumps(result)))
