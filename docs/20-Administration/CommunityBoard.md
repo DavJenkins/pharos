@@ -57,3 +57,5 @@ The API under `/api/community` is described by the Ark's Developer API. JSON mut
 ### Banner appearance
 
 System → Ark banner offers a background picker, manual text color or automatic contrast, and Full width / Fit text / Custom side margins. Margins are equal percentages on each side (0–40%); fit text wraps within the screen. New banners default to DEJ-style gold (#d4af37) on dark blue (#203e54). Existing banner colors are retained. These settings are stored with the message and survive backup/restore. The preview shows appearance before saving.
+
+Top and bottom banner margins are independently configurable from 0–200 CSS pixels in every width mode, defaulting to 12 px each. They are previewed and preserved in backups.

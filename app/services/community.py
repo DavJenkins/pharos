@@ -180,7 +180,7 @@ def snapshot(destination):
     return target
 
 def notice_appearance(value, legacy=False):
-    defaults={'color':'#fff0bd' if legacy else '#203e54','text_color':'auto' if legacy else '#d4af37','width':'full','margin':5}
+    defaults={'color':'#fff0bd' if legacy else '#203e54','text_color':'auto' if legacy else '#d4af37','width':'full','margin':5,'margin_top':12,'margin_bottom':12}
     result={key:value.get(key,default) for key,default in defaults.items()}
     for key in ['color','text_color']:
         color=result[key]
@@ -189,6 +189,8 @@ def notice_appearance(value, legacy=False):
         result[key]=color.lower()
     if result['width'] not in ['full','fit','margin']:raise BoardError(400,'Choose full width, fit text, or custom margins.')
     if type(result['margin']) not in [int,float] or not 0<=result['margin']<=40:raise BoardError(400,'Side margins must be between 0 and 40 percent.')
+    for key in ['margin_top','margin_bottom']:
+        if type(result[key]) not in [int,float] or not 0<=result[key]<=200:raise BoardError(400,'Top and bottom margins must be between 0 and 200 pixels.')
     return result
 
 def notice():

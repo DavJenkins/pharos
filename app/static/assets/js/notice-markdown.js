@@ -90,6 +90,7 @@
     target.setAttribute('data-banner-width',['fit','margin'].includes(data.width)?data.width:'full');
     const margin=Number.isFinite(Number(data.margin))?Math.max(0,Math.min(40,Number(data.margin))):5;
     target.style.setProperty('--ark-notice-margin',margin+'%');
+    for(const key of ['margin_top','margin_bottom']){const value=Number(data[key]??12);target.style.setProperty('--ark-notice-'+key.replace('_','-'),(Number.isFinite(value)?Math.max(0,Math.min(200,value)):12)+'px');}
   }
   window.ArkNoticeMarkdown=Object.freeze({render,applyColor,applyAppearance});
 })();
