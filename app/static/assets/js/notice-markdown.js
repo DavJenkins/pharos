@@ -74,16 +74,22 @@
     try {target.replaceChildren(tokens(window.marked.lexer(source,{gfm:true,breaks:true})));}
     catch(_) {target.textContent=source;}
   }
-  function applyColor(target, value) {
+  function applyColor(target, value, textColor) {
     const color=/^#[0-9a-f]{6}$/i.test(value||'')?value.toLowerCase():'#fff0bd';
     const linear=channel=>{const x=channel/255;return x<=.04045?x/12.92:((x+.055)/1.055)**2.4;};
     const luminance=hex=>[.2126,.7152,.0722].reduce((sum,weight,i)=>sum+weight*linear(parseInt(hex.slice(1+i*2,3+i*2),16)),0);
     const light=luminance(color),dark=luminance('#203e54');
     const contrast=(Math.max(light,dark)+.05)/(Math.min(light,dark)+.05);
-    const foreground=contrast>=4.5?'#203e54':1.05/(light+.05)>=4.5?'#ffffff':'#000000';
+    const foreground=/^#[0-9a-f]{6}$/i.test(textColor||'')?textColor:contrast>=4.5?'#203e54':1.05/(light+.05)>=4.5?'#ffffff':'#000000';
     target.style.setProperty('--ark-notice-bg',color);
     target.style.setProperty('--ark-notice-fg',foreground);
     target.style.setProperty('--ark-notice-border',color==='#fff0bd'?'#ac852d':foreground);
   }
-  window.ArkNoticeMarkdown=Object.freeze({render,applyColor});
+  function applyAppearance(target,data) {
+    applyColor(target,data.color,data.text_color);
+    target.setAttribute('data-banner-width',['fit','margin'].includes(data.width)?data.width:'full');
+    const margin=Number.isFinite(Number(data.margin))?Math.max(0,Math.min(40,Number(data.margin))):5;
+    target.style.setProperty('--ark-notice-margin',margin+'%');
+  }
+  window.ArkNoticeMarkdown=Object.freeze({render,applyColor,applyAppearance});
 })();

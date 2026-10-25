@@ -108,7 +108,7 @@ def normalize(source,destination):
             if notice:
                 value=json.loads(notice[0])
                 if not isinstance(value,dict):raise ValueError('Invalid banner record.')
-                value={'text':board.clean(value.get('text'),'Banner',300,False),'color':value.get('color','#fff0bd'),'updated_at':value.get('updated_at')}
+                value={'text':board.clean(value.get('text'),'Banner',300,False),**board.notice_appearance(value,legacy=True),'updated_at':value.get('updated_at')}
                 if not isinstance(value['color'],str) or not re.fullmatch('#[0-9a-fA-F]{6}',value['color']):raise ValueError('Invalid banner color.')
                 if value['updated_at'] is not None:timestamp(value['updated_at'])
                 new.execute('INSERT INTO metadata VALUES (?,?)',('notice',json.dumps(value)))

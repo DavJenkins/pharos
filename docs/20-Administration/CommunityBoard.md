@@ -53,3 +53,7 @@ Install with `sudo python3 /opt/dataark/deploy/install_community.py`, then resta
 Source: `app/services/community.py`, `app/routers/community.py`, `app/static/community.html`, `app/static/assets/js/community.js`, `tools/backup_community.py`, and `deploy/install_community.py`. [GitHub repository](https://github.com/DavJenkins/pharos). The landing-page link is maintained in `app/templates/index.html`. Tests cover posting, replies, pagination, hashes and code rejection, rate limits, capacity, public-field boundaries, moderation authentication, request size/origin restrictions, and backup/restoration to a temporary database.
 
 The API under `/api/community` is described by the Ark's Developer API. JSON mutation requests and same-origin browser checks prevent unrelated sites from silently posting; all content is inserted into the page as text. The board does not federate or synchronize between Arks. Each Ark is its own community.
+
+### Banner appearance
+
+System → Ark banner offers a background picker, manual text color or automatic contrast, and Full width / Fit text / Custom side margins. Margins are equal percentages on each side (0–40%); fit text wraps within the screen. New banners default to DEJ-style gold (#d4af37) on dark blue (#203e54). Existing banner colors are retained. These settings are stored with the message and survive backup/restore. The preview shows appearance before saving.

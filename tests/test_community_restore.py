@@ -60,6 +60,16 @@ class RestoreTests(unittest.TestCase):
         board.remove(changed['id'],changed['deletion_code'],peer='current')
         self.assertEqual(board.listing()['total'],0)
 
+    def test_banner_appearance_round_trip_and_validation(self):
+        board.set_notice('Gold notice',color='#203e54',text_color='#d4af37',width='margin',margin=12.5)
+        backup=board.snapshot(self.root/'appearance.sqlite3')
+        board.set_notice('Changed',width='fit',text_color='auto')
+        restore.apply(restore.prepare(backup,'caretaker')['token'],'caretaker')
+        current=board.notice()
+        self.assertEqual((current['text_color'],current['width'],current['margin']),('#d4af37','margin',12.5))
+        for setting in [{'width':'evil'},{'margin':-1},{'margin':float('nan')},{'text_color':'red;display:none'}]:
+            with self.subTest(setting=setting),self.assertRaises(board.BoardError):board.set_notice('Bad',**setting)
+
     def test_new_post_after_preview_blocks_replacement(self):
         preview=restore.prepare(self.file,'caretaker')
         new=board.create({'name':'','body':'A new reply'},'new-device',self.post['id'])

@@ -10,7 +10,7 @@
       if (!response.ok) return;
       const data=await response.json();
       if (typeof data.text!=='string') return;
-      if(window.ArkNoticeMarkdown){window.ArkNoticeMarkdown.render(banner,data.text);window.ArkNoticeMarkdown.applyColor(banner,data.color);}else banner.textContent=data.text;banner.hidden=!data.text.trim();
+      if(window.ArkNoticeMarkdown){window.ArkNoticeMarkdown.render(banner,data.text);window.ArkNoticeMarkdown.applyAppearance(banner,data);}else banner.textContent=data.text;banner.hidden=!data.text.trim();
     } catch (_) { /* Retain the last announcement during a temporary API interruption. */ }
   }
   window.addEventListener('ark-notice-changed',update);

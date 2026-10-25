@@ -179,19 +179,31 @@ def snapshot(destination):
         temporary.unlink(missing_ok=True)
     return target
 
+def notice_appearance(value, legacy=False):
+    defaults={'color':'#fff0bd' if legacy else '#203e54','text_color':'auto' if legacy else '#d4af37','width':'full','margin':5}
+    result={key:value.get(key,default) for key,default in defaults.items()}
+    for key in ['color','text_color']:
+        color=result[key]
+        if key=='text_color' and color=='auto':continue
+        if not isinstance(color,str) or not re.fullmatch(r'#[0-9a-fA-F]{6}',color):raise BoardError(400,'Choose six-digit background and text colors, or automatic text color.')
+        result[key]=color.lower()
+    if result['width'] not in ['full','fit','margin']:raise BoardError(400,'Choose full width, fit text, or custom margins.')
+    if type(result['margin']) not in [int,float] or not 0<=result['margin']<=40:raise BoardError(400,'Side margins must be between 0 and 40 percent.')
+    return result
+
 def notice():
     with connect() as db:
         row=db.execute('SELECT value FROM metadata WHERE key=?',('notice',)).fetchone()
     result=json.loads(row['value']) if row else {'text':'','updated_at':None}
-    if not re.fullmatch(r'#[0-9a-fA-F]{6}',str(result.get('color',''))):result['color']='#fff0bd'
+    result.update(notice_appearance(result,legacy=bool(row)))
     return result
 
-def set_notice(value,color=None):
+def set_notice(value,color=None,**appearance):
     text=clean(value,'Banner message',300,False)
-    if color is None:color=notice()['color']
-    if not isinstance(color,str) or not re.fullmatch(r'#[0-9a-fA-F]{6}',color):raise BoardError(400,'Choose a six-digit banner color, such as #fff0bd.')
-    result={'text':text,'color':color.lower(),'updated_at':datetime.now(timezone.utc).isoformat()}
+    settings=notice()
+    if color is not None:settings['color']=color
+    settings.update(appearance)
+    result={'text':text,**notice_appearance(settings),'updated_at':datetime.now(timezone.utc).isoformat()}
     with connect() as db:
-        db.execute('INSERT INTO metadata(key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value',
-                   ('notice',json.dumps(result)))
+        db.execute('INSERT INTO metadata(key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value',('notice',json.dumps(result)))
     return result
