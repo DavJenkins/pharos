@@ -22,6 +22,15 @@ def import_file(message, config):
     return run_ark(payload,config)
 
 def run_ark(payload,config):
+    if config.get('transport', 'ssh') == 'local':
+        if sys.platform != 'linux': raise ValueError('Local import is supported only on the Ark Pi.')
+        result = subprocess.run(['/usr/bin/sudo','-n','--','/usr/local/libexec/dataark-browser-import'],
+                                input=json.dumps(payload),capture_output=True,text=True,timeout=600)
+        try: answer=json.loads(result.stdout)
+        except ValueError: raise ValueError((result.stderr or 'Local Ark import failed')[-1500:]) from None
+        if not isinstance(answer,dict) or 'ok' not in answer: raise ValueError('Invalid Ark response.')
+        return answer
+    if config.get('transport', 'ssh') != 'ssh': raise ValueError('Unknown capture transport.')
     allowed = ['192.168.40.123','192.168.40.70','192.168.8.112','192.168.4.1','dataark']
     hosts = list(dict.fromkeys([config['ark_host']] + config.get('ark_fallback_hosts', [])))
     alias = config.get('ssh_host_key_alias')

@@ -22,3 +22,11 @@ To uninstall, remove the extension from Chrome and delete the current-user regis
 Blocked checks leave recent successful captures resolved for 30 days by default (configurable on the Ark). Prior verified replacement copies are retained privately on the system disk; they are not public library downloads. No scheduled checks or automatic history pruning are installed.
 
 Version 1.1.1 accepts the Ark’s current Ethernet and upstream Wi-Fi capture-page addresses. Local configuration can specify `ark_fallback_hosts` and `ssh_host_key_alias` to reuse the paired Ark’s trusted SSH host key across its interfaces. Connection failures try the next approved address; document validation failures do not. Reload the extension in Chrome after an upgrade, then reload the capture page.
+
+## On the Ark Pi / Chromium
+
+Run `sudo python3 /opt/dataark/deploy/install_pi_browser_capture.py` from the Pi terminal. Fully quit and reopen Chromium, then open [the capture page](http://dataark/capture.html). The Debian Chromium launcher loads `/usr/share/chromium/extensions/dataark-capture`. No ZIP extraction, Windows PowerShell, SSH identity or IP-address pairing is needed on the Pi.
+
+The helper reads only explicitly selected approved PDFs under `/home/admin/Downloads`. Registration is `/etc/chromium/native-messaging-hosts/com.dejsoftware.dataark_capture.json`; the on-demand host and local configuration are in `/usr/local/lib/dataark-browser-capture`. A dedicated sudo rule permits only `/usr/local/libexec/dataark-browser-import` with no arguments, invoking the existing validated importer. No browser-controlled shell command or destination path is accepted. This is for the Pi administrator account; public library visitors do not gain installation rights.
+
+Re-run the installer after source upgrades. The source is in the repository and recovery archive. It requires an already configured Ark, mounted content drive, admin account and Debian Chromium launcher; fresh-system acceptance remains separate. To uninstall, remove the extension directory, native registration, local host directory, import wrapper and `/etc/sudoers.d/dataark-browser-capture`, then restart Chromium. Library content remains.

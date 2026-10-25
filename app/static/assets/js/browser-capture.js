@@ -35,4 +35,4 @@ async function loadCapture() {
 }
 document.addEventListener('ark-capture-refresh',loadCapture);
 loadCapture();
-setTimeout(()=>{document.querySelector('#connection').textContent=document.documentElement.dataset.arkCapture==='ready'?'Capture extension connected.':'Extension not connected. Use Chrome and follow the one-time setup instructions.';},1000);
+setTimeout(()=>{document.querySelector('#connection').textContent=document.documentElement.dataset.arkCapture==='ready'?'Capture extension connected.':'Extension not connected. Use Chrome or Chromium and follow the one-time setup instructions.';},1000);

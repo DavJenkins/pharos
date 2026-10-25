@@ -2,9 +2,17 @@
 
 [Open capture page](/capture.html). This provides the missing last mile when a public reference downloads in a normal browser but automated retrieval fails. It is limited to explicitly selected public PDFs and verified replacements; it does not collect unrelated downloads or completed personal forms.
 
+## On the Ark Pi / Chromium
+
+Run `sudo python3 /opt/dataark/deploy/install_pi_browser_capture.py` from the Pi terminal. Fully quit and reopen Chromium, then open [the capture page](http://dataark/capture.html). The Debian Chromium launcher loads `/usr/share/chromium/extensions/dataark-capture`. No ZIP extraction, Windows PowerShell, SSH identity or IP-address pairing is needed on the Pi.
+
+The helper reads only explicitly selected approved PDFs under `/home/admin/Downloads`. Registration is `/etc/chromium/native-messaging-hosts/com.dejsoftware.dataark_capture.json`; the on-demand host and local configuration are in `/usr/local/lib/dataark-browser-capture`. A dedicated sudo rule permits only `/usr/local/libexec/dataark-browser-import` with no arguments, invoking the existing validated importer. No browser-controlled shell command or destination path is accepted. This is for the Pi administrator account; public library visitors do not gain installation rights.
+
+Re-run the installer after source upgrades. The source is in the repository and recovery archive. It requires an already configured Ark, mounted content drive, admin account and Debian Chromium launcher; fresh-system acceptance remains separate. To uninstall, remove the extension directory, native registration, local host directory, import wrapper and `/etc/sudoers.d/dataark-browser-capture`, then restart Chromium. Library content remains.
+
 ## One-time Windows / Chrome setup
 
-1. Download the capture ZIP from the page, extract it to a permanent folder, and run install.ps1 using PowerShell. Python 3.9+ and Windows OpenSSH must be installed. On Dave's computer the prepared folder is C:\DEJSoftware\tools\DataArkBrowserCapture.
+1. Download the capture ZIP from the page, extract it to a permanent folder, and run install.ps1 using PowerShell. Python 3.9+ and Windows OpenSSH must be installed. On Dave's computer Chrome currently loads C:\DEJSoftware\ark-expansion\browser-capture; its native helper is registered separately under C:\DEJSoftware\tools\DataArkBrowserCapture.
 2. Open chrome://extensions, enable Developer mode, choose Load unpacked and select that same folder. Extension ID: gilcpcndoddadpkefaeecjemhhcahhig. Chrome requires this local installation step; the Ark cannot silently install an extension.
 3. Open http://dataark/capture.html (or 192.168.40.123 / 192.168.4.1). The page reports whether the extension is connected.
 
@@ -12,11 +20,11 @@ The native helper registration is current-user only at HKCU\Software\Google\Chro
 
 ## Normal operation
 
-Choose Download & import for one entry. The extension asks Chrome to download that exact publisher URL into Downloads/DataArk without requesting a save dialog itself. Chrome's own Ask where to save preference, browser warnings and publisher restrictions still apply. After completion the helper automatically reads that selected file and sends it through the existing SSH connection to the fixed import command. No folder/file selection is needed when Chrome uses the permitted Downloads folder.
+Choose Download & import for one entry. The extension asks Chrome to download that exact publisher URL into Downloads/DataArk without requesting a save dialog itself. Chrome's own Ask where to save preference, browser warnings and publisher restrictions still apply. After completion the helper automatically reads that selected file and sends it through the fixed local helper on the Pi, or the paired SSH connection on Windows. No folder/file selection is needed when Chrome uses the permitted Downloads folder.
 
 If a publisher requires browsing first, use Open publisher. Capture is armed for that selected original URL for ten minutes. Use the publisher PDF viewer's download/save control. Downloads with a different original URL, including unrelated files or blob URLs, are ignored. Redirected final URLs are recorded separately. Expired capture must be armed again. This cannot promise that every 403 disappears merely because Chrome makes the request.
 
-Status progresses through downloading, validating/importing, and installed or an explicit error. Retry captured files reconnects completed pending downloads after a helper interruption. Reloading reads each collection's sources.json and hides installed items. Original downloaded files stay on the desktop; the workflow does not delete them.
+Status progresses through downloading, validating/importing, and installed or an explicit error. Retry captured files reconnects completed pending downloads after a helper interruption. Reloading reads each collection's sources.json and hides installed items. Original downloaded files stay in that computer’s Downloads folder; the workflow does not delete them.
 
 ## Validation and publication
 

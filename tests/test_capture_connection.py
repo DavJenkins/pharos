@@ -24,4 +24,16 @@ class ConnectionTests(unittest.TestCase):
   with patch.object(capture.subprocess,'run') as run:
    with self.assertRaises(ValueError):capture.run_ark({},config)
    run.assert_not_called()
+class LocalConnectionTests(unittest.TestCase):
+ def test_local_fixed_command_without_ssh(self):
+  with patch.object(capture.sys,'platform','linux'),patch.object(capture.subprocess,'run',return_value=SimpleNamespace(stdout='{"ok":true}',stderr='',returncode=0)) as run:
+   self.assertTrue(capture.run_ark({'operation':'check_updates'},{'transport':'local'})['ok'])
+   self.assertEqual(run.call_args.args[0],['/usr/bin/sudo','-n','--','/usr/local/libexec/dataark-browser-import'])
+ def test_local_errors_are_reported(self):
+  with patch.object(capture.sys,'platform','linux'),patch.object(capture.subprocess,'run',return_value=SimpleNamespace(stdout='',stderr='denied',returncode=1)):
+   with self.assertRaisesRegex(ValueError,'denied'):capture.run_ark({},{'transport':'local'})
+ def test_local_mode_rejected_on_windows(self):
+  with patch.object(capture.sys,'platform','win32'),patch.object(capture.subprocess,'run') as run:
+   with self.assertRaises(ValueError):capture.run_ark({},{'transport':'local'})
+   run.assert_not_called()
 if __name__=='__main__':unittest.main()
