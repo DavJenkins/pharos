@@ -169,6 +169,7 @@ class Installer:
   if self.c['restore_missing_content']:run(['/usr/bin/python3',str(self.repo/'tools/content_profile.py'),'restore','--apply'])
  def finish(self):
   if self.c['automatic_archive_updates']:self.script('install_update_worker.py')
+  if self.c['automatic_archive_updates']:self.script('install_reference_checks.py')
   if self.c['automatic_map_updates']:self.script('install_map_worker.py')
   run(['systemctl','is-active','--quiet','dataark','apache2','docker'])
   run(['curl','--fail','--max-time','15','--output','/dev/null','http://127.0.0.1/api/'])

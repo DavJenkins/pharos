@@ -15,7 +15,7 @@ COLLECTIONS={
  'resilience':('tools/install_resilience.py',['--register'],'deploy/reference/resilience-catalogue.json'),
  'callsigns':('tools/install_callsigns.py',[],'deploy/reference/callsign-sources.json'),
  'radio-study':('tools/install_radio_study.py',[],'deploy/reference/radio-pools.json')}
-REFERENCE_FILES=['jurisdictions.json','family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','osm-usa.json','osm-usa.geojson','vehicle-manuals.json','honda-intermediate.pem','holiday-themes.json']
+REFERENCE_FILES=['reference-checks.json','jurisdictions.json','family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','osm-usa.json','osm-usa.geojson','vehicle-manuals.json','honda-intermediate.pem','holiday-themes.json']
 PUBLIC_KEYS=['system','geography','maps','categories','scenarios','repositories','assets','resource_sections']
 def read(path):return yaml.safe_load(Path(path).read_text())
 def write(path,data):

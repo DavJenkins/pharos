@@ -60,11 +60,17 @@ def inventory():
     except (OSError,ValueError):
         history,history_available={},False
     installed, pending, removed = [], [], []
+    from app.services import reference_checks
+    reference_config = reference_checks.settings()
+    reference_state = reference_checks.read(reference_checks.STATE, {'sources': {}})
     for asset in data['assets']:
         path = mount / asset['relative_path']
         item = {'title':asset['title'], 'repository':repositories[asset['repository_id']]['title'],
             'id':asset['id'], 'repository_id':asset['repository_id'], 'relative_path':asset['relative_path'], 'can_restore':bool(asset.get('update_source')), 'source_url':asset.get('download_url'), 'bytes':path.stat().st_size if path.is_file() else None}
         item['update']=update_schedule(asset,repositories[asset['repository_id']],history,history_available)
+        reference = reference_checks.projection(asset, repositories[asset['repository_id']], reference_config, reference_state, time.time())
+        if reference is not None:
+            item['update'] = reference
         if asset.get('removed'):
             removed.append(item)
         elif path.is_file():

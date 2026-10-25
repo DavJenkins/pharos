@@ -176,3 +176,54 @@ and rechecks the access path regardless of the password cache.
 ## Reboot diagnostics
 
 `deploy/install_reliability_logging.py` installs `/etc/systemd/journald.conf.d/dataark-reliability.conf`: persistent local journal, SystemMaxUse=64M, RuntimeMaxUse=16M, SystemKeepFree=512M, MaxRetentionSec=7day, SyncIntervalSec=30s. Logs remain on the system disk; they are not a public library asset. The stock-Pi coordinator includes this installer. Use `journalctl --list-boots` and `sudo journalctl -b -1 -k` after another incident. A sudden power loss or kernel lockup can still prevent the last records from being written. This does not change watchdog or network settings and does not by itself establish or fix a reboot cause.
+
+## Reference publisher checks and pending source changes
+
+`deploy/reference/reference-checks.json` configures a weekly check of installed
+non-Kiwix publisher sources. `dataark-reference-checks.timer` wakes the checker
+hourly; the per-source interval determines which URLs are due. Sources shared
+by many assets (such as U.S. Code volumes) are checked once, not once per file.
+Removed content is excluded. Generated print packs are labelled as generated;
+the derived callsign database displays checks against its FCC source package.
+
+Manage Library shows the interval, last attempted check, next due time and
+result for each asset. The **Source changes and check failures** section lists
+changed sources separately from failed HTTP/validation checks. These are review
+items, not queued downloads. An HTTP 403/404 or invalid response never removes
+the working offline copy. Pending change flags survive a subsequent failed check
+or HTTP 304. A later response matching the original baseline clears the flag.
+
+PDF checks validate the PDF structure before comparing hashes. Word packages
+must contain document XML and no VBA project. HTML comparisons ignore script
+and style contents and normalize whitespace. First-time HTML and package checks
+establish a publisher baseline; they do not certify freshness of the saved
+snapshot. ZIP/PMTiles packages use HEAD metadata to avoid repeatedly transferring
+large archives. Sources without version metadata are labelled accordingly.
+Checks follow the recorded URL and edition; they do not discover the next tax
+year, exam pool or statutory release. Kiwix release discovery and automatic
+activation continue through `dataark-update.timer`. Specialist Massachusetts
+GIS collection refresh remains controlled by `maps.refresh_days` (currently 30)
+and `dataark-maps.timer`; the large street-basemap extract is a separate pinned
+snapshot, not that GIS collection.
+
+Reference checks deliberately do not overwrite files. A changed source must be
+reviewed and reacquired with the appropriate collection installer or Capture
+workflow so edition labels, transformations, companion files and provenance stay
+consistent. Replacing a PDF alone is insufficient for an extracted code package,
+FCC database, bundled reader or transformed HTML snapshot. There is no automatic
+promotion of a detected change into the installed library.
+
+State: `/var/lib/dataark/reference-checks/state.json` (public-source fingerprints,
+ETag, Last-Modified, last attempt/success and result; no user documents). Inspect:
+`journalctl -u dataark-reference-checks.service`. Run due checks now:
+`sudo systemctl start dataark-reference-checks.service`. Configuration travels in
+the content profile and recovery kit; check history starts fresh on a rebuilt
+system. The stock-Pi bootstrap installs the timer with automatic content updates.
+The service runs as admin with the repository and content SSD read-only, bounded
+responses (64 MiB), a 45-second network timeout and 256 MiB memory limit.
+
+To retry failures once without repeating completed checks, stop the timer's
+current service, then run as admin:
+`/opt/dataark/venv/bin/python /opt/dataark/tools/check_reference_sources.py --retry-errors`.
+A worker lock prevents overlapping passes. Honda checks use the recorded
+intermediate certificate with system roots and hostname verification intact.

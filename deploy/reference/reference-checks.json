@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "interval": "7d",
+  "max_bytes": 67108864,
+  "timeout_seconds": 45,
+  "request_delay_seconds": 1,
+  "notes": [
+    "Checks apply to installed non-Kiwix assets with publisher URLs. Shared source URLs are checked once per interval.",
+    "Changes are reported for review; fixed editions, generated files and extracted packages are not silently overwritten.",
+    "PDF and Word responses are validated. HTML is checked for meaningful text changes; archive packages use publisher metadata only.",
+    "An initial HTML or archive check establishes a baseline, not proof that the saved snapshot is current."
+  ]
+}
