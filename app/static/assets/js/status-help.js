@@ -105,7 +105,7 @@
             value.replaceChildren();
             const list = document.createElement("dl");
             list.className = "status-details-list";
-            const lines = (title || "Status unavailable").split("\n").map(line => line.trim()).filter(Boolean);
+            const lines = (title || "—").split("\n").map(line => line.trim()).filter(Boolean);
             for (const line of lines.length > 1 ? lines.slice(1) : lines) {
                 const field = line.match(/^([^:]+):\s*(.*)$/);
                 if (field) {
@@ -129,14 +129,14 @@
                 const row=(label,text)=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=label;dd.textContent=text;summary.append(dt,dd);};
                 const gib=n=>(n/1024**3).toFixed(1)+" GiB";
                 if(!libraryInfo || libraryInfo.unavailable){
-                    for(const label of ["Installed","Pending","Not installed","Storage","Activity"])row(label,libraryInfo?.unavailable?"Unavailable":"Checking…");
+                    for(const label of ["Installed","Pending","Not installed","Storage","Activity"])row(label,"—");
                 }
                 else{
                     row("Installed",libraryInfo.installed.length+(libraryInfo.installed.length===1?" registered item":" registered items"));
                     row("Pending",libraryInfo.pending.length+(libraryInfo.pending.length===1?" download":" downloads"));
                     row("Not installed",libraryInfo.removed.length+(libraryInfo.removed.length===1?" removed item":" removed items"));
                     row("Storage",libraryInfo.storage_ready?gib(libraryInfo.free_bytes)+" free of "+gib(libraryInfo.total_bytes):"Content SSD not mounted");
-                    row("Activity",libraryInfo.progress?.label||"Unavailable");
+                    row("Activity",libraryInfo.progress?.label||"—");
                     if(libraryInfo.progress?.detail)row("Details",libraryInfo.progress.detail);
                 }
                 value.append(summary);
