@@ -3,7 +3,7 @@
   'use strict';
   const $ = s => document.querySelector(s);
   const endpoint = '/api/community';
-  let categories = {}, offset = 0, current = null, removal = null;
+  let categories = {}, offset = 0, current = null, removal = null, editing = null;
   const links=window.ArkCommunityLinks;
   function text(tag, value, className) {
     const node = document.createElement(tag); node.textContent = value;
@@ -46,6 +46,7 @@
     for (const thread of result.threads) {
       const link=document.createElement('a'); link.href='#thread='+thread.id; link.className='thread-link';
       link.append(text('strong',thread.title),text('small',`${categories[thread.category]} · ${thread.name} · ${date(thread.created_at)} · ${thread.replies} ${thread.replies===1?'reply':'replies'}`));
+      if(thread.caretaker_edit)link.append(text('small','Edited by caretaker · '+date(thread.caretaker_edit.edited_at),'caretaker-edit'));
       $('#threads').append(link);
     }
     $('#page-info').textContent=result.total ? `${offset+1}–${Math.min(offset+50,result.total)} of ${result.total}` : '0 conversations';
@@ -60,7 +61,11 @@
     remove.addEventListener('click',()=>openRemoval(item,root));
     const permalink=text('a','Permalink','message-permalink');permalink.href=links.link(current,item.id);permalink.title='Open or bookmark this message';
     article.id='message-'+item.id;
-    footer.append(text('small',`${item.name} · ${date(item.created_at)}`),permalink,remove);article.append(footer);return article;
+    const edit=text('button','Edit…','edit-message');edit.type='button';edit.title='Caretaker edit';edit.addEventListener('click',()=>{
+      editing=item;$('#edit-form').reset();$('#edit-form .form-error').textContent='';$('#edit-title').value=item.title;$('#edit-title-row').hidden=!root;$('#edit-body').value=item.body;$('#edit-author').textContent='Posted by '+item.name+' · '+date(item.created_at);$('#edit-dialog').showModal();
+    });
+    if(item.caretaker_edit)article.append(text('p','Edited by caretaker · '+date(item.caretaker_edit.edited_at),'caretaker-edit'));
+    footer.append(text('small',`${item.name} · ${date(item.created_at)}`),permalink,edit,remove);article.append(footer);return article;
   }
   function openRemoval(item,root,code='') {
     removal=item;$('#remove-form').reset();$('#remove .form-error').textContent='';
@@ -124,7 +129,13 @@
     try{await navigator.clipboard.writeText(input.value);$('#copy-result').textContent='Private link copied. Keep it to yourself.';}
     catch(_){input.focus();input.select();$('#copy-result').textContent='Private link selected. Use Copy, then save it somewhere private.';}
   });
-  $('#open-private-link').addEventListener('click',()=>$('#receipt').close());
+  $('#open-private-link').addEventListener('click',event=>{event.preventDefault();const target=event.currentTarget.href;$('#receipt').close();location.href=target;});
+  $('#edit-form').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;
+    submit(form,async()=>{
+      const result=await request('/messages/'+editing.id+'/edit',{title:$('#edit-title').value,body:$('#edit-body').value,previous_title:editing.title,previous_body:editing.body},form.elements.password.value);
+      $('#edit-dialog').close();history.replaceState(null,'',links.link(result.thread_id,editing.id));await refresh();
+    });
+  });
   $('#backup').addEventListener('click',()=>{$('#backup-form').reset();$('#backup-form .form-error').textContent='';$('#backup-dialog').showModal();});
   $('#backup-form').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;
     submit(form,async()=>{

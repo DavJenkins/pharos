@@ -42,6 +42,8 @@ def fingerprint(db):
     value=hashlib.sha256()
     for row in db.execute('SELECT '+','.join(COLUMNS)+' FROM messages ORDER BY id'):
         value.update(json.dumps(tuple(row),ensure_ascii=False,separators=(',',':')).encode())
+    for row in db.execute("SELECT key,value FROM metadata WHERE key GLOB 'edited:*' ORDER BY key"):
+        value.update(json.dumps(tuple(row),ensure_ascii=False).encode())
     row=db.execute("SELECT value FROM metadata WHERE key='notice'").fetchone()
     value.update((row[0] if row else '').encode())
     return value.hexdigest()
@@ -112,6 +114,15 @@ def normalize(source,destination):
                 if not isinstance(value['color'],str) or not re.fullmatch('#[0-9a-fA-F]{6}',value['color']):raise ValueError('Invalid banner color.')
                 if value['updated_at'] is not None:timestamp(value['updated_at'])
                 new.execute('INSERT INTO metadata VALUES (?,?)',('notice',json.dumps(value)))
+            for record in old.execute("SELECT key,value FROM metadata WHERE key GLOB 'edited:*'"):
+                if not re.fullmatch(r'edited:[1-9][0-9]{0,9}',record['key']):raise ValueError('Invalid edit marker identifier.')
+                identifier=int(record['key'].split(':')[1])
+                if not new.execute('SELECT 1 FROM messages WHERE id=?',(identifier,)).fetchone():raise ValueError('Edit marker refers to a missing message.')
+                marker=json.loads(record['value'])
+                if not isinstance(marker,dict) or set(marker)!={'edited_at','revisions'}:raise ValueError('Invalid edit marker.')
+                timestamp(marker['edited_at'])
+                if type(marker['revisions'])!=int or not 1<=marker['revisions']<=2147483647:raise ValueError('Invalid edit revision count.')
+                new.execute('INSERT INTO metadata VALUES (?,?)',(record['key'],json.dumps(marker)))
             new.commit()
             return summary(new)
 
@@ -162,9 +173,12 @@ def apply(token,peer):
                 # write reservation prevents intervening posts, deletions or banner edits.
                 board.snapshot(safety)
                 with closing(sqlite3.connect(source.resolve().as_uri()+'?mode=ro&immutable=1',uri=True)) as staged:
+                    live.execute("DELETE FROM metadata WHERE key GLOB 'edited:*'")
                     live.execute('DELETE FROM messages')
                     for row in staged.execute('SELECT '+','.join(COLUMNS)+' FROM messages ORDER BY id'):
                         live.execute('INSERT INTO messages('+','.join(COLUMNS)+') VALUES (?,?,?,?,?,?,?,?)',row)
+                    for marker in staged.execute("SELECT key,value FROM metadata WHERE key GLOB 'edited:*'"):
+                        live.execute('INSERT INTO metadata VALUES (?,?)',marker)
                     notice=staged.execute("SELECT value FROM metadata WHERE key='notice'").fetchone()
                     live.execute("DELETE FROM metadata WHERE key='notice'")
                     if notice:live.execute('INSERT INTO metadata VALUES (?,?)',('notice',notice[0]))

@@ -55,6 +55,12 @@ async def create(request:Request):
 async def reply(identifier:int,request:Request):
     return await call(board.create,await payload(request),peer(request),identifier)
 
+@router.post('/messages/{identifier}/edit')
+async def edit(identifier:int,request:Request):
+    data=await payload(request)
+    await caretaker(request)
+    return await call(board.edit,identifier,data)
+
 @router.post('/messages/{identifier}/remove')
 async def remove(identifier:int,request:Request):
     data=await payload(request)

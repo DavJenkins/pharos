@@ -86,8 +86,14 @@ def clean(value, label, maximum, required=True):
         raise BoardError(400, label+' must contain '+('1–' if required else 'at most ')+str(maximum)+' characters.')
     return value
 
-def public(row):
-    return {key:row[key] for key in ('id','parent_id','category','title','name','body','created_at')}
+def edit_marker(db, identifier):
+    row=db.execute('SELECT value FROM metadata WHERE key=?',('edited:'+str(identifier),)).fetchone()
+    return json.loads(row[0]) if row else None
+
+def public(row,db=None):
+    result={key:row[key] for key in ('id','parent_id','category','title','name','body','created_at')}
+    if db is not None:result['caretaker_edit']=edit_marker(db,row['id'])
+    return result
 
 def listing(category='', offset=0):
     config = settings()
@@ -103,7 +109,8 @@ def listing(category='', offset=0):
           count(r.id) AS replies,coalesce(max(r.created_at),m.created_at) AS activity
           FROM messages m LEFT JOIN messages r ON r.parent_id=m.id WHERE '''+where+'''
           GROUP BY m.id ORDER BY activity DESC,m.id DESC LIMIT 50 OFFSET ?''',args+(offset,)).fetchall()
-    return {'categories':config['categories'],'threads':[dict(row) for row in rows], 'total':total, 'offset':offset, 'page_size':50}
+        threads=[{**dict(row),'caretaker_edit':edit_marker(db,row['id'])} for row in rows]
+    return {'categories':config['categories'],'threads':threads, 'total':total, 'offset':offset, 'page_size':50}
 
 def thread(identifier):
     settings()
@@ -112,7 +119,7 @@ def thread(identifier):
         if not post:
             raise BoardError(404, 'This post is no longer available.')
         replies = db.execute('SELECT * FROM messages WHERE parent_id=? ORDER BY id',(identifier,)).fetchall()
-        return {'post':public(post),'replies':[public(row) for row in replies]}
+        return {'post':public(post,db),'replies':[public(row,db) for row in replies]}
 
 def create(payload, peer, parent=None):
     config = settings()
@@ -155,6 +162,7 @@ def remove(identifier, code=None, moderator=False, peer=''):
                 # Keep failed attempts even though the caller receives an error.
                 db.commit()
                 raise BoardError(403, 'Deletion code not accepted. Nothing was removed.')
+        db.execute("DELETE FROM metadata WHERE key IN (SELECT 'edited:' || id FROM messages WHERE id=? OR parent_id=?)",(identifier,identifier))
         db.execute('DELETE FROM messages WHERE id=?',(identifier,))
     return {'removed':True,'thread_id':row['parent_id']}
 
@@ -211,3 +219,22 @@ def set_notice(value,color=None,**appearance):
     with connect() as db:
         db.execute('INSERT INTO metadata(key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value',('notice',json.dumps(result)))
     return result
+
+
+def edit(identifier, payload):
+    config=settings()
+    if set(payload)!={'title','body','previous_title','previous_body'}:raise BoardError(400,'Enter the message and its previous version.')
+    body=clean(payload['body'],'Message',min(4000,config['body_characters']))
+    with connect() as db:
+        db.execute('BEGIN IMMEDIATE')
+        row=db.execute('SELECT * FROM messages WHERE id=?',(identifier,)).fetchone()
+        if not row:raise BoardError(404,'This message is no longer available.')
+        title=clean(payload['title'],'Title',120,row['parent_id'] is None)
+        if row['parent_id'] is not None and title:raise BoardError(400,'Replies do not have a title.')
+        if row['title']!=payload['previous_title'] or row['body']!=payload['previous_body']:raise BoardError(409,'This message changed. Close the editor and refresh before editing again.')
+        if title==row['title'] and body==row['body']:return {'edited':False,'thread_id':row['parent_id'] or identifier}
+        previous=edit_marker(db,identifier)
+        marker={'edited_at':datetime.now(timezone.utc).isoformat(),'revisions':(previous['revisions'] if previous else 0)+1}
+        db.execute('UPDATE messages SET title=?,body=? WHERE id=?',(title,body,identifier))
+        db.execute('INSERT INTO metadata VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value',('edited:'+str(identifier),json.dumps(marker)))
+    return {'edited':True,'thread_id':row['parent_id'] or identifier,'caretaker_edit':marker}
