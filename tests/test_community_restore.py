@@ -47,6 +47,19 @@ class RestoreTests(unittest.TestCase):
         board.remove(self.post['id'],self.post['deletion_code'],peer='author')
         self.assertEqual(board.listing()['total'],0)
         with self.assertRaises(board.BoardError):restore.apply(preview['token'],'caretaker')
+    def test_safety_backup_can_undo_restore_and_reply_code_survives(self):
+        changed=self.change_live()
+        first=restore.apply(restore.prepare(self.file,'caretaker')['token'],'caretaker')
+        board.remove(self.reply['id'],self.reply['deletion_code'],peer='neighbor')
+        self.assertEqual(board.thread(self.post['id'])['replies'],[])
+        safety=restore.BACKUPS/first['safety_backup']
+        undo=restore.apply(restore.prepare(safety,'caretaker')['token'],'caretaker')
+        self.assertTrue(undo['restored'])
+        self.assertEqual(board.thread(changed['id'])['post']['body'],'Current body')
+        self.assertEqual(board.notice()['color'],'#abcdef')
+        board.remove(changed['id'],changed['deletion_code'],peer='current')
+        self.assertEqual(board.listing()['total'],0)
+
     def test_new_post_after_preview_blocks_replacement(self):
         preview=restore.prepare(self.file,'caretaker')
         new=board.create({'name':'','body':'A new reply'},'new-device',self.post['id'])

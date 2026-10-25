@@ -23,3 +23,7 @@ Use another working computer (which could be the surviving Ark half) and a card 
 Before declaring a recovery pair, finish or pause content updates, take a Git checkpoint, capture the public content profile, copy its source checkpoint and record verification results. Keep private appliance configuration protected and separate from public content. A full boot-card image would contain passwords, host keys and network identities; it must not be casually published through the library, SMB or anonymous FTP.
 
 Acceptance requires spare media, leaving the originals available for rollback. Test original-card/new-content and original-content/new-card independently. Verify actual articles/images, maps, PDF tools, radio databases, library management, portal behavior and offline operation from a separate client. Reboot each rebuilt appliance and confirm that both desired selections and configuration mirrors persist. Repeat an interrupted rebuild. Only then label the two-way regeneration path supported.
+
+## Latest validation record
+
+See [Recovery validation — 25 October 2026](RecoveryValidation.md) for the isolated recovery drill, kit preflight results and remaining spare-media acceptance work.
