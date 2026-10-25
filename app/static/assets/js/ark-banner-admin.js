@@ -33,6 +33,7 @@
   }
   async function open() {
     const sequence=++generation;
+    for(const section of dialog.querySelectorAll('details'))section.open=false;
     form.reset();manualText='#d4af37';form.elements.password.value='';error.textContent='';$('#notice-result').textContent='';
     preview();lock(true);dialog.showModal();
     try {
@@ -57,6 +58,7 @@
   textHex.addEventListener('input',()=>{if(/^#[0-9a-f]{6}$/i.test(textHex.value)){manualText=textHex.value;foreground.value=manualText;preview();}});
   picker.addEventListener('input',()=>{hex.value=picker.value;preview();});
   hex.addEventListener('input',()=>{if(/^#[0-9a-f]{6}$/i.test(hex.value)){picker.value=hex.value;preview();}});
+  form.addEventListener('invalid',event=>{const section=event.target.closest('details');if(section)section.open=true;},true);
   form.addEventListener('submit',event=>{event.preventDefault();update(false);});
   clear.addEventListener('click',()=>update(true));
   $('#notice-close').addEventListener('click',()=>dialog.close());
