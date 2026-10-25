@@ -7,6 +7,7 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import Response
 from starlette.concurrency import run_in_threadpool
 from app.services import community as board
+from app.services import community_restore as restore
 from app.services.network_admin import authorized
 
 router = APIRouter(prefix='/community',tags=['Community board'])
@@ -86,3 +87,39 @@ async def set_notice(request:Request):
     await caretaker(request)
     if 'color' in data:return await call(board.set_notice,data['text'],color=data['color'])
     return await call(board.set_notice,data['text'])
+
+
+@router.post('/restore/preview')
+async def restore_preview(request:Request):
+    origin=request.headers.get('origin')
+    try:valid=not origin or urlsplit(origin).netloc==request.headers.get('host')
+    except ValueError:valid=False
+    if not valid:raise HTTPException(403,'Use Restore on this Ark.')
+    if request.headers.get('content-type','').split(';')[0].lower() not in ('application/vnd.sqlite3','application/octet-stream'):
+        raise HTTPException(415,'Choose a SQLite board backup.')
+    await caretaker(request)
+    try:length=int(request.headers.get('content-length','0'))
+    except ValueError:raise HTTPException(400,'Invalid upload length') from None
+    if length>restore.MAX_UPLOAD:raise HTTPException(413,'Backup exceeds 128 MiB.')
+    target=None
+    try:
+        with tempfile.NamedTemporaryFile(dir=board.DATABASE.parent,prefix='.restore-upload-',delete=False) as stream:
+            target=Path(stream.name);size=0
+            async for chunk in request.stream():
+                size+=len(chunk)
+                if size>restore.MAX_UPLOAD:raise HTTPException(413,'Backup exceeds 128 MiB.')
+                await run_in_threadpool(stream.write,chunk)
+        return await call(restore.prepare,target,peer(request))
+    except OSError:raise HTTPException(503,'Unable to stage the backup. Check the Pi’s private storage.') from None
+    finally:
+        if target is not None:
+            try:target.unlink(missing_ok=True)
+            except OSError:pass
+
+@router.post('/restore/apply')
+async def restore_apply(request:Request):
+    data=await payload(request)
+    if set(data)!={'token','confirmation'} or data['confirmation']!='RESTORE':
+        raise HTTPException(400,'Validate a backup and explicitly confirm replacement first.')
+    await caretaker(request)
+    return await call(restore.apply,data['token'],peer(request))

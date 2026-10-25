@@ -5,6 +5,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from app.services.community import snapshot, settings
+from app.services.community_restore import cleanup
 
 def main():
     folder=Path('/var/backups/dataark-community')
@@ -14,6 +15,8 @@ def main():
     keep=max(1,min(30,int(settings()['backup_copies'])))
     for old in sorted(folder.glob('board-????-??-??.sqlite3'),reverse=True)[keep:]:
         if old.is_file() and not old.is_symlink():old.unlink()
+    try:cleanup()
+    except OSError:print('Backup saved; expired restore staging cleanup needs caretaker attention.')
     print('Board backup saved:',result)
 
 if __name__=='__main__':main()

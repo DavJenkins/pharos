@@ -116,4 +116,53 @@
   window.addEventListener('hashchange',refresh);
   (async()=>{try {await list();await navigate();}catch(error){message(error);}})();
 
+
+  const restoreDialog=$('#restore-dialog'),restoreForm=$('#restore-form');
+  let restoreToken=null,restoreBusy=false,restoreDone=false;
+  function restoreReset() {
+    restoreToken=null;restoreBusy=false;restoreDone=false;$('#restore-review').hidden=true;$('#restore-inputs').hidden=false;
+    $('#restore-validate').hidden=false;$('#restore-validate').disabled=false;$('#restore-reselect').hidden=true;
+    $('#restore-apply').hidden=true;$('#restore-apply').disabled=true;$('#restore-confirmation').checked=false;
+    $('#restore-file').disabled=false;$('#restore-password').disabled=false;
+  }
+  function restoreLock(value) {
+    restoreBusy=value;restoreDialog.querySelector('[data-close]').disabled=value;$('#restore-confirmation').disabled=value;
+    for(const control of ['#restore-validate','#restore-reselect','#restore-file','#restore-password'])$(control).disabled=value;
+    $('#restore-apply').disabled=value || !$('#restore-confirmation').checked;
+  }
+  $('#restore-board').addEventListener('click',()=>{
+    restoreForm.reset();restoreReset();$('#restore-result').textContent='';$('#restore-form .form-error').textContent='';restoreDialog.showModal();
+  });
+  restoreDialog.addEventListener('cancel',event=>{if(restoreBusy)event.preventDefault();});
+  restoreDialog.addEventListener('close',()=>{restoreToken=null;$('#restore-password').value='';});
+  $('#restore-confirmation').addEventListener('change',()=>{$('#restore-apply').disabled=restoreBusy || !$('#restore-confirmation').checked;});
+  $('#restore-reselect').addEventListener('click',()=>{restoreReset();$('#restore-result').textContent='';$('#restore-form .form-error').textContent='';});
+  restoreForm.addEventListener('submit',async event=>{
+    event.preventDefault();if(restoreToken || restoreDone || restoreBusy || !restoreForm.reportValidity())return;
+    const file=$('#restore-file').files[0];if(!file)return;
+    if(file.size>128*1024*1024){$('#restore-form .form-error').textContent='Backup exceeds 128 MiB.';return;}
+    restoreLock(true);$('#restore-result').textContent='Uploading and validating backup…';$('#restore-form .form-error').textContent='';
+    try {
+      const response=await fetch(endpoint+'/restore/preview',{method:'POST',headers:{'Content-Type':'application/vnd.sqlite3',Authorization:basic($('#restore-password').value)},body:file,cache:'no-store'});
+      const data=await response.json();if(!response.ok)throw Error(data.detail||'Backup validation failed.');
+      restoreToken=data.token;
+      $('#restore-summary').textContent=`Backup: ${data.backup.posts} posts and ${data.backup.replies} replies. Current board: ${data.current.posts} posts and ${data.current.replies} replies.`+(data.backup.newest?' Newest backup message: '+date(data.backup.newest)+'.':'');
+      $('#restore-banner').textContent=data.backup.banner?'Backup banner ('+data.backup.color+'): '+data.backup.banner:'The backup has no banner; restoring it clears the current banner.';
+      $('#restore-review').hidden=false;$('#restore-validate').hidden=true;$('#restore-reselect').hidden=false;$('#restore-apply').hidden=false;
+      $('#restore-result').textContent='Validated. Review and confirm below. This preview expires in ten minutes.';
+    }catch(error){$('#restore-result').textContent='';$('#restore-form .form-error').textContent=error.message;}
+    finally{restoreLock(false);if(restoreToken){$('#restore-file').disabled=true;$('#restore-password').disabled=true;}}
+  });
+  $('#restore-apply').addEventListener('click',async()=>{
+    if(restoreBusy || !restoreToken || !$('#restore-confirmation').checked)return;
+    restoreLock(true);$('#restore-result').textContent='Saving the current board, then restoring the reviewed backup…';$('#restore-form .form-error').textContent='';
+    try {
+      const data=await request('/restore/apply',{token:restoreToken,confirmation:'RESTORE'},$('#restore-password').value);
+      restoreToken=null;restoreDone=true;$('#restore-password').value='';$('#restore-review').hidden=true;$('#restore-inputs').hidden=true;
+      $('#restore-apply').hidden=true;$('#restore-reselect').hidden=true;$('#restore-validate').hidden=true;
+      $('#restore-result').textContent=`Restored ${data.backup.posts} posts and ${data.backup.replies} replies. Previous board saved on the Pi as ${data.safety_backup}.`+(data.warning?' '+data.warning:'');
+      window.dispatchEvent(new Event('ark-notice-changed'));location.hash='';await refresh();
+    }catch(error){$('#restore-result').textContent='';$('#restore-form .form-error').textContent='Restore was not confirmed. Refresh the board to check its state before retrying. '+error.message;restoreReset();}
+    finally{restoreLock(false);}
+  });
 })();
