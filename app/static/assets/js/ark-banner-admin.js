@@ -16,7 +16,7 @@
     const value=text.value,target=$('#notice-preview');
     window.ArkNoticeMarkdown.render(target,value);window.ArkNoticeMarkdown.applyAppearance(target,settings());
     if(mode.value==='auto'){const actual=target.style.getPropertyValue('--ark-notice-fg');foreground.value=actual;textHex.value=actual;}
-    foreground.disabled=busy||mode.value==='auto';textHex.disabled=foreground.disabled;margin.disabled=busy||width.value!=='margin';
+    foreground.disabled=busy;textHex.disabled=busy;margin.disabled=busy||width.value!=='margin';
     target.hidden=!value.trim();$('#notice-counter').textContent=value.length+' / 300';
   }
   function lock(value) {busy=value;for(const control of [text,picker,hex,mode,foreground,textHex,width,margin,top,bottom,font,position,save,clear])control.disabled=value;if(!value)preview();}
@@ -54,8 +54,10 @@
   }
   text.addEventListener('input',preview);for(const control of [width,margin,top,bottom,font,position])control.addEventListener('input',preview);
   mode.addEventListener('input',()=>{if(mode.value==='custom'){foreground.value=manualText;textHex.value=manualText;}preview();});
-  foreground.addEventListener('input',()=>{manualText=foreground.value;textHex.value=manualText;preview();});
-  textHex.addEventListener('input',()=>{if(/^#[0-9a-f]{6}$/i.test(textHex.value)){manualText=textHex.value;foreground.value=manualText;preview();}});
+  function chooseCustom(){if(busy)return;if(mode.value==='auto'){manualText=textHex.value;mode.value='custom';preview();}}
+  for(const control of [foreground,textHex]){control.addEventListener('pointerdown',chooseCustom);control.addEventListener('click',chooseCustom);}
+  foreground.addEventListener('input',()=>{mode.value='custom';manualText=foreground.value;textHex.value=manualText;preview();});
+  textHex.addEventListener('input',()=>{mode.value='custom';if(/^#[0-9a-f]{6}$/i.test(textHex.value)){manualText=textHex.value;foreground.value=manualText;preview();}});
   picker.addEventListener('input',()=>{hex.value=picker.value;preview();});
   hex.addEventListener('input',()=>{if(/^#[0-9a-f]{6}$/i.test(hex.value)){picker.value=hex.value;preview();}});
   form.addEventListener('invalid',event=>{const section=event.target.closest('details');if(section)section.open=true;},true);
