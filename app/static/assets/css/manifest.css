@@ -242,3 +242,13 @@ body{background-image:none}
 .source-heading{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem}.source-title-row{display:flex;align-items:center;gap:.65rem;flex:0 0 auto;max-width:100%}.source-title-row h2{margin:0;font-size:clamp(1.15rem,4.5vw,1.5rem)}.source-title-row .source-check-now{margin-left:0;white-space:nowrap;min-height:36px}.source-meta-row{display:flex;align-items:center;flex-wrap:wrap;gap:.25rem .75rem;flex:0 0 auto;max-width:100%}.source-meta-row .source-check-summary,.source-meta-row .source-check-status{margin-left:0}@media(max-width:600px){.source-title-row .source-check-now{min-height:44px}}
 
 .source-title-row h2{white-space:nowrap}
+
+.source-heading{display:grid;grid-template-columns:auto auto 32px 1fr;gap:.25rem .6rem;align-items:center}
+.source-heading>h2{grid-column:1;grid-row:1;margin:0;white-space:nowrap;font-size:clamp(1.15rem,4.5vw,1.5rem)}
+.source-heading>.source-check-summary{grid-column:2;grid-row:1;margin:0;white-space:nowrap}
+.source-heading>.source-check-now{grid-column:3;grid-row:1;margin:0;width:32px;height:32px;min-height:32px;padding:6px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border-color:transparent}
+.source-check-now svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.source-check-now:hover{background:#edf2f5;border-color:#94a8b5}.source-check-now:focus-visible{outline:3px solid #2872aa;outline-offset:2px}
+.source-heading>.source-check-status{grid-column:1/-1;grid-row:3;margin:0}.source-check-status:empty{display:none}
+.source-heading-stacked{grid-template-columns:auto 32px 1fr}.source-heading-stacked>.source-check-now{grid-column:2}.source-heading-stacked>.source-check-summary{grid-column:1/-1;grid-row:2;white-space:normal}
+.source-check-now.checking svg{animation:source-check-spin 1.2s linear infinite}@keyframes source-check-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.source-check-now.checking svg{animation:none}}

@@ -447,7 +447,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
         source_check_summary = ('<span class="source-check-summary">Last checked: <span id="source-check-time"><time data-local-time datetime="' +
                         html.escape(finished, quote=True) + '">' +
                         html.escape(batch[1].strftime('%Y-%m-%d %H:%M %Z')) + '</time></span></span>')
-    source_check_button = '<button type="button" id="source-check-now" class="source-check-now">Check now</button>'
+    source_check_button = '<button type="button" id="source-check-now" class="source-check-now" title="Check sources now" aria-label="Check sources now"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1"/></svg></button>'
     source_check_status = '<span id="source-check-status" class="source-check-status" role="status" aria-live="polite"></span>'
     for category in data.get('categories', []):
         cards = []
@@ -532,7 +532,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
         if cards:
             heading = '<h2>' + html.escape(category['title']) + '</h2>'
             if category['title'] == 'Content sources':
-                heading = '<div class="source-heading"><div class="source-title-row">' + heading + source_check_button + '</div><div class="source-meta-row">' + source_check_summary + source_check_status + '</div></div>'
+                heading = '<div class="source-heading">' + heading + source_check_summary + source_check_button + source_check_status + '</div>'
             sections.append('<section class="manifest-category">' + heading + '<p>' +
                             html.escape(str(category.get('description', ''))) + '</p><div class="manifest-grid">' +
                             ''.join(cards) + '</div></section>')
