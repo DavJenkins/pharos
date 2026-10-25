@@ -6,7 +6,8 @@
   const heading=button.closest('.source-heading'),summary=heading.querySelector('.source-check-summary'),title=heading.querySelector('h2');
   function layout() {
     // Measure intrinsic text widths so wrapping follows the actual timestamp and available space.
-    const measure=node=>{const range=document.createRange();range.selectNodeContents(node);return range.getBoundingClientRect().width;};
+    const context=document.createElement('canvas').getContext('2d');
+    const measure=node=>{context.font=getComputedStyle(node).font;return context.measureText(node.textContent).width;};
     heading.classList.toggle('source-heading-stacked',measure(title)+measure(summary)+32+32>heading.clientWidth);
   }
   const resize=new ResizeObserver(layout);resize.observe(heading);resize.observe(summary);
