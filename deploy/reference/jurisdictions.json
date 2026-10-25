@@ -1,0 +1,585 @@
+{
+  "version": 1,
+  "directory_source": "https://www.law.cornell.edu/states/listing",
+  "policy": {
+    "max_document_mib": 50,
+    "max_total_gib": 2,
+    "workers": 2,
+    "constitution_first": true,
+    "municipal_codes": "regional only",
+    "commercial_model_codes": "excluded unless separately licensed"
+  },
+  "jurisdictions": [
+    {
+      "id": "alabama",
+      "name": "Alabama",
+      "directory_url": "https://www.law.cornell.edu/states/alabama",
+      "constitution_candidates": [
+        "https://50constitutions.org/al/constitution",
+        "https://alisondb.legislature.state.al.us/alison/Constitution.aspx"
+      ],
+      "statute_source": "http://alisondb.legislature.state.al.us/alison/CoA.aspx",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "alaska",
+      "name": "Alaska",
+      "directory_url": "https://www.law.cornell.edu/states/alaska",
+      "constitution_candidates": [
+        "https://ltgov.alaska.gov/services/alaskas-constitution/"
+      ],
+      "statute_source": "http://www.legis.state.ak.us/basis/folioproxy.asp?url=http%3A//wwwjnu01.legis.state.ak.us/folhome.htm"
+    },
+    {
+      "id": "arizona",
+      "name": "Arizona",
+      "directory_url": "https://www.law.cornell.edu/states/arizona",
+      "constitution_candidates": [
+        "https://50constitutions.org/az/constitution",
+        "https://www.azleg.gov/constitution/"
+      ],
+      "statute_source": "http://www.azleg.gov/ArizonaRevisedStatutes.asp",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "arkansas",
+      "name": "Arkansas",
+      "directory_url": "https://www.law.cornell.edu/states/arkansas",
+      "constitution_candidates": [
+        "https://50constitutions.org/ar/constitution"
+      ],
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "california",
+      "name": "California",
+      "directory_url": "https://www.law.cornell.edu/states/california",
+      "constitution_candidates": [
+        "https://50constitutions.org/ca/constitution",
+        "https://www.leginfo.ca.gov/const-toc.html"
+      ],
+      "statute_source": "http://leginfo.legislature.ca.gov/faces/codes.xhtml",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "colorado",
+      "name": "Colorado",
+      "directory_url": "https://www.law.cornell.edu/states/colorado",
+      "constitution_candidates": [
+        "https://www.colorado.gov/pacific/archives/constitution"
+      ],
+      "statute_source": "https://leg.colorado.gov/agencies/office-legislative-legal-services/colorado-revised-statutes"
+    },
+    {
+      "id": "connecticut",
+      "name": "Connecticut",
+      "directory_url": "https://www.law.cornell.edu/states/connecticut",
+      "constitution_candidates": [
+        "https://50constitutions.org/ct/constitution",
+        "https://www.cga.ct.gov/asp/Content/constitutions/1818Constitution.htm"
+      ],
+      "statute_source": "https://www.cga.ct.gov/current/pub/titles.htm",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "delaware",
+      "name": "Delaware",
+      "directory_url": "https://www.law.cornell.edu/states/delaware",
+      "constitution_candidates": [
+        "https://delcode.delaware.gov/constitution/index.shtml"
+      ],
+      "statute_source": "http://delcode.delaware.gov/"
+    },
+    {
+      "id": "dc",
+      "name": "District of Columbia",
+      "directory_url": "https://www.law.cornell.edu/states/dc",
+      "constitution_candidates": [
+        "https://code.dccouncil.gov/us/dc/council/code/titles/1/chapters/2/index.full.html"
+      ],
+      "document_kind": "Home Rule Act and Charter"
+    },
+    {
+      "id": "florida",
+      "name": "Florida",
+      "directory_url": "https://www.law.cornell.edu/states/florida",
+      "constitution_candidates": [
+        "https://www.leg.state.fl.us/statutes/index.cfm?mode=constitution&submenu=3"
+      ],
+      "statute_source": "http://www.leg.state.fl.us/Statutes/index.cfm?Mode=View%20Statutes&Submenu=1&Tab=statutes&CFID=260720230&CFTOKEN=23950736"
+    },
+    {
+      "id": "georgia",
+      "name": "Georgia",
+      "directory_url": "https://www.law.cornell.edu/states/georgia",
+      "constitution_candidates": [
+        "https://50constitutions.org/ga/constitution",
+        "https://sos.ga.gov/admin/files/Constitution_2013_Final_Printed.pdf"
+      ],
+      "statute_source": "https://www.lexisnexis.com/hottopics/gacode/",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "hawaii",
+      "name": "Hawaii",
+      "directory_url": "https://www.law.cornell.edu/states/hawaii",
+      "constitution_candidates": [
+        "https://lrb.hawaii.gov/constitution"
+      ],
+      "statute_source": "http://www.capitol.hawaii.gov/house.aspx"
+    },
+    {
+      "id": "idaho",
+      "name": "Idaho",
+      "directory_url": "https://www.law.cornell.edu/states/idaho",
+      "constitution_candidates": [
+        "https://50constitutions.org/id/constitution",
+        "https://legislature.idaho.gov/statutesrules/idconst/"
+      ],
+      "statute_source": "https://legislature.idaho.gov/statutesrules/idstat/",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "illinois",
+      "name": "Illinois",
+      "directory_url": "https://www.law.cornell.edu/states/illinois",
+      "constitution_candidates": [
+        "https://50constitutions.org/il/constitution",
+        "https://www.ilga.gov/commission/lrb/conmain.htm"
+      ],
+      "statute_source": "http://www.ilga.gov/legislation/ilcs/ilcs.asp",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "indiana",
+      "name": "Indiana",
+      "directory_url": "https://www.law.cornell.edu/states/indiana",
+      "constitution_candidates": [
+        "https://50constitutions.org/in/constitution",
+        "https://iga.in.gov/legislative/laws/const/"
+      ],
+      "statute_source": "http://iga.in.gov/legislative/laws/2019/ic/titles/001",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "iowa",
+      "name": "Iowa",
+      "directory_url": "https://www.law.cornell.edu/states/iowa",
+      "constitution_candidates": [
+        "https://www.legis.iowa.gov/law/statutory/constitution"
+      ],
+      "statute_source": "https://www.legis.iowa.gov/law/statutory"
+    },
+    {
+      "id": "kansas",
+      "name": "Kansas",
+      "directory_url": "https://www.law.cornell.edu/states/kansas",
+      "constitution_candidates": [
+        "https://50constitutions.org/ks/constitution",
+        "https://kslib.info/405/Kansas-Constitution"
+      ],
+      "statute_source": "http://www.kslegislature.org/li/b2011_12/statute/",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "kentucky",
+      "name": "Kentucky",
+      "directory_url": "https://www.law.cornell.edu/states/kentucky",
+      "constitution_candidates": [
+        "https://apps.legislature.ky.gov/law/constitution"
+      ],
+      "statute_source": "https://legislature.ky.gov/Law/Statutes/Pages/default.aspx"
+    },
+    {
+      "id": "louisiana",
+      "name": "Louisiana",
+      "directory_url": "https://www.law.cornell.edu/states/louisiana",
+      "constitution_candidates": [
+        "https://50constitutions.org/la/constitution",
+        "https://senate.legis.state.la.us/documents/constitution/"
+      ],
+      "statute_source": "http://www.legis.la.gov/legis/LawSearch.aspx/",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "maine",
+      "name": "Maine",
+      "directory_url": "https://www.law.cornell.edu/states/maine",
+      "constitution_candidates": [
+        "https://50constitutions.org/me/constitution",
+        "https://www.maine.gov/legis/const/"
+      ],
+      "statute_source": "http://www.mainelegislature.org/legis/statutes/",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "maryland",
+      "name": "Maryland",
+      "directory_url": "https://www.law.cornell.edu/states/maryland",
+      "constitution_candidates": [
+        "https://50constitutions.org/md/constitution",
+        "https://www.msa.md.gov/msa/mdmanual/43const/html/const.html"
+      ],
+      "statute_source": "http://mgaleg.maryland.gov/mgawebsite/Laws/Statutes",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "massachusetts",
+      "name": "Massachusetts",
+      "directory_url": "https://www.law.cornell.edu/states/massachusetts",
+      "constitution_candidates": [
+        "https://50constitutions.org/ma/constitution",
+        "https://www.malegislature.gov/Laws/Constitution/"
+      ],
+      "statute_source": "http://www.malegislature.gov/Laws/GeneralLaws/Search",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "michigan",
+      "name": "Michigan",
+      "directory_url": "https://www.law.cornell.edu/states/michigan",
+      "constitution_candidates": [
+        "https://50constitutions.org/mi/constitution",
+        "https://legislature.mi.gov/doc.aspx?mcl-Constitution="
+      ],
+      "statute_source": "http://www.legislature.mi.gov/(S(fojbmh5v3svxloeygewjwyeb))/mileg.aspx?page=MCLBasicSearch",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "minnesota",
+      "name": "Minnesota",
+      "directory_url": "https://www.law.cornell.edu/states/minnesota",
+      "constitution_candidates": [
+        "https://50constitutions.org/mn/constitution",
+        "https://www.house.leg.state.mn.us/cco/rules/mncon/preamble.htm"
+      ],
+      "statute_source": "https://www.revisor.mn.gov/statutes/",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "mississippi",
+      "name": "Mississippi",
+      "directory_url": "https://www.law.cornell.edu/states/mississippi",
+      "constitution_candidates": [
+        "https://50constitutions.org/ms/constitution",
+        "https://www.sos.ms.gov/Education-Publications/Pages/Mississippi-Code.aspx"
+      ],
+      "statute_source": "https://www.lexisnexis.com/hottopics/mscode/",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "missouri",
+      "name": "Missouri",
+      "directory_url": "https://www.law.cornell.edu/states/missouri",
+      "constitution_candidates": [
+        "https://www.sos.mo.gov/pubs/constitution"
+      ],
+      "statute_source": "https://revisor.mo.gov/main/Home.aspx"
+    },
+    {
+      "id": "montana",
+      "name": "Montana",
+      "directory_url": "https://www.law.cornell.edu/states/montana",
+      "constitution_candidates": [
+        "https://50constitutions.org/mt/constitution",
+        "https://leg.mt.gov/bills/mca/title_0000/chapters_index.html"
+      ],
+      "statute_source": "https://leg.mt.gov/bills/mca/index.html",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "nebraska",
+      "name": "Nebraska",
+      "directory_url": "https://www.law.cornell.edu/states/nebraska",
+      "constitution_candidates": [
+        "https://nebraskalegislature.gov/laws/browse-constitution.php"
+      ],
+      "statute_source": "http://nebraskalegislature.gov/laws/laws.php"
+    },
+    {
+      "id": "nevada",
+      "name": "Nevada",
+      "directory_url": "https://www.law.cornell.edu/states/nevada",
+      "constitution_candidates": [
+        "https://www.leg.state.nv.us/const/nvconst.html"
+      ],
+      "statute_source": "https://leg.state.nv.us/law1.cfm"
+    },
+    {
+      "id": "new_hampshire",
+      "name": "New Hampshire",
+      "directory_url": "https://www.law.cornell.edu/states/new_hampshire",
+      "constitution_candidates": [
+        "https://50constitutions.org/nh/constitution",
+        "https://www.nh.gov/glance/constitution.htm"
+      ],
+      "statute_source": "https://www.gencourt.state.nh.us/rsa/html/indexes/default.html",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "new_jersey",
+      "name": "New Jersey",
+      "directory_url": "https://www.law.cornell.edu/states/new_jersey",
+      "constitution_candidates": [
+        "https://50constitutions.org/nj/constitution",
+        "https://www.njleg.state.nj.us/lawsconstitution/consearch.asp"
+      ],
+      "statute_source": "https://lis.njleg.state.nj.us/nxt/gateway.dll?f=templates&fn=default.htm&vid=Publish%3A10.1048/Enu",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "new_mexico",
+      "name": "New Mexico",
+      "directory_url": "https://www.law.cornell.edu/states/new_mexico",
+      "constitution_candidates": [
+        "https://50constitutions.org/nm/constitution",
+        "https://laws.nmonesource.com/w/nmos/const-nm"
+      ],
+      "statute_source": "https://nmonesource.com/nmos/nmsa/en/nav_date.do",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "new_york",
+      "name": "New York",
+      "directory_url": "https://www.law.cornell.edu/states/new_york",
+      "constitution_candidates": [
+        "https://50constitutions.org/ny/constitution",
+        "https://www.nysenate.gov/new-york-state-constitution"
+      ],
+      "statute_source": "https://www.nysenate.gov/legislation/laws/CONSOLIDATED",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "north_carolina",
+      "name": "North Carolina",
+      "directory_url": "https://www.law.cornell.edu/states/north_carolina",
+      "constitution_candidates": [
+        "https://www.ncleg.net/Legislation/constitution/ncconstitution.html"
+      ],
+      "statute_source": "http://www.ncleg.net/gascripts/Statutes/StatutesTOC.pl"
+    },
+    {
+      "id": "north_dakota",
+      "name": "North Dakota",
+      "directory_url": "https://www.law.cornell.edu/states/north_dakota",
+      "constitution_candidates": [
+        "https://50constitutions.org/nd/constitution",
+        "https://www.legis.nd.gov/constitution"
+      ],
+      "statute_source": "https://www.legis.nd.gov/general-information/north-dakota-century-code",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "ohio",
+      "name": "Ohio",
+      "directory_url": "https://www.law.cornell.edu/states/ohio",
+      "constitution_candidates": [
+        "https://50constitutions.org/oh/constitution",
+        "https://www.legislature.ohio.gov/laws/ohio-constitution"
+      ],
+      "statute_source": "http://codes.ohio.gov/orc",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "oklahoma",
+      "name": "Oklahoma",
+      "directory_url": "https://www.law.cornell.edu/states/oklahoma",
+      "constitution_candidates": [
+        "https://50constitutions.org/ok/constitution",
+        "https://www.oklegislature.gov/ok_constitution.aspx"
+      ],
+      "statute_source": "http://www.oklegislature.gov/osStatuesTitle.aspx",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "oregon",
+      "name": "Oregon",
+      "directory_url": "https://www.law.cornell.edu/states/oregon",
+      "constitution_candidates": [
+        "https://www.oregonlegislature.gov/bills_laws/Pages/OrConst.aspx"
+      ],
+      "statute_source": "https://www.oregonlegislature.gov/bills_laws/Pages/ORS.aspx"
+    },
+    {
+      "id": "pennsylvania",
+      "name": "Pennsylvania",
+      "directory_url": "https://www.law.cornell.edu/states/pennsylvania",
+      "constitution_candidates": [
+        "https://50constitutions.org/pa/constitution",
+        "https://www.legis.state.pa.us/cfdocs/legis/LI/consCheck.cfm?txtType=HTM&ttl=00&div=0&chpt=1"
+      ],
+      "statute_source": "https://www.legis.state.pa.us/cfdocs/legis/LI/Public/cons_index.cfm",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "rhode_island",
+      "name": "Rhode Island",
+      "directory_url": "https://www.law.cornell.edu/states/rhode_island",
+      "constitution_candidates": [
+        "https://50constitutions.org/ri/constitution",
+        "https://www.rilin.state.ri.us/RiConstitution/"
+      ],
+      "statute_source": "http://www.rilin.state.ri.us/Statutes/",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "south_carolina",
+      "name": "South Carolina",
+      "directory_url": "https://www.law.cornell.edu/states/south_carolina",
+      "constitution_candidates": [
+        "https://www.scstatehouse.gov/scconstitution/scconst.php"
+      ],
+      "statute_source": "http://www.scstatehouse.gov/code/statmast.php"
+    },
+    {
+      "id": "south_dakota",
+      "name": "South Dakota",
+      "directory_url": "https://www.law.cornell.edu/states/south_dakota",
+      "constitution_candidates": [
+        "https://50constitutions.org/sd/constitution",
+        "https://sdlegislature.gov/Statutes/Constitution/default.aspx"
+      ],
+      "statute_source": "https://sdlegislature.gov/Statutes/Codified_Laws/default.aspx",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "tennessee",
+      "name": "Tennessee",
+      "directory_url": "https://www.law.cornell.edu/states/tennessee",
+      "constitution_candidates": [
+        "https://50constitutions.org/tn/constitution"
+      ],
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "texas",
+      "name": "Texas",
+      "directory_url": "https://www.law.cornell.edu/states/texas",
+      "constitution_candidates": [
+        "https://50constitutions.org/tx/constitution",
+        "https://www.constitution.legis.state.tx.us/"
+      ],
+      "statute_source": "http://www.statutes.legis.state.tx.us/",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "utah",
+      "name": "Utah",
+      "directory_url": "https://www.law.cornell.edu/states/utah",
+      "constitution_candidates": [
+        "https://50constitutions.org/ut/constitution",
+        "https://le.utah.gov/xcode/constitution.html"
+      ],
+      "statute_source": "https://le.utah.gov/xcode/code.html",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "vermont",
+      "name": "Vermont",
+      "directory_url": "https://www.law.cornell.edu/states/vermont",
+      "constitution_candidates": [
+        "https://50constitutions.org/vt/constitution",
+        "https://www.leg.state.vt.us/statutes/const2.htm"
+      ],
+      "statute_source": "https://legislature.vermont.gov/statutes/",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "virginia",
+      "name": "Virginia",
+      "directory_url": "https://www.law.cornell.edu/states/virginia",
+      "constitution_candidates": [
+        "https://law.lis.virginia.gov/constitution/"
+      ],
+      "statute_source": "https://lis.virginia.gov/000/src.htm"
+    },
+    {
+      "id": "washington",
+      "name": "Washington",
+      "directory_url": "https://www.law.cornell.edu/states/washington",
+      "constitution_candidates": [
+        "https://50constitutions.org/wa/constitution",
+        "https://www.leg.wa.gov/lawsandagencyrules/pages/constitution.aspx"
+      ],
+      "statute_source": "http://apps.leg.wa.gov/rcw/",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "west_virginia",
+      "name": "West Virginia",
+      "directory_url": "https://www.law.cornell.edu/states/west_virginia",
+      "constitution_candidates": [
+        "https://50constitutions.org/wv/constitution",
+        "https://www.legis.state.wv.us/WVCODE/WV_CON.cfm"
+      ],
+      "statute_source": "http://www.legis.state.wv.us/WVCODE/Code.cfm",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "wisconsin",
+      "name": "Wisconsin",
+      "directory_url": "https://www.law.cornell.edu/states/wisconsin",
+      "constitution_candidates": [
+        "https://50constitutions.org/wi/constitution",
+        "https://legis.wisconsin.gov/rsb/2wiscon.html"
+      ],
+      "statute_source": "http://docs.legis.wisconsin.gov/statutes/prefaces/toc",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "wyoming",
+      "name": "Wyoming",
+      "directory_url": "https://www.law.cornell.edu/states/wyoming",
+      "constitution_candidates": [
+        "https://50constitutions.org/wy/constitution",
+        "https://wyoleg.gov/NXT/gateway.dll?f=templates&fn=default.htm"
+      ],
+      "statute_source": "https://advance.lexis.com/container?config=00JAAzZmQ5YjBjOC1hNDdjLTQxNGMtYmExZi0wYzZlYWIxMmM5YzcKAFBvZENhdGFsb2cJAHazmy52H3XVa9c97KcS&crid=e68ebe5e-b4a2-4cb7-bf15-7305875e63a6",
+      "fallback_attribution": "\u00a9 2026 State Democracy Research Initiative, University of Wisconsin Law School. 50 Constitutions, State Democracy Research Initiative, University of Wisconsin Law School. Noncommercial educational/reference use; original notices retained. Publisher update dates are not retrieval dates."
+    },
+    {
+      "id": "puerto-rico",
+      "name": "Puerto Rico",
+      "constitution_candidates": [
+        "https://docs.pr.gov/files/OIG/Biblioteca%20Virtual/Constituciones/Constituci%C3%B3n%20del%20Estado%20Libre%20Asociado%20de%20Puerto%20Rico.pdf"
+      ],
+      "document_kind": "Constitution",
+      "framework_title48": false,
+      "directory_url": "https://www.law.cornell.edu/states/listing"
+    },
+    {
+      "id": "northern-mariana-islands",
+      "name": "Northern Mariana Islands",
+      "constitution_candidates": [
+        "https://cnmilaw.gov/constitution"
+      ],
+      "document_kind": "Constitution",
+      "framework_title48": false,
+      "directory_url": "https://www.law.cornell.edu/states/listing"
+    },
+    {
+      "id": "american-samoa",
+      "name": "American Samoa",
+      "constitution_candidates": [],
+      "document_kind": "Federal territorial framework",
+      "framework_title48": true,
+      "directory_url": "https://www.law.cornell.edu/states/listing"
+    },
+    {
+      "id": "guam",
+      "name": "Guam",
+      "constitution_candidates": [],
+      "document_kind": "Federal territorial framework",
+      "framework_title48": true,
+      "directory_url": "https://www.law.cornell.edu/states/listing"
+    },
+    {
+      "id": "us-virgin-islands",
+      "name": "U.S. Virgin Islands",
+      "constitution_candidates": [],
+      "document_kind": "Federal territorial framework",
+      "framework_title48": true,
+      "directory_url": "https://www.law.cornell.edu/states/listing"
+    }
+  ]
+}

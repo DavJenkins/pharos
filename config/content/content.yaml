@@ -1,9 +1,9 @@
 # Public content recipe. Edit enabled flags and source catalogues; keep this folder with the source repository.
 schema: 1
 name: Data Ark content selection
-exported_at: '2026-10-24T20:26:56.506183+00:00'
+exported_at: '2026-10-25T01:44:35.448647+00:00'
 source_repository: https://github.com/DavJenkins/pharos
-source_commit: 0d5f75e7ceb197796a70ccecd7693d96a64e8507
+source_commit: 2b427fd281cae7e916a151fd5572a0051203cc33
 content_root: /mnt/storage
 manifest: public-manifest.yaml
 reserve_gib: 10
@@ -1270,6 +1270,11 @@ recipes:
   catalogue: deploy/reference/resilience-catalogue.json
   settings: deploy/reference/resilience-settings.json
   us_code_release: deploy/reference/us-code-release.json
+- id: jurisdictions
+  enabled: true
+  catalogue: deploy/reference/jurisdictions.json
+  requires:
+  - resilience
 - id: callsigns
   enabled: true
   configuration: deploy/reference/callsign-sources.json
@@ -1288,6 +1293,7 @@ snapshots:
 - snapshots/family-resources/sources.json
 - snapshots/resilience/sources.json
 - snapshots/civic-reference/sources.json
+- snapshots/civic-reference/jurisdictions/sources.json
 - snapshots/civic-reference/us-code-source.json
 - snapshots/civic-reference/callsigns-source.json
 - snapshots/radio-study/source.json

@@ -2479,6 +2479,536 @@
       "sha256": "2096abb22f66daf14520b104dcb3798e9000df9a8f03cdb2c58dd0c0a44d585e",
       "source": "https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download",
       "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-alabama",
+      "title": "Alabama \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/alabama.html",
+      "selected": true,
+      "bytes": 2116665,
+      "sha256": "9b5f832f224e76ef98c891b49648980330cad1645d8e976e5628458492b1deb3",
+      "source": "https://50constitutions.org/al/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-alaska",
+      "title": "Alaska \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/alaska.html",
+      "selected": true,
+      "bytes": 183141,
+      "sha256": "a99fd207409ad3aefe632e5821ce163289178564ede239af2ea629076a406584",
+      "source": "https://ltgov.alaska.gov/services/alaskas-constitution/",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-arizona",
+      "title": "Arizona \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/arizona.html",
+      "selected": true,
+      "bytes": 606391,
+      "sha256": "8d48e5df6365932ebb9e134144c6f7de6e3f5171ca3b5f70f2adcd598fd048e4",
+      "source": "https://50constitutions.org/az/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-arkansas",
+      "title": "Arkansas \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/arkansas.html",
+      "selected": true,
+      "bytes": 569759,
+      "sha256": "7617ad5d390be4a39cb34e1f99860cad97938df3cc05242e0368bb6a16da5042",
+      "source": "https://50constitutions.org/ar/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-california",
+      "title": "California \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/california.html",
+      "selected": true,
+      "bytes": 523988,
+      "sha256": "9af63a5f318f8710139d0d54ee28191a33e79d04e1142848dfe46ab44193714d",
+      "source": "https://50constitutions.org/ca/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-colorado",
+      "title": "Colorado \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/colorado.pdf",
+      "selected": true,
+      "bytes": 25130941,
+      "sha256": "eed50097dcac68ce8543e42e04aa692ae323b79d93de6601fa23ea0faf3924b3",
+      "source": "https://archives.colorado.gov/sites/archives/files/documents/PROCEEDINGS%20OF%20THE%20CONSTITUTIONAL%20CONVENTION-tagged_0.pdf",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-connecticut",
+      "title": "Connecticut \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/connecticut.html",
+      "selected": true,
+      "bytes": 112985,
+      "sha256": "74eab38a2bf3dcf394512f390d83663451fe31b7035b2d3d22d1c7ea946ee4c1",
+      "source": "https://50constitutions.org/ct/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-delaware",
+      "title": "Delaware \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/delaware.html",
+      "selected": true,
+      "bytes": 48486,
+      "sha256": "0d8600edb1380589acb0ce91ca08700540269a46c6f1ae3611d32221b30ea1f0",
+      "source": "https://delcode.delaware.gov/constitution/index.shtml",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-dc",
+      "title": "District of Columbia \u2014 Home Rule Act and Charter (snapshot)",
+      "path": "civic-reference/jurisdictions/dc.html",
+      "selected": true,
+      "bytes": 841159,
+      "sha256": "a0dd3f49193f7fabdfd3ca8227fc413bc483e675371cc0382e3173c3dceebff9",
+      "source": "https://code.dccouncil.gov/us/dc/council/code/titles/1/chapters/2/index.full.html",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-florida",
+      "title": "Florida \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/florida.html",
+      "selected": true,
+      "bytes": 471582,
+      "sha256": "ba8c69255f78ee615de7fcb0e0a1fe9c0c5a41bf027bee95b8e9296801d3ed39",
+      "source": "https://www.leg.state.fl.us/statutes/index.cfm?mode=constitution&submenu=3",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-georgia",
+      "title": "Georgia \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/georgia.html",
+      "selected": true,
+      "bytes": 274237,
+      "sha256": "650f89585160bdd2bba8b4e11a2aa69dbcf07e6ffb40def38743081a2862477a",
+      "source": "https://50constitutions.org/ga/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-hawaii",
+      "title": "Hawaii \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/hawaii.html",
+      "selected": true,
+      "bytes": 169417,
+      "sha256": "1b619ed041bd8bab869efd0e9b9dd96e89039c004b4694af59f65cd08b8543cf",
+      "source": "https://lrb.hawaii.gov/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-idaho",
+      "title": "Idaho \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/idaho.html",
+      "selected": true,
+      "bytes": 291131,
+      "sha256": "492b8de91be71abf2b06500eaff96087e3ac9df30bb25d0b128e9e379da0c4f1",
+      "source": "https://50constitutions.org/id/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-illinois",
+      "title": "Illinois \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/illinois.html",
+      "selected": true,
+      "bytes": 111110,
+      "sha256": "e683ab417880e414de04cc973e61cf37f0ff69670d26f4b3c5849317042bef4b",
+      "source": "https://50constitutions.org/il/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-indiana",
+      "title": "Indiana \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/indiana.html",
+      "selected": true,
+      "bytes": 81197,
+      "sha256": "bab77c415be0d1f0baa745b762ee58f8e1ef35571cc3d3c17613562158a0cf96",
+      "source": "https://50constitutions.org/in/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-iowa",
+      "title": "Iowa \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/iowa.pdf",
+      "selected": true,
+      "bytes": 191407,
+      "sha256": "7042ffe80a5abd56d68ad23ef21735de0900777134928553df1d379d0ef7d12a",
+      "source": "https://www.legis.iowa.gov/docs/publications/ICP/1518288.pdf",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-kansas",
+      "title": "Kansas \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/kansas.html",
+      "selected": true,
+      "bytes": 93234,
+      "sha256": "d7caf6036ce0fe7fe3783ee45e65eb0c92d699a97be4276ec616fe0fe9ec142b",
+      "source": "https://50constitutions.org/ks/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-kentucky",
+      "title": "Kentucky \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/kentucky.html",
+      "selected": true,
+      "bytes": 80547,
+      "sha256": "7deb40820cfb8bc8215e625e73ec157f7a9145cf20b05a5a2ccb29bbae1a8691",
+      "source": "https://apps.legislature.ky.gov/law/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-louisiana",
+      "title": "Louisiana \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/louisiana.html",
+      "selected": true,
+      "bytes": 485864,
+      "sha256": "b23b9f9b54acac3da598c00f90464e221b28ff4180faf3ce9939b7e5dce28733",
+      "source": "https://50constitutions.org/la/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-maine",
+      "title": "Maine \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/maine.html",
+      "selected": true,
+      "bytes": 126887,
+      "sha256": "dd06fb046ece4bc842f8a3346a4411717e20ac7350ad171daa69bee42e871f28",
+      "source": "https://50constitutions.org/me/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-maryland",
+      "title": "Maryland \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/maryland.html",
+      "selected": true,
+      "bytes": 282982,
+      "sha256": "ce90b7f07c7e5c345aaf1baa18bccbe73b1da4530bbdd5a8cb961e81a6a7b4a5",
+      "source": "https://50constitutions.org/md/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-massachusetts",
+      "title": "Massachusetts \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/massachusetts.html",
+      "selected": true,
+      "bytes": 235095,
+      "sha256": "91cce1450e984513a1be4b028196d8577d4da875afda89ff01461f816cf20ffc",
+      "source": "https://50constitutions.org/ma/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-michigan",
+      "title": "Michigan \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/michigan.html",
+      "selected": true,
+      "bytes": 683947,
+      "sha256": "c1eb5b69cef9279898f8688322f9c4830a38dabe5825c5bbaef59fb9c6af43dc",
+      "source": "https://50constitutions.org/mi/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-minnesota",
+      "title": "Minnesota \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/minnesota.html",
+      "selected": true,
+      "bytes": 372547,
+      "sha256": "afd0a0b6fe67115a88891e4a74bae47a68efa21c7af3ae6467178219e11e1ba1",
+      "source": "https://50constitutions.org/mn/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-mississippi",
+      "title": "Mississippi \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/mississippi.html",
+      "selected": true,
+      "bytes": 163946,
+      "sha256": "9f0181e4d4fcaaac36d0a25275321c2a3f4156d9a87d31719d34c3c0547a4f99",
+      "source": "https://50constitutions.org/ms/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-missouri",
+      "title": "Missouri \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/missouri.pdf",
+      "selected": true,
+      "bytes": 1366621,
+      "sha256": "ff072237afe328e01395b37d22a55f66f995525e52903293bebf3a996360424e",
+      "source": "https://www.sos.mo.gov/CMSImages/Publications/MissouriConstitution.pdf",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-montana",
+      "title": "Montana \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/montana.html",
+      "selected": true,
+      "bytes": 313927,
+      "sha256": "92bbddbb51dbe1fad16e07e514b853b8e2e47f130f15cf521b3c98aa95362b48",
+      "source": "https://50constitutions.org/mt/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-nebraska",
+      "title": "Nebraska \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/nebraska.html",
+      "selected": true,
+      "bytes": 88940,
+      "sha256": "c38b8be2d4285458cc5cb2e67f8c3b11d78d08cca310bfd6e9bb1ad14822956f",
+      "source": "https://nebraskalegislature.gov/laws/browse-constitution.php",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-nevada",
+      "title": "Nevada \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/nevada.html",
+      "selected": true,
+      "bytes": 432701,
+      "sha256": "d80d962b10a128ba2d11c9c9bae88f72ca0b86e78fe4558b60ef56cf3849fae3",
+      "source": "https://www.leg.state.nv.us/const/nvconst.html",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-new_hampshire",
+      "title": "New Hampshire \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/new_hampshire.html",
+      "selected": true,
+      "bytes": 82038,
+      "sha256": "3834e936e829a75aa646cc2c680d4626edb4807874d9e8561cbb99f1fa6bc3de",
+      "source": "https://50constitutions.org/nh/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-new_jersey",
+      "title": "New Jersey \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/new_jersey.html",
+      "selected": true,
+      "bytes": 184322,
+      "sha256": "9b1d559667b5eeebfb072576c4a366aaea3bac678c8826088fa1e90457f54751",
+      "source": "https://50constitutions.org/nj/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-new_mexico",
+      "title": "New Mexico \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/new_mexico.html",
+      "selected": true,
+      "bytes": 448244,
+      "sha256": "7469f54a895aafbb27fa6a4a8d961fb935b801e3d95ddd7e33969a697fa32957",
+      "source": "https://50constitutions.org/nm/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-new_york",
+      "title": "New York \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/new_york.html",
+      "selected": true,
+      "bytes": 1539173,
+      "sha256": "21fedf92792ab608303ece3a476d7d67efac2f3ff4cb9f9d8315b54758fe178d",
+      "source": "https://50constitutions.org/ny/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-north_carolina",
+      "title": "North Carolina \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/north_carolina.html",
+      "selected": true,
+      "bytes": 124215,
+      "sha256": "fe9b64d4854b1ce6f4706bad222ff25b53793269b7cc4c631d381ad829fe2730",
+      "source": "https://www.ncleg.net/Legislation/constitution/ncconstitution.html",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-north_dakota",
+      "title": "North Dakota \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/north_dakota.html",
+      "selected": true,
+      "bytes": 147172,
+      "sha256": "e80bc9f58d3aece98bd49ea49b7338b2137d9f3e6a30d0865e216535e6f4cd18",
+      "source": "https://50constitutions.org/nd/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-northern-mariana-islands",
+      "title": "Northern Mariana Islands \u2014 Constitution (snapshot)",
+      "path": "civic-reference/jurisdictions/northern-mariana-islands.html",
+      "selected": true,
+      "bytes": 141755,
+      "sha256": "581c610591c2a936483105cb78fb87250bc08838ff034b13edfc24c511dc0f84",
+      "source": "https://cnmilaw.gov/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-ohio",
+      "title": "Ohio \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/ohio.html",
+      "selected": true,
+      "bytes": 684906,
+      "sha256": "9c1538495ed07b41a8ccfc1c9eb5df9389a45352ef1dd60dd5c8ccd5db4be72f",
+      "source": "https://50constitutions.org/oh/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-oklahoma",
+      "title": "Oklahoma \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/oklahoma.html",
+      "selected": true,
+      "bytes": 544111,
+      "sha256": "1989a2949c9a60694bd024a3f5800c3afd270cd5f7ef29bf6be3d9f40472899f",
+      "source": "https://50constitutions.org/ok/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-oregon",
+      "title": "Oregon \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/oregon.pdf",
+      "selected": true,
+      "bytes": 230751,
+      "sha256": "0789fa86e145ce3b35be3b6a851db0bfcb5405ebd4be4ee5870ef2f012758b3a",
+      "source": "https://www.oregonlegislature.gov/bills_laws/lawsstatutes/IndexORConstitution.pdf",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-pennsylvania",
+      "title": "Pennsylvania \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/pennsylvania.html",
+      "selected": true,
+      "bytes": 550080,
+      "sha256": "69be2c40fa8006bcced8cac9ee312703088ea9e5fa4b12a8e6c709dc4c96d458",
+      "source": "https://50constitutions.org/pa/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-puerto-rico",
+      "title": "Puerto Rico \u2014 Constitution (snapshot)",
+      "path": "civic-reference/jurisdictions/puerto-rico.pdf",
+      "selected": true,
+      "bytes": 280666,
+      "sha256": "0577af3a982d76d6d3b6981d76e13243c50def4e2704ab048c98fc3eff35780c",
+      "source": "https://docs.pr.gov/files/OIG/Biblioteca%20Virtual/Constituciones/Constituci%C3%B3n%20del%20Estado%20Libre%20Asociado%20de%20Puerto%20Rico.pdf",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-rhode_island",
+      "title": "Rhode Island \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/rhode_island.html",
+      "selected": true,
+      "bytes": 68043,
+      "sha256": "b775d6ac6869577ce38e5c4128d3dc9578d621442d38f97e86086dacc9abaa6e",
+      "source": "https://50constitutions.org/ri/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-south_carolina",
+      "title": "South Carolina \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/south_carolina.pdf",
+      "selected": true,
+      "bytes": 521157,
+      "sha256": "b444dc401ee5fef860890977c33a8b47a1b3d3562a1a47ce85f42292734ef328",
+      "source": "https://www.scstatehouse.gov/scconstitution/SCConstitution.pdf",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-south_dakota",
+      "title": "South Dakota \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/south_dakota.html",
+      "selected": true,
+      "bytes": 199806,
+      "sha256": "21148180ee504105c580fd3044dd812ba211acf5c934cbacbe736afca78ae249",
+      "source": "https://50constitutions.org/sd/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-tennessee",
+      "title": "Tennessee \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/tennessee.html",
+      "selected": true,
+      "bytes": 96320,
+      "sha256": "3fef8c4062405e80b5bc0df86870ca4fbc2f5fe9576bc778df583d0884a09b09",
+      "source": "https://50constitutions.org/tn/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-texas",
+      "title": "Texas \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/texas.html",
+      "selected": true,
+      "bytes": 614820,
+      "sha256": "3ba2d529ed216fb4ffed150561d8184befeb5eacd0b4461c06b437baf1f82765",
+      "source": "https://50constitutions.org/tx/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-utah",
+      "title": "Utah \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/utah.html",
+      "selected": true,
+      "bytes": 424435,
+      "sha256": "e9da15366d338d530d88c8df5baf9c534f51ae8bb264703fd2ff371dec7826be",
+      "source": "https://50constitutions.org/ut/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-vermont",
+      "title": "Vermont \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/vermont.html",
+      "selected": true,
+      "bytes": 54644,
+      "sha256": "5db45853793b911b431c11c6dfc5d9207cb51eb62503c0869cedead6d02fd4ec",
+      "source": "https://50constitutions.org/vt/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-virginia",
+      "title": "Virginia \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/virginia.html",
+      "selected": true,
+      "bytes": 172241,
+      "sha256": "1be685170d1a26c07380fac9bf071b2a2dc4bff61f96b3c135cdcb0f2c7701f1",
+      "source": "https://law.lis.virginia.gov/constitutionfull",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-washington",
+      "title": "Washington \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/washington.html",
+      "selected": true,
+      "bytes": 356196,
+      "sha256": "bd04f33c0a3038617fe529a5bb296e7690a685602017a56b838cf0da448ecec6",
+      "source": "https://50constitutions.org/wa/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-west_virginia",
+      "title": "West Virginia \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/west_virginia.html",
+      "selected": true,
+      "bytes": 214073,
+      "sha256": "a510ccb4ec814cd15e3334a5441a66460fa2f2ed1cbc34453221edcfb50061ad",
+      "source": "https://50constitutions.org/wv/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-wisconsin",
+      "title": "Wisconsin \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/wisconsin.html",
+      "selected": true,
+      "bytes": 273437,
+      "sha256": "372e4347bf29175e0b6fb571ba322a42baefb21722195442cffa1e4bcda5128c",
+      "source": "https://50constitutions.org/wi/constitution",
+      "repository": "civic-reference"
+    },
+    {
+      "id": "jurisdiction-wyoming",
+      "title": "Wyoming \u2014 constitutional text (snapshot)",
+      "path": "civic-reference/jurisdictions/wyoming.html",
+      "selected": true,
+      "bytes": 165320,
+      "sha256": "704163b8158b988ee800e65ac55ef743d16a24175453e1013dec12e44b905632",
+      "source": "https://50constitutions.org/wy/constitution",
+      "repository": "civic-reference"
     }
   ],
   "unmanaged_archives": [

@@ -113,3 +113,6 @@ The installer uses the updater lock and pinned source files, validates the compl
 ## Browser-captured state references
 
 The Massachusetts electrical and fire amendment PDFs were subsequently captured successfully through the paired Chrome helper after automated requests failed. Their original edition notes and source hashes remain in civic-reference/sources.json. This does not supply the full copyrighted base codes, resolve every state-code gap, or establish later legal currency.
+
+
+Nationwide constitutional/charter snapshots and exact territorial gaps: [Jurisdiction coverage](Jurisdictions.md). Open the [offline jurisdiction index](/library-files/civic-reference/jurisdictions/index.html).

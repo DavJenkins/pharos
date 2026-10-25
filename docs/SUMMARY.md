@@ -84,3 +84,5 @@
 - [Disaster recovery and cleanup](20-Administration/DisasterRecovery.md)
 
 - [Disability preparedness](20-Administration/DisabilityPreparedness.md)
+
+- [State and territorial legal coverage](20-Administration/Jurisdictions.md)
