@@ -6,17 +6,19 @@
   const form=$('#notice-form'),text=$('#notice-text'),picker=$('#notice-color'),hex=$('#notice-color-hex');
   const save=form.querySelector('[type=submit]'),clear=$('#clear-notice'),error=form.querySelector('.form-error');
   const mode=$('#notice-text-mode'),foreground=$('#notice-text-color'),width=$('#notice-width'),margin=$('#notice-margin');
-  const font=$('#notice-font');
+  const font=$('#notice-font'),textHex=$('#notice-text-hex');
+  let manualText='#d4af37';
   const top=$('#notice-margin-top'),bottom=$('#notice-margin-bottom');
-  const settings=()=>({color:hex.value,text_color:mode.value==='auto'?'auto':foreground.value,width:width.value,margin:Number(margin.value),margin_top:Number(top.value),margin_bottom:Number(bottom.value),font:font.value});
+  const settings=()=>({color:hex.value,text_color:mode.value==='auto'?'auto':textHex.value,width:width.value,margin:Number(margin.value),margin_top:Number(top.value),margin_bottom:Number(bottom.value),font:font.value});
   let generation=0,busy=false;
   function preview() {
     const value=text.value,target=$('#notice-preview');
     window.ArkNoticeMarkdown.render(target,value);window.ArkNoticeMarkdown.applyAppearance(target,settings());
-    foreground.disabled=busy||mode.value==='auto';margin.disabled=busy||width.value!=='margin';
+    if(mode.value==='auto'){const actual=target.style.getPropertyValue('--ark-notice-fg');foreground.value=actual;textHex.value=actual;}
+    foreground.disabled=busy||mode.value==='auto';textHex.disabled=foreground.disabled;margin.disabled=busy||width.value!=='margin';
     target.hidden=!value.trim();$('#notice-counter').textContent=value.length+' / 300';
   }
-  function lock(value) {busy=value;for(const control of [text,picker,hex,mode,foreground,width,margin,top,bottom,font,save,clear])control.disabled=value;if(!value)preview();}
+  function lock(value) {busy=value;for(const control of [text,picker,hex,mode,foreground,textHex,width,margin,top,bottom,font,save,clear])control.disabled=value;if(!value)preview();}
   async function request(value,password) {
     const options={cache:'no-store',headers:{}};
     if(value!==undefined) {
@@ -30,11 +32,11 @@
   }
   async function open() {
     const sequence=++generation;
-    form.reset();form.elements.password.value='';error.textContent='';$('#notice-result').textContent='';
+    form.reset();manualText='#d4af37';form.elements.password.value='';error.textContent='';$('#notice-result').textContent='';
     preview();lock(true);dialog.showModal();
     try {
       const data=await request();if(sequence!==generation || !dialog.open)return;
-      text.value=data.text;picker.value=/^#[0-9a-f]{6}$/i.test(data.color||'')?data.color:'#203e54';hex.value=picker.value;mode.value=data.text_color==='auto'?'auto':'custom';foreground.value=data.text_color==='auto'?'#d4af37':data.text_color||'#d4af37';width.value=data.width||'full';margin.value=data.margin??5;top.value=data.margin_top??12;bottom.value=data.margin_bottom??12;font.value=data.font||'system';preview();
+      text.value=data.text;picker.value=/^#[0-9a-f]{6}$/i.test(data.color||'')?data.color:'#203e54';hex.value=picker.value;mode.value=data.text_color==='auto'?'auto':'custom';foreground.value=data.text_color==='auto'?'#d4af37':data.text_color||'#d4af37';manualText=foreground.value;textHex.value=manualText;width.value=data.width||'full';margin.value=data.margin??5;top.value=data.margin_top??12;bottom.value=data.margin_bottom??12;font.value=data.font||'system';preview();
     }catch(failure){if(sequence===generation)error.textContent=failure.message;}
     finally {if(sequence===generation){lock(false);if(dialog.open)text.focus();}}
   }
@@ -48,7 +50,10 @@
     }catch(failure){error.textContent=failure.message;}
     finally {lock(false);}
   }
-  text.addEventListener('input',preview);for(const control of [mode,foreground,width,margin,top,bottom,font])control.addEventListener('input',preview);
+  text.addEventListener('input',preview);for(const control of [width,margin,top,bottom,font])control.addEventListener('input',preview);
+  mode.addEventListener('input',()=>{if(mode.value==='custom'){foreground.value=manualText;textHex.value=manualText;}preview();});
+  foreground.addEventListener('input',()=>{manualText=foreground.value;textHex.value=manualText;preview();});
+  textHex.addEventListener('input',()=>{if(/^#[0-9a-f]{6}$/i.test(textHex.value)){manualText=textHex.value;foreground.value=manualText;preview();}});
   picker.addEventListener('input',()=>{hex.value=picker.value;preview();});
   hex.addEventListener('input',()=>{if(/^#[0-9a-f]{6}$/i.test(hex.value)){picker.value=hex.value;preview();}});
   form.addEventListener('submit',event=>{event.preventDefault();update(false);});
