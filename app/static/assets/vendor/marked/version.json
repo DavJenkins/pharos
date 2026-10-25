@@ -1,0 +1,11 @@
+{
+  "package": "marked",
+  "version": "18.1.1",
+  "source": "https://registry.npmjs.org/marked/-/marked-18.1.1.tgz",
+  "integrity": "sha512-zEGgrtUG8crk+TrMacJSVABU4DYDDkS8uqgU3ohrn/2fW9C2AEfUrO3m6IhpIpQpl7YcVpiXXC9cSMWDANT3dg==",
+  "license": "MIT",
+  "files_sha256": {
+    "marked.umd.js": "b82b9334406d8bdd16b6236c08de1cb65b2a859873ca9503d9cc0b292ca3c12a",
+    "LICENSE.md": "8e3a3f82f59a60958f56ca08f445647c32a4733dc7ca6c2c46f6eb898471ab9c"
+  }
+}

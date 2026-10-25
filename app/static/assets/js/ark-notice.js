@@ -1,4 +1,4 @@
-/* Caretaker announcement: plain text, stored locally on this Ark. */
+/* Caretaker announcement: locally rendered Markdown, stored locally on this Ark. */
 (() => {
   'use strict';
   const banner=document.querySelector('#ark-notice');
@@ -10,7 +10,7 @@
       if (!response.ok) return;
       const data=await response.json();
       if (typeof data.text!=='string') return;
-      banner.textContent=data.text;banner.hidden=!data.text;
+      if(window.ArkNoticeMarkdown)window.ArkNoticeMarkdown.render(banner,data.text);else banner.textContent=data.text;banner.hidden=!data.text.trim();
     } catch (_) { /* Retain the last announcement during a temporary API interruption. */ }
   }
   window.addEventListener('ark-notice-changed',update);

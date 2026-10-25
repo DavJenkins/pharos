@@ -118,7 +118,7 @@
 
   function previewNotice() {
     const value=$('#notice-text').value;
-    $('#notice-preview').textContent=value;$('#notice-preview').hidden=!value.trim();
+    if(window.ArkNoticeMarkdown)window.ArkNoticeMarkdown.render($('#notice-preview'),value);else $('#notice-preview').textContent=value;$('#notice-preview').hidden=!value.trim();
     $('#notice-counter').textContent=value.length+' / 300';
   }
   $('#notice-text').addEventListener('input',previewNotice);
