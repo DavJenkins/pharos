@@ -46,41 +46,11 @@ def markdown_to_html(text):
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Data Ark Documentation</title>
 
-<style>
-
-body{
-    max-width:900px;
-    margin:40px auto;
-    padding:0 1rem;
-    overflow-wrap:anywhere;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#202124;
-    color:#e8e8e8;
-    line-height:1.6;
-}
-
-h1,h2,h3{
-    color:#7fc8ff;
-}
-
-pre{
-    background:#111;
-    padding:1em;
-    overflow:auto;
-}
-
-code{
-    font-family:Consolas,monospace;
-}
-
-a{
-    color:#7fc8ff;
-}
-
-</style>
+<link rel="stylesheet" href="/assets/css/ark-pages.css">
+<style>.ark-docs{max-width:1000px}.ark-docs h2{border-bottom:1px solid #b7c4cd;padding-bottom:.4rem}.ark-docs pre{overflow:auto}.docs-nav{font-size:.9rem;margin-bottom:1.5rem}@media print{body{background:white;padding:0}.ark-page{box-shadow:none;border:0;background:white}.ark-page-brand,.docs-nav{display:none}}</style>
 
 </head>
-<body>
+<body><main class="ark-page ark-docs"><a class="ark-page-brand" href="/">Data Ark</a><nav class="docs-nav"><a href="/docs/SUMMARY.html">Documentation contents</a><a href="/content.html">Access content</a></nav>
 """)
 
     in_list = False
@@ -138,7 +108,7 @@ a{
 
     if in_code:
         out.append("</code></pre>")
-    out.append("</body></html>")
+    out.append("</main></body></html>")
 
     return "\n".join(out)
 
