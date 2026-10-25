@@ -1,10 +1,29 @@
 {
   "manifest_version": 3,
   "name": "Data Ark Download Capture",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Import only explicitly selected public reference downloads into your paired Ark.",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq5wvq2mlQA2yzgjy3Vv3/EboKGn+WyIx44tCkZ5Ty/0a5moof9bzT6R8IOPof6uZOncF5TnDVJ8PfEGgcQl1S/HfKCVHeXpeoXI73hvVm3bjbNVggJeGaaKxAc64dNFiZI05MhvqctwB29CMd8qQewrTbyiEeL9CO5cLpqIe0L7AVChKG67r69mnKxwKNb/KmVItrqgLPuxO/aOz+JTohnGPXqK36qhg8zbIpjlk2EuShDhrIvU+VLOMGwH/zNSLSuTFPGA9FIdakiJ+pkVHi6T3GHZib60T16NBvB4LGO3J34AA6F2PoGWpowe1xL1EYb+ZJXe6lYglzYES8R7bJQIDAQAB",
-  "permissions": ["downloads", "nativeMessaging", "storage"],
-  "background": {"service_worker": "background.js"},
-  "content_scripts": [{"matches": ["http://dataark/capture.html", "http://192.168.40.123/capture.html", "http://192.168.4.1/capture.html"], "js": ["content.js"]}]
+  "permissions": [
+    "downloads",
+    "nativeMessaging",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://dataark/capture.html",
+        "http://192.168.40.123/capture.html",
+        "http://192.168.4.1/capture.html",
+        "http://192.168.40.70/capture.html",
+        "http://192.168.8.112/capture.html"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ]
 }

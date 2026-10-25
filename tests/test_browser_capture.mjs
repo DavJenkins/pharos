@@ -9,6 +9,8 @@ vm.runInContext(fs.readFileSync(new URL('../tools/browser-capture/background.js'
 const send=(message,url='http://dataark/capture.html')=>new Promise(resolve=>chrome.runtime.onMessage.listeners[0](message,{url},resolve));
 assert.match((await send({action:'start',id:'ss5'},'https://evil.example/capture.html')).error,/capture page/);assert.equal(downloads,0);
 assert.match((await send({action:'start',id:'other'})).error,/approved/);assert.equal(downloads,0);
+assert.equal((await send({action:'status'},'http://192.168.40.70/capture.html')).error,undefined);
+assert.equal((await send({action:'status'},'http://192.168.8.112/capture.html')).error,undefined);
 assert.equal((await send({action:'start',id:'ss5'})).ok,true);
 await new Promise(resolve=>setImmediate(resolve));
 assert.equal(captures,1);assert.equal(state.status.ss5.state,'installed');assert.deepEqual(state.downloads,{});

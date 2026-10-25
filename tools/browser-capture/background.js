@@ -16,7 +16,7 @@ async function setStatus(id, state, message) {
 chrome.runtime.onMessage.addListener((message, sender, reply) => {
   (async () => {
     const u = new URL(sender.url);
-    if (!['dataark','192.168.40.123','192.168.4.1'].includes(u.hostname) || u.protocol !== 'http:' || u.pathname !== '/capture.html') throw Error('Use the Ark capture page.');
+    if (!['dataark','192.168.40.123','192.168.40.70','192.168.8.112','192.168.4.1'].includes(u.hostname) || u.protocol !== 'http:' || u.pathname !== '/capture.html') throw Error('Use the Ark capture page.');
     if (message.action === 'status') return (await chrome.storage.local.get('status')).status || {};
     if (message.action === 'check_updates') {
       await setStatus('__updates__','checking','Checking installed captures against their pinned publisher URLs…');

@@ -22,15 +22,26 @@ def import_file(message, config):
     return run_ark(payload,config)
 
 def run_ark(payload,config):
-    if config['ark_host'] not in ['192.168.40.123','192.168.4.1','dataark']:
+    allowed = ['192.168.40.123','192.168.40.70','192.168.8.112','192.168.4.1','dataark']
+    hosts = list(dict.fromkeys([config['ark_host']] + config.get('ark_fallback_hosts', [])))
+    alias = config.get('ssh_host_key_alias')
+    if any(host not in allowed for host in hosts) or (alias and alias not in allowed):
         raise ValueError('Unapproved Ark destination.')
-    command = [config['ssh_executable'],'-T','-o','BatchMode=yes','-o','StrictHostKeyChecking=yes','-o','ConnectTimeout=8','-i',config['ssh_key'], 'root@'+config['ark_host'], '/usr/bin/python3 /opt/dataark/tools/import_browser_reference.py']
-    result = subprocess.run(command,input=json.dumps(payload),capture_output=True,text=True,timeout=600,
-                            creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
-    try: answer=json.loads(result.stdout)
-    except ValueError: raise ValueError((result.stderr or 'Ark connection/import failed')[-1500:]) from None
-    if not isinstance(answer,dict) or 'ok' not in answer: raise ValueError('Invalid Ark response.')
-    return answer
+    errors = []
+    for host in hosts:
+        command = [config['ssh_executable'],'-T','-o','BatchMode=yes','-o','StrictHostKeyChecking=yes','-o','ConnectTimeout=8']
+        if alias: command += ['-o','HostKeyAlias='+alias]
+        command += ['-i',config['ssh_key'], 'root@'+host, '/usr/bin/python3 /opt/dataark/tools/import_browser_reference.py']
+        result = subprocess.run(command,input=json.dumps(payload),capture_output=True,text=True,timeout=600,
+                                creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+        try: answer=json.loads(result.stdout)
+        except ValueError:
+            errors.append(host+': '+(result.stderr or 'Ark connection/import failed')[-700:])
+            if result.returncode == 255: continue
+            raise ValueError(errors[-1]) from None
+        if not isinstance(answer,dict) or 'ok' not in answer: raise ValueError('Invalid Ark response.')
+        return answer
+    raise ValueError('Cannot reach the paired Ark. '+ ' / '.join(errors))
 
 def main():
     header = sys.stdin.buffer.read(4)

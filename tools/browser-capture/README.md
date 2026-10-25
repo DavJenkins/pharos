@@ -20,3 +20,5 @@ If the helper is interrupted, use **Retry captured files** on the capture page. 
 To uninstall, remove the extension from Chrome and delete the current-user registry key `Software\Google\Chrome\NativeMessagingHosts\com.dejsoftware.dataark_capture`. Delete this folder only afterward. The helper is launched on demand; there is no continuously running background service.
 
 Blocked checks leave recent successful captures resolved for 30 days by default (configurable on the Ark). Prior verified replacement copies are retained privately on the system disk; they are not public library downloads. No scheduled checks or automatic history pruning are installed.
+
+Version 1.1.1 accepts the Ark’s current Ethernet and upstream Wi-Fi capture-page addresses. Local configuration can specify `ark_fallback_hosts` and `ssh_host_key_alias` to reuse the paired Ark’s trusted SSH host key across its interfaces. Connection failures try the next approved address; document validation failures do not. Reload the extension in Chrome after an upgrade, then reload the capture page.
