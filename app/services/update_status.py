@@ -62,5 +62,5 @@ def progress(path=None):
     current=map_progress()
     if not current:return worker
     if worker and worker.get('state') not in (None,'idle','waiting','error'):
-        return {**worker,'detail':(worker.get('detail','')+' | '+current['label']).strip(' |')}
+        return {**worker,'detail':((worker.get('detail') or '')+' | '+current['label']).strip(' |')}
     return current

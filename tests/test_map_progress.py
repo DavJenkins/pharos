@@ -15,3 +15,12 @@ class ProgressTests(unittest.TestCase):
    state=Path(tmp)/'state.json';log=Path(tmp)/'log';state.write_text(json.dumps({'state':'downloading'}));log.write_text('')
    self.assertEqual(map_progress(state,log,False)['state'],'error')
    state.write_text('broken');self.assertIsNone(map_progress(state,log,True))
+
+ def test_simultaneous_archive_and_map_with_null_detail(self):
+  from unittest.mock import patch
+  from app.services.update_status import progress
+  for detail in (None, '', 'Archive details'):
+   with patch('app.services.update_status.worker_progress',return_value={'state':'publishing','label':'Publishing: Dashboard','detail':detail}),patch('app.services.update_status.map_progress',return_value={'label':'Preparing U.S. offline map'}):
+    result=progress()
+    self.assertIn('Preparing U.S. offline map',result['detail'])
+    self.assertEqual(result['label'],'Publishing: Dashboard')
