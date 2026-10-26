@@ -6,4 +6,4 @@ Custom cards use stable repository anchors, repository and asset IDs, labeled lo
 
 All 301 active assets remain represented across 23 collection cards. WikiMed remains separate from first aid, with a cross-link. Manage Library continues to operate on original collections.
 
-The header uses a local transparent PHAROS / DATA ARK wordmark, with an accessible heading and responsive dimensions. Asset: `app/static/assets/pharos-data-ark-wordmark-v3.png`. It was produced with built-in image generation from the supplied gold/blue reference; the final edit distinguishes the horizontal crossbars of the blue A letters while preserving dark counters. No network font or image dependency is required.
+The header uses a local transparent PHAROS / DATA ARK wordmark, with an accessible heading and responsive dimensions. Asset: `app/static/assets/pharos-data-ark-wordmark-v4.png`. It was produced with built-in image generation from the supplied gold/blue reference; the final edit uses rounded oval crosspieces in the blue A letters while preserving dark counters. No network font or image dependency is required.
