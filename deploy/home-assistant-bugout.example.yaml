@@ -82,7 +82,111 @@ automation:
           operation_id: "{{ trigger.event.data.operation_id }}"
           origin: ark
 
+  - id: dataark_health_changes
+    alias: Record Data Ark health changes
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: sensor.data_ark_health
+        attribute: fingerprint
+    conditions:
+      - condition: template
+        value_template: "{{ states('sensor.data_ark_health') not in ['unknown', 'unavailable'] }}"
+    actions:
+      - action: logbook.log
+        data:
+          name: Data Ark
+          message: "{{ states('sensor.data_ark_health') }}: {{ state_attr('sensor.data_ark_health', 'problems') | to_json }}"
+      - event: dataark_health_changed
+        event_data:
+          state: "{{ states('sensor.data_ark_health') }}"
+          problems: "{{ state_attr('sensor.data_ark_health', 'problems') }}"
+      - if:
+          - condition: state
+            entity_id: sensor.data_ark_health
+            state: ok
+        then:
+          - action: persistent_notification.dismiss
+            data:
+              notification_id: dataark_health
+        else:
+          - action: persistent_notification.create
+            data:
+              notification_id: dataark_health
+              title: Data Ark needs attention
+              message: "{{ (state_attr('sensor.data_ark_health', 'problems') or []) | map(attribute='message') | join('; ') }}"
+
+  - id: dataark_connection_lost
+    alias: Data Ark health connection lost
+    triggers:
+      - trigger: state
+        entity_id: sensor.data_ark_health
+        to: unavailable
+        for: '00:02:00'
+    actions:
+      - action: persistent_notification.create
+        data:
+          notification_id: dataark_connection
+          title: Data Ark unreachable
+          message: Home Assistant has been unable to reach the Ark health API for two minutes.
+      - action: logbook.log
+        data:
+          name: Data Ark
+          message: Health API unreachable for two minutes.
+
+  - id: dataark_connection_restored
+    alias: Data Ark health connection restored
+    triggers:
+      - trigger: state
+        entity_id: sensor.data_ark_health
+        from: unavailable
+    conditions:
+      - condition: template
+        value_template: "{{ states('sensor.data_ark_health') not in ['unknown', 'unavailable'] }}"
+    actions:
+      - action: persistent_notification.dismiss
+        data:
+          notification_id: dataark_connection
+      - action: logbook.log
+        data:
+          name: Data Ark
+          message: Health API connection restored.
+
+  - id: dataark_bugout_outcome
+    alias: Record Data Ark bugout progress
+    triggers:
+      - trigger: state
+        entity_id: sensor.data_ark_bugout
+    conditions:
+      - condition: template
+        value_template: "{{ states('sensor.data_ark_bugout') not in ['unknown', 'unavailable'] }}"
+    actions:
+      - action: logbook.log
+        data:
+          name: Data Ark bugout
+          message: "{{ states('sensor.data_ark_bugout') }}"
+      - event: dataark_bugout_status_changed
+        event_data:
+          state: "{{ states('sensor.data_ark_bugout') }}"
+          operation: "{{ state_attr('sensor.data_ark_bugout', 'operation') }}"
+
 rest:
+  - resource: "http://dataark/api/health"
+    scan_interval: 30
+    timeout: 15
+    sensor:
+      - name: Data Ark health
+        unique_id: dataark_health
+        value_template: "{{ value_json.state }}"
+        json_attributes:
+          - fingerprint
+          - problem_count
+          - problems
+          - certificate
+          - source_checks
+          - services
+          - update
+          - observed_at
   - resource: "http://dataark/api/bugout/state"
     scan_interval: 30
     timeout: 40
@@ -95,3 +199,17 @@ rest:
           - tasks
           - operation
           - home_assistant
+
+template:
+  - binary_sensor:
+      - name: Data Ark problem
+        unique_id: dataark_problem
+        device_class: problem
+        availability: "{{ states('sensor.data_ark_health') not in ['unknown', 'unavailable'] }}"
+        state: "{{ states('sensor.data_ark_health') != 'ok' }}"
+    sensor:
+      - name: Data Ark certificate days remaining
+        unique_id: dataark_certificate_days_remaining
+        unit_of_measurement: d
+        availability: "{{ state_attr('sensor.data_ark_health', 'certificate') is mapping and 'days_remaining' in state_attr('sensor.data_ark_health', 'certificate') }}"
+        state: "{{ (state_attr('sensor.data_ark_health', 'certificate') or {}).get('days_remaining', 0) }}"

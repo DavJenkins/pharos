@@ -33,6 +33,8 @@ user=dnsmasq
 '''
 # Keep detection hosts on normal DNS: Android can reject private-IP answers.
 DNS += 'address=/dataark/192.168.4.1\nlocal=/dataark/\n'
+if Path('/etc/dataark/https/local-dns.conf').is_file():
+    DNS += 'conf-file=/etc/dataark/https/local-dns.conf\n'
 NFT = MARKER + '''
 add table ip dataark_portal
 flush table ip dataark_portal

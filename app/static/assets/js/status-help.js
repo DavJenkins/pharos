@@ -85,6 +85,11 @@
         terminalLink.href = terminalUrl.href;
         terminalLink.title = "Linux admin login required";
         link.after(terminalLink);
+        const httpsLink = document.createElement("a");
+        httpsLink.href = "/config/https.html";
+        httpsLink.textContent = "Optional HTTPS";
+        httpsLink.hidden = true;
+        terminalLink.after(httpsLink);
         const bannerButton=document.createElement("button");
         bannerButton.id="status-banner-admin";bannerButton.type="button";bannerButton.textContent="Ark banner…";
         bannerButton.hidden=true;bannerButton.setAttribute("aria-haspopup","dialog");bannerButton.setAttribute("aria-controls","notice-dialog");
@@ -137,6 +142,7 @@
         let wifiBusy = false;
         let selected = null;
         let libraryInfo = null;
+        let httpsInfo = null;
         let libraryBusy = false;
         async function refreshLibrary(prefetch=false){
             if(libraryBusy||(!prefetch&&(selected!=="system-button"||!dialog.open)))return;
@@ -144,7 +150,11 @@
             const controller=new AbortController();
             const timer=setTimeout(()=>controller.abort(),6000);
             try{
-                const response=await fetch("/api/library",{cache:"no-store",signal:controller.signal});
+                const [response,httpsResponse]=await Promise.all([
+                    fetch("/api/library",{cache:"no-store",signal:controller.signal}),
+                    fetch("/api/https/status",{cache:"no-store",signal:controller.signal}).catch(()=>null)
+                ]);
+                if(httpsResponse?.ok)httpsInfo=await httpsResponse.json();
                 if(!response.ok)throw new Error("Library unavailable");
                 libraryInfo=await response.json();
             }catch(_){libraryInfo={unavailable:true};}
@@ -178,6 +188,10 @@
             }
             value.append(list);
             if(selected==="system-button"){
+                const httpsLabel=document.createElement("dt"),httpsValue=document.createElement("dd");
+                httpsLabel.textContent="HTTPS";
+                httpsValue.textContent=!httpsInfo?"—":!httpsInfo.enabled?"Optional · Not configured":httpsInfo.certificate_health==="expired"?"Certificate expired · HTTP available":httpsInfo.domain+(httpsInfo.days_remaining!==undefined?" · "+httpsInfo.days_remaining+" days remaining":"");
+                list.append(httpsLabel,httpsValue);
                 const title=document.createElement("h3");title.className="library-summary-heading";title.textContent="Library";value.append(title);
                 const summary=document.createElement("dl");summary.className="status-details-list";
                 const row=(label,text)=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=label;dd.textContent=text;summary.append(dt,dd);};
@@ -237,6 +251,7 @@
                 document.getElementById("status-dialog-toggle-label").textContent = selected === "ap-button" ? "Enable hotspot" : selected === "eth-button" ? "Enable Ethernet" : selected === "wifi-button" ? "Enable upstream Wi-Fi" : selected === "debug-button" ? "Enable debug diagnostics" : selected === "refresh-button" ? "Update status automatically" : "Use the Ark's internet connection on this device";
             }
             terminalLink.hidden = selected !== "system-button";
+            httpsLink.hidden = selected !== "system-button";
             bannerButton.hidden = selected !== "system-button" || !window.ArkBannerAdmin;
             link.hidden = !(item.settings || item.url);
             link.href = item.settings || item.url || "#";

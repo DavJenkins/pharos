@@ -1,0 +1,19 @@
+[Unit]
+Description=Resumable local source cache for Data Ark map extraction
+After=network-online.target
+Wants=network-online.target
+RequiresMountsFor=/mnt/storage
+StopWhenUnneeded=yes
+[Service]
+Type=exec
+User=admin
+Group=admin
+WorkingDirectory=/opt/dataark
+ExecStart=/usr/bin/python3 /opt/dataark/tools/map_range_source.py
+ExecStartPost=/usr/bin/curl --fail --silent --retry 10 --retry-connrefused --retry-delay 1 --max-time 45 --head --output /dev/null http://127.0.0.1:8097/source.pmtiles
+MemoryMax=256M
+CPUWeight=10
+IOWeight=10
+Nice=10
+Restart=on-failure
+RestartSec=5

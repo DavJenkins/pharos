@@ -11,5 +11,5 @@
   "restore_missing_content": true,
   "automatic_archive_updates": true,
   "automatic_map_updates": true,
-  "packages": ["python3", "python3-venv", "python3-yaml", "python3-pil", "python3-reportlab", "apache2", "rsync", "docker.io", "network-manager", "dnsmasq-base", "nftables", "iptables", "iproute2", "iw", "curl", "ca-certificates", "git", "unzip", "zip", "poppler-utils", "vsftpd", "samba", "sudo", "nano", "gcc", "make", "tcpdump", "exfatprogs", "avahi-daemon"]
+  "packages": ["python3", "python3-venv", "python3-yaml", "python3-pil", "python3-reportlab", "apache2", "rsync", "docker.io", "network-manager", "dnsmasq-base", "nftables", "iptables", "iproute2", "iw", "curl", "ca-certificates", "certbot", "git", "unzip", "zip", "poppler-utils", "vsftpd", "samba", "sudo", "nano", "gcc", "make", "tcpdump", "exfatprogs", "avahi-daemon"]
 }

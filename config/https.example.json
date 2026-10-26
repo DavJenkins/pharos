@@ -1,0 +1,13 @@
+{
+  "mode": "optional_owner_domain",
+  "default": "deferred",
+  "validation": "manual_dns_01",
+  "http_fallback": true,
+  "automatic_dns_credentials": false,
+  "notes": [
+    "Configure this Ark at /config/https.html when the caretaker has a domain and internet access.",
+    "The running configuration, identity, account, email, certificates and private keys live under /etc/dataark, never in this public recipe.",
+    "Fresh source-based clones generate their own identity. No DEJ Software account or domain is required.",
+    "Manual DNS renewal requires caretaker intervention. Public certificate expiry does not disable HTTP or the offline library."
+  ]
+}

@@ -19,7 +19,7 @@ def main():
         started=time.time()
         try:
             save(state='downloading',source=config['source'])
-            subprocess.run(['/usr/local/bin/pmtiles','extract',config['source'],str(target),'--region='+str(ROOT/config['region']),'--maxzoom='+str(config['maxzoom']),'--download-threads=2'],check=True)
+            subprocess.run(['/usr/local/bin/pmtiles','extract',os.environ.get('DATAARK_MAP_SOURCE',config['source']),str(target),'--region='+str(ROOT/config['region']),'--maxzoom='+str(config['maxzoom']),'--download-threads=2'],check=True)
             save(state='verifying',bytes=target.stat().st_size)
             subprocess.run(['/usr/local/bin/pmtiles','verify',str(target)],check=True)
             digest=hashlib.sha256()

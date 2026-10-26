@@ -13,6 +13,9 @@ policy:
   restore_on_boot: false
   format_disks: false
   copy_credentials_to_public_content: false
+  https_identity: system_drive_only
+  https_on_fresh_source_clone: new_identity_and_deferred_setup
+  copy_acme_accounts_or_private_keys: false
   desired_selection_survives_missing_content: true
 acceptance:
   - Original boot card and replacement content drive restore the selected library.

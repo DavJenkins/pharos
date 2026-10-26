@@ -19,6 +19,8 @@ app = FastAPI(
 
 from app.routers.documentation import router as documentation_router
 app.include_router(documentation_router)
+from app.routers.https_setup import router as https_setup_router
+app.include_router(https_setup_router)
 
 from app.routers.bugout import router as bugout_router
 app.include_router(bugout_router)
@@ -51,3 +53,6 @@ app.include_router(community_router)
 
 from app.routers.source_check import router as source_check_router
 app.include_router(source_check_router)
+
+from app.routers.integration_health import router as integration_health_router
+app.include_router(integration_health_router)

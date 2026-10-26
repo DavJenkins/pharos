@@ -1,4 +1,6 @@
 [Unit]
+Requires=dataark-map-source.service
+After=dataark-map-source.service
 Description=Stage and verify all 50 states offline street map
 After=network-online.target
 Wants=network-online.target
@@ -9,6 +11,7 @@ User=admin
 Group=admin
 WorkingDirectory=/opt/dataark
 Environment=GOMEMLIMIT=650MiB
+Environment=DATAARK_MAP_SOURCE=http://127.0.0.1:8097/source.pmtiles
 Environment=GODEBUG=http2client=0
 ExecStart=/usr/bin/python3 /opt/dataark/tools/extract_usa_map.py
 MemoryHigh=800M

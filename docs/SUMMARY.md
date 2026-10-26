@@ -88,3 +88,7 @@
 - [Disability preparedness](20-Administration/DisabilityPreparedness.md)
 
 - [State and territorial legal coverage](20-Administration/Jurisdictions.md)
+
+- [Home Assistant health and bug-out](20-Administration/HomeAssistant.md)
+
+- [Optional HTTPS and clone identities](20-Administration/HTTPS.md)
