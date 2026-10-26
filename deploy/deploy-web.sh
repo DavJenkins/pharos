@@ -53,6 +53,7 @@ sudo rm -f \
 
 echo
 echo "============================================================"
+sudo python3 tools/inject_motd_client.py "$TARGET"
 echo " Deployment Complete"
 echo "============================================================"
 

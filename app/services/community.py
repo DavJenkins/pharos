@@ -224,12 +224,14 @@ def notice():
     result.update(notice_appearance(result,legacy=bool(row)))
     return result
 
-def set_notice(value,color=None,**appearance):
+def set_notice(value,color=None,notify_clients=False,**appearance):
+    if type(notify_clients) is not bool:raise BoardError(400,'Notify other clients must be true or false.')
     text=clean(value,'Banner message',300,False)
+    if notify_clients and not text.strip():raise BoardError(400,'Enter a message before notifying other clients.')
     settings=notice()
     if color is not None:settings['color']=color
     settings.update(appearance)
-    result={'text':text,**notice_appearance(settings),'updated_at':datetime.now(timezone.utc).isoformat()}
+    result={'text':text,**notice_appearance(settings),'updated_at':datetime.now(timezone.utc).isoformat(),'notification_id':secrets.token_urlsafe(18) if notify_clients else None}
     with connect() as db:
         db.execute('INSERT INTO metadata(key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value',('notice',json.dumps(result)))
     return result

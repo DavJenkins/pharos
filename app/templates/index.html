@@ -15,7 +15,7 @@
 
 <link rel="stylesheet" href="assets/css/manifest.css">
 {{BACKGROUND_STYLE}}
-<link rel="stylesheet" href="/assets/css/ark-notice.css">
+<link rel="stylesheet" href="/assets/css/ark-notice.css?v=11e1ac9da2e4b715">
 </head>
 
 <body>
@@ -215,8 +215,8 @@
 <label>Position<select id="notice-position"><option value="top">Top of page</option><option value="below-header">Below header</option><option value="bottom">Fixed at bottom</option></select></label></div></div></details>
 <details class="notice-options"><summary>Size and spacing <small>Width and margins</small></summary><div class="notice-options-body"><div class="notice-option-grid"><label>Width<select id="notice-width"><option value="full">Full width</option><option value="fit">Fit text</option><option value="margin">Custom side margins</option></select></label><label>Side margins (%)<input id="notice-margin" type="number" min="0" max="40" step="0.5" value="5"></label><label>Top margin (px)<input id="notice-margin-top" type="number" min="0" max="200" step="1" value="12"></label><label>Bottom margin (px)<input id="notice-margin-bottom" type="number" min="0" max="200" step="1" value="12"></label></div><small>Side margins are equal on both sides. Fixed-bottom uses the bottom margin as its distance from the screen edge.</small></div></details>
 <label class="notice-password-label">Caretaker password<input name="password" type="password" autocomplete="current-password" maxlength="256" required></label><p class="form-error" role="status"></p></div>
-<div class="dialog-actions"><button type="button" id="clear-notice">Clear banner</button><button type="submit">Save banner</button><button type="button" id="notice-close">Close</button></div></form></dialog>
-<script src="/assets/js/ark-banner-admin.js?v=f7f811a0eb5324eb"></script>
+<label class="notice-notify-option"><input type="checkbox" id="notice-notify-clients"> Notify other clients with a pop-up</label><small class="notice-notify-hint">Other open Ark pages will show this message, usually within 10 seconds. New visitors will not receive an old alert.</small><div class="dialog-actions"><button type="button" id="clear-notice">Clear banner</button><button type="submit">Save banner</button><button type="button" id="notice-close">Close</button></div></form></dialog>
+<script src="/assets/js/ark-banner-admin.js?v=6af6c75df60719e9"></script>
 </body>
 
 </html>

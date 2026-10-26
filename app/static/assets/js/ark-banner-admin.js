@@ -19,7 +19,7 @@
     foreground.disabled=busy;textHex.disabled=busy;margin.disabled=busy||width.value!=='margin';
     target.hidden=!value.trim();$('#notice-counter').textContent=value.length+' / 300';
   }
-  function lock(value) {busy=value;for(const control of [text,picker,hex,mode,foreground,textHex,width,margin,top,bottom,font,position,save,clear])control.disabled=value;if(!value)preview();}
+  function lock(value) {busy=value;for(const control of [text,picker,hex,mode,foreground,textHex,width,margin,top,bottom,font,position,save,clear,$('#notice-notify-clients')])control.disabled=value;if(!value)preview();}
   async function request(value,password) {
     const options={cache:'no-store',headers:{}};
     if(value!==undefined) {
@@ -46,7 +46,8 @@
     if(busy || !form.reportValidity())return;
     error.textContent='';lock(true);
     try {
-      await request({text:clearMessage?'':text.value,...settings()},form.elements.password.value);
+      const saved=await request({text:clearMessage?'':text.value,...settings(),notify_clients:!clearMessage&&$('#notice-notify-clients').checked},form.elements.password.value);
+      window.dispatchEvent(new CustomEvent('ark-notice-saved',{detail:{notificationId:saved.notification_id||''}}));
       window.dispatchEvent(new Event('ark-notice-changed'));$('#notice-result').textContent=clearMessage?'The Ark banner has been cleared.':'The Ark banner has been saved.';
       dialog.close();
     }catch(failure){error.textContent=failure.message;}
