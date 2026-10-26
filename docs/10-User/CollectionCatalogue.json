@@ -136,6 +136,7 @@
       "title": "Learning & Homeschooling",
       "hook": "Learning resources for young children, school-age learners and adults.",
       "items": [
+        "Khan Academy: the full English US-curriculum Kiwix archive, with 180 GB of offline videos and exercises in mathematics, physics, chemistry, biology and history (March 2023 edition).",
         "Core Knowledge: 1,026 original teacher guides, student books, readers, lessons and supporting PDFs, organized by publisher grade and subject.",
         "OpenStax: 64 textbooks covering mathematics, science, writing, history and additional high-school/advanced subjects.",
         "Grade-and-subject coverage table from preschool through grade 12 identifies installed unit packages, teacher/student materials and gaps. High-school books share a shelf rather than implying a complete grade sequence.",
@@ -394,5 +395,5 @@
       "tools": []
     }
   ],
-  "installed_asset_count": 1391
+  "installed_asset_count": 1392
 }

@@ -53,7 +53,7 @@ path.parent.mkdir(parents=True,exist_ok=True)
 doc=BaseDocTemplate(str(path),pagesize=(W,H),title='Pharos Data Ark - The Collection',author='DEJ Software',allowSplitting=1)
 frames=[Frame(42,59,255,635,id='left',leftPadding=0,rightPadding=8,topPadding=0,bottomPadding=0),Frame(315,59,255,635,id='right',leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)]
 doc.addPageTemplates([PageTemplate(id='cover',frames=[Frame(58,85,496,468,id='coverbody',leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)],onPage=cover),PageTemplate(id='inside',frames=frames,onPage=bg)])
-story=[p('An extraordinary collection.\nReady without the internet.','cover'),p('An encyclopedia. A library of books. A repair bench, map cabinet, classroom and emergency reference shelf. All on one local device.','coverbody'),p('23 collections  /  50-state street maps\n1,391 preserved archives, publications, datasets and packs','covergold'),p('Read. Search. Repair. Learn. Prepare. Create.','coverbody'),p('Connect to the Ark and open a browser. Useful knowledge stays within reach when the internet is unavailable.','coverbody'),NextPageTemplate('inside'),PageBreak()]
+story=[p('An extraordinary collection.\nReady without the internet.','cover'),p('An encyclopedia. A library of books. A repair bench, map cabinet, classroom and emergency reference shelf. All on one local device.','coverbody'),p('23 collections  /  50-state street maps\n1,392 preserved archives, publications, datasets and packs','covergold'),p('Read. Search. Repair. Learn. Prepare. Create.','coverbody'),p('Connect to the Ark and open a browser. Useful knowledge stays within reach when the internet is unavailable.','coverbody'),NextPageTemplate('inside'),PageBreak()]
 groups=[list(range(1,24))]
 for gi,group in enumerate(groups):
  for n in group:
@@ -63,7 +63,7 @@ for gi,group in enumerate(groups):
    story.append(p('LOCAL TOOLS','small'))
    for item in c['tools']:story.append(p(item,'tool'))
  if False:
-  story += [Spacer(1,10),p('A library within the library','head'),p('A single searchable archive contains an entire body of material. The 1,391-item inventory is not a count of individual books, articles, map features or pages. Wikipedia, WikiMed, iFixit and Project Gutenberg each open into much larger collections.','tool')]
+  story += [Spacer(1,10),p('A library within the library','head'),p('A single searchable archive contains an entire body of material. The 1,392-item inventory is not a count of individual books, articles, map features or pages. Wikipedia, WikiMed, iFixit and Project Gutenberg each open into much larger collections.','tool')]
  if False:story.append(p('The vehicle files are owner manuals and quick guides. Street maps are not nautical charts or a routing service. Massachusetts layers retain their regional scope.','small'))
  if False:story.append(p('State constitutional snapshots are not complete state statute books. Code files are the named amendments and references, not a complete licensed building-code library.','small'))
  if gi==len(groups)-1:

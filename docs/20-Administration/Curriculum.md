@@ -30,4 +30,4 @@ The public manifest and portable content profile retain the archive source, rele
 
 ## Installation checkpoint: October 26, 2026
 
-The PDF shelf contains **1,090 verified files: 1,026 Core Knowledge resources and 64 OpenStax textbooks**. Another 287 discovered files remain outside the published library because the automated front-matter check did not establish their open license. This is a review queue, not evidence that all 287 are prohibited. The full installed inventory contains 1,391 assets. Khan Academy was downloading at this checkpoint and is excluded from that total. Consult the dashboard for its current state.
+The PDF shelf contains **1,090 verified files: 1,026 Core Knowledge resources and 64 OpenStax textbooks**. Another 287 discovered files remain outside the published library because the automated front-matter check did not establish their open license. This is a review queue, not evidence that all 287 are prohibited. The collection inventory includes 1,392 assets with the Khan Academy archive. The permanent catalogue describes the completed collection; consult the dashboard for live installation and verification progress.
