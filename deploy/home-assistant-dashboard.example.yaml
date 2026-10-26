@@ -8,8 +8,13 @@ views:
     entities:
     - sensor.data_ark_health
     - binary_sensor.data_ark_problem
-    - sensor.data_ark_certificate_days_remaining
     - sensor.data_ark_bugout
+  - type: markdown
+    title: HTTPS certificate
+    content: "{% set cert = state_attr('sensor.data_ark_health', 'certificate') or\
+      \ {} %}{{ cert.get('certificate_health', cert.get('phase', 'Not configured'))\
+      \ | replace('_', ' ') | capitalize }}{% if 'days_remaining' in cert %} \u2014\
+      \ {{ cert.days_remaining }} days remaining{% endif %}"
   - type: markdown
     title: Needs attention
     content: '{% set problems = state_attr(''sensor.data_ark_health'', ''problems'')
@@ -32,5 +37,5 @@ views:
     content: "Health is checked every 30 seconds. Home Assistant records changes and\
       \ raises notifications. Ark-originated bug-out runs produce the household_bugout\
       \ event for your chosen automations. No household alarm, shutdown, or power\
-      \ actions are attached automatically.\n\n[Open Data Ark](http://dataark/)\
-      \ \xB7 [Integration guide](http://dataark/docs/20-Administration/HomeAssistant.html)"
+      \ actions are attached automatically.\n\n[Open Data Ark](http://dataark/) \xB7\
+      \ [Integration guide](http://dataark/docs/20-Administration/HomeAssistant.html)"

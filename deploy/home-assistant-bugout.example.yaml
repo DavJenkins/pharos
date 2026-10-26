@@ -1,4 +1,3 @@
-# Home Assistant package: customize URLs and supply the private authorization token.
 rest_command:
   dataark_bugout:
     url: http://dataark/api/bugout/trigger
@@ -95,11 +94,13 @@ automation:
   - trigger: state
     entity_id: sensor.data_ark_health
     attribute: fingerprint
-  conditions:
-  - condition: template
-    value_template: '{{ states(''sensor.data_ark_health'') not in [''unknown'', ''unavailable'']
-      }}'
+  - trigger: homeassistant
+    event: start
   actions:
+  - wait_template: '{{ states(''sensor.data_ark_health'') not in [''unknown'', ''unavailable'']
+      }}'
+    timeout: 00:02:00
+    continue_on_timeout: false
   - action: logbook.log
     data:
       name: Data Ark
