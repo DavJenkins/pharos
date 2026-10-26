@@ -65,7 +65,14 @@
         case 'br':return element('br');
         case 'hr':return element('hr');
         case 'heading':return element('h'+Math.max(1,Math.min(6,item.depth||1)),[inline()]);
-        case 'paragraph':return element('p',[inline()]);
+        case 'paragraph': {
+          if(!options.variables)return element('p',[inline()]);
+          // Balance each deliberately separated banner line independently.
+          const paragraph=element('p');let line=[];
+          const appendLine=()=>{const span=element('span',[tokens(line)]);span.setAttribute('class','ark-notice-line');paragraph.append(span);line=[];};
+          for(const entry of item.tokens||[{type:'text',text:item.text||''}]){if(entry.type==='br')appendLine();else line.push(entry);}
+          appendLine();return paragraph;
+        }
         case 'blockquote':return element('blockquote',[inline()]);
         case 'list': {
           const list=element(item.ordered?'ol':'ul');

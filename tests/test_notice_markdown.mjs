@@ -74,3 +74,8 @@ assert.equal(expand('[tomorrow:YYYY-MM-DD]',new Date(2026,11,31,23)),'2027-01-01
 assert.equal(expand('[tomorrow:YYYY-MM-DD]',new Date(2028,1,28,23)),'2028-02-29');
 assert.equal(expand('[thisweek:ddd D]'),'Mon 26–Sun 1');
 console.log('Relative banner variables: daypart cycle, tomorrow, weekday/weekend boundaries, date ranges and year/leap rollover passed.');
+
+root=new Node('aside');context.ArkNoticeMarkdown.render(root,'First **[weekday]**\nSecond `[daypart]`',{variables:true,now:sample});
+const lines=all(root).filter(n=>n.attributes.class==='ark-notice-line');
+assert.equal(lines.length,2);assert.equal(lines[0].textContent,'First Monday');assert.equal(lines[1].textContent,'Second [daypart]');assert(tags(root).includes('strong'));assert(tags(root).includes('code'));
+console.log('Banner line groups preserve explicit breaks, formatting and literal code.');
