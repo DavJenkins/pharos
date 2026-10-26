@@ -6,5 +6,8 @@
   "scope": "Contiguous 48 states, Alaska including the Aleutians, and Hawaii including the Northwestern Hawaiian Islands. Rectangular cutouts include neighboring areas; territories are not a promised coverage set.",
   "expected_archive_gb_approx": 21,
   "reserve_gib": 40,
-  "configuration_state": "prepared; awaiting memory-controller reboot and verified extraction"
+  "configuration_state": "verified and published",
+  "path": "maps/osm/usa.pmtiles",
+  "sha256": "e725aa7f1fdf0bac4893d5d36aa479ea682a0b9e87f1c9f0cbe0ebf84350f663",
+  "bytes": 20984940063
 }

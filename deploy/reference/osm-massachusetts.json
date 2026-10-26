@@ -1,12 +1,13 @@
 {
   "source": "https://build.protomaps.com/20261022.pmtiles",
-  "bbox": [
-    -73.51,
-    41.23,
-    -69.9,
-    42.89
-  ],
+  "region": "deploy/reference/osm-usa.geojson",
   "maxzoom": 15,
-  "title": "Massachusetts and adjoining border areas",
-  "sha256": "a6b2bce60fadd221dbd740f7244083fcc8bf971f93abd618df2e333bea9f5018"
+  "title": "All 50 U.S. states, with adjoining areas",
+  "scope": "Contiguous 48 states, Alaska including the Aleutians, and Hawaii including the Northwestern Hawaiian Islands. Rectangular cutouts include neighboring areas; territories are not a promised coverage set.",
+  "expected_archive_gb_approx": 21,
+  "reserve_gib": 40,
+  "configuration_state": "verified and published",
+  "path": "maps/osm/usa.pmtiles",
+  "sha256": "e725aa7f1fdf0bac4893d5d36aa479ea682a0b9e87f1c9f0cbe0ebf84350f663",
+  "bytes": 20984940063
 }

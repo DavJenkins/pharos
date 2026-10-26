@@ -82,11 +82,11 @@
     },
     {
       "id": "osm-massachusetts",
-      "title": "Massachusetts offline street map (October 22, 2026)",
-      "path": "maps/osm/massachusetts.pmtiles",
+      "title": "All 50 U.S. states offline street map (October 22, 2026)",
+      "path": "maps/osm/usa.pmtiles",
       "selected": true,
-      "bytes": 507811122,
-      "sha256": null,
+      "bytes": 20984940063,
+      "sha256": "e725aa7f1fdf0bac4893d5d36aa479ea682a0b9e87f1c9f0cbe0ebf84350f663",
       "source": "https://docs.protomaps.com/basemaps/downloads",
       "repository": "openstreetmap"
     },

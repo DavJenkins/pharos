@@ -144,8 +144,8 @@ repositories:
   enabled: true
   category: content_sources
   title: Offline street map
-  description: Massachusetts and adjoining border areas. Local OpenStreetMap-derived
-    vector map with offline pan and zoom; no routing or search.
+  description: All 50 U.S. states, including Alaska, the Aleutians and Hawaii, plus
+    adjoining areas. Offline street map with local pan and zoom; no search or routing.
   artwork:
     path: app/static/assets/icons/OpenStreetmap.png
     alt: OpenStreetMap
@@ -607,16 +607,17 @@ assets:
 - id: osm-massachusetts
   repository_id: openstreetmap
   category: reference
-  title: Massachusetts offline street map (October 22, 2026)
-  relative_path: maps/osm/massachusetts.pmtiles
+  title: All 50 U.S. states offline street map (October 22, 2026)
+  relative_path: maps/osm/usa.pmtiles
   service_endpoint: /maps.html
   update_policy: manual
   refresh_interval: never
-  source_note: Regional extract only; bbox -73.51,41.23,-69.90,42.89, zoom 0–15; OSM
-    ODbL, Protomaps and Natural Earth attribution. Do not download the source planet
-    file as a replacement.
+  source_note: Rectangular extracts cover the contiguous 48 states, Alaska/Aleutians
+    and Hawaii/Northwestern Hawaiian Islands, with adjoining areas. Native zoom 0–15.
+    OSM ODbL, Protomaps and Natural Earth attribution. Manual updates.
   version_pin: null
   online_url: https://docs.protomaps.com/basemaps/downloads
+  expected_hash: e725aa7f1fdf0bac4893d5d36aa479ea682a0b9e87f1c9f0cbe0ebf84350f663
 - id: fema-ready
   repository_id: preparedness
   category: pdf_reference
