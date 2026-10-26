@@ -118,7 +118,7 @@ def index(collection,records):
  else:p.append('<div class="source">Read publisher cautions and practice skills before relying on them. Technical fundamentals, consumer planning references and historical manuals are labeled; they are not current electrical designs or a replacement for first-aid training. <a href="/power.html">Offline load, battery, solar and hydro estimates</a>.</div>')
  p.append('<p><label>Find a title or topic <input id="reference-search" type="search"></label></p>')
  for group in dict.fromkeys(r['group'] for r in records):
-  p.append('<section data-reference-section><h2>'+e(group)+'</h2><ul>')
+  p.append('<section id="'+re.sub(r'[^a-z0-9]+','-',group.lower()).strip('-')+'" data-reference-section><h2>'+e(group)+'</h2><ul>')
   group_records=[r for r in records if r['group']==group and r['status']=='installed']
   if group=='Federal law':p.append('<p>The full U.S. Code title list is also available in its <a href="us-code/index.html">dedicated index</a>. The entries below are individual local files.</p>')
   if not group_records:p.append('<p>No verified local files in this group yet.</p>')

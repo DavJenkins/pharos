@@ -318,6 +318,8 @@ def load_manifest(path):
             settings(data)
         except ValueError as error:
             raise ManifestError(str(error)) from None
+    from app.services.dashboard_cards import validate as validate_dashboard
+    validate_dashboard(data, ManifestError, url)
     validate_resource_sections(data.get('resource_sections', []))
     return data
 
@@ -440,6 +442,8 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                     'actual_bytes': local.stat().st_size if local.is_file() else None}
         compiled_assets.append(compiled)
         asset_rows.setdefault(asset['repository_id'], []).append(compiled)
+    from app.services.dashboard_cards import compose
+    display_repositories, display_rows = compose(data, asset_rows)
     sections = []
     source_check_summary = '<span class="source-check-summary">Last checked: <span id="source-check-time">Not yet</span></span>'
     if batch and any(item['upstream']['checked_at'] for item in compiled_assets):
@@ -451,10 +455,10 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
     source_check_status = '<span id="source-check-status" class="source-check-status" role="status" aria-live="polite"></span>'
     for category in data.get('categories', []):
         cards = []
-        for repo in data.get('repositories', []):
+        for repo in display_repositories:
             if not repo.get('enabled', True) or repo['category'] != category['id']:
                 continue
-            items = asset_rows.get(repo['id'], [])
+            items = display_rows.get(repo['id'], [])
             ready = sum(item['available'] for item in items)
             missing = bool(items) and ready == 0
             if hide and missing:
@@ -476,6 +480,16 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                     links.append(external_link(target, link['title']))
                 else:
                     links.append('<a href="' + html.escape(target, quote=True) + '"' + attributes + '>' + label + '</a>')
+            grouped_links=[]
+            for group in repo.get('link_groups',[]):
+                group_links=[]
+                for link in group['links']:
+                    if link.get('service')=='kiwix':
+                        path=link.get('path','/');target=f'http://dataark:{port}'+path
+                        attrs=f' data-manifest-kiwix-port="{port}" data-manifest-kiwix-path="{html.escape(path,quote=True)}"'
+                    else:target=link['url'];attrs=''
+                    group_links.append(external_link(target,link['title']) if link.get('requires_internet') else '<a href="'+html.escape(target,quote=True)+'"'+attrs+'>'+html.escape(link['title'])+'</a>')
+                grouped_links.append('<div class="manifest-link-group"><h4>'+html.escape(group['title'])+'</h4>'+' · '.join(group_links)+'</div>')
             entries = []
             for item in items:
                 if hide and not item['available']:
@@ -511,7 +525,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                         target = f'http://dataark:{port}' + reader_path
                         attributes = f' data-manifest-kiwix-port="{port}" data-manifest-kiwix-path="{html.escape(reader_path, quote=True)}"'
                     elif item.get('service_endpoint'):
-                        target = item['service_endpoint']
+                        target = data.get('dashboard',{}).get('asset_links',{}).get(item['id'],item['service_endpoint'])
                     elif Path(item['relative_path']).suffix.lower() in ('.pdf', '.html', '.htm', '.txt', '.png', '.jpg', '.jpeg', '.webp'):
                         target = item['local_url']
                     else:
@@ -528,7 +542,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                          image_tag(art, repo['title']) + '<h3>' + html.escape(repo['title']) + '</h3><p>' +
                          html.escape(str(repo.get('description', ''))) + '</p><span class="manifest-badge">' + badge +
                          '</span><div class="manifest-tags">' + tags + '</div><nav class="manifest-links">' + ' '.join(links) +
-                         '</nav>' + asset_list + '</article>')
+                         '</nav>' + ''.join(grouped_links) + asset_list + '</article>')
         if cards:
             heading = '<h2>' + html.escape(category['title']) + '</h2>'
             if category['title'] == 'Content sources':
@@ -543,7 +557,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
     style = '<style>body{background-image:url("' + background['src'] + '")}</style>' if background else ''
     rendered = template.replace('{{PROJECT_NAME}}', html.escape(system['project_name'])).replace('{{MANIFEST_CARDS}}',
         ''.join(sections) or '<p class="manifest-empty">No repositories configured for display.</p>').replace('{{BACKGROUND_STYLE}}', style)
-    rendered = rendered.replace('{{RESOURCE_SECTIONS}}', render_resource_sections(data.get('resource_sections', []), root, prefix, hide))
+    rendered = rendered.replace('{{RESOURCE_SECTIONS}}', render_resource_sections([section for section in data.get('resource_sections', []) if section['title'] not in data.get('dashboard',{}).get('merged_resource_titles',[])], root, prefix, hide))
     rendered = version_dashboard_assets(rendered)
     compiled = {**data, 'assets': compiled_assets}
     # Complete validation/rendering before replacing the previously working page.
