@@ -26,4 +26,8 @@ The manifest asset `khan-academy` belongs to the Learning & Homeschooling collec
 
 Open it through the Learning card or the Kiwix library, selecting Khan Academy. It includes archived videos and exercises in mathematics, physics, chemistry, biology and history. It is not a current live Khan Academy account, school enrolment, or proof of complete K-12 coverage. Preserve the archive's own licenses and notices. Weekly publisher checks look for later editions; they do not promise weekly new content.
 
-The public manifest and portable content profile retain the archive source, release series and checksum, allowing a replacement content drive to download it again. The large archive is not stored in Git. To inspect activity use `systemctl status dataark-update-worker` and `/var/lib/dataark/updates/status.json`.
+The public manifest and portable content profile retain the archive source, release series and checksum, allowing a replacement content drive to download it again. The large archive is not stored in Git. To inspect activity use `systemctl status dataark-update.service` and `/var/lib/dataark/updates/status.json`.
+
+## Installation checkpoint: October 26, 2026
+
+The PDF shelf contains **1,090 verified files: 1,026 Core Knowledge resources and 64 OpenStax textbooks**. Another 287 discovered files remain outside the published library because the automated front-matter check did not establish their open license. This is a review queue, not evidence that all 287 are prohibited. The full installed inventory contains 1,391 assets. Khan Academy was downloading at this checkpoint and is excluded from that total. Consult the dashboard for its current state.
