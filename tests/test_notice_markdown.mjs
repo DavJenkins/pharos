@@ -63,3 +63,14 @@ assert(root.textContent.includes('Monday 10/26 [weekday] Monday'));
 assert.equal(all(root).find(n=>n.tag==='a').href,'http://dataark/community.html');
 assert.equal(render('[weekday]').textContent,'[weekday]');
 console.log('Banner variables: formatting, daypart boundaries, midnight/leap day, Markdown/code/link safety and opt-in scope passed.');
+
+assert.equal(expand('[nextdaypart] [tomorrow] [tomorrow:YYYY-MM-DD]'),'afternoon Tuesday 2026-10-27');
+for(const [hour,next] of [[1,'morning'],[9,'afternoon'],[14,'evening'],[18,'night'],[23,'morning']])assert.equal(expand('[nextdaypart]',new Date(2026,9,26,hour)),next);
+assert.equal(expand('[weekpart] [nextweekpart] [thisweek] [nextweek]'),'week weekend 10/26–11/01 11/02–11/08');
+assert.equal(expand('[thisweekend] [nextweekend]'),'10/31–11/01 10/31–11/01');
+assert.equal(expand('[weekpart] [nextweekpart] [thisweekend] [nextweekend]',new Date(2026,9,31,12)),'weekend week 10/31–11/01 11/07–11/08');
+assert.equal(expand('[thisweekend] [nextweekend]',new Date(2026,10,1,12)),'10/31–11/01 11/07–11/08');
+assert.equal(expand('[tomorrow:YYYY-MM-DD]',new Date(2026,11,31,23)),'2027-01-01');
+assert.equal(expand('[tomorrow:YYYY-MM-DD]',new Date(2028,1,28,23)),'2028-02-29');
+assert.equal(expand('[thisweek:ddd D]'),'Mon 26–Sun 1');
+console.log('Relative banner variables: daypart cycle, tomorrow, weekday/weekend boundaries, date ranges and year/leap rollover passed.');

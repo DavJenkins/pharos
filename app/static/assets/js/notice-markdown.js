@@ -13,6 +13,24 @@
     return source.replace(/\[([^\[\]\n]{1,100})\]/g,(original,body)=>{
       const colon=body.indexOf(':'),key=(colon<0?body:body.slice(0,colon)).toLowerCase(),format=colon<0?null:body.slice(colon+1);
       if(['daypart','period','morning','afternoon','evening','night'].includes(key)&&format===null)return part;
+      if(key==='nextdaypart'&&format===null)return {morning:'afternoon',afternoon:'evening',evening:'night',night:'morning'}[part];
+      // Calendar arithmetic preserves local dates across daylight-saving transitions.
+      const shift=days=>new Date(now.getFullYear(),now.getMonth(),now.getDate()+days,12);
+      const weekend=[0,6].includes(now.getDay());
+      if(['weekpart','currentweekpart','weekorweekend','currentweekorweekend'].includes(key)&&format===null)return weekend?'weekend':'week';
+      if(['nextweekpart','upcomingweekpart','nextweekorweekend','upcomingweekorweekend'].includes(key)&&format===null)return weekend?'week':'weekend';
+      if(key==='tomorrow')return dateFormat(shift(1),format||'dddd');
+      if(['thisweek','currentweek','nextweek','upcomingweek','thisweekend','currentweekend','nextweekend','upcomingweekend'].includes(key)){
+        let start,end;
+        const monday=-((now.getDay()+6)%7),saturday=now.getDay()===0?-1:6-now.getDay();
+        if(key.endsWith('weekend')){
+          const next=key.startsWith('next')||key.startsWith('upcoming');
+          start=saturday+(next&&weekend?7:0);end=start+1;
+        }else{
+          start=monday+((key.startsWith('next')||key.startsWith('upcoming'))?7:0);end=start+6;
+        }
+        return dateFormat(shift(start),format||'MM/DD')+'–'+dateFormat(shift(end),format||'MM/DD');
+      }
       if(['weekday','day','monday','tuesday','wednesday','thursday','friday','saturday','sunday'].includes(key))return dateFormat(now,format||'dddd');
       if(key==='date')return dateFormat(now,format||'MM/DD');
       if(key==='time')return dateFormat(now,format||'h:mm A');
