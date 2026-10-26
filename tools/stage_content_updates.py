@@ -26,7 +26,7 @@ def validate_plan(plan):
         if not re.fullmatch(r'[0-9a-f]{64}', item['sha256']):
             raise ValueError('Invalid publisher SHA-256')
         url = urlsplit(item['url'])
-        if url.scheme != 'https' or url.netloc != 'download.kiwix.org' or url.query or url.fragment or url.path not in ('/zim/wikipedia/' + name, '/zim/stack_exchange/' + name, '/zim/ifixit/' + name, '/zim/gutenberg/' + name):
+        if url.scheme != 'https' or url.netloc != 'download.kiwix.org' or url.query or url.fragment or url.path not in ('/zim/wikipedia/' + name, '/zim/stack_exchange/' + name, '/zim/ifixit/' + name, '/zim/gutenberg/' + name, '/zim/other/' + name):
             raise ValueError('Unexpected archive source')
     return items
 

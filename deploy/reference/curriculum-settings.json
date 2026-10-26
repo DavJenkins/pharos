@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "languages": [
+    "English"
+  ],
+  "core_knowledge_catalogue": "https://www.coreknowledge.org/wp-json/wp/v2/library",
+  "openstax_catalogue": "https://openstax.org/apps/cms/api/books/?format=json",
+  "reserve_gib": 40,
+  "max_file_mib": 512,
+  "max_collection_gib": 40,
+  "request_delay_seconds": 0.6,
+  "notes": [
+    "Preserve original PDFs and embedded notices. Core Knowledge redistribution is noncommercial under the license shown in each file.",
+    "Register only validated local PDFs with identified open licenses. Public instructor-only solutions, accounts and paid materials are not downloaded.",
+    "Coverage reports distinguish resources from a complete curriculum. No accreditation or school credit is implied."
+  ]
+}

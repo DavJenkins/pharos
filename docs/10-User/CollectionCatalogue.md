@@ -6,7 +6,7 @@
 
 An encyclopedia. A library of books. A repair bench, map cabinet, classroom and emergency reference shelf. The Data Ark brings them together on one local device - ready to serve a household or community when an internet connection is unavailable.
 
-23 collections combine 301 registered archives, publications, datasets and packs, plus local tools for maps, radio practice, PDF forms, coloring, games and practical planning. A single archive can contain an entire searchable collection; 301 is an inventory count, not a count of its articles, books, maps or pages.
+23 collections combine 1,391 registered archives, publications, datasets and packs, plus local tools for maps, radio practice, PDF forms, coloring, games and practical planning. A single archive can contain an entire searchable collection; 1,391 is an inventory count, not a count of its articles, books, maps or pages.
 
 Connect to the Ark and open a browser. Read, search, learn, plan, fill forms, print worksheets, or take copies of the content with you. The collection is stored locally, rather than being a directory of websites you still need the internet to visit.
 
@@ -120,6 +120,10 @@ The paperwork of everyday life, business and emergency response, ready to read, 
 
 ## 9. Learning & Homeschooling
 
+- Core Knowledge: 1,026 original teacher guides, student books, readers, lessons and supporting PDFs, organized by publisher grade and subject.
+- OpenStax: 64 textbooks covering mathematics, science, writing, history and additional high-school/advanced subjects.
+- Grade-and-subject coverage table from preschool through grade 12 identifies installed unit packages, teacher/student materials and gaps. High-school books share a shelf rather than implying a complete grade sequence.
+
 Learning resources for young children, school-age learners and adults.
 
 - NASA Our Very Own Star
@@ -130,7 +134,7 @@ Learning resources for young children, school-age learners and adults.
 
 ### Local tools
 
-- Learning at home: Separate levels for early learners, elementary, middle/high school and adults; reading, art/music, practical learning and a daily-learning outline. This is a resource hub, not a complete accredited curriculum.
+- Learning at home: Separate levels for early learners, elementary, middle/high school and adults; reading, art/music, practical learning and a daily-learning outline. Includes a structured curriculum shelf with explicit coverage and gaps; downloading resources does not confer accreditation or school credit.
 
 ## 10. Games, Coloring & Activities
 
@@ -349,3 +353,7 @@ A local community message board supports announcements, requests, offers and con
 This catalogue describes the content preserved on this Ark as of October 26, 2026. It omits uninstalled wishlist items and blocked acquisition attempts. Collections are snapshots with their original source editions; availability and freshness differ by source. State constitutional snapshots are not complete state statute books. The Massachusetts code files are amendments and named references, not a complete licensed building-code library. Vehicle files are owner manuals and quick guides, not factory service manuals. Street maps are not nautical charts. Original publishers retain their rights and individual notices apply.
 
 DEJ Software | Practical Software for Real Life | dejsoftware.com
+
+## Installation in progress
+
+Khan Academy English US curriculum: March 2023 Kiwix video and exercise archive, 180.0 GB (167.6 GiB). Downloading; excluded from the installed totals until verified and activated.

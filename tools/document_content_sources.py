@@ -11,7 +11,7 @@ from app.services.manifest import load_manifest
 from app.services.dashboard_cards import compose
 
 TOOLS = {
- 'learning-home': [('Learning at home', '/learning.html', 'Separate levels for early learners, elementary, middle/high school and adults; reading, art/music, practical learning and a daily-learning outline. This is a resource hub, not a complete accredited curriculum.')],
+ 'learning-home': [('Learning at home', '/learning.html', 'Separate levels for early learners, elementary, middle/high school and adults; reading, art/music, practical learning and a daily-learning outline. The curriculum shelf identifies installed teaching units and textbooks, with coverage and gaps by grade and subject.')],
  'games-activities': [('Activities', '/activities.html', 'PDF coloring and drawing, memory pairs, tic-tac-toe, sliding puzzle, word hunt, and ideas for play away from a screen.'), ('PDF coloring studio', '/coloring.html', 'Open a PDF, select a page, color or draw and save the result.'), ('Paper studio', '/printables.html', 'Printable paper patterns, ready-made packs and everyday worksheets; A4 and US Letter. Available patterns: Square grid; Engineering grid (5 subdivisions); Dot grid; Cross grid; Isometric / triangular; Isometric dots; Hexagonal; Polar coordinates; Logarithmic (both axes); Semi-logarithmic; Ruled lines; Wide ruled (8.7 mm); Narrow ruled (6.35 mm); Handwriting guides; Double-line handwriting; Cornell lined notes; Cornell grid notes; Cornell dot notes; Music staves; Guitar tablature; Bass tablature; Calligraphy guides; Character-writing squares; Chess / checkers board; Go board (19 × 19); Undated monthly calendar; Story & drawing page; Blank page.')],
  'forms-household': [('PDF form tool', '/pdf-forms.html', 'Open PDFs, fill interactive fields, write on the page, preview and save.'), ('Paper studio', '/printables.html', 'Emergency contacts, household/supply inventories, medication records, evacuation planning, pet care, expenses, receipts, maintenance logs, equipment handovers and project planning; printable in A4 and US Letter.')],
  'power-energy': [('Power planner', '/power.html', 'Load inventory, daily energy, battery/solar estimates and micro-hydro estimate; printable results.')],
@@ -77,6 +77,8 @@ def generate(data, root):
         groups = []
         if identifier == 'laws-codes':
             groups = [('United States Code — titles and appendices', [a for a in items if a['id'].startswith('ref-usc-')]), ('State, DC and territorial constitutional snapshots', [a for a in items if a['id'].startswith('jurisdiction-')])]
+        elif identifier == 'learning-home':
+            groups = [('Core Knowledge teaching resources', [a for a in items if a['id'].startswith('curriculum-ck-')]), ('OpenStax textbooks', [a for a in items if a['id'].startswith('curriculum-openstax-')])]
         elif identifier == 'repairs-maintenance':
             groups = [('iFixit illustrated repair archive', [a for a in items if a['id'].startswith('ifixit')]), ('Practical repairs and maintenance', [a for a in items if a['id'].startswith('family-')]), ('Vehicle owner manuals and quick guides', [a for a in items if a['id'].startswith(('accord-', 'civic-'))])]
         grouped = {a['id'] for _, entries in groups for a in entries}

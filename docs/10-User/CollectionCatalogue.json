@@ -136,6 +136,9 @@
       "title": "Learning & Homeschooling",
       "hook": "Learning resources for young children, school-age learners and adults.",
       "items": [
+        "Core Knowledge: 1,026 original teacher guides, student books, readers, lessons and supporting PDFs, organized by publisher grade and subject.",
+        "OpenStax: 64 textbooks covering mathematics, science, writing, history and additional high-school/advanced subjects.",
+        "Grade-and-subject coverage table from preschool through grade 12 identifies installed unit packages, teacher/student materials and gaps. High-school books share a shelf rather than implying a complete grade sequence.",
         "NASA Our Very Own Star",
         "NASA Our Very Own Star — Spanish",
         "NASA International Space Station Activity Book",
@@ -143,7 +146,7 @@
         "Junior Cave Scientist Activity Book — Spanish"
       ],
       "tools": [
-        "Learning at home: Separate levels for early learners, elementary, middle/high school and adults; reading, art/music, practical learning and a daily-learning outline. This is a resource hub, not a complete accredited curriculum."
+        "Learning at home: Separate levels for early learners, elementary, middle/high school and adults; reading, art/music, practical learning and a daily-learning outline. Includes a structured curriculum shelf with explicit coverage and gaps; downloading resources does not confer accreditation or school credit."
       ]
     },
     {
@@ -390,5 +393,6 @@
       ],
       "tools": []
     }
-  ]
+  ],
+  "installed_asset_count": 1391
 }

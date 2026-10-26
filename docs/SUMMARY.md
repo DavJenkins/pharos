@@ -96,3 +96,5 @@
 - [Optional HTTPS and clone identities](20-Administration/HTTPS.md)
 
 - [Personalization and household content interests](20-Administration/Personalization.md)
+
+- [Offline curriculum and coverage](20-Administration/Curriculum.md)

@@ -18,9 +18,11 @@
 <link rel="stylesheet" href="/assets/css/ark-notice.css?v=f20aa9e1699b355f">
 <style>.manifest-link-group{margin:.7rem 0;padding-top:.45rem;border-top:1px solid #b6c4cb}.manifest-link-group h4{font-size:1rem;margin:0 0 .3rem;color:#203e54}.manifest-link-group a{display:inline-block;margin:.15rem .2rem .15rem 0;overflow-wrap:anywhere}</style><style>.site-header .ark-wordmark{margin:.25rem auto .6rem;line-height:1}.ark-wordmark img{display:block;width:min(440px,85vw);height:auto;margin:auto;max-width:100%}</style>
 <style>.dashboard-top .site-header{background:#203e54;border:1px solid #d4af37;box-shadow:0 3px 12px #0005}.dashboard-top .site-header a{color:#f0d584}.dashboard-top .site-header nav{color:#f0d584}</style>
+<style>#background-dej-link{position:fixed;z-index:1;border-radius:8px}#background-dej-link:focus-visible{outline:3px solid #d4af37;outline-offset:4px;background:#203e5433}.site-header,.manifest-category{position:relative;z-index:2}.status-bar{z-index:3}</style>
 </head>
 
 <body>
+<a id="background-dej-link" href="https://www.dejsoftware.com/" target="_blank" rel="noopener noreferrer" aria-label="DEJ Software website" title="Visit DEJ Software" hidden><span class="visually-hidden">DEJ Software website</span></a>
 <aside id="ark-notice" class="ark-notice" role="status" aria-live="polite" aria-label="Caretaker announcement" hidden></aside>
 
 <!-- ================================================================ -->
@@ -220,6 +222,7 @@ a happy [tomorrow] tomorrow, and a wonderful [nextweekpart] ahead!</code></p><p>
 <label class="notice-password-label">Caretaker password<input name="password" type="password" autocomplete="current-password" maxlength="256" required></label><p class="form-error" role="status"></p></div>
 <label class="notice-notify-option"><input type="checkbox" id="notice-notify-clients"> Notify other clients with a pop-up</label><small class="notice-notify-hint">Other open Ark pages will show this message, usually within 10 seconds. New visitors will not receive an old alert.</small><div class="dialog-actions"><button type="button" id="clear-notice">Clear banner</button><button type="submit">Save banner</button><button type="button" id="notice-close">Close</button></div></form></dialog>
 <script src="/assets/js/ark-banner-admin.js?v=6af6c75df60719e9"></script>
+<script src="/assets/js/background-sign-link.js"></script>
 </body>
 
 </html>

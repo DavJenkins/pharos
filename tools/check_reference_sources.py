@@ -65,7 +65,7 @@ def body_fingerprint(data, content_type, url):
 def check(url, assets, previous, config, root, opener=urlopen):
     if urlsplit(url).scheme != 'https':
         raise ValueError('Only explicit HTTPS publisher sources are checked')
-    metadata_only = any(urlsplit(url).path.lower().endswith(ext) for ext in ('.zip', '.pmtiles'))
+    metadata_only = any(urlsplit(url).path.lower().endswith(ext) for ext in ('.zip', '.pmtiles')) or any(a.get('repository_id') == 'curriculum' for a in assets)
     headers = {'User-Agent': 'Mozilla/5.0 (DataArk offline reference source check)'}
     if previous.get('etag'): headers['If-None-Match'] = previous['etag']
     elif previous.get('last_modified'): headers['If-Modified-Since'] = previous['last_modified']

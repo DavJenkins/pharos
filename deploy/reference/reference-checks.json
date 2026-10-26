@@ -8,6 +8,7 @@
     "Checks apply to installed non-Kiwix assets with publisher URLs. Shared source URLs are checked once per interval.",
     "Changes are reported for review; fixed editions, generated files and extracted packages are not silently overwritten.",
     "PDF and Word responses are validated. HTML is checked for meaningful text changes; archive packages use publisher metadata only.",
-    "An initial HTML or archive check establishes a baseline, not proof that the saved snapshot is current."
+    "An initial HTML or archive check establishes a baseline, not proof that the saved snapshot is current.",
+    "Curriculum PDFs use bounded publisher metadata checks instead of re-downloading the teaching library each week. An initial metadata baseline is not a content-freshness guarantee."
   ]
 }
