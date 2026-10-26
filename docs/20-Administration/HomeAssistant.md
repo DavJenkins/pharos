@@ -16,8 +16,16 @@ The package polls health every 30 seconds. It exposes the full problems list and
 
 HA can call the authenticated `/api/bugout/trigger` endpoint through `script.request_dataark_bugout`. Retries must reuse the operation ID; the Ark deduplicates requests and validates readiness. Cancellation has its own authenticated endpoint. The token permits bug-out commands, not arbitrary administration.
 
-When outbound HA event delivery is configured, Ark-originated runs emit `dataark_bugout` events. The package converts a new Ark trigger into `household_bugout`, without calling the Ark again. Completion and failure events remain available for HA automations. The separate bugout sensor exposes readiness, tasks, operation status and delivery problems. Subscribe your household actions to these events; test with harmless actions before assigning real emergency responses. A disconnected HA cannot receive live events until connectivity returns.
+When outbound HA event delivery is configured, Ark-originated runs emit `dataark_bugout` events. The package converts a new Ark trigger into `household_bugout`, without calling the Ark again. The package also polls for recent Ark-originated runs and deduplicates them by operation ID, so an HA long-lived token is not required for this direction. Polling accepts recent operations only and never starts another Ark run. Completion and failure events remain available for HA automations. The separate bugout sensor exposes readiness, tasks, operation status and delivery problems. Subscribe your household actions to these events; test with harmless actions before assigning real emergency responses. A disconnected HA cannot receive live events until connectivity returns.
 
 ## Acceptance checks
 
 Confirm the health URL works from HA; confirm certificate and problem entities; check an ordinary health change produces one notification rather than a notification every poll; verify recovery and unavailable handling. Test both bug-out directions with a safe test task and verify no trigger loop. Keep HTTP available for recovery even when optional HTTPS is enabled.
+
+## Current installation
+
+Installed on `http://homeassistant.local:8123` using `/config/packages/dataark.yaml`, with the package include in `/config/configuration.yaml`. A pre-change configuration backup is `/config/configuration.yaml.before-dataark-20261025`. The private authorization scalar is `/config/dataark-authorization.yaml`, mode 0600, referenced by the package; it is excluded from public source. The Ark holds only its SHA-256 verifier in `/etc/dataark/bugout-ha.json` (root:admin, 0640). Replacing that token invalidates old token clients without changing caretaker access.
+
+The installed package uses the Ark's current Ethernet address `192.168.40.70`; update the package if that address changes. The Data Ark dashboard is `/data-ark/overview` and its source is `/config/dataark-dashboard.yaml`. A source example is `deploy/home-assistant-dashboard.example.yaml`. Household actions remain unassigned: owners subscribe their chosen actions to `household_bugout` or `dataark_health_changed`. The dashboard's bug-out button asks for confirmation.
+
+Validation included HA's own `ha core check`, successful authenticated input validation (400 for an intentionally empty request, rather than 401), and live sensor/dashboard checks. No actual emergency operation was started by that authentication check.

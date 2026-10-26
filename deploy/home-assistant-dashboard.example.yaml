@@ -1,0 +1,36 @@
+title: Data Ark
+views:
+- title: Data Ark
+  path: overview
+  cards:
+  - type: entities
+    title: Data Ark health
+    entities:
+    - sensor.data_ark_health
+    - binary_sensor.data_ark_problem
+    - sensor.data_ark_certificate_days_remaining
+    - sensor.data_ark_bugout
+  - type: markdown
+    title: Needs attention
+    content: '{% set problems = state_attr(''sensor.data_ark_health'', ''problems'')
+      or [] %}
+
+      {% for item in problems %}- **{{ item.severity | title }}:** {{ item.message
+      }}
+
+      {% else %}No reported problems.{% endfor %}'
+  - type: button
+    name: Request bug-out
+    icon: mdi:bag-personal
+    tap_action:
+      action: perform-action
+      perform_action: script.request_dataark_bugout
+      confirmation:
+        text: "Start the Ark\u2019s configured bug-out tasks?"
+  - type: markdown
+    title: How this works
+    content: "Health is checked every 30 seconds. Home Assistant records changes and\
+      \ raises notifications. Ark-originated bug-out runs produce the household_bugout\
+      \ event for your chosen automations. No household alarm, shutdown, or power\
+      \ actions are attached automatically.\n\n[Open Data Ark](http://dataark/)\
+      \ \xB7 [Integration guide](http://dataark/docs/20-Administration/HomeAssistant.html)"
