@@ -214,6 +214,17 @@ body{background-image:none}
 .network-enable-switch input:disabled{cursor:not-allowed!important}
 .network-enable-switch:has(input:disabled) .network-switch-track,.network-enable-switch:has(input:disabled) .network-switch-state{opacity:.55}
 @media(prefers-reduced-motion:reduce){.network-switch-track,.network-switch-track::after{transition:none}}
+.refresh-interval-panel{margin:1rem 0;padding:1rem;border:1px solid #a4b4bf;border-radius:8px;background:#fff9}
+.refresh-interval-panel label{display:block;font-weight:600;margin-bottom:.5rem}
+.refresh-interval-panel input{box-sizing:border-box;min-height:44px;width:7rem;max-width:100%;padding:.5rem .65rem;border:1px solid #718897;border-radius:6px;font:inherit;background:#fff;color:#203e54}
+.refresh-interval-panel button{min-height:44px;margin:.4rem 0 .4rem .6rem;padding:.5rem .75rem;font:inherit;border:1px solid #718897;border-radius:6px;background:#e5edf3;color:#234a62;cursor:pointer}
+#status-dialog .refresh-interval-panel p{font-size:.9rem;margin:.5rem 0 0}
+.refresh-interval-result:empty{display:none}
+.caretaker-dialog .caretaker-remember-switch{position:relative;display:flex;flex-direction:row;align-items:center;gap:.7rem;min-height:44px;margin:.8rem 0;cursor:pointer}
+.caretaker-dialog .caretaker-remember-switch input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:1}
+.caretaker-remember-switch input:checked + .network-switch-track{background:#203e54;border-color:#203e54}
+.caretaker-remember-switch input:checked + .network-switch-track::after{transform:translateX(20px);background:#d4af37}
+.caretaker-remember-switch input:focus-visible + .network-switch-track{outline:3px solid #1673a1;outline-offset:3px}
 
 #status-dialog-value{white-space:normal;overflow-wrap:anywhere}
 .status-details-heading{display:block;font-weight:700;font-size:1rem;margin-bottom:.55rem}

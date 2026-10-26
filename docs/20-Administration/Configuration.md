@@ -231,3 +231,23 @@ Package hosts that refuse HEAD (HTTP 403/405/501) get a one-byte Range GET fallb
 The response is closed without reading the package body, and Content-Range's
 full size is used rather than the one-byte response length. This permits FCC
 metadata checks without downloading the roughly 200 MB callbook on each check.
+
+
+## Dashboard popup switches and refresh interval
+
+The six on/off status controls (Ethernet, Wi-Fi, Hotspot, Internet pass-through,
+Auto refresh and Debug) use accessible slider switches at the upper right of
+their pop-ups. Opening a pop-up does not change state. Network authorization and
+current-access-path protections are unchanged. Remember for 10 minutes in the
+caretaker prompt also uses a slider; it is still off by default.
+
+Auto refresh accepts whole-number intervals from 5 through 300 seconds. Choose
+Apply interval (or press Enter) to apply and save the choice in this browser's
+local storage (`dataark.dashboard.refreshIntervalSeconds`). The default is five
+seconds. Invalid/stale stored values fall back to the default. Other devices and
+browser profiles keep their own choices. Changing the interval while paused does
+not start polling. Resuming uses the selected interval. A page reload starts
+Auto refresh again and retains its saved interval. The System pop-up's live
+library statistics follow dashboard refreshes; initial/opening requests remain
+available even when periodic refresh is paused. No server update/download
+schedule is changed by this display preference.

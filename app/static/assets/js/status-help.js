@@ -6,7 +6,7 @@
         "ap-button": {name:"Hotspot", description:"The DataArk Wi-Fi network your devices join to use the Ark.", settings:"/config/system.html", settingsLabel:"Change hotspot settings", toggle:true},
         "portal-continue": {name:"Internet pass-through", description:"Allow this device to reach the internet through the Ark. This does not change access for other devices. Permission lasts up to six hours and resets when the Ark restarts.", toggle:true},
         "system-button": {name:"System", description:"The Ark's health, running time, and library storage.", settings:"/library.html", settingsLabel:"Manage Library"},
-        "refresh-button": {name:"Auto refresh", description:"Update the displayed dashboard status every five seconds. Pausing this does not stop the Ark's services.", toggle:true},
+        "refresh-button": {name:"Auto refresh", description:"Update the displayed dashboard status at your chosen interval. Pausing this does not stop the Ark's services.", toggle:true},
         "debug-button": {name:"Debug", description:"Record diagnostic information for troubleshooting. Portal monitoring runs only while Debug is on. Logs stay on this Ark, rotate automatically, and include known portal-check DNS names.", toggle:true},
     };
     window.addEventListener("DOMContentLoaded", () => {
@@ -33,6 +33,44 @@
         switchState.setAttribute("aria-hidden", "true");
         switchState.hidden = true;
         toggleRow.append(switchState);
+        const intervalPanel = document.createElement("div");
+        intervalPanel.className = "refresh-interval-panel";
+        intervalPanel.hidden = true;
+        const intervalLabel = document.createElement("label");
+        intervalLabel.htmlFor = "status-refresh-interval";
+        intervalLabel.textContent = "Refresh interval (seconds)";
+        const intervalInput = document.createElement("input");
+        intervalInput.id = "status-refresh-interval";
+        intervalInput.type = "number";
+        intervalInput.min = "5"; intervalInput.max = "300"; intervalInput.step = "1";
+        intervalInput.inputMode = "numeric";
+        intervalInput.setAttribute("aria-describedby", "status-refresh-interval-help");
+        const intervalHelp = document.createElement("p");
+        intervalHelp.id = "status-refresh-interval-help";
+        intervalHelp.textContent = "5–300 seconds. Apply to save the interval for this browser.";
+        const intervalApply = document.createElement("button");
+        intervalApply.type = "button";
+        intervalApply.textContent = "Apply interval";
+        const intervalResult = document.createElement("p");
+        intervalResult.className = "refresh-interval-result";
+        intervalResult.setAttribute("role", "status");
+        intervalPanel.append(intervalLabel, intervalInput, intervalApply, intervalHelp, intervalResult);
+        description.after(intervalPanel);
+        let intervalDirty = false;
+        intervalInput.addEventListener("input", () => { intervalInput.setCustomValidity(""); intervalDirty = true; });
+        function applyInterval() {
+            try {
+                Dashboard.setRefreshInterval(Number(intervalInput.value));
+                intervalDirty = false;
+                intervalInput.setCustomValidity("");
+                intervalResult.textContent = Dashboard.refreshEnabled ? "Checking every " + Dashboard.refreshIntervalSeconds + " seconds." : "Saved. Checks resume at this interval when Auto refresh is on.";
+            } catch (error) {
+                intervalInput.setCustomValidity(error.message);
+                intervalInput.reportValidity();
+            }
+        }
+        intervalApply.addEventListener("click", applyInterval);
+        intervalInput.addEventListener("keydown", event => { if (event.key === "Enter") { event.preventDefault(); applyInterval(); } });
         const terminalLink = document.createElement("a");
         terminalLink.textContent = "Terminal";
         terminalLink.hidden = true;
@@ -60,7 +98,7 @@
         document.getElementById("status-dialog-toggle-row").after(wifiMessage);
         const passwordDialog = document.createElement("dialog");
         passwordDialog.className = "caretaker-dialog";
-        passwordDialog.innerHTML = '<form method="dialog"><h2>Caretaker password</h2><p>Authorize the network change.</p><label>Password<input type="password" name="password" autocomplete="off" required></label><label><input type="checkbox" name="remember"> Remember for 10 minutes</label><p class="dialog-actions"><button value="cancel" type="button">Cancel</button><button value="apply" type="submit">Apply</button></p></form>';
+        passwordDialog.innerHTML = '<form method="dialog"><h2>Caretaker password</h2><p>Authorize the network change.</p><label>Password<input type="password" name="password" autocomplete="off" required></label><label class="caretaker-remember-switch"><input type="checkbox" role="switch" name="remember"><span class="network-switch-track" aria-hidden="true"></span><span>Remember for 10 minutes</span></label><p class="dialog-actions"><button value="cancel" type="button">Cancel</button><button value="apply" type="submit">Apply</button></p></form>';
         document.body.append(passwordDialog);
         passwordDialog.querySelector('[value="cancel"]').addEventListener("click", () => passwordDialog.close("cancel"));
         let cachedPassword = null;
@@ -113,7 +151,7 @@
             finally{clearTimeout(timer);libraryBusy=false;if(selected==="system-button"&&dialog.open)render();}
         }
         refreshLibrary(true);
-        setInterval(refreshLibrary,5000);
+        window.addEventListener("dataark:dashboard-refreshed", () => refreshLibrary());
         let allowAction = false;
         let pending = null;
         let pendingTimer = null;
@@ -162,7 +200,7 @@
             if (!selected) return;
             const item = items[selected], original = document.getElementById(selected);
             heading.textContent = item.name;
-            const networkSwitch = ["wifi-button", "eth-button", "ap-button"].includes(selected);
+            const networkSwitch = !!item.toggle;
             dialog.classList.toggle("network-popup", networkSwitch);
             toggleRow.classList.toggle("network-enable-switch", networkSwitch);
             const toggleParent = networkSwitch ? popupHeader : toggleHome;
@@ -174,7 +212,10 @@
             switchState.hidden = !networkSwitch;
             if (networkSwitch) action.setAttribute("role", "switch");
             else action.removeAttribute("role");
-            description.textContent = item.description;
+            description.textContent = selected === "refresh-button" ? "Update the displayed dashboard status every " + Dashboard.refreshIntervalSeconds + " seconds. Pausing this does not stop the Ark's services." : item.description;
+            intervalPanel.hidden = selected !== "refresh-button";
+            if (selected === "refresh-button" && !intervalDirty && document.activeElement !== intervalInput) intervalInput.value = String(Dashboard.refreshIntervalSeconds);
+            if (selected === "refresh-button" && intervalResult.textContent) intervalResult.textContent = Dashboard.refreshEnabled ? "Checking every " + Dashboard.refreshIntervalSeconds + " seconds." : "Paused. Checks resume at this interval when Auto refresh is on.";
             renderDetails(item, original.title);
             value.hidden = !!item.url || (!!item.toggle && !["wifi-button", "eth-button", "ap-button"].includes(selected));
             wifiMessage.hidden = !["wifi-button", "eth-button", "ap-button"].includes(selected);
@@ -265,6 +306,8 @@
         });
         close.addEventListener("click", () => dialog.close());
         dialog.addEventListener("close", () => {
+            intervalDirty = false;
+            intervalResult.textContent = "";
             if (selected) document.getElementById(selected).focus();
         });
     });

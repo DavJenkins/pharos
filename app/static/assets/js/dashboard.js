@@ -7,6 +7,7 @@
 const Dashboard = {
 
     refreshEnabled: true,
+    refreshIntervalSeconds: 5,
     refreshTimer: null,
     refreshing: false,
 
@@ -29,7 +30,7 @@ const Dashboard = {
 
         this.refreshTimer = setInterval(
             () => this.refresh(),
-            5000
+            this.refreshIntervalSeconds * 1000
         );
     },
 
@@ -55,6 +56,25 @@ const Dashboard = {
         this.updateRefreshButton();
     },
 
+    loadRefreshInterval() {
+        let seconds;
+        try { seconds = Number(localStorage.getItem("dataark.dashboard.refreshIntervalSeconds")); }
+        catch (_) { return; }
+        if (Number.isInteger(seconds) && seconds >= 5 && seconds <= 300)
+            this.refreshIntervalSeconds = seconds;
+    },
+
+    setRefreshInterval(seconds) {
+        if (!Number.isInteger(seconds) || seconds < 5 || seconds > 300)
+            throw new RangeError("Choose a whole number from 5 to 300 seconds.");
+        this.refreshIntervalSeconds = seconds;
+        try { localStorage.setItem("dataark.dashboard.refreshIntervalSeconds", String(seconds)); }
+        catch (_) { /* The preference still works for this page if storage is unavailable. */ }
+        this.stopTimer();
+        if (this.refreshEnabled) this.startTimer();
+        this.updateRefreshButton();
+    },
+
     //------------------------------------------------------------------
     // Buttons
     //------------------------------------------------------------------
@@ -74,7 +94,7 @@ const Dashboard = {
         b.title =
             "Auto Refresh\n\n" +
             (this.refreshEnabled
-                ? "Enabled (5 seconds)"
+                ? "Enabled (" + this.refreshIntervalSeconds + " seconds)"
                 : "Paused");
     },
 
@@ -165,6 +185,7 @@ const Dashboard = {
             this.byId("sync-status").title = typeof DataArkStatus.syncTooltip === "function"
                 ? DataArkStatus.syncTooltip()
                 : (DataArkStatus.data?.status?.update?.detail || DataArkStatus.sync);
+            window.dispatchEvent(new Event("dataark:dashboard-refreshed"));
 
         }
         catch (err) {
@@ -190,6 +211,7 @@ const Dashboard = {
 
     async initialize() {
 
+        this.loadRefreshInterval();
         this.updateRefreshButton();
 
         this.byId("refresh-button")
