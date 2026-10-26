@@ -5196,3 +5196,43 @@ dashboard:
   asset_links:
     osm-caribbean: /maps.html?collection=caribbean
     callbook-callsigns-sqlite: /callsigns.html
+personalization:
+  version: 1
+  languages:
+  - en
+  jurisdictions_of_interest:
+  - US
+  - US-MA
+  vehicles:
+  - id: accord-2017
+    year: 2017
+    make: Honda
+    model: Accord
+    body_style: 4-door sedan
+    asset_ids:
+    - accord-2017-manual
+    - accord-2017-guide
+  - id: civic-2017
+    year: 2017
+    make: Honda
+    model: Civic
+    body_style: 4-door sedan
+    asset_ids:
+    - civic-2017-manual
+    - civic-2017-guide
+  destinations:
+  - id: sint-maarten
+    name: Sint Maarten / Saint Martin
+    asset_ids:
+    - osm-caribbean
+    viewer_url: /maps.html?collection=caribbean
+  - id: usvi
+    name: U.S. Virgin Islands
+    asset_ids:
+    - osm-caribbean
+    viewer_url: /maps.html?collection=caribbean
+  - id: caribbean-islands
+    name: Caribbean islands
+    asset_ids:
+    - osm-caribbean
+    viewer_url: /maps.html?collection=caribbean

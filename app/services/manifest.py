@@ -318,6 +318,8 @@ def load_manifest(path):
             settings(data)
         except ValueError as error:
             raise ManifestError(str(error)) from None
+    from app.services.personalization import validate as validate_personalization
+    validate_personalization(data, ManifestError, url)
     from app.services.dashboard_cards import validate as validate_dashboard
     validate_dashboard(data, ManifestError, url)
     validate_resource_sections(data.get('resource_sections', []))

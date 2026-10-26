@@ -251,3 +251,7 @@ Auto refresh again and retains its saved interval. The System pop-up's live
 library statistics follow dashboard refreshes; initial/opening requests remain
 available even when periodic refresh is paused. No server update/download
 schedule is changed by this display preference.
+
+## Household content interests
+
+The optional `personalization` section in `dataark.yaml` records vehicles, preferred destinations, languages and jurisdictions, with validated links to registered content. It is preserved in portable content exports. See [Personalization](Personalization.md) for its schema and sharing considerations.

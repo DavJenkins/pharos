@@ -16,7 +16,7 @@ COLLECTIONS={
  'callsigns':('tools/install_callsigns.py',[],'deploy/reference/callsign-sources.json'),
  'radio-study':('tools/install_radio_study.py',[],'deploy/reference/radio-pools.json')}
 REFERENCE_FILES=['reference-checks.json','jurisdictions.json','family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','osm-usa.json','osm-usa.geojson','osm-caribbean.json','vehicle-manuals.json','honda-intermediate.pem','holiday-themes.json']
-PUBLIC_KEYS=['system','geography','maps','categories','scenarios','repositories','assets','resource_sections','dashboard']
+PUBLIC_KEYS=['system','geography','maps','categories','scenarios','repositories','assets','resource_sections','dashboard','personalization']
 def read(path):return yaml.safe_load(Path(path).read_text())
 def write(path,data):
  path.parent.mkdir(parents=True,exist_ok=True);p=path.with_suffix(path.suffix+'.part');p.write_text(data);p.chmod(0o644);p.replace(path)

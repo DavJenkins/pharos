@@ -92,3 +92,5 @@
 - [Home Assistant health and bug-out](20-Administration/HomeAssistant.md)
 
 - [Optional HTTPS and clone identities](20-Administration/HTTPS.md)
+
+- [Personalization and household content interests](20-Administration/Personalization.md)
