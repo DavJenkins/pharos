@@ -71,7 +71,7 @@ def generate(data, root):
             out += ['', '### Included tools and activities', '']
             for title, target, detail in TOOLS[identifier]:out.append('- [' + title + '](' + target + ') — ' + detail)
         if identifier == 'maps-navigation':
-            out += ['', '::: details All 50 U.S. states', '', 'The nationwide street-map archive covers all 50 states, including Alaska and Hawaii. This is one map dataset, not 50 separate downloads. States: Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware, Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana, Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina, North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia, Wisconsin, Wyoming.', '', ':::', '', '::: details Caribbean island groups and destinations', '', 'The configured rectangular extraction spans longitude -89 to -58 and latitude 9 to 28, to zoom 15. It includes the following major island groups and adjoining coasts; this is a coverage overview, not an enumeration of every small island or a guarantee of feature completeness.', '']
+            out += ['', '::: details All 50 U.S. states', '', 'The nationwide street-map archive covers all 50 states, including Alaska and Hawaii. This is one map dataset, not 50 separate downloads. ', '', ':::', '', '::: details Caribbean island groups and destinations', '', 'The configured rectangular extraction spans longitude -89 to -58 and latitude 9 to 28, to zoom 15. It includes the following major island groups and adjoining coasts; this is a coverage overview, not an enumeration of every small island or a guarantee of feature completeness.', '']
             out += ['- ' + island for island in ISLANDS]
             out += ['', 'Bermuda is outside this extraction. The map viewer offers quick locations for Sint Maarten, USVI/BVI, Puerto Rico and the Bahamas.', '', ':::']
         groups = []
@@ -95,7 +95,7 @@ def generate(data, root):
         if identifier in GAPS:
             out += ['', '### Outstanding acquisition gaps', ''] + ['- ' + gap for gap in GAPS[identifier]]
     out += ['', '## Scope and maintenance', '', 'This guide documents registered collections and linked tools. The Community board is a separate local service, not a twenty-fourth content-source card. USA.gov is an online-only reference and is not presented as an installed collection. Unregistered files and every article/book inside a ZIM are outside this item-level inventory. The wider [content-gap register](../20-Administration/ContentGaps.md) records acquisition work; use Manage Library and the catalogue source logs for current status.', '']
-    return '\n'.join(out), ids, cards
+    return '\n'.join(line.rstrip() for line in out), ids, cards
 
 def main():
     data = load_manifest(ROOT / 'dataark.yaml')

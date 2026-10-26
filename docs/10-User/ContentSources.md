@@ -147,7 +147,7 @@ The street maps are not nautical charts or a routing service. The expandable lis
 
 ::: details All 50 U.S. states
 
-The nationwide street-map archive covers all 50 states, including Alaska and Hawaii. This is one map dataset, not 50 separate downloads. States: Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware, Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana, Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina, North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia, Wisconsin, Wyoming.
+The nationwide street-map archive covers all 50 states, including Alaska and Hawaii. This is one map dataset, not 50 separate downloads.
 
 :::
 
