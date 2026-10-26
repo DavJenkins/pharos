@@ -5,14 +5,17 @@ import argparse
 import tempfile
 import html
 import re
+import sys
 from urllib.parse import urlsplit, urlunsplit
 
 SOURCE = Path(__file__).resolve().parents[1] / 'docs'
+sys.path.insert(0, str(SOURCE.parent))
+from app.services.documentation_theme import masthead, footer
 
 
 def escaped_inline(text):
     parts = re.split(r"(`[^`]+`)", text)
-    return "".join("<code>" + html.escape(part[1:-1]) + "</code>" if part.startswith("`") and part.endswith("`") else html.escape(part) for part in parts)
+    return "".join("<code>" + html.escape(part[1:-1]) + "</code>" if part.startswith("`") and part.endswith("`") else re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', html.escape(part)) for part in parts)
 
 
 def inline_html(text):
@@ -40,18 +43,19 @@ def markdown_to_html(text):
     out = []
 
     out.append("""<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Data Ark Documentation</title>
 
-<link rel="stylesheet" href="/assets/css/ark-pages.css">
-<style>.ark-docs{max-width:1000px}.ark-docs h2{border-bottom:1px solid #b7c4cd;padding-bottom:.4rem}.ark-docs pre{overflow:auto}.docs-nav{font-size:.9rem;margin-bottom:1.5rem}@media print{body{background:white;padding:0}.ark-page{box-shadow:none;border:0;background:white}.ark-page-brand,.docs-nav{display:none}}</style>
+<link rel="stylesheet" href="/assets/css/ark-documentation.css?v=1">
 
 </head>
-<body><main class="ark-page ark-docs"><a class="ark-page-brand" href="/">Data Ark</a><nav class="docs-nav"><a href="/docs/SUMMARY.html">Documentation contents</a><a href="/content.html">Access content</a></nav>
+<body class="ark-documentation"><div class="documentation-shell">
 """)
+    out.append(masthead('HELP & HANDBOOK', 'help'))
+    out.append('<main class="docs-paper handbook-paper"><p class="docs-eyebrow">THE DATA ARK HANDBOOK</p>')
 
     in_list = False
     in_code = False
@@ -66,6 +70,12 @@ def markdown_to_html(text):
             continue
         if in_code:
             out.append(html.escape(line))
+            continue
+
+        if line.strip() == '---':
+            if in_list:
+                out.append('</ul>'); in_list = False
+            out.append('<hr>')
             continue
 
         if line.startswith("# "):
@@ -108,7 +118,7 @@ def markdown_to_html(text):
 
     if in_code:
         out.append("</code></pre>")
-    out.append("</main></body></html>")
+    out.append('</main>' + footer() + '</div></body></html>')
 
     return "\n".join(out)
 

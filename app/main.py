@@ -13,7 +13,12 @@ app = FastAPI(
     version="1.0.0",
     description="REST API for the Data Ark appliance",
     root_path="/api",
+    docs_url=None,
+    redoc_url=None,
 )
+
+from app.routers.documentation import router as documentation_router
+app.include_router(documentation_router)
 
 from app.routers.bugout import router as bugout_router
 app.include_router(bugout_router)
