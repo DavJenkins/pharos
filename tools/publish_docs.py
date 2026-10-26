@@ -72,6 +72,17 @@ def markdown_to_html(text):
             out.append(html.escape(line))
             continue
 
+        if line.startswith('::: details '):
+            if in_list:
+                out.append('</ul>'); in_list = False
+            out.append('<details class="content-details"><summary>' + inline_html(line[len('::: details '):]) + '</summary>')
+            continue
+        if line.strip() == ':::':
+            if in_list:
+                out.append('</ul>'); in_list = False
+            out.append('</details>')
+            continue
+
         if line.strip() == '---':
             if in_list:
                 out.append('</ul>'); in_list = False
@@ -89,7 +100,8 @@ def markdown_to_html(text):
             if in_list:
                 out.append("</ul>")
                 in_list = False
-            out.append(f"<h2>{inline_html(line[3:])}</h2>")
+            anchor = re.sub(r'[^a-z0-9]+', '-', line[3:].lower()).strip('-')
+            out.append(f'<h2 id="{anchor}">{inline_html(line[3:])}</h2>')
             continue
 
         if line.startswith("### "):

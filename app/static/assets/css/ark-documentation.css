@@ -49,3 +49,9 @@ body.ark-documentation{margin:0;padding:clamp(.5rem,2.5vw,2rem);background:#203e
 .ark-documentation a:focus-visible,.ark-documentation button:focus-visible,.ark-documentation input:focus-visible{outline:3px solid #b38e25;outline-offset:3px}
 @media(max-width:620px){.docs-masthead{align-items:flex-start;flex-direction:column;gap:1rem}.docs-masthead-right{text-align:left;width:100%}.docs-masthead nav{justify-content:flex-start}.docs-paper{padding:1rem}.docs-paper h1{font-size:1.7rem}.api-paper .swagger-ui .opblock-summary{flex-wrap:wrap}.api-paper .swagger-ui .opblock-summary-path{max-width:calc(100% - 100px);font-size:.85rem}.docs-footer{font-size:.75rem}}
 @media print{body.ark-documentation{background:#fff;padding:0}.documentation-shell{border:0;box-shadow:none;max-width:none}.docs-masthead,.docs-footer{display:none}.docs-paper{background:#fff;padding:0;color:#000}.handbook-paper pre{background:#eee;color:#000}.docs-paper h1,.docs-paper h2{color:#000}}
+
+/* Long content inventories remain readable on small displays. */
+.handbook-paper .content-details{margin:1rem 0;border:1px solid #b7a885;border-radius:8px;background:#faf7ef;padding:.7rem 1rem}
+.handbook-paper .content-details summary{cursor:pointer;font-weight:650;color:#203e54;min-height:1.5rem}
+.handbook-paper .content-details[open] summary{padding-bottom:.6rem;border-bottom:1px solid #d8cba9}
+.handbook-paper .content-details a{overflow-wrap:anywhere}

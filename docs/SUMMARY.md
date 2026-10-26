@@ -11,6 +11,7 @@
 ## User
 
 - [User Guide](10-User/UserGuide.md)
+- [Content sources: all 23 cards](10-User/ContentSources.md)
 - [Frequently Asked Questions](10-User/FAQ.md)
 - [Resources beyond the library](10-User/Resources.md)
 - [Community board](20-Administration/CommunityBoard.md)
