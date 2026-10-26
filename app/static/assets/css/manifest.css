@@ -198,6 +198,23 @@ body{background-image:none}
 .status-dialog-footer button{min-height:44px;padding:.6rem .9rem;border:1px solid #94a8b5;border-radius:6px;font:inherit;background:#e5edf3;color:#234a62;cursor:pointer}
 .status-dialog-footer button:focus-visible{outline:2px solid #075d89;outline-offset:2px}
 
+/* Network enable switches live beside the popup title, with a 44px target. */
+.status-dialog-heading-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.75rem}
+.status-dialog-heading-row #status-dialog-heading{margin:0;min-width:0;overflow-wrap:anywhere}
+.network-popup .status-dialog-heading-row{min-height:44px}
+#status-dialog .network-enable-switch{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:.5rem;min-width:6rem;min-height:44px;margin:0;flex-shrink:0;cursor:pointer}
+.network-enable-switch #status-dialog-toggle-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.network-enable-switch #status-dialog-action{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;z-index:1;cursor:pointer}
+.network-switch-track{position:relative;display:block;width:48px;height:28px;box-sizing:border-box;border:1px solid #596d7b;border-radius:999px;background:#697b88;flex-shrink:0;transition:background .15s}
+.network-switch-track::after{content:"";position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0004;transition:transform .15s,background .15s}
+.network-enable-switch input:checked + .network-switch-track{background:#203e54;border-color:#203e54}
+.network-enable-switch input:checked + .network-switch-track::after{transform:translateX(20px);background:#d4af37}
+.network-enable-switch input:focus-visible + .network-switch-track{outline:3px solid #1673a1;outline-offset:3px}
+.network-switch-state{min-width:1.7rem;font-weight:600;font-size:.9rem}
+.network-enable-switch input:disabled{cursor:not-allowed!important}
+.network-enable-switch:has(input:disabled) .network-switch-track,.network-enable-switch:has(input:disabled) .network-switch-state{opacity:.55}
+@media(prefers-reduced-motion:reduce){.network-switch-track,.network-switch-track::after{transition:none}}
+
 #status-dialog-value{white-space:normal;overflow-wrap:anywhere}
 .status-details-heading{display:block;font-weight:700;font-size:1rem;margin-bottom:.55rem}
 .status-details-list{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:.35rem .8rem;margin:0 0 0 .75rem;line-height:1.45}

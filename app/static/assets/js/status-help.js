@@ -17,6 +17,22 @@
         const action = document.getElementById("status-dialog-action");
         const link = document.getElementById("status-dialog-link");
         const close = document.getElementById("status-dialog-close");
+        const toggleRow = document.getElementById("status-dialog-toggle-row");
+        const toggleHome = toggleRow.parentElement;
+        const popupHeader = document.createElement("div");
+        popupHeader.className = "status-dialog-heading-row";
+        heading.before(popupHeader);
+        popupHeader.append(heading);
+        const switchTrack = document.createElement("span");
+        switchTrack.className = "network-switch-track";
+        switchTrack.setAttribute("aria-hidden", "true");
+        switchTrack.hidden = true;
+        action.after(switchTrack);
+        const switchState = document.createElement("span");
+        switchState.className = "network-switch-state";
+        switchState.setAttribute("aria-hidden", "true");
+        switchState.hidden = true;
+        toggleRow.append(switchState);
         const terminalLink = document.createElement("a");
         terminalLink.textContent = "Terminal";
         terminalLink.hidden = true;
@@ -146,6 +162,18 @@
             if (!selected) return;
             const item = items[selected], original = document.getElementById(selected);
             heading.textContent = item.name;
+            const networkSwitch = ["wifi-button", "eth-button", "ap-button"].includes(selected);
+            dialog.classList.toggle("network-popup", networkSwitch);
+            toggleRow.classList.toggle("network-enable-switch", networkSwitch);
+            const toggleParent = networkSwitch ? popupHeader : toggleHome;
+            if (toggleRow.parentElement !== toggleParent) {
+                if (networkSwitch) toggleParent.append(toggleRow);
+                else toggleParent.prepend(toggleRow);
+            }
+            switchTrack.hidden = !networkSwitch;
+            switchState.hidden = !networkSwitch;
+            if (networkSwitch) action.setAttribute("role", "switch");
+            else action.removeAttribute("role");
             description.textContent = item.description;
             renderDetails(item, original.title);
             value.hidden = !!item.url || (!!item.toggle && !["wifi-button", "eth-button", "ap-button"].includes(selected));
@@ -161,8 +189,10 @@
                 const interfaceName = {"ap-button":"wlan0", "wifi-button":"wlan1", "eth-button":"eth0"}[selected];
                 const protectedPath = interfaceName && enabled && (!access.known || access.protected.includes(interfaceName));
                 if (interfaceName && !wifiBusy && protectedPath) wifiMessage.textContent = protectedPath ? (access.known ? "This is your current access path. Connect through another interface to disable it." : "Checking your access path; disabling is blocked until it can be verified.") : "";
+                if (interfaceName && !wifiBusy && !protectedPath && (wifiMessage.textContent.startsWith("Checking your access path") || wifiMessage.textContent.startsWith("This is your current access path"))) wifiMessage.textContent = "";
                 action.disabled = !!protectedPath || wifiBusy || unavailable || original.getAttribute("aria-busy") === "true" || !!pending;
                 action.checked = pending && pending.id === selected ? pending.checked : enabled;
+                switchState.textContent = action.checked ? "On" : "Off";
                 document.getElementById("status-dialog-toggle-label").textContent = selected === "ap-button" ? "Enable hotspot" : selected === "eth-button" ? "Enable Ethernet" : selected === "wifi-button" ? "Enable upstream Wi-Fi" : selected === "debug-button" ? "Enable debug diagnostics" : selected === "refresh-button" ? "Update status automatically" : "Use the Ark's internet connection on this device";
             }
             terminalLink.hidden = selected !== "system-button";
@@ -197,6 +227,7 @@
                 const hotspot = selected === "ap-button";
                 const networkName = hotspot ? "hotspot" : wired ? "Ethernet" : "upstream Wi-Fi";
                 const enabled = action.checked;
+                switchState.textContent = enabled ? "On" : "Off";
                 wifiBusy = true;
                 action.disabled = true;
                 try {
