@@ -49,3 +49,17 @@ context.ArkNoticeMarkdown.applyColor(root,'#ff0000');assert.equal(root.style['--
 context.ArkNoticeMarkdown.applyColor(root,'#fff0bd');assert.equal(root.style['--ark-notice-fg'],'#203e54');
 context.ArkNoticeMarkdown.applyColor(root,'url(javascript:bad)');assert.equal(root.style['--ark-notice-bg'],'#fff0bd');
 console.log('Banner Markdown: formatting, lists, links, tables, code, line breaks and unsafe content handling passed.');
+
+const sample=new Date(2026,9,26,9,7,5);
+const expand=(value,now=sample)=>context.ArkNoticeMarkdown.expandVariables(value,now);
+assert.equal(expand('Good [morning]! Happy [Monday], [10/26]  Have a nice [afternoon]!'),'Good morning! Happy Monday, 10/26  Have a nice morning!');
+assert.equal(expand('[date:YYYY-MM-DD] [time:HH:mm:ss] [date:ddd, MMM D]'),'2026-10-26 09:07:05 Mon, Oct 26');
+assert.equal(expand('[time:h:mm A] [weekday] [unknown]'),'9:07 AM Monday [unknown]');
+for(const [hour,part] of [[0,'night'],[4,'night'],[5,'morning'],[11,'morning'],[12,'afternoon'],[16,'afternoon'],[17,'evening'],[20,'evening'],[21,'night'],[23,'night']])assert.equal(expand('[daypart]',new Date(2026,9,26,hour)),part);
+assert.equal(expand('[weekday] [date]',new Date(2026,9,27,0,0)),'Tuesday 10/27');
+assert.equal(expand('[date:YYYY-MM-DD]',new Date(2028,1,29,12)),'2028-02-29');
+root=new Node('aside');context.ArkNoticeMarkdown.render(root,'**[weekday]** [date:MM/DD] `[weekday]` [Monday](/community.html)',{variables:true,now:sample});
+assert(root.textContent.includes('Monday 10/26 [weekday] Monday'));
+assert.equal(all(root).find(n=>n.tag==='a').href,'http://dataark/community.html');
+assert.equal(render('[weekday]').textContent,'[weekday]');
+console.log('Banner variables: formatting, daypart boundaries, midnight/leap day, Markdown/code/link safety and opt-in scope passed.');

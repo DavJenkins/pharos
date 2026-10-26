@@ -1,8 +1,29 @@
 /* Markdown tokens become explicitly allowed DOM nodes; raw HTML is never inserted. */
 (() => {
   'use strict';
-  function render(target, source) {
-    if (!window.marked?.lexer) { target.textContent=source; return; }
+  function dateFormat(now, format) {
+    const pad=n=>String(n).padStart(2,'0'),hour=now.getHours();
+    const names=(key,size)=>new Intl.DateTimeFormat('en-US',{[key]:size}).format(now);
+    const values={YYYY:String(now.getFullYear()),YY:pad(now.getFullYear()%100),MMMM:names('month','long'),MMM:names('month','short'),MM:pad(now.getMonth()+1),M:String(now.getMonth()+1),DD:pad(now.getDate()),D:String(now.getDate()),dddd:names('weekday','long'),ddd:names('weekday','short'),HH:pad(hour),H:String(hour),hh:pad(hour%12||12),h:String(hour%12||12),mm:pad(now.getMinutes()),m:String(now.getMinutes()),ss:pad(now.getSeconds()),s:String(now.getSeconds()),A:hour<12?'AM':'PM',a:hour<12?'am':'pm'};
+    return format.replace(/'[^']*'|YYYY|MMMM|dddd|MMM|ddd|YY|MM|DD|HH|hh|mm|ss|M|D|H|h|m|s|A|a/g,key=>key.startsWith("'")?key.slice(1,-1):values[key]);
+  }
+  function expandVariables(source, now=new Date()) {
+    if(!Number.isFinite(now.getTime()))return source;
+    const hour=now.getHours(),part=hour>=5&&hour<12?'morning':hour<17&&hour>=12?'afternoon':hour>=17&&hour<21?'evening':'night';
+    return source.replace(/\[([^\[\]\n]{1,100})\]/g,(original,body)=>{
+      const colon=body.indexOf(':'),key=(colon<0?body:body.slice(0,colon)).toLowerCase(),format=colon<0?null:body.slice(colon+1);
+      if(['daypart','period','morning','afternoon','evening','night'].includes(key)&&format===null)return part;
+      if(['weekday','day','monday','tuesday','wednesday','thursday','friday','saturday','sunday'].includes(key))return dateFormat(now,format||'dddd');
+      if(key==='date')return dateFormat(now,format||'MM/DD');
+      if(key==='time')return dateFormat(now,format||'h:mm A');
+      if(format===null && (/^(MM\/DD|YYYY-MM-DD)$/.test(body)||/^(0?[1-9]|1[0-2])\/(0?[1-9]|[12][0-9]|3[01])$/.test(body)))return dateFormat(now,body==='YYYY-MM-DD'?body:'MM/DD');
+      return original;
+    });
+  }
+  function render(target, source, options={}) {
+    const now=options.now||new Date();
+    const expand=value=>options.variables?expandVariables(value,now):value;
+    if (!window.marked?.lexer) { target.textContent=expand(source); return; }
     const element=(tag, children=[])=>{const node=document.createElement(tag);node.append(...children);return node;};
     const literal=value=>document.createTextNode(value||'');
     const decode=value=>(value||'').replace(/&(?:#[0-9]+|#x[0-9a-f]+|[a-z][a-z0-9]+);/gi,reference=>{
@@ -66,7 +87,7 @@
         // Images stay as alt text; a banner never fetches remote images or tracking pixels.
         case 'image':return literal(decode(item.text));
         case 'html':return literal(item.text||item.raw);
-        case 'text':return item.tokens?inline():literal(decode(item.text));
+        case 'text':return item.tokens?inline():literal(expand(decode(item.text)));
         case 'escape':return literal(item.text);
         default:return literal(item.raw||item.text);
       }
@@ -94,5 +115,5 @@
     target.style.setProperty('--ark-notice-margin',margin+'%');
     for(const key of ['margin_top','margin_bottom']){const value=Number(data[key]??12);target.style.setProperty('--ark-notice-'+key.replace('_','-'),(Number.isFinite(value)?Math.max(0,Math.min(200,value)):12)+'px');}
   }
-  window.ArkNoticeMarkdown=Object.freeze({render,applyColor,applyAppearance});
+  window.ArkNoticeMarkdown=Object.freeze({render,applyColor,applyAppearance,expandVariables});
 })();

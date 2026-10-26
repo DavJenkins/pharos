@@ -14,7 +14,7 @@
   let generation=0,busy=false;
   function preview() {
     const value=text.value,target=$('#notice-preview');
-    window.ArkNoticeMarkdown.render(target,value);window.ArkNoticeMarkdown.applyAppearance(target,settings());
+    window.ArkNoticeMarkdown.render(target,value,{variables:true});window.ArkNoticeMarkdown.applyAppearance(target,settings());
     if(mode.value==='auto'){const actual=target.style.getPropertyValue('--ark-notice-fg');foreground.value=actual;textHex.value=actual;}
     foreground.disabled=busy;textHex.disabled=busy;margin.disabled=busy||width.value!=='margin';
     target.hidden=!value.trim();$('#notice-counter').textContent=value.length+' / 300';
@@ -52,6 +52,7 @@
     }catch(failure){error.textContent=failure.message;}
     finally {lock(false);}
   }
+  setInterval(()=>{if(dialog.open&&!busy&&!document.hidden)preview();},1000);
   text.addEventListener('input',preview);for(const control of [width,margin,top,bottom,font,position])control.addEventListener('input',preview);
   mode.addEventListener('input',()=>{if(mode.value==='custom'){foreground.value=manualText;textHex.value=manualText;}preview();});
   function chooseCustom(){if(busy)return;if(mode.value==='auto'){manualText=textHex.value;mode.value='custom';preview();}}
