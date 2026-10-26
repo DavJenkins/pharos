@@ -3009,6 +3009,16 @@
       "sha256": "704163b8158b988ee800e65ac55ef743d16a24175453e1013dec12e44b905632",
       "source": "https://50constitutions.org/wy/constitution",
       "repository": "civic-reference"
+    },
+    {
+      "id": "osm-caribbean",
+      "title": "Caribbean islands offline street map (October 22, 2026)",
+      "path": "maps/osm/caribbean.pmtiles",
+      "selected": true,
+      "bytes": 1484827029,
+      "sha256": "121672b9bc6b894a88f6fd35e803acfcb86453301b23ffabf94e130fe6941ed9",
+      "source": "https://docs.protomaps.com/basemaps/downloads",
+      "repository": "openstreetmap"
     }
   ],
   "unmanaged_archives": [

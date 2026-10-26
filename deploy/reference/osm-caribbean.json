@@ -1,0 +1,17 @@
+{
+  "source": "https://build.protomaps.com/20261022.pmtiles",
+  "bbox": [
+    -89,
+    9,
+    -58,
+    28
+  ],
+  "maxzoom": 15,
+  "title": "Caribbean islands, Bahamas and adjoining coasts",
+  "scope": "Broad rectangular coverage includes the Greater and Lesser Antilles, Puerto Rico, USVI, BVI, Sint Maarten/Saint-Martin, Bahamas, Turks and Caicos, Cayman Islands, Aruba, Curacao, Bonaire and Trinidad and Tobago, plus adjoining mainland/coastal areas. Not nautical charts or routing.",
+  "path": "maps/osm/caribbean.pmtiles",
+  "reserve_gib": 40,
+  "configuration_state": "verified and published",
+  "bytes": 1484827029,
+  "sha256": "121672b9bc6b894a88f6fd35e803acfcb86453301b23ffabf94e130fe6941ed9"
+}

@@ -29,3 +29,11 @@ The 25 October national estimate is approximately 21 GB archive / 22 GB transfer
 This Pi was found with `cgroup_disable=memory` and no memory controller. `sudo python3 deploy/enable_memory_limits.py --apply` saves the reviewed `cgroup_enable=memory` boot flag, backs up the original command line and does not reboot. After a controlled reboot, verify `memory` in `/sys/fs/cgroup/cgroup.controllers` before starting the extraction unit. These limits are not enforced before that verification. Current system logs are bounded and persistent; the earlier abrupt reboot had no retained previous-boot journal, so its cause is unproven.
 
 Published national map SHA-256: `e725aa7f1fdf0bac4893d5d36aa479ea682a0b9e87f1c9f0cbe0ebf84350f663`; 20984940063 bytes. Verified before replacing the active viewer target.
+
+## Caribbean islands street map
+
+Open `/maps.html?collection=caribbean`. This is a separate offline archive, not a replacement for the U.S. collection. Shortcuts frame Sint Maarten/Saint-Martin, USVI/BVI, Puerto Rico and the Bahamas. The source cutout spans longitude -89 to -58 and latitude 9 to 28, including the Greater and Lesser Antilles, Bahamas/Turks and Caicos, Cayman Islands, the ABC islands, Trinidad and Tobago, and adjoining mainland/coastal areas. Bermuda is outside this coverage. The source is the same pinned 22 October 2026 Protomaps build as the U.S. map, native zooms 0–15.
+
+The archive is `/mnt/storage/maps/osm/caribbean.pmtiles`, exposed at `/library-files/maps/osm/caribbean.pmtiles`. Source, bounding box, verified size and checksum are recorded in `deploy/reference/osm-caribbean.json` and `maps/osm/caribbean-source.json`. Pan and zoom work offline using local scripts, styles, fonts and sprites. This is a street basemap, not a nautical chart, marine navigation aid, or route planner.
+
+The public content profile includes recipe `osm-caribbean`. Restore missing content with `python3 tools/content_profile.py restore --only osm-caribbean --apply`. Configuration and the pinned source/checksum travel in DATA-ARK-CONFIG and the recovery materials. First installation uses `tools/install_caribbean_map.py` with the resumable loopback source helper; the active archive is published only after verification. Maintain OSM/Protomaps/Natural Earth attribution.

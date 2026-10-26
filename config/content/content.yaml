@@ -1,9 +1,9 @@
 # Public content recipe. Edit enabled flags and source catalogues; keep this folder with the source repository.
 schema: 1
 name: Data Ark content selection
-exported_at: '2026-10-26T04:15:56.785791+00:00'
+exported_at: '2026-10-26T06:28:48.502536+00:00'
 source_repository: https://github.com/DavJenkins/pharos
-source_commit: 68300e277c07d2496398d25be57e824fc640160d
+source_commit: 3704f19719b40b6c4c3148089eec995cc602f97d
 content_root: /mnt/storage
 manifest: public-manifest.yaml
 reserve_gib: 10
@@ -1257,6 +1257,9 @@ recipes:
 - id: osm
   enabled: true
   configuration: deploy/reference/osm-massachusetts.json
+- id: osm-caribbean
+  enabled: true
+  configuration: deploy/reference/osm-caribbean.json
 - id: forms
   enabled: true
   catalogue: deploy/reference/forms-catalogue.json

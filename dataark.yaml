@@ -699,6 +699,21 @@ assets:
     refresh_interval: never
     source_note: CC BY 4.0 — Common Paper. Complete cover page and terms; governing
       law must be chosen. Retrieved 2026-10-23T04:57:01.848997+00:00
+  - id: osm-caribbean
+    repository_id: openstreetmap
+    category: reference
+    title: Caribbean islands offline street map (October 22, 2026)
+    relative_path: maps/osm/caribbean.pmtiles
+    service_endpoint: /maps.html?collection=caribbean
+    update_policy: manual
+    refresh_interval: never
+    online_url: https://docs.protomaps.com/basemaps/downloads
+    expected_hash: 121672b9bc6b894a88f6fd35e803acfcb86453301b23ffabf94e130fe6941ed9
+    version_pin: null
+    source_note: Broad rectangular coverage includes the Greater and Lesser Antilles,
+      Puerto Rico, USVI, BVI, Sint Maarten/Saint-Martin, Bahamas, Turks and Caicos,
+      Cayman Islands, Aruba, Curacao, Bonaire and Trinidad and Tobago, plus adjoining
+      mainland/coastal areas. Not nautical charts or routing.
 resource_sections:
   - title: Local maps
     description: Massachusetts reference maps for Worcester and Middlesex counties.
