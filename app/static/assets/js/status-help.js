@@ -143,6 +143,7 @@
         let selected = null;
         let libraryInfo = null;
         let httpsInfo = null;
+        let usageInfo = null;
         let libraryBusy = false;
         async function refreshLibrary(prefetch=false){
             if(libraryBusy||(!prefetch&&(selected!=="system-button"||!dialog.open)))return;
@@ -150,11 +151,13 @@
             const controller=new AbortController();
             const timer=setTimeout(()=>controller.abort(),15000);
             try{
-                const [response,httpsResponse]=await Promise.all([
+                const [response,httpsResponse,usageResponse]=await Promise.all([
                     fetch("/api/library",{cache:"no-store",signal:controller.signal}),
-                    fetch("/api/https/status",{cache:"no-store",signal:controller.signal}).catch(()=>null)
+                    fetch("/api/https/status",{cache:"no-store",signal:controller.signal}).catch(()=>null),
+                    fetch("/library-files/usage.json",{cache:"no-store",signal:controller.signal}).catch(()=>null)
                 ]);
                 if(httpsResponse?.ok)httpsInfo=await httpsResponse.json();
+                if(usageResponse?.ok)usageInfo=await usageResponse.json();
                 if(!response.ok)throw new Error("Library unavailable");
                 libraryInfo=await response.json();
             }catch(_){if(!libraryInfo)libraryInfo={unavailable:true};}
@@ -199,7 +202,15 @@
                 const ap=DataArkStatus.accessPoint;
                 clientsValue.textContent=ap.active===false?"Off":ap.active!==true||!Number.isInteger(ap.client_count)?"—":ap.client_count+" connected "+(ap.client_count===1?"device":"devices");
                 clientsList.append(clientsLabel,clientsValue);value.append(clientsList);
-                const clientsNote=document.createElement("p");clientsNote.className="status-details-note";clientsNote.textContent="Live hotspot connections, not a count of people. Wired/LAN visitors and desktop sessions are not counted.";value.append(clientsNote);
+                const clientsNote=document.createElement("p");clientsNote.className="status-details-note";clientsNote.textContent="Live hotspot connections, not a count of people. Other LAN devices are not counted; remote-access connection totals are on the Usage page.";value.append(clientsNote);
+                if(usageInfo){
+                    const mini=document.createElement("div");mini.style.cssText="display:flex;align-items:end;gap:5px;height:52px;margin:12px 0";mini.setAttribute("role","img");mini.setAttribute("aria-label","Document requests over seven days; UTC daily buckets");
+                    const days=[];for(let i=6;i>=0;i--){const date=new Date();date.setUTCDate(date.getUTCDate()-i);const key=date.toISOString().slice(0,10);days.push([key,usageInfo.daily[key]]);}
+                    const max=Math.max(1,...days.map(([,v])=>v?.opens||0));
+                    for(const [day,bucket] of days){const bar=document.createElement("span");bar.style.cssText="flex:1;background:#315b78;border-radius:3px 3px 0 0;height:"+(bucket?Math.max(2,bucket.opens/max*48):2)+"px";bar.title=day+": "+(bucket?bucket.opens+" document requests":"No observations");mini.append(bar);}value.append(mini);
+                    const today=days[6][1],note=document.createElement("p");note.textContent="Today (UTC): "+(today?today.opens+" document requests · peak "+(today.hotspot_peak??"—")+" hotspot devices":"—");value.append(note);
+                }
+                const usageLink=document.createElement("a");usageLink.href="/usage.html";usageLink.textContent="Usage history and seven-day chart";const usageRow=document.createElement("p");usageRow.append(usageLink);value.append(usageRow);
                 const title=document.createElement("h3");title.className="library-summary-heading";title.textContent="Library";value.append(title);
                 const summary=document.createElement("dl");summary.className="status-details-list";
                 const row=(label,text)=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=label;dd.textContent=text;summary.append(dt,dd);};

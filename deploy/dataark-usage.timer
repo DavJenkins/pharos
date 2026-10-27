@@ -1,0 +1,7 @@
+[Unit]
+Description=Sample Data Ark usage every minute
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+[Install]
+WantedBy=timers.target

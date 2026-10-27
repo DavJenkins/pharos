@@ -102,3 +102,5 @@
 * [Capacity-aware restore presets and queue](20-Administration/RecoveryQueue.md)
 
 * [Publication edition discovery](20-Administration/EditionDiscovery.md)
+
+* [Local usage history](20-Administration/Usage.md)
