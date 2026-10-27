@@ -87,7 +87,7 @@
         link.after(terminalLink);
         const httpsLink = document.createElement("a");
         httpsLink.href = "/config/https.html";
-        httpsLink.textContent = "Optional HTTPS";
+        httpsLink.textContent = "HTTPS (optional)";
         httpsLink.hidden = true;
         terminalLink.after(httpsLink);
         const bannerButton=document.createElement("button");
