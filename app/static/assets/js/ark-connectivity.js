@@ -22,6 +22,8 @@
             status.title = "Unable to check the Ark's internet connection.";
         } finally {
             document.getElementById("sync-status")?.classList.toggle("internet-unavailable", !online);
+            status.dataset.online = String(online);
+            window.dispatchEvent(new Event("dataark:connectivity-refreshed"));
             clearTimeout(timeout);
             busy = false;
         }

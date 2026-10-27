@@ -282,3 +282,12 @@ body{background-image:none}
 .source-check-now.checking svg{animation:source-check-spin 1.2s linear infinite}@keyframes source-check-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.source-check-now.checking svg{animation:none}}
 
 .source-heading>.source-check-now{background:#203e54;color:#e5c366;border:1px solid #af9145;border-radius:50%;box-shadow:0 1px 3px #0002;padding:5px}.source-heading>.source-check-now:hover{background:#2c526c;color:#ffe29a;border-color:#d4af37}.source-check-now svg{width:20px;height:20px;stroke-width:1.9}
+
+/* Healthy, idle status becomes a compact settings target after 30 seconds. */
+.dashboard-top .status-bar.status-condensed{width:60px;min-height:56px;padding:5px 8px 8px}
+.status-condensed>.status-controls{display:block;padding:0;min-height:0;width:auto}
+.status-condensed .sync-line,.status-condensed #internet-status{display:none}
+.status-condensed .ark-connection-line{justify-content:center;padding-top:46px}
+.status-condensed .ark-settings>summary{color:#17633e;background:#edf8ed;border:1px solid #619276;border-radius:8px}
+.status-condensed #upstream-links{color:#17633e;justify-content:center}
+.status-condensed #upstream-links:empty{display:none}
