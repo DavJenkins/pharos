@@ -322,3 +322,5 @@ body{background-image:none}
 #status-dialog [role=tabpanel]{padding:1rem .65rem .65rem;border:1px solid #8d9eaa;border-top:0;background:#fbfaf6}
 #status-dialog .tab-panel-actions{margin:.8rem 0 0}
 #status-dialog .status-dialog-scroll>.status-dialog-actions:not(:has(> :not([hidden]))){display:none}
+
+#status-dialog [role=tabpanel]>.library-summary-heading:first-child{border-top:0;padding-top:0}
