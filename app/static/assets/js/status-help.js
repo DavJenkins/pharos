@@ -168,7 +168,9 @@
         let allowAction = false;
         let pending = null;
         let pendingTimer = null;
+        let systemTab="system";
         function renderDetails(item, title) {
+            const focusedTab=document.activeElement?.getAttribute("role")==="tab"?document.activeElement.id:null;
             value.replaceChildren();
             const list = document.createElement("dl");
             list.className = "status-details-list";
@@ -195,24 +197,40 @@
                 httpsLabel.textContent="HTTPS";
                 httpsValue.textContent=!httpsInfo?"—":!httpsInfo.enabled?"Optional · Not configured":httpsInfo.certificate_health==="expired"?"Certificate expired · HTTP available":httpsInfo.domain+(httpsInfo.days_remaining!==undefined?" · "+httpsInfo.days_remaining+" days remaining":"");
                 list.append(httpsLabel,httpsValue);
-                const clientsHeading=document.createElement("h3");clientsHeading.className="library-summary-heading";clientsHeading.textContent="Connected devices";value.append(clientsHeading);
+                const tabs=document.createElement("div");tabs.className="system-tabs";tabs.setAttribute("role","tablist");tabs.setAttribute("aria-label","System information");
+                const systemPanel=document.createElement("div"),devicesPanel=document.createElement("div"),libraryPanel=document.createElement("div");
+                systemPanel.append(list);
+                const panels=[systemPanel,devicesPanel,libraryPanel],keys=["system","devices","library"],labels=["System","Connected devices","Library"],buttons=[];
+                function selectTab(index,focus=false){
+                    systemTab=keys[index];
+                    panels.forEach((panel,i)=>{panel.hidden=i!==index;buttons[i].setAttribute("aria-selected",String(i===index));buttons[i].tabIndex=i===index?0:-1;});
+                    if(focus)buttons[index].focus();
+                }
+                panels.forEach((panel,i)=>{
+                    panel.id="system-panel-"+keys[i];panel.setAttribute("role","tabpanel");panel.setAttribute("aria-labelledby","system-tab-"+keys[i]);
+                    const button=document.createElement("button");button.type="button";button.id="system-tab-"+keys[i];button.textContent=labels[i];button.setAttribute("role","tab");button.setAttribute("aria-controls",panel.id);buttons.push(button);tabs.append(button);
+                    button.addEventListener("click",()=>selectTab(i));
+                    button.addEventListener("keydown",event=>{let next;if(event.key==="ArrowRight")next=(i+1)%3;else if(event.key==="ArrowLeft")next=(i+2)%3;else if(event.key==="Home")next=0;else if(event.key==="End")next=2;else return;event.preventDefault();selectTab(next,true);});
+                });
+                value.append(tabs,...panels);
+                const clientsHeading=document.createElement("h3");clientsHeading.className="library-summary-heading";clientsHeading.textContent="Connected devices";devicesPanel.append(clientsHeading);
                 const clientsList=document.createElement("dl");clientsList.className="status-details-list";
                 const clientsLabel=document.createElement("dt"),clientsValue=document.createElement("dd");
                 clientsLabel.textContent="Hotspot";
                 const ap=DataArkStatus.accessPoint;
                 clientsValue.textContent=ap.active===false?"Off":ap.active!==true||!Number.isInteger(ap.client_count)?"—":ap.client_count+" connected "+(ap.client_count===1?"device":"devices");
-                clientsList.append(clientsLabel,clientsValue);value.append(clientsList);
-                const clientsNote=document.createElement("p");clientsNote.className="status-details-note";clientsNote.textContent="Live hotspot connections, not a count of people. Other LAN devices are not counted; remote-access connection totals are on the Usage page.";value.append(clientsNote);
+                clientsList.append(clientsLabel,clientsValue);devicesPanel.append(clientsList);
+                const clientsNote=document.createElement("p");clientsNote.className="status-details-note";clientsNote.textContent="Live hotspot connections, not a count of people. Other LAN devices are not counted; remote-access connection totals are on the Usage page.";devicesPanel.append(clientsNote);
                 if(usageInfo){
                     const mini=document.createElement("div");mini.style.cssText="display:flex;align-items:end;gap:5px;height:52px;margin:12px 0";mini.setAttribute("role","img");mini.setAttribute("aria-label","Document requests over seven days; UTC daily buckets");
                     const days=[];for(let i=6;i>=0;i--){const date=new Date();date.setUTCDate(date.getUTCDate()-i);const key=date.toISOString().slice(0,10);days.push([key,usageInfo.daily[key]]);}
                     const max=Math.max(1,...days.map(([,v])=>v?.opens||0));
-                    for(const [day,bucket] of days){const bar=document.createElement("span");bar.style.cssText="flex:1;background:#315b78;border-radius:3px 3px 0 0;height:"+(bucket?Math.max(2,bucket.opens/max*48):2)+"px";bar.title=day+": "+(bucket?bucket.opens+" document requests":"No observations");mini.append(bar);}value.append(mini);
-                    if(usageInfo.all_time){const total=document.createElement("p");total.textContent="Estimated visitors, all time: "+usageInfo.all_time.estimated_visitors;total.title="Since "+new Date(usageInfo.all_time.started_at).toLocaleString()+"; counts client addresses, not identified people";value.append(total);}
-                    const today=days[6][1],note=document.createElement("p");note.textContent="Today (UTC): "+(today?(today.unique_visitors??"—")+" estimated visitors · "+today.opens+" document requests · peak "+(today.hotspot_peak??"—")+" hotspot devices":"—");value.append(note);
+                    for(const [day,bucket] of days){const bar=document.createElement("span");bar.style.cssText="flex:1;background:#315b78;border-radius:3px 3px 0 0;height:"+(bucket?Math.max(2,bucket.opens/max*48):2)+"px";bar.title=day+": "+(bucket?bucket.opens+" document requests":"No observations");mini.append(bar);}devicesPanel.append(mini);
+                    if(usageInfo.all_time){const total=document.createElement("p");total.textContent="Estimated visitors, all time: "+usageInfo.all_time.estimated_visitors;total.title="Since "+new Date(usageInfo.all_time.started_at).toLocaleString()+"; counts client addresses, not identified people";devicesPanel.append(total);}
+                    const today=days[6][1],note=document.createElement("p");note.textContent="Today (UTC): "+(today?(today.unique_visitors??"—")+" estimated visitors · "+today.opens+" document requests · peak "+(today.hotspot_peak??"—")+" hotspot devices":"—");devicesPanel.append(note);
                 }
-                const usageLink=document.createElement("a");usageLink.href="/usage.html";usageLink.textContent="Usage history and seven-day chart";const usageRow=document.createElement("p");usageRow.append(usageLink);value.append(usageRow);
-                const title=document.createElement("h3");title.className="library-summary-heading";title.textContent="Library";value.append(title);
+                const usageLink=document.createElement("a");usageLink.href="/usage.html";usageLink.textContent="Usage history and seven-day chart";const usageRow=document.createElement("p");usageRow.append(usageLink);devicesPanel.append(usageRow);
+                const title=document.createElement("h3");title.className="library-summary-heading";title.textContent="Library";libraryPanel.append(title);
                 const summary=document.createElement("dl");summary.className="status-details-list";
                 const row=(label,text)=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=label;dd.textContent=text;summary.append(dt,dd);};
                 const gib=n=>(n/1024**3).toFixed(1)+" GiB";
@@ -227,7 +245,9 @@
                     row("Activity",libraryInfo.progress?.label||"—");
                     if(libraryInfo.progress?.detail)row("Details",libraryInfo.progress.detail);
                 }
-                value.append(summary);
+                libraryPanel.append(summary);
+                selectTab(Math.max(0,keys.indexOf(systemTab)));
+                if(focusedTab)document.getElementById(focusedTab)?.focus({preventScroll:true});
             }
         }
         function render() {
