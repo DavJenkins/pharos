@@ -47,10 +47,12 @@ def _df(path):
 
 
 def _cpu_temp():
-    out = _run(["vcgencmd","measure_temp"])
+    # Firmware mailbox calls can enter uninterruptible kernel sleep, so even a
+    # subprocess timeout may never finish. The thermal sysfs read avoids that path.
     try:
-        return float(out.split("=")[1].split("'")[0])
-    except Exception:
+        value = float(Path('/sys/class/thermal/thermal_zone0/temp').read_text().strip()) / 1000
+        return value if -20 <= value <= 150 else None
+    except (OSError, ValueError):
         return None
 
 

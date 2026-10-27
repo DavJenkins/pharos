@@ -199,9 +199,14 @@ and style contents and normalize whitespace. First-time HTML and package checks
 establish a publisher baseline; they do not certify freshness of the saved
 snapshot. ZIP/PMTiles packages use HEAD metadata to avoid repeatedly transferring
 large archives. Sources without version metadata are labelled accordingly.
-Checks follow the recorded URL and edition; they do not discover the next tax
-year, exam pool or statutory release. Kiwix release discovery and automatic
-activation continue through `dataark-update.timer`. Specialist Massachusetts
+Checks follow the recorded URL by default. Reviewed release-family rules in
+`deploy/reference/edition-discovery.json` also discover dated publisher folders,
+filenames and links on explicit publisher indexes. Initial rules cover annual
+IRS forms and Part 97; a validated candidate is reported for review and prior
+editions remain installed. Exam-pool and other dataset releases still need
+their collection-specific checks. See [Edition discovery](EditionDiscovery.md).
+Kiwix release discovery and automatic activation continue through
+`dataark-update.timer`. Specialist Massachusetts
 GIS collection refresh remains controlled by `maps.refresh_days` (currently 30)
 and `dataark-maps.timer`; the large street-basemap extract is a separate pinned
 snapshot, not that GIS collection.

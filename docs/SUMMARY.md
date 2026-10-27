@@ -100,3 +100,5 @@
 - [Offline curriculum and coverage](20-Administration/Curriculum.md)
 
 * [Capacity-aware restore presets and queue](20-Administration/RecoveryQueue.md)
+
+* [Publication edition discovery](20-Administration/EditionDiscovery.md)

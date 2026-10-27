@@ -16,7 +16,7 @@ COLLECTIONS={
  'resilience':('tools/install_resilience.py',['--register'],'deploy/reference/resilience-catalogue.json'),
  'callsigns':('tools/install_callsigns.py',[],'deploy/reference/callsign-sources.json'),
  'radio-study':('tools/install_radio_study.py',[],'deploy/reference/radio-pools.json')}
-REFERENCE_FILES=['reference-checks.json','jurisdictions.json','family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','osm-usa.json','osm-usa.geojson','osm-caribbean.json','vehicle-manuals.json','honda-intermediate.pem','holiday-themes.json','curriculum-settings.json','curriculum-catalogue.json']
+REFERENCE_FILES=['edition-discovery.json','reference-checks.json','jurisdictions.json','family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','osm-usa.json','osm-usa.geojson','osm-caribbean.json','vehicle-manuals.json','honda-intermediate.pem','holiday-themes.json','curriculum-settings.json','curriculum-catalogue.json']
 PUBLIC_KEYS=['system','geography','maps','categories','scenarios','repositories','assets','resource_sections','dashboard','personalization']
 def read(path):return yaml.load(Path(path).read_text(), Loader=getattr(yaml,'CSafeLoader',yaml.SafeLoader))
 def write(path,data):

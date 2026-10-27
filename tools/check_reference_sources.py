@@ -129,6 +129,31 @@ def check(url, assets, previous, config, root, opener=urlopen):
                          'First publisher baseline recorded; saved snapshot freshness is not established.')
     return result
 
+def discover_editions(manifest, root, state, config, retry_errors=False):
+    from tools.edition_discovery import discover
+    catalogue=read(ROOT/'deploy/reference/edition-discovery.json', {})
+    if not catalogue.get('enabled'):return
+    if catalogue.get('schema')!=1:raise ValueError('Unsupported edition discovery schema')
+    interval=interval_seconds(catalogue.get('interval','7d'))
+    enabled={r['id'] for r in manifest['repositories'] if r.get('enabled',True)}
+    for asset in manifest['assets']:
+        rule=catalogue.get('rules',{}).get(asset['id'])
+        url=source(asset)
+        if not rule or not url or asset.get('removed') or asset['repository_id'] not in enabled or not inside(root,asset['relative_path']).is_file():continue
+        record=state.setdefault('sources',{}).setdefault(url,{})
+        previous=record.get('edition_discovery',{})
+        if time.time()-previous.get('attempted_at',0)<interval and not (retry_errors and previous.get('status')=='error'):continue
+        try:
+            result=discover(rule,asset)
+            if result['status']=='error' and previous.get('candidate'):result['candidate']=previous['candidate']
+        except Exception as error:
+            result={**previous,'status':'error','detail':'Edition discovery failed; installed copy retained.','issues':[failure_detail(error)]}
+        result['attempted_at']=time.time();record['edition_discovery']=result
+        atomic_write(STATE,(json.dumps(state,indent=2)+'\n').encode())
+        print('edition',asset['id'],result['status'],flush=True)
+        time.sleep(config.get('request_delay_seconds',1))
+
+
 def run(retry_errors=False):
     config = settings()
     if not config.get('enabled'): return
@@ -142,6 +167,7 @@ def run(retry_errors=False):
         if url and not asset.get('removed') and asset['repository_id'] in enabled and inside(root, asset['relative_path']).is_file():
             groups.setdefault(url, []).append(asset)
     state = read(STATE, {'sources': {}})
+    discover_editions(manifest,root,state,config,retry_errors)
     for url, assets in groups.items():
         previous = state.setdefault('sources', {}).get(url, {})
         if not (retry_errors and previous.get('status') == 'error') and time.time() - previous.get('attempted_at', 0) < interval_seconds(config.get('interval', '7d')): continue
@@ -151,6 +177,7 @@ def run(retry_errors=False):
             result['checked_at'] = time.time()
         except Exception as error:
             result = dict(previous, status='error', detail=failure_detail(error))
+        if previous.get('edition_discovery'):result['edition_discovery']=previous['edition_discovery']
         result['attempted_at'] = attempted
         state['sources'][url] = result
         atomic_write(STATE, (json.dumps(state, indent=2) + '\n').encode())

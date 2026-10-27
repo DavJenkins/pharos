@@ -64,7 +64,7 @@ class HealthTests(unittest.TestCase):
         self.assertTrue(data["status"]["updated"].endswith("+00:00"))
 
     def test_resource_unknowns(self):
-        with patch.object(resources, "_run", return_value=""):
+        with patch.object(resources, "_run", return_value=""), patch.object(resources.Path, "read_text", side_effect=OSError):
             self.assertIsNone(resources._cpu_temp())
             self.assertIsNone(resources._df("/")["percent"])
         with patch.object(resources.Path, "is_mount", return_value=False), patch.object(resources, "_run") as run:
@@ -73,3 +73,13 @@ class HealthTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class ThermalProbeTests(unittest.TestCase):
+    def test_temperature_uses_kernel_sensor_without_firmware_process(self):
+        with patch.object(resources.Path,'read_text',return_value='53125'),patch.object(resources,'_run') as command:
+            self.assertEqual(resources._cpu_temp(),53.125)
+            command.assert_not_called()
+    def test_invalid_and_missing_thermal_sensor_are_unknown(self):
+        for value in ['not a temperature','9999999']:
+            with patch.object(resources.Path,'read_text',return_value=value):self.assertIsNone(resources._cpu_temp())
+        with patch.object(resources.Path,'read_text',side_effect=OSError):self.assertIsNone(resources._cpu_temp())

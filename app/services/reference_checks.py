@@ -39,6 +39,8 @@ def projection(asset, repository, config, state, now):
     seconds = interval_seconds(interval)
     enabled = bool(config.get('enabled') and repository.get('enabled', True) and seconds)
     record = state.get('sources', {}).get(url, {})
+    edition=record.get('edition_discovery',{})
+    candidate=edition.get('candidate')
     attempt = record.get('attempted_at')
     def date(value):
         try:
@@ -51,7 +53,8 @@ def projection(asset, repository, config, state, now):
             'last_checked': last, 'last_success': date(record.get('checked_at')),
             'next_due': due, 'due_now': enabled and (not last or attempt + seconds <= now),
             'history_available': not state.get('unreadable', False),
-            'result': record.get('status', 'awaiting'), 'detail': record.get('detail', ''),
-            'pending_change': bool(record.get('pending_change')), 'source_url': url,
+            'result': 'edition_available' if candidate else 'error' if edition.get('status')=='error' else record.get('status', 'awaiting'), 'detail': (edition.get('detail','')+' '+record.get('detail','')).strip() if candidate or edition.get('status')=='error' else record.get('detail', ''),
+            'available_edition': candidate, 'edition_check': edition,
+            'pending_change': bool(record.get('pending_change') or candidate), 'source_url': url,
             'pinned_version': asset.get('version_pin'),
-            'scope': 'Checks the recorded source/edition; replacements require review.'}
+            'scope': 'Checks recorded sources and configured edition families; new editions require review and earlier editions are retained.'}
