@@ -318,7 +318,7 @@ body{background-image:none}
 /* Tabs, details, and their actions share one continuous panel surface. */
 #status-dialog-value:has(.system-tabs){padding:0;border-radius:0;background:#fbfaf6}
 .system-tabs{margin:0;padding:0 .45rem;border-bottom:1px solid #8d9eaa}
-.system-tabs [role=tab]{flex:0 1 auto;padding:.65rem .8rem}
+.system-tabs [role=tab]{flex:1 1 0;min-height:44px;padding:.65rem .4rem}
 #status-dialog [role=tabpanel]{padding:1rem .65rem .65rem;border:1px solid #8d9eaa;border-top:0;background:#fbfaf6}
 #status-dialog .tab-panel-actions{margin:.8rem 0 0}
 #status-dialog .status-dialog-scroll>.status-dialog-actions:not(:has(> :not([hidden]))){display:none}
