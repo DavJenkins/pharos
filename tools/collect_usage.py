@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Aggregate local usage. Never persist visitor addresses, URLs or user agents."""
-import fcntl,hashlib,hmac,ipaddress,json,re,secrets,subprocess
+import fcntl,hashlib,hmac,ipaddress,json,math,re,secrets,subprocess
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -29,6 +29,17 @@ def empty():return {'opens':0,'bytes':0,'hotspot_peak':None,'samples':0,'collect
 def add(bucket,size,group):
  bucket['opens']+=1;bucket['bytes']+=size;bucket['collections'][group]=bucket['collections'].get(group,0)+1
 
+def all_time_add(state,address):
+ digest=hmac.new(bytes.fromhex(state['_all_time_salt']),address.encode(),hashlib.sha256).digest()
+ number=int.from_bytes(digest[:8],'big');index=number>>50;tail=number&((1<<50)-1)
+ state['_all_time_registers'][index]=max(state['_all_time_registers'][index],51-tail.bit_length())
+
+def all_time_estimate(registers):
+ m=len(registers);estimate=(0.7213/(1+1.079/m))*m*m/sum(2.0**(-rank) for rank in registers)
+ zeros=registers.count(0)
+ if estimate<=2.5*m and zeros:estimate=m*math.log(m/zeros)
+ return round(estimate)
+
 def consume(state,log,now):
  paths=[log.with_name(log.name+'.1'),log]
  pointer=state.get('log');started=state['started_at']
@@ -52,9 +63,10 @@ def consume(state,log,now):
    day=dt.strftime('%Y-%m-%d');hour=dt.strftime('%Y-%m-%dT%H:00:00Z')
    bucket=state['daily'].setdefault(day,empty())
    add(bucket,size,group)
-   if dt>=datetime.fromisoformat(state['visitors_started_at']) and dt>=now-timedelta(days=2):
-    try:address=ipaddress.ip_address(LINE.match(line)[1]);address=str(address.ipv4_mapped or address) if isinstance(address,ipaddress.IPv6Address) else str(address)
-    except ValueError:continue
+   try:address=ipaddress.ip_address(LINE.match(line)[1]);address=str(address.ipv4_mapped or address) if isinstance(address,ipaddress.IPv6Address) else str(address)
+   except ValueError:address=None
+   if address and dt>=datetime.fromisoformat(state['all_time']['started_at']):all_time_add(state,address)
+   if address and dt>=datetime.fromisoformat(state['visitors_started_at']) and dt>=now-timedelta(days=2):
     visitors=state['_visitors'].setdefault(day,{'salt':secrets.token_hex(32),'hashes':[]})
     digest=hmac.new(bytes.fromhex(visitors['salt']),address.encode(),hashlib.sha256).hexdigest()
     if digest not in visitors['hashes']:visitors['hashes'].append(digest)
@@ -90,6 +102,8 @@ def write(path,value,mode):
 
 def collect(state,log,now,current):
  state.setdefault('visitors_started_at',now.isoformat());state.setdefault('_visitors',{})
+ state.setdefault('all_time',{'started_at':now.isoformat(),'estimated_visitors':0,'relative_standard_error':1.04/math.sqrt(16384)})
+ state.setdefault('_all_time_salt',secrets.token_hex(32));state.setdefault('_all_time_registers',[0]*16384)
  consume(state,log,now)
  for name,key in [('daily',now.strftime('%Y-%m-%d')),('hourly',now.strftime('%Y-%m-%dT%H:00:00Z'))]:
   bucket=state[name].setdefault(key,empty());bucket['samples']+=1
@@ -100,6 +114,7 @@ def collect(state,log,now,current):
   state[name]={key:value for key,value in state[name].items() if key>=cutoff}
  state['_visitors']={key:value for key,value in state['_visitors'].items() if key>=(now-timedelta(days=2)).strftime('%Y-%m-%d')}
  state['daily'][now.strftime('%Y-%m-%d')].setdefault('unique_visitors',0)
+ state['all_time']['estimated_visitors']=all_time_estimate(state['_all_time_registers'])
  state['updated_at']=now.isoformat();state['current']=current
  return {k:v for k,v in state.items() if k!='log' and not k.startswith('_')}
 

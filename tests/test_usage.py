@@ -1,8 +1,8 @@
-import tempfile,unittest
+import json,tempfile,unittest
 from pathlib import Path
 from datetime import datetime,timezone,timedelta
 from unittest.mock import patch
-from tools.collect_usage import classify,collect,sample
+from tools.collect_usage import classify,collect,sample,all_time_add,all_time_estimate
 NOW=datetime(2026,10,27,16,0,tzinfo=timezone.utc)
 def line(path,status=200,address='192.168.4.5'):
  return f'{address} - - [27/Oct/2026:16:00:00 +0000] "GET {path} HTTP/1.1" {status} 123 "-" "browser"\n'
@@ -39,9 +39,21 @@ class UsageTests(unittest.TestCase):
    public=collect(state,log,NOW,{'hotspot_devices':0})
    self.assertEqual(public['daily']['2026-10-27']['unique_visitors'],2)
    self.assertNotIn('_visitors',public);self.assertNotIn('192.168',str(state))
-   self.assertNotIn('salt',str(public));self.assertNotIn('hashes',str(public))
+   self.assertNotIn('salt',str(public));self.assertNotIn('hashes',str(public));self.assertNotIn('registers',str(public))
+   self.assertEqual(public['all_time']['estimated_visitors'],2)
    collect(state,log,NOW,{'hotspot_devices':0});self.assertEqual(state['daily']['2026-10-27']['unique_visitors'],2)
    collect(state,log,NOW+timedelta(days=4),{'hotspot_devices':0});self.assertEqual(state['_visitors'],{})
+ def test_all_time_sketch_persists_and_bounds_cardinality(self):
+  state={'_all_time_salt':'ab'*32,'_all_time_registers':[0]*16384}
+  self.assertEqual(all_time_estimate(state['_all_time_registers']),0)
+  all_time_add(state,'192.168.4.5');all_time_add(state,'192.168.4.5')
+  self.assertEqual(all_time_estimate(state['_all_time_registers']),1)
+  state=json.loads(json.dumps(state))
+  all_time_add(state,'192.168.4.5');self.assertEqual(all_time_estimate(state['_all_time_registers']),1)
+  for i in range(10000):all_time_add(state,str(i))
+  count=all_time_estimate(state['_all_time_registers']);self.assertLess(abs(count-10001),300)
+  self.assertEqual(len(state['_all_time_registers']),16384)
+  self.assertNotIn('192.168.4.5',str(state))
  def test_connection_samples_are_not_sessions(self):
   with patch('tools.collect_usage.command',side_effect=['Station aa\nStation bb\n','0 0 192.168.4.1:5901 192.168.4.5:44321\n0 0 127.0.0.1:4200 127.0.0.1:12345\n0 0 192.168.4.1:22 192.168.4.5:45678']):
    result=sample();self.assertEqual(result['hotspot_devices'],2);self.assertEqual(result['desktop_connections'],1);self.assertEqual(result['terminal_connections'],0);self.assertEqual(result['ssh_connections'],1)

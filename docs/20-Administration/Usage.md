@@ -15,3 +15,9 @@ Charts use UTC daily buckets and show missing observations as dashes. Check `sys
 Daily estimated visitors count distinct client addresses making qualifying document GET requests. Polling alone does not count. Shared/NAT addresses undercount, address changes overcount, and daily estimates must not be summed as weekly uniques. No cookies, fingerprinting or persistent visitor identifiers are used. A separate `visitors_started_at` timestamp marks the beginning of this measurement; older unmeasured days show a dash. Today's initial count may cover only part of the day.
 
 The private state keeps HMAC-SHA256 digests with independent random daily salts for up to two days to deduplicate requests across runs and log rotation. Raw addresses are used only in memory. Neither salts nor hashes appear in the public JSON; daily counts remain for one year. A clone starts its own state and salts.
+
+## All-time estimate
+
+A separate HyperLogLog sketch with 16,384 registers deduplicates client addresses across days, using a persistent random HMAC-SHA256 salt. Neither this salt nor the sketch registers are published. The sketch needs fixed storage, cannot enumerate visitors, and survives collector restarts. Its nominal relative standard error is about 0.81%; shared addresses and address changes add uncertainty that this bound does not cover.
+
+`all_time.started_at` records when this estimate began. It is not a sum of daily counts and is not backfilled from old logs. The current figure appears in System and Usage. The private state retains the all-time salt and sketch indefinitely, while daily deduplication hashes still expire after two days. Retain `/var/lib/dataark/usage/state.json` in a private appliance backup to preserve continuity; new clones start their own usage history. Only the estimate, start date and statistical error are public.
