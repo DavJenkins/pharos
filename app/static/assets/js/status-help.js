@@ -203,8 +203,8 @@
             value.append(list);
             if(selected==="system-button"){
                 const httpsLabel=document.createElement("dt"),httpsValue=document.createElement("dd");
-                httpsLabel.textContent="HTTPS";
-                httpsValue.textContent=!httpsInfo?"—":!httpsInfo.enabled?"Optional · Not configured":httpsInfo.certificate_health==="expired"?"Certificate expired · HTTP available":httpsInfo.domain+(httpsInfo.days_remaining!==undefined?" · "+httpsInfo.days_remaining+" days remaining":"");
+                httpsLabel.textContent="HTTPS (optional)";
+                httpsValue.textContent=!httpsInfo?"—":!httpsInfo.enabled?"Not configured":httpsInfo.certificate_health==="expired"?"Certificate expired · HTTP available":httpsInfo.domain+(httpsInfo.days_remaining!==undefined?" · "+httpsInfo.days_remaining+" days remaining":"");
                 list.append(httpsLabel,httpsValue);
                 const tabs=document.createElement("div");tabs.className="system-tabs";tabs.setAttribute("role","tablist");tabs.setAttribute("aria-label","System information");
                 const systemPanel=document.createElement("div"),devicesPanel=document.createElement("div"),libraryPanel=document.createElement("div");
