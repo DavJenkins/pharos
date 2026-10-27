@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "reserve_gib": 10,
+  "minimal_file_max_bytes": 16777216,
+  "recommended_archives": [
+    "ifixit-repair-guides",
+    "wikipedia-medicine"
+  ],
+  "recipe_tiers": {
+    "radio-study": "minimal",
+    "forms": "recommended",
+    "family": "recommended",
+    "resilience": "recommended"
+  },
+  "notes": [
+    "None starts no optional restoration. Minimal prioritizes small preparedness references and radio-study materials.",
+    "Recommended adds forms, family resources, resilience references, iFixit and WikiMed when selected in the saved profile.",
+    "Full includes all enabled saved packages; disabled selections remain disabled.",
+    "Recipe footprints must be bounded in the exported profile. Unknown sizes disable approval, rather than being counted as zero.",
+    "Sizes are conservative estimates, with staging space, update headroom and a 10 GiB minimum reserve."
+  ]
+}

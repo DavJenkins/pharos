@@ -76,7 +76,7 @@ def register(records):
     from app.services.manifest import load_manifest,atomic_write
     from tools.library_removal import serialize
     with Path('/var/lib/dataark/updates/worker.lock').open('a') as lock:
-        fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        __import__('tools.content_lock',fromlist=['acquire']).acquire(lock)
         data=load_manifest(ROOT/'dataark.yaml')
         if not any(r['id']=='forms-templates' for r in data['repositories']):
             data['repositories'].append({'id':'forms-templates','category':'content_sources','title':'Forms and Templates','description':'Blank tax and government forms, instructions and openly licensed contract templates. Tax years, revisions and sources are preserved.','collapse_assets':True,'update_policy':'manual','refresh_interval':'never','links':[{'title':'Browse local forms and templates','url':'/library-files/forms/index.html'}]})

@@ -3,6 +3,7 @@
 import argparse,csv,hashlib,io,json,os,sqlite3,sys,tempfile,urllib.request,zipfile
 from datetime import datetime,timezone
 from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 ROOT=Path('/mnt/storage/civic-reference')
 SOURCES=json.loads((Path(__file__).resolve().parents[1]/'deploy/reference/callsign-sources.json').read_text())
 FCC=SOURCES['fcc_url']
@@ -84,6 +85,6 @@ def main():
  ROOT.mkdir(exist_ok=True)
  import fcntl
  with Path('/var/lib/dataark/updates/worker.lock').open('a') as lock:
-  fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+  __import__('tools.content_lock',fromlist=['acquire']).acquire(lock)
   acquire(ROOT/'fcc-amateur-source.zip',FCC,400*1024**2,a.refresh);acquire(ROOT/'zcta-2025.zip',CENSUS,10*1024**2,a.refresh);build();register()
 if __name__=='__main__':main()

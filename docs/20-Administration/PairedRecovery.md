@@ -1,5 +1,7 @@
 # Paired-media recovery
 
+**Restoration update:** Optional content now requires a capacity-checked preset and explicit queue approval. The legacy `content_profile.py restore --apply` path is disabled. Fresh bootstrap does not start optional downloads or automatic download timers. See [Restore presets and queue](RecoveryQueue.md). Spare-media acceptance remains pending.
+
 The target is a working, populated, quiescent Ark that can be separated into two recoverable halves. Give the original boot card a replacement content drive, and give the original content drive a replacement boot card: both resulting appliances should be able to regenerate what they are missing.
 
 ## Reciprocal responsibilities

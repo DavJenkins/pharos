@@ -151,7 +151,7 @@ def main():
     lock=Path('/var/lib/dataark/curriculum/worker.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     state=CONTENT/'curriculum/sources.json';previous={r['id']:r for r in json.loads(state.read_text())} if state.exists() else {}
     if args.index_only:publish(list(previous.values()),cat);register(list(previous.values()));return
-    update_lock=Path('/var/lib/dataark/updates/worker.lock').open('a');fcntl.flock(update_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    update_lock=Path('/var/lib/dataark/updates/worker.lock').open('a');__import__('tools.content_lock',fromlist=['acquire']).acquire(update_lock)
     records=[];used=0;number=0;seen=set();started=time.monotonic()
     while True:
         if time.monotonic()-started>5400:raise ValueError('Curriculum run limit reached; saved progress retained')

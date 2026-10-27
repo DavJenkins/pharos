@@ -122,7 +122,7 @@ def register(records):
  from tools.library_removal import serialize
  import fcntl
  with Path('/var/lib/dataark/updates/worker.lock').open('a') as lock:
-  fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);manifest=load_manifest(ROOT/'dataark.yaml')
+  __import__('tools.content_lock',fromlist=['acquire']).acquire(lock);manifest=load_manifest(ROOT/'dataark.yaml')
   repo=next(r for r in manifest['repositories'] if r['id']=='civic-reference')
   repo['description']='Federal statutes, state and territorial constitutional snapshots, and clearly scoped legal references.'
   if not any(x.get('url')=='/library-files/civic-reference/jurisdictions/index.html' for x in repo['links']):repo['links'].append({'title':'State and territorial coverage','url':'/library-files/civic-reference/jurisdictions/index.html'})

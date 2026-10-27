@@ -1,5 +1,7 @@
 # Set up a stock Pi and prepare another Ark drive
 
+**Restoration update:** Optional content now requires a capacity-checked preset and explicit queue approval. The legacy `content_profile.py restore --apply` path is disabled. Fresh bootstrap does not start optional downloads or automatic download timers. See [Restore presets and queue](../20-Administration/RecoveryQueue.md). Spare-media acceptance remains pending.
+
 ## Current status and supported starting point
 
 An experimental stock-Pi coordinator and drive-preparation tool are implemented. Their validation, extraction, journal/resume and public-copy behavior are tested. They have **not** been applied to a fresh spare Pi; client/media acceptance is still required. The current running Ark is explicitly refused as an installation target.
@@ -19,7 +21,7 @@ sudo bash START-ARK.sh
 sudo bash START-ARK.sh --apply
 ```
 
-The first command only previews. The second checks the target and asks for `INSTALL` before making the described changes. Review/edit `DATA-ARK-RECOVERY/site.json` for the permitted settings: SSID, country, hostname policy, FTP, missing-content restoration and update timers. Core layout constraints remain fixed until separately supported. There are no credentials in this JSON. The helper installer privately prompts for a new management password; do not reuse the source Ark's credentials.
+The first command only previews. The second checks the target and asks for `INSTALL` before making the described changes. Review/edit `DATA-ARK-RECOVERY/site.json` for the permitted settings: SSID, country, hostname policy, FTP and other base-device settings; optional restoration and download timers are separately gated. Core layout constraints remain fixed until separately supported. There are no credentials in this JSON. The helper installer privately prompts for a new management password; do not reuse the source Ark's credentials.
 
 Stages: distribution packages; checksum-verified public source; existing content-volume mount; Python environment and PMTiles CLI; API/Apache/Kiwix and protected helpers; hotspot/portal/public content access; missing library content; timers and service checks. The source archive is expanded with traversal/link/special-file checks. A local Git repository is initialized so the new Ark can checkpoint and prepare another kit without a GitHub account. It does not automatically push to GitHub.
 

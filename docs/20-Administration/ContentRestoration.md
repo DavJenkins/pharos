@@ -1,5 +1,7 @@
 # Content configuration, shipping and restoration
 
+**Restoration update:** Optional content now requires a capacity-checked preset and explicit queue approval. The legacy `content_profile.py restore --apply` path is disabled. Fresh bootstrap does not start optional downloads or automatic download timers. See [Restore presets and queue](RecoveryQueue.md). Spare-media acceptance remains pending.
+
 ## Two copies with different jobs
 
 The authoritative public content configuration lives on the Pi's system drive under `/opt/dataark/config/content/`. The content SSD carries a readable mirror at `/mnt/storage/DATA-ARK-CONFIG/`. The repository provides the off-appliance copy on [GitHub](https://github.com/DavJenkins/pharos). [Browse the media-drive mirror](/library-files/DATA-ARK-CONFIG/index.html).
@@ -46,30 +48,29 @@ Commit the reviewed public configuration files to the source repository. Neither
 
 ## Preview and rebuild
 
-On an existing configured Ark with its content SSD mounted at `/mnt/storage`:
+On the configured Ark, open `/recovery.html` from Manage Library. Review None, Minimal, Recommended and Full with their capacity calculations. No downloads start from that page. Unknown sizes and insufficient space disable preset approval. Disabled selections stay disabled; selected archives still being installed remain part of recovery intent.
 
 ```sh
 cd /opt/dataark
-/usr/bin/python3 tools/content_profile.py plan
-sudo /usr/bin/python3 tools/content_profile.py restore --apply
+venv/bin/python tools/recovery_queue.py plan --preset minimal
+# Review the plan and copy its plan_id before approving:
+sudo venv/bin/python tools/recovery_queue.py create --preset minimal --accept-plan PLAN_ID
+sudo systemctl start dataark-recovery.service
 ```
 
-Without `--apply`, restore is a preview. No erase or format operation exists. Files download into staging paths, and known size/hash checks must pass before replacing an original. Existing matching-size files are skipped by default; add `--verify-existing` to read and hash existing files with recorded hashes. This can take a long time for hundreds of gigabytes. Unknown or failed sources are reported; a failure does not authorize accepting different content.
-
-Resume by rerunning the command: verified files remain, direct downloads resume their staging file where the server permits it, and collection installers retain their own verification behavior. Direct archive/map writes coordinate with existing worker locks; parallel restore commands are rejected. Final results are saved to `config/content/last-restore.json`; an unsuccessful run exits with an error. Collection installers may record unavailable individual publishers while completing the rest, so review their `sources.json` records as well as the top-level report.
-
-Select a subset with repeatable options:
+The queue persists package state and attempts, prioritizes small independent packages, verifies pinned files before reuse, preserves originals on failure and exposes completed direct files immediately. Archive completion refreshes Kiwix and the landing page. Failures block dependent packages while independent work continues. Collection installers retain their own detailed source reports, so successful recipe completion does not imply every publisher file was acquired.
 
 ```sh
-/usr/bin/python3 tools/content_profile.py plan --only archives
-sudo /usr/bin/python3 tools/content_profile.py restore --apply --only forms
-sudo /usr/bin/python3 tools/content_profile.py restore --apply --only family
-sudo /usr/bin/python3 tools/content_profile.py restore --apply --only indexes
+venv/bin/python tools/recovery_queue.py status
+sudo venv/bin/python tools/recovery_queue.py pause
+sudo venv/bin/python tools/recovery_queue.py cancel
+# Resume unfinished packages explicitly:
+sudo systemctl start dataark-recovery.service
 ```
 
-Family resources automatically include their forms dependency. A complete restore orders archives, preparedness/map files, portable Windows reader, OSM, forms, family resources, resilience/legal references, callsigns, radio study and indexes. The index step publishes the dashboard/docs and restarts the existing Kiwix container so it sees restored archives. It does not install or reconfigure the Kiwix service itself. A partial restore may need `--only indexes` afterwards.
+Cancellation does not delete completed or partial content. Rebooted/interrupted work requires explicit resume. A changed profile or installer source requires a new reviewed plan. The service has no timer or automatic restart. No format or erase operation exists. The legacy `content_profile.py restore --apply` entry point now refuses to run; its `plan --only` command remains a diagnostic inventory preview, not an approved recovery queue.
 
-The `reserve_gib` setting protects free space for direct downloads. `download_rate_kib: 0` means unlimited for those downloads; a positive integer limits curl downloads. Existing collection installers retain their own bounded workers and size caps and do not currently inherit that rate limit. Regional OSM extraction requires the documented `pmtiles` CLI. The application Python environment, system Python/PyYAML/ReportLab/Pillow, curl, ZIP tools and Poppler must already be installed as documented by the existing Ark setup.
+See [Restore presets and queue](RecoveryQueue.md) for staging, locks, capacity assumptions, restart behavior and the remaining spare-media acceptance matrix.
 
 ## Ship a small configuration bundle
 

@@ -148,7 +148,7 @@ class Installer:
    if label!=self.state['configuration_sha256']:raise RuntimeError('Unmanaged kiwix-serve container exists.')
    run(['docker','start','kiwix-serve'])
   else:run(['docker','run','-d','--name','kiwix-serve','--label','org.dataark.bootstrap='+self.state['configuration_sha256'],'--restart','unless-stopped','-p','8080:8080','-v','/mnt/storage:/data',self.c['kiwix_image'],'*.zim'])
-  self.script('install_reliability_logging.py');self.script('install_network_admin.py');self.script('install_library.py');self.script('install_shell_welcome.py');self.script('install_community.py');self.script('install_https.py')
+  self.script('install_reliability_logging.py');self.script('install_network_admin.py');self.script('install_library.py');run(['install','-m','644',str(self.repo/'deploy/dataark-recovery.service'),'/etc/systemd/system/dataark-recovery.service']);run(['systemctl','daemon-reload']);self.script('install_shell_welcome.py');self.script('install_community.py');self.script('install_https.py')
   run(['bash',str(self.repo/'deploy/deploy-web.sh')]);run(['systemctl','enable','--now','dataark'])
  def network(self):
   if 'wlan0' not in output(['nmcli','-g','DEVICE','device']).splitlines():raise RuntimeError('wlan0 is missing.')
@@ -166,11 +166,13 @@ class Installer:
   self.script('install_content_access.py');self.script('install_portal.py');self.script('install_pass_through.py');self.script('install_portal_monitor.py')
   if self.c['anonymous_ftp']:self.script('install_ftp.py')
  def content(self):
-  if self.c['restore_missing_content']:run(['/usr/bin/python3',str(self.repo/'tools/content_profile.py'),'restore','--apply'])
+  # Device setup approval does not authorize optional content downloads.
+  print('Base services are ready. Choose optional content separately at /recovery.html or use tools/recovery_queue.py plan.')
+  print('None starts no downloads. Minimal/Recommended/Full require explicit plan acceptance.')
+  if self.c['restore_missing_content']:
+   print('Legacy restore_missing_content=true is ignored; an approved recovery queue is required.')
  def finish(self):
-  if self.c['automatic_archive_updates']:self.script('install_update_worker.py')
-  if self.c['automatic_archive_updates']:self.script('install_reference_checks.py')
-  if self.c['automatic_map_updates']:self.script('install_map_worker.py')
+  print('Automatic download timers remain off until content selection is approved; enable them separately after restoration.')
   run(['systemctl','is-active','--quiet','dataark','apache2','docker'])
   run(['curl','--fail','--max-time','15','--output','/dev/null','http://127.0.0.1/api/'])
   run(['curl','--fail','--max-time','15','--output','/dev/null','http://127.0.0.1/'])

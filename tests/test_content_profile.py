@@ -20,11 +20,11 @@ class ContentProfileTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as tmp:
    root=Path(tmp);target=root/'test.pdf';target.write_bytes(b'original')
    item={'id':'test','path':'test.pdf','url':'https://example.org/test.pdf','bytes':7,'sha256':hashlib.sha256(b'correct').hexdigest()}
-   def bad(*args,**kwargs):(root/'test.pdf.restore-part').write_bytes(b'badfile')
+   def bad(*args,**kwargs):m.staging_path(root,'test.pdf').write_bytes(b'badfile')
    with patch.object(m.subprocess,'run',side_effect=bad),patch.object(m.shutil,'disk_usage',return_value=type('Space',(),{'free':10**12})()):
     with self.assertRaises(ValueError):m.download(item,root,{'reserve_gib':1},True)
    self.assertEqual(target.read_bytes(),b'original')
-   def good(*args,**kwargs):(root/'test.pdf.restore-part').write_bytes(b'correct')
+   def good(*args,**kwargs):m.staging_path(root,'test.pdf').write_bytes(b'correct')
    with patch.object(m.subprocess,'run',side_effect=good),patch.object(m.shutil,'disk_usage',return_value=type('Space',(),{'free':10**12})()):self.assertEqual(m.download(item,root,{'reserve_gib':1},True),'restored')
    self.assertEqual(target.read_bytes(),b'correct')
  def test_bundle_file_allowlist(self):

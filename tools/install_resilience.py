@@ -136,7 +136,7 @@ def register(records):
  from app.services.manifest import load_manifest,atomic_write
  from tools.library_removal import serialize
  with Path('/var/lib/dataark/updates/worker.lock').open('a') as lock:
-  fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);data=load_manifest(ROOT/'dataark.yaml')
+  __import__('tools.content_lock',fromlist=['acquire']).acquire(lock);data=load_manifest(ROOT/'dataark.yaml')
   for key,title,desc,links in [('resilience','Wilderness Survival & Off-grid Power','Outdoor survival, navigation, energy planning and generator references with source editions.',[{'title':'Read local field & power references','url':'/library-files/resilience/index.html'},{'title':'Offline power calculators','url':'/power.html'}]),('civic-reference','Laws, Regulations & Codes','Official federal statute snapshot and clearly scoped Massachusetts/local legal and code references.',[{'title':'Browse local laws & code coverage','url':'/library-files/civic-reference/index.html'},{'title':'U.S. Code title index','url':'/library-files/civic-reference/us-code/index.html'},{'title':'Fill PDF forms locally','url':'/pdf-forms.html'},{'title':'Amateur callsign search','url':'/callsigns.html'}])]:
    repo={'id':key,'title':title,'description':desc,'category':'content_sources','collapse_assets':True,'update_policy':'manual','refresh_interval':'never','links':links};data['repositories']=[r for r in data['repositories'] if r['id']!=key]+[repo]
   for r in records:

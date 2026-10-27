@@ -18,7 +18,7 @@ COLLECTIONS={
  'radio-study':('tools/install_radio_study.py',[],'deploy/reference/radio-pools.json')}
 REFERENCE_FILES=['reference-checks.json','jurisdictions.json','family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','osm-usa.json','osm-usa.geojson','osm-caribbean.json','vehicle-manuals.json','honda-intermediate.pem','holiday-themes.json','curriculum-settings.json','curriculum-catalogue.json']
 PUBLIC_KEYS=['system','geography','maps','categories','scenarios','repositories','assets','resource_sections','dashboard','personalization']
-def read(path):return yaml.safe_load(Path(path).read_text())
+def read(path):return yaml.load(Path(path).read_text(), Loader=getattr(yaml,'CSafeLoader',yaml.SafeLoader))
 def write(path,data):
  path.parent.mkdir(parents=True,exist_ok=True);p=path.with_suffix(path.suffix+'.part');p.write_text(data);p.chmod(0o644);p.replace(path)
 def digest(path):
@@ -32,6 +32,33 @@ def inside(root,relative):
  target=root.joinpath(*p.parts)
  if not target.resolve().is_relative_to(root.resolve()):raise ValueError('Content path escapes root')
  return target
+# Conservative, portable recipe estimates include auxiliary source ZIPs/databases.
+RECIPE_PATHS={
+ 'portable-reader':['kiwix-viewer'], 'osm':['maps/osm/massachusetts.pmtiles'],
+ 'osm-caribbean':['maps/osm/caribbean.pmtiles'], 'forms':['forms'],
+ 'family':['family-resources'], 'resilience':['resilience','civic-reference'],
+ 'jurisdictions':['civic-reference/jurisdictions'], 'callsigns':['civic-reference'],
+ 'radio-study':['radio-study'], 'curriculum':['curriculum']}
+def bound_recipes(recipes, root):
+ for item in recipes:
+  if item['id']=='indexes':
+   item.update(installed_bytes=0,temporary_bytes=0,update_headroom_bytes=0);continue
+  paths=[inside(root,p) for p in RECIPE_PATHS.get(item['id'],[])]
+  if not paths or any(not p.exists() or p.is_symlink() for p in paths):continue
+  files={p for base in paths for p in ([base] if base.is_file() else base.rglob('*')) if p.is_file() and not p.is_symlink()}
+  size=sum(p.stat().st_size for p in files)
+  if not size:continue
+  # 25% growth allowance and two complete footprints for downloads/extraction.
+  size=(size*5+3)//4
+  item.update(installed_bytes=size,temporary_bytes=2*size,update_headroom_bytes=max(16*1024**2,size//5),estimate_basis='Observed source collection including auxiliary files, plus 25% growth; review on a new publisher edition')
+ return recipes
+
+def apply_public_profile(c,folder):
+ public=read(inside(folder,c['manifest']));live=read(REPO/'dataark.yaml') if (REPO/'dataark.yaml').exists() else public
+ for key in PUBLIC_KEYS:
+  if key!='system' and key in public:live[key]=public[key]
+ write(REPO/'dataark.yaml',yaml.safe_dump(live,sort_keys=False,allow_unicode=True))
+
 def export(folder):
  manifest=read(REPO/'dataark.yaml');root=Path(manifest['system']['base_mount'])
  if not root.is_mount():raise ValueError('Content SSD is not mounted; existing selections were not changed.')
@@ -39,13 +66,18 @@ def export(folder):
  folder.mkdir(parents=True,exist_ok=True)
  public={k:manifest[k] for k in PUBLIC_KEYS if k in manifest};write(folder/'public-manifest.yaml',yaml.safe_dump(public,sort_keys=False,allow_unicode=True))
  files=[];coverage=[];archives=[];installed=[]
+ try:pending={i['id']:i for i in json.loads(Path('/var/lib/dataark/updates/pending-plan.json').read_text()).get('archives',[])}
+ except (OSError,ValueError,KeyError):pending={}
+ repositories={r['id']:r for r in manifest['repositories']}
  for a in manifest['assets']:
   p=inside(root,a['relative_path']);present=p.is_file()
   if present:installed.append(a['id'])
   lock={'id':a['id'],'title':a.get('title',a['id']),'path':a['relative_path'],'selected':present,'bytes':p.stat().st_size if present else None,'sha256':a.get('expected_hash'),'source':a.get('download_url') or a.get('online_url'),'repository':a.get('repository_id')}
   coverage.append(lock)
   if a['relative_path'].endswith('.zim'):
-   archives.append({'id':a['id'],'title':lock['title'],'enabled':present,'path':a['relative_path'],'url':a.get('download_url'),'bytes':lock['bytes'],'sha256':lock['sha256']})
+   plan=pending.get(a['id'],{})
+   size=lock['bytes'] or (plan.get('bytes') if plan.get('filename')==a['relative_path'] and plan.get('sha256')==a.get('expected_hash') else None)
+   archives.append({'id':a['id'],'title':lock['title'],'enabled':not a.get('removed',False) and repositories[a['repository_id']].get('enabled',True),'path':a['relative_path'],'url':a.get('download_url'),'bytes':size,'sha256':lock['sha256']})
   elif a.get('repository_id') in ('preparedness','vehicle-manuals','curriculum') and present and a.get('download_url'):
    files.append({'id':a['id'],'path':a['relative_path'],'url':a['download_url'],'bytes':lock['bytes'],'sha256':lock['sha256']})
  state_path=root/'maps/status.json';state=json.loads(state_path.read_text()) if state_path.is_file() else {'files':{},'items':[]}
@@ -62,6 +94,7 @@ def export(folder):
  # Report large unregistered root archives, rather than silently treating stale copies as selected.
  unmanaged=[{'path':p.name,'bytes':p.stat().st_size,'note':'Not registered; preserve separately or add an explicit source recipe.'} for p in root.glob('*.zim') if p.name not in owned]
  recipe={'schema':1,'name':'Data Ark content selection','exported_at':datetime.now(timezone.utc).isoformat(),'source_repository':'https://github.com/DavJenkins/pharos','source_commit':subprocess.check_output(['git','-c','safe.directory='+str(REPO),'-C',str(REPO),'rev-parse','HEAD'],text=True).strip(),'content_root':str(root),'manifest':'public-manifest.yaml','reserve_gib':10,'download_rate_kib':0,'notes':['This file and referenced catalogues describe public content, not passwords, networking or private backups.','enabled=false preserves an uninstalled choice without downloading it.','Pinned archives require the recorded hash. Rolling publisher datasets and regenerated HTML may differ from the export.','No content is deleted by restoration. Source availability and network access are required unless files are supplied separately.'],'archives':archives,'direct_files':files,'map_files':mapfiles,'recipes':[{'id':'portable-reader','enabled':True,'url':next(a['download_url'] for a in manifest['assets'] if a['id']=='kiwix-windows-reader'),'target':'kiwix-viewer','files':[{'path':str(p.relative_to(root/'kiwix-viewer')),'bytes':p.stat().st_size} for p in sorted((root/'kiwix-viewer').rglob('*')) if p.is_file()],'note':'Keep the entire extracted Windows reader folder.'},{'id':'osm','enabled':True,'configuration':'deploy/reference/osm-massachusetts.json'},{'id':'osm-caribbean','enabled':True,'configuration':'deploy/reference/osm-caribbean.json'},{'id':'forms','enabled':True,'catalogue':COLLECTIONS['forms'][2]},{'id':'family','enabled':True,'catalogue':COLLECTIONS['family'][2],'requires':['forms']},{'id':'resilience','enabled':True,'catalogue':COLLECTIONS['resilience'][2],'settings':'deploy/reference/resilience-settings.json','us_code_release':'deploy/reference/us-code-release.json'},{'id':'jurisdictions','enabled':True,'catalogue':COLLECTIONS['jurisdictions'][2],'requires':['resilience']},{'id':'callsigns','enabled':True,'configuration':COLLECTIONS['callsigns'][2],'note':'FCC complete ZIP is a rolling source. Preserved source ZIP restores the old snapshot; otherwise a new snapshot is imported.'},{'id':'radio-study','enabled':True,'configuration':COLLECTIONS['radio-study'][2]},{'id':'curriculum','enabled':True,'catalogue':COLLECTIONS['curriculum'][2],'note':'Original curriculum PDFs and explicit coverage; licenses retained.'},{'id':'indexes','enabled':True}],'snapshots':snapshots,'unmanaged_archives':unmanaged}
+ bound_recipes(recipe['recipes'],root)
  write(folder/'content.yaml','# Public content recipe. Edit enabled flags and source catalogues; keep this folder with the source repository.\n'+yaml.safe_dump(recipe,sort_keys=False,allow_unicode=True));write(folder/'content-lock.json',json.dumps({'assets':coverage,'unmanaged_archives':unmanaged},indent=2)+'\n')
  if folder.resolve()==(REPO/'config/content').resolve():mirror(recipe,folder,root/'DATA-ARK-CONFIG')
  print('Exported',len(coverage),'registered asset records,',len(mapfiles),'installed map files; excluded private bugout/system-volume data.')
@@ -71,6 +104,8 @@ def portable_files(c,folder):
  for name in ['content.yaml','content-lock.json',c['manifest']]+c.get('snapshots',[]):
   path=inside(folder,name)
   if path.is_file():yield path,'config/content/'+name
+ policy=REPO/'config/recovery-presets.json'
+ if policy.is_file():yield policy,'config/recovery-presets.json'
  for name in REFERENCE_FILES:
   path=REPO/'deploy/reference'/name
   if path.is_file():yield path,'deploy/reference/'+name
@@ -111,13 +146,26 @@ def selected(c,only):
  for i in c.get('recipes',[]):
   if i.get('enabled',True) and (not only or i['id'] in only):jobs.append(('recipe',i))
  return jobs
-def download(item,root,c,verify_existing=False):
+def staging_path(root,relative):
+ directory=root/'.dataark-restoration'
+ if directory.is_symlink():raise ValueError('Restore staging directory cannot be a symlink')
+ directory.mkdir(mode=0o700,exist_ok=True);directory.chmod(0o700)
+ path=directory/(hashlib.sha256(relative.encode()).hexdigest()+'.part')
+ if path.is_symlink():raise ValueError('Restore staging file cannot be a symlink')
+ return path
+
+def download(item,root,c,verify_existing=False,progress=None):
  target=inside(root,item['path']);target.parent.mkdir(parents=True,exist_ok=True)
+ if progress:progress('checking_existing')
  if target.is_file() and (not item.get('bytes') or target.stat().st_size==item['bytes']):
   if not verify_existing or not item.get('sha256') or digest(target)==item['sha256']:return 'present (size checked'+('; checksum checked' if verify_existing and item.get('sha256') else '')+')'
  size=item.get('bytes') or 2*1024**3
  if shutil.disk_usage(root).free-size<c['reserve_gib']*1024**3:raise RuntimeError('Insufficient free space above reserve')
- part=target.with_suffix(target.suffix+'.restore-part');args=['curl','--fail','--location','--proto','=https','--retry','2','--connect-timeout','30','--max-filesize',str(size),'--continue-at','-','--output',str(part)]
+ part=staging_path(root,item['path'])
+ ready=part.is_file() and bool(item.get('sha256')) and (not item.get('bytes') or part.stat().st_size==item['bytes']) and digest(part)==item['sha256']
+ if part.is_file() and item.get('bytes') and part.stat().st_size>=item['bytes'] and not ready:
+  part.rename(part.with_name(part.name+'.rejected-'+str(time.time_ns())))
+ args=['curl','--fail','--location','--proto','=https','--proto-redir','=https','--speed-time','120','--speed-limit','1024','--retry','2','--connect-timeout','30','--max-filesize',str(size),'--continue-at','-','--output',str(part)]
  if c.get('download_rate_kib'):args+=['--limit-rate',str(c['download_rate_kib'])+'K']
  # Honda omits an intermediate certificate. Supply its CA chain only for
  # this host, still validating the hostname and the system's trusted roots.
@@ -126,12 +174,16 @@ def download(item,root,c,verify_existing=False):
    roots=Path(ssl.get_default_verify_paths().cafile);bundle=Path(temporary)/'ca.pem'
    bundle.write_bytes(roots.read_bytes()+b'\n'+(REPO/'deploy/reference/honda-intermediate.pem').read_bytes())
    args+=['--cacert',str(bundle)]
-  subprocess.run(args+[item['url']],check=True)
+  if not ready:
+   if progress:progress('downloading')
+   subprocess.run(args+[item['url']],check=True)
+ if progress:progress('verifying')
  if item.get('bytes') and part.stat().st_size!=item['bytes']:raise ValueError('Downloaded size mismatch; staged file retained')
  if item.get('sha256') and digest(part)!=item['sha256']:raise ValueError('Downloaded checksum mismatch; original file retained')
  if target.suffix=='.zim':
   with part.open('rb') as f:
    if f.read(4)!=b'ZIM\x04':raise ValueError('Not a ZIM archive')
+ if progress:progress('publishing')
  part.chmod(0o644);part.replace(target);return 'restored'
 def recipe(item,c,root,folder):
  name=item['id']
@@ -151,7 +203,9 @@ def recipe(item,c,root,folder):
   if name=='resilience':
    meta=REPO/'deploy/reference/us-code-release.json';m=json.loads(meta.read_text());target=root/'civic-reference/us-code-source.zip'
    if not target.exists():download({'id':'usc-source','path':'civic-reference/us-code-source.zip','url':m['url'],'sha256':m['sha256']},root,c);write(root/'civic-reference/us-code-source.json',json.dumps(m,indent=2)+'\n')
-  subprocess.run(['/usr/bin/python3',str(REPO/script)]+args,check=True);return
+  from tools.content_lock import inherited_descriptor
+  descriptor=inherited_descriptor()
+  subprocess.run(['/usr/bin/python3',str(REPO/script)]+args,check=True,pass_fds=() if descriptor is None else (descriptor,));return
  if name=='portable-reader':
   target=inside(root,item['target'])
   expected=item.get('files',[])
@@ -218,29 +272,5 @@ def main():
  jobs=selected(c,a.only);root=Path(c['content_root']);print('Content root:',root,'\nNo removal operations are defined.')
  for kind,i in jobs:print(kind+': '+i['id']+(' -> '+i.get('path','') if kind!='recipe' else ''))
  if a.action=='plan' or not a.apply:print('Preview only. Use restore --apply to download/regenerate.');return
- if os.geteuid()!=0:raise SystemExit('Run the explicit restore with sudo.')
- if root!=Path('/mnt/storage') or not root.is_mount():raise SystemExit('Restore currently requires the configured content SSD mounted at /mnt/storage.')
- import fcntl
- restore_lock=Path('/var/lib/dataark/content-restore.lock').open('a')
- fcntl.flock(restore_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
- with Path('/var/lib/dataark/updates/worker.lock').open('a') as shared:
-  fcntl.flock(shared,fcntl.LOCK_EX|fcntl.LOCK_NB)
-  # Apply public selections, retaining existing system and private appliance settings.
-  public=read(inside(folder,c['manifest']));live=read(REPO/'dataark.yaml') if (REPO/'dataark.yaml').exists() else public
-  for key in PUBLIC_KEYS:
-   if key!='system' and key in public:live[key]=public[key]
-  write(REPO/'dataark.yaml',yaml.safe_dump(live,sort_keys=False,allow_unicode=True))
- failures=[]
- for kind,i in jobs:
-  try:
-   print('Running',i['id'],flush=True)
-   if kind=='recipe':recipe(i,c,root,folder)
-   else:
-    lockfile=Path('/var/lib/dataark/maps/worker.lock' if kind=='map_files' else '/var/lib/dataark/updates/worker.lock');lockfile.parent.mkdir(parents=True,exist_ok=True)
-    with lockfile.open('a') as shared:
-     fcntl.flock(shared,fcntl.LOCK_EX|fcntl.LOCK_NB);print(download(i,root,c,a.verify_existing),flush=True)
-  except Exception as error:failures.append({'id':i['id'],'error':str(error)});print('FAILED',i['id'],str(error),flush=True)
- report={'completed_at':datetime.now(timezone.utc).isoformat(),'jobs':len(jobs),'failures':failures};write(folder/'last-restore.json',json.dumps(report,indent=2)+'\n')
- if failures:raise SystemExit('Some items need attention; see last-restore.json. Verified originals were retained.')
- print('Restore finished. Check local readers and source coverage before declaring the appliance ready.')
+ raise SystemExit('Optional restoration now requires an approved preset plan. Use tools/recovery_queue.py plan, create --accept-plan PLAN_ID, then run. See docs/20-Administration/RecoveryQueue.md.')
 if __name__=='__main__':main()

@@ -1,0 +1,18 @@
+[Unit]
+Description=Data Ark explicitly approved content restoration queue
+After=network-online.target docker.service
+Wants=network-online.target
+ConditionPathIsMountPoint=/mnt/storage
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/opt/dataark
+ExecStart=/opt/dataark/venv/bin/python /opt/dataark/tools/recovery_queue.py resume
+TimeoutStartSec=infinity
+TimeoutStopSec=20
+KillMode=control-group
+Nice=10
+IOSchedulingClass=idle
+UMask=0022
+# No timer or automatic restart: an interrupted queue requires an explicit resume.

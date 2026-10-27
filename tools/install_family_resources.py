@@ -80,7 +80,7 @@ def register(records):
  from app.services.manifest import load_manifest,atomic_write
  from tools.library_removal import serialize
  with Path('/var/lib/dataark/updates/worker.lock').open('a') as lock:
-  fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);data=load_manifest(ROOT/'dataark.yaml')
+  __import__('tools.content_lock',fromlist=['acquire']).acquire(lock);data=load_manifest(ROOT/'dataark.yaml')
   repo={'id':'family-resources','category':'content_sources','title':'Paper, Play & Family Resources','description':'Offline paper studio, PDF coloring, browser games, adult coloring, activity books, household worksheets and incident forms. English and Spanish selections.','collapse_assets':True,'update_policy':'manual','refresh_interval':'never','links':[{'title':'Learning at home','url':'/learning.html'},{'title':'Paper studio & household templates','url':'/printables.html'},{'title':'Games, drawing & PDF coloring','url':'/activities.html'},{'title':'Cookbooks & pantry meals','url':'/library-files/family-resources/index.html#cookbooks'},{'title':'Browse local books & readiness forms','url':'/library-files/family-resources/index.html'}]}
   existing=next((r for r in data['repositories'] if r['id']==repo['id']),None)
   if existing:

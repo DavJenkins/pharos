@@ -3,6 +3,7 @@
 import hashlib,json,re,sys,urllib.request
 from datetime import datetime,timezone
 from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 SETTINGS=json.loads((Path(__file__).resolve().parents[1]/'deploy/reference/radio-pools.json').read_text())
 COMMIT=SETTINGS['commit']
 BASE='https://raw.githubusercontent.com/'+SETTINGS['mirror_repository']+'/'+COMMIT+'/'
@@ -19,7 +20,7 @@ def main():
  if not Path('/mnt/storage').is_mount():raise SystemExit('SSD must be mounted')
  import fcntl
  with Path('/var/lib/dataark/updates/worker.lock').open('a') as lock:
-  fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);meta={'source':'NCVEC public-domain pools; machine-readable transcription and figures by russolsen/ham_radio_question_pool (Apache-2.0)','mirror_commit':COMMIT,'retrieved_at':datetime.now(timezone.utc).isoformat(),'errata_check':'Technician February 19, 2026 wording verified; General/Extra withdrawn questions checked against ARRL withdrawn list October 23, 2026. No official teaching explanations are supplied.','sources':['https://www.ncvec.org/index.php/2026-2030-technician-question-pool','https://www.ncvec.org/index.php/2023-2027-general-question-pool-release','https://www.ncvec.org/index.php/2024-2028-extra-class-question-pool-release','https://www.arrl.org/withdrawn-questions'],'pools':[],'files':[]}
+  __import__('tools.content_lock',fromlist=['acquire']).acquire(lock);meta={'source':'NCVEC public-domain pools; machine-readable transcription and figures by russolsen/ham_radio_question_pool (Apache-2.0)','mirror_commit':COMMIT,'retrieved_at':datetime.now(timezone.utc).isoformat(),'errata_check':'Technician February 19, 2026 wording verified; General/Extra withdrawn questions checked against ARRL withdrawn list October 23, 2026. No official teaching explanations are supplied.','sources':['https://www.ncvec.org/index.php/2026-2030-technician-question-pool','https://www.ncvec.org/index.php/2023-2027-general-question-pool-release','https://www.ncvec.org/index.php/2024-2028-extra-class-question-pool-release','https://www.arrl.org/withdrawn-questions'],'pools':[],'files':[]}
   files={'LICENSE.txt':get('LICENSE.txt')}
   for key,edition,start,end,count,exam,passing,figures in POOLS:
    directory=key+'-'+edition;raw=get(directory+'/'+directory+'.json');rows=json.loads(raw)

@@ -56,3 +56,6 @@ app.include_router(source_check_router)
 
 from app.routers.integration_health import router as integration_health_router
 app.include_router(integration_health_router)
+
+from app.routers.recovery import router as recovery_router
+app.include_router(recovery_router)
