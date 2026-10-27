@@ -26,8 +26,10 @@ def classify(line):
  return dt,int(m[6]) if m[6]!='-' else 0,group
 
 def empty():return {'opens':0,'bytes':0,'hotspot_peak':None,'samples':0,'collections':{}}
-def add(bucket,size,group):
+def add(bucket,size,group,download=False):
  bucket['opens']+=1;bucket['bytes']+=size;bucket['collections'][group]=bucket['collections'].get(group,0)+1
+ bucket['downloads']=bucket.get('downloads',0)+int(download)
+ bucket['page_views']=bucket.get('page_views',0)+int(not download)
 
 def all_time_add(state,address):
  digest=hmac.new(bytes.fromhex(state['_all_time_salt']),address.encode(),hashlib.sha256).digest()
@@ -62,7 +64,9 @@ def consume(state,log,now):
    if dt.isoformat()<started or dt>now+timedelta(minutes=5) or dt<now-timedelta(days=365):continue
    day=dt.strftime('%Y-%m-%d');hour=dt.strftime('%Y-%m-%dT%H:00:00Z')
    bucket=state['daily'].setdefault(day,empty())
-   add(bucket,size,group)
+   path=urlsplit(LINE.match(line)[4]).path.lower()
+   download=not (path.endswith(('.html','.htm')) or path.endswith('/'))
+   add(bucket,size,group,download)
    try:address=ipaddress.ip_address(LINE.match(line)[1]);address=str(address.ipv4_mapped or address) if isinstance(address,ipaddress.IPv6Address) else str(address)
    except ValueError:address=None
    if address and dt>=datetime.fromisoformat(state['all_time']['started_at']):all_time_add(state,address)
@@ -71,7 +75,7 @@ def consume(state,log,now):
     digest=hmac.new(bytes.fromhex(visitors['salt']),address.encode(),hashlib.sha256).hexdigest()
     if digest not in visitors['hashes']:visitors['hashes'].append(digest)
     bucket['unique_visitors']=len(visitors['hashes'])
-   if dt>=now-timedelta(days=30):add(state['hourly'].setdefault(hour,empty()),size,group)
+   if dt>=now-timedelta(days=30):add(state['hourly'].setdefault(hour,empty()),size,group,download)
   state['log']={'key':key,'offset':offset+end}
   if offset+end<stat.st_size:return
 
@@ -102,6 +106,7 @@ def write(path,value,mode):
 
 def collect(state,log,now,current):
  state.setdefault('visitors_started_at',now.isoformat());state.setdefault('_visitors',{})
+ state.setdefault('download_counting_started_at',now.isoformat())
  state.setdefault('all_time',{'started_at':now.isoformat(),'estimated_visitors':0,'relative_standard_error':1.04/math.sqrt(16384)})
  state.setdefault('_all_time_salt',secrets.token_hex(32));state.setdefault('_all_time_registers',[0]*16384)
  consume(state,log,now)
@@ -114,6 +119,8 @@ def collect(state,log,now,current):
   state[name]={key:value for key,value in state[name].items() if key>=cutoff}
  state['_visitors']={key:value for key,value in state['_visitors'].items() if key>=(now-timedelta(days=2)).strftime('%Y-%m-%d')}
  state['daily'][now.strftime('%Y-%m-%d')].setdefault('unique_visitors',0)
+ state['daily'][now.strftime('%Y-%m-%d')].setdefault('downloads',0)
+ state['daily'][now.strftime('%Y-%m-%d')].setdefault('page_views',0)
  state['all_time']['estimated_visitors']=all_time_estimate(state['_all_time_registers'])
  state['updated_at']=now.isoformat();state['current']=current
  return {k:v for k,v in state.items() if k!='log' and not k.startswith('_')}

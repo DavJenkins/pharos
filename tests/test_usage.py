@@ -54,6 +54,14 @@ class UsageTests(unittest.TestCase):
   count=all_time_estimate(state['_all_time_registers']);self.assertLess(abs(count-10001),300)
   self.assertEqual(len(state['_all_time_registers']),16384)
   self.assertNotIn('192.168.4.5',str(state))
+ def test_landing_refresh_is_a_visit_not_a_download(self):
+  with tempfile.TemporaryDirectory() as temp:
+   log=Path(temp)/'access.log';log.write_text('')
+   state={'started_at':(NOW-timedelta(seconds=1)).isoformat(),'daily':{},'hourly':{}}
+   collect(state,log,NOW,{'hotspot_devices':0})
+   log.write_text(line('/')+line('/index.html')+line('/?refresh=1')+line('/docs/a.html')+line('/library-files/forms/a.pdf'))
+   public=collect(state,log,NOW,{'hotspot_devices':0});day=public['daily']['2026-10-27']
+   self.assertEqual(day['downloads'],1);self.assertEqual(day['page_views'],4);self.assertEqual(day['opens'],5);self.assertEqual(day['unique_visitors'],1)
  def test_connection_samples_are_not_sessions(self):
   with patch('tools.collect_usage.command',side_effect=['Station aa\nStation bb\n','0 0 192.168.4.1:5901 192.168.4.5:44321\n0 0 127.0.0.1:4200 127.0.0.1:12345\n0 0 192.168.4.1:22 192.168.4.5:45678']):
    result=sample();self.assertEqual(result['hotspot_devices'],2);self.assertEqual(result['desktop_connections'],1);self.assertEqual(result['terminal_connections'],0);self.assertEqual(result['ssh_connections'],1)

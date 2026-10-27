@@ -21,3 +21,7 @@ The private state keeps HMAC-SHA256 digests with independent random daily salts 
 A separate HyperLogLog sketch with 16,384 registers deduplicates client addresses across days, using a persistent random HMAC-SHA256 salt. Neither this salt nor the sketch registers are published. The sketch needs fixed storage, cannot enumerate visitors, and survives collector restarts. Its nominal relative standard error is about 0.81%; shared addresses and address changes add uncertainty that this bound does not cover.
 
 `all_time.started_at` records when this estimate began. It is not a sum of daily counts and is not backfilled from old logs. The current figure appears in System and Usage. The private state retains the all-time salt and sketch indefinitely, while daily deduplication hashes still expire after two days. Retain `/var/lib/dataark/usage/state.json` in a private appliance backup to preserve continuity; new clones start their own usage history. Only the estimate, start date and statistical error are public.
+
+## Page views versus file downloads
+
+Page views (including landing-page refreshes) and file downloads have separate counters. Visitor estimates include qualifying page views, but page views never increment downloads. File requests such as PDFs, EPUBs and ZIPs count when successfully served, whether viewed or saved by the browser. Repeated requests are separate file deliveries, not unique documents or proof of a completed save. `download_counting_started_at` records when the split counters began; older request totals remain unchanged.
