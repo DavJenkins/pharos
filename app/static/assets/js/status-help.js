@@ -169,6 +169,15 @@
         let pending = null;
         let pendingTimer = null;
         let systemTab="system";
+        function updateTabActions(){
+            const system=selected==="system-button";
+            terminalLink.hidden=!system||systemTab!=="system";
+            httpsLink.hidden=!system||systemTab!=="system";
+            bannerButton.hidden=!system||systemTab!=="system"||!window.ArkBannerAdmin;
+            link.hidden=system?systemTab!=="library":!(items[selected]?.settings||items[selected]?.url);
+            toggleHome.hidden=system&&systemTab==="usage";
+        }
+
         function renderDetails(item, title) {
             const focusedTab=document.activeElement?.getAttribute("role")==="tab"?document.activeElement.id:null;
             value.replaceChildren();
@@ -203,6 +212,7 @@
                 const panels=[systemPanel,libraryPanel,devicesPanel],keys=["system","library","usage"],labels=["System","Library","Usage"],buttons=[];
                 function selectTab(index,focus=false){
                     systemTab=keys[index];
+                    updateTabActions();
                     panels.forEach((panel,i)=>{panel.hidden=i!==index;buttons[i].setAttribute("aria-selected",String(i===index));buttons[i].tabIndex=i===index?0:-1;});
                     if(focus)buttons[index].focus();
                 }
@@ -290,10 +300,7 @@
                 switchState.textContent = action.checked ? "On" : "Off";
                 document.getElementById("status-dialog-toggle-label").textContent = selected === "ap-button" ? "Enable hotspot" : selected === "eth-button" ? "Enable Ethernet" : selected === "wifi-button" ? "Enable upstream Wi-Fi" : selected === "debug-button" ? "Enable debug diagnostics" : selected === "refresh-button" ? "Update status automatically" : "Use the Ark's internet connection on this device";
             }
-            terminalLink.hidden = selected !== "system-button";
-            httpsLink.hidden = selected !== "system-button";
-            bannerButton.hidden = selected !== "system-button" || !window.ArkBannerAdmin;
-            link.hidden = !(item.settings || item.url);
+            updateTabActions();
             link.href = item.settings || item.url || "#";
             link.textContent = item.settingsLabel || item.openLabel || "";
         }
