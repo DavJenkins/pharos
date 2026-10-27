@@ -54,3 +54,12 @@ A blocked check does not reopen a recently browser-verified item. deploy/referen
 Update observations live in /var/lib/dataark/browser-capture/update-checks.json, with a public non-sensitive view at /library-files/browser-capture-status.json. They are runtime observations rather than content selection. Previous-copy history is on the system disk; it is not included in the public library or automatically replicated as payload. An administrator can recover an earlier PDF and its saved sources record after checking its SHA-256. No automatic history deletion policy is installed.
 
 When upgrading this unpacked extension, replace package files while retaining local config.json and the native-host launcher/registration, then click Reload on its card at chrome://extensions and refresh the capture page. Permissions and extension ID are unchanged.
+
+
+## Source failures and replacement review
+
+The capture page separates missing files, broken links, browser checks, and installed captures that need no action. A 403 is an access refusal, not proof of a missing publication. Changed bytes require review and do not prove a new edition. New editions discovered by the scheduled publication rules appear separately in Manage Library.
+
+`deploy/reference/capture-sources.json` records the publication page where verified, the current download URL, assessment date, failure classification, and any reviewed replacement candidate. `discovery_rule: null` explicitly means there is no automated edition-discovery rule for that source yet. This file travels with recovery configuration. Download identities and permitted URLs remain pinned to the catalogue; metadata does not broaden importer permissions.
+
+The October 27 assessment found nine installed captures with blocked automated checks, four missing publications requiring browser checks, and three missing publications with confirmed 404 URLs. Broken links have no capture action. The Forest Service recreation checklist is a working related candidate, not a verified identical replacement for the older brochure. Its review link does not arm capture.

@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const source=fs.readFileSync('app/static/assets/js/browser-capture.js','utf8').split('let refreshing=')[0];
+const context={};vm.createContext(context);vm.runInContext(source,context);
+const classify=context.captureCategory;
+assert.equal(classify({source:{failure_kind:'broken_link'}},null,null),'Broken links — repair needed');
+assert.equal(classify({source:{failure_kind:'access_blocked'}},null,null),'Browser check needed');
+assert.equal(classify({},null,null),'Missing files');
+const installed={status:'installed',sha256:'abc'};
+assert.equal(classify({},installed,{installed_sha256:'abc',state:'blocked',review_due:false}),'Installed — no action needed');
+assert.equal(classify({},installed,{installed_sha256:'abc',state:'changed'}),'Browser check needed');
+assert.equal(classify({},installed,{installed_sha256:'old',state:'changed'}),'Installed — no action needed');
+assert.equal(classify({},installed,{installed_sha256:'abc',state:'blocked',review_due:true}),'Browser check needed');
+console.log('7 capture classification checks passed');

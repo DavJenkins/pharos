@@ -1,3 +1,11 @@
+function captureCategory(item,record,check) {
+ const present=record?.status==='installed';
+ const current=present && check?.installed_sha256===record.sha256;
+ if(present && !(current && (check.state==='changed'||(['blocked','unknown'].includes(check.state)&&check.review_due))))return 'Installed — no action needed';
+ if(item.source?.failure_kind==='broken_link')return 'Broken links — repair needed';
+ if(present || item.source?.failure_kind==='access_blocked')return 'Browser check needed';
+ return 'Missing files';
+}
 let refreshing=false, refreshAgain=false;
 async function loadCapture() {
  if(refreshing){refreshAgain=true;return;}refreshing=true;
@@ -7,24 +15,27 @@ async function loadCapture() {
   for (const folder of folders) inventories[folder]=await (await fetch('/library-files/'+folder+'/sources.json',{cache:'no-store'})).json();
   let checks={};try{const response=await fetch('/library-files/browser-capture-status.json',{cache:'no-store'});if(response.ok)checks=await response.json();}catch(_){}
   const root=document.querySelector('#items');root.replaceChildren();
-  const pending=document.createElement('div'),installed=document.createElement('details');
+  const pending=document.createElement('div'),installed=document.createElement('details'),groups=new Map();
   const summary=document.createElement('summary');installed.append(summary);let installedCount=0,pendingCount=0;
   for (const item of targets) {
    const record=inventories[item.collection].find(x=>x.id===item.id);
    const present=record?.status==='installed';const check=checks[item.id];
-   const actionNeeded=present && check?.installed_sha256===record.sha256 && (check.state==='changed'||['blocked','unknown'].includes(check.state)&&check.review_due);
+   const category=captureCategory(item,record,check);const actionNeeded=category!=='Installed — no action needed';const broken=item.source?.failure_kind==='broken_link';
    const section=document.createElement('section');const h=document.createElement('h2');h.textContent=item.title;section.append(h);
    const explanation=document.createElement('p');
    explanation.textContent=present?(check?.installed_sha256===record.sha256?check.message:'Installed; no current publisher comparison recorded.'):'Not installed.';
    if(check?.checked_at && present)explanation.textContent+=' Last checked '+new Date(check.checked_at).toLocaleString()+'.';section.append(explanation);
-   const button=document.createElement('button');button.dataset.captureId=item.id;
+   if(!broken){const button=document.createElement('button');button.dataset.captureId=item.id;
    button.textContent=present?(check?.state==='changed'?'Capture reviewed replacement':'Compare browser copy'):'Download & import';
    if(present)button.dataset.expectedHash=record.sha256;section.append(button);
-   const link=document.createElement('a');link.href=item.url;link.target='_blank';link.rel='noopener';link.dataset.armId=item.id;if(present)link.dataset.expectedHash=record.sha256;link.textContent='Open publisher';section.append(link);
+   const link=document.createElement('a');link.href=item.url;link.target='_blank';link.rel='noopener';link.dataset.armId=item.id;if(present)link.dataset.expectedHash=record.sha256;link.textContent='Open publisher download';section.append(link);}
+   if(item.source?.note && actionNeeded){const note=document.createElement('p');note.textContent=item.source.note;section.append(note);}
+   for(const [label,url] of [['Publication page',item.source?.publication_page],['Original recorded URL',broken?item.url:null],['Review replacement candidate',item.source?.candidate?.url]]){if(url){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent=label+' ↗';const p=document.createElement('p');p.append(a);section.append(p);}}
+   if(item.source?.candidate){const p=document.createElement('p');p.textContent=item.source.candidate.title+'. '+item.source.candidate.note;section.append(p);}
    if(present){const local=document.createElement('a');local.href='/library-files/'+item.collection+'/'+record.filename;local.textContent=' · Read installed copy';section.append(local);}
    const status=document.createElement('p');status.setAttribute('role','status');section.append(status);
-   if(!present||actionNeeded){pending.append(section);pendingCount++;}else installed.append(section);
-   if(present)installedCount++;
+   if(actionNeeded){if(!groups.has(category)){const group=document.createElement('div'),title=document.createElement('h2');title.textContent=category;group.append(title);groups.set(category,group);pending.append(group);}groups.get(category).append(section);pendingCount++;}else installed.append(section);
+   if(!actionNeeded)installedCount++;
   }
   summary.textContent='Installed captures ('+installedCount+') — optional browser comparisons';
   const heading=document.createElement('h2');heading.textContent='Needs capture or review ('+pendingCount+')';root.append(heading);
