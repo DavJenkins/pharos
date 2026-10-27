@@ -8,7 +8,7 @@ Type=simple
 User=shellinabox
 Group=shellinabox
 WorkingDirectory=/var/lib/shellinabox
-ExecStart=/usr/bin/shellinaboxd --port=4201 --localhost-only --disable-ssl --no-beep --disable-ssl-menu --linkify=none --service="/:shellinabox:shellinabox:/var/lib/shellinabox:/usr/bin/ssh -tt -oStrictHostKeyChecking=yes -oUserKnownHostsFile=/var/lib/shellinabox/known_hosts -oPreferredAuthentications=password -oPubkeyAuthentication=no -oForwardAgent=no -oClearAllForwardings=yes -oServerAliveInterval=30 -oServerAliveCountMax=3 admin@127.0.0.1"
+ExecStart=/usr/bin/shellinaboxd --port=4201 --localhost-only --disable-ssl --no-beep --css=/etc/shellinabox/dataark.css --disable-ssl-menu --linkify=none --service="/:shellinabox:shellinabox:/var/lib/shellinabox:/usr/bin/ssh -tt -oStrictHostKeyChecking=yes -oUserKnownHostsFile=/var/lib/shellinabox/known_hosts -oPreferredAuthentications=password -oPubkeyAuthentication=no -oForwardAgent=no -oClearAllForwardings=yes -oServerAliveInterval=30 -oServerAliveCountMax=3 admin@127.0.0.1"
 Restart=on-failure
 RestartSec=3
 NoNewPrivileges=true

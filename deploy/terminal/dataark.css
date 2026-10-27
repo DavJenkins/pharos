@@ -1,0 +1,25 @@
+/* DEJ Software / Pharos Data Ark browser terminal.
+   Preserve ANSI application colours and terminal grid geometry. */
+html body { background: #102b43; color: #ead39b; }
+#vt100 { font-size: 15px; font-variant-ligatures: none; }
+#vt100 #scrollable { color: #ead39b; background-color: #102b43; scrollbar-color: #b99138 #102b43; }
+#vt100 .ansiDef { color: #ead39b; }
+#vt100 .bgAnsiDef { background-color: #102b43; }
+#vt100 .ansiDefR { color: #102b43; }
+#vt100 .bgAnsiDefR { background-color: #ead39b; }
+#vt100 #scrollable.inverted { color: #102b43; background-color: #ead39b; }
+#vt100 #scrollable.inverted .ansiDef { color: #102b43; }
+#vt100 #scrollable.inverted .bgAnsiDef { background-color: #ead39b; }
+#vt100 #scrollable.inverted .ansiDefR { color: #ead39b; }
+#vt100 #scrollable.inverted .bgAnsiDefR { background-color: #102b43; }
+#vt100 #cursor.bright { background-color: #e4bd68; color: #102b43; }
+#vt100 #cursor.dim { background-color: #e4bd68; opacity: .45; }
+#vt100 #cursor.inactive { border-color: #e4bd68; }
+#vt100 #reconnect input, #vt100 #cursize { background: #203e54; color: #f4dfaa; border: 1px solid #b99138; border-radius: 6px; padding: .6em 1em; }
+#vt100 #menu .popup { background: #18374e; color: #f4dfaa; border: 1px solid #b99138; border-radius: 6px; box-shadow: 0 8px 24px #0006; }
+#vt100 #menu .popup li { padding: .45em .7em; }
+#vt100 #menu .popup li.hover { background: #b99138; color: #102b43; }
+#vt100 #menu .popup li.disabled { color: #91a0ac; }
+#vt100 #menu .popup hr { border: 0; border-top: 1px solid #70818d; }
+#vt100 ::selection { background: #e4bd68; color: #102b43; }
+@media (max-width: 550px) { #vt100 { font-size: 14px; } }

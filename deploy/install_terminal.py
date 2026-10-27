@@ -28,6 +28,8 @@ def main():
     known=Path('/var/lib/shellinabox/known_hosts');known.parent.mkdir(exist_ok=True)
     known.write_text(''.join('127.0.0.1 '+p.read_text().strip()+'\n' for p in Path('/etc/ssh').glob('ssh_host_*_key.pub')));known.chmod(0o644)
     run('systemctl','mask','--now','shellinabox.service')
+    theme=Path('/etc/shellinabox/dataark.css');theme.parent.mkdir(exist_ok=True)
+    theme.write_bytes((ROOT/'deploy/terminal/dataark.css').read_bytes());theme.chmod(0o644)
     source=ROOT/'deploy/terminal/dataark-terminal.service'
     run('systemd-analyze','verify',str(source))
     target=Path('/etc/systemd/system/dataark-terminal.service');target.write_bytes(source.read_bytes());target.chmod(0o644)

@@ -67,3 +67,7 @@ sudo systemctl disable --now dataark-terminal.service
 ```
 
 Keep the package's default service masked. Re-enabling uses the installer. If a change breaks web access, recover through normal SSH or local console.
+
+## Appearance
+
+The browser terminal uses DEJ navy (`#102b43`) and warm gold (`#ead39b`), with a gold cursor and matching reconnect/menu controls. `deploy/terminal/dataark.css` changes default colours and readable monospace sizing; ANSI application colours and grid geometry stay under the terminal emulator. The installer copies it to `/etc/shellinabox/dataark.css`, referenced by the service `--css` flag. Refresh an existing terminal tab after a theme update. Restarting only `dataark-terminal.service` reconnects browser terminal sessions; the library and ordinary SSH service are independent.
