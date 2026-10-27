@@ -180,6 +180,8 @@
 
         function renderDetails(item, title) {
             const focusedTab=document.activeElement?.getAttribute("role")==="tab"?document.activeElement.id:null;
+            const previousPanel=document.getElementById("system-panel-"+systemTab);
+            const panelScroll=previousPanel?.scrollTop||0;
             value.replaceChildren();
             const list = document.createElement("dl");
             list.className = "status-details-list";
@@ -262,6 +264,7 @@
                 libraryPanel.append(summary);
                 systemPanel.append(systemActions);libraryPanel.append(libraryActions);
                 selectTab(Math.max(0,keys.indexOf(systemTab)));
+                document.getElementById("system-panel-"+systemTab).scrollTop=panelScroll;
                 if(focusedTab)document.getElementById(focusedTab)?.focus({preventScroll:true});
             }
         }
@@ -272,6 +275,7 @@
             heading.textContent = item.name;
             const networkSwitch = !!item.toggle;
             dialog.classList.toggle("network-popup", networkSwitch);
+            dialog.classList.toggle("system-popup", selected==="system-button");
             toggleRow.classList.toggle("network-enable-switch", networkSwitch);
             const toggleParent = networkSwitch ? popupHeader : toggleHome;
             if (toggleRow.parentElement !== toggleParent) {

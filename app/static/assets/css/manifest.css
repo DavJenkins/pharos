@@ -329,3 +329,11 @@ body{background-image:none}
 .status-dialog-actions button:not([hidden]),.status-dialog-actions a:not([hidden]),.status-dialog-footer button,.refresh-interval-panel button,.dialog-actions button,#bugout-panel button,.manifest-links a:not(.external-link),.system-tabs [role=tab]{display:inline-flex;align-items:center;justify-content:center;text-align:center;vertical-align:middle;line-height:1.25}
 .status-dialog-actions button,.status-dialog-actions a,.status-dialog-footer button{box-sizing:border-box;min-height:44px;padding:.6rem .8rem}
 @media(max-width:480px){#status-dialog .status-dialog-actions button,#status-dialog .status-dialog-actions a,#status-dialog .status-dialog-footer button{font-size:.9rem;padding:.5rem .6rem}}
+
+/* A stable tab body keeps the dialog and Close stationary between selections. */
+#status-dialog.system-popup{height:min(40rem,calc(100dvh - 1rem))}
+#status-dialog.system-popup .status-dialog-scroll{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
+#status-dialog.system-popup .status-dialog-heading-row,#status-dialog.system-popup #status-dialog-description{flex:none}
+#status-dialog.system-popup #status-dialog-value{display:flex;flex-direction:column;flex:1;min-height:0}
+#status-dialog.system-popup .system-tabs{flex:none}
+#status-dialog.system-popup [role=tabpanel]{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;box-sizing:border-box}
