@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Aggregate local usage. Never persist visitor addresses, URLs or user agents."""
-import fcntl,json,re,subprocess
+import fcntl,hashlib,hmac,ipaddress,json,re,secrets,subprocess
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -50,7 +50,15 @@ def consume(state,log,now):
    dt,size,group=item
    if dt.isoformat()<started or dt>now+timedelta(minutes=5) or dt<now-timedelta(days=365):continue
    day=dt.strftime('%Y-%m-%d');hour=dt.strftime('%Y-%m-%dT%H:00:00Z')
-   add(state['daily'].setdefault(day,empty()),size,group)
+   bucket=state['daily'].setdefault(day,empty())
+   add(bucket,size,group)
+   if dt>=datetime.fromisoformat(state['visitors_started_at']) and dt>=now-timedelta(days=2):
+    try:address=ipaddress.ip_address(LINE.match(line)[1]);address=str(address.ipv4_mapped or address) if isinstance(address,ipaddress.IPv6Address) else str(address)
+    except ValueError:continue
+    visitors=state['_visitors'].setdefault(day,{'salt':secrets.token_hex(32),'hashes':[]})
+    digest=hmac.new(bytes.fromhex(visitors['salt']),address.encode(),hashlib.sha256).hexdigest()
+    if digest not in visitors['hashes']:visitors['hashes'].append(digest)
+    bucket['unique_visitors']=len(visitors['hashes'])
    if dt>=now-timedelta(days=30):add(state['hourly'].setdefault(hour,empty()),size,group)
   state['log']={'key':key,'offset':offset+end}
   if offset+end<stat.st_size:return
@@ -81,6 +89,7 @@ def write(path,value,mode):
  path.parent.mkdir(parents=True,exist_ok=True);temp=path.with_suffix('.tmp');temp.write_text(json.dumps(value,separators=(',',':'))+'\n',encoding='utf-8');temp.chmod(mode);temp.replace(path)
 
 def collect(state,log,now,current):
+ state.setdefault('visitors_started_at',now.isoformat());state.setdefault('_visitors',{})
  consume(state,log,now)
  for name,key in [('daily',now.strftime('%Y-%m-%d')),('hourly',now.strftime('%Y-%m-%dT%H:00:00Z'))]:
   bucket=state[name].setdefault(key,empty());bucket['samples']+=1
@@ -89,8 +98,10 @@ def collect(state,log,now,current):
  for name,days in [('daily',365),('hourly',30)]:
   cutoff=(now-timedelta(days=days)).strftime('%Y-%m-%d' if name=='daily' else '%Y-%m-%dT%H:00:00Z')
   state[name]={key:value for key,value in state[name].items() if key>=cutoff}
+ state['_visitors']={key:value for key,value in state['_visitors'].items() if key>=(now-timedelta(days=2)).strftime('%Y-%m-%d')}
+ state['daily'][now.strftime('%Y-%m-%d')].setdefault('unique_visitors',0)
  state['updated_at']=now.isoformat();state['current']=current
- return {k:v for k,v in state.items() if k!='log'}
+ return {k:v for k,v in state.items() if k!='log' and not k.startswith('_')}
 
 def main():
  STATE.parent.mkdir(parents=True,exist_ok=True);STATE.parent.chmod(0o700)

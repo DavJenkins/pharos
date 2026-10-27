@@ -208,7 +208,7 @@
                     const days=[];for(let i=6;i>=0;i--){const date=new Date();date.setUTCDate(date.getUTCDate()-i);const key=date.toISOString().slice(0,10);days.push([key,usageInfo.daily[key]]);}
                     const max=Math.max(1,...days.map(([,v])=>v?.opens||0));
                     for(const [day,bucket] of days){const bar=document.createElement("span");bar.style.cssText="flex:1;background:#315b78;border-radius:3px 3px 0 0;height:"+(bucket?Math.max(2,bucket.opens/max*48):2)+"px";bar.title=day+": "+(bucket?bucket.opens+" document requests":"No observations");mini.append(bar);}value.append(mini);
-                    const today=days[6][1],note=document.createElement("p");note.textContent="Today (UTC): "+(today?today.opens+" document requests · peak "+(today.hotspot_peak??"—")+" hotspot devices":"—");value.append(note);
+                    const today=days[6][1],note=document.createElement("p");note.textContent="Today (UTC): "+(today?(today.unique_visitors??"—")+" estimated visitors · "+today.opens+" document requests · peak "+(today.hotspot_peak??"—")+" hotspot devices":"—");value.append(note);
                 }
                 const usageLink=document.createElement("a");usageLink.href="/usage.html";usageLink.textContent="Usage history and seven-day chart";const usageRow=document.createElement("p");usageRow.append(usageLink);value.append(usageRow);
                 const title=document.createElement("h3");title.className="library-summary-heading";title.textContent="Library";value.append(title);
