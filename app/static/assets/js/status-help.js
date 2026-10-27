@@ -5,7 +5,7 @@
         "wifi-button": {name:"Wi-Fi", description:"The Ark’s upstream Wi-Fi. Disabling it retains saved networks and leaves the DataArk hotspot available. A restart can reconnect it.", settings:"/config/wifi.html", settingsLabel:"Choose a Wi-Fi network", toggle:true},
         "ap-button": {name:"Hotspot", description:"The DataArk Wi-Fi network your devices join to use the Ark.", settings:"/config/system.html", settingsLabel:"Change hotspot settings", toggle:true},
         "portal-continue": {name:"Internet pass-through", description:"Allow this device to reach the internet through the Ark. This does not change access for other devices. Permission lasts up to six hours and resets when the Ark restarts.", toggle:true},
-        "system-button": {name:"System", description:"The Ark's health, running time, and library storage.", settings:"/library.html", settingsLabel:"Manage Library"},
+        "system-button": {name:"System", description:"The Ark's health, running time, connected devices, and library storage.", settings:"/library.html", settingsLabel:"Manage Library"},
         "refresh-button": {name:"Auto refresh", description:"Update the displayed dashboard status at your chosen interval. Pausing this does not stop the Ark's services.", toggle:true},
         "debug-button": {name:"Debug", description:"Record diagnostic information for troubleshooting. Portal monitoring runs only while Debug is on. Logs stay on this Ark, rotate automatically, and include known portal-check DNS names.", toggle:true},
     };
@@ -192,6 +192,14 @@
                 httpsLabel.textContent="HTTPS";
                 httpsValue.textContent=!httpsInfo?"—":!httpsInfo.enabled?"Optional · Not configured":httpsInfo.certificate_health==="expired"?"Certificate expired · HTTP available":httpsInfo.domain+(httpsInfo.days_remaining!==undefined?" · "+httpsInfo.days_remaining+" days remaining":"");
                 list.append(httpsLabel,httpsValue);
+                const clientsHeading=document.createElement("h3");clientsHeading.className="library-summary-heading";clientsHeading.textContent="Connected devices";value.append(clientsHeading);
+                const clientsList=document.createElement("dl");clientsList.className="status-details-list";
+                const clientsLabel=document.createElement("dt"),clientsValue=document.createElement("dd");
+                clientsLabel.textContent="Hotspot";
+                const ap=DataArkStatus.accessPoint;
+                clientsValue.textContent=ap.active===false?"Off":ap.active!==true||!Number.isInteger(ap.client_count)?"—":ap.client_count+" connected "+(ap.client_count===1?"device":"devices");
+                clientsList.append(clientsLabel,clientsValue);value.append(clientsList);
+                const clientsNote=document.createElement("p");clientsNote.className="status-details-note";clientsNote.textContent="Live hotspot connections, not a count of people. Wired/LAN visitors and desktop sessions are not counted.";value.append(clientsNote);
                 const title=document.createElement("h3");title.className="library-summary-heading";title.textContent="Library";value.append(title);
                 const summary=document.createElement("dl");summary.className="status-details-list";
                 const row=(label,text)=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=label;dd.textContent=text;summary.append(dt,dd);};
