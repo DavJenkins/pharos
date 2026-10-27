@@ -202,7 +202,10 @@ const DataArkStatus = {
             ...(this.data?.status?.issues ?? []),
             `Hostname  : ${s.hostname ?? "-"}`,
             `Platform  : ${s.platform ?? "-"}`,
-            `Uptime    : ${s.uptime ?? "-"}`
+            `Uptime    : ${s.uptime ?? "-"}`,
+            `Memory used: ${this.resources.memory?.used || "—"}`,
+            `Memory available: ${this.resources.memory?.available || "—"}`,
+            `Swap used: ${this.resources.memory?.swap_used || "—"}`
         ].join("\n");
     }
 
