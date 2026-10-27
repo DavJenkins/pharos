@@ -59,3 +59,12 @@ assets:
     def test_paths_must_be_distinct_plain_archive_names(self):
         for records in [[{'old':'../bad.zim','new':'new.zim'}],[{'old':'same.zim','new':'same.zim'}]]:
             with self.assertRaises(ValueError):validate_records(records)
+class ManifestIndentationTests(unittest.TestCase):
+    def test_safe_dump_sequence_and_unrelated_section_are_preserved(self):
+        import yaml
+        original='assets:\n- id: khan-academy\n  repository_id: curriculum\n  relative_path: old.zim\n  download_url: https://example.invalid/old.zim\n  expected_hash: old\ndashboard:\n  title: Keep me\n'
+        item={'id':'khan-academy','filename':'khanacademy_en_all_2023-03.zim','url':'https://download.kiwix.org/zim/other/khanacademy_en_all_2023-03.zim','sha256':'a'*64}
+        result=yaml.safe_load(replacement_manifest(original,[item]))
+        self.assertEqual(result['assets'][0]['expected_hash'],'a'*64)
+        self.assertEqual(result['assets'][0]['relative_path'],item['filename'])
+        self.assertEqual(result['dashboard'],{'title':'Keep me'})

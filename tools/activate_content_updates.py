@@ -37,30 +37,41 @@ def check_container(root):
 
 
 def replacement_manifest(original, items):
+    # Locate assets structurally; safe YAML emitters use different sequence indentation.
+    import yaml
     text = original
     for item in items:
-        pattern = r'(?ms)^  - id: ' + re.escape(item['id']) + r'\n.*?(?=^  - id: |\Z)'
-        matches = list(re.finditer(pattern, text))
+        document = yaml.compose(text)
+        sequences = [value for key, value in document.value if key.value == 'assets']
+        if len(sequences) != 1 or not isinstance(sequences[0], yaml.SequenceNode):
+            raise ValueError('Expected one assets sequence')
+        matches = [node for node in sequences[0].value if isinstance(node, yaml.MappingNode)
+                   and any(key.value == 'id' and value.value == item['id'] for key, value in node.value)]
         if len(matches) != 1:
             raise ValueError('Expected one manifest asset: ' + item['id'])
-        match = matches[0]
-        block = match.group()
-        if '    repository_id:' not in block:
+        node = matches[0]
+        lines = text.splitlines(keepends=True)
+        start = sum(map(len, lines[:node.start_mark.line]))
+        end = sum(map(len, lines[:node.end_mark.line]))
+        if node.end_mark.column and node.end_mark.line == len(lines)-1:
+            end = len(text)
+        block = text[start:end]
+        indent = ' ' * node.start_mark.column
+        if not re.search('^' + indent + r'repository_id:', block, re.M):
             raise ValueError('Matched record is not an asset.')
         for field, value in [('relative_path', item['filename']), ('download_url', item['url'])]:
-            block, count = re.subn(r'^    ' + field + r':.*$', '    ' + field + ': ' + value, block, flags=re.M)
+            block, count = re.subn('^' + indent + field + r':.*$', indent + field + ': ' + value, block, flags=re.M)
             if count != 1:
                 raise ValueError('Missing or repeated ' + field)
-        block = re.sub(r'^    (?:mirror_url|expected_hash):.*\n', '', block, flags=re.M)
-        block = block.replace('    download_url: ' + item['url'] + '\n',
-            '    download_url: ' + item['url'] + '\n    expected_hash: "' + item['sha256'] + '"\n')
+        block = re.sub('^' + indent + r'(?:mirror_url|expected_hash):.*\n', '', block, flags=re.M)
+        block = block.replace(indent + 'download_url: ' + item['url'] + '\n',
+            indent + 'download_url: ' + item['url'] + '\n' + indent + 'expected_hash: "' + item['sha256'] + '"\n')
         date = re.search(r'_(\d{4})-(\d{2})\.zim$', item['filename'])
         if date:
             label = calendar.month_name[int(date[2])] + ' ' + date[1]
-            block = re.sub(r'(^    title:.*)\([A-Za-z]+ \d{4}\)', lambda m: m[1] + '(' + label + ')', block, flags=re.M)
-        text = text[:match.start()] + block + text[match.end():]
-    return text.replace('# Exact-version sources checked 2026-09-24; unavailable versions remain preserved locally.',
-        '# Old versions are retired after replacement downloads and Kiwix activation are verified.')
+            block = re.sub('(^' + indent + r'title:.*)\([A-Za-z]+ \d{4}\)', lambda m: m[1] + '(' + label + ')', block, flags=re.M)
+        text = text[:start] + block + text[end:]
+    return text
 
 
 def archive_names(xml):
