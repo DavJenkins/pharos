@@ -48,7 +48,8 @@ class ManifestTests(unittest.TestCase):
         self.data['repositories'][0]['collapse_assets']=True
         self.data['repositories'][0]['links'].append({'title':'Browse collection','url':'/library-files/forms/index.html'})
         _, page=self.render()
-        self.assertIn('<details><summary>Show individual files (1)</summary>',page)
+        self.assertIn('<details class="manifest-file-details"><summary>1 of 1 assets available</summary>',page)
+        self.assertEqual(page.count('1 of 1 assets available'),1)
         self.assertIn('href="/library-files/book.pdf"',page)
         self.assertIn('href="/library-files/forms/index.html"',page)
         self.data['repositories'][0]['collapse_assets']='yes'

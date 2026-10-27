@@ -538,12 +538,14 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
             badge = 'Unavailable / Pending Download' if missing else f'{ready} of {len(items)} assets available' if items else 'Reference links'
             tags = ''.join('<span class="manifest-tag">' + html.escape(value) + '</span>' for value in repo.get('tags', []))
             asset_list = '<ul class="manifest-assets">' + ''.join(entries) + '</ul>'
+            availability = '<span class="manifest-badge">' + badge + '</span>'
             if entries and repo.get('collapse_assets', False):
-                asset_list = '<details><summary>Show individual files (' + str(len(entries)) + ')</summary>' + asset_list + '</details>'
+                availability = '<details class="manifest-file-details"><summary>' + badge + '</summary>' + asset_list + '</details>'
+                asset_list = ''
             cards.append('<article class="manifest-card' + (' manifest-missing' if missing else '') + '" data-repository-id="' + html.escape(repo['id'], quote=True) + '">' +
                          image_tag(art, repo['title']) + '<h3>' + html.escape(repo['title']) + '</h3><p>' +
-                         html.escape(str(repo.get('description', ''))) + '</p><span class="manifest-badge">' + badge +
-                         '</span><div class="manifest-tags">' + tags + '</div><nav class="manifest-links">' + ' '.join(links) +
+                         html.escape(str(repo.get('description', ''))) + '</p>' + availability +
+                         '<div class="manifest-tags">' + tags + '</div><nav class="manifest-links">' + ' '.join(links) +
                          '</nav>' + ''.join(grouped_links) + asset_list + '</article>')
         if cards:
             heading = '<h2>' + html.escape(category['title']) + '</h2>'
