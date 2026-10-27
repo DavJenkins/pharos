@@ -299,10 +299,12 @@ body{background-image:none}
 #status-dialog .status-dialog-footer{flex:none;margin:0;padding:.65rem 1.1rem max(.65rem,env(safe-area-inset-bottom));border-top:1px solid #c2c8c8;background:#f4f3eb}
 @media(max-width:480px){#status-dialog{width:calc(100vw - 1rem)}#status-dialog .status-dialog-scroll{padding:.8rem}.status-details-list{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);margin-left:0;gap:.35rem .55rem}#status-dialog .status-dialog-actions{gap:.4rem}#status-dialog .status-dialog-actions a{font-size:.9rem;padding:.5rem .6rem}}
 
-.system-tabs{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:4px;margin:0 0 1rem;border-bottom:1px solid #b8a475;padding-bottom:6px}
-.system-tabs [role=tab]{min-width:0;min-height:44px;padding:.5rem .4rem;border:1px solid #a6b3bc;border-radius:6px;font:600 .9rem/1.25 system-ui;background:#e5edf3;color:#234a62;cursor:pointer}
-.system-tabs [role=tab][aria-selected=true]{background:#234a62;color:#fff;border-color:#234a62}
-.system-tabs [role=tab]:focus-visible{outline:3px solid #b68c32;outline-offset:2px}
+#status-dialog-value:has(.system-tabs){background:#fbfaf6}
+.system-tabs{display:flex;align-items:stretch;gap:0;margin:0 0 1rem;padding:0;border-bottom:1px solid #8d9eaa}
+.system-tabs [role=tab]{position:relative;flex:1;min-width:0;min-height:44px;margin:0 0 -1px;padding:.65rem .4rem;border:1px solid transparent;border-bottom-color:#8d9eaa;border-radius:0;background:transparent;color:#536876;font:500 .95rem/1.25 system-ui;cursor:pointer}
+.system-tabs [role=tab]:hover{background:#e8edf0;color:#234a62}
+.system-tabs [role=tab][aria-selected=true]{background:#fbfaf6;color:#234a62;border-color:#8d9eaa;border-bottom-color:#fbfaf6;border-radius:5px 5px 0 0;font-weight:700}
+.system-tabs [role=tab]:focus-visible{outline:2px solid #ad842c;outline-offset:-4px}
 #status-dialog [role=tabpanel]>h3:first-child{margin-top:0}
 
 /* The healthy gear must release the header's reserved status row. */
