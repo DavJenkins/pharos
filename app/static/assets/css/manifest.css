@@ -291,3 +291,10 @@ body{background-image:none}
 .status-condensed .ark-settings>summary{color:#17633e;background:#edf8ed;border:1px solid #619276;border-radius:8px}
 .status-condensed #upstream-links{color:#17633e;justify-content:center}
 .status-condensed #upstream-links:empty{display:none}
+
+/* Keep Close in view while lengthy System/usage details scroll independently. */
+#status-dialog{padding:0;overflow:hidden;max-height:calc(100dvh - 1rem)}
+#status-dialog[open]{display:flex;flex-direction:column}
+#status-dialog .status-dialog-scroll{padding:1.1rem;overflow-y:auto;min-height:0;overscroll-behavior:contain}
+#status-dialog .status-dialog-footer{flex:none;margin:0;padding:.65rem 1.1rem max(.65rem,env(safe-area-inset-bottom));border-top:1px solid #c2c8c8;background:#f4f3eb}
+@media(max-width:480px){#status-dialog{width:calc(100vw - 1rem)}#status-dialog .status-dialog-scroll{padding:.8rem}.status-details-list{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);margin-left:0;gap:.35rem .55rem}#status-dialog .status-dialog-actions{gap:.4rem}#status-dialog .status-dialog-actions a{font-size:.9rem;padding:.5rem .6rem}}
