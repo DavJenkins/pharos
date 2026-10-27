@@ -494,8 +494,8 @@ repositories:
     Communicate Keyboard. Speech requires an offline voice on the device you use.
   collapse_assets: true
   artwork:
-    path: app/static/assets/icons/Communicate.png
-    alt: Communicate speech icon
+    path: app/static/assets/icons/DEJ-hanging-sign.webp
+    alt: DEJ Software hanging sign
   update_policy: manual
   refresh_interval: never
   links:

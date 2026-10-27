@@ -34,7 +34,7 @@ def register(config,manifest_path=ROOT/'dataark.yaml'):
  from tools.content_lock import acquire
  with Path('/var/lib/dataark/updates/worker.lock').open('a') as lock:
   acquire(lock);data=load_manifest(manifest_path)
-  repo={'id':'communication-accessibility','category':'content_sources','title':'Communication & Accessibility','description':'Communicate browser speech tool and an offline Android installer for Communicate Keyboard. Speech requires an offline voice on the device you use.','collapse_assets':True,'artwork':{'path':'app/static/assets/icons/Communicate.png','alt':'Communicate speech icon'},'update_policy':'manual','refresh_interval':'never','links':[{'title':'Open Communicate','url':'/library-files/communication/communicate/index.html'},{'title':'Android keyboard installer & setup','url':'/library-files/communication/index.html'}]}
+  repo={'id':'communication-accessibility','category':'content_sources','title':'Communication & Accessibility','description':'Communicate browser speech tool and an offline Android installer for Communicate Keyboard. Speech requires an offline voice on the device you use.','collapse_assets':True,'artwork':{'path':'app/static/assets/icons/DEJ-hanging-sign.webp','alt':'DEJ Software hanging sign'},'update_policy':'manual','refresh_interval':'never','links':[{'title':'Open Communicate','url':'/library-files/communication/communicate/index.html'},{'title':'Android keyboard installer & setup','url':'/library-files/communication/index.html'}]}
   data['repositories']=[r for r in data['repositories'] if r['id']!=repo['id']]+[repo]
   ids=['communicate-web','communicate-keyboard-android']
   sources=[config['files'][0],config['files'][-1]]
