@@ -9,6 +9,21 @@ def _model() -> str:
         return ""
 
 
+def installed_ram(revision_path=Path('/proc/device-tree/system/linux,revision')):
+    """Decode installed capacity, rather than OS-usable RAM, from Pi revision bits.
+
+    Raspberry Pi documentation: new-style flag bit 23; memory bits 20-22.
+    """
+    try:
+        raw=Path(revision_path).read_bytes()
+        if len(raw)!=4:return None
+        revision=int.from_bytes(raw,'big')
+        if not revision & (1<<23):return None
+        return {0:'256 MB',1:'512 MB',2:'1 GB',3:'2 GB',4:'4 GB',5:'8 GB',6:'16 GB'}.get((revision>>20)&7)
+    except OSError:
+        return None
+
+
 def _uptime() -> str:
     try:
         return subprocess.run(

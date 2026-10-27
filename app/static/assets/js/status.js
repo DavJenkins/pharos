@@ -201,7 +201,7 @@ const DataArkStatus = {
             `State     : ${this.state}`,
             ...(this.data?.status?.issues ?? []),
             `Hostname  : ${s.hostname ?? "-"}`,
-            `Platform  : ${s.platform ?? "-"}`,
+            `Platform  : ${s.platform ?? "-"}${document.body?.dataset.installedRam ? " · "+document.body.dataset.installedRam+" RAM" : ""}`,
             `Uptime    : ${s.uptime ?? "-"}`,
             `Memory used: ${this.resources.memory?.used || "—"}`,
             `Memory available: ${this.resources.memory?.available || "—"}`,

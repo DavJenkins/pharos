@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Render the landing page from the Data Ark v1.4 manifest."""
 import argparse
+import html
 from pathlib import Path
 import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from app.services.manifest import build, ManifestError, version_dashboard_assets
+from app.services.system import installed_ram
 
 def version_static_pages(static):
     for page in Path(static).rglob('*.html'):
@@ -29,6 +31,10 @@ def main():
     except (ManifestError, OSError) as error:
         print(f'Manifest build failed: {error}', file=sys.stderr)
         return 1
+    capacity=installed_ram()
+    if capacity:
+        page=args.output.read_text(encoding='utf-8')
+        args.output.write_text(page.replace('<body', '<body data-installed-ram="'+html.escape(capacity,quote=True)+'"',1),encoding='utf-8')
     if args.output.resolve() == (ROOT/'app/static/index.html').resolve():
         version_static_pages(ROOT/'app/static')
     print(f'Rendered {len(result.get("repositories", []))} configured repositories.')
