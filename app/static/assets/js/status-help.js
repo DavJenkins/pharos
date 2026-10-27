@@ -222,7 +222,11 @@
                     button.addEventListener("click",()=>selectTab(i));
                     button.addEventListener("keydown",event=>{let next;if(event.key==="ArrowRight")next=(i+1)%3;else if(event.key==="ArrowLeft")next=(i+2)%3;else if(event.key==="Home")next=0;else if(event.key==="End")next=2;else return;event.preventDefault();selectTab(next,true);});
                 });
+                const systemActions=document.createElement("div"),libraryActions=document.createElement("div");
+                systemActions.className=libraryActions.className="status-dialog-actions tab-panel-actions";
+                systemActions.append(bannerButton,terminalLink,httpsLink);libraryActions.append(link);
                 value.append(tabs,...panels);
+
                 const clientsHeading=document.createElement("h3");clientsHeading.className="library-summary-heading";clientsHeading.textContent="Usage";devicesPanel.append(clientsHeading);
                 const clientsList=document.createElement("dl");clientsList.className="status-details-list";
                 const clientsLabel=document.createElement("dt"),clientsValue=document.createElement("dd");
@@ -256,6 +260,7 @@
                     if(libraryInfo.progress?.detail)row("Details",libraryInfo.progress.detail);
                 }
                 libraryPanel.append(summary);
+                systemPanel.append(systemActions);libraryPanel.append(libraryActions);
                 selectTab(Math.max(0,keys.indexOf(systemTab)));
                 if(focusedTab)document.getElementById(focusedTab)?.focus({preventScroll:true});
             }
@@ -263,6 +268,7 @@
         function render() {
             if (!selected) return;
             const item = items[selected], original = document.getElementById(selected);
+            if(selected!=="system-button")toggleHome.append(link,bannerButton,terminalLink,httpsLink);
             heading.textContent = item.name;
             const networkSwitch = !!item.toggle;
             dialog.classList.toggle("network-popup", networkSwitch);

@@ -314,3 +314,11 @@ body{background-image:none}
  .dashboard-top .status-bar.status-condensed{position:absolute;top:12px;right:0}
  .dashboard-top:has(.status-condensed) .site-header{grid-row:1;width:calc(100% - 76px);min-width:0;justify-self:start;margin:0;padding:.65rem}
 }
+
+/* Tabs, details, and their actions share one continuous panel surface. */
+#status-dialog-value:has(.system-tabs){padding:0;border-radius:0;background:#fbfaf6}
+.system-tabs{margin:0;padding:0 .45rem;border-bottom:1px solid #8d9eaa}
+.system-tabs [role=tab]{flex:0 1 auto;padding:.65rem .8rem}
+#status-dialog [role=tabpanel]{padding:1rem .65rem .65rem;border:1px solid #8d9eaa;border-top:0;background:#fbfaf6}
+#status-dialog .tab-panel-actions{margin:.8rem 0 0}
+#status-dialog .status-dialog-scroll>.status-dialog-actions:not(:has(> :not([hidden]))){display:none}
