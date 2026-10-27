@@ -304,3 +304,11 @@ body{background-image:none}
 .system-tabs [role=tab][aria-selected=true]{background:#234a62;color:#fff;border-color:#234a62}
 .system-tabs [role=tab]:focus-visible{outline:3px solid #b68c32;outline-offset:2px}
 #status-dialog [role=tabpanel]>h3:first-child{margin-top:0}
+
+/* The healthy gear must release the header's reserved status row. */
+.dashboard-top:has(.status-condensed){align-items:start}
+@media(max-width:900px){
+ .dashboard-top:has(.status-condensed){position:relative}
+ .dashboard-top .status-bar.status-condensed{position:absolute;top:12px;right:0}
+ .dashboard-top:has(.status-condensed) .site-header{grid-row:1;width:calc(100% - 76px);min-width:0;justify-self:start;margin:0;padding:.65rem}
+}
