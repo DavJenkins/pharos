@@ -283,7 +283,7 @@ Teacher guides, student materials and textbooks organized by grade and subject, 
 
 - [Curriculum library and coverage](/library-files/curriculum/index.html)
 - [Learning at home](/learning.html)
-- [Khan Academy videos and exercises (after installation)](http://dataark:8080/#name=khanacademy_en_all)
+- [Khan Academy videos and exercises](http://dataark:8080/#name=khanacademy_en_all)
 
 ### Included tools and activities
 
@@ -291,7 +291,7 @@ Teacher guides, student materials and textbooks organized by grade and subject, 
 
 ::: details Saved content (6 items)
 
-- [Khan Academy - English US curriculum (March 2023)](http://dataark:8080/content/khanacademy_en_all_2023-03) — [publisher](https://www.khanacademy.org/) — currently not installed
+- [Khan Academy - English US curriculum (March 2023)](http://dataark:8080/content/khanacademy_en_all_2023-03) — [publisher](https://www.khanacademy.org/)
 - [NASA Our Very Own Star](/library-files/family-resources/kids/nasa-star-en.pdf) — [publisher](https://science.nasa.gov/toolkit/coloring-books/)
 - [NASA Our Very Own Star — Spanish](/library-files/family-resources/kids/nasa-star-es.pdf) — [publisher](https://science.nasa.gov/toolkit/coloring-books/)
 - [NASA International Space Station Activity Book](/library-files/family-resources/kids/nasa-iss.pdf) — [publisher](https://science.nasa.gov/toolkit/coloring-books/)
