@@ -1,0 +1,11 @@
+# Communication and accessibility tools
+
+The landing-page card opens local Communicate and the Communicate Keyboard Android installer. These belong under their purpose, Communication & Accessibility, rather than a vendor section.
+
+Communicate is the publisher’s released browser app, with its application, service worker, manifest and complete icon/artwork set preserved unchanged. It loads from `/library-files/communication/communicate/` while connected to the Ark, including when the Ark has no internet. Text-to-speech runs on the client device and requires an installed offline voice. The Ark cannot supply an offline voice to every client automatically. Plain HTTP may block service-worker installation, clipboard/transfer features or keeping the app after leaving the Ark; optional trusted HTTPS can enable browser capabilities. Saved messages and settings belong to each browser origin and do not migrate automatically from the public website.
+
+The preserved Android APK is published development build **0.2.1-dev.13**, package `com.dej.communicate.keyboard`, minimum Android 8.0. It is clearly labeled as a development build. Its signing identity differs from Play releases; Android will not install it over an existing Play-signed package. Original developer notices and APK signatures are retained. Downloading does not install it automatically.
+
+`deploy/reference/communication.json` is the readable, pinned source recipe: public source URLs, exact sizes and SHA-256 hashes for all eleven publisher files, web build identity, Android version and signing-certificate fingerprint. It contains no signing keys or credentials. To reinstall, run `sudo python3 /opt/dataark/tools/install_communication.py`. Verified existing files are reused; checksum mismatches retain the working copy until a verified replacement is ready. Upstream changes require reviewing and updating this pin; there is no silent development APK update.
+
+The communication recipe is included in content export and the Minimal recovery preset. It verifies supporting web assets as well as the two primary catalogue entries; restoring only the HTML would be insufficient. The source recipe and installer travel in recovery checkpoints. Spare-media acceptance remains outstanding for recovery as a whole.

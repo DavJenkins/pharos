@@ -104,3 +104,5 @@
 * [Publication edition discovery](20-Administration/EditionDiscovery.md)
 
 * [Local usage history](20-Administration/Usage.md)
+
+* [Communication and accessibility tools](20-Administration/CommunicationTools.md)

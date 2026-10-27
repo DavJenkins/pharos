@@ -3024,8 +3024,8 @@
       "id": "khan-academy",
       "title": "Khan Academy - English US curriculum (March 2023)",
       "path": "khanacademy_en_all_2023-03.zim",
-      "selected": false,
-      "bytes": null,
+      "selected": true,
+      "bytes": 180007047736,
       "sha256": "3b8f4d286c6206a1c00c2252ac33187d30d4e146b8666ae2039d00f0d91eee3a",
       "source": "https://download.kiwix.org/zim/other/khanacademy_en_all_2023-03.zim",
       "repository": "curriculum"
@@ -13929,6 +13929,26 @@
       "sha256": "86ef566965110032b651122c8e466a607157613302a5a283bd1f221727e590ab",
       "source": "https://assets.openstax.org/oscms-prodcms/media/documents/WritingGuide-WEB.pdf",
       "repository": "curriculum"
+    },
+    {
+      "id": "communicate-web",
+      "title": "Communicate \u2014 offline browser communication tool",
+      "path": "communication/communicate/index.html",
+      "selected": true,
+      "bytes": 899473,
+      "sha256": "ee66d45e9c31cfa52afab4e871a13e8c7ee81ba4c6420b70aff03b6b636a8870",
+      "source": "https://dejsoftware.com/communicate/index.html",
+      "repository": "communication-accessibility"
+    },
+    {
+      "id": "communicate-keyboard-android",
+      "title": "Communicate Keyboard \u2014 Android development build 0.2.1-dev.13",
+      "path": "communication/android/communicate-keyboard-dev-13-c5de874bd628.apk",
+      "selected": true,
+      "bytes": 1602628,
+      "sha256": "c5de874bd628faa8608be431367ae629cee9a683b23e523df408c2c503e84c5b",
+      "source": "https://dejsoftware.com/communicate-keyboard-dev/communicate-keyboard-dev-13-c5de874bd628.apk",
+      "repository": "communication-accessibility"
     }
   ],
   "unmanaged_archives": [

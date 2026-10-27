@@ -6,7 +6,7 @@ import argparse,fcntl,hashlib,json,os,shutil,subprocess,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=Path('/mnt/storage')
-PUBLIC_DIRS=['vehicles','preparedness','forms','family-resources','resilience','civic-reference','radio-study','maps','kiwix-viewer']
+PUBLIC_DIRS=['communication','vehicles','preparedness','forms','family-resources','resilience','civic-reference','radio-study','maps','kiwix-viewer']
 START='''#!/bin/sh
 set -eu
 HERE=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)

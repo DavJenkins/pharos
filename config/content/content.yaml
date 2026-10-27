@@ -1,9 +1,9 @@
 # Public content recipe. Edit enabled flags and source catalogues; keep this folder with the source repository.
 schema: 1
 name: Data Ark content selection
-exported_at: '2026-10-27T04:01:22.773690+00:00'
+exported_at: '2026-10-27T22:32:18.069254+00:00'
 source_repository: https://github.com/DavJenkins/pharos
-source_commit: cc722d54aa8db02d35f67918b5d1e3e1c9a5a82c
+source_commit: 2898f46475d3a9d461b4b9541c66f9f2aace5ef2
 content_root: /mnt/storage
 manifest: public-manifest.yaml
 reserve_gib: 10
@@ -6797,12 +6797,21 @@ recipes:
   update_headroom_bytes: 4234785203
   estimate_basis: Observed source collection including auxiliary files, plus 25% growth;
     review on a new publisher edition
+- id: communication
+  enabled: true
+  catalogue: deploy/reference/communication.json
+  installed_bytes: 3337503
+  temporary_bytes: 6675006
+  update_headroom_bytes: 16777216
+  estimate_basis: Observed source collection including auxiliary files, plus 25% growth;
+    review on a new publisher edition
 - id: indexes
   enabled: true
   installed_bytes: 0
   temporary_bytes: 0
   update_headroom_bytes: 0
 snapshots:
+- snapshots/communication/sources.json
 - snapshots/maps/status.json
 - snapshots/preparedness/sources.json
 - snapshots/vehicles/sources.json

@@ -1,6 +1,6 @@
 # Content sources: the landing-page collections
 
-This guide follows the same order and grouping as the landing page: 23 content cards and 1392 registered content items. Archives, datasets and grouped packs count as items; their internal articles, books, map features and individual pages are not separate cards.
+This guide follows the same order and grouping as the landing page: 24 content cards and 1394 registered content items. Archives, datasets and grouped packs count as items; their internal articles, books, map features and individual pages are not separate cards.
 
 Local links open saved content or browser tools on the Ark. Publisher links identify the original sources and require upstream internet. Saved editions are snapshots; a blocked publisher check does not mean the installed copy is missing. Long inventories expand below. Outstanding gaps are listed separately from installed material.
 
@@ -31,6 +31,7 @@ Generated from `dataark.yaml` and the dashboard card composition by `tools/docum
 - [21. Pets & Livestock](#21-pets-livestock) — 8 registered items
 - [22. Disaster Recovery & Cleanup](#22-disaster-recovery-cleanup) — 5 registered items
 - [23. Disability Preparedness](#23-disability-preparedness) — 4 registered items
+- [24. Communication & Accessibility](#24-communication-accessibility) — 2 registered items
 
 ## 1. Wikipedia
 
@@ -1897,6 +1898,24 @@ Accessible evacuation, communication and mobility planning, backup support, medi
 - [Home Use Devices: Power Outages — FDA](/library-files/family-resources/disability-preparedness/access-power.pdf) — [publisher](https://www.fda.gov/medical-devices/products-and-medical-procedures/home-health-and-consumer-devices)
 - [Hot and Cold: The Effects of Temperature on MS — MS Society](/library-files/family-resources/disability-preparedness/access-ms-temperature.pdf) — [publisher](https://www.mssociety.org.uk/about-ms/signs-and-symptoms/effects-temperature-ms)
 - [Ready Now! Emergency Preparedness Tool Kit — OHSU](/library-files/family-resources/disability-preparedness/access-ready-now.pdf) — [publisher](https://www.ohsu.edu/university-center-excellence-development-disability/ready-now-emergency-preparedness-tool-kit)
+
+:::
+
+## 24. Communication & Accessibility
+
+Communicate browser speech tool and an offline Android installer for Communicate Keyboard. Speech requires an offline voice on the device you use.
+
+
+
+### Open this collection
+
+- [Open Communicate](/library-files/communication/communicate/index.html)
+- [Android keyboard installer & setup](/library-files/communication/index.html)
+
+::: details Saved content (2 items)
+
+- [Communicate — offline browser communication tool](/library-files/communication/communicate/index.html) — [publisher](https://dejsoftware.com/communicate/index.html)
+- [Communicate Keyboard — Android development build 0.2.1-dev.13](/library-files/communication/android/communicate-keyboard-dev-13-c5de874bd628.apk) — [publisher](https://dejsoftware.com/communicate-keyboard-dev/communicate-keyboard-dev-13-c5de874bd628.apk)
 
 :::
 

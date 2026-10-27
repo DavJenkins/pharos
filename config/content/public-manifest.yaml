@@ -487,6 +487,22 @@ repositories:
   links:
   - title: Browse curriculum and coverage
     url: /library-files/curriculum/index.html
+- id: communication-accessibility
+  category: content_sources
+  title: Communication & Accessibility
+  description: Communicate browser speech tool and an offline Android installer for
+    Communicate Keyboard. Speech requires an offline voice on the device you use.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Communicate.png
+    alt: Communicate speech icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open Communicate
+    url: /library-files/communication/communicate/index.html
+  - title: Android keyboard installer & setup
+    url: /library-files/communication/index.html
 assets:
 - id: ifixit-repair-guides
   online_url: https://www.ifixit.com/Guide
@@ -19166,6 +19182,30 @@ assets:
   online_url: https://openstax.org/details/books/writing-guide
   source_note: Creative Commons; preserve the exact license and notices in this PDF
     (noncommercial); original PDF; 773 pages.
+- id: communicate-web
+  repository_id: communication-accessibility
+  category: utilities_binaries
+  title: Communicate — offline browser communication tool
+  relative_path: communication/communicate/index.html
+  service_endpoint: /library-files/communication/communicate/index.html
+  download_url: https://dejsoftware.com/communicate/index.html
+  expected_hash: ee66d45e9c31cfa52afab4e871a13e8c7ee81ba4c6420b70aff03b6b636a8870
+  update_policy: manual
+  refresh_interval: never
+  source_note: Pinned public publisher files. Supporting web assets are restored by
+    the communication recipe. Original DEJ Software notices retained.
+- id: communicate-keyboard-android
+  repository_id: communication-accessibility
+  category: utilities_binaries
+  title: Communicate Keyboard — Android development build 0.2.1-dev.13
+  relative_path: communication/android/communicate-keyboard-dev-13-c5de874bd628.apk
+  service_endpoint: /library-files/communication/android/communicate-keyboard-dev-13-c5de874bd628.apk
+  download_url: https://dejsoftware.com/communicate-keyboard-dev/communicate-keyboard-dev-13-c5de874bd628.apk
+  expected_hash: c5de874bd628faa8608be431367ae629cee9a683b23e523df408c2c503e84c5b
+  update_policy: manual
+  refresh_interval: never
+  source_note: Pinned public publisher files. Supporting web assets are restored by
+    the communication recipe. Original DEJ Software notices retained.
 resource_sections:
 - title: Local maps
   description: Massachusetts reference maps for Worcester and Middlesex counties.

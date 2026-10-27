@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "title": "Communication & Accessibility",
+  "communicate_version": "2e334dd4c301c2c37d83ff4fc461a2d6a0d5cb39cd63d042172bb238f022deec",
+  "keyboard": {
+    "schemaVersion": 1,
+    "package": "com.dej.communicate.keyboard",
+    "versionCode": 13,
+    "versionName": "0.2.1-dev.13",
+    "publishedUtc": "2026-10-20T22:24:50.8667606+00:00",
+    "apk": "communicate-keyboard-dev-13-c5de874bd628.apk",
+    "bytes": 1602628,
+    "sha256": "c5de874bd628faa8608be431367ae629cee9a683b23e523df408c2c503e84c5b",
+    "signingCertificateSha256": "0265e984a97aab5cc00cf1a0165ca2579873691d26d6fe439b87ae53b9f09610",
+    "changes": [
+      "Hanging DEJ sign above Shift, matching the web app.",
+      "Balanced letter rows and Shift/Return gaps, with CLEAR/SPEAK aligned to their outer edges.",
+      "Side controls in wide layouts when they allow larger keys."
+    ]
+  },
+  "files": [
+    {
+      "id": "communication/communicate/index.html",
+      "path": "communication/communicate/index.html",
+      "url": "https://dejsoftware.com/communicate/index.html",
+      "bytes": 899473,
+      "sha256": "ee66d45e9c31cfa52afab4e871a13e8c7ee81ba4c6420b70aff03b6b636a8870"
+    },
+    {
+      "id": "communication/communicate/sw.js",
+      "path": "communication/communicate/sw.js",
+      "url": "https://dejsoftware.com/communicate/sw.js",
+      "bytes": 2217,
+      "sha256": "1e9f10a3fb9f5af1fd0624ce310235836211f1a870699992ac7efe69dd2c81dc"
+    },
+    {
+      "id": "communication/communicate/manifest.webmanifest",
+      "path": "communication/communicate/manifest.webmanifest",
+      "url": "https://dejsoftware.com/communicate/manifest.webmanifest",
+      "bytes": 904,
+      "sha256": "fcddbfb498ee6935a47e42f59b9e3844b383273175bf24946b786b345ebe66fa"
+    },
+    {
+      "id": "communication/communicate/dej-hanging-sign.webp",
+      "path": "communication/communicate/dej-hanging-sign.webp",
+      "url": "https://dejsoftware.com/communicate/dej-hanging-sign.webp",
+      "bytes": 23206,
+      "sha256": "2acffc1dec9d1a3fb265546ccff44450c3a6bab1235400d3d8c20e84425822e1"
+    },
+    {
+      "id": "communication/communicate/dej-software-banner.webp",
+      "path": "communication/communicate/dej-software-banner.webp",
+      "url": "https://dejsoftware.com/communicate/dej-software-banner.webp",
+      "bytes": 86590,
+      "sha256": "14379b03293d77b837522c4828f85b221d86cd4e2f4b8517dadf1dc2c940af5a"
+    },
+    {
+      "id": "communication/communicate/icon.svg",
+      "path": "communication/communicate/icon.svg",
+      "url": "https://dejsoftware.com/communicate/icon.svg",
+      "bytes": 7980,
+      "sha256": "853d7599a2380ab61b9d7817d55d8c0adf0b8d85c6120012e5a1bd8e89e4c407"
+    },
+    {
+      "id": "communication/communicate/icon-192.png",
+      "path": "communication/communicate/icon-192.png",
+      "url": "https://dejsoftware.com/communicate/icon-192.png",
+      "bytes": 4528,
+      "sha256": "1ffa9d29fb4c1bab972d64023b26567217219b83afd2b9972f941bbedf2d6710"
+    },
+    {
+      "id": "communication/communicate/icon-512.png",
+      "path": "communication/communicate/icon-512.png",
+      "url": "https://dejsoftware.com/communicate/icon-512.png",
+      "bytes": 15515,
+      "sha256": "9a3e154ac0482aa1553d36d60bccdc9ecd14648cb13e92d22d3de10997fc44f1"
+    },
+    {
+      "id": "communication/communicate/icon-maskable-512.png",
+      "path": "communication/communicate/icon-maskable-512.png",
+      "url": "https://dejsoftware.com/communicate/icon-maskable-512.png",
+      "bytes": 15427,
+      "sha256": "caf8108f34fbef71fac3be155183758281d9551f156b8c61a2f23a8991005aae"
+    },
+    {
+      "id": "communication/communicate/apple-touch-icon.png",
+      "path": "communication/communicate/apple-touch-icon.png",
+      "url": "https://dejsoftware.com/communicate/apple-touch-icon.png",
+      "bytes": 4221,
+      "sha256": "f4803bc4541852dc68ee7f8ef1a262ead70f2d1a15ec8e8a9f18558d042785b4"
+    },
+    {
+      "id": "communication/android/communicate-keyboard-dev-13-c5de874bd628.apk",
+      "path": "communication/android/communicate-keyboard-dev-13-c5de874bd628.apk",
+      "url": "https://dejsoftware.com/communicate-keyboard-dev/communicate-keyboard-dev-13-c5de874bd628.apk",
+      "bytes": 1602628,
+      "sha256": "c5de874bd628faa8608be431367ae629cee9a683b23e523df408c2c503e84c5b"
+    }
+  ],
+  "notes": [
+    "Published Communicate files are preserved without modifications.",
+    "Keyboard APK is a development-channel build, not the Play signing identity.",
+    "Speech uses the client device and requires a locally installed offline voice."
+  ]
+}
