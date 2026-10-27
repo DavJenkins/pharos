@@ -148,7 +148,7 @@
             if(libraryBusy||(!prefetch&&(selected!=="system-button"||!dialog.open)))return;
             libraryBusy=true;
             const controller=new AbortController();
-            const timer=setTimeout(()=>controller.abort(),6000);
+            const timer=setTimeout(()=>controller.abort(),15000);
             try{
                 const [response,httpsResponse]=await Promise.all([
                     fetch("/api/library",{cache:"no-store",signal:controller.signal}),
@@ -157,7 +157,7 @@
                 if(httpsResponse?.ok)httpsInfo=await httpsResponse.json();
                 if(!response.ok)throw new Error("Library unavailable");
                 libraryInfo=await response.json();
-            }catch(_){libraryInfo={unavailable:true};}
+            }catch(_){if(!libraryInfo)libraryInfo={unavailable:true};}
             finally{clearTimeout(timer);libraryBusy=false;if(selected==="system-button"&&dialog.open)render();}
         }
         refreshLibrary(true);

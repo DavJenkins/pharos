@@ -29,7 +29,7 @@ FORMATS = {'PNG': ('png', 'image/png'), 'JPEG': ('jpg', 'image/jpeg'),
 class ManifestError(ValueError):
     pass
 
-class UniqueLoader(yaml.SafeLoader):
+class UniqueLoader(getattr(yaml, "CSafeLoader", yaml.SafeLoader)):
     pass
 
 def unique_mapping(loader, node, deep=False):
