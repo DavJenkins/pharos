@@ -539,7 +539,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
             tags = ''.join('<span class="manifest-tag">' + html.escape(value) + '</span>' for value in repo.get('tags', []))
             asset_list = '<ul class="manifest-assets">' + ''.join(entries) + '</ul>'
             availability = '<span class="manifest-badge">' + badge + '</span>'
-            if entries and repo.get('collapse_assets', False):
+            if entries:
                 availability = '<details class="manifest-file-details"><summary>' + badge + '</summary>' + asset_list + '</details>'
                 asset_list = ''
             cards.append('<article class="manifest-card' + (' manifest-missing' if missing else '') + '" data-repository-id="' + html.escape(repo['id'], quote=True) + '">' +
