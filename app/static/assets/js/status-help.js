@@ -229,7 +229,6 @@
                 systemActions.append(bannerButton,terminalLink,httpsLink);libraryActions.append(link);
                 value.append(tabs,...panels);
 
-                const clientsHeading=document.createElement("h3");clientsHeading.className="library-summary-heading";clientsHeading.textContent="Usage";devicesPanel.append(clientsHeading);
                 const clientsList=document.createElement("dl");clientsList.className="status-details-list";
                 const clientsLabel=document.createElement("dt"),clientsValue=document.createElement("dd");
                 clientsLabel.textContent="Hotspot";
@@ -246,7 +245,6 @@
                     const today=days[6][1],note=document.createElement("p");note.textContent="Today (UTC): "+(today?(today.unique_visitors??"—")+" estimated visitors · "+today.opens+" document requests · peak "+(today.hotspot_peak??"—")+" hotspot devices":"—");devicesPanel.append(note);
                 }
                 const usageLink=document.createElement("a");usageLink.href="/usage.html";usageLink.textContent="Usage history and seven-day chart";const usageRow=document.createElement("p");usageRow.append(usageLink);devicesPanel.append(usageRow);
-                const title=document.createElement("h3");title.className="library-summary-heading";title.textContent="Library";libraryPanel.append(title);
                 const summary=document.createElement("dl");summary.className="status-details-list";
                 const row=(label,text)=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=label;dd.textContent=text;summary.append(dt,dd);};
                 const gib=n=>(n/1024**3).toFixed(1)+" GiB";

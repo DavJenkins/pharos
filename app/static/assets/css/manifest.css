@@ -331,7 +331,7 @@ body{background-image:none}
 @media(max-width:480px){#status-dialog .status-dialog-actions button,#status-dialog .status-dialog-actions a,#status-dialog .status-dialog-footer button{font-size:.9rem;padding:.5rem .6rem}}
 
 /* A stable tab body keeps the dialog and Close stationary between selections. */
-#status-dialog.system-popup{height:min(40rem,calc(100dvh - 1rem))}
+#status-dialog.system-popup{height:min(35rem,calc(100dvh - 1rem))}
 #status-dialog.system-popup .status-dialog-scroll{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
 #status-dialog.system-popup .status-dialog-heading-row,#status-dialog.system-popup #status-dialog-description{flex:none}
 #status-dialog.system-popup #status-dialog-value{display:flex;flex-direction:column;flex:1;min-height:0}
