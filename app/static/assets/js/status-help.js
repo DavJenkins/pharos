@@ -200,7 +200,7 @@
                 const tabs=document.createElement("div");tabs.className="system-tabs";tabs.setAttribute("role","tablist");tabs.setAttribute("aria-label","System information");
                 const systemPanel=document.createElement("div"),devicesPanel=document.createElement("div"),libraryPanel=document.createElement("div");
                 systemPanel.append(list);
-                const panels=[systemPanel,devicesPanel,libraryPanel],keys=["system","devices","library"],labels=["System","Connected devices","Library"],buttons=[];
+                const panels=[systemPanel,libraryPanel,devicesPanel],keys=["system","library","usage"],labels=["System","Library","Usage"],buttons=[];
                 function selectTab(index,focus=false){
                     systemTab=keys[index];
                     panels.forEach((panel,i)=>{panel.hidden=i!==index;buttons[i].setAttribute("aria-selected",String(i===index));buttons[i].tabIndex=i===index?0:-1;});
@@ -213,7 +213,7 @@
                     button.addEventListener("keydown",event=>{let next;if(event.key==="ArrowRight")next=(i+1)%3;else if(event.key==="ArrowLeft")next=(i+2)%3;else if(event.key==="Home")next=0;else if(event.key==="End")next=2;else return;event.preventDefault();selectTab(next,true);});
                 });
                 value.append(tabs,...panels);
-                const clientsHeading=document.createElement("h3");clientsHeading.className="library-summary-heading";clientsHeading.textContent="Connected devices";devicesPanel.append(clientsHeading);
+                const clientsHeading=document.createElement("h3");clientsHeading.className="library-summary-heading";clientsHeading.textContent="Usage";devicesPanel.append(clientsHeading);
                 const clientsList=document.createElement("dl");clientsList.className="status-details-list";
                 const clientsLabel=document.createElement("dt"),clientsValue=document.createElement("dd");
                 clientsLabel.textContent="Hotspot";
