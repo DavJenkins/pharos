@@ -230,6 +230,12 @@ def boot():
     publish(ap,other,fallback)
     if old == ap['interface']:
         policy(ap['interface'])
+    # A saved upstream profile can have won autoconnect on the fallback radio.
+    # Matching the profile's interface alone does not prove the hotspot is up.
+    active = nm('-g','GENERAL.CON-UUID','device','show',ap['interface'])
+    expected = nm('-g','connection.uuid','connection','show','id','DataArk')
+    if active != expected:
+        nm('connection','up','id','DataArk','ifname',ap['interface'])
 
 def main():
     logging.basicConfig(level=logging.INFO,format='%(levelname)s %(message)s')

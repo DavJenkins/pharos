@@ -105,4 +105,10 @@ class TransactionTests(unittest.TestCase):
         for adapter in ['wlan1',';reboot','AA:BB:CC:DD:EE:FF',None]:
             with self.assertRaises(ValueError):network_helper.validate({'action':'assign','adapter':adapter})
 
+    def test_boot_recovers_hotspot_when_upstream_won_autoconnect(self):
+        with patch.object(roles,'inventory',return_value=[BUILTIN]),patch.object(roles,'preference',return_value={'hotspot_adapter':USB['id']}),patch.object(roles,'publish') as publish,patch.object(roles,'policy'),patch.object(roles,'nm',side_effect=['wlan0','upstream-uuid','hotspot-uuid','']) as nm:
+            roles.boot()
+        publish.assert_called_once_with(BUILTIN,None,True)
+        nm.assert_called_with('connection','up','id','DataArk','ifname','wlan0')
+
 if __name__=='__main__':unittest.main()
