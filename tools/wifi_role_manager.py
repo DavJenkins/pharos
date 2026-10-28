@@ -175,8 +175,6 @@ def apply(adapter):
     if ap['interface'] == nm('-g','connection.interface-name','connection','show','id','DataArk'):
         write(PREFERENCE,{'schema':1,'hotspot_adapter':ap['id'],'fallback':'builtin'},0o644)
         mirror_preference()
-        mirror_preference()
-        mirror_preference()
         return status()
     other = next((r for r in rows if r['id']!=ap['id']),None)
     write(PENDING,snapshot())
@@ -199,19 +197,6 @@ def mirror_preference():
             write(kit/"wifi-roles.json",preference(),0o644)
         except OSError:
             logging.warning('Assignment saved, but recovery-kit preference could not be refreshed')
-
-def mirror_preference():
-    kit=Path("/mnt/storage/DATA-ARK-RECOVERY")
-    if os.path.ismount("/mnt/storage") and kit.is_dir():
-        try:
-            write(kit/"wifi-roles.json",preference(),0o644)
-        except OSError:
-            logging.warning('Assignment saved, but recovery-kit preference could not be refreshed')
-
-def mirror_preference():
-    kit=Path("/mnt/storage/DATA-ARK-RECOVERY")
-    if os.path.ismount("/mnt/storage") and kit.is_dir():
-        write(kit/"wifi-roles.json",preference(),0o644)
 
 def confirm():
     if not PENDING.exists():

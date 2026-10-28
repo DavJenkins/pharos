@@ -38,8 +38,6 @@
     "iproute2",
     "iw",
     "ethtool",
-    "ethtool",
-    "ethtool",
     "curl",
     "ca-certificates",
     "certbot",
