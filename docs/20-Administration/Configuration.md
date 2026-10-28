@@ -332,3 +332,13 @@ The fixed service is `dataark-configuration-publish.service`; install it with
 `deploy/install_configuration.py` (also called by the network-administration
 installer). It is invoked through the existing fixed-scope administration helper,
 not a general shell interface. No new general-purpose sudo permission is added.
+
+
+### YAML syntax coloring
+
+The configuration editor colors keys, quoted strings, numbers, booleans, comments
+and anchors using bundled offline JavaScript and CSS. It retains the native text
+area for selection, keyboard editing, undo, search and downloading unchanged YAML.
+Only visible lines are rendered in the coloring layer, keeping large manifests
+responsive. Color is a reading aid; **Validate & preview** checks the actual YAML
+and manifest rules. High-contrast system modes retain readable native text.

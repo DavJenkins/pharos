@@ -1,0 +1,8 @@
+.yaml-editor{position:relative;min-width:0;background:#fffdf7;border-radius:6px}
+.yaml-colors{position:absolute;overflow:hidden;pointer-events:none;z-index:0}
+.yaml-colors pre{position:absolute;margin:0!important;padding:0!important;border:0!important;background:transparent!important;max-width:none!important;width:max-content;white-space:pre!important;tab-size:2;font:14px/21px ui-monospace,Consolas,monospace!important;color:#203e54}
+#configuration-text.yaml-colored{position:relative;z-index:1;display:block;margin:0;background:transparent;color:transparent;-webkit-text-fill-color:transparent;caret-color:#203e54;line-height:21px}
+#configuration-text.yaml-colored::selection{background:#9bc9ef88;color:transparent}
+.yaml-key{color:#155b99}.yaml-string{color:#276b3a}.yaml-number{color:#964500}.yaml-literal{color:#7346a1}.yaml-comment{color:#657381}.yaml-anchor{color:#87620b}.yaml-punctuation{color:#53616b}
+@media(forced-colors:active){.yaml-colors{display:none}#configuration-text.yaml-colored{color:CanvasText;-webkit-text-fill-color:CanvasText;caret-color:CanvasText}}
+@media print{.yaml-colors{display:none}#configuration-text.yaml-colored{color:#203e54;-webkit-text-fill-color:#203e54}}
