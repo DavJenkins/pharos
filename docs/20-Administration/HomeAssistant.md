@@ -23,7 +23,8 @@ When outbound HA event delivery is configured, Ark-originated runs emit `dataark
 ### Collection and configuration changes
 
 Install `deploy/home-assistant-collections.example.yaml` alongside the existing
-package, as `/config/packages/dataark-collections.yaml`. Change `http://dataark`
+package, as `/config/packages/dataark_collections.yaml` (underscores: HA rejects
+hyphens in package names even when its general configuration check passes). Change `http://dataark`
 to the address reachable from HA. This adds read-only polling, not a new credential
 or a broader inbound-control permission. Check HA configuration and restart HA to
 load the new REST integration and helper. Existing bug-out settings remain intact.
@@ -90,3 +91,26 @@ Installed on `http://homeassistant.local:8123` using `/config/packages/dataark.y
 The installed package uses the Ark's current Ethernet address `192.168.40.70`; update the package if that address changes. The Data Ark dashboard is `/data-ark/overview` and its source is `/config/dataark-dashboard.yaml`. A source example is `deploy/home-assistant-dashboard.example.yaml`. Household actions remain unassigned: owners subscribe their chosen actions to `household_bugout` or `dataark_health_changed`. The dashboard's bug-out button asks for confirmation.
 
 Validation included HA's own `ha core check`, successful authenticated input validation (400 for an intentionally empty request, rather than 401), and live sensor/dashboard checks. No actual emergency operation was started by that authentication check.
+
+
+### Collection notification deployment — October 28, 2026
+
+The separate collection package is installed at
+`/config/packages/dataark_collections.yaml`, alongside the original bug-out/health
+package. The dashboard includes Library activity and Current collection cards.
+The pre-change dashboard is `/config/dataark-dashboard.before-collections.yaml`;
+a package backup before the final event-payload correction is
+`/config/dataark-collections.before-payload-fix.yaml`.
+
+Live acceptance confirmed HTTP 200 from `/api/library/changes`, both HA collection
+entities, and delivery of a clearly labeled integration-test notification without
+changing content. The source regression suite passed 46 tests, followed by 12
+journal/package tests including the added HA event-payload schema regression.
+HA's general configuration check alone did not catch an invalid package slug or
+whole-dictionary event template; actual startup logs and the delivered notification
+were checked. Event actions must use explicit mappings for `event_data`.
+
+The API restart cleared its shutdown timeouts without rebooting the Pi. The
+pre-install source backup is `/var/backups/dataark-ha-collections-20261028T160727Z`.
+Existing publisher-check warnings are independent of the notification integration.
+The Send to the Ark submission interface remains separate future work.

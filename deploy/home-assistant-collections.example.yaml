@@ -74,7 +74,17 @@ automation:
           for_each: "{{ changes | selectattr('sequence', 'gt', after | int) | list }}"
           sequence:
             - event: dataark_collection_changed
-              event_data: '{{ repeat.item }}'
+              event_data:
+                event_id: '{{ repeat.item.event_id }}'
+                sequence: '{{ repeat.item.sequence }}'
+                kind: '{{ repeat.item.kind }}'
+                collection_id: '{{ repeat.item.collection_id }}'
+                title: '{{ repeat.item.title }}'
+                operation_id: '{{ repeat.item.operation_id }}'
+                action: '{{ repeat.item.action }}'
+                timestamp: '{{ repeat.item.timestamp }}'
+                error_type: "{{ repeat.item.get('error_type', '') }}"
+                percent: "{{ repeat.item.get('percent') }}"
             - action: logbook.log
               data:
                 name: Data Ark library

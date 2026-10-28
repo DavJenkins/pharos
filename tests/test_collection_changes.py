@@ -86,6 +86,20 @@ class CollectionChangeTests(unittest.TestCase):
         changes.from_library('operation_completed', {'outcome':'queued', 'action':'download', 'operation':'request'})
         self.assertEqual([e['kind'] for e in changes.snapshot()['events']], ['approved', 'queued'])
 
+    def test_ha_event_actions_use_mapping_payloads(self):
+        # HA rejects a template for the whole event_data dictionary at setup.
+        import yaml
+        root = Path(__file__).resolve().parents[1]
+        package = yaml.safe_load((root/'deploy/home-assistant-collections.example.yaml').read_text(encoding='utf-8'))
+        def check(node):
+            if isinstance(node, dict):
+                if 'event' in node and 'event_data' in node:
+                    self.assertIsInstance(node['event_data'], dict)
+                for value in node.values(): check(value)
+            elif isinstance(node, list):
+                for value in node: check(value)
+        check(package['automation'])
+
 
 if __name__ == '__main__':
     unittest.main()
