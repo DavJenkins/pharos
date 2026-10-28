@@ -36,7 +36,7 @@ def validate(data):
         raise ValueError('Expected a JSON object.')
     action = data.get('action')
     allowed = {'scan': {'action'}, 'connect': {'action', 'ssid', 'security', 'password'},
-               'rename': {'action', 'ssid'}, 'uplink': {'action', 'enabled'}, 'ethernet': {'action', 'enabled'}, 'hotspot': {'action', 'enabled'}, 'access': {'action'}, 'adapters': {'action'}, 'diagnostics': {'action'}, 'assign': {'action','adapter'}, 'confirm-roles': {'action'}, 'revert-roles': {'action'}}
+               'rename': {'action', 'ssid'}, 'uplink': {'action', 'enabled'}, 'ethernet': {'action', 'enabled'}, 'hotspot': {'action', 'enabled'}, 'access': {'action'}, 'adapters': {'action'}, 'diagnostics': {'action'}, 'publish-configuration': {'action'}, 'assign': {'action','adapter'}, 'confirm-roles': {'action'}, 'revert-roles': {'action'}}
     for fields in allowed.values():
         fields.update({'peer'})
     if action not in allowed or set(data) - allowed[action]:
@@ -45,7 +45,7 @@ def validate(data):
         raise ValueError('Enabled must be true or false.')
     if action == 'assign' and not re.fullmatch(r'(?:[0-9a-f]{2}:){5}[0-9a-f]{2}', str(data.get('adapter',''))):
         raise ValueError('Choose an adapter from the hardware list.')
-    if action not in ('scan', 'access', 'uplink', 'ethernet', 'hotspot', 'adapters', 'assign', 'confirm-roles', 'revert-roles', 'diagnostics'):
+    if action not in ('scan', 'access', 'uplink', 'ethernet', 'hotspot', 'adapters', 'assign', 'confirm-roles', 'revert-roles', 'diagnostics', 'publish-configuration'):
         ssid = data.get('ssid')
         if not isinstance(ssid, str) or not 1 <= len(ssid.encode('utf-8')) <= 32:
             raise ValueError('Network names must contain 1 to 32 UTF-8 bytes.')
@@ -117,6 +117,9 @@ def protect_access(data, interface):
 
 def execute(data):
     action = validate(data)
+    if action == 'publish-configuration':
+        result = subprocess.run(['/usr/bin/systemctl','start','--no-block','dataark-configuration-publish.service'],capture_output=True,text=True,timeout=10,check=False)
+        return {'ok':result.returncode==0,'error':'Configuration publisher could not start.'}
     if action == 'diagnostics':
         result = subprocess.run(['/usr/local/libexec/dataark-support-diagnostics'], capture_output=True,text=True,timeout=140,check=False)
         return json.loads(result.stdout)

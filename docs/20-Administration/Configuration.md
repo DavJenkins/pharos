@@ -260,3 +260,73 @@ schedule is changed by this display preference.
 ## Household content interests
 
 The optional `personalization` section in `dataark.yaml` records vehicles, preferred destinations, languages and jurisdictions, with validated links to registered content. It is preserved in portable content exports. See [Personalization](Personalization.md) for its schema and sharing considerations.
+
+## Configuration editor
+
+Open **Settings → System → Configuration…**. Choose **Load configuration**;
+the caretaker password is requested on demand, using the shared optional timed
+remember switch. Reading, validating and saving configuration require caretaker
+authorization. Normal page visits and publication-status checks do not prompt.
+
+## Community visibility
+
+The slide switch controls this content setting:
+
+```yaml
+community:
+  enabled: true
+```
+
+`false` hides the Community card and its landing-page header link. It does not
+delete messages or disable direct access to `/community.html`. Older configurations
+without the section default to visible. This option travels in the public content
+manifest and its portable configuration mirror.
+
+## Editing YAML
+
+The editor shows the public content/presentation sections of `dataark.yaml`, not
+private household or authentication settings. It supports section jumps, text
+search, YAML download, validation and a preview summary of the configured cards.
+Storage/service paths and the schema version cannot be changed in this editor.
+Use spaces for indentation and keep boolean values as `true` or `false`.
+
+1. Load the current configuration and optionally download a copy.
+2. Edit the YAML. **Validate & preview** checks syntax, duplicate keys, supported
+   sections, manifest references and values. The preview is a configuration
+   summary; actual visibility also depends on missing-content settings.
+3. **Save & publish** checks the loaded revision again. A conflicting update is
+   rejected instead of overwriting it. The publisher also shares the updater lock;
+   wait and retry if an update is running.
+4. Wait for **Configuration saved and published**. Publication runs independently
+   of the browser. Downloaded content is not removed and no collection downloads are started.
+
+Private settings are merged from the current appliance configuration. The raw
+public YAML is saved to `config/content/public-manifest.yaml`, retaining editor
+comments there; the operational `dataark.yaml` is serialized after merging. The
+desired restoration recipe is preserved rather than recreated from the current
+disk inventory. Its public manifest is mirrored to `DATA-ARK-CONFIG` when the
+content drive is mounted.
+
+This first editor covers the public manifest. Acquisition catalogues under
+`deploy/reference` and the restoration recipe in `config/content/content.yaml`
+remain separate configuration files. It does not complete the planned migration
+of every collection-specific installer decision into configuration.
+
+## Previous versions and recovery
+
+Every save keeps the previous public configuration in the editor's version list.
+Load a version into the editor, inspect it, validate it and publish to restore it.
+The list shows the latest 20 versions. A full private pre-change manifest is also
+kept root-only under `/var/backups/dataark-configuration` for console recovery.
+These copies are on the system drive; keep exported YAML on another device too.
+
+On a publication failure the worker restores the previous files and attempts to
+republish them. Any recovery failure is reported rather than silently marked
+successful. If interrupted, reload to inspect the current configuration and use a
+saved version when needed. A stale publication state is cleared when the service
+is no longer running. Progress/history live in `/var/lib/dataark/configuration`.
+
+The fixed service is `dataark-configuration-publish.service`; install it with
+`deploy/install_configuration.py` (also called by the network-administration
+installer). It is invoked through the existing fixed-scope administration helper,
+not a general shell interface. No new general-purpose sudo permission is added.

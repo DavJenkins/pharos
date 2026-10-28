@@ -19560,3 +19560,5 @@ personalization:
     asset_ids:
     - osm-caribbean
     viewer_url: /maps.html?collection=caribbean
+community:
+  enabled: true

@@ -236,6 +236,9 @@ def load_manifest(path):
         raise ManifestError(f'Invalid YAML: {error}') from None
     if not isinstance(data, dict):
         raise ManifestError('Manifest must be a mapping.')
+    community = data.get('community', {'enabled': True})
+    if not isinstance(community, dict) or set(community)!={'enabled'} or type(community.get('enabled', True)) is not bool:
+        raise ManifestError('community accepts only enabled: true or false.')
     system = data.get('system')
     if not isinstance(system, dict) or system.get('version') != '1.4':
         raise ManifestError('Set system.version to the quoted string "1.4".')
@@ -562,6 +565,9 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
     rendered = template.replace('{{PROJECT_NAME}}', html.escape(system['project_name'])).replace('{{MANIFEST_CARDS}}',
         ''.join(sections) or '<p class="manifest-empty">No repositories configured for display.</p>').replace('{{BACKGROUND_STYLE}}', style)
     rendered = rendered.replace('{{RESOURCE_SECTIONS}}', render_resource_sections([section for section in data.get('resource_sections', []) if section['title'] not in data.get('dashboard',{}).get('merged_resource_titles',[])], root, prefix, hide))
+    community_enabled = data.get('community', {}).get('enabled', True)
+    community_card = '<section id="community-board" class="resource-section" aria-labelledby="community-heading"><h2 id="community-heading">Community</h2><div class="manifest-grid"><article class="manifest-card"><h3>💬 Community board</h3><p>Local announcements, requests, offers, and conversations. Everyone can read and post, even without internet.</p><p><a href="/community.html">Open the community board</a></p></article></div></section>'
+    rendered = rendered.replace('{{COMMUNITY_CARD}}', community_card if community_enabled else '').replace('{{COMMUNITY_NAV}}', ' · <a href="/community.html">Community board</a>' if community_enabled else '')
     rendered = version_dashboard_assets(rendered)
     compiled = {**data, 'assets': compiled_assets}
     # Complete validation/rendering before replacing the previously working page.

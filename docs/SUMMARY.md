@@ -110,3 +110,5 @@
 * [Wi-Fi adapter assignment and fallback](20-Administration/WifiAdapters.md)
 
 * [Build information and support email](20-Administration/Support.md)
+
+* [Community visibility and configuration editor](20-Administration/Configuration.md#configuration-editor)

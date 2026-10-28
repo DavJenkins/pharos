@@ -102,6 +102,7 @@
         bannerButton.addEventListener("click",()=>{dialog.close();window.ArkBannerAdmin.open();});
 
 
+        const configurationLink=document.createElement("a");configurationLink.href="/config/configuration.html";configurationLink.textContent="Configuration…";configurationLink.hidden=true;terminalLink.before(configurationLink);
         const supportButton=document.createElement("button");supportButton.type="button";supportButton.textContent="Support email…";supportButton.hidden=true;terminalLink.before(supportButton);
         supportButton.addEventListener("click",()=>{dialog.close();window.ArkSupportEmail.open();});
         window.addEventListener("ark-build-ready",()=>{if(selected==="system-button"&&dialog.open)render();});
@@ -155,6 +156,7 @@
             const system=selected==="system-button";
             terminalLink.hidden=!system||systemTab!=="system";
             supportButton.hidden=!system||systemTab!=="system";
+            configurationLink.hidden=!system||systemTab!=="system";
             httpsLink.hidden=!system||systemTab!=="system";
             bannerButton.hidden=!system||systemTab!=="system"||!window.ArkBannerAdmin;
             link.hidden=system?systemTab!=="library":!(items[selected]?.settings||items[selected]?.url);
@@ -210,7 +212,7 @@
                 });
                 const systemActions=document.createElement("div"),libraryActions=document.createElement("div");
                 systemActions.className=libraryActions.className="status-dialog-actions tab-panel-actions";
-                systemActions.append(bannerButton,terminalLink,httpsLink,supportButton);libraryActions.append(link);
+                systemActions.append(bannerButton,terminalLink,httpsLink,configurationLink,supportButton);libraryActions.append(link);
                 value.append(tabs,...panels);
 
                 const clientsList=document.createElement("dl");clientsList.className="status-details-list";
@@ -253,7 +255,7 @@
         function render() {
             if (!selected) return;
             const item = items[selected], original = document.getElementById(selected);
-            if(selected!=="system-button")toggleHome.append(link,bannerButton,terminalLink,httpsLink,supportButton);
+            if(selected!=="system-button")toggleHome.append(link,bannerButton,terminalLink,httpsLink,configurationLink,supportButton);
             heading.textContent = item.name;
             const networkSwitch = !!item.toggle;
             dialog.classList.toggle("network-popup", networkSwitch);

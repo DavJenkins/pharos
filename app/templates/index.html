@@ -140,7 +140,7 @@
 
 <header class="site-header">
 <h1 class="ark-wordmark"><img src="/assets/pharos-data-ark-flat.png" width="1967" height="799" alt="Pharos Data Ark"></h1>
-<nav aria-label="Content and resources"><a href="/content.html">Access your content</a> · <a href="/resources.html">Other resources</a> · <a href="/community.html">Community board</a></nav>
+<nav aria-label="Content and resources"><a href="/content.html">Access your content</a> · <a href="/resources.html">Other resources</a>{{COMMUNITY_NAV}}</nav>
 </header>
 </div>
 <div id="ark-notice-below-header"></div>
@@ -148,12 +148,7 @@
 <main class="manifest-catalog">
 {{MANIFEST_CARDS}}
 {{RESOURCE_SECTIONS}}
-<section id="community-board" class="resource-section" aria-labelledby="community-heading">
-<h2 id="community-heading">Community</h2>
-<div class="manifest-grid"><article class="manifest-card">
-<h3>💬 Community board</h3><p>Local announcements, requests, offers, and conversations. Everyone can read and post, even without internet.</p>
-<p><a href="/community.html">Open the community board</a></p>
-</article></div></section>
+{{COMMUNITY_CARD}}
 <section id="bugout-panel" class="resource-section" hidden aria-labelledby="bugout-heading">
 <h2 id="bugout-heading">Household backup</h2>
 <p id="bugout-warning" class="household-warning" role="status" hidden></p>

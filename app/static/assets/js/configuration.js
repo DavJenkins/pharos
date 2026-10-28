@@ -1,0 +1,40 @@
+"use strict";
+(() => {
+    const el=id=>document.getElementById(id);
+    let revision=null,saved='',validated=null,busy=false,communitySaved=true,leaving=false;
+    function message(text){el('configuration-result').textContent=text;}
+    function lock(value){busy=value;for(const control of document.querySelectorAll('#configuration-controls button,#configuration-load,#community-enabled'))control.disabled=value;el('configuration-text').readOnly=value;el('configuration-save').disabled=value||validated!==el('configuration-text').value;}
+    async function request(path,auth,data){const options={cache:'no-store',headers:{Authorization:auth},signal:AbortSignal.timeout(20000)};if(data!==undefined){options.method='POST';options.headers['Content-Type']='application/json';options.body=JSON.stringify(data);}const response=await fetch('/api/configuration'+path,options);window.CaretakerAuth.rejected(response);const value=await response.json();if(!response.ok)throw Error(value.detail||'Configuration request failed.');return value;}
+    function edited(){validated=null;el('configuration-save').disabled=true;el('configuration-preview').hidden=true;el('configuration-count').textContent=el('configuration-text').value.split('\n').length.toLocaleString()+' lines · '+el('configuration-text').value.length.toLocaleString()+' characters';}
+    function setText(value){el('configuration-text').value=value;edited();const select=el('configuration-section');select.replaceChildren();const blank=document.createElement('option');blank.value='';blank.textContent='Choose a section…';select.append(blank);for(const match of value.matchAll(/^([a-z_]+):/gm)){const option=document.createElement('option');option.value=String(match.index);option.textContent=match[1];select.append(option);}}
+    function loaded(value){revision=value.revision;saved=value.text;setText(saved);communitySaved=value.community_enabled;el('community-enabled').checked=communitySaved;el('configuration-controls').hidden=false;const select=el('configuration-history');select.replaceChildren();for(const item of value.history){const option=document.createElement('option');option.value=item.id;option.textContent=new Date(item.saved_at).toLocaleString();select.append(option);}el('configuration-restore').disabled=!value.history.length;message(value.status?.state==='error'?value.status.message:'Configuration loaded.');}
+    async function authorized(purpose,operation){if(busy)return;lock(true);try{const auth=await window.CaretakerAuth.authorization(purpose);await operation(auth);}catch(error){message(error.name==='AbortError'?'Action cancelled.':error.message);}finally{lock(false);}}
+    async function follow(auth,id){
+        const deadline=Date.now()+450000;
+        while(Date.now()<deadline){
+            const response=await fetch('/api/configuration/status',{cache:'no-store'}),state=await response.json();
+            if(state.id && state.id!==id)throw Error('Publication state changed. Reload the configuration.');
+            message(state.message||'Publishing…');
+            if(state.state==='ready'){loaded(await request('',auth));message('Configuration saved and published.');return;}
+            if(state.state==='error'){const current=await request('',auth);throw Error(current.status?.message||state.message);}
+            await new Promise(resolve=>setTimeout(resolve,1000));
+        }
+        throw Error('Publication is taking longer than expected. Reload to check its state before retrying.');
+    }
+    el('configuration-load').onclick=()=>{if(el('configuration-text').value!==saved&&!confirm('Discard unsaved YAML edits and reload?'))return;authorized('Load the content configuration.',async auth=>loaded(await request('',auth)));};
+    el('community-enabled').onchange=()=>{
+        const enabled=el('community-enabled').checked;
+        if(el('configuration-text').value!==saved){el('community-enabled').checked=!enabled;message('Save or reload your YAML edits before changing Community visibility.');return;}
+        authorized('Change Community visibility.',async auth=>{const result=await request('/community',auth,{enabled,revision});await follow(auth,result.id);}).finally(()=>{el('community-enabled').checked=communitySaved;});
+    };
+    el('configuration-text').oninput=edited;
+    el('configuration-validate').onclick=()=>authorized('Validate the content configuration.',async auth=>{const text=el('configuration-text').value;const value=await request('/validate',auth,{text});validated=text;const list=el('configuration-cards');list.replaceChildren();for(const card of value.cards){const li=document.createElement('li');li.textContent=card.title+(card.enabled?'':' (disabled)');list.append(li);}el('configuration-summary').textContent=value.assets.toLocaleString()+' asset definitions · '+value.categories+' categories · Community '+(value.community_enabled?'visible':'hidden')+'. Missing local content may be hidden by the manifest settings.';el('configuration-preview').hidden=false;message('YAML and manifest validation passed. Review the summary, then Save & publish.');});
+    el('configuration-save').onclick=()=>{if(validated!==el('configuration-text').value)return;authorized('Save and publish the content configuration.',async auth=>{const result=await request('/save',auth,{text:el('configuration-text').value,revision});await follow(auth,result.id);});};
+    el('configuration-download').onclick=()=>{const link=document.createElement('a'),url=URL.createObjectURL(new Blob([el('configuration-text').value],{type:'text/yaml'}));link.href=url;link.download='dataark-content.yaml';link.click();setTimeout(()=>URL.revokeObjectURL(url),60000);};
+    el('configuration-restore').onclick=()=>{const id=el('configuration-history').value;if(!id)return;authorized('Load a saved configuration version.',async auth=>{const value=await request('/history/'+encodeURIComponent(id),auth);setText(value.text);message('Previous version loaded into the editor. Validate and publish it to restore.');});};
+    function selectAt(at,length=0){const editor=el('configuration-text');editor.focus();editor.setSelectionRange(at,at+length);editor.scrollTop=editor.value.slice(0,at).split('\n').length*21-80;}
+    el('configuration-section').onchange=()=>{if(el('configuration-section').value!=='')selectAt(Number(el('configuration-section').value));};
+    el('configuration-find-next').onclick=()=>{const value=el('configuration-find').value,editor=el('configuration-text');if(!value)return;const text=editor.value.toLowerCase();let at=text.indexOf(value.toLowerCase(),editor.selectionEnd);if(at<0)at=text.indexOf(value.toLowerCase());if(at<0)message('Text not found.');else selectAt(at,value.length);};
+    el('configuration-close').onclick=event=>{if(el('configuration-text').value!==saved&&!confirm('Leave without saving your YAML edits?')){event.preventDefault();return;}leaving=true;};
+    window.addEventListener('beforeunload',event=>{if(!leaving&&el('configuration-text').value!==saved){event.preventDefault();event.returnValue='';}});
+})();
