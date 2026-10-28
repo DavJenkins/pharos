@@ -289,7 +289,7 @@ body{background-image:none}
 .status-condensed .sync-line,.status-condensed #internet-status{display:none}
 .status-condensed .ark-connection-line{justify-content:center;padding-top:46px}
 .status-condensed .ark-settings>summary{color:#17633e;background:#edf8ed;border:1px solid #619276;border-radius:8px}
-.status-condensed #upstream-links{color:#17633e;justify-content:center}
+.status-condensed #upstream-links{color:#294761;justify-content:center}
 .status-condensed #upstream-links:empty{display:none}
 
 /* Keep Close in view while lengthy System/usage details scroll independently. */
@@ -337,3 +337,5 @@ body{background-image:none}
 #status-dialog.system-popup #status-dialog-value{display:flex;flex-direction:column;flex:1;min-height:0}
 #status-dialog.system-popup .system-tabs{flex:none}
 #status-dialog.system-popup [role=tabpanel]{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;box-sizing:border-box}
+
+.ark-settings>summary>svg{display:block;width:26px;height:26px;fill:currentColor;flex:none}
