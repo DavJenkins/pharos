@@ -20,6 +20,67 @@ When outbound HA event delivery is configured, Ark-originated runs emit `dataark
 
 ## Acceptance checks
 
+### Collection and configuration changes
+
+Install `deploy/home-assistant-collections.example.yaml` alongside the existing
+package, as `/config/packages/dataark-collections.yaml`. Change `http://dataark`
+to the address reachable from HA. This adds read-only polling, not a new credential
+or a broader inbound-control permission. Check HA configuration and restart HA to
+load the new REST integration and helper. Existing bug-out settings remain intact.
+On the Ark, initialize the shared journal with
+`sudo /opt/dataark/venv/bin/python /opt/dataark/deploy/install_collection_changes.py`
+and restart the API after installing the source changes. The automatic-update
+installer also initializes this journal on a fresh setup.
+
+The package polls `/api/library/changes` every ten seconds. The Ark keeps a SQLite
+journal at `/var/lib/dataark/collection-changes/changes.sqlite3`, retaining 1,000
+lifecycle events. The API returns the latest 200, in sequence order, plus current
+updater activity. Percentage updates replace activity and do not create events.
+Both recording and HA polling work with Debug off. An idle updater is not treated
+as proof of successful installation; archive activation emits `installed` only
+after successful activation.
+
+HA exposes `sensor.data_ark_collection_changes` and
+`sensor.data_ark_collection_activity` (collection, percent and timestamp attributes).
+It fires `dataark_collection_changed`, records lifecycle changes in the logbook,
+and uses one replaceable persistent notification for outcomes needing attention
+or successful installation/configuration publication. Phone push notifications
+are not configured automatically; attach your preferred HA notification action
+to the event. No household power, network or emergency action is attached.
+The raw journal sensor is excluded from Recorder to avoid repeatedly storing its
+entire retained event list. The compact activity sensor and logbook records remain
+available for history unless excluded by your own Recorder settings.
+
+Event fields: `event_id`, `sequence`, `kind`, `collection_id`, `title`,
+`operation_id`, `action`, UTC `timestamp`, and optional `error_type`/`percent`.
+Errors expose a class/category, not arbitrary exception text; consult Ark diagnostics
+for detailed context. Payloads contain no source URLs, credentials, client identity,
+configuration bodies or browsing history. Library titles remain visible to local
+clients, like the public library itself.
+
+Current producers cover authenticated library requests, queue approval, removals,
+updater phases/failure, successful archive activation, and configuration
+queue/publication/failure. The journal API also accepts internal `suggested`,
+`approved`, `rejected` and `cancelled` events for the planned Send to the Ark
+workflow. That browser submission/approval workflow is not implemented by this
+HA package, and no pending-request count is fabricated from event history.
+
+The persistent `input_text.dataark_collection_cursor` avoids replay on every poll
+and permits catching up after a disconnection, within the returned history window.
+It advances after each processed event. Delivery is at least once: a crash between
+firing an event and saving the cursor can repeat it; consumers performing actions
+must deduplicate `event_id`. A journal replacement resets the namespace. When a
+nonzero cursor falls behind the available window, HA emits
+`dataark_collection_feed_gap` and raises a notification rather than pretending
+the history is complete. The journal is runtime state, not a portable public
+configuration or a guaranteed long-term audit archive.
+
+Verify a harmless configuration publication or normal library operation creates
+one lifecycle event, while percentage updates only change the activity entity.
+Restart HA and confirm previously processed events are not replayed. Test a
+disconnect/reconnect and inspect the cursor. Keep failure notifications and any
+downstream actions independent of the Ark's ability to contact HA.
+
 Confirm the health URL works from HA; confirm certificate and problem entities; check an ordinary health change produces one notification rather than a notification every poll; verify recovery and unavailable handling. Test both bug-out directions with a safe test task and verify no trigger loop. Keep HTTP available for recovery even when optional HTTPS is enabled.
 
 ## Current installation

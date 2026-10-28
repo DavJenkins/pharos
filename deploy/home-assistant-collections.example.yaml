@@ -1,0 +1,95 @@
+# Install alongside the existing Data Ark package. Replace http://dataark with
+# the Ark address reachable from HA. No credential or inbound control is added.
+recorder:
+  exclude:
+    entities:
+      - sensor.data_ark_collection_changes
+
+input_text:
+  dataark_collection_cursor:
+    name: Last processed Ark collection change
+    max: 128
+
+rest:
+  - resource: http://dataark/api/library/changes
+    scan_interval: 10
+    timeout: 15
+    sensor:
+      - name: Data Ark collection changes
+        unique_id: dataark_collection_changes
+        value_template: '{{ value_json.latest_sequence }}'
+        json_attributes:
+          - journal_id
+          - oldest_sequence
+          - events
+          - activity
+
+template:
+  - sensor:
+      - name: Data Ark collection activity
+        unique_id: dataark_collection_activity
+        availability: "{{ states('sensor.data_ark_collection_changes') not in ['unknown', 'unavailable'] }}"
+        state: "{{ (state_attr('sensor.data_ark_collection_changes', 'activity') or {}).get('updater', {}).get('kind', 'idle') }}"
+        attributes:
+          collection: "{{ (state_attr('sensor.data_ark_collection_changes', 'activity') or {}).get('updater', {}).get('title', '') }}"
+          percent: "{{ (state_attr('sensor.data_ark_collection_changes', 'activity') or {}).get('updater', {}).get('percent') }}"
+          updated_at: "{{ (state_attr('sensor.data_ark_collection_changes', 'activity') or {}).get('updater', {}).get('timestamp') }}"
+
+automation:
+  - id: dataark_collection_changes
+    alias: Record Data Ark collection changes
+    mode: queued
+    max: 5
+    triggers:
+      - trigger: state
+        entity_id: sensor.data_ark_collection_changes
+      - trigger: homeassistant
+        event: start
+    actions:
+      - wait_template: "{{ states('sensor.data_ark_collection_changes') not in ['unknown', 'unavailable'] }}"
+        timeout: '00:02:00'
+        continue_on_timeout: false
+      - variables:
+          journal: "{{ state_attr('sensor.data_ark_collection_changes', 'journal_id') or '' }}"
+          saved: "{{ states('input_text.dataark_collection_cursor') }}"
+          changes: "{{ state_attr('sensor.data_ark_collection_changes', 'events') or [] }}"
+          oldest: "{{ state_attr('sensor.data_ark_collection_changes', 'oldest_sequence') | int(0) }}"
+      - variables:
+          after: "{{ saved.split(':')[-1] | int(0) if saved.split(':')[0] == journal else 0 }}"
+      - if:
+          - condition: template
+            value_template: '{{ after | int > 0 and oldest | int > after | int + 1 }}'
+        then:
+          - event: dataark_collection_feed_gap
+            event_data:
+              journal_id: '{{ journal }}'
+              last_processed: '{{ after }}'
+              oldest_available: '{{ oldest }}'
+          - action: persistent_notification.create
+            data:
+              notification_id: dataark_collection_feed_gap
+              title: Data Ark collection history gap
+              message: Some collection changes aged out while HA was disconnected. Check the Ark library and diagnostic logs for context.
+      - repeat:
+          for_each: "{{ changes | selectattr('sequence', 'gt', after | int) | list }}"
+          sequence:
+            - event: dataark_collection_changed
+              event_data: '{{ repeat.item }}'
+            - action: logbook.log
+              data:
+                name: Data Ark library
+                message: "{{ repeat.item.kind | replace('_', ' ') }}{% if repeat.item.title %}: {{ repeat.item.title }}{% endif %}{% if repeat.item.get('error_type') %} ({{ repeat.item.error_type }}){% endif %}"
+            - if:
+                - condition: template
+                  value_template: "{{ repeat.item.kind in ['suggested', 'installed', 'removed', 'rejected', 'cancelled', 'failed', 'configuration_published', 'configuration_failed'] }}"
+              then:
+                - action: persistent_notification.create
+                  data:
+                    notification_id: dataark_collection_latest
+                    title: Data Ark library
+                    message: "{{ repeat.item.kind | replace('_', ' ') | capitalize }}{% if repeat.item.title %}: {{ repeat.item.title }}{% endif %}{% if repeat.item.get('error_type') %} ({{ repeat.item.error_type }}){% endif %}. Open the Ark for details."
+            - action: input_text.set_value
+              target:
+                entity_id: input_text.dataark_collection_cursor
+              data:
+                value: '{{ journal }}:{{ repeat.item.sequence }}'

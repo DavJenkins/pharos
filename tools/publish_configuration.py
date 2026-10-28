@@ -15,7 +15,10 @@ def main():
     with WORKER_LOCK.open('a') as lock:
         try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         except BlockingIOError:
-            c.write_json(c.STATE/'status.json',{'state':'error','message':'The updater is busy. Wait until it finishes, then save again.'});return
+            c.write_json(c.STATE/'status.json',{'state':'error','message':'The updater is busy. Wait until it finishes, then save again.'})
+            from app.services.collection_changes import safe_record
+            safe_record('configuration_failed', action='configuration', error_type='UpdaterBusy')
+            return
         job=json.loads(pending.read_text());raw,live=c.current();profile=ROOT/'config/content/public-manifest.yaml'
         previous=profile.read_bytes() if profile.exists() else None
         applied=False
@@ -39,6 +42,8 @@ def main():
                 fcntl.flock(editor_lock,fcntl.LOCK_EX)
                 pending.unlink(missing_ok=True)
                 c.write_json(c.STATE/'status.json',{'id':job['id'],'state':'ready','message':'Configuration saved and published.','updated_at':c.stamp()})
+                from app.services.collection_changes import safe_record
+                safe_record('configuration_published', operation_id=job['id'], action='configuration')
         except Exception as error:
             outcome='No new configuration was applied.'
             if applied:
@@ -54,5 +59,7 @@ def main():
                 except Exception:
                     outcome='Automatic recovery needs attention. The previous configuration is saved in the backup/history.'
             c.write_json(c.STATE/'status.json',{'id':job.get('id'),'state':'error','message':outcome+' '+str(error),'updated_at':c.stamp()})
+            from app.services.collection_changes import safe_record
+            safe_record('configuration_failed', operation_id=job.get('id',''), action='configuration', error_type=type(error).__name__)
 
 if __name__=='__main__':main()

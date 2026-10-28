@@ -9,12 +9,27 @@ views:
     - sensor.data_ark_health
     - binary_sensor.data_ark_problem
     - sensor.data_ark_bugout
+  - type: entities
+    title: Library activity
+    entities:
+    - sensor.data_ark_collection_activity
+    - entity: sensor.data_ark_collection_changes
+      name: Last change sequence
+  - type: markdown
+    title: Current collection
+    content: '{% set a = state_attr(''sensor.data_ark_collection_changes'', ''activity'')
+      or {} %}{% set u = a.get(''updater'', {}) %}{{ u.get(''title'') or ''No active
+      collection download'' }}{% if u.get(''percent'') is not none %} — {{ u.percent
+      }}%{% endif %}
+
+
+      Collection changes are recorded in Activity. Outcomes appear in Notifications.'
   - type: markdown
     title: HTTPS certificate
-    content: "{% set cert = state_attr('sensor.data_ark_health', 'certificate') or\
-      \ {} %}{{ cert.get('certificate_health', cert.get('phase', 'Not configured'))\
-      \ | replace('_', ' ') | capitalize }}{% if 'days_remaining' in cert %} \u2014\
-      \ {{ cert.days_remaining }} days remaining{% endif %}"
+    content: '{% set cert = state_attr(''sensor.data_ark_health'', ''certificate'')
+      or {} %}{{ cert.get(''certificate_health'', cert.get(''phase'', ''Not configured''))
+      | replace(''_'', '' '') | capitalize }}{% if ''days_remaining'' in cert %} —
+      {{ cert.days_remaining }} days remaining{% endif %}'
   - type: markdown
     title: Needs attention
     content: '{% set problems = state_attr(''sensor.data_ark_health'', ''problems'')
@@ -31,11 +46,13 @@ views:
       action: perform-action
       perform_action: script.request_dataark_bugout
       confirmation:
-        text: "Start the Ark\u2019s configured bug-out tasks?"
+        text: Start the Ark’s configured bug-out tasks?
   - type: markdown
     title: How this works
-    content: "Health is checked every 30 seconds. Home Assistant records changes and\
-      \ raises notifications. Ark-originated bug-out runs produce the household_bugout\
-      \ event for your chosen automations. No household alarm, shutdown, or power\
-      \ actions are attached automatically.\n\n[Open Data Ark](http://dataark/) \xB7\
-      \ [Integration guide](http://dataark/docs/20-Administration/HomeAssistant.html)"
+    content: 'Health is checked every 30 seconds. Home Assistant records changes and
+      raises notifications. Ark-originated bug-out runs produce the household_bugout
+      event for your chosen automations. No household alarm, shutdown, or power actions
+      are attached automatically.
+
+
+      [Open Data Ark](http://dataark/) · [Integration guide](http://dataark/docs/20-Administration/HomeAssistant.html)'

@@ -7,6 +7,11 @@ from app.services.library_events import emit
 
 router = APIRouter(prefix='/library', tags=['Library'])
 
+@router.get('/changes')
+def changes():
+    from app.services.collection_changes import snapshot
+    return snapshot()
+
 @router.get('')
 def inventory():
     return library.inventory()

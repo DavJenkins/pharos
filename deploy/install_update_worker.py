@@ -67,6 +67,7 @@ def main():
     subprocess.run([str(ROOT/'venv/bin/python'), '-c',
         'from app.services.manifest import load_manifest; from tools.update_worker import source_config; d=load_manifest("dataark.yaml"); [source_config(a) for a in d["assets"] if a.get("update_policy") != "manual" and a.get("refresh_interval") != "never"]'], cwd=ROOT, check=True)
     units = Path('/etc/systemd/system')
+    subprocess.run([str(ROOT/'venv/bin/python'),str(ROOT/'deploy/install_collection_changes.py')],check=True)
     install(units/'dataark-update.service', SERVICE)
     install(units/'dataark-update.timer', TIMER)
     subprocess.run(['systemctl','daemon-reload'],check=True)

@@ -11,6 +11,8 @@ current=ContextVar('library_operation',default=None)
 FIELDS={'action','asset_id','title','phase','elapsed_seconds','bytes_freed','bytes_requested','error_type','reason','outcome','operation','percent'}
 
 def emit(event, detailed=False, **fields):
+    from app.services.collection_changes import from_library
+    from_library(event, {**fields, 'operation':fields.get('operation') or current.get()})
     if detailed and not DEBUG_FLAG.exists():
         return
     clean={k:(v[:400] if isinstance(v,str) else v) for k,v in fields.items()

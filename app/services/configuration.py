@@ -103,6 +103,8 @@ def queue(text,expected):
         identifier=uuid.uuid4().hex
         write_json(STATE/'pending.json',{'id':identifier,'text':text,'revision':expected})
         write_json(STATE/'status.json',{'id':identifier,'state':'queued','message':'Configuration is queued for publication.','updated_at':stamp()})
+        from app.services.collection_changes import safe_record
+        safe_record('configuration_queued', operation_id=identifier, action='configuration')
         return {'id':identifier,'state':'queued'}
 
 def history(identifier):
