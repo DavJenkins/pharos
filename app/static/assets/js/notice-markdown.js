@@ -19,6 +19,7 @@
       const weekend=[0,6].includes(now.getDay());
       if(['weekpart','currentweekpart','weekorweekend','currentweekorweekend'].includes(key)&&format===null)return weekend?'weekend':'week';
       if(['nextweekpart','upcomingweekpart','nextweekorweekend','upcomingweekorweekend'].includes(key)&&format===null)return weekend?'week':'weekend';
+      if(key==='today')return dateFormat(now,format||'dddd');
       if(key==='tomorrow')return dateFormat(shift(1),format||'dddd');
       if(['thisweek','currentweek','nextweek','upcomingweek','thisweekend','currentweekend','nextweekend','upcomingweekend'].includes(key)){
         let start,end;

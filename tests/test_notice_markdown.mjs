@@ -79,3 +79,6 @@ root=new Node('aside');context.ArkNoticeMarkdown.render(root,'First **[weekday]*
 const lines=all(root).filter(n=>n.attributes.class==='ark-notice-line');
 assert.equal(lines.length,2);assert.equal(lines[0].textContent,'First Monday');assert.equal(lines[1].textContent,'Second [daypart]');assert(tags(root).includes('strong'));assert(tags(root).includes('code'));
 console.log('Banner line groups preserve explicit breaks, formatting and literal code.');
+
+assert.equal(expand('[today] [today:MM/DD] [TODAY:YYYY-MM-DD]'),'Monday 10/26 2026-10-26');
+assert.equal(expand('[today] [today:YYYY-MM-DD]',new Date(2028,1,29,0,0)),'Tuesday 2028-02-29');
