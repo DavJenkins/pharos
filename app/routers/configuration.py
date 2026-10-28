@@ -17,19 +17,17 @@ def status():
 
 @router.get('')
 async def read(request:Request):
-    await authorize(request)
     return await run_in_threadpool(service.read)
 
 @router.get('/history/{identifier}')
 async def history(identifier:str,request:Request):
-    await authorize(request)
     try:return await run_in_threadpool(service.history,identifier)
     except (ValueError,OSError):raise HTTPException(404,'Saved configuration not found.') from None
 
 @router.post('/{action}')
 async def change(action:str,request:Request):
     if action not in ('validate','save','community'):raise HTTPException(404,'Unknown configuration operation.')
-    await authorize(request)
+    if action!='validate':await authorize(request)
     if request.headers.get('content-type','').split(';')[0]!='application/json':raise HTTPException(415,'JSON required.')
     body=bytearray()
     async for part in request.stream():

@@ -263,10 +263,12 @@ The optional `personalization` section in `dataark.yaml` records vehicles, prefe
 
 ## Configuration editor
 
-Open **Settings → System → Configuration…**. Choose **Load configuration**;
-the caretaker password is requested on demand, using the shared optional timed
-remember switch. Reading, validating and saving configuration require caretaker
-authorization. Normal page visits and publication-status checks do not prompt.
+Open **Settings → System → Configuration…** and choose **Load configuration**.
+Reading, downloading, viewing previous public versions and validating a draft
+require no caretaker password. Private household settings are excluded from these
+views. Saving and publishing changes, restoring a version by publishing it, and
+changing Community visibility require caretaker authorization, using the shared
+optional timed remember switch. Loading a version into the editor does not apply it.
 
 ## Community visibility
 

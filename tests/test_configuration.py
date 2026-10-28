@@ -51,11 +51,26 @@ class ConfigurationTests(unittest.TestCase):
     def test_history_rejects_arbitrary_paths(self):
         for identifier in ['../dataark.yaml','/etc/shadow','x']:
             with self.assertRaises(ValueError):c.history(identifier)
-    def test_read_requires_caretaker_authorization(self):
+    def test_public_read_and_history_require_no_caretaker_authorization(self):
         class Request:headers={}
-        with patch.object(routes,'authorized',return_value=False),patch.object(c,'read') as read:
-            with self.assertRaises(HTTPException) as result:asyncio.run(routes.read(Request()))
-            self.assertEqual(result.exception.status_code,401);read.assert_not_called()
+        with patch.object(routes,'authorized',return_value=False) as auth,patch.object(c,'read',return_value={'text':'public'}) as read:
+            self.assertEqual(asyncio.run(routes.read(Request())),{'text':'public'})
+            read.assert_called_once();auth.assert_not_called()
+        with patch.object(routes,'authorized',return_value=False) as auth,patch.object(c,'history',return_value={'text':'previous public'}) as history:
+            self.assertEqual(asyncio.run(routes.history('a'*32,Request())),{'text':'previous public'})
+            history.assert_called_once_with('a'*32);auth.assert_not_called()
+
+    def test_preview_is_public_but_save_and_community_still_require_password(self):
+        class Request:
+            headers={'content-type':'application/json'}
+            async def stream(self):yield json.dumps({'text':'public draft'}).encode()
+        with patch.object(routes,'authorized',return_value=False) as auth,patch.object(c,'preview',return_value={'assets':0}) as preview,patch.object(routes,'invoke') as invoke:
+            self.assertEqual(asyncio.run(routes.change('validate',Request())),{'assets':0})
+            preview.assert_called_once_with('public draft');auth.assert_not_called();invoke.assert_not_called()
+        for action in ('save','community'):
+            with patch.object(routes,'authorized',return_value=False),patch.object(c,'queue') as queue:
+                with self.assertRaises(HTTPException) as result:asyncio.run(routes.change(action,Request()))
+                self.assertEqual(result.exception.status_code,401);queue.assert_not_called()
 
     def publisher_setup(self):
         folder=self.root/'config/content';folder.mkdir(parents=True)
