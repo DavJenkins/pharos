@@ -6,6 +6,11 @@ import re
 import subprocess
 import sys
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from wifi_interfaces import interfaces
+
 NFT = '/usr/sbin/nft'
 IP = '/usr/sbin/ip'
 
@@ -26,9 +31,9 @@ def execute(data):
     sets = {item['set']['name']:item['set'] for item in table['nftables'] if 'set' in item}
     if set(sets) != {'clients','addresses'}:
         raise ValueError('Forwarding control unavailable')
-    neighbors = json.loads(run([IP,'-j','neigh','show','to',str(address),'dev','wlan0']))
+    neighbors = json.loads(run([IP,'-j','neigh','show','to',str(address),'dev',interfaces()[0]]))
     macs = {row.get('lladdr','').lower() for row in neighbors
-            if row.get('dst') == str(address) and row.get('dev','wlan0') == 'wlan0'}
+            if row.get('dst') == str(address) and row.get('dev',interfaces()[0]) == 'wlan0'}
     if len(macs) != 1 or not re.fullmatch(r'(?:[0-9a-f]{2}:){5}[0-9a-f]{2}',next(iter(macs),'')):
         if requested is not None:
             raise ValueError('Device address unavailable; reconnect to the AP and retry')

@@ -7,6 +7,11 @@ import selectors
 import subprocess
 import time
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from wifi_interfaces import interfaces
+
 FLAG = Path('/var/lib/ark/debug_status')
 PROBES = ('connectivitycheck.', 'captive.apple.com', 'msftconnecttest.com',
           'msftncsi.com', 'detectportal.firefox.com', 'dataark')
@@ -32,7 +37,9 @@ def main():
         if not enabled:
             time.sleep(0.5)
             continue
-        with subprocess.Popen(COMMAND, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        command = COMMAND.copy()
+        command[2] = interfaces()[0]
+        with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                               text=True, bufsize=1) as process:
             selector = selectors.DefaultSelector()
             selector.register(process.stdout, selectors.EVENT_READ)

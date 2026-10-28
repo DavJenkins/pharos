@@ -164,6 +164,13 @@ class Installer:
   if 'DataArk' not in profiles:run(['nmcli','connection','add','type','wifi','ifname','wlan0','con-name','DataArk','connection.uuid',self.state['ap_uuid'],'ssid',self.c['hotspot']['ssid'],'802-11-wireless.mode','ap','ipv4.method','shared','ipv4.addresses','192.168.4.1/24','ipv6.method','disabled','connection.autoconnect','yes'])
   run(['nmcli','connection','up','DataArk'])
   self.script('install_content_access.py');self.script('install_portal.py');self.script('install_pass_through.py');self.script('install_portal_monitor.py')
+  role_config=self.kit/'wifi-roles.json'
+  if role_config.is_file():
+   preference=json.loads(role_config.read_text())
+   adapter=preference.get('hotspot_adapter')
+   if adapter is not None and not re.fullmatch(r'(?:[0-9a-f]{2}:){5}[0-9a-f]{2}',adapter):raise ValueError('Invalid saved Wi-Fi adapter identity')
+   atomic(Path('/etc/dataark/wifi-roles.json'),json.dumps({'schema':1,'hotspot_adapter':adapter,'fallback':'builtin'})+'\n')
+  run(['/usr/local/libexec/dataark-wifi-roles','--boot'])
   if self.c['anonymous_ftp']:self.script('install_ftp.py')
  def content(self):
   # Device setup approval does not authorize optional content downloads.

@@ -299,7 +299,7 @@
                     pending = null;
                     clearTimeout(pendingTimer);
                 }
-                const interfaceName = {"ap-button":"wlan0", "wifi-button":"wlan1", "eth-button":"eth0"}[selected];
+                const interfaceName = {"ap-button":DataArkStatus.accessPoint.interface, "wifi-button":DataArkStatus.wifi.interface, "eth-button":"eth0"}[selected];
                 const protectedPath = interfaceName && enabled && (!access.known || access.protected.includes(interfaceName));
                 if (interfaceName && !wifiBusy && protectedPath) wifiMessage.textContent = protectedPath ? (access.known ? "This is your current access path. Connect through another interface to disable it." : "Checking your access path; disabling is blocked until it can be verified.") : "";
                 if (interfaceName && !wifiBusy && !protectedPath && (wifiMessage.textContent.startsWith("Checking your access path") || wifiMessage.textContent.startsWith("This is your current access path"))) wifiMessage.textContent = "";

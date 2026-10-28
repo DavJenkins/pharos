@@ -32,7 +32,7 @@ async function operation(name, payload) {
     if (busy) return;
     busy = true;
     document.querySelectorAll("button").forEach(button => button.disabled = true);
-    el("result").textContent = name === "scan" ? "Looking for networks on wlan1…" : "Applying change; please wait. This may take up to two minutes…";
+    el("result").textContent = name === "scan" ? "Looking for networks on the upstream adapter…" : "Applying change; please wait. This may take up to two minutes…";
     try {
         const data = await adminRequest(name, payload);
         if (name === "scan") {

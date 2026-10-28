@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data Ark · Wi-Fi adapters</title><link rel="stylesheet" href="/assets/css/ark-pages.css?v=1f02d0e4ff3a6caf"></head>
+<body><main class="network-settings-card"><a class="ark-page-brand" href="/">Data Ark</a>
+<nav><a href="/">Dashboard</a><a href="/config/wifi.html">Upstream Wi-Fi</a><a href="/config/system.html">Access point</a></nav>
+<h1>Wi-Fi adapter assignment</h1>
+<p>Choose which radio serves the DataArk hotspot. The other radio handles optional upstream Wi-Fi. Saved network names and passwords are retained.</p>
+<form id="adapter-form">
+<label>Caretaker password<input id="admin-password" type="password" autocomplete="off" required></label>
+<button id="load-adapters" type="button">Load adapters</button>
+<section id="adapter-settings" hidden>
+<label>Hotspot adapter<select id="hotspot-adapter" required></select></label>
+<p id="adapter-summary"></p>
+<p class="notice">Changing roles disconnects Wi-Fi clients briefly. Reconnect to DataArk, return here, and confirm within four minutes. Otherwise the previous assignment is restored automatically. Ethernet stays available. Internet pass-through resets to off.</p>
+<p>If the chosen USB adapter is missing at startup, the built-in radio provides the hotspot. The preferred adapter is remembered for the next startup.</p>
+<button id="apply-adapters" type="submit">Apply assignment</button>
+</section></form>
+<section id="adapter-pending" hidden><h2>Confirm the new assignment</h2>
+<p id="adapter-countdown" role="status"></p>
+<button id="confirm-adapters" type="button">Keep this assignment</button>
+<button id="revert-adapters" type="button">Restore previous assignment</button></section>
+<p id="adapter-result" role="status" aria-live="polite">Enter the caretaker password to view and change the assignment.</p>
+<script src="/assets/js/wifi-adapters.js?v=1"></script>
+</main></body></html>

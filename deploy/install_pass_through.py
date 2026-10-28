@@ -8,6 +8,8 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from deploy.install_portal import run, atomic
+from tools.wifi_interfaces import interfaces
+AP = interfaces()[0]
 
 MARKER = '# Managed by Data Ark pass-through v1'
 RULES = MARKER + '''
@@ -33,6 +35,7 @@ add rule inet dataark_forward gate oifname "wlan0" ip daddr @addresses return
 add rule inet dataark_forward gate iifname "wlan0" reject with icmpx type admin-prohibited
 add rule inet dataark_forward gate oifname "wlan0" reject with icmpx type admin-prohibited
 '''
+RULES = RULES.replace('wlan0',AP)
 UNIT = 'dataark-pass-through.service'
 SERVICE = MARKER + '''
 [Unit]
@@ -89,7 +92,7 @@ def main():
     if run(['systemctl','show','dataark.service','-p','User','--value']).stdout.strip()!='admin':
         raise SystemExit('Expected API account admin.')
     profile=run(['nmcli','-g','connection.interface-name,ipv4.method,ipv4.addresses','connection','show','DataArk']).stdout.splitlines()
-    if profile!=['wlan0','shared','192.168.4.1/24']:
+    if profile!=[AP,'shared','192.168.4.1/24']:
         raise SystemExit('Unexpected AP profile; no changes made.')
     compile(FILES[Path('/usr/local/libexec/dataark-pass-through')][0],'<helper>','exec')
     unit_path = Path('/etc/systemd/system')/UNIT

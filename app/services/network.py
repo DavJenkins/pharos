@@ -1,4 +1,5 @@
 from pathlib import Path
+from tools.wifi_interfaces import interfaces
 from app.core.command import run
 
 
@@ -41,12 +42,14 @@ def ethernet():
 
 
 def wifi():
-    autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", "wlan1"]).strip()
+    _, upstream = interfaces()
+    autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", upstream]).strip()
     enabled = True if autoconnect == "yes" else False if autoconnect == "no" else None
-    link = run(["iw", "dev", "wlan1", "link"])
+    link = run(["iw", "dev", upstream, "link"])
 
     if "SSID:" not in link:
         return {
+            "interface": upstream,
             "enabled": enabled,
             "state": "disabled" if enabled is False else "disconnected" if "Not connected" in link else "unknown",
             "connected": False if "Not connected" in link else None,
@@ -82,6 +85,7 @@ def wifi():
     percent = None if dbm is None else max(0, min(100, int((dbm + 90) * 100 / 60)))
 
     return {
+        "interface": upstream,
         "enabled": enabled,
         "state": "connected",
         "connected": True,
@@ -91,20 +95,21 @@ def wifi():
             "percent": percent,
         },
         "rate": rate,
-        "ip": _ip4("wlan1"),
-        "gateway": _gateway("wlan1"),
+        "ip": _ip4(upstream),
+        "gateway": _gateway(upstream),
     }
 
 
 def access_point():
-    autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", "wlan0"]).strip()
-    info = run(["iw", "dev", "wlan0", "info"])
+    ap, _ = interfaces()
+    autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", ap]).strip()
+    info = run(["iw", "dev", ap, "info"])
     fields = {}
     for line in info.splitlines():
         parts = line.strip().split(" ", 1)
         if len(parts) == 2:
             fields[parts[0]] = parts[1]
-    device_state = run(["nmcli", "-g", "GENERAL.STATE", "device", "show", "wlan0"])
+    device_state = run(["nmcli", "-g", "GENERAL.STATE", "device", "show", ap])
     try:
         connected = int(device_state.split()[0]) == 100
     except (ValueError, IndexError):
@@ -124,7 +129,7 @@ def access_point():
 
     clients = []
 
-    stations = run(["iw", "dev", "wlan0", "station", "dump"])
+    stations = run(["iw", "dev", ap, "station", "dump"])
 
     for line in stations.splitlines():
         if line.startswith("Station "):
@@ -133,11 +138,12 @@ def access_point():
             })
 
     return {
+        "interface": ap,
         "ssid": ssid,
         "enabled": True if autoconnect == "yes" else False if autoconnect == "no" else None,
         "active": active,
         "state": "unknown" if active is None else "active" if active else "inactive",
-        "ip": _ip4("wlan0"),
+        "ip": _ip4(ap),
         "client_count": len(clients),
         "clients": clients,
     }

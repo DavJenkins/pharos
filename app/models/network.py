@@ -16,6 +16,7 @@ class Ethernet(BaseModel):
 
 
 class Wifi(BaseModel):
+    interface: str = "wlan1"
     enabled: bool | None = None
     state: str
     connected: bool | None
@@ -27,6 +28,7 @@ class Wifi(BaseModel):
 
 
 class AccessPoint(BaseModel):
+    interface: str = "wlan0"
     enabled: bool | None = None
     active: bool | None = None
     state: str = "unknown"

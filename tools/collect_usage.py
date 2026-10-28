@@ -86,7 +86,10 @@ def command(args):
  except (OSError,subprocess.TimeoutExpired):return None
 
 def sample():
- stations=command(['iw','dev','wlan0','station','dump'])
+ import sys
+ sys.path.insert(0,str(Path(__file__).resolve().parent))
+ from wifi_interfaces import interfaces
+ stations=command(['iw','dev',interfaces()[0],'station','dump'])
  sockets=command(['ss','-Htn','state','established'])
  result={'hotspot_devices':None if stations is None else sum(x.startswith('Station ') for x in stations.splitlines()),'ssh_connections':None,'desktop_connections':None,'terminal_connections':None}
  if sockets is not None:

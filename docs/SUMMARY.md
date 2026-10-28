@@ -106,3 +106,5 @@
 * [Local usage history](20-Administration/Usage.md)
 
 * [Communication and accessibility tools](20-Administration/CommunicationTools.md)
+
+* [Wi-Fi adapter assignment and fallback](20-Administration/WifiAdapters.md)

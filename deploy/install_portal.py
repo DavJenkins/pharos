@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Install AP-only welcome detection without interrupting NetworkManager or Docker."""
 import json
+import sys
 import os
 from pathlib import Path
 import shlex
@@ -13,6 +14,9 @@ import tempfile
 from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
+from tools.wifi_interfaces import interfaces
+AP = interfaces()[0]
 MARKER = '# Managed by Data Ark portal v1'
 UNIT = 'dataark-portal-dns.service'
 HOSTS = ('connectivitycheck.gstatic.com', 'connectivitycheck.android.com',
@@ -81,6 +85,8 @@ PrivateTmp=yes
 [Install]
 WantedBy=multi-user.target
 '''
+DNS = DNS.replace('wlan0',AP)
+NFT = NFT.replace('wlan0',AP)
 FILES = {
     Path('/etc/dataark/portal-dns.conf'): DNS,
     Path('/etc/dataark/portal.nft'): NFT,
@@ -220,7 +226,7 @@ def main():
             raise SystemExit('Required program missing: '+name)
     pwd.getpwnam('dnsmasq')
     profile = run(['nmcli','-g','connection.interface-name,ipv4.method,ipv4.addresses,802-11-wireless.mode','connection','show','DataArk']).stdout.splitlines()
-    if profile != ['wlan0','shared','192.168.4.1/24','ap']:
+    if profile != [AP,'shared','192.168.4.1/24','ap']:
         raise SystemExit('Unexpected DataArk AP profile; no changes made.')
     wait_for_api()
     ports = run(['ss','-H','-lunt','sport = :1053']).stdout
