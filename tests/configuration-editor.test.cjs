@@ -38,3 +38,12 @@ test('modular editor opens ark.yaml and generated state stays read-only',async()
  h.node('configuration-file').value='ark.yaml';await h.node('configuration-file').onchange();
  assert.equal(h.node('configuration-text').readOnly,false);assert.equal(h.prompts(),0);
 });
+
+test('switching files resets section choices and single-section files are preselected',async()=>{
+ const h=harness(true);await h.node('configuration-load').onclick();
+ const section=h.node('configuration-section');section.value='stale';
+ h.node('configuration-file').value='state/order.yaml';await h.node('configuration-file').onchange();
+ assert.deepEqual(section.children.map(o=>o.textContent),['assets']);assert.equal(section.value,'0');assert.equal(section.disabled,true);
+ h.node('configuration-file').value='ark.yaml';await h.node('configuration-file').onchange();
+ assert.deepEqual(section.children.map(o=>o.textContent),['Choose a section…','system','community']);assert.equal(section.value,'');assert.equal(section.disabled,false);
+});
