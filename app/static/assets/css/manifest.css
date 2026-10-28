@@ -287,8 +287,8 @@ body{background-image:none}
 .dashboard-top .status-bar.status-condensed{width:60px;min-height:56px;padding:5px 8px 8px}
 .status-condensed>.status-controls{display:block;padding:0;min-height:0;width:auto}
 .status-condensed .sync-line,.status-condensed #internet-status{display:none}
-.status-condensed .ark-connection-line{justify-content:center;padding-top:46px}
-.status-condensed .ark-settings>summary{color:#17633e;background:#edf8ed;border:1px solid #619276;border-radius:8px}
+.status-condensed .ark-connection-line{justify-content:center;padding-top:60px}
+.status-condensed .ark-settings>summary{color:#16a34a;background:#edf8ed;border:1px solid #619276;border-radius:8px}
 .status-condensed #upstream-links{color:#294761;justify-content:center}
 .status-condensed #upstream-links:empty{display:none}
 
