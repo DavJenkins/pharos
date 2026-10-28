@@ -326,7 +326,8 @@ body{background-image:none}
 #status-dialog [role=tabpanel]>.library-summary-heading:first-child{border-top:0;padding-top:0}
 
 /* Align labels consistently in native buttons and links styled as buttons. */
-.status-dialog-actions button:not([hidden]),.status-dialog-actions a:not([hidden]),.status-dialog-footer button,.refresh-interval-panel button,.dialog-actions button,#bugout-panel button,.manifest-links a:not(.external-link),.system-tabs [role=tab]{display:inline-flex;align-items:center;justify-content:center;text-align:center;vertical-align:middle;line-height:1.25}
+.status-dialog-actions button:not([hidden]),.status-dialog-actions a:not([hidden]),.status-dialog-footer button,.refresh-interval-panel button,.dialog-actions button:not([hidden]),#bugout-panel button:not([hidden]),.manifest-links a:not(.external-link),.system-tabs [role=tab]{display:inline-flex;align-items:center;justify-content:center;text-align:center;vertical-align:middle;line-height:1.25}
+#bugout-panel [hidden],#bugout-dialog [hidden]{display:none!important}
 .status-dialog-actions button,.status-dialog-actions a,.status-dialog-footer button{box-sizing:border-box;min-height:44px;padding:.6rem .8rem}
 @media(max-width:480px){#status-dialog .status-dialog-actions button,#status-dialog .status-dialog-actions a,#status-dialog .status-dialog-footer button{font-size:.9rem;padding:.5rem .6rem}}
 

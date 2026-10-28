@@ -5,6 +5,7 @@
     if (!panel) return;
     let state = null, busy = false, polling = false, task = null, requestId = null, action = "trigger", cancelId = null, formVersion = 0;
     const start = el("bugout-start"), dialog = el("bugout-dialog");
+    const cancellable = () => !!state?.operation?.id && ["queued","running"].includes(state.operation.state) && (state.operation.mode ?? "bugout") === "bugout";
     // Retain the UUID after an uncertain response; retries refer to the same operation.
     function operationId() {
         const bytes = crypto.getRandomValues(new Uint8Array(16));
@@ -20,6 +21,7 @@
         });
     }
     function openForm(selected = null, requested = "trigger") {
+        if (requested.startsWith("cancel") && !cancellable()) return;
         formVersion++;
         if (action !== requested) requestId = null;
         action = requested;
@@ -45,8 +47,8 @@
             if (el("bugout-sync")) el("bugout-sync").disabled = busy || !state.sync_ready;
             for (const id of ["bugout-stop","bugout-continue"]) {
                 if (el(id)) {
-                    el(id).hidden = !["queued","running"].includes(state.operation?.state);
-                    el(id).disabled = busy;
+                    el(id).hidden = !cancellable();
+                    el(id).disabled = busy || !cancellable();
                 }
             }
             const failures = state.tasks.filter(t => t.cache && (t.cache.missing_file || ["failed","unavailable","interrupted"].includes(t.cache.state)));
@@ -126,8 +128,10 @@
                 list.append(row);
             });
         } catch (_) {
+            state = null;
             start.disabled = true;
             for (const id of ["bugout-sync","bugout-stop","bugout-continue"]) if (el(id)) el(id).disabled = true;
+            for (const id of ["bugout-stop","bugout-continue"]) if (el(id)) el(id).hidden = true;
             if (!panel.hidden) el("bugout-readiness").textContent = "Unable to check backup readiness";
         } finally { polling = false; }
     }

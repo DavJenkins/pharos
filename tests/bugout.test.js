@@ -16,6 +16,13 @@ async function scenario(state,failed=false,testResult={ok:true,message:"Share re
 (async()=>{
  let s=await scenario({configured:false,ready:false,reason:"No tasks",tasks:[]});
  assert.equal(s.elements["bugout-panel"].hidden,true);assert.equal(s.elements["bugout-start"].disabled,true);
+ for (const operation of [null,{id:"done",state:"completed"},{id:"failed",state:"failed"},{id:"cancelled",state:"cancelled"},{id:"prefetch",mode:"prefetch",state:"running"}]) {
+   s=await scenario({configured:true,ready:true,tasks:[],operation});
+   for (const id of ["bugout-stop","bugout-continue"]) {
+     assert.equal(s.elements[id].hidden,true);assert.equal(s.elements[id].disabled,true);
+     s.elements[id].listeners.click();assert.notEqual(s.elements["bugout-dialog"].open,true);
+   }
+ }
  s=await scenario({configured:true,ready:false,reason:"No source",tasks:[{id:"one",title:"Private documents",ready:false,reason:"Credentials required",credential_configured:true}]});
  assert.equal(s.elements["bugout-panel"].hidden,false);assert.equal(s.elements["bugout-start"].disabled,true);
  assert.equal(s.elements["bugout-readiness"].textContent,"No source");
