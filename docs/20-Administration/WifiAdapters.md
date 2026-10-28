@@ -8,7 +8,7 @@ coverage still needs a real client test.
 
 Open **Settings → Hotspot → Access point settings → Wi-Fi adapter assignment**,
 or use `/config/adapters.html`. The same link is on the upstream Wi-Fi page.
-Enter the caretaker password, load adapters, select the hotspot radio and apply.
+Choose **Load adapters** and enter the caretaker password in the on-demand pop-up, then select the hotspot radio and apply. The password pop-up offers a slide switch to remember it for 1–120 minutes (default 10) across pages in the same browser tab and Ark address. Both the Wi-Fi and Hotspot status pop-ups also link directly to adapter assignment.
 Clients disconnect briefly. Reconnect to DataArk, return to this page, load
 adapters and choose **Keep this assignment** within four minutes. Ethernet is
 unaffected. Without confirmation, an independent system timer restores the

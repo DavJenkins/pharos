@@ -36,7 +36,7 @@ Reinstatement needs upstream internet and is not a recovery guarantee if the pub
 
 ## Session behavior
 
-Successful password verification unlocks the current page in memory for 15 minutes after a successful action. Lock library management, reload, navigation away, and authentication rejection clear it. Each removal still needs confirmation. No session credential is written to browser storage or cookies.
+Caretaker actions use the shared on-demand password pop-up. Its slide switch optionally remembers the password for a chosen 1–120 minutes (default 10), across pages in the same browser tab and Ark address. The fixed expiry is not extended by actions. Remembered credentials use tab-scoped session storage; leaving the switch off retains no session credential. Expiry, authentication rejection, or Lock library management clears the remembered password. Each removal still needs confirmation.
 
 ## Diagnostics
 

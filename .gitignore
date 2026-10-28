@@ -28,3 +28,4 @@ venv/
 .cache/
 app/static/assets/manifest/
 app/static/manifest.json
+app/static/assets/build-info.json

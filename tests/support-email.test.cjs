@@ -1,0 +1,20 @@
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+test('support email file contains build, publication date and complete diagnostic attachment without sending mail',async()=>{
+ const nodes=new Map(),requests=[],blobs=[];let authCalls=0;
+ const node=id=>{if(!nodes.has(id))nodes.set(id,{textContent:'',value:'',disabled:true,querySelector:node,setAttribute(){},focus(){},showModal(){},close(){},click(){},remove(){}});return nodes.get(id);};
+ const build={revision:'abc123def456789',branch:'feature/readme-foundation',source_fingerprint:'f'.repeat(64),published_at:'2026-10-27T23:00:00Z'};
+ const window={addEventListener(){},dispatchEvent(){},CaretakerAuth:{authorization:async()=>{authCalls++;return 'Basic test';},rejected(){}}};
+ const context=vm.createContext({window,document:{createElement:()=>node('popup'),body:{append(){}}},fetch:async(url,options)=>{requests.push({url,options});return {ok:true,json:async()=>url.includes('build-info')?build:{report:{collected_at:'2026-10-27T23:01:00Z',portal_debug:'diagnostic log content',services:'dataark active'}}};},navigator:{userAgent:'Test browser',language:'en-US'},location:{origin:'http://dataark',pathname:'/'},Intl,Date,Event:class{},TextEncoder,btoa:s=>Buffer.from(s,'binary').toString('base64'),Blob,URL:{createObjectURL:blob=>{blobs.push(blob);return 'blob:test';},revokeObjectURL(){}},setTimeout(){},AbortSignal});
+ vm.runInContext(fs.readFileSync(path.join(__dirname,'../app/static/assets/js/support-email.js'),'utf8'),context);
+ await window.ArkSupportEmail.open();assert.equal(authCalls,0);
+ node('#support-description').value='Failure description\r\nBcc: should-remain-body@example.test';
+ await node('#support-collect').onclick();assert.equal(authCalls,1);
+ assert.equal(requests[1].url,'/api/network/admin/diagnostics');assert.equal(requests[1].options.method,'POST');
+ node('#support-download-email').onclick();const email=await blobs[0].text();
+ assert.match(email,/To: support@dejsoftware.com/);assert.match(email,/X-Unsent: 1/);assert.doesNotMatch(email,/\r\nBcc:/);
+ const parts=email.split('Content-Transfer-Encoding: base64\r\n\r\n');
+ const body=Buffer.from(parts[1].split('\r\n--')[0].replace(/\s/g,''),'base64').toString();assert.match(body,/Failure description/);assert.match(body,/Published:/);assert.match(body,/abc123def456/);
+ const attachment=JSON.parse(Buffer.from(parts[2].split('\r\n--')[0].replace(/\s/g,''),'base64').toString());
+ assert.equal(attachment.portal_debug,'diagnostic log content');assert.equal(attachment.build.published_at,build.published_at);assert.equal(attachment.client.browser,'Test browser');
+ assert.ok(requests.every(r=>r.url.startsWith('/')));
+});

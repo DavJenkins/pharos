@@ -17,6 +17,11 @@
         const action = document.getElementById("status-dialog-action");
         const link = document.getElementById("status-dialog-link");
         const close = document.getElementById("status-dialog-close");
+        const adapterLink = document.createElement("a");
+        adapterLink.href = "/config/adapters.html";
+        adapterLink.textContent = "Adapter assignment";
+        adapterLink.hidden = true;
+        link.after(adapterLink);
         const toggleRow = document.getElementById("status-dialog-toggle-row");
         const toggleHome = toggleRow.parentElement;
         const popupHeader = document.createElement("div");
@@ -97,40 +102,17 @@
         bannerButton.addEventListener("click",()=>{dialog.close();window.ArkBannerAdmin.open();});
 
 
+        const supportButton=document.createElement("button");supportButton.type="button";supportButton.textContent="Support email…";supportButton.hidden=true;terminalLink.before(supportButton);
+        supportButton.addEventListener("click",()=>{dialog.close();window.ArkSupportEmail.open();});
+        window.addEventListener("ark-build-ready",()=>{if(selected==="system-button"&&dialog.open)render();});
         const wifiMessage = document.createElement("p");
         wifiMessage.setAttribute("role", "status");
         wifiMessage.className = "wifi-action-message";
         document.getElementById("status-dialog-toggle-row").after(wifiMessage);
-        const passwordDialog = document.createElement("dialog");
-        passwordDialog.className = "caretaker-dialog";
-        passwordDialog.innerHTML = '<form method="dialog"><h2>Caretaker password</h2><p>Authorize the network change.</p><label>Password<input type="password" name="password" autocomplete="off" required></label><label class="caretaker-remember-switch"><input type="checkbox" role="switch" name="remember"><span class="network-switch-track" aria-hidden="true"></span><span>Remember for 10 minutes</span></label><p class="dialog-actions"><button value="cancel" type="button">Cancel</button><button value="apply" type="submit">Apply</button></p></form>';
-        document.body.append(passwordDialog);
-        passwordDialog.querySelector('[value="cancel"]').addEventListener("click", () => passwordDialog.close("cancel"));
-        let cachedPassword = null;
-        let passwordExpires = 0;
-        let passwordTimer;
-        function forgetPassword() { cachedPassword = null; passwordExpires = 0; clearTimeout(passwordTimer); }
-        function askPassword() {
-            if (cachedPassword && Date.now() < passwordExpires) return Promise.resolve(cachedPassword);
-            forgetPassword();
-            const input = passwordDialog.querySelector("input");
-            input.value = "";
-            passwordDialog.querySelector("[name=remember]").checked = false;
-            passwordDialog.returnValue = "cancel";
-            return new Promise(resolve => {
-                passwordDialog.addEventListener("close", () => {
-                    const password = passwordDialog.returnValue === "apply" ? input.value : null;
-                    if (password && passwordDialog.querySelector("[name=remember]").checked) {
-                        cachedPassword = password;
-                        passwordExpires = Date.now() + 600000;
-                        passwordTimer = setTimeout(forgetPassword, 600000);
-                    }
-                    input.value = "";
-                    resolve(password);
-                }, {once:true});
-                passwordDialog.showModal();
-                input.focus();
-            });
+        function forgetPassword() { window.CaretakerAuth.forget(); }
+        async function askPassword() {
+            try { return await window.CaretakerAuth.password("Authorize the network change."); }
+            catch (error) { if (error.name === "AbortError") return null; throw error; }
         }
         let access = {known:false, protected:[]};
         async function refreshAccess() {
@@ -172,6 +154,7 @@
         function updateTabActions(){
             const system=selected==="system-button";
             terminalLink.hidden=!system||systemTab!=="system";
+            supportButton.hidden=!system||systemTab!=="system";
             httpsLink.hidden=!system||systemTab!=="system";
             bannerButton.hidden=!system||systemTab!=="system"||!window.ArkBannerAdmin;
             link.hidden=system?systemTab!=="library":!(items[selected]?.settings||items[selected]?.url);
@@ -208,6 +191,7 @@
                 httpsLabel.textContent="HTTPS (optional)";
                 httpsValue.textContent=!httpsInfo?"—":!httpsInfo.enabled?"Not configured":httpsInfo.certificate_health==="expired"?"Certificate expired · HTTP available":httpsInfo.domain+(httpsInfo.days_remaining!==undefined?" · "+httpsInfo.days_remaining+" days remaining":"");
                 list.append(httpsLabel,httpsValue);
+                for(const [label,text] of [["Build",window.ArkSupportEmail?.summary()||"—"],["Published",window.ArkSupportEmail?.published()||"—"]]){const term=document.createElement("dt"),detail=document.createElement("dd");term.textContent=label;detail.textContent=text;list.append(term,detail);}
                 const tabs=document.createElement("div");tabs.className="system-tabs";tabs.setAttribute("role","tablist");tabs.setAttribute("aria-label","System information");
                 const systemPanel=document.createElement("div"),devicesPanel=document.createElement("div"),libraryPanel=document.createElement("div");
                 systemPanel.append(list);
@@ -226,7 +210,7 @@
                 });
                 const systemActions=document.createElement("div"),libraryActions=document.createElement("div");
                 systemActions.className=libraryActions.className="status-dialog-actions tab-panel-actions";
-                systemActions.append(bannerButton,terminalLink,httpsLink);libraryActions.append(link);
+                systemActions.append(bannerButton,terminalLink,httpsLink,supportButton);libraryActions.append(link);
                 value.append(tabs,...panels);
 
                 const clientsList=document.createElement("dl");clientsList.className="status-details-list";
@@ -269,7 +253,7 @@
         function render() {
             if (!selected) return;
             const item = items[selected], original = document.getElementById(selected);
-            if(selected!=="system-button")toggleHome.append(link,bannerButton,terminalLink,httpsLink);
+            if(selected!=="system-button")toggleHome.append(link,bannerButton,terminalLink,httpsLink,supportButton);
             heading.textContent = item.name;
             const networkSwitch = !!item.toggle;
             dialog.classList.toggle("network-popup", networkSwitch);
@@ -308,6 +292,7 @@
                 switchState.textContent = action.checked ? "On" : "Off";
                 document.getElementById("status-dialog-toggle-label").textContent = selected === "ap-button" ? "Enable hotspot" : selected === "eth-button" ? "Enable Ethernet" : selected === "wifi-button" ? "Enable upstream Wi-Fi" : selected === "debug-button" ? "Enable debug diagnostics" : selected === "refresh-button" ? "Update status automatically" : "Use the Ark's internet connection on this device";
             }
+            adapterLink.hidden = !["wifi-button","ap-button"].includes(selected);
             updateTabActions();
             link.href = item.settings || item.url || "#";
             link.textContent = item.settingsLabel || item.openLabel || "";

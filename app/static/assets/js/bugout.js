@@ -145,16 +145,16 @@
         if (busy || !task || !el("bugout-form").reportValidity()) return;
         const selected = task, version = formVersion;
         const button = el("bugout-test-credentials");
-        const bytes = new TextEncoder().encode("admin:" + el("bugout-admin").value);
-        const authorization = "Basic " + btoa(Array.from(bytes, b => String.fromCharCode(b)).join(""));
         const payload = {username:el("bugout-username").value,password:el("bugout-password").value,
             domain:el("bugout-domain").value,remember:el("bugout-remember").checked};
         busy = true; button.disabled = true; el("bugout-submit").disabled = true;
         el("bugout-form-result").textContent = "Testing share access…";
         try {
+            const authorization = await window.CaretakerAuth.authorization("Authorize this bug-out action.");
             const response = await fetch("/api/bugout/credentials/" + encodeURIComponent(selected.id) + "/test", {
                 method:"POST",cache:"no-store",signal:AbortSignal.timeout(15000),
                 headers:{"Content-Type":"application/json","Authorization":authorization},body:JSON.stringify(payload)});
+            window.CaretakerAuth.rejected(response);
             const result = await response.json();
             if (!response.ok) throw new Error(result.detail || "Credential test failed");
             if (version === formVersion) el("bugout-form-result").textContent = result.ok ? result.message : "Test failed: " + result.message;
@@ -169,15 +169,15 @@
         if (busy) return;
         busy = true; start.disabled = true; el("bugout-submit").disabled = true;
         const selected = task;
-        const bytes = new TextEncoder().encode("admin:" + el("bugout-admin").value);
-        const authorization = "Basic " + btoa(Array.from(bytes, b => String.fromCharCode(b)).join(""));
         if (!selected && !action.startsWith("cancel") && !requestId) requestId = operationId();
         const payload = selected ? {username:el("bugout-username").value,password:el("bugout-password").value,
             domain:el("bugout-domain").value,remember:el("bugout-remember").checked} : action.startsWith("cancel") ? {operation_id:cancelId,continue_updates:action === "cancel-continue"} : {operation_id:requestId};
         try {
+            const authorization = await window.CaretakerAuth.authorization("Authorize this bug-out action.");
             const response = await fetch("/api/bugout/" + (selected ? "credentials/" + encodeURIComponent(selected.id) : action.startsWith("cancel") ? "cancel" : action), {
                 method:"POST",cache:"no-store",signal:AbortSignal.timeout(45000),
                 headers:{"Content-Type":"application/json","Authorization":authorization},body:JSON.stringify(payload)});
+            window.CaretakerAuth.rejected(response);
             const value = await response.json();
             if (!response.ok) {
                 if (response.status < 500) requestId = null;

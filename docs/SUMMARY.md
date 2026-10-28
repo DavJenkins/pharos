@@ -108,3 +108,5 @@
 * [Communication and accessibility tools](20-Administration/CommunicationTools.md)
 
 * [Wi-Fi adapter assignment and fallback](20-Administration/WifiAdapters.md)
+
+* [Build information and support email](20-Administration/Support.md)

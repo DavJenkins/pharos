@@ -19,7 +19,7 @@
 <style>.manifest-link-group{margin:.7rem 0;padding-top:.45rem;border-top:1px solid #b6c4cb}.manifest-link-group h4{font-size:1rem;margin:0 0 .3rem;color:#203e54}.manifest-link-group a{display:inline-block;margin:.15rem .2rem .15rem 0;overflow-wrap:anywhere}</style><style>.site-header .ark-wordmark{margin:.25rem auto .6rem;line-height:1}.ark-wordmark img{display:block;width:min(440px,85vw);height:auto;margin:auto;max-width:100%}</style>
 <style>.dashboard-top .site-header{background:#203e54;border:1px solid #d4af37;box-shadow:0 3px 12px #0005}.dashboard-top .site-header a{color:#f0d584}.dashboard-top .site-header nav{color:#f0d584}</style>
 <style>#background-dej-link{position:fixed;z-index:1;border-radius:8px}#background-dej-link:focus-visible{outline:3px solid #d4af37;outline-offset:4px;background:#203e5433}.site-header,.manifest-category{position:relative;z-index:2}.status-bar{z-index:3}</style>
-</head>
+<link rel="stylesheet" href="/assets/css/caretaker-auth.css"><link rel="stylesheet" href="/assets/css/support-email.css"></head>
 
 <body>
 <a id="background-dej-link" href="https://www.dejsoftware.com/" target="_blank" rel="noopener noreferrer" aria-label="DEJ Software website" title="Visit DEJ Software" hidden><span class="visually-hidden">DEJ Software website</span></a>
@@ -167,7 +167,7 @@
 <dialog id="bugout-dialog">
 <form id="bugout-form">
 <h3 id="bugout-dialog-title">Start bugout</h3>
-<label>Administration password <input id="bugout-admin" type="password" autocomplete="current-password" placeholder="The Data Ark network administration password." title="The Data Ark network administration password." required></label>
+<input id="bugout-admin" type="hidden" autocomplete="current-password" placeholder="The Data Ark network administration password." title="The Data Ark network administration password.">
 <fieldset id="bugout-credential-fields" hidden>
 <legend>Network share credentials</legend>
 <label>Username <input id="bugout-username" autocomplete="off"></label>
@@ -193,6 +193,8 @@
 </a>
 </footer>
 
+<script src="/assets/js/caretaker-auth.js"></script>
+<script src="/assets/js/support-email.js"></script>
 <script src="assets/js/manifest-links.js"></script>
 <script src="assets/js/connectivity.js"></script>
 <script src="assets/js/portal.js"></script>
@@ -221,7 +223,7 @@ a happy [tomorrow] tomorrow, and a wonderful [nextweekpart] ahead!</code></p><p>
 <div class="notice-option-grid"><label>Font<select id="notice-font"><option value="system">Modern</option><option value="old-english">Old English</option><option value="serif">Classic serif</option><option value="monospace">Typewriter</option></select></label>
 <label>Position<select id="notice-position"><option value="top">Top of page</option><option value="below-header">Below header</option><option value="bottom">Fixed at bottom</option></select></label></div></div></details>
 <details class="notice-options"><summary>Size and spacing <small>Width and margins</small></summary><div class="notice-options-body"><div class="notice-option-grid"><label>Width<select id="notice-width"><option value="full">Full width</option><option value="fit">Fit text</option><option value="margin">Custom side margins</option></select></label><label>Side margins (%)<input id="notice-margin" type="number" min="0" max="40" step="0.5" value="5"></label><label>Top margin (px)<input id="notice-margin-top" type="number" min="0" max="200" step="1" value="12"></label><label>Bottom margin (px)<input id="notice-margin-bottom" type="number" min="0" max="200" step="1" value="12"></label></div><small>Side margins are equal on both sides. Fixed-bottom uses the bottom margin as its distance from the screen edge.</small></div></details>
-<label class="notice-password-label">Caretaker password<input name="password" type="password" autocomplete="current-password" maxlength="256" required></label><p class="form-error" role="status"></p></div>
+<input name="password" type="hidden" autocomplete="current-password" maxlength="256"><p class="form-error" role="status"></p></div>
 <label class="notice-notify-option"><input type="checkbox" id="notice-notify-clients"> Notify other clients with a pop-up</label><small class="notice-notify-hint">Other open Ark pages will show this message, usually within 10 seconds. New visitors will not receive an old alert.</small><div class="dialog-actions"><button type="button" id="clear-notice">Clear banner</button><button type="submit">Save banner</button><button type="button" id="notice-close">Close</button></div></form></dialog>
 <script src="/assets/js/ark-banner-admin.js?v=6af6c75df60719e9"></script>
 <script src="/assets/js/background-sign-link.js"></script>

@@ -7,7 +7,7 @@ function node(){return {hidden:true,disabled:false,value:"",checked:false,textCo
 async function scenario(state,failed=false,testResult={ok:true,message:"Share readable; not saved"}){
  const ids=["bugout-warning","bugout-test-credentials","bugout-sync","bugout-stop","bugout-continue","bugout-panel","bugout-start","bugout-dialog","bugout-form","bugout-readiness","bugout-operation","bugout-tasks","bugout-cancel","bugout-submit","bugout-admin","bugout-password","bugout-username","bugout-domain","bugout-remember","bugout-form-result","bugout-credential-fields","bugout-dialog-title"];
  const elements=Object.fromEntries(ids.map(k=>[k,node()]));const calls=[],timers=[];
- vm.runInNewContext(source,{document:{hidden:false,getElementById:k=>elements[k],createElement:node,createTextNode:s=>s,addEventListener(){}},
+ vm.runInNewContext(source,{window:{CaretakerAuth:{authorization:async()=>"Basic test-auth",rejected(){}}},document:{hidden:false,getElementById:k=>elements[k],createElement:node,createTextNode:s=>s,addEventListener(){}},
  setInterval:f=>timers.push(f),AbortSignal:{timeout(){}},TextEncoder,Uint8Array,crypto:require("node:crypto").webcrypto,btoa:s=>Buffer.from(s).toString("base64"),
  fetch:async(url,options)=>{calls.push([url,options]);if(failed)throw Error("offline");return {ok:true,json:async()=>url.endsWith("/test") ? testResult : state};}});
  await new Promise(resolve=>setImmediate(resolve));

@@ -4,8 +4,7 @@ const action = document.body.dataset.action;
 let busy = false;
 
 async function adminRequest(operation, payload) {
-    const password = el("admin-password").value;
-    if (!password) throw new Error("Enter the network administration password.");
+    const password = await window.CaretakerAuth.password("Authorize this network change.");
     const bytes = new TextEncoder().encode("admin:" + password);
     const authorization = "Basic " + btoa(Array.from(bytes, b => String.fromCharCode(b)).join(""));
     const controller = new AbortController();
@@ -23,6 +22,7 @@ async function adminRequest(operation, payload) {
     } finally {
         clearTimeout(timer);
     }
+    window.CaretakerAuth.rejected(response);
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail || "Network operation failed.");
     return data;

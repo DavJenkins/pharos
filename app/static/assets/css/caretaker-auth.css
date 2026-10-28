@@ -1,0 +1,22 @@
+#caretaker-auth-dialog{box-sizing:border-box;width:min(28rem,calc(100vw - 1rem));max-height:calc(100dvh - 1rem);overflow:auto;border:1px solid #8ea6b8;border-radius:12px;background:#f5f2e8;color:#203e54;padding:1.25rem;font:1rem/1.5 system-ui,sans-serif;box-shadow:0 12px 48px #00152a66}
+#caretaker-auth-dialog::backdrop{background:#00152a88}
+#caretaker-auth-dialog h2{font-size:1.35rem;margin:0 0 .5rem;font-weight:700}
+#caretaker-auth-dialog p{margin:.6rem 0}
+#caretaker-auth-dialog label{display:block}
+#caretaker-auth-dialog input{box-sizing:border-box;font:inherit;color:inherit;background:#fffdf5;border:1px solid #8ea6b8;border-radius:6px;padding:.55rem}
+#caretaker-auth-password{width:100%;margin:.25rem 0 .8rem;min-height:44px}
+#caretaker-auth-dialog .caretaker-auth-remember{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+#caretaker-auth-dialog .caretaker-auth-switch{position:relative;display:inline-flex;align-items:center;gap:.65rem;min-height:44px;cursor:pointer}
+#caretaker-auth-dialog .caretaker-auth-switch input{position:absolute;width:1px;height:1px;opacity:0}
+.caretaker-auth-track{display:inline-block;position:relative;width:44px;height:26px;flex:0 0 44px;border-radius:20px;background:#778796;border:1px solid #536879}
+.caretaker-auth-track::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:white;transition:transform .15s}
+.caretaker-auth-switch input:checked+.caretaker-auth-track{background:#203e54;border-color:#203e54}
+.caretaker-auth-switch input:checked+.caretaker-auth-track::after{transform:translateX(18px);background:#d4af37}
+.caretaker-auth-switch input:focus-visible+.caretaker-auth-track{outline:3px solid #a87d18;outline-offset:3px}
+#caretaker-auth-dialog .caretaker-auth-duration{display:inline-flex;align-items:center;gap:.4rem}
+#caretaker-auth-minutes{width:5rem;min-height:44px}
+#caretaker-auth-dialog .caretaker-auth-scope{font-size:.85rem;color:#526575}
+#caretaker-auth-error{min-height:1.5em;color:#9b2929}
+#caretaker-auth-dialog .caretaker-auth-actions{display:flex;justify-content:flex-end;gap:.6rem;margin-top:1rem}
+#caretaker-auth-dialog button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.55rem 1rem;border:1px solid #8ea6b8;border-radius:6px;background:#e4edf4;color:#203e54;font:inherit;cursor:pointer}
+#caretaker-auth-dialog [type=submit]{background:#203e54;color:#f5da83}

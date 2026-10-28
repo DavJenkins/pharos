@@ -68,6 +68,9 @@ def main():
             os.chown(folder, 0, gid)
             folder.chmod(mode)
     subprocess.run(['/usr/bin/python3',str(source.parents[1]/'deploy/install_wifi_roles.py')],check=True)
+    support=(source.parent/'support_diagnostics.py').read_bytes()
+    compile(support,'support_diagnostics.py','exec')
+    install(Path('/usr/local/libexec/dataark-support-diagnostics'),support,0o755)
     install(Path('/usr/local/libexec/dataark-network'), helper, 0o755)
     if new_credentials is not None:
         install(credentials, new_credentials, 0o640, gid)

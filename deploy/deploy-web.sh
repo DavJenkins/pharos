@@ -20,6 +20,7 @@ echo " Deploying Data Ark Web Interface"
 echo "============================================================"
 
 echo
+python3 tools/write_build_info.py
 echo "1. Deploying static website..."
 
 sudo mkdir -p "$TARGET"

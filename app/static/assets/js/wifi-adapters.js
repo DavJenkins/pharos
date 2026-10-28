@@ -3,8 +3,7 @@
     const el = id => document.getElementById(id);
     let busy = false, deadline = null, poll = null;
     async function request(action, payload = {}) {
-        const password = el("admin-password").value;
-        if (!password) throw new Error("Enter the caretaker password.");
+        const password = await window.CaretakerAuth.password("Authorize Wi-Fi adapter assignment.");
         const bytes = new TextEncoder().encode("admin:" + password);
         const authorization = "Basic " + btoa(Array.from(bytes, b => String.fromCharCode(b)).join(""));
         const response = await fetch("/api/network/admin/" + action, {
@@ -12,6 +11,7 @@
             headers: {"Content-Type":"application/json", "Authorization":authorization},
             body: JSON.stringify(payload)
         });
+        window.CaretakerAuth.rejected(response);
         const data = await response.json();
         if (!response.ok) throw new Error(data.detail || "Adapter operation failed.");
         return data;
@@ -37,7 +37,7 @@
         deadline = data.deadline;
         el("adapter-result").textContent = data.pending ? data.message : "Current assignment loaded.";
         clearInterval(poll);
-        poll = data.pending ? setInterval(() => { if (!busy) perform("adapters", {}, true); }, 10000) : null;
+        poll = data.pending ? setInterval(() => { if (!busy && window.CaretakerAuth.isRemembered()) perform("adapters", {}, true); }, 10000) : null;
     }
     async function perform(action, payload = {}, quiet = false) {
         if (busy) return;

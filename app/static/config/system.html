@@ -5,15 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Data Ark Network Settings</title>
 
-<link rel="stylesheet" href="/assets/css/ark-pages.css?v=1f02d0e4ff3a6caf"></head>
+<link rel="stylesheet" href="/assets/css/ark-pages.css?v=0d1bad11b6560326"><link rel="stylesheet" href="/assets/css/caretaker-auth.css?v=61a5a367c94a1162"><link rel="stylesheet" href="/assets/css/page-close.css?v=371cdf1a141503fb"></head>
 <body data-action="rename"><main class="network-settings-card"><a class="ark-page-brand" href="/">Data Ark</a>
 <nav><a href="/">Dashboard</a><a href="/config/wifi.html">Upstream Wi-Fi</a><a href="/config/system.html">Access point</a></nav>
 <p><a href="/config/adapters.html">Wi-Fi adapter assignment</a></p>
 <h1>Rename the DataArk access point</h1>
 <p id="current" role="status">Loading current network…</p>
 <form id="network-form">
-<label>Caretaker password
-<input id="admin-password" type="password" autocomplete="off" required></label>
+<input id="admin-password" type="hidden" autocomplete="off">
 
 <label>Access-point name (SSID)<input id="ssid" required autocomplete="off"></label>
 <p class="notice">Renaming the access point disconnects its connected devices. Reconnect to the new Wi-Fi name, then open http://192.168.4.1/.</p>
@@ -21,6 +20,7 @@
 <button id="save" type="submit">Save AP Name</button>
 </form>
 <p id="result" role="status" aria-live="polite"></p>
-<script src="/assets/js/network-settings.js?v=51e5c74f154289f1"></script>
-</main></body>
+<script src="/assets/js/caretaker-auth.js?v=d97c8870e4070f12"></script>
+<script src="/assets/js/network-settings.js?v=ebf32e1f78e9d520"></script>
+<div class="ark-page-actions"><a href="/">Close</a></div></main></body>
 </html>

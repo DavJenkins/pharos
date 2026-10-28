@@ -18,8 +18,9 @@
     if (data !== undefined) {
       options.method='POST'; options.headers['Content-Type']='application/json'; options.body=JSON.stringify(data);
     }
-    if (password !== undefined) options.headers.Authorization=basic(password);
+    if (password !== undefined) options.headers.Authorization=basic(await window.CaretakerAuth.password('Authorize community board management.'));
     const response=await fetch(endpoint+path,options);
+    window.CaretakerAuth.rejected(response);
     if (!response.ok) {
       let error; try { error=await response.json(); } catch (_) {}
       throw Error(error?.detail || 'The Ark could not complete the request. Try again shortly.');
@@ -102,7 +103,7 @@
   $('#previous').addEventListener('click',()=>{offset=Math.max(0,offset-50);refresh();});
   $('#next').addEventListener('click',()=>{offset+=50;refresh();});
   $('#back').addEventListener('click',event=>{event.preventDefault();location.hash='';});
-  $('#moderator').addEventListener('change',()=>{$('#password-row').hidden=!$('#moderator').checked;$('#code-row').hidden=$('#moderator').checked;});
+  $('#moderator').addEventListener('change',()=>{$('#password-row').hidden=true;$('#code-row').hidden=$('#moderator').checked;});
   async function submit(form, operation) {
     const button=form.querySelector('[type=submit]');button.disabled=true;
     const errorNode=form.querySelector('.form-error');if(errorNode)errorNode.textContent='';
@@ -195,8 +196,8 @@
     if(file.size>128*1024*1024){$('#restore-form .form-error').textContent='Backup exceeds 128 MiB.';return;}
     restoreLock(true);$('#restore-result').textContent='Uploading and validating backup…';$('#restore-form .form-error').textContent='';
     try {
-      const response=await fetch(endpoint+'/restore/preview',{method:'POST',headers:{'Content-Type':'application/vnd.sqlite3',Authorization:basic($('#restore-password').value)},body:file,cache:'no-store'});
-      const data=await response.json();if(!response.ok)throw Error(data.detail||'Backup validation failed.');
+      const response=await fetch(endpoint+'/restore/preview',{method:'POST',headers:{'Content-Type':'application/vnd.sqlite3',Authorization:await window.CaretakerAuth.authorization('Validate a community board backup.')},body:file,cache:'no-store'});
+      window.CaretakerAuth.rejected(response);const data=await response.json();if(!response.ok)throw Error(data.detail||'Backup validation failed.');
       restoreToken=data.token;
       $('#restore-summary').textContent=`Backup: ${data.backup.posts} posts and ${data.backup.replies} replies. Current board: ${data.current.posts} posts and ${data.current.replies} replies.`+(data.backup.newest?' Newest backup message: '+date(data.backup.newest)+'.':'');
       $('#restore-banner').textContent=data.backup.banner?'Backup banner ('+data.backup.color+'): '+data.backup.banner:'The backup has no banner; restoring it clears the current banner.';

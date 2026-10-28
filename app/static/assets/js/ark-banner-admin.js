@@ -24,9 +24,10 @@
     const options={cache:'no-store',headers:{}};
     if(value!==undefined) {
       options.method='POST';options.headers['Content-Type']='application/json';options.body=JSON.stringify(value);
-      options.headers.Authorization='Basic '+btoa(String.fromCharCode(...new TextEncoder().encode('admin:'+password)));
+      options.headers.Authorization=await window.CaretakerAuth.authorization('Save the Ark banner.');
     }
     const response=await fetch('/api/community/notice',options);
+    window.CaretakerAuth.rejected(response);
     let data;try{data=await response.json();}catch(_){throw Error('The Ark could not complete the request.');}
     if(!response.ok)throw Error(data.detail||'The Ark could not complete the request.');
     return data;
