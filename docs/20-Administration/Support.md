@@ -8,7 +8,7 @@ Git checkpoint; the fingerprint also distinguishes local source changes.
 `tools/write_build_info.py`, not maintained by hand.
 
 **Support email…** on that tab opens a local composer addressed to
-`support@dejsoftware.com`. Describe the failure and choose **Collect diagnostics**.
+`support@dejsoftware.com`. Describe the failure and choose **Add system diagnostics**.
 This uses the shared on-demand caretaker password pop-up. Collecting a report
 does not enable Debug or change any network/service setting.
 
@@ -27,10 +27,20 @@ Recognized secrets in log records are redacted. The report can still contain
 private technical details such as network names and addresses: review it before
 sharing. It is not published on the public content drive.
 
-**Download complete email (.eml)** creates a MIME email file with the JSON report
-attached and the description/build context in the message. Open or import it in
-your email client, review, and send. **Open email app** uses a conventional mail
-link; those links cannot attach files, so attach the downloaded diagnostic JSON
-yourself when using that route. Nothing is sent automatically. Without internet,
-save the email/report and send later. If the API is unreachable, a clearly marked
+The composer has three numbered sections: describe the problem, add diagnostics,
+and send using your email app. A basic browser/build report is available without
+entering a password; the dialog explicitly labels it as basic until full system
+diagnostics have been collected.
+
+Choose **Save diagnostics attachment**, then **Open email draft**. The browser
+starts downloading `dataark-support-diagnostics.json`; find that file in your
+browser's downloads and attach it in your email app. Review the message and press
+Send there. The ordinary email link cannot attach files and its message explicitly
+asks you to attach the report rather than claiming it is already attached.
+
+**Other ways to send** explains using webmail and offers **Save complete email
+draft (.eml)**. That MIME file includes the JSON attachment and message context.
+Some email apps open it as a saved message rather than a new draft, so opening or
+importing it is a secondary route. Nothing is sent automatically. Without internet,
+save the draft/report and send later. If the API is unreachable, a clearly marked
 partial report preserves browser/build context for the failure.

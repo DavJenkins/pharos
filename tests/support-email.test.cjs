@@ -9,11 +9,14 @@ test('support email file contains build, publication date and complete diagnosti
  await window.ArkSupportEmail.open();assert.equal(authCalls,0);assert.equal(node("#support-download-email").disabled,false);assert.equal(JSON.parse(node("#support-report").textContent).partial,true);
  node('#support-description').value='Failure description\r\nBcc: should-remain-body@example.test';
  await node('#support-collect').onclick();assert.equal(authCalls,1);
+ assert.match(decodeURIComponent(node('#support-mailto').href),/Please attach dataark-support-diagnostics.json/);
+ assert.doesNotMatch(decodeURIComponent(node('#support-mailto').href),/report is attached/);
  assert.equal(requests[1].url,'/api/network/admin/diagnostics');assert.equal(requests[1].options.method,'POST');
  node('#support-download-email').onclick();const email=await blobs[0].text();
  assert.match(email,/To: support@dejsoftware.com/);assert.match(email,/X-Unsent: 1/);assert.doesNotMatch(email,/\r\nBcc:/);
  const parts=email.split('Content-Transfer-Encoding: base64\r\n\r\n');
  const body=Buffer.from(parts[1].split('\r\n--')[0].replace(/\s/g,''),'base64').toString();assert.match(body,/Failure description/);assert.match(body,/Published:/);assert.match(body,/abc123def456/);
+ assert.match(body,/Attached: dataark-support-diagnostics.json/);
  const attachment=JSON.parse(Buffer.from(parts[2].split('\r\n--')[0].replace(/\s/g,''),'base64').toString());
  assert.equal(attachment.portal_debug,'diagnostic log content');assert.equal(attachment.build.published_at,build.published_at);assert.equal(attachment.client.browser,'Test browser');
  assert.ok(requests.every(r=>r.url.startsWith('/')));
