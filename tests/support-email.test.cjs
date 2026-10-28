@@ -6,7 +6,7 @@ test('support email file contains build, publication date and complete diagnosti
  const window={addEventListener(){},dispatchEvent(){},CaretakerAuth:{authorization:async()=>{authCalls++;return 'Basic test';},rejected(){}}};
  const context=vm.createContext({window,document:{createElement:()=>node('popup'),body:{append(){}}},fetch:async(url,options)=>{requests.push({url,options});return {ok:true,json:async()=>url.includes('build-info')?build:{report:{collected_at:'2026-10-27T23:01:00Z',portal_debug:'diagnostic log content',services:'dataark active'}}};},navigator:{userAgent:'Test browser',language:'en-US'},location:{origin:'http://dataark',pathname:'/'},Intl,Date,Event:class{},TextEncoder,btoa:s=>Buffer.from(s,'binary').toString('base64'),Blob,URL:{createObjectURL:blob=>{blobs.push(blob);return 'blob:test';},revokeObjectURL(){}},setTimeout(){},AbortSignal});
  vm.runInContext(fs.readFileSync(path.join(__dirname,'../app/static/assets/js/support-email.js'),'utf8'),context);
- await window.ArkSupportEmail.open();assert.equal(authCalls,0);
+ await window.ArkSupportEmail.open();assert.equal(authCalls,0);assert.equal(node("#support-download-email").disabled,false);assert.equal(JSON.parse(node("#support-report").textContent).partial,true);
  node('#support-description').value='Failure description\r\nBcc: should-remain-body@example.test';
  await node('#support-collect').onclick();assert.equal(authCalls,1);
  assert.equal(requests[1].url,'/api/network/admin/diagnostics');assert.equal(requests[1].options.method,'POST');

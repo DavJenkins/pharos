@@ -84,7 +84,8 @@ def collect():
     report['apache_errors']=tail('/var/log/apache2/error.log',12000)
     library=api('library')
     report['library']={k:library.get(k) for k in ('storage_ready','free_bytes','progress')}
-    report['library']['counts']={key:len(library.get(key,[])) for key in ('installed','pending','removed')}
+    report['library']['telemetry_error']=library.get('error')
+    report['library']['counts']={key:None if library.get('error') else len(library.get(key,[])) for key in ('installed','pending','removed')}
     report['library']['attention']=[{'id':row.get('id'),'title':row.get('title'),'update':row.get('update')} for row in library.get('installed',[]) if (row.get('update') or {}).get('result')=='error' or (row.get('update') or {}).get('pending_change')][:30]
     # Sanitize structured messages too; never include environment or credential stores.
     return sanitize(report)

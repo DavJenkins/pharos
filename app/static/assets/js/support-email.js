@@ -21,7 +21,7 @@
         popup.querySelector('#support-download-email').onclick=()=>download(emailFile(),'dataark-support.eml','message/rfc822');
         return popup;
     }
-    function body(){return (popup.querySelector('#support-description').value.trim()||'[Describe the problem here]')+'\n\nData Ark troubleshooting context\nBuild: '+summary()+'\nPublished: '+published()+'\nCollected: '+(report?.collected_at||'Not collected')+'\n\n'+(report?'The diagnostic report is attached to the complete email draft.':'Diagnostics have not been collected.');}
+    function body(){return (popup.querySelector('#support-description').value.trim()||'[Describe the problem here]')+'\n\nData Ark troubleshooting context\nBuild: '+summary()+'\nPublished: '+published()+'\nCollected: '+(report?.collected_at||'Not collected')+'\n\n'+(report?(report.partial?'Only partial browser/build context is attached. Full system/debug logs were not collected.':'The diagnostic report is attached to the complete email draft.'):'Diagnostics have not been collected.');}
     function updateMailto(){if(popup)popup.querySelector('#support-mailto').href='mailto:'+recipient+'?subject='+encodeURIComponent('Data Ark support — '+(build?.revision||'unknown build').slice(0,12))+'&body='+encodeURIComponent(body());}
     function download(value,name,type){const url=URL.createObjectURL(new Blob([value],{type}));const link=document.createElement('a');link.href=url;link.download=name;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
     function base64(value){const bytes=new TextEncoder().encode(value);let raw='';for(const byte of bytes)raw+=String.fromCharCode(byte);return btoa(raw).match(/.{1,76}/g).join('\r\n');}
@@ -51,6 +51,15 @@
         }
         finally{busy=false;button.disabled=false;}
     }
-    async function open(){create();await ready;popup.querySelector('#support-build').textContent='Build: '+summary()+' · Published: '+published();updateMailto();popup.showModal();popup.querySelector('#support-description').focus();}
+    async function open(){
+        create();await ready;
+        if(!report){
+            report={collected_at:new Date().toISOString(),partial:true,collection_error:'Full server diagnostics have not been collected.',build,client:clientContext()};
+            popup.querySelector('#support-report').textContent=JSON.stringify(report,null,2);
+            popup.querySelector('#support-download-report').disabled=false;popup.querySelector('#support-download-email').disabled=false;
+            popup.querySelector('#support-result').textContent='Basic browser/build context is ready. Collect diagnostics to add system details and logs.';
+        }
+        popup.querySelector('#support-build').textContent='Build: '+summary()+' · Published: '+published();updateMailto();popup.showModal();popup.querySelector('#support-description').focus();
+    }
     window.ArkSupportEmail=Object.freeze({open,summary,published,ready});
 })();
