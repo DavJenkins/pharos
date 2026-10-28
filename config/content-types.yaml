@@ -1,0 +1,84 @@
+# One registry for every restoration type. Paths are relative to the trusted repository.
+# Adding a handler installs executable code; review it before approving a restore plan.
+schema: 1
+types:
+  communication:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: communication}
+  curriculum:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: curriculum}
+  forms:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: forms}
+  family:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: family}
+  jurisdictions:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: jurisdictions}
+  resilience:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: resilience}
+  callsigns:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: callsigns}
+  radio-study:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: radio-study}
+  portable-reader:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: portable-reader}
+  osm:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: osm}
+  osm-caribbean:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: osm-caribbean}
+  indexes:
+    api: 1
+    handler: tools/handlers/legacy_recipe.py
+    operations: [restore]
+    options: {recipe: indexes}
+  archives:
+    api: 1
+    handler: tools/handlers/download.py
+    operations: [restore]
+    options: {}
+  direct_files:
+    api: 1
+    handler: tools/handlers/download.py
+    operations: [restore]
+    options: {}
+  map_files:
+    api: 1
+    handler: tools/handlers/download.py
+    operations: [restore]
+    options: {}
+  example-text:
+    api: 1
+    handler: plugins/example_text.py
+    operations: [restore, inspect, verify]
+    options: {}

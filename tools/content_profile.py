@@ -102,6 +102,8 @@ def export(folder):
  if unmanaged:print('Unregistered archives need a separate decision:',', '.join(x['path'] for x in unmanaged))
  return recipe
 def portable_files(c,folder):
+ from tools.content_types import portable_sources
+ yield from portable_sources()
  for name in ['content.yaml','content-lock.json',c['manifest']]+c.get('snapshots',[]):
   path=inside(folder,name)
   if path.is_file():yield path,'config/content/'+name
@@ -129,7 +131,8 @@ def validate(c):
   ids.add(item['id'])
   if item.get('sha256') and (len(item['sha256'])!=64 or any(x not in '0123456789abcdef' for x in item['sha256'])):raise ValueError('Bad checksum')
  for r in c.get('recipes',[]):
-  if r['id'] not in set(COLLECTIONS)|{'portable-reader','osm','osm-caribbean','indexes'}:raise ValueError('Unknown recipe '+r['id'])
+  from tools.content_types import read_registry
+  if r.get('type',r['id']) not in read_registry()['types']:raise ValueError('Unknown recipe type '+r.get('type',r['id']))
  if type(c.get('reserve_gib')) not in (int,float) or c['reserve_gib']<1:raise ValueError('Reserve must be at least 1 GiB')
  if type(c.get('download_rate_kib',0)) is not int or c.get('download_rate_kib',0)<0:raise ValueError('Bad download rate')
 def selected(c,only):
@@ -186,7 +189,13 @@ def download(item,root,c,verify_existing=False,progress=None):
    if f.read(4)!=b'ZIM\x04':raise ValueError('Not a ZIM archive')
  if progress:progress('publishing')
  part.chmod(0o644);part.replace(target);return 'restored'
-def recipe(item,c,root,folder):
+def recipe(item,c,root,folder,progress=None):
+ from tools.content_types import Context, dispatch
+ context=Context(root,c,folder)
+ if progress:context.progress=progress
+ return dispatch(item.get('type',item['id']), 'restore', item, context)
+
+def _legacy_recipe(item,c,root,folder):
  name=item['id']
  if name in COLLECTIONS:
   repositories={'communication':['communication-accessibility'],'curriculum':['curriculum'],'jurisdictions':['civic-reference'],'forms':['forms-templates'],'family':['family-resources','food-preservation','sanitation','drinking-water','shelter-winter','first-aid-care','growing-food','repairs','navigation-field','emergency-comms','animals-emergency','disaster-recovery','disability-preparedness'],'resilience':['resilience','civic-reference'],'callsigns':['civic-reference'],'radio-study':['radio-study']}

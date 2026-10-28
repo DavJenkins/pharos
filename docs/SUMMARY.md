@@ -112,3 +112,5 @@
 * [Build information and support email](20-Administration/Support.md)
 
 * [Community visibility and configuration editor](20-Administration/Configuration.md#configuration-editor)
+
+* [Content type registry and handler API](20-Administration/ContentHandlers.md)

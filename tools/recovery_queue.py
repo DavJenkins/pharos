@@ -45,7 +45,7 @@ def save(path, value):
 def fingerprint(profile, policy):
     c = content.read(profile)
     h = hashlib.sha256(json.dumps(policy, sort_keys=True).encode())
-    for source in ['tools/recovery_queue.py','tools/content_profile.py','tools/content_lock.py'] + [v[0] for v in content.COLLECTIONS.values()]:
+    for source in ['tools/recovery_queue.py','tools/content_profile.py','tools/content_lock.py','tools/content_types.py'] + [v[0] for v in content.COLLECTIONS.values()]:
         h.update(source.encode() + b'\0' + (ROOT/source).read_bytes() + b'\0')
     for path, name in sorted(content.portable_files(c, Path(profile).parent), key=lambda pair: pair[1]):
         h.update(name.encode() + b'\0' + path.read_bytes() + b'\0')
@@ -233,10 +233,11 @@ def execute_job(q, job, directory=STATE):
         save(Path(directory) / 'phase.json', {'package':job['id'],'phase':name,'updated_at':time.time()})
     if job['kind'] == 'recipe':
         phase('restoring_collection')
-        content.recipe(job['item'], c, root, Path(q['profile']).parent)
+        content.recipe(job['item'], c, root, Path(q['profile']).parent, progress=phase)
     else:
         # A matching size alone is not enough to reuse a pinned original.
-        content.download(job['item'], root, c, verify_existing=True, progress=phase)
+        from tools.content_types import Context, dispatch
+        dispatch(job['kind'], 'restore', job['item'], Context(root, c, Path(q['profile']).parent, progress=phase))
         if job['kind'] == 'archives':
             phase('publishing_reader')
             from tools.publish_content import publish

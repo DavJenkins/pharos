@@ -61,7 +61,7 @@ class QueueTests(QueueFixtures,unittest.TestCase):
   self.assertEqual(self.plan(free=1000*GIB)['plan_id'],self.plan(free=999*GIB)['plan_id'])
  def test_existing_size_only_affects_capacity_and_executor_requests_hash_verification(self):
   (self.root/'huge.zim').write_bytes(b'a');self.c['archives'][0]['bytes']=1;self.write();p=self.plan();self.assertTrue(next(j for j in p['jobs'] if j['id']=='huge')['present_for_capacity'])
-  with patch.object(content,'download') as download,patch('tools.publish_content.publish'),patch.object(q.subprocess,'run'):q.execute_job(p,p['jobs'][0],self.state);self.assertTrue(download.call_args.kwargs['verify_existing'])
+  with patch.object(content,'download',return_value='present (checksum checked)') as download,patch('tools.publish_content.publish'),patch.object(q.subprocess,'run'):q.execute_job(p,p['jobs'][0],self.state);self.assertTrue(download.call_args.kwargs['verify_existing'])
  def test_resume_keeps_completed_packages_and_retries_failed_work(self):
   self.create();calls=[]
   def fail(q_,j,d):calls.append(j['id']);return 1 if j['id']=='huge' else 0
