@@ -97,6 +97,12 @@ class ProjectTests(unittest.TestCase):
         p.write(Path(os.path.relpath(root)),self.data)
         self.assertEqual(p.load(root/'ark.yaml'),p.public(self.data))
 
+    def test_development_copy_cannot_start_the_production_publisher(self):
+        from tools import configuration_project as cli
+        with patch.object(cli,'ROOT',self.root),patch('sys.argv',['configuration_project.py','publish','--write']),patch.object(cli,'load_manifest') as load:
+            with self.assertRaisesRegex(ValueError,'installed /opt/dataark'):cli.main()
+            load.assert_not_called()
+
     def test_restoration_jobs_and_capacity_match_for_both_manifest_formats(self):
         from tools import content_profile as content,recovery_queue as queue
         (self.root/'public-manifest.yaml').write_text(p.dump(p.public(self.data)))

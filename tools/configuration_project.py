@@ -18,6 +18,7 @@ def main():
     parser.add_argument('--output',type=Path)
     parser.add_argument('--write',action='store_true')
     args=parser.parse_args()
+    if args.action=='publish' and (not args.write or os.name!='posix' or os.geteuid()!=0 or ROOT.resolve()!=Path('/opt/dataark') or args.project.resolve()!=(ROOT/'config/library/ark.yaml').resolve()):raise ValueError('Publishing requires local root, the installed /opt/dataark project, and explicit --write. Compile and review first.')
     if args.action=='split':
         data=project.public(load_manifest(args.manifest));parts=project.split(data)
         assembled,_=project.assemble(parts.__getitem__)
@@ -36,7 +37,6 @@ def main():
         if not args.output:raise ValueError('Use --output with an explicit review file; this command does not publish.')
         if args.output.resolve() in (args.manifest.resolve(),(ROOT/'dataark.yaml').resolve()) or args.output.resolve().is_relative_to(args.project.parent.resolve()):raise ValueError('Compile to a separate review file, not over the manifest or project.')
         atomic_write(args.output,project.dump(data).encode());print('Public review snapshot:',args.output);return
-    if not args.write or os.name!='posix' or os.geteuid()!=0 or args.project.resolve()!=(ROOT/'config/library/ark.yaml').resolve():raise ValueError('Publishing requires local root, the installed project, and explicit --write. Compile and review first.')
     from app.services import configuration as editor
     raw,live=editor.current();text=editor.dump(data);editor.checked(text,live)
     result=editor.queue(text,editor.revision(raw),project_token=project.fingerprint(args.project.parent))
