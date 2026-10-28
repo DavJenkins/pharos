@@ -82,8 +82,7 @@ Every message has Reply. Responses appear beneath their target; the shared reply
 
 ## Live banner variables
 
-The message-of-the-day banner supports `[daypart]`, `[weekday]`, `[date:MM/DD]`, and `[time:h:mm A]`. For example: `Good [daypart]! Have a lovely [nextdaypart],
-a happy [tomorrow] tomorrow, and a wonderful [nextweekpart] ahead!` Values are evaluated on the viewing device using its local clock/timezone; different devices can show different local times. Formatting uses English names. The saved template remains unchanged. The live banner and editor preview refresh locally each second when visible; API checks remain once per minute.
+The message-of-the-day banner supports `[daypart]`, `[weekday]`, `[date:MM/DD]`, and `[time:h:mm A]`. For example: `Good [daypart]! Have a lovely [today] [nextdaypart], a happy [tomorrow] tomorrow, and a wonderful [nextweekpart] ahead!` Values are evaluated on the viewing device using its local clock/timezone; different devices can show different local times. Formatting uses English names. The saved template remains unchanged. The live banner and editor preview refresh locally each second when visible; API checks remain once per minute.
 
 Supported format tokens: YYYY/YY (year), MMMM/MMM/MM/M (month), DD/D (day), dddd/ddd (weekday), HH/H (24-hour), hh/h (12-hour), mm/m (minute), ss/s (second), A/a (AM/PM). Single-quoted words in a format are literal. Examples: `[date:YYYY-MM-DD]`, `[date:ddd, MMM D]`, `[time:HH:mm:ss]`. `[date]` defaults to MM/DD, `[time]` to h:mm A. `[Monday]` and other weekday names are aliases for the current weekday; `[morning]`, `[afternoon]`, `[evening]`, and `[night]` all mean the current daypart. `[MM/DD]` or sample dates such as `[10/26]` also mean the current MM/DD date. Morning starts at 05:00, afternoon at 12:00, evening at 17:00, night at 21:00.
 
@@ -92,8 +91,7 @@ Variables are enabled only for the banner and its preview, not community posts. 
 ### Upcoming greetings and calendar ranges
 `[nextdaypart]` cycles morning → afternoon → evening → night → morning. `[tomorrow]` gives tomorrow's weekday; `[tomorrow:MM/DD]` or another format gives its date. Calendar arithmetic uses local dates, not a fixed 24-hour offset, so daylight-saving transitions do not skip dates.
 
-`[weekpart]` (also `[currentweekpart]` or `[weekorweekend]`) gives week Monday–Friday and weekend Saturday–Sunday. `[nextweekpart]` (also `[upcomingweekpart]` or `[upcomingweekorweekend]`) gives the next opposite period. Example: `Good [daypart]! Have a lovely [nextdaypart],
-a happy [tomorrow] tomorrow, and a wonderful [nextweekpart] ahead!`
+`[weekpart]` (also `[currentweekpart]` or `[weekorweekend]`) gives week Monday–Friday and weekend Saturday–Sunday. `[nextweekpart]` (also `[upcomingweekpart]` or `[upcomingweekorweekend]`) gives the next opposite period. Example: `Good [daypart]! Have a lovely [today] [nextdaypart], a happy [tomorrow] tomorrow, and a wonderful [nextweekpart] ahead!`
 
 `[thisweek]` / `[currentweek]` and `[nextweek]` / `[upcomingweek]` give Monday–Sunday date ranges. `[thisweekend]` / `[currentweekend]` means the current Saturday–Sunday if already on the weekend, otherwise the coming weekend. `[nextweekend]` / `[upcomingweekend]` always means the next Saturday–Sunday that has not started. Ranges default to MM/DD and accept formats, e.g. `[nextweekend:MMM D]`.
 
