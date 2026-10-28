@@ -1,0 +1,15 @@
+repository:
+  id: usa-gov
+  enabled: false
+  category: content_sources
+  title: USA.gov
+  description: Government reference and information sources.
+  artwork:
+    path: app/static/assets/icons/USAGov.png
+    alt: USA.gov
+  links:
+  - title: USA.gov
+    url: https://www.usa.gov
+    requires_internet: true
+catalogue: catalogues/usa-gov.yaml
+versions: state/versions/usa-gov.yaml

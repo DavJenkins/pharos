@@ -45,7 +45,7 @@ def save(path, value):
 def fingerprint(profile, policy):
     c = content.read(profile)
     h = hashlib.sha256(json.dumps(policy, sort_keys=True).encode())
-    for source in ['tools/recovery_queue.py','tools/content_profile.py','tools/content_lock.py','tools/content_types.py'] + [v[0] for v in content.COLLECTIONS.values()]:
+    for source in ['tools/recovery_queue.py','tools/content_profile.py','tools/content_lock.py','tools/content_types.py','app/services/configuration_project.py','tools/configuration_project.py'] + [v[0] for v in content.COLLECTIONS.values()]:
         h.update(source.encode() + b'\0' + (ROOT/source).read_bytes() + b'\0')
     for path, name in sorted(content.portable_files(c, Path(profile).parent), key=lambda pair: pair[1]):
         h.update(name.encode() + b'\0' + path.read_bytes() + b'\0')

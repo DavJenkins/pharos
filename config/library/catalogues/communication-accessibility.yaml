@@ -1,0 +1,23 @@
+assets:
+- id: communicate-web
+  repository_id: communication-accessibility
+  category: utilities_binaries
+  title: Communicate — offline browser communication tool
+  relative_path: communication/communicate/index.html
+  service_endpoint: /library-files/communication/communicate/index.html
+  download_url: https://dejsoftware.com/communicate/index.html
+  update_policy: manual
+  refresh_interval: never
+  source_note: Pinned public publisher files. Supporting web assets are restored by
+    the communication recipe. Original DEJ Software notices retained.
+- id: communicate-keyboard-android
+  repository_id: communication-accessibility
+  category: utilities_binaries
+  title: Communicate Keyboard — Android development build 0.2.1-dev.13
+  relative_path: communication/android/communicate-keyboard-dev-13-c5de874bd628.apk
+  service_endpoint: /library-files/communication/android/communicate-keyboard-dev-13-c5de874bd628.apk
+  download_url: https://dejsoftware.com/communicate-keyboard-dev/communicate-keyboard-dev-13-c5de874bd628.apk
+  update_policy: manual
+  refresh_interval: never
+  source_note: Pinned public publisher files. Supporting web assets are restored by
+    the communication recipe. Original DEJ Software notices retained.

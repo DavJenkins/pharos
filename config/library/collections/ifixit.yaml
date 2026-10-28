@@ -1,0 +1,29 @@
+repository:
+  id: ifixit
+  artwork:
+    path: app/static/assets/icons/Repair.png
+    alt: Repair collection icon
+  category: content_sources
+  title: iFixit Repair Guides
+  description: Step-by-step English repair guides with photos, preserved for offline
+    use. By iFixit and its contributors, CC BY-NC-SA 3.0.
+  update_policy: on_network_available
+  refresh_interval: 1d
+  tags:
+  - repair
+  - maintenance
+  - illustrated
+  scenarios:
+  - technical
+  - general
+  links:
+  - title: Read repair guides (local)
+    service: kiwix
+    path: /#name=ifixit_en_all
+  - title: Attribution and license
+    url: /legal/ifixit.html
+  - title: iFixit (online)
+    url: https://www.ifixit.com
+    requires_internet: true
+catalogue: catalogues/ifixit.yaml
+versions: state/versions/ifixit.yaml

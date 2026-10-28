@@ -1,0 +1,18 @@
+repository:
+  id: first-aid-care
+  category: content_sources
+  title: First Aid & Caregiving
+  description: First-aid references, bleeding control, medication records and disaster
+    planning for children, older adults, caregivers and people with disabilities.
+    English and Spanish planning workbooks.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Care.png
+    alt: Care and first-aid reference icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open first-aid & caregiving guides
+    url: /library-files/family-resources/index.html#first-aid-care
+catalogue: catalogues/first-aid-care.yaml
+versions: state/versions/first-aid-care.yaml

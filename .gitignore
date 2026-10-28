@@ -29,3 +29,7 @@ venv/
 app/static/assets/manifest/
 app/static/manifest.json
 app/static/assets/build-info.json
+
+# Modular authoring lock and generated portable-profile projection
+config/library/.project.lock
+config/content/project-snapshot/

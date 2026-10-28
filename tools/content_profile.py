@@ -19,7 +19,12 @@ COLLECTIONS={
  'radio-study':('tools/install_radio_study.py',[],'deploy/reference/radio-pools.json')}
 REFERENCE_FILES=['communication.json','capture-sources.json','edition-discovery.json','reference-checks.json','jurisdictions.json','family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','osm-usa.json','osm-usa.geojson','osm-caribbean.json','vehicle-manuals.json','honda-intermediate.pem','holiday-themes.json','curriculum-settings.json','curriculum-catalogue.json']
 PUBLIC_KEYS=['system','geography','maps','categories','scenarios','repositories','assets','resource_sections','dashboard','personalization','community']
-def read(path):return yaml.load(Path(path).read_text(), Loader=getattr(yaml,'CSafeLoader',yaml.SafeLoader))
+def read(path):
+ value=yaml.load(Path(path).read_text(), Loader=getattr(yaml,'CSafeLoader',yaml.SafeLoader))
+ if isinstance(value,dict) and value.get('format')=='dataark-project-v1':
+  from app.services.configuration_project import load
+  return load(path)
+ return value
 def write(path,data):
  path.parent.mkdir(parents=True,exist_ok=True);p=path.with_suffix(path.suffix+'.part');p.write_text(data);p.chmod(0o644);p.replace(path)
 def digest(path):
@@ -104,6 +109,18 @@ def export(folder):
 def portable_files(c,folder):
  from tools.content_types import portable_sources
  yield from portable_sources()
+ # Modular recovery snapshot derives from the saved desired profile, never SSD inventory.
+ from app.services import configuration_project as project
+ manifest=read(inside(folder,c['manifest']))
+ if isinstance(manifest,dict) and all(key in manifest for key in ('system','repositories','assets')):
+  snapshot=Path(folder)/'project-snapshot';parts=project.write(snapshot,project.public(manifest))
+  for name in parts:yield project.inside(snapshot,name),'config/library/'+name
+  yield snapshot/'.layout.json','config/library/.layout.json'
+  original=inside(folder,c['manifest'])
+  if original.name=='ark.yaml':
+   prefix=Path(c['manifest']).parent.as_posix()
+   for name in project.disk_files(original.parent):
+    if name!='ark.yaml':yield project.inside(original.parent,name),'config/content/'+prefix+'/'+name
  for name in ['content.yaml','content-lock.json',c['manifest']]+c.get('snapshots',[]):
   path=inside(folder,name)
   if path.is_file():yield path,'config/content/'+name

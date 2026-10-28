@@ -1,0 +1,17 @@
+repository:
+  id: growing-food
+  title: Growing Food
+  description: New England planting charts, vegetable varieties, seed saving, composting,
+    soils and pest identification. Regional and archived editions identified.
+  artwork:
+    path: app/static/assets/icons/Garden.png
+    alt: Seedling garden icon
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open growing food guides
+    url: /library-files/family-resources/index.html#growing-food
+catalogue: catalogues/growing-food.yaml
+versions: state/versions/growing-food.yaml

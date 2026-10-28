@@ -1,0 +1,20 @@
+repository:
+  id: project-gutenberg
+  enabled: true
+  category: content_sources
+  title: Project Gutenberg
+  description: English-language books in a searchable Kiwix archive. Project Gutenberg
+    terms and individual book notices apply; copyright status varies outside the United
+    States.
+  artwork:
+    path: app/static/assets/icons/ProjectGutenberg.png
+    alt: Project Gutenberg
+  links:
+  - title: Read books (local)
+    service: kiwix
+    path: /#name=gutenberg_en_all
+  - title: Project Gutenberg
+    url: https://www.gutenberg.org
+    requires_internet: true
+catalogue: catalogues/project-gutenberg.yaml
+versions: state/versions/project-gutenberg.yaml

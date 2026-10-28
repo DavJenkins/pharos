@@ -1,0 +1,17 @@
+repository:
+  id: animals-emergency
+  category: content_sources
+  title: Pets & Livestock
+  description: Pet evacuation, shelter, supplies and sanitation, farm preparedness,
+    poultry biosecurity and backup-care plans. English and Spanish pet guides.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Animals.png
+    alt: Animal paw icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open pet & livestock emergency guides
+    url: /library-files/family-resources/index.html#animals-emergency
+catalogue: catalogues/animals-emergency.yaml
+versions: state/versions/animals-emergency.yaml

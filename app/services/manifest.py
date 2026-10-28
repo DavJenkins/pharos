@@ -236,6 +236,10 @@ def load_manifest(path):
         raise ManifestError(f'Invalid YAML: {error}') from None
     if not isinstance(data, dict):
         raise ManifestError('Manifest must be a mapping.')
+    if data.get('format')=='dataark-project-v1':
+        from app.services.configuration_project import load
+        try:data=load(path)
+        except (ValueError,OSError,KeyError,yaml.YAMLError) as error:raise ManifestError('Invalid configuration project: '+str(error)) from None
     community = data.get('community', {'enabled': True})
     if not isinstance(community, dict) or set(community)!={'enabled'} or type(community.get('enabled', True)) is not bool:
         raise ManifestError('community accepts only enabled: true or false.')
@@ -422,15 +426,18 @@ def version_dashboard_assets(page, static=None):
 def build(manifest_path, template_path, output_path, content_root=None, refresh_artwork=False):
     manifest_path, output_path = Path(manifest_path).resolve(), Path(output_path).resolve()
     data = load_manifest(manifest_path)
+    # Split projects live at config/library/ark.yaml; artwork/cache stay repo-relative.
+    project_root=manifest_path.parent
+    if manifest_path.name=='ark.yaml' and manifest_path.parent.name=='library' and manifest_path.parent.parent.name=='config':project_root=manifest_path.parents[2]
     system = data['system']
     root = Path(content_root or system['base_mount']).resolve()
-    cache = manifest_path.parent / '.cache' / 'artwork'
+    cache = project_root / '.cache' / 'artwork'
     destination = output_path.parent
     prefix = system.get('services', {}).get('content_url_prefix', '/library-files/').rstrip('/') + '/'
     port = system.get('services', {}).get('kiwix_port', 8080)
     hide = system.get('hide_missing', False)
-    background = prepare_artwork(system.get('artwork'), manifest_path.parent, destination, cache, refresh_artwork)
-    upstream_path = manifest_path.parent / '.cache/manifest-upstream.json'
+    background = prepare_artwork(system.get('artwork'), project_root, destination, cache, refresh_artwork)
+    upstream_path = project_root / '.cache/manifest-upstream.json'
     upstream = read_state(upstream_path)
     batch = read_batch(upstream_path)
     asset_rows = {}
@@ -440,7 +447,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
             continue
         local = inside(root, asset['relative_path'])
         available = local.is_file() or local.is_dir()
-        art = prepare_artwork(asset.get('artwork'), manifest_path.parent, destination, cache, refresh_artwork)
+        art = prepare_artwork(asset.get('artwork'), project_root, destination, cache, refresh_artwork)
         compiled = {**asset, 'available': available, 'artwork': art,
                     'upstream': asset_state(asset, upstream),
                     'local_url': prefix + quote(asset['relative_path'], safe='/') if available else None,
@@ -468,7 +475,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
             missing = bool(items) and ready == 0
             if hide and missing:
                 continue
-            art = prepare_artwork(repo.get('artwork'), manifest_path.parent, destination, cache, refresh_artwork)
+            art = prepare_artwork(repo.get('artwork'), project_root, destination, cache, refresh_artwork)
             links = []
             for link in repo.get('links', []):
                 online = link.get('requires_internet', False)

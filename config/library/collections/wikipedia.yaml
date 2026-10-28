@@ -1,0 +1,23 @@
+repository:
+  id: wikipedia
+  category: content_sources
+  title: Wikipedia
+  description: English encyclopedias preserved on this Ark.
+  artwork:
+    path: app/static/assets/icons/Wikipedia.png
+    alt: Wikipedia
+  update_policy: manual
+  refresh_interval: never
+  tags:
+  - encyclopedia
+  scenarios:
+  - general
+  links:
+  - title: Wikipedia (local)
+    service: kiwix
+    path: /#name=wikipedia_en_all
+  - title: Wikipedia
+    url: https://www.wikipedia.org
+    requires_internet: true
+catalogue: catalogues/wikipedia.yaml
+versions: state/versions/wikipedia.yaml

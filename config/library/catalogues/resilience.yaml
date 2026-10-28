@@ -1,0 +1,152 @@
+assets:
+- id: ref-maine-survival
+  repository_id: resilience
+  category: pdf_reference
+  title: You Alone in the Maine Woods
+  relative_path: resilience/documents/maine-survival.pdf
+  service_endpoint: /library-files/resilience/documents/maine-survival.pdf
+  online_url: https://www.maine.gov/ifw/docs/20-MDIFW-18-You-Alone.pdf
+  download_url: https://www.maine.gov/ifw/docs/20-MDIFW-18-You-Alone.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Maine IFW 2020 file; read publisher dates and cautions; Illustrated
+    state-agency survival reference; preserve original publisher notices.; retrieved
+    2026-10-24T01:21:49.283255+00:00
+  version_pin: null
+- id: ref-nps-ten-essentials
+  repository_id: resilience
+  category: pdf_reference
+  title: National Park Service — The Ten Essentials
+  relative_path: resilience/documents/nps-ten-essentials.pdf
+  service_endpoint: /library-files/resilience/documents/nps-ten-essentials.pdf
+  online_url: https://www.nps.gov/mora/planyourvisit/upload/ten-essentials-web-site-bulletin.pdf
+  download_url: https://www.nps.gov/mora/planyourvisit/upload/ten-essentials-web-site-bulletin.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Mount Rainier NPS bulletin; archived publisher edition; Basic trip
+    equipment and preparation. U.S. government publication.; retrieved 2026-10-24T01:21:50.321238+00:00
+  version_pin: null
+- id: ref-usgs-compass
+  repository_id: resilience
+  category: pdf_reference
+  title: USGS — Finding Your Way with Map and Compass
+  relative_path: resilience/documents/usgs-compass.pdf
+  service_endpoint: /library-files/resilience/documents/usgs-compass.pdf
+  online_url: https://pubs.usgs.gov/fs/2001/0035/report.pdf
+  download_url: https://pubs.usgs.gov/fs/2001/0035/report.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: 'USGS Fact Sheet 035-01 (2001); Map and compass fundamentals. Magnetic
+    declination changes: obtain appropriate current local data.; retrieved 2026-10-24T01:21:50.640759+00:00'
+  version_pin: null
+- id: ref-nps-water-sanitation
+  repository_id: resilience
+  category: pdf_reference
+  title: NPS — Wilderness Sanitation and Water Treatment
+  relative_path: resilience/documents/nps-water-sanitation.html
+  service_endpoint: /library-files/resilience/documents/nps-water-sanitation.html
+  online_url: https://www.nps.gov/olym/planyourvisit/wilderness-sanitation.htm
+  download_url: https://www.nps.gov/olym/planyourvisit/wilderness-sanitation.htm
+  update_policy: manual
+  refresh_interval: never
+  source_note: Olympic National Park text snapshot at retrieval; Park-specific context
+    and restrictions remain relevant to interpretation; text-only copy. U.S. government
+    source.; retrieved 2026-10-24T01:21:50.749012+00:00
+  version_pin: null
+- id: ref-nrel-solar-basics
+  repository_id: resilience
+  category: pdf_reference
+  title: 'DOE / NREL — Own Your Power: Solar Electricity for the Home'
+  relative_path: resilience/documents/nrel-solar-basics.pdf
+  service_endpoint: /library-files/resilience/documents/nrel-solar-basics.pdf
+  online_url: https://www1.eere.energy.gov/solar/pdfs/43844.pdf
+  download_url: https://www1.eere.energy.gov/solar/pdfs/43844.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: DOE/NREL 2009 archived consumer guide; Solar fundamentals; incentives,
+    costs and code references are historical, not current installation specifications.;
+    retrieved 2026-10-24T01:21:50.841058+00:00
+  version_pin: null
+- id: ref-doe-solar-community
+  repository_id: resilience
+  category: pdf_reference
+  title: DOE — Solar Power in Your Community
+  relative_path: resilience/documents/doe-solar-community.pdf
+  service_endpoint: /library-files/resilience/documents/doe-solar-community.pdf
+  online_url: https://www.energy.gov/sites/default/files/2022-02/solar-power-in-your-community-guidebook.pdf
+  download_url: https://www.energy.gov/sites/default/files/2022-02/solar-power-in-your-community-guidebook.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: 2022 guidebook; Planning, solar deployment and policy reference. Verify
+    current law and incentives separately.; retrieved 2026-10-24T01:21:50.877829+00:00
+  version_pin: null
+- id: ref-doe-small-wind
+  repository_id: resilience
+  category: pdf_reference
+  title: DOE — Small Wind Guidebook
+  relative_path: resilience/documents/doe-small-wind.html
+  service_endpoint: /library-files/resilience/documents/doe-small-wind.html
+  online_url: https://www.energy.gov/cmei/systems/windexchange/small-wind-guidebook
+  download_url: https://www.energy.gov/cmei/systems/windexchange/small-wind-guidebook
+  update_policy: manual
+  refresh_interval: never
+  source_note: Text snapshot at retrieval; Small wind, siting, system components and
+    off-grid considerations. Images/video not included in the text snapshot.; retrieved
+    2026-10-24T01:21:51.534182+00:00
+  version_pin: null
+- id: ref-doe-small-wind-pdf
+  repository_id: resilience
+  category: pdf_reference
+  title: DOE — Consumer Guide to Small Wind Energy Systems
+  relative_path: resilience/documents/doe-small-wind-pdf.pdf
+  service_endpoint: /library-files/resilience/documents/doe-small-wind-pdf.pdf
+  online_url: https://www.govinfo.gov/content/pkg/GOVPUB-E-PURL-gpo224740/pdf/GOVPUB-E-PURL-gpo224740.pdf
+  download_url: https://www.govinfo.gov/content/pkg/GOVPUB-E-PURL-gpo224740/pdf/GOVPUB-E-PURL-gpo224740.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: 2021 archived consumer guide; U.S. government publication. Pair technical
+    basics with current equipment instructions and local requirements.; retrieved
+    2026-10-24T01:21:51.554828+00:00
+  version_pin: null
+- id: ref-osha-generators
+  repository_id: resilience
+  category: pdf_reference
+  title: OSHA — Using Portable Generators Safely
+  relative_path: resilience/documents/osha-generators.pdf
+  service_endpoint: /library-files/resilience/documents/osha-generators.pdf
+  online_url: https://www.osha.gov/sites/default/files/publications/OSHA3286.pdf
+  download_url: https://www.osha.gov/sites/default/files/publications/OSHA3286.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: OSHA 3286 publisher edition at retrieval; Generator electrical, carbon-monoxide,
+    fire and fuel hazards. U.S. government publication.; retrieved 2026-10-24T01:21:51.737453+00:00
+  version_pin: null
+- id: ref-pnnl-energy-storage
+  repository_id: resilience
+  category: pdf_reference
+  title: PNNL — Introductory Guide to Generating, Using and Storing Energy
+  relative_path: resilience/documents/pnnl-energy-storage.pdf
+  service_endpoint: /library-files/resilience/documents/pnnl-energy-storage.pdf
+  online_url: https://www.osti.gov/servlets/purl/2327029
+  download_url: https://www.osti.gov/servlets/purl/2327029
+  update_policy: manual
+  refresh_interval: never
+  source_note: PNNL-33984, April 2023; Electricity, household loads, batteries, solar
+    sizing and microgrids. Public DOE-sponsored report; original notices retained.;
+    retrieved 2026-10-24T01:28:47.587288+00:00
+  version_pin: null
+- id: ref-ncat-microhydro
+  repository_id: resilience
+  category: pdf_reference
+  title: 'Micro-Hydro Power: A Beginners Guide to Design and Installation — NCAT'
+  relative_path: resilience/documents/ncat-microhydro.pdf
+  service_endpoint: /library-files/resilience/documents/ncat-microhydro.pdf
+  online_url: https://www.ncat.org/wp-content/uploads/2025/12/microhydrodesign.pdf
+  download_url: https://www.ncat.org/wp-content/uploads/2025/12/microhydrodesign.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: NCAT IP383, originally published February 2011; publisher-hosted archive;
+    Archived design and site-assessment reference; historical costs and permitting
+    context retained. Not current electrical code or a site-specific engineering design.
+    Original notices retained.; retrieved 2026-10-24T19:12:09.467510+00:00
+  version_pin: null

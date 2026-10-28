@@ -22,17 +22,35 @@ def main():
         job=json.loads(pending.read_text());raw,live=c.current();profile=ROOT/'config/content/public-manifest.yaml'
         previous=profile.read_bytes() if profile.exists() else None
         applied=False
+        project_root=ROOT/'config/library'
+        old_project={}
+        old_layout=None
         try:
             if c.revision(raw)!=job['revision']:raise ValueError('Configuration changed before publication. Reload it and retry.')
             data=c.checked(job['text'],live)
+            if job.get('project_token'):
+                if c.project.fingerprint(project_root)!=job['project_token']:raise ValueError('Modular files changed before publication.')
+                c.project.assert_base(project_root,c.public(live))
+            else:c.project.ensure_clean(project_root)
+            old_project=c.project.disk_files(project_root)
+            index=project_root/'.layout.json';old_layout=index.read_bytes() if index.exists() else None
             backup=BACKUPS;backup.mkdir(mode=0o700,parents=True,exist_ok=True)
             atomic_write(backup/(job['id']+'.yaml'),raw);(backup/(job['id']+'.yaml')).chmod(0o600)
+            if old_project:
+                saved=backup/(job['id']+'.project.json')
+                atomic_write(saved,json.dumps({'files':old_project,'layout':old_layout.decode() if old_layout else None},ensure_ascii=False).encode());saved.chmod(0o600)
             folder=c.STATE/'history';folder.mkdir(exist_ok=True);folder.chmod(0o700);os.chown(folder,1000,1000)
             c.write_json(folder/(job['id']+'.json'),{'saved_at':c.stamp(),'text':c.dump(c.public(live))})
             c.write_json(c.STATE/'status.json',{'id':job['id'],'state':'publishing','message':'Publishing configuration…','updated_at':c.stamp()})
             applied=True
             atomic_write(ROOT/'dataark.yaml',c.dump(data).encode());os.chown(ROOT/'dataark.yaml',1000,1000)
             atomic_write(profile,job['text'].encode());os.chown(profile,1000,1000)
+            edit=job.get('source_edit');overrides={edit['file']:edit['text']} if edit else None
+            if job.get('project_token'):
+                assembled,_=c.project.assemble(old_project.__getitem__)
+                if c.public(assembled)!=c.public(data):raise ValueError('Modular source and reviewed publication differ.')
+                c.project.write_files(project_root,old_project)
+            else:c.project.write(project_root,c.public(data),overrides)
             subprocess.run(['bash',str(ROOT/'deploy/deploy-web.sh')],cwd=ROOT,check=True,timeout=180)
             # Mirror the desired recipe without replacing it from the current disk inventory.
             from tools.content_profile import read,mirror
@@ -51,6 +69,11 @@ def main():
                     atomic_write(ROOT/'dataark.yaml',raw);os.chown(ROOT/'dataark.yaml',1000,1000)
                     if previous is not None:atomic_write(profile,previous);os.chown(profile,1000,1000)
                     else:profile.unlink(missing_ok=True)
+                    if old_project:
+                        c.project.write_files(project_root,old_project)
+                        if old_layout is not None:
+                            index=project_root/'.layout.json';atomic_write(index,old_layout);index.chmod(0o644);os.chown(index,1000,1000)
+                    else:c.project.write(project_root,c.public(live))
                     result=subprocess.run(['bash',str(ROOT/'deploy/deploy-web.sh')],cwd=ROOT,timeout=180,check=False)
                     outcome='Previous configuration restored.' if result.returncode==0 else 'Previous configuration restored on disk; webpage publication needs attention.'
                     if CONTENT_ROOT.is_mount():

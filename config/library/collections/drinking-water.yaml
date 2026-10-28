@@ -1,0 +1,17 @@
+repository:
+  id: drinking-water
+  category: content_sources
+  title: Drinking Water
+  description: Water sources and storage, rainwater harvesting, emergency disinfection,
+    treatment selection and well testing. Original editions and regional scope identified.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Water.png
+    alt: Water droplet icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open drinking water guides
+    url: /library-files/family-resources/index.html#drinking-water
+catalogue: catalogues/drinking-water.yaml
+versions: state/versions/drinking-water.yaml

@@ -1,3 +1,4 @@
 
 # Preserve downloadable documents byte-for-byte.
 *.pdf binary
+config/library/** text eol=lf

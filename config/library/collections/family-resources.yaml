@@ -1,0 +1,25 @@
+repository:
+  id: family-resources
+  artwork:
+    path: app/static/assets/icons/Family.png
+    alt: Family collection icon
+  category: content_sources
+  title: Paper, Play & Family Resources
+  description: Offline paper studio, PDF coloring, browser games, adult coloring,
+    activity books, household worksheets and incident forms. English and Spanish selections.
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Learning at home
+    url: /learning.html
+  - title: Paper studio & household templates
+    url: /printables.html
+  - title: Games, drawing & PDF coloring
+    url: /activities.html
+  - title: Cookbooks & pantry meals
+    url: /library-files/family-resources/index.html#cookbooks
+  - title: Browse local books & readiness forms
+    url: /library-files/family-resources/index.html
+catalogue: catalogues/family-resources.yaml
+versions: state/versions/family-resources.yaml

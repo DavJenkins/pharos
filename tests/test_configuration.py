@@ -23,6 +23,15 @@ class ConfigurationTests(unittest.TestCase):
         merged=c.checked(c.dump(public),self.data)
         self.assertEqual(merged['private_household'],self.data['private_household'])
         self.assertFalse(merged['community']['enabled'])
+
+    def test_modular_read_and_edit_preserve_unselected_definitions_and_private_settings(self):
+        value=c.read('ark.yaml');self.assertEqual(value['file'],'ark.yaml');self.assertNotIn('private_household',value['text'])
+        edited=c.project.parse(value['text']);edited['community']['enabled']=False
+        merged=c.checked(c.dump(edited),self.data,'ark.yaml')
+        self.assertFalse(merged['community']['enabled']);self.assertEqual(merged['private_household'],self.data['private_household'])
+        with self.assertRaisesRegex(ValueError,'read-only'):c.checked('assets: []',self.data,'state/order.yaml')
+        self.assertTrue(c.read('state/order.yaml')['read_only'])
+        with self.assertRaises(ValueError):c.read('../dataark.yaml')
     def test_invalid_yaml_duplicate_keys_private_fields_and_paths_rejected(self):
         for text in ['!!python/object/apply:os.system [id]','system: [','system: {}\nsystem: {}',c.dump(c.public(self.data))+'private_household: {}\n']:
             with self.subTest(text=text[:30]),self.assertRaises(ValueError):c.checked(text,self.data)
@@ -100,6 +109,52 @@ class ConfigurationTests(unittest.TestCase):
         self.assertEqual((self.root/'dataark.yaml').read_bytes(),original)
         self.assertEqual((self.root/'config/content/public-manifest.yaml').read_bytes(),profile)
         self.assertEqual(c.status()['state'],'error')
+
+    def test_local_modular_draft_can_be_reviewed_and_published_without_losing_private_settings(self):
+        self.publisher_setup();(c.STATE/'pending.json').unlink();c.write_json(c.STATE/'status.json',{'state':'idle'})
+        root=self.root/'config/library';c.project.write(root,c.public(self.data))
+        path=root/'ark.yaml';value=c.project.parse(path.read_text());value['community']['enabled']=False
+        path.write_text(c.project.dump(value)+'# manual explanation\n')
+        data=c.project.load(path);raw=(self.root/'dataark.yaml').read_bytes()
+        with self.assertRaisesRegex(ValueError,'manual edits'):c.queue(c.dump(data),c.revision(raw))
+        c.queue(c.dump(data),c.revision(raw),project_token=c.project.fingerprint(root))
+        with patch.object(publisher.subprocess,'run',return_value=SimpleNamespace(returncode=0)):publisher.main()
+        c.project.ensure_clean(root)
+        self.assertIn('manual explanation',path.read_text())
+        live=load_manifest(self.root/'dataark.yaml');self.assertFalse(live['community']['enabled'])
+        self.assertEqual(live['private_household'],self.data['private_household'])
+
+    def test_project_write_failure_restores_combined_profile_and_modular_files(self):
+        self.publisher_setup();root=self.root/'config/library';c.project.write(root,c.public(self.data))
+        previous=c.project.disk_files(root);raw=(self.root/'dataark.yaml').read_bytes()
+        atomic=c.project.atomic_write;failed=False
+        def broken(path,data):
+            nonlocal failed
+            if not failed and path.name=='order.yaml':failed=True;raise OSError('Project fixture failure')
+            return atomic(path,data)
+        with patch.object(c.project,'atomic_write',side_effect=broken),patch.object(publisher.subprocess,'run',return_value=SimpleNamespace(returncode=0)):publisher.main()
+        self.assertEqual((self.root/'dataark.yaml').read_bytes(),raw)
+        self.assertEqual(c.project.disk_files(root),previous)
+        self.assertEqual(c.status()['state'],'error')
+
+    def test_local_project_cannot_overwrite_a_newer_active_manifest(self):
+        root=self.root/'config/library';c.project.write(root,c.public(self.data))
+        path=root/'ark.yaml';value=c.project.parse(path.read_text());value['community']['enabled']=False;path.write_text(c.project.dump(value))
+        self.data['system']['project_name']='Newer live title';(self.root/'dataark.yaml').write_text(c.dump(self.data))
+        raw=(self.root/'dataark.yaml').read_bytes()
+        with self.assertRaisesRegex(ValueError,'active manifest changed'):
+            c.queue(c.dump(c.project.load(path)),c.revision(raw),project_token=c.project.fingerprint(root))
+
+    def test_failed_local_publication_keeps_the_original_unpublished_draft_and_base(self):
+        self.publisher_setup();(c.STATE/'pending.json').unlink();c.write_json(c.STATE/'status.json',{'state':'idle'})
+        root=self.root/'config/library';c.project.write(root,c.public(self.data));index=(root/'.layout.json').read_bytes()
+        path=root/'ark.yaml';value=c.project.parse(path.read_text());value['community']['enabled']=False;path.write_text(c.project.dump(value))
+        draft=path.read_bytes();raw=(self.root/'dataark.yaml').read_bytes()
+        c.queue(c.dump(c.project.load(path)),c.revision(raw),project_token=c.project.fingerprint(root))
+        with patch.object(publisher.subprocess,'run',side_effect=[subprocess.CalledProcessError(1,['deploy']),SimpleNamespace(returncode=0)]):publisher.main()
+        self.assertEqual((self.root/'dataark.yaml').read_bytes(),raw)
+        self.assertEqual(path.read_bytes(),draft);self.assertEqual((root/'.layout.json').read_bytes(),index)
+        with self.assertRaisesRegex(ValueError,'manual edits'):c.project.ensure_clean(root)
 
     def test_publication_rejects_conflicting_updater_edit(self):
         self.publisher_setup();self.data['private_household']['keep']='new updater state';(self.root/'dataark.yaml').write_text(c.dump(self.data));expected=(self.root/'dataark.yaml').read_bytes()

@@ -1,0 +1,17 @@
+repository:
+  id: repairs
+  title: Practical Repairs & Maintenance
+  description: Bicycle flats, hand sewing, leak checks, electrical inspection, tool
+    safety and small-engine maintenance. Supplements the local iFixit library.
+  artwork:
+    path: app/static/assets/icons/Repair.png
+    alt: Repair tools icon
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open practical repairs & maintenance guides
+    url: /library-files/family-resources/index.html#repairs
+catalogue: catalogues/repairs.yaml
+versions: state/versions/repairs.yaml

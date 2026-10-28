@@ -1,0 +1,17 @@
+repository:
+  id: navigation-field
+  title: Navigation & Field Skills
+  description: Topographic symbols, compass and GPS navigation, US National Grid coordinates,
+    trip plans and outdoor emergency preparation.
+  artwork:
+    path: app/static/assets/icons/Navigation.png
+    alt: Compass navigation icon
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open navigation & field skills guides
+    url: /library-files/family-resources/index.html#navigation-field
+catalogue: catalogues/navigation-field.yaml
+versions: state/versions/navigation-field.yaml

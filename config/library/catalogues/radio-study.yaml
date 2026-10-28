@@ -1,0 +1,79 @@
+assets:
+- id: radio-technician-json
+  repository_id: radio-study
+  category: pdf_reference
+  title: Technician 2026-2030 question pool (JSON)
+  relative_path: radio-study/technician-2026-2030/technician-2026-2030.json
+  service_endpoint: /library-files/radio-study/technician-2026-2030/technician-2026-2030.json
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.json
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.json
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+  version_pin: null
+- id: radio-technician-txt
+  repository_id: radio-study
+  category: pdf_reference
+  title: Technician 2026-2030 question pool (TXT)
+  relative_path: radio-study/technician-2026-2030/technician-2026-2030.txt
+  service_endpoint: /library-files/radio-study/technician-2026-2030/technician-2026-2030.txt
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.txt
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/technician-2026-2030/technician-2026-2030.txt
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+  version_pin: null
+- id: radio-general-json
+  repository_id: radio-study
+  category: pdf_reference
+  title: General 2023-2027 question pool (JSON)
+  relative_path: radio-study/general-2023-2027/general-2023-2027.json
+  service_endpoint: /library-files/radio-study/general-2023-2027/general-2023-2027.json
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.json
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.json
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+  version_pin: null
+- id: radio-general-txt
+  repository_id: radio-study
+  category: pdf_reference
+  title: General 2023-2027 question pool (TXT)
+  relative_path: radio-study/general-2023-2027/general-2023-2027.txt
+  service_endpoint: /library-files/radio-study/general-2023-2027/general-2023-2027.txt
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.txt
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/general-2023-2027/general-2023-2027.txt
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+  version_pin: null
+- id: radio-extra-json
+  repository_id: radio-study
+  category: pdf_reference
+  title: Amateur Extra 2024-2028 question pool (JSON)
+  relative_path: radio-study/extra-2024-2028/extra-2024-2028.json
+  service_endpoint: /library-files/radio-study/extra-2024-2028/extra-2024-2028.json
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.json
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.json
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+  version_pin: null
+- id: radio-extra-txt
+  repository_id: radio-study
+  category: pdf_reference
+  title: Amateur Extra 2024-2028 question pool (TXT)
+  relative_path: radio-study/extra-2024-2028/extra-2024-2028.txt
+  service_endpoint: /library-files/radio-study/extra-2024-2028/extra-2024-2028.txt
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.txt
+  download_url: https://raw.githubusercontent.com/russolsen/ham_radio_question_pool/6122699c9541f26d88298db379b5e252885c42a2/extra-2024-2028/extra-2024-2028.txt
+  source_note: Pinned licensed transcription; reinstall using tools/install_radio_study.py.
+    Figures and source record accompany collection.
+  version_pin: null

@@ -1,0 +1,113 @@
+assets:
+- id: family-repair-tools
+  repository_id: repairs
+  category: pdf_reference
+  title: Hand and Power Tools — OSHA
+  relative_path: family-resources/repairs/repair-tools.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-tools.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: OSHA 3080, 2002; archived safety reference, not a complete current
+    code. Original educational reference. Preserve institutional, copyright and source
+    notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.236322+00:00
+  online_url: https://www.osha.gov/publications/publication-products?publication_title=Hand+and+Power+Tools
+  download_url: https://www.osha.gov/sites/default/files/publications/osha3080.pdf
+  version_pin: null
+- id: family-repair-electrical
+  repository_id: repairs
+  category: pdf_reference
+  title: Home Electrical Safety Checklist — CPSC
+  relative_path: family-resources/repairs/repair-electrical.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-electrical.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: CPSC publication 513, original publisher edition. Original educational
+    reference. Preserve institutional, copyright and source notices. No endorsement
+    implied. Retrieved 2026-10-24T17:00:23.238596+00:00
+  online_url: https://www.cpsc.gov/safety-education/safety-guides/electronics-and-electrical-home/home-electrical-safety-checklist
+  download_url: https://www.cpsc.gov/s3fs-public/513.pdf
+  version_pin: null
+- id: family-repair-water
+  repository_id: repairs
+  category: pdf_reference
+  title: WaterSense Home Maintenance Checklist — EPA
+  relative_path: family-resources/repairs/repair-water.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-water.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: EPA 832-F-24-002, March 2024. Original educational reference. Preserve
+    institutional, copyright and source notices. No endorsement implied. Retrieved
+    2026-10-24T17:00:23.240268+00:00
+  online_url: https://www.epa.gov/watersense/home-maintenance
+  download_url: https://www.epa.gov/system/files/documents/2024-03/watersense_homemaintenancechecklist_508.pdf
+  version_pin: null
+- id: family-repair-bike
+  repository_id: repairs
+  category: pdf_reference
+  title: Bicycle Maintenance and Flat-Tire Repair — Portland
+  relative_path: family-resources/repairs/repair-bike.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-bike.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Portland Bureau of Transportation publisher handout; regional contacts
+    retained. Original educational reference. Preserve institutional, copyright and
+    source notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.686013+00:00
+  online_url: https://www.portland.gov/transportation/walking-biking-transit-safety/portland-biking-guide
+  download_url: https://www.portland.gov/transportation/walking-biking-transit-safety/documents/instructions-bike-maintenance-and-repairing/download
+  version_pin: null
+- id: family-repair-engine
+  repository_id: repairs
+  category: pdf_reference
+  title: Small Engine Tune-Up Schedule — Briggs & Stratton
+  relative_path: family-resources/repairs/repair-engine.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-engine.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Briggs & Stratton generic maintenance schedule; engine-specific operator
+    manual takes precedence. Original educational reference. Preserve institutional,
+    copyright and source notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.820557+00:00
+  online_url: https://www.briggsandstratton.com/en-us/support/manuals
+  download_url: https://www.briggsandstratton.com/hubfs/briggsandstratton/EMEA/Maintenance/pdfs/Lawn%20Mower%20Tune%20Up%20Schedule%20-%20Document.pdf
+  version_pin: null
+- id: family-repair-buttons
+  repository_id: repairs
+  category: pdf_reference
+  title: Beginning Hand Sewing and Replacing Buttons — Karma Co-op
+  relative_path: family-resources/repairs/repair-buttons.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-buttons.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Karma Co-op Fabric Cafe original public repair handout; original edition
+    retained. Original educational reference. Preserve institutional, copyright and
+    source notices. No endorsement implied. Retrieved 2026-10-24T17:00:23.857754+00:00
+  online_url: https://www.karmacoop.org/fabric-repair-guides
+  download_url: https://www.karmacoop.org/s/Beginning-hand-sewing-and-replacing-buttons.pdf
+  version_pin: null
+- id: family-repair-seams
+  repository_id: repairs
+  category: pdf_reference
+  title: Hand Stitches to Secure Seams — Karma Co-op
+  relative_path: family-resources/repairs/repair-seams.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-seams.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Karma Co-op Fabric Cafe original public repair handout; original edition
+    retained. Original educational reference. Preserve institutional, copyright and
+    source notices. No endorsement implied. Retrieved 2026-10-24T17:00:24.365681+00:00
+  online_url: https://www.karmacoop.org/fabric-repair-guides
+  download_url: https://www.karmacoop.org/s/Hand-stitches-to-secure-seams.pdf
+  version_pin: null
+- id: family-repair-holes
+  repository_id: repairs
+  category: pdf_reference
+  title: Repairing Holes in Fabric — Karma Co-op
+  relative_path: family-resources/repairs/repair-holes.pdf
+  service_endpoint: /library-files/family-resources/repairs/repair-holes.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Karma Co-op Fabric Cafe original public repair handout; original edition
+    retained. Original educational reference. Preserve institutional, copyright and
+    source notices. No endorsement implied. Retrieved 2026-10-24T17:00:24.373655+00:00
+  online_url: https://www.karmacoop.org/fabric-repair-guides
+  download_url: https://www.karmacoop.org/s/Repairing-holes-in-fabric.pdf
+  version_pin: null

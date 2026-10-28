@@ -1,0 +1,57 @@
+assets:
+- id: accord-2017-manual
+  repository_id: vehicle-manuals
+  category: pdf_reference
+  title: 2017 Honda Accord Sedan — Owner’s Manual
+  relative_path: vehicles/accord-2017-manual.pdf
+  service_endpoint: /library-files/vehicles/accord-2017-manual.pdf
+  download_url: https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf
+  online_url: https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Owner information and routine maintenance; not a factory workshop manual.
+    Confirm trim, engine and equipment before following procedures. Original Honda
+    copyright retained. Retrieved 2026-10-24T15:03:25.714314+00:00
+  version_pin: null
+- id: accord-2017-guide
+  repository_id: vehicle-manuals
+  category: pdf_reference
+  title: 2017 Honda Accord Sedan — Quick Owner’s Guide
+  relative_path: vehicles/accord-2017-guide.pdf
+  service_endpoint: /library-files/vehicles/accord-2017-guide.pdf
+  download_url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf
+  online_url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Owner information and routine maintenance; not a factory workshop manual.
+    Confirm trim, engine and equipment before following procedures. Original Honda
+    copyright retained. Retrieved 2026-10-24T15:03:28.862709+00:00
+  version_pin: null
+- id: civic-2017-manual
+  repository_id: vehicle-manuals
+  category: pdf_reference
+  title: 2017 Honda Civic Sedan — Owner’s Manual
+  relative_path: vehicles/civic-2017-manual.pdf
+  service_endpoint: /library-files/vehicles/civic-2017-manual.pdf
+  download_url: https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf
+  online_url: https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Owner information and routine maintenance; not a factory workshop manual.
+    Confirm trim, engine and equipment before following procedures. Original Honda
+    copyright retained. Retrieved 2026-10-24T15:03:33.187811+00:00
+  version_pin: null
+- id: civic-2017-guide
+  repository_id: vehicle-manuals
+  category: pdf_reference
+  title: 2017 Honda Civic Sedan — Quick Owner’s Guide
+  relative_path: vehicles/civic-2017-guide.pdf
+  service_endpoint: /library-files/vehicles/civic-2017-guide.pdf
+  download_url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF
+  online_url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF
+  update_policy: manual
+  refresh_interval: never
+  source_note: Owner information and routine maintenance; not a factory workshop manual.
+    Confirm trim, engine and equipment before following procedures. Original Honda
+    copyright retained. Retrieved 2026-10-24T15:03:36.123078+00:00
+  version_pin: null

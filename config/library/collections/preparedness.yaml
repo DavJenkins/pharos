@@ -1,0 +1,16 @@
+repository:
+  id: preparedness
+  artwork:
+    path: app/static/assets/icons/Preparedness.png
+    alt: Preparedness collection icon
+  category: content_sources
+  title: Emergency preparedness and CERT
+  description: FEMA preparedness and CERT manuals, preserved as readable PDFs. Massachusetts
+    MEMA downloads are pending publisher access.
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open local preparedness references
+    url: /library-files/preparedness/index.html
+catalogue: catalogues/preparedness.yaml
+versions: state/versions/preparedness.yaml

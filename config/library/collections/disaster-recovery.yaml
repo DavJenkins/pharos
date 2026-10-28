@@ -1,0 +1,17 @@
+repository:
+  id: disaster-recovery
+  category: content_sources
+  title: Disaster Recovery & Cleanup
+  description: Flood cleanout, cleanup hazards, contractor fraud and documenting insurance
+    losses. Complements the existing mold and CERT guides.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Recovery.png
+    alt: House recovery icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open recovery & cleanup guides
+    url: /library-files/family-resources/index.html#disaster-recovery
+catalogue: catalogues/disaster-recovery.yaml
+versions: state/versions/disaster-recovery.yaml

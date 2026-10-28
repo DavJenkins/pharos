@@ -1,0 +1,72 @@
+assets:
+- id: family-recovery-air
+  repository_id: disaster-recovery
+  category: pdf_reference
+  title: Flood Cleanup and the Air in Your Home — EPA
+  relative_path: family-resources/disaster-recovery/recovery-air.pdf
+  service_endpoint: /library-files/family-resources/disaster-recovery/recovery-air.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: 'EPA 402-K-07-002, revised August 2017. Landscape booklet layout: 15
+    PDF sheets, 28 numbered booklet pages. Original educational reference; institutional,
+    copyright and source notices retained. No endorsement implied. Retrieved 2026-10-24T18:44:41.362717+00:00'
+  online_url: https://www.epa.gov/mold/flood-cleanup-and-air-your-home-booklet
+  download_url: https://www.epa.gov/sites/default/files/2017-08/documents/flood_cleanup_and_the_air_in_your_home_booklet_0.pdf
+  version_pin: null
+- id: family-recovery-field
+  repository_id: disaster-recovery
+  category: pdf_reference
+  title: 'Creating a Healthy Home: Field Guide for Cleanup of Flooded Homes'
+  relative_path: family-resources/disaster-recovery/recovery-field.pdf
+  service_endpoint: /library-files/family-resources/disaster-recovery/recovery-field.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: National Center for Healthy Housing / partners, archived post-Katrina
+    field guide. Original regional and historical scope retained. Original educational
+    reference; institutional, copyright and source notices retained. No endorsement
+    implied. Retrieved 2026-10-24T18:44:41.365079+00:00
+  online_url: https://www.huduser.gov/
+  download_url: https://www.huduser.gov/Publications/pdf/FloodCleanupGuide_NCHH.pdf
+  version_pin: null
+- id: family-recovery-workers
+  repository_id: disaster-recovery
+  category: pdf_reference
+  title: Keeping Workers Safe During Disaster Cleanup and Recovery — OSHA
+  relative_path: family-resources/disaster-recovery/recovery-workers.pdf
+  service_endpoint: /library-files/family-resources/disaster-recovery/recovery-workers.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: OSHA FS-3698, November 2013. Historical worker-safety reference, not
+    a complete current code. Original educational reference; institutional, copyright
+    and source notices retained. No endorsement implied. Retrieved 2026-10-24T18:44:41.366646+00:00
+  online_url: https://www.osha.gov/publications/bytopic/flood-cleanup
+  download_url: https://www.osha.gov/sites/default/files/publications/OSHA_FS-3698.pdf
+  version_pin: null
+- id: family-recovery-fraud
+  repository_id: disaster-recovery
+  category: pdf_reference
+  title: Avoiding Post-Disaster Scams and Fraud — HUD
+  relative_path: family-resources/disaster-recovery/recovery-fraud.pdf
+  service_endpoint: /library-files/family-resources/disaster-recovery/recovery-fraud.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: HUD Housing Counseling Disaster Recovery Toolkit fact sheet; historical
+    publisher edition. Original educational reference; institutional, copyright and
+    source notices retained. No endorsement implied. Retrieved 2026-10-24T18:44:42.169115+00:00
+  online_url: https://www.hudexchange.info/
+  download_url: https://files.hudexchange.info/resources/documents/OHC-DR-Toolkit-Avoiding-Post-Disaster-Scams-and-Fraud.pdf
+  version_pin: null
+- id: family-recovery-claims
+  repository_id: disaster-recovery
+  category: pdf_reference
+  title: Post-Disaster Claims Guide — NAIC / Maine Insurance
+  relative_path: family-resources/disaster-recovery/recovery-claims.pdf
+  service_endpoint: /library-files/family-resources/disaster-recovery/recovery-claims.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Maine Bureau of Insurance publisher guide; state-specific contacts
+    and legal context retained. Original educational reference; institutional, copyright
+    and source notices retained. No endorsement implied. Retrieved 2026-10-24T18:44:42.280192+00:00
+  online_url: https://www.maine.gov/pfr/insurance/
+  download_url: https://www.maine.gov/pfr/insurance/sites/maine.gov.pfr.insurance/files/inline-files/me-post-disaster-claims-guide.pdf
+  version_pin: null

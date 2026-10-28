@@ -264,6 +264,9 @@ The optional `personalization` section in `dataark.yaml` records vehicles, prefe
 ## Configuration editor
 
 Open **Settings → System → Configuration…** and choose **Load configuration**.
+The editor opens the small `ark.yaml`; choose collection definitions, publication
+catalogues or read-only version snapshots with **Configuration file**. See
+[Modular public configuration](ModularConfiguration.md) for the layout and CLI tools.
 Reading, downloading, viewing previous public versions and validating a draft
 require no caretaker password. Private household settings are excluded from these
 views. Saving and publishing changes, restoring a version by publishing it, and

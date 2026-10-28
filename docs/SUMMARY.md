@@ -114,3 +114,5 @@
 * [Community visibility and configuration editor](20-Administration/Configuration.md#configuration-editor)
 
 * [Content type registry and handler API](20-Administration/ContentHandlers.md)
+
+* [Modular public configuration](20-Administration/ModularConfiguration.md)

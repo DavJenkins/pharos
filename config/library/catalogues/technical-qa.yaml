@@ -1,0 +1,46 @@
+assets:
+- id: electronics-qa
+  online_url: https://electronics.stackexchange.com/
+  repository_id: technical-qa
+  category: zim_archives
+  title: Electronics Stack Exchange (October 2026)
+  relative_path: electronics.stackexchange.com_en_all_2026-10.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/stack_exchange/
+    filename_prefix: electronics.stackexchange.com_en_all_
+  download_url: https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2026-10.zim
+  version_pin: null
+- id: unix-qa
+  online_url: https://unix.stackexchange.com/
+  repository_id: technical-qa
+  category: zim_archives
+  title: Unix Stack Exchange (October 2026)
+  relative_path: unix.stackexchange.com_en_all_2026-10.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/stack_exchange/
+    filename_prefix: unix.stackexchange.com_en_all_
+  download_url: https://download.kiwix.org/zim/stack_exchange/unix.stackexchange.com_en_all_2026-10.zim
+  version_pin: null
+- id: kiwix-windows-reader
+  online_url: https://kiwix.org/en/applications/
+  repository_id: technical-qa
+  category: utilities_binaries
+  title: Kiwix Desktop for Windows (copy the entire kiwix-viewer folder)
+  relative_path: kiwix-viewer/kiwix-desktop.exe
+  download_url: https://download.kiwix.org/release/kiwix-desktop/kiwix-desktop_windows_x64_2.5.1.zip
+  source_note: Windows ZIP distribution with dependencies; embedded executable version
+    string is 2.5.1. Byte identity not checked.
+  architecture: x86_64
+  executable: true
+  tags:
+  - windows
+  - reader
+  update_policy: manual
+  refresh_interval: never
+  version_pin: null

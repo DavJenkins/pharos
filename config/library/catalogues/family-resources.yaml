@@ -1,0 +1,357 @@
+assets:
+- id: family-nasa-exoplanets
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA Exoplanets Coloring Book
+  relative_path: family-resources/kids/nasa-exoplanets.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-exoplanets.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.623637+00:00'
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Exoplanets_Coloring_Book_07-22-2016.pdf
+  version_pin: null
+- id: family-nasa-star-en
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA Our Very Own Star
+  relative_path: family-resources/kids/nasa-star-en.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-star-en.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.625965+00:00'
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_English.pdf
+  version_pin: null
+- id: family-nasa-star-es
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA Our Very Own Star — Spanish
+  relative_path: family-resources/kids/nasa-star-es.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-star-es.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.627561+00:00'
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/Our_Very_Own_Star_Spanish.pdf
+  version_pin: null
+- id: family-nasa-iss
+  repository_id: family-resources
+  category: pdf_reference
+  title: NASA International Space Station Activity Book
+  relative_path: family-resources/kids/nasa-iss.pdf
+  service_endpoint: /library-files/family-resources/kids/nasa-iss.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' NASA educational and informational use; original notices retained.
+    No endorsement implied. Retrieved 2026-10-24T00:50:50.873597+00:00'
+  online_url: https://science.nasa.gov/toolkit/coloring-books/
+  download_url: https://science.nasa.gov/wp-content/uploads/2023/10/ISS_Activity_Book.pdf
+  version_pin: null
+- id: family-nps-caves-en
+  repository_id: family-resources
+  category: pdf_reference
+  title: Junior Cave Scientist Activity Book
+  relative_path: family-resources/kids/nps-caves-en.pdf
+  service_endpoint: /library-files/family-resources/kids/nps-caves-en.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' NPS publication with copyrighted material. Non-commercial educational
+    use only; original format retained, not for sale or reformatting. Read the original
+    notices. Retrieved 2026-10-24T00:50:51.094343+00:00'
+  online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
+  download_url: https://home.nps.gov/subjects/caves/upload/Junior-Cave-Scientist-Booklet_English508_web-compressed.pdf
+  version_pin: null
+- id: family-nps-caves-es
+  repository_id: family-resources
+  category: pdf_reference
+  title: Junior Cave Scientist Activity Book — Spanish
+  relative_path: family-resources/kids/nps-caves-es.pdf
+  service_endpoint: /library-files/family-resources/kids/nps-caves-es.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' NPS publication with copyrighted material. Non-commercial educational
+    use only; original format retained, not for sale or reformatting. Read the original
+    notices. Retrieved 2026-10-24T00:50:51.485281+00:00'
+  online_url: https://home.nps.gov/subjects/caves/junior-cave-scientist-program.htm
+  download_url: https://home.nps.gov/subjects/caves/upload/Junior-Ranger-Cave-Scientist-SPANISH-Final508_web-compressed_2.pdf
+  version_pin: null
+- id: family-fema-ics
+  repository_id: family-resources
+  category: pdf_reference
+  title: FEMA NIMS Incident Command System Forms & Instructions
+  relative_path: family-resources/readiness/fema-ics.pdf
+  service_endpoint: /library-files/family-resources/readiness/fema-ics.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: FEMA 502-2, September 2010; archived reference edition U.S. federal
+    government publication; publisher notices retained. Retrieved 2026-10-24T00:50:51.869640+00:00
+  online_url: https://training.fema.gov/emiweb/is/icsresource/
+  download_url: https://training.fema.gov/emiweb/is/icsresource/assets/nims%20ics%20forms%20booklet.v3.pdf
+  version_pin: null
+- id: family-cp-contractor
+  repository_id: family-resources
+  category: pdf_reference
+  title: Common Paper Independent Contractor Agreement
+  relative_path: family-resources/contracts/cp-contractor.docx
+  service_endpoint: /library-files/family-resources/contracts/cp-contractor.docx
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.082367+00:00'
+  online_url: https://commonpaper.com/documents/independent-contractor-agreement
+  download_url: https://commonpaper.com/wp-content/uploads/2025/05/Common-Paper-Independent-Contractor-Agreement.docx
+  version_pin: null
+- id: family-cp-amendment
+  repository_id: family-resources
+  category: pdf_reference
+  title: Common Paper Agreement Amendment
+  relative_path: family-resources/contracts/cp-amendment.docx
+  service_endpoint: /library-files/family-resources/contracts/cp-amendment.docx
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.091287+00:00'
+  online_url: https://commonpaper.com/documents/amendment
+  download_url: https://commonpaper.com/wp-content/uploads/2025/01/Common-Paper-Amendment.docx
+  version_pin: null
+- id: family-cp-sow
+  repository_id: family-resources
+  category: pdf_reference
+  title: Common Paper Statement of Work
+  relative_path: family-resources/contracts/cp-sow.docx
+  service_endpoint: /library-files/family-resources/contracts/cp-sow.docx
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' Common Paper and contributors, CC BY 4.0. Unmodified publisher document.
+    Retrieved 2026-10-24T00:50:53.237911+00:00'
+  online_url: https://commonpaper.com/documents/statement-of-work
+  download_url: https://commonpaper.com/wp-content/uploads/2025/01/Professional-Services-Agreement-SOW-Only.docx
+  version_pin: null
+- id: family-household-a4
+  repository_id: family-resources
+  category: pdf_reference
+  title: Household worksheet pack — A4
+  relative_path: family-resources/generated/household-a4.pdf
+  service_endpoint: /library-files/family-resources/generated/household-a4.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.656356+00:00'
+  version_pin: null
+- id: family-household-letter
+  repository_id: family-resources
+  category: pdf_reference
+  title: Household worksheet pack — US Letter
+  relative_path: family-resources/generated/household-letter.pdf
+  service_endpoint: /library-files/family-resources/generated/household-letter.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.705745+00:00'
+  version_pin: null
+- id: family-paper-a4
+  repository_id: family-resources
+  category: pdf_reference
+  title: Paper pattern pack — A4
+  relative_path: family-resources/generated/paper-a4.pdf
+  service_endpoint: /library-files/family-resources/generated/paper-a4.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.756146+00:00'
+  version_pin: null
+- id: family-paper-letter
+  repository_id: family-resources
+  category: pdf_reference
+  title: Paper pattern pack — US Letter
+  relative_path: family-resources/generated/paper-letter.pdf
+  service_endpoint: /library-files/family-resources/generated/paper-letter.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: ' DEJ Software / Data Ark original. Freely copy and adapt. Retrieved
+    2026-10-24T00:51:00.808860+00:00'
+  version_pin: null
+- id: family-adult-wildflowers
+  repository_id: family-resources
+  category: pdf_reference
+  title: North American Wild Flowers — Swarthmore Coloring Book
+  relative_path: family-resources/adult-coloring/adult-wildflowers.pdf
+  service_endpoint: /library-files/family-resources/adult-coloring/adult-wildflowers.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Swarthmore College Libraries, Color Our Collections 2021 Images from
+    Mary Vaux Walcott, North American Wild Flowers (1925), public domain in the United
+    States. Swarthmore attribution and original notices retained. Retrieved 2026-10-24T15:01:18.012764+00:00
+  online_url: https://library.nyam.org/colorourcollections/
+  download_url: https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2021/01/SwarthmoreCollegeLibraries_ColorOurCollections2021-2.pdf
+  version_pin: null
+- id: family-adult-jmu
+  repository_id: family-resources
+  category: pdf_reference
+  title: Vintage Gardens, Architecture & Illustrations — JMU Coloring Book
+  relative_path: family-resources/adult-coloring/adult-jmu.pdf
+  service_endpoint: /library-files/family-resources/adult-coloring/adult-jmu.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: James Madison University Libraries, Color Our Collections 2020 Illustrations
+    from 1924 publications, identified by JMU as public domain in the United States.
+    Original source credits retained. Retrieved 2026-10-24T15:01:20.021642+00:00
+  online_url: https://www.lib.jmu.edu/100-libraries-museums-created-coloring-books-from-their-collections-including-us/
+  download_url: https://library.nyam.org/colorourcollections/wp-content/uploads/sites/5/2020/01/JamesMadisonUniversity_COC20.pdf
+  version_pin: null
+- id: family-adult-europeana
+  repository_id: family-resources
+  category: pdf_reference
+  title: European Art & Heritage — Europeana Coloring Book
+  relative_path: family-resources/adult-coloring/adult-europeana.pdf
+  service_endpoint: /library-files/family-resources/adult-coloring/adult-europeana.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Europeana, European Year of Youth 2022 Per-image CC BY, CC0 and public-domain
+    credits are printed in the original book. Retain the credited artist, institution
+    and license with shared colored versions. Retrieved 2026-10-24T15:01:21.859896+00:00
+  online_url: https://www.europeana.eu/en/stories/european-year-of-youth-colouring-book
+  download_url: https://assets.ctfassets.net/i01duvb6kq77/1SRHphnds6UpEF9CdgVL6f/2de18233ec330e24506124bc4e7b55ea/Europeana_Colouring_Book_-_European_Year_of_Youth_-_ColorOurCollections.pdf
+  version_pin: null
+- id: family-holiday-family
+  repository_id: family-resources
+  category: pdf_reference
+  title: Holiday Coloring - Family Pages
+  relative_path: family-resources/holidays/holiday-family.pdf
+  service_endpoint: /library-files/family-resources/holidays/holiday-family.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Original Ark edition 1 DEJ Software / Data Ark original vector artwork.
+    CC0 1.0 public-domain dedication. Freely copy, color, adapt and share. No agency
+    or religious endorsement implied. Retrieved 2026-10-24T15:18:24.042531+00:00
+  version_pin: null
+- id: family-holiday-detailed
+  repository_id: family-resources
+  category: pdf_reference
+  title: Holiday Coloring - Detailed Designs
+  relative_path: family-resources/holidays/holiday-detailed.pdf
+  service_endpoint: /library-files/family-resources/holidays/holiday-detailed.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Original Ark edition 1 DEJ Software / Data Ark original vector artwork.
+    CC0 1.0 public-domain dedication. Freely copy, color, adapt and share. No agency
+    or religious endorsement implied. Retrieved 2026-10-24T15:18:24.430634+00:00
+  version_pin: null
+- id: family-cook-pantry-resilience
+  repository_id: family-resources
+  category: pdf_reference
+  title: Preparedness & Resiliency — Pantry Meals for Seven Days
+  relative_path: family-resources/cookbooks/cook-pantry-resilience.pdf
+  service_endpoint: /library-files/family-resources/cookbooks/cook-pantry-resilience.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: EFNEP multi-university resiliency workgroup; University of Arkansas
+    Extension-hosted edition. Publicly provided extension education resource. Keep
+    the unmodified original and all workgroup, recipe-source, institutional and publisher
+    notices. No endorsement implied. Retrieved 2026-10-24T15:21:16.718638+00:00
+  online_url: https://www.uaex.uada.edu/life-skills-wellness/docs/FRM-Resiliency-Cookbook-EFNEP.pdf
+  download_url: https://www.uaex.uada.edu/life-skills-wellness/docs/FRM-Resiliency-Cookbook-EFNEP.pdf
+  version_pin: null
+- id: family-cook-usda-harvest
+  repository_id: family-resources
+  category: pdf_reference
+  title: A Harvest of Recipes with USDA Foods
+  relative_path: family-resources/cookbooks/cook-usda-harvest.pdf
+  service_endpoint: /library-files/family-resources/cookbooks/cook-usda-harvest.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: USDA Food and Nutrition Service, 2013; preserved GovInfo edition. U.S.
+    federal publication. Preserve the original USDA and contributor credits and notices.
+    Historical nutrition-policy references remain as published. Retrieved 2026-10-24T15:21:17.551944+00:00
+  online_url: https://www.govinfo.gov/app/details/GOVPUB-A98-PURL-gpo93692
+  download_url: https://www.govinfo.gov/content/pkg/GOVPUB-A98-PURL-gpo93692/pdf/GOVPUB-A98-PURL-gpo93692.pdf
+  version_pin: null
+- id: family-cook-usda-thrifty
+  repository_id: family-resources
+  category: pdf_reference
+  title: Recipes and Tips for Healthy, Thrifty Meals
+  relative_path: family-resources/cookbooks/cook-usda-thrifty.pdf
+  service_endpoint: /library-files/family-resources/cookbooks/cook-usda-thrifty.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: USDA CNPP-11, May 2000; historical prices and nutrition guidance, preserved
+    university archive edition. U.S. federal publication; original USDA notices retained.
+    Archived reference, not a current food-price or nutrition-policy statement. Retrieved
+    2026-10-24T15:22:09.232182+00:00
+  online_url: https://ageconsearch.umn.edu/record/311366
+  download_url: https://ageconsearch.umn.edu/nanna/record/311366/files/cnpp-11.pdf?registerDownload=1&version=1&withMetadata=0&withWatermark=0
+  version_pin: null
+- id: family-cdc-wrigley-en
+  repository_id: family-resources
+  category: pdf_reference
+  title: 'Ready Wrigley: Coping After a Disaster'
+  relative_path: family-resources/kids/cdc-wrigley-en.pdf
+  service_endpoint: /library-files/family-resources/kids/cdc-wrigley-en.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: 2018 CDC Stacks archived edition; retained as a coping activity book
+    CDC public educational material, agency and original notices retained. No endorsement
+    implied. Retrieved 2026-10-24T20:08:17.970926+00:00
+  online_url: https://stacks.cdc.gov/view/cdc/58346/
+  download_url: https://stacks.cdc.gov/view/cdc/58346/cdc_58346_DS1.pdf
+  version_pin: null
+- id: family-cdc-wrigley-es
+  repository_id: family-resources
+  category: pdf_reference
+  title: 'Ready Wrigley: Coping After a Disaster — Spanish'
+  relative_path: family-resources/kids/cdc-wrigley-es.pdf
+  service_endpoint: /library-files/family-resources/kids/cdc-wrigley-es.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: 2018 CDC Stacks archived edition; retained as a coping activity book
+    CDC public educational material, agency and original notices retained. No endorsement
+    implied. Retrieved 2026-10-24T20:08:46.234501+00:00
+  online_url: https://stacks.cdc.gov/view/cdc/58345/
+  download_url: https://stacks.cdc.gov/view/cdc/58345/cdc_58345_DS1.pdf
+  version_pin: null
+- id: family-cdc-backpack
+  repository_id: family-resources
+  category: pdf_reference
+  title: CDC Backpack Emergency Contact Card
+  relative_path: family-resources/readiness/cdc-backpack.pdf
+  service_endpoint: /library-files/family-resources/readiness/cdc-backpack.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: 'CDC Stacks 2019 labeled edition Source: CDC. Public-domain agency
+    material; original notices retained. Free from CDC.gov. No CDC/HHS/U.S. Government
+    endorsement implied. Retrieved 2026-10-24T20:09:08.975222+00:00'
+  online_url: https://stacks.cdc.gov/view/cdc/34175
+  download_url: https://stacks.cdc.gov/view/cdc/34175/cdc_34175_DS1.pdf
+  version_pin: null
+- id: family-cdc-pet-kit
+  repository_id: family-resources
+  category: pdf_reference
+  title: CDC Pet Emergency Kit Checklist
+  relative_path: family-resources/readiness/cdc-pet-kit.pdf
+  service_endpoint: /library-files/family-resources/readiness/cdc-pet-kit.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: 'CDC Stacks archived edition Source: CDC. Public-domain agency material;
+    original notices retained. Free from CDC.gov. No CDC/HHS/U.S. Government endorsement
+    implied. Retrieved 2026-10-24T20:09:28.790357+00:00'
+  online_url: https://stacks.cdc.gov/view/cdc/139819
+  download_url: https://stacks.cdc.gov/view/cdc/139819/cdc_139819_DS1.pdf
+  version_pin: null
+- id: family-cdc-family-plan
+  repository_id: family-resources
+  category: pdf_reference
+  title: CDC My Family Communication Plan
+  relative_path: family-resources/readiness/cdc-family-plan.pdf
+  service_endpoint: /library-files/family-resources/readiness/cdc-family-plan.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: 'CDC Stacks 2019 labeled edition Source: CDC. Public-domain agency
+    material; original notices retained. Free from CDC.gov. No CDC/HHS/U.S. Government
+    endorsement implied. Retrieved 2026-10-24T20:09:45.285677+00:00'
+  online_url: https://stacks.cdc.gov/view/cdc/139817
+  download_url: https://stacks.cdc.gov/view/cdc/139817/cdc_139817_DS1.pdf
+  version_pin: null

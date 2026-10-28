@@ -1,0 +1,1641 @@
+assets:
+- id: ref-us-constitution
+  repository_id: civic-reference
+  category: pdf_reference
+  title: U.S. Constitution, Declaration of Independence and index — Pocket Edition
+  relative_path: civic-reference/documents/us-constitution.pdf
+  service_endpoint: /library-files/civic-reference/documents/us-constitution.pdf
+  online_url: https://www.govinfo.gov/content/pkg/GPO-CDOC-111sdoc4/pdf/GPO-CDOC-111sdoc4.pdf
+  download_url: https://www.govinfo.gov/content/pkg/GPO-CDOC-111sdoc4/pdf/GPO-CDOC-111sdoc4.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Senate document 111-4, 2010 pocket edition; Constitutional text and
+    index, not current case-law commentary. U.S. government publication.; retrieved
+    2026-10-24T01:21:52.173281+00:00
+  version_pin: null
+- id: ref-cfr44-v1
+  repository_id: civic-reference
+  category: pdf_reference
+  title: 44 CFR — Emergency Management and Assistance, Volume 1
+  relative_path: civic-reference/documents/cfr44-v1.pdf
+  service_endpoint: /library-files/civic-reference/documents/cfr44-v1.pdf
+  online_url: https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol1/pdf/CFR-2025-title44-vol1.pdf
+  download_url: https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol1/pdf/CFR-2025-title44-vol1.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: 2025 annual CFR edition; not live eCFR; Selected federal regulations
+    only. Subsequent rules, emergency orders and other CFR titles are not included.;
+    retrieved 2026-10-24T01:21:52.182788+00:00
+  version_pin: null
+- id: ref-ma-constitution
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts Constitution
+  relative_path: civic-reference/documents/ma-constitution.html
+  service_endpoint: /library-files/civic-reference/documents/ma-constitution.html
+  online_url: https://malegislature.gov/Laws/Constitution
+  download_url: https://malegislature.gov/Laws/Constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Unofficial legislature text snapshot at retrieval; Publisher page text,
+    not a certified official copy or a guarantee of current legal effect.; retrieved
+    2026-10-24T01:21:52.696977+00:00
+  version_pin: null
+- id: ref-gardner-code-source
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Gardner City Code — official city source page
+  relative_path: civic-reference/documents/gardner-code-source.html
+  service_endpoint: /library-files/civic-reference/documents/gardner-code-source.html
+  online_url: https://www.gardner-ma.gov/1019/City-Code
+  download_url: https://www.gardner-ma.gov/1019/City-Code
+  update_policy: manual
+  refresh_interval: never
+  source_note: City information page at retrieval; Official source directory only,
+    not the ordinance text itself. The actual code is on the city's chosen external
+    publisher.; retrieved 2026-10-24T01:21:53.285155+00:00
+  version_pin: null
+- id: ref-ma-chapter-93a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts General Laws Chapter 93A — Consumer Protection
+  relative_path: civic-reference/documents/ma-chapter-93A.html
+  service_endpoint: /library-files/civic-reference/documents/ma-chapter-93A.html
+  online_url: https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter93A
+  download_url: https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter93A
+  update_policy: manual
+  refresh_interval: never
+  source_note: Unofficial legislature sections captured at retrieval; Selected chapter
+    only; other General Laws, session laws, orders and case law are not included.;
+    retrieved 2026-10-24T01:22:01.785997+00:00
+  version_pin: null
+- id: ref-usc-prelimusc01
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 1 - GENERAL PROVISIONS
+  relative_path: civic-reference/us-code/PRELIMusc01.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc01.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:07.824814+00:00
+  version_pin: null
+- id: ref-usc-prelimusc02
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 2 - THE CONGRESS
+  relative_path: civic-reference/us-code/PRELIMusc02.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc02.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:07.972854+00:00
+  version_pin: null
+- id: ref-usc-prelimusc03
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 3 - THE PRESIDENT
+  relative_path: civic-reference/us-code/PRELIMusc03.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc03.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:08.034940+00:00
+  version_pin: null
+- id: ref-usc-prelimusc04
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 4 - FLAG AND SEAL, SEAT OF GOVERNMENT, AND THE
+    STATES
+  relative_path: civic-reference/us-code/PRELIMusc04.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc04.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:08.044671+00:00
+  version_pin: null
+- id: ref-usc-prelimusc05
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 5 - GOVERNMENT ORGANIZATION AND EMPLOYEES
+  relative_path: civic-reference/us-code/PRELIMusc05.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc05.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:08.544564+00:00
+  version_pin: null
+- id: ref-usc-prelimusc05a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 5 - GOVERNMENT ORGANIZATION AND EMPLOYEES
+  relative_path: civic-reference/us-code/PRELIMusc05a.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc05a.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:08.672104+00:00
+  version_pin: null
+- id: ref-usc-prelimusc06
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 6 - DOMESTIC SECURITY
+  relative_path: civic-reference/us-code/PRELIMusc06.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc06.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:08.759152+00:00
+  version_pin: null
+- id: ref-usc-prelimusc07
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 7 - AGRICULTURE
+  relative_path: civic-reference/us-code/PRELIMusc07.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc07.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:09.278814+00:00
+  version_pin: null
+- id: ref-usc-prelimusc08
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 8 - ALIENS AND NATIONALITY
+  relative_path: civic-reference/us-code/PRELIMusc08.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc08.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:09.538188+00:00
+  version_pin: null
+- id: ref-usc-prelimusc09
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 9 - ARBITRATION
+  relative_path: civic-reference/us-code/PRELIMusc09.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc09.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:09.577463+00:00
+  version_pin: null
+- id: ref-usc-prelimusc10
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 10 - ARMED FORCES
+  relative_path: civic-reference/us-code/PRELIMusc10.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc10.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:10.732399+00:00
+  version_pin: null
+- id: ref-usc-prelimusc11
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 11 - BANKRUPTCY
+  relative_path: civic-reference/us-code/PRELIMusc11.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc11.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:11.067816+00:00
+  version_pin: null
+- id: ref-usc-prelimusc11a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 11 - BANKRUPTCY
+  relative_path: civic-reference/us-code/PRELIMusc11a.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc11a.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:11.131627+00:00
+  version_pin: null
+- id: ref-usc-prelimusc12
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 12 - BANKS AND BANKING
+  relative_path: civic-reference/us-code/PRELIMusc12.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc12.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:11.560977+00:00
+  version_pin: null
+- id: ref-usc-prelimusc13
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 13 - CENSUS
+  relative_path: civic-reference/us-code/PRELIMusc13.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc13.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:11.696393+00:00
+  version_pin: null
+- id: ref-usc-prelimusc14
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 14 - COAST GUARD
+  relative_path: civic-reference/us-code/PRELIMusc14.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc14.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:11.758999+00:00
+  version_pin: null
+- id: ref-usc-prelimusc15
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 15 - COMMERCE AND TRADE
+  relative_path: civic-reference/us-code/PRELIMusc15.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc15.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:12.494818+00:00
+  version_pin: null
+- id: ref-usc-prelimusc16
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 16 - CONSERVATION
+  relative_path: civic-reference/us-code/PRELIMusc16.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc16.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:13.214650+00:00
+  version_pin: null
+- id: ref-usc-prelimusc17
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 17 - COPYRIGHTS
+  relative_path: civic-reference/us-code/PRELIMusc17.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc17.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:13.445959+00:00
+  version_pin: null
+- id: ref-usc-prelimusc18
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 18 - CRIMES AND CRIMINAL PROCEDURE
+  relative_path: civic-reference/us-code/PRELIMusc18.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc18.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:13.621749+00:00
+  version_pin: null
+- id: ref-usc-prelimusc18a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 18 - CRIMES AND CRIMINAL PROCEDURE
+  relative_path: civic-reference/us-code/PRELIMusc18a.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc18a.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:13.720130+00:00
+  version_pin: null
+- id: ref-usc-prelimusc19
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 19 - CUSTOMS DUTIES
+  relative_path: civic-reference/us-code/PRELIMusc19.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc19.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:13.945730+00:00
+  version_pin: null
+- id: ref-usc-prelimusc20
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 20 - EDUCATION
+  relative_path: civic-reference/us-code/PRELIMusc20.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc20.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:14.330078+00:00
+  version_pin: null
+- id: ref-usc-prelimusc21
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 21 - FOOD AND DRUGS
+  relative_path: civic-reference/us-code/PRELIMusc21.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc21.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:14.588933+00:00
+  version_pin: null
+- id: ref-usc-prelimusc22
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 22 - FOREIGN RELATIONS AND INTERCOURSE
+  relative_path: civic-reference/us-code/PRELIMusc22.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc22.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:15.411882+00:00
+  version_pin: null
+- id: ref-usc-prelimusc23
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 23 - HIGHWAYS
+  relative_path: civic-reference/us-code/PRELIMusc23.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc23.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:15.689335+00:00
+  version_pin: null
+- id: ref-usc-prelimusc24
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 24 - HOSPITALS AND ASYLUMS
+  relative_path: civic-reference/us-code/PRELIMusc24.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc24.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:15.729259+00:00
+  version_pin: null
+- id: ref-usc-prelimusc25
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 25 - INDIANS
+  relative_path: civic-reference/us-code/PRELIMusc25.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc25.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:15.903805+00:00
+  version_pin: null
+- id: ref-usc-prelimusc26
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 26 - INTERNAL REVENUE CODE
+  relative_path: civic-reference/us-code/PRELIMusc26.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc26.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:16.929871+00:00
+  version_pin: null
+- id: ref-usc-prelimusc27
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 27 - INTOXICATING LIQUORS
+  relative_path: civic-reference/us-code/PRELIMusc27.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc27.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:17.210025+00:00
+  version_pin: null
+- id: ref-usc-prelimusc28
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 28 - JUDICIARY AND JUDICIAL PROCEDURE
+  relative_path: civic-reference/us-code/PRELIMusc28.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc28.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:17.320179+00:00
+  version_pin: null
+- id: ref-usc-prelimusc28a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 28 - JUDICIARY AND JUDICIAL PROCEDURE
+  relative_path: civic-reference/us-code/PRELIMusc28a.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc28a.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:17.953790+00:00
+  version_pin: null
+- id: ref-usc-prelimusc29
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 29 - LABOR
+  relative_path: civic-reference/us-code/PRELIMusc29.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc29.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:18.659625+00:00
+  version_pin: null
+- id: ref-usc-prelimusc30
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 30 - MINERAL LANDS AND MINING
+  relative_path: civic-reference/us-code/PRELIMusc30.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc30.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:18.777586+00:00
+  version_pin: null
+- id: ref-usc-prelimusc31
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 31 - MONEY AND FINANCE
+  relative_path: civic-reference/us-code/PRELIMusc31.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc31.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:18.904548+00:00
+  version_pin: null
+- id: ref-usc-prelimusc32
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 32 - NATIONAL GUARD
+  relative_path: civic-reference/us-code/PRELIMusc32.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc32.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:18.954586+00:00
+  version_pin: null
+- id: ref-usc-prelimusc33
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 33 - NAVIGATION AND NAVIGABLE WATERS
+  relative_path: civic-reference/us-code/PRELIMusc33.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc33.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.122387+00:00
+  version_pin: null
+- id: ref-usc-prelimusc34
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 34 - CRIME CONTROL AND LAW ENFORCEMENT
+  relative_path: civic-reference/us-code/PRELIMusc34.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc34.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.300752+00:00
+  version_pin: null
+- id: ref-usc-prelimusc35
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 35 - PATENTS
+  relative_path: civic-reference/us-code/PRELIMusc35.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc35.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.371054+00:00
+  version_pin: null
+- id: ref-usc-prelimusc36
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 36 - PATRIOTIC AND NATIONAL OBSERVANCES, CEREMONIES,
+    AND ORGANIZATIONS
+  relative_path: civic-reference/us-code/PRELIMusc36.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc36.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.455952+00:00
+  version_pin: null
+- id: ref-usc-prelimusc37
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 37 - PAY AND ALLOWANCES OF THE UNIFORMED SERVICES
+  relative_path: civic-reference/us-code/PRELIMusc37.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc37.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.528162+00:00
+  version_pin: null
+- id: ref-usc-prelimusc38
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 38 - VETERANS' BENEFITS
+  relative_path: civic-reference/us-code/PRELIMusc38.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc38.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.790739+00:00
+  version_pin: null
+- id: ref-usc-prelimusc39
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 39 - POSTAL SERVICE
+  relative_path: civic-reference/us-code/PRELIMusc39.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc39.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.905412+00:00
+  version_pin: null
+- id: ref-usc-prelimusc40
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 40 - PUBLIC BUILDINGS, PROPERTY, AND WORKS
+  relative_path: civic-reference/us-code/PRELIMusc40.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc40.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:19.990282+00:00
+  version_pin: null
+- id: ref-usc-prelimusc41
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 41 - PUBLIC CONTRACTS
+  relative_path: civic-reference/us-code/PRELIMusc41.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc41.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:20.060480+00:00
+  version_pin: null
+- id: ref-usc-prelimusc42
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 42 - THE PUBLIC HEALTH AND WELFARE
+  relative_path: civic-reference/us-code/PRELIMusc42.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc42.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:22.652490+00:00
+  version_pin: null
+- id: ref-usc-prelimusc43
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 43 - PUBLIC LANDS
+  relative_path: civic-reference/us-code/PRELIMusc43.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc43.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:24.504162+00:00
+  version_pin: null
+- id: ref-usc-prelimusc44
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 44 - PUBLIC PRINTING AND DOCUMENTS
+  relative_path: civic-reference/us-code/PRELIMusc44.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc44.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:24.588025+00:00
+  version_pin: null
+- id: ref-usc-prelimusc45
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 45 - RAILROADS
+  relative_path: civic-reference/us-code/PRELIMusc45.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc45.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:24.653789+00:00
+  version_pin: null
+- id: ref-usc-prelimusc46
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 46 - SHIPPING
+  relative_path: civic-reference/us-code/PRELIMusc46.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc46.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:24.806489+00:00
+  version_pin: null
+- id: ref-usc-prelimusc47
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 47 - TELECOMMUNICATIONS
+  relative_path: civic-reference/us-code/PRELIMusc47.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc47.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:24.926459+00:00
+  version_pin: null
+- id: ref-usc-prelimusc48
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 48 - TERRITORIES AND INSULAR POSSESSIONS
+  relative_path: civic-reference/us-code/PRELIMusc48.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc48.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:25.038429+00:00
+  version_pin: null
+- id: ref-usc-prelimusc49
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 49 - TRANSPORTATION
+  relative_path: civic-reference/us-code/PRELIMusc49.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc49.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:25.520659+00:00
+  version_pin: null
+- id: ref-usc-prelimusc50
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 50 - WAR AND NATIONAL DEFENSE
+  relative_path: civic-reference/us-code/PRELIMusc50.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc50.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:26.722376+00:00
+  version_pin: null
+- id: ref-usc-prelimusc50a
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 50 - WAR AND NATIONAL DEFENSE
+  relative_path: civic-reference/us-code/PRELIMusc50a.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc50a.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:26.805258+00:00
+  version_pin: null
+- id: ref-usc-prelimusc51
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 51 - NATIONAL AND COMMERCIAL SPACE PROGRAMS
+  relative_path: civic-reference/us-code/PRELIMusc51.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc51.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:26.841073+00:00
+  version_pin: null
+- id: ref-usc-prelimusc52
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 52 - VOTING AND ELECTIONS
+  relative_path: civic-reference/us-code/PRELIMusc52.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc52.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:26.878742+00:00
+  version_pin: null
+- id: ref-usc-prelimusc54
+  repository_id: civic-reference
+  category: pdf_reference
+  title: United States Code — TITLE 54 - NATIONAL PARK SERVICE AND RELATED PROGRAMS
+  relative_path: civic-reference/us-code/PRELIMusc54.htm
+  service_endpoint: /library-files/civic-reference/us-code/PRELIMusc54.htm
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Official bulk-release text,
+    offline formatting. Not regulations, case law, uncodified laws or later amendments.
+    Use browser Find within a title.; retrieved 2026-10-24T01:22:26.937215+00:00
+  version_pin: null
+- id: ref-usc-source-archive
+  repository_id: civic-reference
+  category: pdf_reference
+  title: U.S. Code — original full publisher XHTML ZIP
+  relative_path: civic-reference/us-code-source.zip
+  service_endpoint: /library-files/civic-reference/us-code-source.zip
+  online_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  download_url: https://uscode.house.gov/download/releasepoints/us/pl/119/124/htm_uscAll@119-124.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Public Law 119-124 (October 15, 2026); Unmodified official bulk archive;
+    extract on your device.; retrieved 2026-10-24T01:22:26.951670+00:00
+  version_pin: null
+- id: ref-ma-chapter-186
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts General Laws Chapter 186 — Estates for Years and at Will
+  relative_path: civic-reference/documents/ma-chapter-186.html
+  service_endpoint: /library-files/civic-reference/documents/ma-chapter-186.html
+  online_url: https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186
+  download_url: https://malegislature.gov/Laws/GeneralLaws/PartII/TitleI/Chapter186
+  update_policy: manual
+  refresh_interval: never
+  source_note: Unofficial legislature sections captured at retrieval; Selected chapter
+    only; other General Laws, session laws, orders and case law are not included.;
+    retrieved 2026-10-24T01:28:05.430493+00:00
+  version_pin: null
+- id: ref-ma-chapter-76
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts General Laws Chapter 76 — School Attendance
+  relative_path: civic-reference/documents/ma-chapter-76.html
+  service_endpoint: /library-files/civic-reference/documents/ma-chapter-76.html
+  online_url: https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter76
+  download_url: https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXII/Chapter76
+  update_policy: manual
+  refresh_interval: never
+  source_note: Unofficial legislature sections captured at retrieval; Selected chapter
+    only; other General Laws, session laws, orders and case law are not included.;
+    retrieved 2026-10-24T01:28:09.962304+00:00
+  version_pin: null
+- id: ref-fcc-part97
+  repository_id: civic-reference
+  category: pdf_reference
+  title: FCC Part 97 — Amateur Radio Service
+  relative_path: civic-reference/documents/fcc-part97.pdf
+  service_endpoint: /library-files/civic-reference/documents/fcc-part97.pdf
+  online_url: https://www.govinfo.gov/content/pkg/CFR-2025-title47-vol5/pdf/CFR-2025-title47-vol5-part97.pdf
+  download_url: https://www.govinfo.gov/content/pkg/CFR-2025-title47-vol5/pdf/CFR-2025-title47-vol5-part97.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: 47 CFR Part 97, October 1, 2025 annual edition; Complete Part 97 annual
+    snapshot including emergency communications. Not live eCFR; check later amendments
+    before relying on current regulatory requirements.; retrieved 2026-10-24T01:35:34.631817+00:00
+  version_pin: null
+- id: callbook-callsigns-sqlite
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Offline FCC amateur callsign database
+  relative_path: civic-reference/callsigns.sqlite
+  service_endpoint: /library-files/civic-reference/callsigns.sqlite
+  update_policy: manual
+  refresh_interval: never
+  source_note: Rebuild or refresh with tools/install_callsigns.py; see callsigns-source.json
+    for dates and source hashes.
+  version_pin: null
+- id: callbook-fcc-amateur-source-zip
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Original FCC amateur license bulk archive
+  relative_path: civic-reference/fcc-amateur-source.zip
+  service_endpoint: /library-files/civic-reference/fcc-amateur-source.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Rebuild or refresh with tools/install_callsigns.py; see callsigns-source.json
+    for dates and source hashes.
+  online_url: https://data.fcc.gov/download/pub/uls/complete/l_amat.zip
+  download_url: https://data.fcc.gov/download/pub/uls/complete/l_amat.zip
+  version_pin: null
+- id: callbook-zcta-2025-zip
+  repository_id: civic-reference
+  category: pdf_reference
+  title: 2025 Census ZIP-area coordinates
+  relative_path: civic-reference/zcta-2025.zip
+  service_endpoint: /library-files/civic-reference/zcta-2025.zip
+  update_policy: manual
+  refresh_interval: never
+  source_note: Rebuild or refresh with tools/install_callsigns.py; see callsigns-source.json
+    for dates and source hashes.
+  online_url: https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip
+  download_url: https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip
+  version_pin: null
+- id: ref-ma-electrical
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts electrical-code amendments — 527 CMR 12.00
+  relative_path: civic-reference/documents/ma-electrical.pdf
+  service_endpoint: /library-files/civic-reference/documents/ma-electrical.pdf
+  online_url: https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download
+  download_url: https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download
+  update_policy: manual
+  refresh_interval: never
+  source_note: State page identifies effective April 24, 2026; NFPA 70 2026 base;
+    Massachusetts amendments only. The copyrighted NEC base book is not included.
+    Verify requirements with the authority having jurisdiction.; retrieved 2026-10-24T20:12:02.896550+00:00
+  version_pin: null
+- id: ref-ma-fire
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts fire-code amendments — 527 CMR 1.00
+  relative_path: civic-reference/documents/ma-fire.pdf
+  service_endpoint: /library-files/civic-reference/documents/ma-fire.pdf
+  online_url: https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download
+  download_url: https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download
+  update_policy: manual
+  refresh_interval: never
+  source_note: 2021 state edition, effective May 12, 2023; verify later amendments;
+    State amendment package, not the full NFPA 1 model-code book. Proposed 2024 amendments
+    are not treated as adopted law.; retrieved 2026-10-24T20:12:23.278749+00:00
+  version_pin: null
+- id: jurisdiction-alabama
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Alabama — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/alabama.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/alabama.html
+  online_url: https://50constitutions.org/al/constitution
+  download_url: https://50constitutions.org/al/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:52.846472+00:00
+- id: jurisdiction-alaska
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Alaska — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/alaska.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/alaska.html
+  online_url: https://ltgov.alaska.gov/services/alaskas-constitution/
+  download_url: https://ltgov.alaska.gov/services/alaskas-constitution/
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:03.415198+00:00
+- id: jurisdiction-arizona
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Arizona — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/arizona.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/arizona.html
+  online_url: https://50constitutions.org/az/constitution
+  download_url: https://50constitutions.org/az/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:52.850464+00:00
+- id: jurisdiction-arkansas
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Arkansas — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/arkansas.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/arkansas.html
+  online_url: https://50constitutions.org/ar/constitution
+  download_url: https://50constitutions.org/ar/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:53.715515+00:00
+- id: jurisdiction-california
+  repository_id: civic-reference
+  category: pdf_reference
+  title: California — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/california.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/california.html
+  online_url: https://50constitutions.org/ca/constitution
+  download_url: https://50constitutions.org/ca/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:54.506634+00:00
+- id: jurisdiction-colorado
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Colorado — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/colorado.pdf
+  service_endpoint: /library-files/civic-reference/jurisdictions/colorado.pdf
+  online_url: https://archives.colorado.gov/sites/archives/files/documents/PROCEEDINGS%20OF%20THE%20CONSTITUTIONAL%20CONVENTION-tagged_0.pdf
+  download_url: https://archives.colorado.gov/sites/archives/files/documents/PROCEEDINGS%20OF%20THE%20CONSTITUTIONAL%20CONVENTION-tagged_0.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:05.545269+00:00
+- id: jurisdiction-connecticut
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Connecticut — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/connecticut.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/connecticut.html
+  online_url: https://50constitutions.org/ct/constitution
+  download_url: https://50constitutions.org/ct/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:55.337526+00:00
+- id: jurisdiction-delaware
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Delaware — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/delaware.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/delaware.html
+  online_url: https://delcode.delaware.gov/constitution/index.shtml
+  download_url: https://delcode.delaware.gov/constitution/index.shtml
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:06.795140+00:00
+- id: jurisdiction-dc
+  repository_id: civic-reference
+  category: pdf_reference
+  title: District of Columbia — Home Rule Act and Charter (snapshot)
+  relative_path: civic-reference/jurisdictions/dc.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/dc.html
+  online_url: https://code.dccouncil.gov/us/dc/council/code/titles/1/chapters/2/index.full.html
+  download_url: https://code.dccouncil.gov/us/dc/council/code/titles/1/chapters/2/index.full.html
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:07.393825+00:00
+- id: jurisdiction-florida
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Florida — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/florida.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/florida.html
+  online_url: https://www.leg.state.fl.us/statutes/index.cfm?mode=constitution&submenu=3
+  download_url: https://www.leg.state.fl.us/statutes/index.cfm?mode=constitution&submenu=3
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:09.324703+00:00
+- id: jurisdiction-georgia
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Georgia — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/georgia.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/georgia.html
+  online_url: https://50constitutions.org/ga/constitution
+  download_url: https://50constitutions.org/ga/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:55.607868+00:00
+- id: jurisdiction-hawaii
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Hawaii — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/hawaii.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/hawaii.html
+  online_url: https://lrb.hawaii.gov/constitution
+  download_url: https://lrb.hawaii.gov/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:12.220673+00:00
+- id: jurisdiction-idaho
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Idaho — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/idaho.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/idaho.html
+  online_url: https://50constitutions.org/id/constitution
+  download_url: https://50constitutions.org/id/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:55.744723+00:00
+- id: jurisdiction-illinois
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Illinois — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/illinois.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/illinois.html
+  online_url: https://50constitutions.org/il/constitution
+  download_url: https://50constitutions.org/il/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:56.082866+00:00
+- id: jurisdiction-indiana
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Indiana — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/indiana.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/indiana.html
+  online_url: https://50constitutions.org/in/constitution
+  download_url: https://50constitutions.org/in/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:56.303005+00:00
+- id: jurisdiction-iowa
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Iowa — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/iowa.pdf
+  service_endpoint: /library-files/civic-reference/jurisdictions/iowa.pdf
+  online_url: https://www.legis.iowa.gov/docs/publications/ICP/1518288.pdf
+  download_url: https://www.legis.iowa.gov/docs/publications/ICP/1518288.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:14.260720+00:00
+- id: jurisdiction-kansas
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Kansas — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/kansas.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/kansas.html
+  online_url: https://50constitutions.org/ks/constitution
+  download_url: https://50constitutions.org/ks/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:56.432897+00:00
+- id: jurisdiction-kentucky
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Kentucky — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/kentucky.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/kentucky.html
+  online_url: https://apps.legislature.ky.gov/law/constitution
+  download_url: https://apps.legislature.ky.gov/law/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:15.189923+00:00
+- id: jurisdiction-louisiana
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Louisiana — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/louisiana.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/louisiana.html
+  online_url: https://50constitutions.org/la/constitution
+  download_url: https://50constitutions.org/la/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:56.646728+00:00
+- id: jurisdiction-maine
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Maine — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/maine.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/maine.html
+  online_url: https://50constitutions.org/me/constitution
+  download_url: https://50constitutions.org/me/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:56.751099+00:00
+- id: jurisdiction-maryland
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Maryland — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/maryland.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/maryland.html
+  online_url: https://50constitutions.org/md/constitution
+  download_url: https://50constitutions.org/md/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:57.399562+00:00
+- id: jurisdiction-massachusetts
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Massachusetts — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/massachusetts.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/massachusetts.html
+  online_url: https://50constitutions.org/ma/constitution
+  download_url: https://50constitutions.org/ma/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:57.457294+00:00
+- id: jurisdiction-michigan
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Michigan — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/michigan.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/michigan.html
+  online_url: https://50constitutions.org/mi/constitution
+  download_url: https://50constitutions.org/mi/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:57.840130+00:00
+- id: jurisdiction-minnesota
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Minnesota — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/minnesota.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/minnesota.html
+  online_url: https://50constitutions.org/mn/constitution
+  download_url: https://50constitutions.org/mn/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:58.035355+00:00
+- id: jurisdiction-mississippi
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Mississippi — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/mississippi.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/mississippi.html
+  online_url: https://50constitutions.org/ms/constitution
+  download_url: https://50constitutions.org/ms/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:59.098059+00:00
+- id: jurisdiction-missouri
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Missouri — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/missouri.pdf
+  service_endpoint: /library-files/civic-reference/jurisdictions/missouri.pdf
+  online_url: https://www.sos.mo.gov/CMSImages/Publications/MissouriConstitution.pdf
+  download_url: https://www.sos.mo.gov/CMSImages/Publications/MissouriConstitution.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:17.331519+00:00
+- id: jurisdiction-montana
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Montana — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/montana.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/montana.html
+  online_url: https://50constitutions.org/mt/constitution
+  download_url: https://50constitutions.org/mt/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:59.144561+00:00
+- id: jurisdiction-nebraska
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Nebraska — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/nebraska.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/nebraska.html
+  online_url: https://nebraskalegislature.gov/laws/browse-constitution.php
+  download_url: https://nebraskalegislature.gov/laws/browse-constitution.php
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:19.687366+00:00
+- id: jurisdiction-nevada
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Nevada — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/nevada.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/nevada.html
+  online_url: https://www.leg.state.nv.us/const/nvconst.html
+  download_url: https://www.leg.state.nv.us/const/nvconst.html
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:19.987695+00:00
+- id: jurisdiction-new_hampshire
+  repository_id: civic-reference
+  category: pdf_reference
+  title: New Hampshire — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/new_hampshire.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/new_hampshire.html
+  online_url: https://50constitutions.org/nh/constitution
+  download_url: https://50constitutions.org/nh/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:59.584245+00:00
+- id: jurisdiction-new_jersey
+  repository_id: civic-reference
+  category: pdf_reference
+  title: New Jersey — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/new_jersey.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/new_jersey.html
+  online_url: https://50constitutions.org/nj/constitution
+  download_url: https://50constitutions.org/nj/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:59.830451+00:00
+- id: jurisdiction-new_mexico
+  repository_id: civic-reference
+  category: pdf_reference
+  title: New Mexico — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/new_mexico.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/new_mexico.html
+  online_url: https://50constitutions.org/nm/constitution
+  download_url: https://50constitutions.org/nm/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:38:59.947061+00:00
+- id: jurisdiction-new_york
+  repository_id: civic-reference
+  category: pdf_reference
+  title: New York — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/new_york.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/new_york.html
+  online_url: https://50constitutions.org/ny/constitution
+  download_url: https://50constitutions.org/ny/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:00.195292+00:00
+- id: jurisdiction-north_carolina
+  repository_id: civic-reference
+  category: pdf_reference
+  title: North Carolina — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/north_carolina.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/north_carolina.html
+  online_url: https://www.ncleg.net/Legislation/constitution/ncconstitution.html
+  download_url: https://www.ncleg.net/Legislation/constitution/ncconstitution.html
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:21.329893+00:00
+- id: jurisdiction-north_dakota
+  repository_id: civic-reference
+  category: pdf_reference
+  title: North Dakota — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/north_dakota.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/north_dakota.html
+  online_url: https://50constitutions.org/nd/constitution
+  download_url: https://50constitutions.org/nd/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:00.628821+00:00
+- id: jurisdiction-northern-mariana-islands
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Northern Mariana Islands — Constitution (snapshot)
+  relative_path: civic-reference/jurisdictions/northern-mariana-islands.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/northern-mariana-islands.html
+  online_url: https://cnmilaw.gov/constitution
+  download_url: https://cnmilaw.gov/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:34.068958+00:00
+- id: jurisdiction-ohio
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Ohio — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/ohio.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/ohio.html
+  online_url: https://50constitutions.org/oh/constitution
+  download_url: https://50constitutions.org/oh/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:01.198121+00:00
+- id: jurisdiction-oklahoma
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Oklahoma — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/oklahoma.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/oklahoma.html
+  online_url: https://50constitutions.org/ok/constitution
+  download_url: https://50constitutions.org/ok/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:01.818935+00:00
+- id: jurisdiction-oregon
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Oregon — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/oregon.pdf
+  service_endpoint: /library-files/civic-reference/jurisdictions/oregon.pdf
+  online_url: https://www.oregonlegislature.gov/bills_laws/lawsstatutes/IndexORConstitution.pdf
+  download_url: https://www.oregonlegislature.gov/bills_laws/lawsstatutes/IndexORConstitution.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:23.031569+00:00
+- id: jurisdiction-pennsylvania
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Pennsylvania — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/pennsylvania.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/pennsylvania.html
+  online_url: https://50constitutions.org/pa/constitution
+  download_url: https://50constitutions.org/pa/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:02.238032+00:00
+- id: jurisdiction-puerto-rico
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Puerto Rico — Constitution (snapshot)
+  relative_path: civic-reference/jurisdictions/puerto-rico.pdf
+  service_endpoint: /library-files/civic-reference/jurisdictions/puerto-rico.pdf
+  online_url: https://docs.pr.gov/files/OIG/Biblioteca%20Virtual/Constituciones/Constituci%C3%B3n%20del%20Estado%20Libre%20Asociado%20de%20Puerto%20Rico.pdf
+  download_url: https://docs.pr.gov/files/OIG/Biblioteca%20Virtual/Constituciones/Constituci%C3%B3n%20del%20Estado%20Libre%20Asociado%20de%20Puerto%20Rico.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:33.280855+00:00
+- id: jurisdiction-rhode_island
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Rhode Island — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/rhode_island.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/rhode_island.html
+  online_url: https://50constitutions.org/ri/constitution
+  download_url: https://50constitutions.org/ri/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:02.542113+00:00
+- id: jurisdiction-south_carolina
+  repository_id: civic-reference
+  category: pdf_reference
+  title: South Carolina — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/south_carolina.pdf
+  service_endpoint: /library-files/civic-reference/jurisdictions/south_carolina.pdf
+  online_url: https://www.scstatehouse.gov/scconstitution/SCConstitution.pdf
+  download_url: https://www.scstatehouse.gov/scconstitution/SCConstitution.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:24.162306+00:00
+- id: jurisdiction-south_dakota
+  repository_id: civic-reference
+  category: pdf_reference
+  title: South Dakota — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/south_dakota.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/south_dakota.html
+  online_url: https://50constitutions.org/sd/constitution
+  download_url: https://50constitutions.org/sd/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:03.098007+00:00
+- id: jurisdiction-tennessee
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Tennessee — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/tennessee.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/tennessee.html
+  online_url: https://50constitutions.org/tn/constitution
+  download_url: https://50constitutions.org/tn/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:03.166859+00:00
+- id: jurisdiction-texas
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Texas — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/texas.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/texas.html
+  online_url: https://50constitutions.org/tx/constitution
+  download_url: https://50constitutions.org/tx/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:03.649813+00:00
+- id: jurisdiction-utah
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Utah — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/utah.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/utah.html
+  online_url: https://50constitutions.org/ut/constitution
+  download_url: https://50constitutions.org/ut/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:03.650806+00:00
+- id: jurisdiction-vermont
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Vermont — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/vermont.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/vermont.html
+  online_url: https://50constitutions.org/vt/constitution
+  download_url: https://50constitutions.org/vt/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:04.422375+00:00
+- id: jurisdiction-virginia
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Virginia — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/virginia.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/virginia.html
+  online_url: https://law.lis.virginia.gov/constitutionfull
+  download_url: https://law.lis.virginia.gov/constitutionfull
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:35:30.098518+00:00
+- id: jurisdiction-washington
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Washington — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/washington.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/washington.html
+  online_url: https://50constitutions.org/wa/constitution
+  download_url: https://50constitutions.org/wa/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:04.568059+00:00
+- id: jurisdiction-west_virginia
+  repository_id: civic-reference
+  category: pdf_reference
+  title: West Virginia — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/west_virginia.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/west_virginia.html
+  online_url: https://50constitutions.org/wv/constitution
+  download_url: https://50constitutions.org/wv/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:04.825493+00:00
+- id: jurisdiction-wisconsin
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Wisconsin — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/wisconsin.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/wisconsin.html
+  online_url: https://50constitutions.org/wi/constitution
+  download_url: https://50constitutions.org/wi/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:05.119054+00:00
+- id: jurisdiction-wyoming
+  repository_id: civic-reference
+  category: pdf_reference
+  title: Wyoming — constitutional text (snapshot)
+  relative_path: civic-reference/jurisdictions/wyoming.html
+  service_endpoint: /library-files/civic-reference/jurisdictions/wyoming.html
+  online_url: https://50constitutions.org/wy/constitution
+  download_url: https://50constitutions.org/wy/constitution
+  update_policy: manual
+  refresh_interval: never
+  source_note: Constitution/charter document snapshot; not complete statutes, regulations
+    or case law; retrieved 2026-10-25T01:39:05.264295+00:00

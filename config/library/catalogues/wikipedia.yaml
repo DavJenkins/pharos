@@ -1,0 +1,33 @@
+assets:
+- id: wikipedia-main
+  online_url: https://en.wikipedia.org/
+  repository_id: wikipedia
+  category: zim_archives
+  title: Wikipedia — English with images (August 2026)
+  relative_path: wikipedia_en_all_maxi_2026-08.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/wikipedia/
+    filename_prefix: wikipedia_en_all_maxi_
+  download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-08.zim
+  tags:
+  - encyclopedia
+  - images
+  version_pin: null
+- id: wikipedia-nopic
+  online_url: https://en.wikipedia.org/
+  repository_id: wikipedia
+  category: zim_archives
+  title: Wikipedia — English without images (June 2026)
+  relative_path: wikipedia_en_all_nopic_2026-06.zim
+  update_policy: manual
+  refresh_interval: never
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/wikipedia/
+    filename_prefix: wikipedia_en_all_nopic_
+  download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2026-06.zim
+  version_pin: null
+  removed: true

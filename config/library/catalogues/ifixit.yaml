@@ -1,0 +1,20 @@
+assets:
+- id: ifixit-repair-guides
+  online_url: https://www.ifixit.com/Guide
+  repository_id: ifixit
+  category: zim_archives
+  title: iFixit Repair Guides — English with images (December 2025)
+  relative_path: ifixit_en_all_2025-12.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/ifixit/
+    filename_prefix: ifixit_en_all_
+  download_url: https://download.kiwix.org/zim/ifixit/ifixit_en_all_2025-12.zim
+  source_note: Kiwix English archive, latest listed release checked October 22, 2026.
+    iFixit and contributors; CC BY-NC-SA 3.0; archived content unchanged.
+  tags:
+  - repair
+  - images
+  version_pin: null

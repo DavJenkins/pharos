@@ -1,0 +1,427 @@
+format: dataark-project-v1
+type_registry: config/content-types.yaml
+collections:
+- collections/wikipedia.yaml
+- collections/technical-qa.yaml
+- collections/wikimed.yaml
+- collections/ifixit.yaml
+- collections/openstreetmap.yaml
+- collections/project-gutenberg.yaml
+- collections/usa-gov.yaml
+- collections/preparedness.yaml
+- collections/forms-templates.yaml
+- collections/family-resources.yaml
+- collections/resilience.yaml
+- collections/civic-reference.yaml
+- collections/radio-study.yaml
+- collections/vehicle-manuals.yaml
+- collections/food-preservation.yaml
+- collections/sanitation.yaml
+- collections/drinking-water.yaml
+- collections/shelter-winter.yaml
+- collections/first-aid-care.yaml
+- collections/growing-food.yaml
+- collections/repairs.yaml
+- collections/navigation-field.yaml
+- collections/emergency-comms.yaml
+- collections/animals-emergency.yaml
+- collections/disaster-recovery.yaml
+- collections/disability-preparedness.yaml
+- collections/curriculum.yaml
+- collections/communication-accessibility.yaml
+ordering: state/order.yaml
+system:
+  project_name: Data Ark
+  version: '1.4'
+  theme: Ark of the Covenant
+  base_mount: /mnt/storage
+  hide_missing: true
+  services:
+    kiwix_port: 8080
+    samba_share_path: /mnt/storage
+    web_root: /var/www/html
+    content_url_prefix: /library-files/
+  artwork:
+    path: app/static/assets/Pharos Data Ark.png
+    alt: Data Ark lighthouse
+geography:
+  country: US
+  state:
+    code: MA
+    name: Massachusetts
+  counties:
+  - name: Worcester
+    focus: Northern Worcester County
+  - name: Middlesex
+maps:
+  enabled: true
+  refresh_days: 30
+  reserve_gib: 10
+  max_run_gib: 8
+  sources:
+  - flood
+  - parcels
+  - topographic
+categories:
+- id: content_sources
+  title: Content sources
+  description: Explore the sources and content collected on this Ark. Local availability
+    is shown for each registered asset.
+- id: zim_archives
+  title: Offline knowledge libraries
+  description: Read locally preserved archives with Kiwix, or download the original
+    files.
+- id: reference
+  title: Reference sources
+  description: Online sources to explore and build your own collection.
+- id: pdf_reference
+  title: PDF reference vault
+  description: Medical, communications, engineering, and administrative documents.
+- id: utilities_binaries
+  title: Portable utilities
+  description: Readers and tools to take with the content.
+scenarios:
+- id: general
+  title: General reference
+- id: medical
+  title: Medical reference
+- id: technical
+  title: Technical reference
+resource_sections:
+- title: Local maps
+  description: Massachusetts reference maps for Worcester and Middlesex counties.
+    Northern Worcester is the focus; the flood archive contains statewide published
+    coverage.
+  items:
+  - title: Local map collection and update status
+    path: maps/index.html
+  sections:
+  - title: Flood hazards
+    description: Published flood-hazard GIS data, not live flooding. Missing mapping
+      does not mean no risk.
+    items:
+    - title: Local flood data and status
+      path: maps/flood/index.html
+    - title: MassGIS FEMA flood data (online)
+      url: https://www.mass.gov/info-details/massgis-data-fema-national-flood-hazard-layer
+  - title: Property boundaries
+    description: Town parcel GIS archives for the configured counties. Parcel boundaries
+      are not a survey.
+    items:
+    - title: Local parcel data and status
+      path: maps/parcels/index.html
+    - title: MassGIS property maps (online)
+      url: https://www.mass.gov/info-details/massgis-data-property-tax-parcels
+  - title: Terrain and topographic maps
+    description: Latest available USGS topographic PDFs intersecting the configured
+      counties, suitable for offline reading and printing.
+    items:
+    - title: Local topographic PDFs and status
+      path: maps/topographic/index.html
+    - title: USGS topographic maps (online)
+      url: https://www.usgs.gov/programs/national-geospatial-program/us-topo-maps-america
+dashboard:
+  cards:
+  - id: repairs-maintenance
+    anchor: ifixit
+    title: Repairs & Maintenance
+    description: Illustrated repairs, practical maintenance and vehicle manuals, with
+      each collection kept distinct.
+    repository_ids:
+    - ifixit
+    - repairs
+    - vehicle-manuals
+    asset_ids: &id001 []
+    links: &id002 []
+    collapse_assets: true
+    link_groups:
+    - title: iFixit repair guides
+      links:
+      - title: Read repair guides (local)
+        service: kiwix
+        path: /#name=ifixit_en_all
+      - title: Attribution and license
+        url: /legal/ifixit.html
+    - title: Practical repairs
+      links:
+      - title: Open practical repairs & maintenance guides
+        url: /library-files/family-resources/index.html#repairs
+    - title: Vehicle manuals
+      links:
+      - title: 2017 Honda Accord Sedan — Owner’s Manual
+        url: /library-files/vehicles/accord-2017-manual.pdf
+      - title: 2017 Honda Civic Sedan — Owner’s Manual
+        url: /library-files/vehicles/civic-2017-manual.pdf
+  - id: maps-navigation
+    anchor: openstreetmap
+    title: Maps & Navigation
+    description: U.S. and Caribbean offline street maps. Flood, parcel and topographic
+      reference layers are Massachusetts-focused.
+    repository_ids:
+    - openstreetmap
+    asset_ids: *id001
+    links: *id002
+    collapse_assets: true
+    link_groups:
+    - title: Street maps
+      links:
+      - title: All 50 U.S. states
+        url: /maps.html
+      - title: Caribbean islands, USVI & Sint Maarten
+        url: /maps.html?collection=caribbean
+    - title: Massachusetts reference maps
+      links:
+      - title: Flood hazards
+        url: /library-files/maps/flood/index.html
+      - title: Property boundaries
+        url: /library-files/maps/parcels/index.html
+      - title: Topographic maps
+        url: /library-files/maps/topographic/index.html
+      - title: Collection and update status
+        url: /library-files/maps/index.html
+    - title: Using maps
+      links:
+      - title: Field navigation guides
+        url: /library-files/family-resources/index.html#navigation-field
+      - title: Sources and coverage
+        url: /docs/20-Administration/OfflineReferences.html
+  - id: forms-household
+    anchor: forms-templates
+    title: Forms & Household Paperwork
+    description: Tax and government forms, contracts, incident forms and household
+      worksheets.
+    repository_ids:
+    - forms-templates
+    asset_ids:
+    - family-fema-ics
+    - family-cp-contractor
+    - family-cp-amendment
+    - family-cp-sow
+    - family-household-a4
+    - family-household-letter
+    links:
+    - title: Browse local forms and templates
+      url: /library-files/forms/index.html
+    - title: Fill PDF forms
+      url: /pdf-forms.html
+    - title: Paper studio & worksheets
+      url: /printables.html
+    collapse_assets: true
+  - id: learning-home
+    anchor: family-resources
+    title: Learning & Homeschooling
+    description: Teacher guides, student materials and textbooks organized by grade
+      and subject, alongside learning activities for all ages. Coverage and gaps are
+      identified.
+    repository_ids:
+    - curriculum
+    asset_ids:
+    - family-nasa-star-en
+    - family-nasa-star-es
+    - family-nasa-iss
+    - family-nps-caves-en
+    - family-nps-caves-es
+    links:
+    - title: Curriculum library and coverage
+      url: /library-files/curriculum/index.html
+    - title: Learning at home
+      url: /learning.html
+    - title: Khan Academy videos and exercises
+      service: kiwix
+      path: /#name=khanacademy_en_all
+    collapse_assets: true
+  - id: games-activities
+    anchor: family-resources
+    title: Games, Coloring & Activities
+    description: Offline games, drawing, PDF coloring, adult and holiday coloring,
+      and printable paper patterns.
+    repository_ids:
+    - family-resources
+    asset_ids:
+    - family-nasa-exoplanets
+    - family-paper-a4
+    - family-paper-letter
+    - family-adult-wildflowers
+    - family-adult-jmu
+    - family-adult-europeana
+    - family-holiday-family
+    - family-holiday-detailed
+    links:
+    - title: Games, drawing & activities
+      url: /activities.html
+    - title: PDF coloring
+      url: /coloring.html
+    - title: Printable paper studio
+      url: /printables.html
+    collapse_assets: true
+  - id: wilderness-field
+    anchor: resilience
+    title: Wilderness & Field Skills
+    description: Outdoor survival, trip preparation, compass skills and field navigation.
+    repository_ids:
+    - navigation-field
+    asset_ids:
+    - ref-maine-survival
+    - ref-nps-ten-essentials
+    - ref-usgs-compass
+    - ref-nps-water-sanitation
+    links:
+    - title: Survival references
+      url: /library-files/resilience/index.html#wilderness-survival
+    - title: Navigation & trip planning
+      url: /library-files/family-resources/index.html#navigation-field
+    collapse_assets: true
+  - id: power-energy
+    anchor: resilience
+    title: Power & Energy
+    description: Solar, wind, micro-hydro, energy storage, generator safety and offline
+      planning tools.
+    repository_ids:
+    - resilience
+    asset_ids: []
+    links:
+    - title: Power & energy calculators
+      url: /power.html
+    - title: Energy references
+      url: /library-files/resilience/index.html#off-grid-power
+    collapse_assets: true
+  - id: laws-codes
+    anchor: civic-reference
+    title: Laws, Regulations & Codes
+    description: Federal statutes, state and territorial constitutional snapshots,
+      and clearly scoped legal references.
+    repository_ids:
+    - civic-reference
+    asset_ids: []
+    links:
+    - title: Browse local laws & code coverage
+      url: /library-files/civic-reference/index.html
+    - title: U.S. Code title index
+      url: /library-files/civic-reference/us-code/index.html
+    - title: State and territorial coverage
+      url: /library-files/civic-reference/jurisdictions/index.html
+    collapse_assets: true
+  - id: radio-communications
+    anchor: radio-study
+    title: Radio & Communications
+    description: Emergency communications, amateur radio exam practice, callsign search
+      and Part 97.
+    repository_ids:
+    - emergency-comms
+    - radio-study
+    asset_ids:
+    - ref-fcc-part97
+    - callbook-callsigns-sqlite
+    - family-cdc-family-plan
+    links: *id002
+    collapse_assets: true
+    link_groups:
+    - title: Emergency communications
+      links:
+      - title: Procedures, message forms & family plans
+        url: /library-files/family-resources/index.html#emergency-comms
+    - title: Amateur radio
+      links:
+      - title: Practice exam questions
+        url: /radio-study.html
+      - title: Callsign search, distance & bearing
+        url: /callsigns.html
+      - title: FCC Part 97
+        url: /library-files/civic-reference/documents/fcc-part97.pdf
+    artwork_from: radio-study
+  - id: food-cooking
+    anchor: food-preservation
+    title: Food Preservation & Cooking
+    description: Canning, drying, fermentation, food storage, cookbooks, pantry meals
+      and emergency cooking.
+    repository_ids:
+    - food-preservation
+    asset_ids:
+    - family-cook-pantry-resilience
+    - family-cook-usda-harvest
+    - family-cook-usda-thrifty
+    links:
+    - title: Preservation & emergency cooking guides
+      url: /library-files/family-resources/index.html#food-preservation
+    - title: Cookbooks & pantry meals
+      url: /library-files/family-resources/index.html#cookbooks
+    collapse_assets: true
+  - id: first-aid-caregiving
+    anchor: first-aid-care
+    title: First Aid & Caregiving
+    description: First-aid references, bleeding control, medication records and disaster
+      planning for children, older adults, caregivers and people with disabilities.
+      English and Spanish planning workbooks.
+    repository_ids:
+    - first-aid-care
+    asset_ids:
+    - family-cdc-wrigley-en
+    - family-cdc-wrigley-es
+    - family-cdc-backpack
+    links:
+    - title: Open first-aid & caregiving guides
+      url: /library-files/family-resources/index.html#first-aid-care
+    - title: WikiMed medical encyclopedia
+      service: kiwix
+      path: /#name=wikipedia_en_medicine
+    collapse_assets: true
+  - id: pets-livestock
+    anchor: animals-emergency
+    title: Pets & Livestock
+    description: Pet evacuation, shelter, supplies and sanitation, farm preparedness,
+      poultry biosecurity and backup-care plans. English and Spanish pet guides.
+    repository_ids:
+    - animals-emergency
+    asset_ids:
+    - family-cdc-pet-kit
+    links:
+    - title: Open pet & livestock emergency guides
+      url: /library-files/family-resources/index.html#animals-emergency
+    collapse_assets: true
+  merged_resource_titles:
+  - Local maps
+  asset_links:
+    osm-caribbean: /maps.html?collection=caribbean
+    callbook-callsigns-sqlite: /callsigns.html
+personalization:
+  version: 1
+  languages:
+  - en
+  jurisdictions_of_interest:
+  - US
+  - US-MA
+  vehicles:
+  - id: accord-2017
+    year: 2017
+    make: Honda
+    model: Accord
+    body_style: 4-door sedan
+    asset_ids:
+    - accord-2017-manual
+    - accord-2017-guide
+  - id: civic-2017
+    year: 2017
+    make: Honda
+    model: Civic
+    body_style: 4-door sedan
+    asset_ids:
+    - civic-2017-manual
+    - civic-2017-guide
+  destinations:
+  - id: sint-maarten
+    name: Sint Maarten / Saint Martin
+    asset_ids:
+    - osm-caribbean
+    viewer_url: /maps.html?collection=caribbean
+  - id: usvi
+    name: U.S. Virgin Islands
+    asset_ids:
+    - osm-caribbean
+    viewer_url: /maps.html?collection=caribbean
+  - id: caribbean-islands
+    name: Caribbean islands
+    asset_ids:
+    - osm-caribbean
+    viewer_url: /maps.html?collection=caribbean
+community:
+  enabled: true

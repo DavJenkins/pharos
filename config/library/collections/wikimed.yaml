@@ -1,0 +1,20 @@
+repository:
+  id: wikimed
+  category: content_sources
+  title: WikiMed
+  description: A locally preserved medical encyclopedia.
+  artwork:
+    path: app/static/assets/icons/WikiMed.png
+    alt: WikiMed
+  update_policy: manual
+  scenarios:
+  - medical
+  links:
+  - title: Read local WikiMed
+    service: kiwix
+    path: /#name=wikipedia_en_medicine
+  - title: Kiwix medical resources
+    url: https://www.kiwix.org
+    requires_internet: true
+catalogue: catalogues/wikimed.yaml
+versions: state/versions/wikimed.yaml

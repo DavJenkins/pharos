@@ -1,0 +1,88 @@
+assets:
+- id: family-garden-calendar-ma
+  repository_id: growing-food
+  category: pdf_reference
+  title: Vegetable Planting Chart — UMass
+  relative_path: family-resources/growing-food/garden-calendar-ma.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-calendar-ma.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: UMass Extension publisher chart; Massachusetts regional guidance, adjust
+    to local frost and conditions. Original educational reference. Preserve institutional,
+    copyright and source notices. No endorsement implied. Retrieved 2026-10-24T17:00:27.195327+00:00
+  online_url: https://www.umass.edu/agriculture-food-environment/home-lawn-garden/fact-sheets/vegetable-planting-chart
+  download_url: https://ag.umass.edu/sites/ag.umass.edu/files/fact-sheets/pdf/vegetable_planting_chart_1_-ua.pdf
+  version_pin: null
+- id: family-garden-seeds
+  repository_id: growing-food
+  category: pdf_reference
+  title: Seed Saving — UMass
+  relative_path: family-resources/growing-food/garden-seeds.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-seeds.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: UMass Extension seed-saving fact sheet; original edition retained.
+    Original educational reference. Preserve institutional, copyright and source notices.
+    No endorsement implied. Retrieved 2026-10-24T17:00:27.280920+00:00
+  online_url: https://www.umass.edu/agriculture-food-environment/
+  download_url: https://ag.umass.edu/sites/ag.umass.edu/files/fact-sheets/pdf/seed_saving.pdf
+  version_pin: null
+- id: family-garden-handbook-nh
+  repository_id: growing-food
+  category: pdf_reference
+  title: Gardening Reference Chapters — UNH Extension
+  relative_path: family-resources/growing-food/garden-handbook-nh.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-handbook-nh.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: UNH Extension archived chapter compilation; PDF assembled January 2017
+    (file metadata), original chapter dates unspecified. Includes the planting chart,
+    soils and vegetable growing. Historical references retained. Original educational
+    reference. Preserve institutional, copyright and source notices. No endorsement
+    implied. Retrieved 2026-10-24T17:00:27.499353+00:00
+  online_url: https://extension.unh.edu/
+  download_url: https://extension.unh.edu/sites/default/files/migrated_unmanaged_files/Resource006378_Rep9131.pdf
+  version_pin: null
+- id: family-garden-compost
+  repository_id: growing-food
+  category: pdf_reference
+  title: How Compost Happens — UMaine
+  relative_path: family-resources/growing-food/garden-compost.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-compost.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: UMaine Bulletin 1159, updated 2021 publisher file; original notices
+    retained. Original educational reference. Preserve institutional, copyright and
+    source notices. No endorsement implied. Retrieved 2026-10-24T17:00:27.761632+00:00
+  online_url: https://extension.umaine.edu/publications/1159e/
+  download_url: https://extension.umaine.edu/publications/wp-content/uploads/sites/52/2021/05/1159_updated2021.pdf
+  version_pin: null
+- id: family-garden-varieties
+  repository_id: growing-food
+  category: pdf_reference
+  title: Vegetable Varieties for Maine Gardens — UMaine
+  relative_path: family-resources/growing-food/garden-varieties.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-varieties.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: UMaine Bulletin 2190, January 2022 publisher file; Maine variety recommendations,
+    availability may change. Original educational reference. Preserve institutional,
+    copyright and source notices. No endorsement implied. Retrieved 2026-10-24T17:00:27.824156+00:00
+  online_url: https://extension.umaine.edu/publications/2190e/
+  download_url: https://extension.umaine.edu/publications/wp-content/uploads/sites/52/2022/01/2190-Vegetable-Varieties-for-Maine-Gardens.pdf
+  version_pin: null
+- id: family-garden-pests
+  repository_id: growing-food
+  category: pdf_reference
+  title: Northeast Vegetable and Strawberry Pest Identification Guide
+  relative_path: family-resources/growing-food/garden-pests.pdf
+  service_endpoint: /library-files/family-resources/growing-food/garden-pests.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Northeast Extension Systems, 2018 publisher file posted August 2024;
+    identification reference, not a current pesticide label. Original educational
+    reference. Preserve institutional, copyright and source notices. No endorsement
+    implied. Retrieved 2026-10-24T17:00:28.266675+00:00
+  online_url: https://nevegetable.org/about-guide/ordering-and-downloads
+  download_url: https://nevegetable.org/sites/default/files/2024-08/Pest_ID_2018_no%20cover%20date-UA.pdf
+  version_pin: null

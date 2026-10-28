@@ -1,0 +1,17 @@
+repository:
+  id: shelter-winter
+  category: content_sources
+  title: Shelter & Winter Readiness
+  description: Winter outages, staying warm, heater and generator safety, weatherization
+    and frozen pipes. Original editions and regional scope identified.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Shelter.png
+    alt: Shelter and winter icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open shelter & winter guides
+    url: /library-files/family-resources/index.html#shelter-winter
+catalogue: catalogues/shelter-winter.yaml
+versions: state/versions/shelter-winter.yaml

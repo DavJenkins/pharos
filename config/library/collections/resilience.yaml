@@ -1,0 +1,19 @@
+repository:
+  id: resilience
+  title: Wilderness Survival & Off-grid Power
+  description: Outdoor survival, navigation, energy planning and generator references
+    with source editions.
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Read local field & power references
+    url: /library-files/resilience/index.html
+  - title: Offline power calculators
+    url: /power.html
+  artwork:
+    path: app/static/assets/icons/Resilience.png
+    alt: Resilience collection icon
+catalogue: catalogues/resilience.yaml
+versions: state/versions/resilience.yaml

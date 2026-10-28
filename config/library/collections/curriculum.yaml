@@ -1,0 +1,17 @@
+repository:
+  id: curriculum
+  category: content_sources
+  title: Structured curriculum resources
+  description: Core Knowledge teacher and student units and OpenStax textbooks; coverage
+    by grade and subject.
+  artwork:
+    path: app/static/assets/icons/Family.png
+    alt: Learning collection
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Browse curriculum and coverage
+    url: /library-files/curriculum/index.html
+catalogue: catalogues/curriculum.yaml
+versions: state/versions/curriculum.yaml

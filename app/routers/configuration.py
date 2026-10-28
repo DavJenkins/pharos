@@ -16,8 +16,9 @@ def status():
     return value
 
 @router.get('')
-async def read(request:Request):
-    return await run_in_threadpool(service.read)
+async def read(request:Request,file:str|None=None):
+    try:return await run_in_threadpool(service.read,file) if file is not None else await run_in_threadpool(service.read)
+    except ValueError as error:raise HTTPException(400,str(error)) from None
 
 @router.get('/history/{identifier}')
 async def history(identifier:str,request:Request):
@@ -41,10 +42,12 @@ async def change(action:str,request:Request):
             _,live=await run_in_threadpool(service.current)
             public=service.public(live);public['community']={'enabled':data['enabled']};text=service.dump(public)
         else:
-            if set(data)-{'text','revision'}:raise ValueError('Unsupported configuration field.')
+            if set(data)-{'text','revision','file'}:raise ValueError('Unsupported configuration field.')
             text=data.get('text')
-        if action=='validate':return await run_in_threadpool(service.preview,text)
-        result=await run_in_threadpool(service.queue,text,data.get('revision'))
+        file=data.get('file') if action!='community' else None
+        if file is not None and not isinstance(file,str):raise ValueError('Invalid configuration file.')
+        if action=='validate':return await run_in_threadpool(service.preview,text,file) if file is not None else await run_in_threadpool(service.preview,text)
+        result=await run_in_threadpool(service.queue,text,data.get('revision'),file) if file is not None else await run_in_threadpool(service.queue,text,data.get('revision'))
         started=await run_in_threadpool(invoke,{'action':'publish-configuration'})
         if not started.get('ok'):
             service.write_json(service.STATE/'status.json',{'state':'error','message':'Publisher could not start. No configuration was applied.'})

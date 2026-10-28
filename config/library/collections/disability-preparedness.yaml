@@ -1,0 +1,18 @@
+repository:
+  id: disability-preparedness
+  category: content_sources
+  title: Disability Preparedness
+  description: Accessible evacuation, communication and mobility planning, backup
+    support, medical-device power outages and MS temperature sensitivity. Complements
+    existing caregiver and medication guides.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Accessibility.png
+    alt: Person with outstretched arms accessibility icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open disability preparedness guides
+    url: /library-files/family-resources/index.html#disability-preparedness
+catalogue: catalogues/disability-preparedness.yaml
+versions: state/versions/disability-preparedness.yaml

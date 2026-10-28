@@ -1,0 +1,17 @@
+repository:
+  id: forms-templates
+  artwork:
+    path: app/static/assets/icons/Forms.png
+    alt: Forms collection icon
+  category: content_sources
+  title: Forms and Templates
+  description: Blank tax and government forms, instructions and openly licensed contract
+    templates. Tax years, revisions and sources are preserved.
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Browse local forms and templates
+    url: /library-files/forms/index.html
+catalogue: catalogues/forms-templates.yaml
+versions: state/versions/forms-templates.yaml

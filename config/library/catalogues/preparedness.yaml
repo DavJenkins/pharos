@@ -1,0 +1,34 @@
+assets:
+- id: fema-ready
+  repository_id: preparedness
+  category: pdf_reference
+  title: FEMA / Ready.gov — Are You Ready? (2021 hosted edition)
+  relative_path: preparedness/fema-ready.pdf
+  online_url: https://www.ready.gov/sites/default/files/2021-11/are-you-ready-guide.pdf
+  download_url: https://www.ready.gov/sites/default/files/2021-11/are-you-ready-guide.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Official source; retrieved 2026-10-23T04:41:38.052894+00:00
+  version_pin: null
+- id: cert-participant-2019
+  repository_id: preparedness
+  category: pdf_reference
+  title: FEMA CERT Basic Training Participant Manual (2019)
+  relative_path: preparedness/cert-participant-2019.pdf
+  online_url: https://www.ready.gov/sites/default/files/2019.CERT_.Basic_.PM_FINAL_508c.pdf
+  download_url: https://www.ready.gov/sites/default/files/2019.CERT_.Basic_.PM_FINAL_508c.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Official source; retrieved 2026-10-23T04:41:38.387182+00:00
+  version_pin: null
+- id: cert-hazards-2019
+  repository_id: preparedness
+  category: pdf_reference
+  title: FEMA CERT Hazard Annexes (2019)
+  relative_path: preparedness/cert-hazards-2019.pdf
+  online_url: https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf
+  download_url: https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Official source; retrieved 2026-10-23T04:41:38.734186+00:00
+  version_pin: null

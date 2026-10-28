@@ -1,0 +1,61 @@
+assets:
+- id: family-nav-symbols
+  repository_id: navigation-field
+  category: pdf_reference
+  title: Topographic Map Symbols — USGS
+  relative_path: family-resources/navigation-field/nav-symbols.pdf
+  service_endpoint: /library-files/family-resources/navigation-field/nav-symbols.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: USGS publisher symbol sheet. Historical topographic symbols; newer
+    US Topo PDFs carry their own attached symbol sheets. Original educational reference.
+    Preserve institutional, copyright and source notices. No endorsement or certification
+    implied. Retrieved 2026-10-24T17:05:55.890764+00:00
+  online_url: https://www.usgs.gov/media/files/topographic-map-symbols
+  download_url: https://pubs.usgs.gov/gip/TopographicMapSymbols/topomapsymbols.pdf
+  version_pin: null
+- id: family-nav-land
+  repository_id: navigation-field
+  category: pdf_reference
+  title: Basic Land Navigation — NWCG
+  relative_path: family-resources/navigation-field/nav-land.pdf
+  service_endpoint: /library-files/family-resources/navigation-field/nav-land.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: NWCG PMS 475, May 2016; government archive. Training workbook, not
+    course certification. Original educational reference. Preserve institutional,
+    copyright and source notices. No endorsement or certification implied. Retrieved
+    2026-10-24T17:05:55.893116+00:00
+  online_url: https://www.govinfo.gov/app/details/GOVPUB-A13-PURL-gpo249583
+  download_url: https://www.govinfo.gov/content/pkg/GOVPUB-A13-PURL-gpo249583/pdf/GOVPUB-A13-PURL-gpo249583.pdf
+  version_pin: null
+- id: family-nav-trip
+  repository_id: navigation-field
+  category: pdf_reference
+  title: Trip Planning Guide Package — National Park Service
+  relative_path: family-resources/navigation-field/nav-trip.pdf
+  service_endpoint: /library-files/family-resources/navigation-field/nav-trip.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: National Park Service, December 2022. Day and overnight planning, not
+    a complete expedition or technical rescue manual. Original educational reference.
+    Preserve institutional, copyright and source notices. No endorsement or certification
+    implied. Retrieved 2026-10-24T17:05:55.894844+00:00
+  online_url: https://www.nps.gov/subjects/healthandsafety/trip-planning-guide.htm
+  download_url: https://www.nps.gov/subjects/healthandsafety/upload/Trip-Planning-Guide-Package-508c.pdf
+  version_pin: null
+- id: family-nav-usng
+  repository_id: navigation-field
+  category: pdf_reference
+  title: Reading and Understanding the US National Grid — FGDC / Delta State
+  relative_path: family-resources/navigation-field/nav-usng.pdf
+  service_endpoint: /library-files/family-resources/navigation-field/nav-usng.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: FGDC / Delta State University archived education slides, 2008 program.
+    Older GPS examples and software references retained. Original educational reference;
+    funding, institutional and copyright notices retained. No endorsement implied.
+    Retrieved 2026-10-24T17:06:45.621203+00:00
+  online_url: https://www.fgdc.gov/training/documents/DeltaStateTrainingMaterials
+  download_url: https://www.fgdc.gov/training/documents/DeltaStateTrainingMaterials/ReadingUSNGCoordinates.pdf/at_download/file
+  version_pin: null

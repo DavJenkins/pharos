@@ -1,0 +1,19 @@
+repository:
+  id: openstreetmap
+  enabled: true
+  category: content_sources
+  title: Offline street map
+  description: Offline street maps for all 50 U.S. states and Caribbean islands, including
+    USVI and Sint Maarten/Saint-Martin. Local pan and zoom; no routing.
+  artwork:
+    path: app/static/assets/icons/OpenStreetmap.png
+    alt: OpenStreetMap
+  links:
+  - title: Open the offline street map
+    url: /maps.html
+  - title: Map sources and maintenance
+    url: /docs/20-Administration/OfflineReferences.html
+  update_policy: manual
+  refresh_interval: never
+catalogue: catalogues/openstreetmap.yaml
+versions: state/versions/openstreetmap.yaml

@@ -1,0 +1,86 @@
+assets:
+- id: family-water-epa-disinfection
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Emergency Disinfection of Drinking Water — EPA
+  relative_path: family-resources/drinking-water/water-epa-disinfection.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-epa-disinfection.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: EPA 816-F-15-003, September 2017. Original public-agency educational
+    reference. Preserve source and original notices; no endorsement implied. Retrieved
+    2026-10-24T15:54:11.006348+00:00
+  online_url: https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water-0
+  download_url: https://www.epa.gov/sites/default/files/2017-09/documents/emergency_disinfection_of_drinking_water_sept2017.pdf
+  version_pin: null
+- id: family-water-epa-testing
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Home Water Testing — EPA
+  relative_path: family-resources/drinking-water/water-epa-testing.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-epa-testing.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: EPA 816-F-05-013, May 2005; historical testing reference, not current
+    regulatory limits. Original public-agency educational reference. Preserve source
+    and original notices; no endorsement implied. Retrieved 2026-10-24T15:54:11.008671+00:00
+  online_url: https://www.epa.gov/ground-water-and-drinking-water/home-drinking-water-testing
+  download_url: https://www.epa.gov/sites/default/files/2015-11/documents/2005_09_14_faq_fs_homewatertesting.pdf
+  version_pin: null
+- id: family-water-epa-wells
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Drinking Water From Household Wells — EPA
+  relative_path: family-resources/drinking-water/water-epa-wells.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-epa-wells.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: EPA household-well booklet; archived publisher edition, original date
+    and contacts retained. Original public-agency educational reference. Preserve
+    source and original notices; no endorsement implied. Retrieved 2026-10-24T15:54:11.010291+00:00
+  online_url: https://www.epa.gov/privatewells
+  download_url: https://www.epa.gov/sites/default/files/2015-10/documents/2003_06_03_privatewells_pdfs_household_wells.pdf
+  version_pin: null
+- id: family-water-epa-filters
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Guide to Selecting Water Treatment Systems — EPA WaterSense
+  relative_path: family-resources/drinking-water/water-epa-filters.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-epa-filters.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: EPA WaterSense, November 2024; publisher file posted January 2025.
+    Original public-agency educational reference. Preserve source and original notices;
+    no endorsement implied. Retrieved 2026-10-24T15:54:11.565903+00:00
+  online_url: https://www.epa.gov/watersense
+  download_url: https://www.epa.gov/system/files/documents/2025-01/ws-products-home-water-treatment-guide_v2_508.pdf
+  version_pin: null
+- id: family-water-rainwater
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Texas Manual on Rainwater Harvesting
+  relative_path: family-resources/drinking-water/water-rainwater.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-rainwater.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Texas Water Development Board, third edition, 2005. Texas climate,
+    costs and legal references are historical and regional. Original public-agency
+    educational reference. Preserve source and original notices; no endorsement implied.
+    Retrieved 2026-10-24T15:54:11.620644+00:00
+  online_url: https://www.twdb.texas.gov/innovativewater/rainwater/docs.asp
+  download_url: https://www.twdb.texas.gov/innovativewater/rainwater/doc/RainwaterHarvestingManual_3rdedition.pdf
+  version_pin: null
+- id: family-water-storage-usu
+  repository_id: drinking-water
+  category: pdf_reference
+  title: Water Storage Tips — USU Extension
+  relative_path: family-resources/drinking-water/water-storage-usu.pdf
+  service_endpoint: /library-files/family-resources/drinking-water/water-storage-usu.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Utah State University Extension news article; original publication
+    date retained in document. USU Extension educational original. Preserve institutional
+    and original notices; no endorsement implied. Retrieved 2026-10-24T15:54:44.232255+00:00
+  online_url: https://extension.usu.edu/news_sections/home_family_and_food/usu-extension-offers-water-storage-tips
+  download_url: https://extension.usu.edu/news_sections/home_family_and_food/usu-extension-offers-water-storage-tips.pdf
+  version_pin: null

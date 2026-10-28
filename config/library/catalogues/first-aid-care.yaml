@@ -1,0 +1,136 @@
+assets:
+- id: family-aid-ifrc-2025
+  repository_id: first-aid-care
+  category: pdf_reference
+  title: International First Aid, Resuscitation and Education Guidelines 2025 — IFRC
+  relative_path: family-resources/first-aid-care/aid-ifrc-2025.pdf
+  service_endpoint: /library-files/family-resources/first-aid-care/aid-ifrc-2025.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: IFRC 2025 guidelines, published March 2026. Comprehensive evidence
+    and education reference, not a short emergency checklist. IFRC copyright 2025.
+    Non-commercial copying permitted with source acknowledgement. Original text, photos
+    and notices retained; no endorsement or certification implied. Retrieved 2026-10-24T16:03:34.955117+00:00
+  online_url: https://www.ifrc.org/document/ifrc-international-first-aid-resuscitation-and-education-guidelines-2025
+  download_url: https://www.ifrc.org/sites/default/files/2026-03/IFRC%20International%20First%20Aid%2C%20Resuscitation%20and%20Education%20Guidelines%202025.pdf
+  version_pin: null
+- id: family-aid-medicine-record
+  repository_id: first-aid-care
+  category: pdf_reference
+  title: My Medicine Record — FDA
+  relative_path: family-resources/first-aid-care/aid-medicine-record.pdf
+  service_endpoint: /library-files/family-resources/first-aid-care/aid-medicine-record.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: FDA Form 3664, March 2011; blank medication-record form, not prescribing
+    guidance. Original educational reference. Preserve copyright, institutional and
+    source notices; no endorsement implied. Not a training certification. Retrieved
+    2026-10-24T16:03:34.959958+00:00
+  online_url: https://www.fda.gov/drugs/resources-drugs/my-medicine-record
+  download_url: https://www.fda.gov/media/73856/download
+  version_pin: null
+- id: family-aid-older-adults
+  repository_id: first-aid-care
+  category: pdf_reference
+  title: Six Tips on How Older Adults Can Prepare for a Disaster — NIA
+  relative_path: family-resources/first-aid-care/aid-older-adults.pdf
+  service_endpoint: /library-files/family-resources/first-aid-care/aid-older-adults.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: National Institute on Aging publisher infographic; original edition
+    retained. Original educational reference. Preserve copyright, institutional and
+    source notices; no endorsement implied. Not a training certification. Retrieved
+    2026-10-24T16:03:35.297122+00:00
+  online_url: https://www.nia.nih.gov/health
+  download_url: https://www.nia.nih.gov/sites/default/files/disaster-preparedness-infographic-508.pdf
+  version_pin: null
+- id: family-aid-caregivers
+  repository_id: first-aid-care
+  category: pdf_reference
+  title: Disaster Preparedness Guide for Caregivers — FEMA
+  relative_path: family-resources/first-aid-care/aid-caregivers.pdf
+  service_endpoint: /library-files/family-resources/first-aid-care/aid-caregivers.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: FEMA and Rosalynn Carter Institute for Caregivers, 2024 publisher file.
+    Original educational reference. Preserve copyright, institutional and source notices;
+    no endorsement implied. Not a training certification. Retrieved 2026-10-24T16:03:35.706014+00:00
+  online_url: https://www.ready.gov/caregivers
+  download_url: https://www.ready.gov/sites/default/files/2024-02/ready-gov_caregivers-preparedness-guide.pdf
+  version_pin: null
+- id: family-aid-access-en
+  repository_id: first-aid-care
+  category: pdf_reference
+  title: My Emergency Plan — English
+  relative_path: family-resources/first-aid-care/aid-access-en.pdf
+  service_endpoint: /library-files/family-resources/first-aid-care/aid-access-en.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: NYC Emergency Management workbook; city-specific services and contact
+    details retained. Original educational reference. Preserve copyright, institutional
+    and source notices; no endorsement implied. Not a training certification. Retrieved
+    2026-10-24T16:03:35.840466+00:00
+  online_url: https://www.nyc.gov/site/em/ready/guides-resources.page
+  download_url: https://www1.nyc.gov/assets/em/downloads/pdf/myemergencyplan_english.pdf
+  version_pin: null
+- id: family-aid-access-es
+  repository_id: first-aid-care
+  category: pdf_reference
+  title: My Emergency Plan — Spanish
+  relative_path: family-resources/first-aid-care/aid-access-es.pdf
+  service_endpoint: /library-files/family-resources/first-aid-care/aid-access-es.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: NYC Emergency Management Spanish workbook; city-specific services and
+    contacts retained. Original educational reference. Preserve copyright, institutional
+    and source notices; no endorsement implied. Not a training certification. Retrieved
+    2026-10-24T16:03:36.171084+00:00
+  online_url: https://www.nyc.gov/site/em/ready/guides-resources.page
+  download_url: https://www.nyc.gov/assets/em/downloads/pdf/myemergencyplan_spanish.pdf
+  version_pin: null
+- id: family-aid-disaster-medicines
+  repository_id: first-aid-care
+  category: pdf_reference
+  title: Safe Drug Use After a Natural Disaster — FDA
+  relative_path: family-resources/first-aid-care/aid-disaster-medicines.pdf
+  service_endpoint: /library-files/family-resources/first-aid-care/aid-disaster-medicines.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: FDA webpage archived October 16, 2023 by MESH Coalition; original guidance
+    retained. Original educational reference. Preserve copyright, institutional and
+    source notices; no endorsement implied. Not a training certification. Retrieved
+    2026-10-24T16:03:36.369036+00:00
+  online_url: https://www.fda.gov/drugs/emergency-preparedness-drugs/safe-drug-use-after-natural-disaster
+  download_url: https://www.meshcoalition.org/_files/ugd/a8547b_94aaa54bb4a043ce9655db707cbc8d09.pdf
+  version_pin: null
+- id: family-aid-bleeding
+  repository_id: first-aid-care
+  category: pdf_reference
+  title: What Everyone Should Know to Stop Bleeding — ACS
+  relative_path: family-resources/first-aid-care/aid-bleeding.pdf
+  service_endpoint: /library-files/family-resources/first-aid-care/aid-bleeding.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: American College of Surgeons, 2017 booklet, preserved by Indiana Department
+    of Homeland Security. Original training reference; use alongside current IFRC
+    guidance. Original educational reference. Preserve copyright, institutional and
+    source notices; no endorsement implied. Not a training certification. Retrieved
+    2026-10-24T16:04:12.592357+00:00
+  online_url: https://secure.in.gov/dhs/get-prepared/emergencies/stop-the-bleed-bleeding-control-for-the-injured/
+  download_url: https://secure.in.gov/dhs/files/stop-the-bleed-booklet.pdf
+  version_pin: null
+- id: family-aid-family-aap
+  repository_id: first-aid-care
+  category: pdf_reference
+  title: 'The Road to Readiness: Preparing Your Family for Disasters — AAP'
+  relative_path: family-resources/first-aid-care/aid-family-aap.pdf
+  service_endpoint: /library-files/family-resources/first-aid-care/aid-family-aap.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: American Academy of Pediatrics publisher family-readiness toolkit;
+    source page updated September 2024. Original edition retained. AAP original educational
+    reference; copyright, funding and source notices retained. No endorsement implied.
+    Retrieved 2026-10-24T16:05:02.639822+00:00
+  online_url: https://www.aap.org/en/patient-care/disasters-and-children/resources-for-families/
+  download_url: https://downloads.aap.org/AAP/PDF/disasters_family_readiness_kit.pdf
+  version_pin: null

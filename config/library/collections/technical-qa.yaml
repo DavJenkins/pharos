@@ -1,0 +1,24 @@
+repository:
+  id: technical-qa
+  category: content_sources
+  title: Technical Q&A
+  description: Electronics and Unix/Linux questions and answers, with a portable reader.
+  artwork:
+    path: app/static/assets/icons/Kiwix.png
+    alt: Kiwix
+  update_policy: manual
+  refresh_interval: never
+  scenarios:
+  - technical
+  links:
+  - title: Read local technical Q&A
+    service: kiwix
+    path: /#category=stack_exchange
+  - title: Electronics Q&A
+    url: https://electronics.stackexchange.com
+    requires_internet: true
+  - title: Unix and Linux Q&A
+    url: https://unix.stackexchange.com
+    requires_internet: true
+catalogue: catalogues/technical-qa.yaml
+versions: state/versions/technical-qa.yaml

@@ -1,0 +1,18 @@
+repository:
+  id: sanitation
+  category: content_sources
+  title: Sanitation & Hygiene
+  description: Emergency toilets and labels, low-water handwashing, household cleanup,
+    mold references and rodent prevention. Regional guidance and original editions
+    identified.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Sanitation.png
+    alt: Sanitation and hygiene icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open sanitation & hygiene guides
+    url: /library-files/family-resources/index.html#sanitation
+catalogue: catalogues/sanitation.yaml
+versions: state/versions/sanitation.yaml

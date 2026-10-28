@@ -1,0 +1,17 @@
+repository:
+  id: emergency-comms
+  title: Emergency Communications
+  description: Radio message forms and procedures, plain language, volunteer coordination
+    and family contact planning. Complements existing incident forms and radio tools.
+  artwork:
+    path: app/static/assets/icons/Radio.png
+    alt: Radio communications icon
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Open emergency communications guides
+    url: /library-files/family-resources/index.html#emergency-comms
+catalogue: catalogues/emergency-comms.yaml
+versions: state/versions/emergency-comms.yaml

@@ -9,15 +9,16 @@ import uuid
 import yaml
 from app.services.manifest import load_manifest, UniqueLoader, ManifestError, atomic_write
 from app.services.dashboard_cards import compose
+from app.services import configuration_project as project
 
 ROOT=Path(__file__).resolve().parents[2]
 STATE=Path('/var/lib/dataark/configuration')
-KEYS=('system','geography','maps','categories','scenarios','repositories','assets','resource_sections','dashboard','personalization','community')
+KEYS=project.PUBLIC_KEYS
 
 def stamp():return datetime.now(timezone.utc).isoformat(timespec='seconds')
 def revision(raw):return hashlib.sha256(raw).hexdigest()
 def dump(value):return yaml.safe_dump(value,sort_keys=False,allow_unicode=True)
-def public(data):return {key:data[key] for key in KEYS if key in data} | {'community':data.get('community',{'enabled':True})}
+def public(data):return project.public(data)
 def current():
     path=ROOT/'dataark.yaml';raw=path.read_bytes();return raw,load_manifest(path)
 def write_json(path,value):
@@ -40,22 +41,39 @@ def status():
         return value
     except (OSError,ValueError):return {'state':'idle','message':'No configuration publication in progress.'}
 
-def read():
-    raw,data=current();view=public(data);text=dump(view)
+def read(file=None):
+    raw,data=current();view=public(data);text=''
     saved=ROOT/'config/content/public-manifest.yaml'
-    try:
-        candidate=saved.read_text(encoding='utf-8')
-        if yaml.load(candidate,Loader=UniqueLoader)==view:text=candidate
-    except (OSError,ValueError,yaml.YAMLError):pass
+    if file is None:
+        text=dump(view)
+        try:
+            candidate=saved.read_text(encoding='utf-8')
+            if yaml.load(candidate,Loader=UniqueLoader)==view:text=candidate
+        except (OSError,ValueError,yaml.YAMLError):pass
     history=[]
     for path in (STATE/'history').glob('*.json'):
         try:
             item=json.loads(path.read_text());history.append({'id':path.stem,'saved_at':item['saved_at']})
         except (OSError,ValueError,KeyError):continue
-    return {'text':text,'revision':revision(raw),'community_enabled':view['community']['enabled'],'history':sorted(history,key=lambda item:item['saved_at'],reverse=True)[:20],'status':status()}
+    files=project.view_files(ROOT/'config/library',view)
+    warning=''
+    try:project.ensure_clean(ROOT/'config/library')
+    except (ValueError,OSError,KeyError):warning='There are unpublished modular-file edits on disk. Compile and review them before saving other changes.'
+    if file is not None:
+        if file not in files:raise ValueError('Unknown configuration file.')
+        text=files[file]
+    return {'text':text,'file':file,'files':project.metadata(files),'read_only':bool(file and file.startswith('state/')),'project_warning':warning,'revision':revision(raw),'community_enabled':view['community']['enabled'],'history':sorted(history,key=lambda item:item['saved_at'],reverse=True)[:20],'status':status()}
 
-def checked(text,live):
+def checked(text,live,file=None):
     if not isinstance(text,str) or len(text.encode('utf-8'))>4*1024*1024:raise ValueError('Configuration must be UTF-8 YAML, no larger than 4 MiB.')
+    if file is not None:
+        files=project.view_files(ROOT/'config/library',public(live))
+        if file not in files or file.startswith('state/'):raise ValueError('Unknown or generated read-only configuration file.')
+        files[file]=text
+        try:value,_=project.assemble(files.__getitem__)
+        except KeyError as error:raise ValueError('Referenced project file is missing: '+str(error)) from None
+        except yaml.YAMLError as error:raise ValueError('Invalid project YAML: '+str(error)) from None
+        text=dump(value)
     try:value=yaml.load(text,Loader=UniqueLoader)
     except yaml.YAMLError as error:raise ValueError('Invalid YAML: '+str(error)) from None
     if not isinstance(value,dict) or set(value)-set(KEYS):raise ValueError('Use only the public content configuration sections shown by Load configuration.')
@@ -83,15 +101,15 @@ def checked(text,live):
     finally:Path(name).unlink(missing_ok=True)
     return merged
 
-def preview(text):
-    _,live=current();data=checked(text,live)
+def preview(text,file=None):
+    _,live=current();data=checked(text,live,file)
     rows={repo['id']:[] for repo in data.get('repositories',[])}
     for asset in data.get('assets',[]):rows[asset['repository_id']].append(asset)
     cards,_=compose(data,rows)
     return {'community_enabled':data['community']['enabled'], 'categories':len(data.get('categories',[])),
             'assets':len(data.get('assets',[])), 'cards':[{'title':card.get('title',card['id']),'category':card['category'],'enabled':card.get('enabled',True)} for card in cards]}
 
-def queue(text,expected):
+def queue(text,expected,file=None,project_token=None):
     import fcntl
     STATE.mkdir(parents=True,exist_ok=True)
     with (STATE/'editor.lock').open('a') as lock:
@@ -99,9 +117,16 @@ def queue(text,expected):
         if status().get('state') in ('queued','publishing'):raise ValueError('A configuration publication is already in progress.')
         raw,live=current()
         if expected!=revision(raw):raise ValueError('Configuration changed since you loaded it. Download your edits, then reload before saving.')
-        checked(text,live)
+        if project_token is None:project.ensure_clean(ROOT/'config/library')
+        else:
+            if project.fingerprint(ROOT/'config/library')!=project_token:raise ValueError('Modular files changed; compile and review again.')
+            project.assert_base(ROOT/'config/library',public(live))
+        data=checked(text,live,file)
         identifier=uuid.uuid4().hex
-        write_json(STATE/'pending.json',{'id':identifier,'text':text,'revision':expected})
+        job={'id':identifier,'text':dump(public(data)) if file is not None else text,'revision':expected}
+        if file is not None:job['source_edit']={'file':file,'text':text}
+        if project_token is not None:job['project_token']=project_token
+        write_json(STATE/'pending.json',job)
         write_json(STATE/'status.json',{'id':identifier,'state':'queued','message':'Configuration is queued for publication.','updated_at':stamp()})
         from app.services.collection_changes import safe_record
         safe_record('configuration_queued', operation_id=identifier, action='configuration')

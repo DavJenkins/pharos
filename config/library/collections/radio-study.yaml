@@ -1,0 +1,19 @@
+repository:
+  id: radio-study
+  artwork:
+    path: app/static/assets/icons/Radio.png
+    alt: Radio collection icon
+  title: Amateur Radio Exam Practice
+  description: Technician, General and Amateur Extra question pools, diagrams and
+    offline drills.
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Practice radio exam questions
+    url: /radio-study.html
+  - title: Pool sources and editions
+    url: /library-files/radio-study/source.json
+catalogue: catalogues/radio-study.yaml
+versions: state/versions/radio-study.yaml

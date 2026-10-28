@@ -1,0 +1,19 @@
+repository:
+  id: food-preservation
+  category: content_sources
+  title: Food Preservation & Emergency Cooking
+  description: USDA canning guides, fermentation and pickling, drying, pantry storage
+    and emergency food/cooking safety. Original procedures and editions preserved.
+  collapse_assets: true
+  artwork:
+    path: app/static/assets/icons/Resilience.png
+    alt: Food resilience collection icon
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Preservation & emergency cooking guides
+    url: /library-files/family-resources/index.html#food-preservation
+  - title: Cookbooks & pantry meals
+    url: /library-files/family-resources/index.html#cookbooks
+catalogue: catalogues/food-preservation.yaml
+versions: state/versions/food-preservation.yaml

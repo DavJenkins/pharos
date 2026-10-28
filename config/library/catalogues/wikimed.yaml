@@ -1,0 +1,15 @@
+assets:
+- id: wikipedia-medicine
+  online_url: https://en.wikipedia.org/wiki/Portal:Medicine
+  repository_id: wikimed
+  category: zim_archives
+  title: Wikipedia Medicine (October 2026)
+  relative_path: wikipedia_en_medicine_maxi_2026-10.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/wikipedia/
+    filename_prefix: wikipedia_en_medicine_maxi_
+  download_url: https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-10.zim
+  version_pin: null

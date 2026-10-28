@@ -1,0 +1,14 @@
+assets:
+- id: gutenberg-en
+  repository_id: project-gutenberg
+  category: zim_archives
+  title: Project Gutenberg — English
+  relative_path: gutenberg_en_all_2025-11.zim
+  update_policy: on_network_available
+  refresh_interval: 1d
+  update_source:
+    kind: kiwix_zim
+    directory: https://download.kiwix.org/zim/gutenberg/
+    filename_prefix: gutenberg_en_all_
+  download_url: https://download.kiwix.org/zim/gutenberg/gutenberg_en_all_2025-11.zim
+  version_pin: null

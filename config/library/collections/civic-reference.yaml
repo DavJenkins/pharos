@@ -1,0 +1,25 @@
+repository:
+  id: civic-reference
+  title: Laws, Regulations & Codes
+  description: Federal statutes, state and territorial constitutional snapshots, and
+    clearly scoped legal references.
+  category: content_sources
+  collapse_assets: true
+  update_policy: manual
+  refresh_interval: never
+  links:
+  - title: Browse local laws & code coverage
+    url: /library-files/civic-reference/index.html
+  - title: U.S. Code title index
+    url: /library-files/civic-reference/us-code/index.html
+  - title: Fill PDF forms locally
+    url: /pdf-forms.html
+  - title: Amateur callsign search
+    url: /callsigns.html
+  - title: State and territorial coverage
+    url: /library-files/civic-reference/jurisdictions/index.html
+  artwork:
+    path: app/static/assets/icons/Civic.png
+    alt: Civic collection icon
+catalogue: catalogues/civic-reference.yaml
+versions: state/versions/civic-reference.yaml

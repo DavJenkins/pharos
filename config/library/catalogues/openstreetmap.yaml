@@ -1,0 +1,28 @@
+assets:
+- id: osm-massachusetts
+  repository_id: openstreetmap
+  category: reference
+  title: All 50 U.S. states offline street map (October 22, 2026)
+  relative_path: maps/osm/usa.pmtiles
+  service_endpoint: /maps.html
+  update_policy: manual
+  refresh_interval: never
+  source_note: Rectangular extracts cover the contiguous 48 states, Alaska/Aleutians
+    and Hawaii/Northwestern Hawaiian Islands, with adjoining areas. Native zoom 0–15.
+    OSM ODbL, Protomaps and Natural Earth attribution. Manual updates.
+  version_pin: null
+  online_url: https://docs.protomaps.com/basemaps/downloads
+- id: osm-caribbean
+  repository_id: openstreetmap
+  category: reference
+  title: Caribbean islands offline street map (October 22, 2026)
+  relative_path: maps/osm/caribbean.pmtiles
+  service_endpoint: /maps.html?collection=caribbean
+  update_policy: manual
+  refresh_interval: never
+  online_url: https://docs.protomaps.com/basemaps/downloads
+  version_pin: null
+  source_note: Broad rectangular coverage includes the Greater and Lesser Antilles,
+    Puerto Rico, USVI, BVI, Sint Maarten/Saint-Martin, Bahamas, Turks and Caicos,
+    Cayman Islands, Aruba, Curacao, Bonaire and Trinidad and Tobago, plus adjoining
+    mainland/coastal areas. Not nautical charts or routing.

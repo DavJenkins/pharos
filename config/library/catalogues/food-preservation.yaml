@@ -1,0 +1,209 @@
+assets:
+- id: family-preserve-usda-intro
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Introduction
+  relative_path: family-resources/food-preservation/preserve-usda-intro.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-intro.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:51.337000+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/INTRO_HomeCanrev0715.pdf
+  version_pin: null
+- id: family-preserve-usda-01
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Principles of Home Canning
+  relative_path: family-resources/food-preservation/preserve-usda-01.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-01.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:51.339228+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE01_HomeCan_rev0715.pdf
+  version_pin: null
+- id: family-preserve-usda-02
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Fruit and Fruit Products
+  relative_path: family-resources/food-preservation/preserve-usda-02.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-02.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:51.340899+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE02_HomeCan_rev0715.pdf
+  version_pin: null
+- id: family-preserve-usda-03
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Tomatoes and Tomato Products
+  relative_path: family-resources/food-preservation/preserve-usda-03.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-03.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:51.732629+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE03_HomeCan_rev0715.pdf
+  version_pin: null
+- id: family-preserve-usda-04
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Vegetables and Vegetable Products
+  relative_path: family-resources/food-preservation/preserve-usda-04.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-04.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:51.801413+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE04_HomeCan_rev0715.pdf
+  version_pin: null
+- id: family-preserve-usda-05
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Poultry, Red Meats, and Seafood
+  relative_path: family-resources/food-preservation/preserve-usda-05.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-05.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:52.126946+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE05_HomeCan_rev0715.pdf
+  version_pin: null
+- id: family-preserve-usda-06
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Fermented Food and Pickled Vegetables
+  relative_path: family-resources/food-preservation/preserve-usda-06.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-06.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:52.240240+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE06_HomeCan_rev0715.pdf
+  version_pin: null
+- id: family-preserve-usda-07
+  repository_id: food-preservation
+  category: pdf_reference
+  title: USDA Home Canning — Jams and Jellies
+  relative_path: family-resources/food-preservation/preserve-usda-07.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-usda-07.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: USDA Complete Guide to Home Canning, Agriculture Information Bulletin
+    539, 2015 revision; NCHFP-published edition. U.S. federal publication. Original
+    USDA and NCHFP credits and notices retained; no endorsement implied. Retrieved
+    2026-10-24T15:29:52.323100+00:00
+  online_url: https://nchfp.uga.edu/resources/entry/about-the-usda-guide-to-home-canning-2015-revision
+  download_url: https://nchfp.uga.edu/papers/guide/GUIDE07_HomeCan_rev0715.pdf
+  version_pin: null
+- id: family-preserve-drying
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Drying Fruits and Vegetables — PNW 397
+  relative_path: family-resources/food-preservation/preserve-drying.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-drying.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: PNW 397, third edition, revised August 2009; University of Idaho Extension.
+    Applies to dehydrator and oven drying; preserve the stated limitations. Pacific
+    Northwest Extension publication, copyright retained by its publishers. Open-access
+    educational original, preserved unchanged with author and institutional notices.
+    Retrieved 2026-10-24T15:29:52.485339+00:00
+  online_url: https://extension.oregonstate.edu/catalog/pnw-397-drying-fruits-vegetables
+  download_url: https://verso.uidaho.edu/view/pdfCoverPage?download=true&filePid=13325544220001851&instCode=01ALLIANCE_UID
+  version_pin: null
+- id: family-preserve-storage
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Storing Food for Safety and Quality — PNW 612
+  relative_path: family-resources/food-preservation/preserve-storage.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-storage.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: PNW 612, published September 2009; University of Idaho / Oregon State
+    / Washington State Extension. Pacific Northwest Extension publication. Educational
+    original preserved unchanged; copyright and institutional notices retained. Retrieved
+    2026-10-24T15:29:52.858027+00:00
+  online_url: https://extension.oregonstate.edu/sites/default/files/documents/pnw612.pdf
+  download_url: https://extension.oregonstate.edu/sites/default/files/documents/pnw612.pdf
+  version_pin: null
+- id: family-preserve-emergency-storage
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Emergency Food Storage — USU Extension
+  relative_path: family-resources/food-preservation/preserve-emergency-storage.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-emergency-storage.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: Utah State University Extension, copyright 2013, FN/preservation/2013-01pr.
+    Utah State University Extension educational original. Preserve publisher copyright,
+    authorship and notices; no endorsement implied. Retrieved 2026-10-24T15:29:52.885152+00:00
+  online_url: https://extension.usu.edu/preserve-the-harvest/food-storage
+  download_url: https://extension.usu.edu/preserve-the-harvest/files/Food-Storage-Booklet.pdf
+  version_pin: null
+- id: family-preserve-outage-food-water
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Food and Water Safety During Power Outages and Floods — FDA
+  relative_path: family-resources/food-preservation/preserve-outage-food-water.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-outage-food-water.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: FDA Food Facts, January 2023 edition; original publisher PDF. U.S.
+    federal publication. Original FDA credits and notices retained. Retrieved 2026-10-24T15:29:53.536310+00:00
+  online_url: https://www.fda.gov/food/buy-store-serve-safe-food/food-and-water-safety-during-power-outages-and-floods
+  download_url: https://www.fda.gov/media/72124/download
+  version_pin: null
+- id: family-preserve-emergency-food-water
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Food and Water in an Emergency — FEMA / Red Cross
+  relative_path: family-resources/food-preservation/preserve-emergency-food-water.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-emergency-food-water.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: FEMA 477 / American Red Cross, August 2004 archived edition, hosted
+    by Utah Valley University. Pair with the January 2023 FDA outage guide; original
+    recommendations are historical. Original FEMA / American Red Cross educational
+    booklet preserved unchanged. Preserve all publisher marks, credits and notices;
+    no endorsement implied. Retrieved 2026-10-24T15:29:55.155368+00:00
+  online_url: https://www.uvu.edu/emergencymanagement/docs/food-and-water-fema.pdf
+  download_url: https://www.uvu.edu/emergencymanagement/docs/food-and-water-fema.pdf
+  version_pin: null
+- id: family-preserve-grilling-safety
+  repository_id: food-preservation
+  category: pdf_reference
+  title: Grilling Fire Safety — U.S. Fire Administration
+  relative_path: family-resources/food-preservation/preserve-grilling-safety.pdf
+  service_endpoint: /library-files/family-resources/food-preservation/preserve-grilling-safety.pdf
+  update_policy: manual
+  refresh_interval: never
+  source_note: U.S. Fire Administration publisher safety flyer; follow the appliance
+    instructions and local restrictions. U.S. federal publication. Original USFA /
+    FEMA notices retained. Retrieved 2026-10-24T15:29:55.380015+00:00
+  online_url: https://www.usfa.fema.gov/prevention/outdoor-fires/
+  download_url: https://www.usfa.fema.gov/downloads/pdf/publications/grilling_fire_safety_flyer.pdf
+  version_pin: null
