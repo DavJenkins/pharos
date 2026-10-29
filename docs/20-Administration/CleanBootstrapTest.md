@@ -40,7 +40,7 @@ Guest evidence locations:
 Host test instance: `F:\DataArk-Clean-Bootstrap`. Physical acceptance remains governed by [Recovery validation](RecoveryValidation.md); this test never makes the recovery branch eligible to merge on its own.
 
 
-## Result — 29 October 2026
+## Initial fix-and-retry result — 29 October 2026
 
 **Passed after corrections and phase retries, within the generic ARM64 software scope.** This was a clean OS at the start, not a copied Ark installation. The first run was not a pass: the test exposed real bootstrap defects. Reviewed fixes were applied to the disposable guest and the affected phases resumed, with the original failed journals/logs retained.
 
@@ -62,6 +62,11 @@ Public-file checks passed over HTTP, anonymous FTP and actual SMB. FTP and SMB w
 
 ### Interpretation
 
-This demonstrates the coordinator's real base-software phases installing from package/registry sources on a clean generic ARM64 OS, after correcting the defects found in this run. It is not a second, zero-intervention replay of the final kit from another blank OS. The test harness invoked the real phase methods while explicitly omitting the physical `network` phase and the top-level local-console interaction. Source overlays and reviewed configuration/journal corrections were part of debugging and remain recorded.
+This demonstrates the coordinator's real base-software phases installing from package/registry sources on a clean generic ARM64 OS, after correcting the defects found in this run. That initial run was not a zero-intervention replay. A subsequent [frozen-kit replay](FrozenBootstrapReplay.md) has now passed in one installer invocation on another clean VM, with no manual installer corrections or phase retries. The test harness invoked the real phase methods while explicitly omitting the physical `network` phase and the top-level local-console interaction. Source overlays and reviewed configuration/journal corrections were part of debugging and remain recorded.
 
 It does **not** certify stock Raspberry Pi OS, AP/radio/portal behavior, USB power, physical media swaps, the full optional software/tool inventory, complete content restoration or dependable paired-media recovery. Those remain separate acceptance work. No merge or fully verified Pi-appliance claim is authorized by this result.
+
+
+## Uninterrupted replay completed
+
+The corrected frozen kit passed all eight software phases, 43 regressions, public/authenticated service checks and reboot persistence on another clean generic ARM64 VM. See the [complete replay report](FrozenBootstrapReplay.md). Physical Pi/network and spare-media acceptance remain pending.

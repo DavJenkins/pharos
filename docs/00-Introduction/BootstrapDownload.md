@@ -4,7 +4,7 @@ The recovery process is the foundation for a downloadable Data Ark bootstrap: st
 
 ## Bootstrap release status
 
-**A supported downloadable bootstrap has not been released yet.** Clean generic ARM64 software phases have passed after recorded fixes and retries. Physical Pi networking, spare-media acceptance and an uninterrupted replay of the corrected kit are still pending. The experimental source is available for developers; it is not a certified ready-to-run appliance installer.
+**A supported downloadable bootstrap has not been released yet.** The corrected kit has passed an uninterrupted clean Debian 13 ARM64 software-phase replay, including service, authentication, file-sharing and reboot checks. Physical Pi networking, local-console installation and spare-media acceptance are still pending. The experimental source is available for developers; it is not a certified ready-to-run appliance installer.
 
 ## What the first supported download will provide
 
@@ -25,6 +25,7 @@ The configuration registers this documentation shelf and stable local addresses.
 ## Installation and evidence
 
 - [Stock-Pi setup guide](../30-Developer/StockPiSetup.md)
+- [Uninterrupted frozen-kit replay](../20-Administration/FrozenBootstrapReplay.md)
 - [Clean-OS software test](../20-Administration/CleanBootstrapTest.md)
 - [Recovery acceptance results](../20-Administration/RecoveryValidation.md)
 - [Engineering behind the Ark](../30-Developer/Engineering.md)

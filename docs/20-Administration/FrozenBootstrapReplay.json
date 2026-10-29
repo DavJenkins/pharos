@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-29",
+  "result": "passed",
+  "scope": "Uninterrupted clean Debian 13 generic ARM64 software-phase replay",
+  "tested_source_revision": "5b15cc6656d623e738ca9e143ecfb4e07c6e2024",
+  "coordinator_invocations": 1,
+  "manual_installer_corrections": 0,
+  "phase_retries": 0,
+  "duration_seconds": 716,
+  "frozen_input_sha256": {
+    "dataark-source.tar.gz": "e87a3df601d60c99eac8cf8ea474d25de25b5f0a6c1c30ec269f5588c38b8431",
+    "bootstrap_stock_pi.py": "7a67a9c7cf79ce355ff46122ce94c3480cb7089d9e751829451666a15e1e02ee",
+    "pmtiles": "8cd0affde1ba5380b7cea6de0f94c674f88e4f586c77ae5820ea9652862691f4",
+    "site.json": "59cf513d9206f77806791eccea86111a6cad7023a8f7cd3875abb747d397bd15",
+    "kit.json": "484108b472b1ba09a79d4a073dc9d89805bda4b55f6d9d54a26e4ff267856946"
+  },
+  "frozen_inputs_unchanged": true,
+  "unchanged_installed_code_files": 221,
+  "completed_phases": [
+    "packages",
+    "source",
+    "storage",
+    "python",
+    "base_services",
+    "content_access",
+    "content",
+    "finish"
+  ],
+  "reboot_verified": true,
+  "regression_tests_passed": 43,
+  "public_service_checks": {
+    "/": 200,
+    "/api/": 200,
+    "/api/docs": 200,
+    "/docs/SUMMARY.html": 200,
+    "/library.html": 200,
+    "/community.html": 200,
+    "caretaker_unauthorized": 401,
+    "caretaker_authorized": 200,
+    "empty_reader": 200
+  },
+  "distribution_checks": {
+    "http_public_file": 200,
+    "http_private_path": 403,
+    "ftp_read": "passed",
+    "ftp_write_blocked": "550",
+    "ftp_private_path_blocked": true,
+    "samba_config_valid": true
+  },
+  "smb_read": "passed before and after reboot",
+  "smb_write": "rejected",
+  "omitted": [
+    "physical network/radio/portal phase",
+    "stock Raspberry Pi OS and local-console INSTALL interaction",
+    "optional content restore",
+    "physical spare-media acceptance"
+  ],
+  "fixture_preparation_notes": [
+    "Marker and QEMU-identity fixture guards were corrected before any installer invocation; guard-stop logs retained.",
+    "No source overlay, package workaround or journal correction occurred during the one installer run."
+  ]
+}
