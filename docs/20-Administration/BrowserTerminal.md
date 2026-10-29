@@ -3,18 +3,18 @@
 ## Access and login
 Open Settings → System → Terminal. This opens `https://dataark:4200/` (or HTTPS port 4200 on the dashboard's current hostname/IP) in a new tab. The shell is fixed to the existing Linux **admin** account and asks for its Linux password. This is separate from the shared caretaker password. No password was changed, copied into the browser, stored in source, or made passwordless.
 
-The authenticated session has the existing admin account's ordinary shell and sudo permissions. It can modify or erase Ark data. Type `exit` when finished. Closing a browser tab is not a substitute for deliberately logging out of a privileged shell. The user confirmed the terminal web interface worked at both https://192.168.4.1:4200/ (DataArk hotspot) and https://192.168.40.123:4200/ (home LAN) on October 23, 2026. Automated checks stopped at the password prompt without entering credentials. A specific command execution result, disconnected-upstream behavior and reboot recovery were not separately confirmed.
+The authenticated session has the existing admin account's ordinary shell and sudo permissions. It can modify or erase Ark data. Type `exit` when finished. Closing a browser tab is not a substitute for deliberately logging out of a privileged shell. Terminal web access was confirmed through both the DataArk hotspot and the local LAN on October 23, 2026. Automated checks stopped at the password prompt without entering credentials. A specific command execution result, disconnected-upstream behavior and reboot recovery were not separately confirmed.
 
 ## First-use certificate trust
 HTTPS uses a locally generated self-signed certificate for dataark, dataark.local, loopback, the hotspot address and local IPv4 addresses present when it was issued. Your browser may display a trust warning. Review certificate trust yourself before entering a Linux password; the agent must not bypass browser security interstitials.
 
-The installed certificate's SHA-256 fingerprint is:
+Each Ark has its own certificate identity and expiry date. Download [the certificate from the Ark you are using](../../legal/terminal-certificate.crt), and compare its fingerprint through the Pi’s local console or an already trusted SSH connection:
 
-```text
-EF:F6:4D:E5:E1:A1:1F:02:D7:83:06:75:A1:D3:B8:1B:A6:4D:6F:56:A1:03:C5:F3:0B:BE:B2:FE:4F:F4:1B:4B
+```sh
+sudo openssl x509 -in /etc/dataark-terminal/certificate.crt -noout -fingerprint -sha256 -dates
 ```
 
-Public certificate: [download](../../legal/terminal-certificate.crt). Confirm the fingerprint through this record or a trusted SSH connection, rather than trusting a certificate merely because the page offers it. It expires October 23, 2027. It is not installed into client trust stores automatically. If a new IP is not covered, use dataark or review/reissue the certificate with the additional SAN. Never switch the public terminal to plaintext HTTP to avoid a warning.
+Do not treat an example or another Ark’s fingerprint as this device’s identity. The public certificate is not installed into client trust stores automatically. If a new IP is not covered, use the configured hostname or review/reissue the certificate with the additional SAN. Never switch the public terminal to plaintext HTTP to avoid a warning.
 
 ## Architecture and exact settings
 - Debian shellinabox 2.21+b3. Cockpit was considered but was **not installed**.
@@ -47,7 +47,7 @@ The installer preserves an existing certificate/key pair and fails on an incompl
 Before certificate expiry, have a caretaker replace the certificate/key with the required hostname/IP SANs, verify their match and update the public certificate copy and fingerprint record. Reload Apache and explicitly review the changed trust identity on clients. Restoring the private configuration snapshot retains the existing certificate identity; keep that backup private. `tools/capture_config.py` includes the private certificate directory, terminal unit, Apache settings and known-hosts file.
 
 ## Checks and recovery
-Verified: Apache configuration syntax, TLS certificate validation using its explicit CA file, HTTPS 200, HTTP 400, backend loopback-only listener, default service masked, unauthenticated SSH denied and an actual HTTPS terminal session reaching the admin password prompt. No admin password was supplied during testing. The user subsequently confirmed the terminal web interface worked at both https://192.168.4.1:4200/ and https://192.168.40.123:4200/ on October 23, 2026. No particular command execution result was reported; command execution, disconnected-upstream behavior and reboot recovery remain separate checks.
+Verified: Apache configuration syntax, TLS certificate validation using its explicit CA file, HTTPS 200, HTTP 400, backend loopback-only listener, default service masked, unauthenticated SSH denied and an actual HTTPS terminal session reaching the admin password prompt. No admin password was supplied during testing. Interactive terminal web access was subsequently confirmed through both the hotspot and the local LAN on October 23, 2026. No particular command execution result was reported; command execution, disconnected-upstream behavior and reboot recovery remain separate checks.
 
 ```sh
 systemctl status dataark-terminal.service

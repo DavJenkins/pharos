@@ -1,26 +1,26 @@
 # VNC desktop access
 
 ## Connect
-Use a VNC viewer supporting VeNCrypt / X509Plain or RSA-AES with Linux username/password. Host: `dataark` or `192.168.4.1` on the hotspot; TCP port `5901`. On the home LAN, use the Ark's current private address (192.168.40.123 at repair time). Some viewers need a separate port field or special explicit-port syntax; do not assume :5901 always means the same thing in every viewer. For TigerVNC, the explicit port syntax is `dataark::5901`; its [official viewer documentation](https://tigervnc.org/doc/vncviewer.html) lists X509Plain support. In RealVNC Viewer on the home LAN, enter `192.168.40.123::5901` (two colons); on the DataArk hotspot, use `192.168.4.1::5901`. Bare hostnames default to a different port unless the viewer connection profile overrides it.
+Use a VNC viewer supporting VeNCrypt / X509Plain or RSA-AES with Linux username/password. Host: `dataark` or `192.168.4.1` on the hotspot; TCP port `5901`. On the local LAN, use the Ark’s reachable hostname or its current private address. Some viewers need a separate port field or special explicit-port syntax; do not assume :5901 always means the same thing in every viewer. For TigerVNC, the explicit port syntax is `dataark::5901`; its [official viewer documentation](https://tigervnc.org/doc/vncviewer.html) lists X509Plain support. In RealVNC Viewer on the home LAN, enter `dataark::5901` (two colons); on the DataArk hotspot, use `192.168.4.1::5901`. Bare hostnames default to a different port unless the viewer connection profile overrides it.
 
 Log in as the existing Linux desktop user `admin`, with its Linux password. This is not the shared caretaker password or the old standalone VNC password. No password was changed or recovered. PAM uses the existing `/etc/pam.d/wayvnc` policy, including the desktop-user check. The service shares the current logged-in desktop; it is not an anonymous desktop or a separate disposable workstation.
 
-Review the locally issued certificate in the viewer. The public certificate is available [here](../../legal/vnc-certificate.crt). Its SHA-256 fingerprint is:
+Review the locally issued certificate in the viewer. [Download the public certificate from the Ark you are using](../../legal/vnc-certificate.crt). Its identity and expiry are specific to that installation. Obtain the SHA-256 fingerprint and dates through the local console or an already trusted SSH session:
 
-```text
-C2:2C:59:A5:14:A5:C9:A7:85:B8:05:0D:74:A4:78:44:A5:E1:5A:C0:49:DF:26:9F:60:47:91:9E:12:9F:DE:98
+```sh
+sudo openssl x509 -in /home/admin/.config/dataark-vnc/tls.crt -noout -fingerprint -sha256 -dates
 ```
 
-The certificate expires October 23, 2027. Verify the fingerprint independently before supplying a password. Use dataark when a changed LAN IP is not in the certificate's subject alternative names. The agent does not bypass certificate warnings or perform the user's login.
+Compare those values with the viewer before supplying a password. Use the configured hostname when a changed LAN IP is not covered by the certificate’s subject alternative names.
 
 ## What was repaired
 The original x11vnc service failed because `/usr/bin/x11vnc` was missing. Installing it revealed that the active desktop is labwc/Wayland with Xwayland, not a full X11 desktop suitable for sharing with the old configuration. The repair uses native WayVNC 0.10.2 (Raspberry Pi package), retaining the existing logged-in desktop and port 5901. x11vnc 0.9.17 is now installed but its obsolete service is disabled; it may be useful for a future actual X11 session.
 
-Verified October 23, 2026: custom service running, desktop output HDMI-A-2 at 1920×1080, listeners bound to the hotspot/current private LAN IPv4 addresses, RFB 3.8, VeNCrypt 0.2 with subtype 262 (X509Plain), and a certificate-verified TLS 1.3 connection. Anonymous and legacy VNC-password security types are not offered. The user subsequently confirmed RealVNC Viewer on Windows opened the desktop through both 192.168.40.123::5901 (home LAN) and 192.168.4.1::5901 (DataArk hotspot). This verifies interactive login and desktop viewing through both routes. Keyboard/mouse operation, disconnected-upstream operation and reboot recovery were not separately confirmed.
+Verified October 23, 2026: custom service running, desktop output HDMI-A-2 at 1920×1080, listeners bound to the hotspot/current private LAN IPv4 addresses, RFB 3.8, VeNCrypt 0.2 with subtype 262 (X509Plain), and a certificate-verified TLS 1.3 connection. Anonymous and legacy VNC-password security types are not offered. The user subsequently confirmed RealVNC Viewer on Windows opened the desktop through both the local-LAN and DataArk hotspot connections. This verifies interactive login and desktop viewing through both routes. Keyboard/mouse operation, disconnected-upstream operation and reboot recovery were not separately confirmed.
 
 ## RealVNC Viewer compatibility
 
-The explicit port matters: the server listens on 5901, not 5900. Windows successfully received an RFB 3.8 response from 192.168.40.123:5901 while diagnosing a reported viewer timeout. This confirms the network path, not the address entered in the viewer or successful authentication.
+The explicit port matters: the server listens on 5901, not 5900. Windows successfully received an RFB 3.8 response from the Ark’s current LAN address on port 5901 while diagnosing a reported viewer timeout. This confirms the network path, not the address entered in the viewer or successful authentication.
 
 RealVNC documents RSA-AES compatibility for WayVNC 0.7+ and requires an RSA private key setting. The installer now creates and preserves `/home/admin/.config/dataark-vnc/rsa_key.pem` and adds `rsa_private_key_file` to the private configuration. Linux PAM authentication and required encryption remain enabled. See [RealVNC's WayVNC connection guide](https://help.realvnc.com/hc/en-us/articles/14693032843293-Connecting-to-WayVNC-on-a-Raspberry-Pi-device-running-Wayland-using-RealVNC-Viewer). Do not disable authentication to work around a client mismatch. The user confirmed successful RealVNC desktop access through both the home-LAN and hotspot addresses on October 23, 2026. Its RSA server identity prompt must be reviewed by the user.
 

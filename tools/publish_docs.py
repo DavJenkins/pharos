@@ -12,6 +12,7 @@ from urllib.parse import urlsplit, urlunsplit
 SOURCE = Path(__file__).resolve().parents[1] / 'docs'
 sys.path.insert(0, str(SOURCE.parent))
 from app.services.documentation_theme import masthead, footer, stylesheet_url
+from tools.documentation_paths import validate as validate_public_paths
 
 
 
@@ -176,6 +177,7 @@ def publish(source, target):
     documents = sorted(source.rglob('*.md'))
     if not documents:
         raise ValueError('No documentation source files found')
+    validate_public_paths(source.rglob('*'),source)
     target.mkdir(parents=True, exist_ok=True)
     for md in documents:
         outfile = target / md.relative_to(source).with_suffix('.html')

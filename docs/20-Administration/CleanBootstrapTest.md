@@ -37,7 +37,7 @@ Guest evidence locations:
 - `/var/log/ark-clean-bootstrap.log`
 - `/var/lib/dataark/bootstrap-readiness.json` when finish succeeds
 
-Host test instance: `F:\DataArk-Clean-Bootstrap`. Physical acceptance remains governed by [Recovery validation](RecoveryValidation.md); this test never makes the recovery branch eligible to merge on its own.
+The host-side test files belong to the dedicated clean-bootstrap workspace chosen when preparing the test VM. Physical acceptance remains governed by [Recovery validation](RecoveryValidation.md); this test never makes the recovery branch eligible to merge on its own.
 
 
 ## Initial fix-and-retry result — 29 October 2026

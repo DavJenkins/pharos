@@ -17,6 +17,7 @@ def input_digest(path):
  return hashlib.sha256(content).hexdigest()
 from tools.publish_docs import markdown_to_html
 from tools import public_handbook, public_downloads
+from tools.documentation_paths import validate as validate_public_paths
 
 def build(website=None):
  c=yaml.safe_load((ROOT/'config/documentation.yaml').read_text(encoding='utf-8-sig'))
@@ -27,8 +28,9 @@ def build(website=None):
  for p in pages:
   assert re.fullmatch('[a-z][a-z-]+',p['id'])
   for name in [p['source']]+([p['pdf']] if p.get('pdf') else []):fingerprints[name]=input_digest(ROOT/name)
+ validate_public_paths(public_handbook.inputs(ROOT),ROOT)
  for path in public_handbook.inputs(ROOT):fingerprints[path.relative_to(ROOT).as_posix()]=input_digest(path)
- for name in ['app/services/documentation_theme.py','app/static/assets/css/ark-documentation.css','app/static/assets/dej-software-footer.webp','tools/publish_docs.py','tools/public_downloads.py','tools/package_document_downloads.py',c['download_history']]:fingerprints[name]=input_digest(ROOT/name)
+ for name in ['tools/documentation_paths.py','app/services/documentation_theme.py','app/static/assets/css/ark-documentation.css','app/static/assets/dej-software-footer.webp','tools/publish_docs.py','tools/public_downloads.py','tools/package_document_downloads.py',c['download_history']]:fingerprints[name]=input_digest(ROOT/name)
  fingerprints['tools/public_handbook.py']=input_digest(ROOT/'tools/public_handbook.py')
  fingerprints['config/documentation.yaml']=input_digest(ROOT/'config/documentation.yaml')
  fingerprints['tools/build_public_documents.py']=input_digest(Path(__file__))

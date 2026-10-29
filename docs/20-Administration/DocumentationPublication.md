@@ -20,3 +20,6 @@ The current readable handbook stays on the DEJ Software website. Catalogue PDFs 
 A website build stages the complete rendered edition under `output/document-download-staging` and packages release files under `output/document-downloads`. Each ZIP includes a start page and stylesheet and rewrites its internal navigation for extracted offline use. PDF filenames include their checksum prefix; new handbook ZIP names include their content hash. Already published assets must not be overwritten with different bytes.
 
 Publish and verify the staged assets on the configured GitHub release before publishing the website. The website publisher checks asset availability before uploading any site files. It reuses FTPS connections, retries bounded transient failures, and compares every deployed file with its local source. The verifier reverses only known Cloudflare email-protection transformations.
+
+
+Public handbook builds reject absolute desktop drive paths and user-profile paths. Desktop-only procedures identify their host context and use a reader-chosen workspace with relative commands. Ark service paths remain explicit where they are part of the supported installation layout. Network addresses and certificate identities must come from the reader’s own device.

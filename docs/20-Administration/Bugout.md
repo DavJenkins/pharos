@@ -117,7 +117,7 @@ bugout:
     - id: manuals
       title: Manuals
       kind: smb
-      host: 192.168.40.127
+      host: source-host.example
       share: Manuals
       credential: manuals-reader
       prefetch: true
@@ -130,7 +130,7 @@ bugout:
         method: none
 ```
 
-This is the configured Manuals source. Enter username `dave`, domain `WORKGROUP`, and the share password in its landing-page credential form. Choose **Remember on this Ark** for unattended prefetch. The worker reads the share directly; `/mnt/manuals` need not be mounted.
+This is an example Manuals source. Replace `source-host.example` and the share name with your source computer and share. Enter that source’s username, domain (if required), and share password in its landing-page credential form. Choose **Remember on this Ark** for unattended prefetch. The worker reads the share directly; `/mnt/manuals` need not be mounted.
 
 - `prefetch: true` permits normal acquisition and refresh; false reserves collection for bugout (if included).
 - `normal_sync: manual` runs only through **Sync now** or an explicitly requested cancellation handoff. `scheduled` follows `prefetch_interval`, default `1d`; `365d` is a 365-day interval. `when_available` additionally refreshes when a source becomes reachable again; reachability is sampled every five minutes. This detects source availability, not physical location.

@@ -1,17 +1,44 @@
 # Desktop ARM64 test Ark
 
-A running software-emulated Ark is installed on the Windows desktop in `F:\DataArk-Emulator`. It uses QEMU's generic ARM64 `virt` platform with Cortex-A72 CPU emulation, four virtual CPUs, 4 GiB RAM and a 32 GiB copy-on-write system disk. It runs Debian 13 ARM64 and the Ark software; it is not complete Raspberry Pi 4 hardware emulation.
+The desktop test profile runs a software-emulated Ark on a Windows host. It uses QEMU's generic ARM64 `virt` platform with Cortex-A72 CPU emulation, four virtual CPUs, 4 GiB RAM and a 32 GiB copy-on-write system disk. It runs Debian 13 ARM64 and the Ark software; it is not complete Raspberry Pi 4 hardware emulation.
 
-## Open and operate
+## Open and operate from the emulator host
 
-- Dashboard: [http://127.0.0.1:18080/](http://127.0.0.1:18080/).
-- Native Kiwix reader: [http://127.0.0.1:18081/](http://127.0.0.1:18081/).
-- SSH: `ssh -i F:/DataArk-Emulator/seed/admin-ed25519 -p 22222 admin@127.0.0.1`.
-- Start: `powershell -File F:/DataArk-Emulator/Start-Ark.ps1`.
-- Stop cleanly: `powershell -File F:/DataArk-Emulator/Stop-Ark.ps1`.
-- Open an administrator shell: `powershell -File F:/DataArk-Emulator/Connect-Ark.ps1`.
+These instructions run on the Windows computer hosting a prepared emulator, not on the Pi or an arbitrary computer viewing this handbook. Use the emulator folder chosen during setup; the examples below use paths relative to that folder.
 
-The VM has its own generated SSH key and caretaker password. The latter is in `F:\DataArk-Emulator\seed\caretaker-password.txt`; keep that file and the SSH private key private. Linux SSH login is key-only. No production password, household configuration, Home Assistant credential or community database is imported. Community messages and any local banner changes belong to the guest's separate system disk.
+Open PowerShell and select your prepared emulator folder:
+
+```powershell
+Set-Location (Read-Host 'Path to your prepared emulator folder')
+```
+
+Start the prepared guest:
+
+```powershell
+.\Start-Ark.ps1
+```
+
+From that same host computer, the dashboard is available at `http://127.0.0.1:18080/` and the reader at `http://127.0.0.1:18081/` while the guest is running. These loopback addresses do not open an Ark on another computer.
+
+Connect over SSH:
+
+```powershell
+ssh -i ./seed/admin-ed25519 -p 22222 admin@127.0.0.1
+```
+
+Or open the prepared administrator shell:
+
+```powershell
+.\Connect-Ark.ps1
+```
+
+Stop the guest cleanly:
+
+```powershell
+.\Stop-Ark.ps1
+```
+
+The VM has its own generated SSH key and caretaker password. The latter is in `seed/caretaker-password.txt` inside the chosen emulator folder; keep that file and the SSH private key private. Linux SSH login is key-only. No production password, household configuration, Home Assistant credential or community database is imported. Community messages and any local banner changes belong to the guest's separate system disk.
 
 Ports 22222, 18080, 18081 and the QMP control port 24444 bind only to desktop loopback. They are not LAN services. The guest has outbound NAT for package installation and can reach the Pi's media server. VM software/clock/virtual-network observations are not measurements of the physical Pi.
 

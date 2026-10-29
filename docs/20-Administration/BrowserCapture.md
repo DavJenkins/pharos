@@ -12,9 +12,9 @@ Re-run the installer after source upgrades. The source is in the repository and 
 
 ## One-time Windows / Chrome setup
 
-1. Download the capture ZIP from the page, extract it to a permanent folder, and run install.ps1 using PowerShell. Python 3.9+ and Windows OpenSSH must be installed. On Dave's computer Chrome currently loads C:\DEJSoftware\ark-expansion\browser-capture; its native helper is registered separately under C:\DEJSoftware\tools\DataArkBrowserCapture.
+1. Download the capture ZIP from the page, extract it to a permanent folder, and run install.ps1 using PowerShell. Python 3.9+ and Windows OpenSSH must be installed. Keep the extracted extension folder in place. The installer registers the helper for your Windows user account; moving the files later requires updating that registration and loading the extension from its new folder.
 2. Open chrome://extensions, enable Developer mode, choose Load unpacked and select that same folder. Extension ID: gilcpcndoddadpkefaeecjemhhcahhig. Chrome requires this local installation step; the Ark cannot silently install an extension.
-3. Open http://dataark/capture.html (or 192.168.40.123 / 192.168.4.1). The page reports whether the extension is connected.
+3. Open http://dataark/capture.html, or use the Ark’s current address followed by `/capture.html`. The page reports whether the extension is connected.
 
 The native helper registration is current-user only at HKCU\Software\Google\Chrome\NativeMessagingHosts\com.dejsoftware.dataark_capture. Its manifest permits only the fixed extension ID. The helper is launched on demand; no background service is installed. Local config.json points to the existing SSH key, known Ark host and permitted download folders. The key is never copied into the extension, sent to the page, or committed. This setup uses the existing authorized root SSH identity rather than a new public upload endpoint. It is an administrator pairing, not a way for every library visitor to install content. Strict SSH host-key verification and batch mode are enforced; authentication failures are reported, not bypassed.
 
