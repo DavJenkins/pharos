@@ -2,7 +2,7 @@
 (() => {
     "use strict";
     const key = "dataark.caretaker.session.v1";
-    let memory = null, pending = null, dialog, expiryTimer;
+    let memory = null, pending = null, dialog, expiryTimer, indicator, indicatorTimer;
     function forget() {
         memory = null; clearTimeout(expiryTimer);
         try { sessionStorage.removeItem(key); } catch (_) {}
@@ -20,6 +20,27 @@
         memory = null;
         try { sessionStorage.removeItem(key); } catch (_) {}
         return null;
+    }
+    function refreshIndicator() {
+        clearTimeout(indicatorTimer);
+        const record = cached();
+        if (!record) { if (indicator) indicator.hidden = true; return; }
+        if (!indicator) {
+            indicator = document.createElement("div");
+            indicator.id = "caretaker-auth-status";
+            indicator.setAttribute("aria-label", "Cached caretaker authorization");
+            indicator.innerHTML = '<span id="caretaker-auth-remaining"></span><button type="button" id="caretaker-auth-lock">Lock now</button>';
+            indicator.querySelector("#caretaker-auth-lock").onclick = forget;
+            const popupDescription = document.querySelector("#status-dialog-description");
+            const nav = document.querySelector(".ark-page nav");
+            if (popupDescription) popupDescription.insertAdjacentElement("afterend", indicator);
+            else if (nav) nav.insertAdjacentElement("afterend", indicator);
+            else (document.querySelector(".ark-page") || document.body).prepend(indicator);
+        }
+        const remaining = Math.max(1, Math.ceil((record.until-Date.now())/60000));
+        indicator.querySelector("#caretaker-auth-remaining").textContent = "Caretaker unlocked · "+remaining+" min remaining";
+        indicator.hidden = false;
+        indicatorTimer = setTimeout(refreshIndicator, Math.min(15000, Math.max(1,record.until-Date.now())));
     }
     function basic(password) {
         return "Basic " + btoa(Array.from(new TextEncoder().encode("admin:"+password), b => String.fromCharCode(b)).join(""));
@@ -87,6 +108,10 @@
         });
         try { return await pending; } finally { pending = null; }
     }
+    window.addEventListener("caretaker-auth-changed", refreshIndicator);
+    window.addEventListener("pageshow", refreshIndicator);
+    window.addEventListener("focus", refreshIndicator);
+    refreshIndicator();
     window.CaretakerAuth = Object.freeze({password, authorization:async purpose => basic(await password(purpose)),
         cachedAuthorization:() => { const value = cached(); return value ? basic(value.password) : null; },
         isRemembered:() => !!cached(), forget,

@@ -2,8 +2,8 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 function harness(storage=new Map()) {
   const nodes=new Map(),timers=new Map();let now=100000,status=200,calls=0,nextTimer=1;
   const node=selector=>{if(!nodes.has(selector))nodes.set(selector,{value:'',checked:false,disabled:false,textContent:'',listeners:{},querySelector:node,querySelectorAll:()=>[node('[type="submit"]'),node('#caretaker-auth-close')],setAttribute(){},focus(){},select(){},reportValidity:()=>true,reset(){node('#caretaker-auth-remember').checked=false;node('#caretaker-auth-minutes').value='10';},addEventListener(name,fn){this.listeners[name]=fn;},showModal(){this.open=true;},close(){this.open=false;const fn=this.listeners.close;delete this.listeners.close;fn?.();}});return nodes.get(selector);};
-  const window={dispatchEvent(){}};
-  const context=vm.createContext({window,document:{createElement:()=>node('dialog'),body:{append(){}}},sessionStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},TextEncoder,AbortController,Event:class{},Date:{now:()=>now},btoa:s=>Buffer.from(s,'binary').toString('base64'),setTimeout:(fn,ms)=>{const id=nextTimer++;timers.set(id,{fn,at:now+ms});return id;},clearTimeout:id=>timers.delete(id),fetch:async()=>{calls++;return {ok:status===200,status};}});
+  const listeners={};const window={addEventListener(name,fn){listeners[name]=fn;},dispatchEvent(event){listeners[event.type]?.();}};
+  const context=vm.createContext({window,document:{createElement:tag=>node(tag),querySelector:()=>null,body:{append(){},prepend(){}}},sessionStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},TextEncoder,AbortController,Event:class{constructor(type){this.type=type;}},Date:{now:()=>now},btoa:s=>Buffer.from(s,'binary').toString('base64'),setTimeout:(fn,ms)=>{const id=nextTimer++;timers.set(id,{fn,at:now+ms});return id;},clearTimeout:id=>timers.delete(id),fetch:async()=>{calls++;return {ok:status===200,status};}});
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../app/static/assets/js/caretaker-auth.js'),'utf8'),context);
   return {auth:window.CaretakerAuth,node,storage,calls:()=>calls,setStatus:value=>status=value,
     advance:ms=>{now+=ms;for(const [id,item] of [...timers])if(item.at<=now){timers.delete(id);item.fn();}},
@@ -32,4 +32,17 @@ test('authentication rejection and explicit forget clear remembered credentials'
 });
 test('a page disabling all buttons cannot disable the shared popup controls',async()=>{
  const h=harness();h.node('[type="submit"]').disabled=true;h.node('#caretaker-auth-close').disabled=true;const pending=h.auth.password();assert.equal(h.node('[type="submit"]').disabled,false);assert.equal(h.node('#caretaker-auth-close').disabled,false);h.node('dialog').close();await assert.rejects(pending);
+});
+
+test('cached authorization shows remaining time without prompting and Lock now clears it',async()=>{
+ const h=harness();assert.equal(h.calls(),0);const pending=h.auth.password();await h.submit('secret',3);await pending;
+ assert.equal(h.node('div').hidden,false);assert.match(h.node('#caretaker-auth-remaining').textContent,/3 min remaining/);
+ h.advance(61000);assert.match(h.node('#caretaker-auth-remaining').textContent,/2 min remaining/);assert.equal(h.calls(),1);
+ h.node('#caretaker-auth-lock').onclick();assert.equal(h.node('div').hidden,true);assert.equal(h.auth.isRemembered(),false);assert.equal(h.storage.size,0);
+});
+test('indicator reappears on navigation and disappears on expiry or rejection',async()=>{
+ const h=harness();const pending=h.auth.password();await h.submit('secret',1);await pending;
+ const next=harness(h.storage);assert.equal(next.node('div').hidden,false);assert.equal(next.calls(),0);
+ h.advance(60000);assert.equal(h.node('div').hidden,true);
+ next.auth.rejected({status:401});assert.equal(next.node('div').hidden,true);
 });
