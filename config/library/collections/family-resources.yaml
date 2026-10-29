@@ -1,8 +1,8 @@
 repository:
   id: family-resources
   artwork:
-    path: app/static/assets/icons/Family.png
-    alt: Family collection icon
+    path: app/static/assets/icons/Games.png
+    alt: Dice and crayon activities icon
   category: content_sources
   title: Paper, Play & Family Resources
   description: Offline paper studio, PDF coloring, browser games, adult coloring,

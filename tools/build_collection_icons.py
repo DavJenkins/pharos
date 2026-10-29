@@ -21,13 +21,39 @@ ICONS = {
     'disaster-recovery': ('Recovery', '#856847'),
     'sanitation': ('Sanitation', '#3a6e78'),
 }
+CARD_ICONS = {'Learning': '#203e54', 'Games': '#203e54', 'Wilderness': '#203e54', 'Power': '#203e54'}
+
 def render(name, color):
     image = Image.new('RGBA', (256, 256))
     d = ImageDraw.Draw(image)
     d.rounded_rectangle((8, 8, 248, 248), radius=44, fill=color)
-    ink = '#fffdf5'
+    ink = '#d4af37' if name in CARD_ICONS else '#fffdf5'
+    if name in CARD_ICONS: d.rounded_rectangle((12,12,244,244),radius=40,outline='#b39039',width=5)
     def line(points, width=10): d.line(points, fill=ink, width=width, joint='curve')
-    if name == 'Repair':
+    if name == 'Learning':
+        d.polygon([(39,78),(91,66),(128,82),(165,66),(217,78),(217,191),(165,179),(128,195),(91,179),(39,191)],outline=ink,width=8)
+        line([(128,84),(128,191)],7)
+        for y in [105,130,155]:
+            line([(57,y),(92,y-7),(109,y)],5);line([(147,y),(165,y-7),(199,y)],5)
+        d.polygon([(128,29),(167,45),(128,61),(89,45)],fill=ink)
+    elif name == 'Games':
+        d.rounded_rectangle((42,67,161,187),radius=18,outline=ink,width=8)
+        for x,y in [(69,94),(132,94),(101,127),(69,160),(132,160)]:d.ellipse((x-7,y-7,x+7,y+7),fill=ink)
+        d.polygon([(177,161),(194,57),(215,61),(199,165),(182,193)],outline=ink,width=7)
+        line([(178,151),(200,156)],5)
+    elif name == 'Wilderness':
+        d.polygon([(35,203),(99,89),(164,203)],outline=ink,width=8)
+        line([(99,89),(99,203)],6)
+        d.polygon([(99,139),(76,203),(123,203)],fill=ink)
+        d.polygon([(185,49),(154,104),(165,104),(146,142),(171,142),(171,199),(191,199),(191,142),(218,142),(201,104),(213,104)],outline=ink,width=6)
+    elif name == 'Power':
+        d.polygon([(46,128),(162,128),(183,201),(30,201)],outline=ink,width=7)
+        line([(54,153),(169,153)],5);line([(44,177),(176,177)],5)
+        line([(85,128),(77,201)],5);line([(124,128),(135,201)],5)
+        d.ellipse((64,45,112,93),outline=ink,width=6)
+        for a,b in [((88,27),(88,36)),((45,69),(54,69)),((121,69),(132,69)),((58,39),(65,46))]:line([a,b],5)
+        d.polygon([(186,39),(157,88),(181,88),(164,123),(218,68),(191,68)],fill=ink)
+    elif name == 'Repair':
         # Open-ended spanner, screwdriver, and repair fastener.
         line([(62, 63), (62, 100), (92, 121), (117, 100), (117, 63)])
         line([(90, 120), (90, 195)], 17)
@@ -114,3 +140,4 @@ def render(name, color):
 if __name__ == '__main__':
     out=ROOT/'app/static/assets/icons'
     for _,(name,color) in ICONS.items(): render(name,color).save(out/(name+'.png'))
+    for name,color in CARD_ICONS.items(): render(name,color).save(out/(name+'.png'))

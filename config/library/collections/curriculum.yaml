@@ -5,8 +5,8 @@ repository:
   description: Core Knowledge teacher and student units and OpenStax textbooks; coverage
     by grade and subject.
   artwork:
-    path: app/static/assets/icons/Family.png
-    alt: Learning collection
+    path: app/static/assets/icons/Learning.png
+    alt: Open book learning icon
   collapse_assets: true
   update_policy: manual
   refresh_interval: never

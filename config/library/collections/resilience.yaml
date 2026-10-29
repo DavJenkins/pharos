@@ -13,7 +13,7 @@ repository:
   - title: Offline power calculators
     url: /power.html
   artwork:
-    path: app/static/assets/icons/Resilience.png
-    alt: Resilience collection icon
+    path: app/static/assets/icons/Power.png
+    alt: Solar panel and lightning power icon
 catalogue: catalogues/resilience.yaml
 versions: state/versions/resilience.yaml

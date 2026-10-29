@@ -214,8 +214,8 @@ repositories:
     url: /library-files/forms/index.html
 - id: family-resources
   artwork:
-    path: app/static/assets/icons/Family.png
-    alt: Family collection icon
+    path: app/static/assets/icons/Games.png
+    alt: Dice and crayon activities icon
   category: content_sources
   title: Paper, Play & Family Resources
   description: Offline paper studio, PDF coloring, browser games, adult coloring,
@@ -248,8 +248,8 @@ repositories:
   - title: Offline power calculators
     url: /power.html
   artwork:
-    path: app/static/assets/icons/Resilience.png
-    alt: Resilience collection icon
+    path: app/static/assets/icons/Power.png
+    alt: Solar panel and lightning power icon
 - id: civic-reference
   title: Laws, Regulations & Codes
   description: Federal statutes, state and territorial constitutional snapshots, and
@@ -407,8 +407,8 @@ repositories:
   description: Topographic symbols, compass and GPS navigation, US National Grid coordinates,
     trip plans and outdoor emergency preparation.
   artwork:
-    path: app/static/assets/icons/Navigation.png
-    alt: Compass navigation icon
+    path: app/static/assets/icons/Wilderness.png
+    alt: Tent and pine tree wilderness icon
   category: content_sources
   collapse_assets: true
   update_policy: manual
@@ -479,8 +479,8 @@ repositories:
   description: Core Knowledge teacher and student units and OpenStax textbooks; coverage
     by grade and subject.
   artwork:
-    path: app/static/assets/icons/Family.png
-    alt: Learning collection
+    path: app/static/assets/icons/Learning.png
+    alt: Open book learning icon
   collapse_assets: true
   update_policy: manual
   refresh_interval: never
@@ -19349,6 +19349,7 @@ dashboard:
       service: kiwix
       path: /#name=khanacademy_en_all
     collapse_assets: true
+    artwork_from: curriculum
   - id: games-activities
     anchor: family-resources
     title: Games, Coloring & Activities
@@ -19390,6 +19391,7 @@ dashboard:
     - title: Navigation & trip planning
       url: /library-files/family-resources/index.html#navigation-field
     collapse_assets: true
+    artwork_from: navigation-field
   - id: power-energy
     anchor: resilience
     title: Power & Energy

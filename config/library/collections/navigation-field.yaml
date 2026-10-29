@@ -4,8 +4,8 @@ repository:
   description: Topographic symbols, compass and GPS navigation, US National Grid coordinates,
     trip plans and outdoor emergency preparation.
   artwork:
-    path: app/static/assets/icons/Navigation.png
-    alt: Compass navigation icon
+    path: app/static/assets/icons/Wilderness.png
+    alt: Tent and pine tree wilderness icon
   category: content_sources
   collapse_assets: true
   update_policy: manual

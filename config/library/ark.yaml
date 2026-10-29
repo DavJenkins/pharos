@@ -230,6 +230,7 @@ dashboard:
       service: kiwix
       path: /#name=khanacademy_en_all
     collapse_assets: true
+    artwork_from: curriculum
   - id: games-activities
     anchor: family-resources
     title: Games, Coloring & Activities
@@ -271,6 +272,7 @@ dashboard:
     - title: Navigation & trip planning
       url: /library-files/family-resources/index.html#navigation-field
     collapse_assets: true
+    artwork_from: navigation-field
   - id: power-energy
     anchor: resilience
     title: Power & Energy
