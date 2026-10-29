@@ -7,6 +7,7 @@ from reportlab.lib.colors import HexColor, Color
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.utils import ImageReader
+from catalogue_artwork import cover_image
 import argparse
 parser=argparse.ArgumentParser(description='Build the standalone Data Ark collection catalogue (requires reportlab).')
 parser.add_argument('--output', type=Path, default=Path(__file__).resolve().parents[1]/'app/static/collection-catalogue.pdf')
@@ -46,7 +47,7 @@ def cover(canvas,doc):
  canvas.setFillColor(BLUE);canvas.rect(0,0,W,H,fill=1,stroke=0)
  canvas.setStrokeColor(GOLD);canvas.setLineWidth(1);canvas.rect(27,27,W-54,H-54,fill=0,stroke=1)
  logo=R/'app/static/assets/pharos-data-ark-flat.png'
- if logo.exists():canvas.drawImage(ImageReader(str(logo)),80,578,width=452,height=184,mask='auto',preserveAspectRatio=True,anchor='c')
+ if logo.exists():canvas.drawImage(cover_image(logo),80,578,width=452,height=184,mask='auto',preserveAspectRatio=True,anchor='c')
  canvas.setFillColor(HexColor('#d4af37'));canvas.setFont('ArkBold',10);canvas.drawString(58,55,'DEJ SOFTWARE');canvas.setFont('Ark',9);canvas.drawRightString(W-58,55,'PRACTICAL SOFTWARE FOR REAL LIFE')
 page_names={2:'KNOWLEDGE, REPAIRS AND MAPS',3:'PREPAREDNESS, PAPERWORK AND LEARNING',4:'FIELD SKILLS, POWER, LAW AND RADIO',5:'FOOD, WATER, SHELTER AND CARE',6:'GARDENS, ANIMALS AND HOUSEHOLD RESILIENCE'}
 path=args.output
