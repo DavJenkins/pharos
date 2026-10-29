@@ -32,10 +32,10 @@
             indicator.innerHTML = '<span id="caretaker-auth-remaining"></span><button type="button" id="caretaker-auth-lock">Lock now</button>';
             indicator.querySelector("#caretaker-auth-lock").onclick = forget;
             const popupDescription = document.querySelector("#status-dialog-description");
-            const nav = document.querySelector(".ark-page nav");
+            const nav = document.querySelector("main nav");
             if (popupDescription) popupDescription.insertAdjacentElement("afterend", indicator);
             else if (nav) nav.insertAdjacentElement("afterend", indicator);
-            else (document.querySelector(".ark-page") || document.body).prepend(indicator);
+            else (document.querySelector("main") || document.body).prepend(indicator);
         }
         const remaining = Math.max(1, Math.ceil((record.until-Date.now())/60000));
         indicator.querySelector("#caretaker-auth-remaining").textContent = "Caretaker unlocked · "+remaining+" min remaining";
