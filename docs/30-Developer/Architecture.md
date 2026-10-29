@@ -1,5 +1,7 @@
 # Architecture
 
+For the design choices and internal mechanisms behind these components, see [Engineering behind the Ark](Engineering.md).
+
 ## Request paths
 
 Browsers reach Apache on port 80. Apache serves generated/static files from /var/www/html and proxies /api/ to FastAPI on loopback port 8000. FastAPI routers validate requests and delegate to services. Collectors obtain network, platform, resource, and service information from Linux. The dashboard consumes the API; its ordinary status requests do not execute arbitrary commands. The separately authenticated browser terminal follows a different path, described below.

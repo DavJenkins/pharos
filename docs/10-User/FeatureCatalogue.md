@@ -8,6 +8,8 @@ An offline library with the tools to connect, share, create, coordinate, maintai
 
 A companion to The Collection. This document describes implemented software and configured capabilities, independent of which publications or datasets are installed. It does not repeat the content inventory.
 
+For the internal mechanisms and design decisions, see [Engineering behind the Ark](../30-Developer/Engineering.md).
+
 ## At a glance
 
 1. Walk-up access without a reader account

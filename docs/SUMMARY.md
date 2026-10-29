@@ -55,6 +55,7 @@
 - [Developer Guide](30-Developer/DeveloperGuide.md)
 - [Development tools on the Ark](30-Developer/DevelopmentTools.md)
 - [Architecture](30-Developer/Architecture.md)
+- [Engineering behind the Ark](30-Developer/Engineering.md)
 - [REST API](30-Developer/API.md)
 
 ### API Specifications

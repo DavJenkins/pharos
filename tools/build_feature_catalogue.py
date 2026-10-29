@@ -50,7 +50,7 @@ def cover(canvas,doc):
 
 path=args.output
 path.parent.mkdir(parents=True,exist_ok=True)
-md=['# PHAROS Data Ark — What it can do', '', '*'+data['edition']+'*', '', '[Download the feature catalogue (PDF)](../../feature-catalogue.pdf) · [Companion: The Collection](CollectionCatalogue.md)', '', data['intro'], '', data['scope'], '', '## At a glance', '']
+md=['# PHAROS Data Ark — What it can do', '', '*'+data['edition']+'*', '', '[Download the feature catalogue (PDF)](../../feature-catalogue.pdf) · [Companion: The Collection](CollectionCatalogue.md)', '', data['intro'], '', data['scope'], '', 'For the internal mechanisms and design decisions, see [Engineering behind the Ark](../30-Developer/Engineering.md).', '', '## At a glance', '']
 for section in data['sections']:
     md.append(str(section['number'])+'. '+section['title'])
 for section in data['sections']:
