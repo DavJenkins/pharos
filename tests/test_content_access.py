@@ -90,7 +90,7 @@ class ContentShareTests(unittest.TestCase):
         self.assertEqual(config['Offline-Archives']['write list'], '')
         self.assertNotIn('writable', config['Offline-Archives'])
         self.assertEqual(config['Bugout-Staging']['force user'], 'admin')
-        self.assertEqual(config['Bugout-Staging']['read only'], 'no')
+        self.assertEqual(config['Bugout-Staging']['read only'], 'yes')
         self.assertEqual(config['dataark']['path'], '/opt/dataark')
         self.assertEqual(config['global']['workgroup'], 'WORKGROUP')
         self.assertEqual(candidate_samba(updated), updated)

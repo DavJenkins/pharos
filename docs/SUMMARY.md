@@ -115,3 +115,5 @@
 * [Content type registry and handler API](20-Administration/ContentHandlers.md)
 
 * [Modular public configuration](20-Administration/ModularConfiguration.md)
+
+- [Desktop ARM64 test Ark](20-Administration/Emulator.md)

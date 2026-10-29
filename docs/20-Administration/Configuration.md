@@ -93,7 +93,7 @@ This application uses local HTTP, not encrypted management transport. The careta
 
 ## Samba
 
-/etc/samba/smb.conf defines Offline-Archives at /mnt/storage, read-only, with guest access offered subject to client policy. Bugout-Staging is a separate writable area at /mnt/storage/bugout-drop. The dataark development share points to /opt/dataark and is writable according to its account policy. Do not change the development share into an anonymous public source server merely to provide source references.
+/etc/samba/smb.conf defines Offline-Archives at /mnt/storage, read-only, with guest access offered subject to client policy. Bugout-Staging is a separate read-only legacy area at /mnt/storage/bugout-drop. The dataark development share points to /opt/dataark and is writable according to its account policy. Do not change the development share into an anonymous public source server merely to provide source references.
 
 Deploy/install_content_access.py validates candidates with testparm and Apache configtest, preserves configuration backups and maintains public content exclusions. SMB account state is separate from configuration text; the private capture includes Samba private state so a maintainer can review recovery needs. Do not copy that state into the public library.
 

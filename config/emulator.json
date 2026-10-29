@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "profile": "software-only-arm64",
+  "machine": "virt,gic-version=3",
+  "cpu": "cortex-a72",
+  "cpus": 4,
+  "memory_mib": 4096,
+  "system_disk_gib": 32,
+  "loopback_ports": {
+    "ssh": 22222,
+    "http": 18080,
+    "kiwix": 18081,
+    "qmp": 24444
+  },
+  "media": {
+    "mountpoint": "/mnt/storage",
+    "read_only": true,
+    "share": "//dataark/Offline-Archives"
+  },
+  "automatic_downloads": false,
+  "household_controls": false,
+  "physical_network_controls": false
+}

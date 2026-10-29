@@ -15,7 +15,7 @@ Implementation inventory, reviewed for obsolete instructions October 28, 2026. H
 - Apache: HTTP port 80, web root /var/www/html, /api proxy to loopback port 8000, /library-files alias to public SSD files.
 - FastAPI: dataark.service, user/group admin, checkout /opt/dataark, loopback binding.
 - Kiwix: kiwix-serve Docker container, host port 8080, content mount /data from /mnt/storage, configured archive glob *.zim.
-- Samba: Offline-Archives is read-only library access; Bugout-Staging is a separate writable upload area; dataark is the development source share. Client guest policy may require Samba authentication.
+- Samba: Offline-Archives is read-only library access; Bugout-Staging is a legacy staging share retained read-only; dataark is the development source share. Client guest policy may require Samba authentication.
 - vsftpd: anonymous read-only FTP, control port 21 and passive data ports 30000–30009, FTP root containing a read-only library view. No local-account FTP logins or writes.
 - OpenSSH: port 22 and configured SFTP subsystem; account-based administrator access. rsync can use SSH; no anonymous rsync daemon is configured.
 

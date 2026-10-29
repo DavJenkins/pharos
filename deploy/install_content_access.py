@@ -60,7 +60,7 @@ def candidate_samba(text):
         'browseable':'yes', 'force user':'admin',
         'veto files':'/bugout-drop/System Volume Information/$RECYCLE.BIN/',
     })
-    return update_share(text, 'Bugout-Staging', {'force user':'admin'})
+    return update_share(text, 'Bugout-Staging', {'force user':'admin', 'read only':'yes', 'write list':''})
 
 def write_atomic(path, data, mode=0o644):
     with tempfile.NamedTemporaryFile(dir=path.parent, delete=False) as stream:
