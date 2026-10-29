@@ -226,7 +226,7 @@ dashboard:
       url: /library-files/curriculum/index.html
     - title: Learning at home
       url: /learning.html
-    - title: Khan Academy videos and exercises
+    - title: Khan Academy videos and exercises (after installation)
       service: kiwix
       path: /#name=khanacademy_en_all
     collapse_assets: true

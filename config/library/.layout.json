@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "public_sha256": "7ea9750ce385429cbf6622cae8437697129b99264395b815c539d3fd6ce4190d",
+  "public_sha256": "c8a79610591042b8dd700cd5bdb61cc8e0015a52774c531d147b5889d0b0ac62",
   "files": {
     "collections/wikipedia.yaml": "71cebd6ca9dd357a439745ca22cd9820b3b0fa8abe2e538cefc7acc596400204",
     "catalogues/wikipedia.yaml": "06e18a0bf19bb309eb2dbd8b663b5cba7c0c64b6d3792d4e7927dcd265fe75ca",
@@ -44,7 +44,7 @@
     "collections/vehicle-manuals.yaml": "5e7b04767e2f13ce66ea6028f27ae824114b8a9d48b8ec21daf54868d266a75c",
     "catalogues/vehicle-manuals.yaml": "c590aafc0d3bae3275eb82fa4a80cade4bae4a6d2005cb1014159aa8c40957d7",
     "state/versions/vehicle-manuals.yaml": "87e1fbf57c6ef475e038d0b5b779e0df9cff9175544440f18694d6f0714263c1",
-    "collections/food-preservation.yaml": "d77ab242180d1e2393d537c93f7f7bd02db36ce93cbcc949dd7943ea1fcdd1f2",
+    "collections/food-preservation.yaml": "4a362f2f25c170ee892a72bcb25b0c1a6712d0fed66ad9eca9f5dc733efe7f88",
     "catalogues/food-preservation.yaml": "0b59203521b757e7a0b2c55e574b661e596ad24cf969ea4c8063b722fe1795cd",
     "state/versions/food-preservation.yaml": "0b422110f3c84c347264d01704f4308edc51368f00de4a5964dbc5a36659f841",
     "collections/sanitation.yaml": "ad087b999c5b6f9e17ccc85a0c4c67740cbc7fcfd115f1b1fd0768fc1112631e",
@@ -87,6 +87,6 @@
     "catalogues/communication-accessibility.yaml": "2acf4770562cea087e5335ba3b0c3da019cc02a0142f7f79c1896cc919c61dcf",
     "state/versions/communication-accessibility.yaml": "94c9cba849ea3c3abfe9675db0b4c3eba13271354c358b19aa7a81a134441312",
     "state/order.yaml": "073da3c3548f464d4b94db57946c89f79034c3b70b52852ad88951b2592a8f3d",
-    "ark.yaml": "da8c9ffeb05d3876280841e0618fc52bc3a2d06be681f5942d850728aa8d17b1"
+    "ark.yaml": "c72d4ed6e4f827dccd5f6b3b7948d43f2ceee5b73cbb62ebfa4f8eb308e4f8ca"
   }
 }

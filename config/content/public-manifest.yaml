@@ -307,8 +307,8 @@ repositories:
     and emergency food/cooking safety. Original procedures and editions preserved.
   collapse_assets: true
   artwork:
-    path: app/static/assets/icons/Resilience.png
-    alt: Food resilience collection icon
+    path: app/static/assets/icons/Food.png
+    alt: Cookbook and preserving jar icon
   update_policy: manual
   refresh_interval: never
   links:

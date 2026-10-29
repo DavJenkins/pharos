@@ -21,7 +21,7 @@ ICONS = {
     'disaster-recovery': ('Recovery', '#856847'),
     'sanitation': ('Sanitation', '#3a6e78'),
 }
-CARD_ICONS = {'Learning': '#203e54', 'Games': '#203e54', 'Wilderness': '#203e54', 'Power': '#203e54'}
+CARD_ICONS = {'Learning': '#203e54', 'Games': '#203e54', 'Wilderness': '#203e54', 'Power': '#203e54', 'Food': '#203e54'}
 
 def render(name, color):
     image = Image.new('RGBA', (256, 256))
@@ -53,6 +53,15 @@ def render(name, color):
         d.ellipse((64,45,112,93),outline=ink,width=6)
         for a,b in [((88,27),(88,36)),((45,69),(54,69)),((121,69),(132,69)),((58,39),(65,46))]:line([a,b],5)
         d.polygon([(186,39),(157,88),(181,88),(164,123),(218,68),(191,68)],fill=ink)
+    elif name == 'Food':
+        d.rounded_rectangle((37,52,131,207),radius=8,outline=ink,width=7)
+        line([(53,52),(53,207)],5)
+        d.ellipse((67,82,109,124),outline=ink,width=6)
+        line([(74,144),(110,144)],5);line([(74,164),(110,164)],5)
+        d.rounded_rectangle((151,99,217,204),radius=12,outline=ink,width=7)
+        d.rectangle((155,82,213,101),outline=ink,width=6)
+        line([(155,127),(213,127)],5);line([(155,180),(213,180)],5)
+        d.ellipse((173,142,197,166),fill=ink)
     elif name == 'Repair':
         # Open-ended spanner, screwdriver, and repair fastener.
         line([(62, 63), (62, 100), (92, 121), (117, 100), (117, 63)])
