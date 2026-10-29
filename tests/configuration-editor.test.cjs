@@ -47,3 +47,10 @@ test('switching files resets section choices and single-section files are presel
  h.node('configuration-file').value='ark.yaml';await h.node('configuration-file').onchange();
  assert.deepEqual(section.children.map(o=>o.textContent),['Choose a section…','system','community']);assert.equal(section.value,'');assert.equal(section.disabled,false);
 });
+
+test('file change clears the old editor contents synchronously before the response',async()=>{
+ const h=harness(true);await h.node('configuration-load').onclick();assert.notEqual(h.node('configuration-text').value,'');
+ h.node('configuration-file').value='state/order.yaml';const pending=h.node('configuration-file').onchange();
+ assert.equal(h.node('configuration-text').value,'');assert.equal(h.node('configuration-section').disabled,true);assert.match(h.node('configuration-active-file').textContent,/Loading state\/order.yaml/);
+ await pending;assert.equal(h.node('configuration-text').value,'assets: []\n');assert.equal(h.node('configuration-active-file').textContent,'state/order.yaml (read-only)');
+});
