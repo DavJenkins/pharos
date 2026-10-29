@@ -2,7 +2,7 @@
 (() => {
     "use strict";
     const key = "dataark.caretaker.session.v1";
-    let memory = null, pending = null, dialog, expiryTimer, indicator, indicatorTimer;
+    let memory = null, pending = null, dialog, expiryTimer, indicator, indicatorTimer, floatingLock;
     function forget() {
         memory = null; clearTimeout(expiryTimer);
         try { sessionStorage.removeItem(key); } catch (_) {}
@@ -24,7 +24,7 @@
     function refreshIndicator() {
         clearTimeout(indicatorTimer);
         const record = cached();
-        if (!record) { if (indicator) indicator.hidden = true; return; }
+        if (!record) { if (indicator) indicator.hidden = true; if (floatingLock) floatingLock.hidden = true; return; }
         if (!indicator) {
             indicator = document.createElement("div");
             indicator.id = "caretaker-auth-status";
@@ -37,9 +37,20 @@
             else if (nav) nav.insertAdjacentElement("afterend", indicator);
             else (document.querySelector("main") || document.body).prepend(indicator);
         }
+        if (!floatingLock) {
+            floatingLock = document.createElement("button");
+            floatingLock.id = "caretaker-auth-floating-lock";
+            floatingLock.type = "button";
+            floatingLock.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="11" rx="2"/><path d="M8 11V6a4 4 0 0 1 8 0"/><path d="M12 15v3"/></svg>';
+            floatingLock.onclick = forget;
+            document.body.append(floatingLock);
+        }
         const remaining = Math.max(1, Math.ceil((record.until-Date.now())/60000));
         indicator.querySelector("#caretaker-auth-remaining").textContent = "Caretaker unlocked · "+remaining+" min remaining";
         indicator.hidden = false;
+        floatingLock.hidden = false;
+        floatingLock.title = "Caretaker unlocked · "+remaining+" min remaining. Lock now.";
+        floatingLock.setAttribute("aria-label", floatingLock.title);
         indicatorTimer = setTimeout(refreshIndicator, Math.min(15000, Math.max(1,record.until-Date.now())));
     }
     function basic(password) {
