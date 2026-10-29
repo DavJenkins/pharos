@@ -49,6 +49,6 @@ test('indicator reappears on navigation and disappears on expiry or rejection',a
 
 test('floating unlocked padlock is visible only while cached and locks on click',async()=>{
  const h=harness();const pending=h.auth.password();await h.submit('secret',10);await pending;
- assert.equal(h.node('button').hidden,false);assert.match(h.node('button').title,/10 min remaining/);
+ assert.equal(h.node('button').hidden,false);assert.match(h.node('button').title,/10 min remaining/);assert.equal(h.node('#caretaker-auth-floating-minutes').textContent,'10');h.advance(61000);assert.equal(h.node('#caretaker-auth-floating-minutes').textContent,'9');
  h.node('button').onclick();assert.equal(h.node('button').hidden,true);assert.equal(h.auth.isRemembered(),false);
 });

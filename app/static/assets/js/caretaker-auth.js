@@ -41,7 +41,7 @@
             floatingLock = document.createElement("button");
             floatingLock.id = "caretaker-auth-floating-lock";
             floatingLock.type = "button";
-            floatingLock.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="11" rx="2"/><path d="M8 11V6a4 4 0 0 1 8 0"/><path d="M12 15v3"/></svg>';
+            floatingLock.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="11" rx="2"/><path d="M8 11V6a4 4 0 0 1 8 0"/></svg><span id="caretaker-auth-floating-minutes" aria-hidden="true"></span>';
             floatingLock.onclick = forget;
             document.body.append(floatingLock);
         }
@@ -49,6 +49,7 @@
         indicator.querySelector("#caretaker-auth-remaining").textContent = "Caretaker unlocked · "+remaining+" min remaining";
         indicator.hidden = false;
         floatingLock.hidden = false;
+        floatingLock.querySelector("#caretaker-auth-floating-minutes").textContent = String(remaining);
         floatingLock.title = "Caretaker unlocked · "+remaining+" min remaining. Lock now.";
         floatingLock.setAttribute("aria-label", floatingLock.title);
         indicatorTimer = setTimeout(refreshIndicator, Math.min(15000, Math.max(1,record.until-Date.now())));
