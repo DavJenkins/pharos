@@ -1,5 +1,5 @@
 from pathlib import Path
-from tools.wifi_interfaces import interfaces
+from tools.wifi_interfaces import interfaces, ethernet_interface
 from app.core.command import run
 
 
@@ -24,25 +24,29 @@ def _gateway(dev: str) -> str:
 
 
 def ethernet():
-    carrier = run(["nmcli", "-g", "WIRED-PROPERTIES.CARRIER", "device", "show", "eth0"]).strip()
-    autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", "eth0"]).strip()
+    device=ethernet_interface()
+    if not device:return {'interface':'','carrier':False,'enabled':False,'state':'not_configured','connected':False,'ip':'','gateway':''}
+    carrier = run(["nmcli", "-g", "WIRED-PROPERTIES.CARRIER", "device", "show", device]).strip()
+    autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", device]).strip()
     try:
-        state = Path("/sys/class/net/eth0/operstate").read_text().strip()
+        state = (Path("/sys/class/net")/device/"operstate").read_text().strip()
     except OSError:
         state = "unknown"
 
     return {
+        "interface": device,
         "carrier": True if carrier == "on" else False if carrier == "off" else None,
         "enabled": True if autoconnect == "yes" else False if autoconnect == "no" else None,
         "state": "disabled" if autoconnect == "no" else state,
         "connected": False if autoconnect == "no" else None if state == "unknown" else state == "up",
-        "ip": _ip4("eth0"),
-        "gateway": _gateway("eth0"),
+        "ip": _ip4(device),
+        "gateway": _gateway(device),
     }
 
 
 def wifi():
     _, upstream = interfaces()
+    if not upstream:return {'interface':'','enabled':False,'state':'not_configured','connected':False,'ssid':None,'signal':{'dbm':None,'percent':None},'rate':None,'ip':'','gateway':''}
     autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", upstream]).strip()
     enabled = True if autoconnect == "yes" else False if autoconnect == "no" else None
     link = run(["iw", "dev", upstream, "link"])
@@ -102,6 +106,7 @@ def wifi():
 
 def access_point():
     ap, _ = interfaces()
+    if not ap:return {'interface':'','ssid':'','enabled':False,'active':False,'state':'not_configured','ip':'','client_count':0,'clients':[]}
     autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", ap]).strip()
     info = run(["iw", "dev", ap, "info"])
     fields = {}

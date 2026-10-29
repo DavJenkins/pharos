@@ -6,7 +6,13 @@ def _model() -> str:
     try:
         return Path("/proc/device-tree/model").read_bytes().rstrip(b"\0").decode()
     except Exception:
-        return ""
+        try:
+            vendor=Path('/sys/class/dmi/id/sys_vendor').read_text().strip()
+            model=Path('/sys/class/dmi/id/product_name').read_text().strip()
+            return vendor+' '+model
+        except OSError:
+            import platform
+            return platform.machine()
 
 
 def installed_ram(revision_path=Path('/proc/device-tree/system/linux,revision')):

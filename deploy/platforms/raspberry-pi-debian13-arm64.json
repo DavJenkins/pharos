@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "raspberry-pi-debian13-arm64",
+  "label": "Raspberry Pi OS / Debian 13 ARM64",
+  "adapter": "debian-systemd-networkmanager",
+  "baseline": {
+    "os_id": "debian",
+    "version_id": "13",
+    "architecture": "aarch64",
+    "require_raspberry_pi_os": true
+  },
+  "network_mode": "hotspot",
+  "acceptance": "reference-profile",
+  "pmtiles": {
+    "version": "1.31.2",
+    "url": "https://github.com/protomaps/go-pmtiles/releases/download/v1.31.2/go-pmtiles_1.31.2_Linux_arm64.tar.gz",
+    "archive_sha256": "f8bd47e7ea866863489cad588fbaf2f31f42e5821f7a03f009b3769f05801cb1",
+    "binary_sha256": "8cd0affde1ba5380b7cea6de0f94c674f88e4f586c77ae5820ea9652862691f4"
+  },
+  "kiwix_image": "ghcr.io/kiwix/kiwix-serve@sha256:7096f2f2098bbb9ac97f02fe11d51195861a2507667d87a5e8d932fc28106bc2"
+}

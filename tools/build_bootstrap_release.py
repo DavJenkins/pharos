@@ -36,6 +36,7 @@ def build(input_kit,version,output,source_ref='HEAD'):
    if not item.isfile() or item.name.startswith('/') or '..' in Path(item.name).parts:raise ValueError('Unsafe input kit member')
    files[item.name]=incoming.extractfile(item).read()
  old=json.loads(files['DATA-ARK-RECOVERY/kit.json'])
+ if old.get('architecture','aarch64')!='aarch64' or old.get('platform_profile','raspberry-pi-debian13-arm64')!='raspberry-pi-debian13-arm64':raise ValueError('This public-release builder requires the reference Pi profile; use prepare_platform_kit.py for other flavors.')
  for name,key in [('dataark-source.tar.gz','source_sha256'),('bootstrap_stock_pi.py','bootstrap_sha256'),('pmtiles','pmtiles_sha256')]:
   if sha(files['DATA-ARK-RECOVERY/'+name])!=old[key]:raise ValueError('Input checksum mismatch: '+name)
  public=yaml.safe_load(files['DATA-ARK-CONFIG/config/content/public-manifest.yaml']);assert 'bugout' not in public;inspect_config(public)
@@ -62,9 +63,13 @@ def build(input_kit,version,output,source_ref='HEAD'):
  payload['DATA-ARK-RECOVERY/bootstrap_stock_pi.py']=(coordinator,0o644)
  site=json.loads(source['config/stock-pi.json'][0]);inspect_config(site)
  payload['DATA-ARK-RECOVERY/site.json']=(json.dumps(site,indent=2).encode()+b'\n',0o644)
+ platform_files={}
+ for name,(data,mode) in source.items():
+  if name=='deploy/bootstrap_platform.py' or name.startswith('deploy/platforms/') and name.endswith('.json'):
+   relative=name.removeprefix('deploy/');payload['DATA-ARK-RECOVERY/'+relative]=(data,0o644);platform_files[relative]=sha(data)
  for name in ['pmtiles','PMTILES-LICENSE.txt','PMTILES-NOTICE.txt']:
   payload['DATA-ARK-RECOVERY/'+name]=(files['DATA-ARK-RECOVERY/'+name],0o755 if name=='pmtiles' else 0o644)
- metadata={'schema':1,'version':version,'source_revision':revision,'source_sha256':sha(source_zip),'bootstrap_sha256':sha(coordinator),'pmtiles_sha256':sha(files['DATA-ARK-RECOVERY/pmtiles']),'status':'experimental_preview','credentials_included':False,'device_identity_included':False,'public_manifest_only':True,'validated_runtime_source':old['source_revision'],'validated_executable_files_unchanged':compared}
+ metadata={'schema':1,'version':version,'source_revision':revision,'source_sha256':sha(source_zip),'bootstrap_sha256':sha(coordinator),'pmtiles_sha256':sha(files['DATA-ARK-RECOVERY/pmtiles']),'status':'experimental_preview','credentials_included':False,'device_identity_included':False,'public_manifest_only':True,'validated_runtime_source':old['source_revision'],'validated_executable_files_unchanged':compared,'platform_files':platform_files,'platform_profile':'raspberry-pi-debian13-arm64','architecture':'aarch64'}
  payload['DATA-ARK-RECOVERY/kit.json']=(json.dumps(metadata,indent=2).encode()+b'\n',0o644)
  payload['START-ARK.sh']=(b'#!/bin/sh\nset -eu\nHERE=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)\nexec python3 "$HERE/DATA-ARK-RECOVERY/bootstrap_stock_pi.py" --kit "$HERE/DATA-ARK-RECOVERY" "$@"\n',0o755)
  readme=f'''# Data Ark bootstrap {version}\n\nA public configuration and software kit for building a Data Ark. Clean Debian 13 ARM64 installation, authentication, public file serving and reboot have passed a single uninterrupted software-phase replay, plus 43 regression tests.\n\n## Start\n\n1. Start with Raspberry Pi OS 64-bit based on Debian 13, primary account admin (UID 1000), and internet via Ethernet or a second Wi-Fi adapter.\n2. This download is a .tar.gz archive, not a disk image. Extract its files onto a separate drive already formatted as ext4, exFAT or NTFS. Ensure it is mounted and owned by admin. The installer does not format drives.\n3. In a local terminal, run `sudo bash START-ARK.sh` to preview, then `sudo bash START-ARK.sh --apply` to install. Review the plan and enter INSTALL. A separate caretaker password is requested privately.\n\nContent is chosen separately after setup: None, Minimal, Recommended or Full. Downloads use the Ark's network and free space.\n\nThe download includes public source, readable configuration, the PMTiles CLI and its license. OS images, system packages, Python/container dependencies and library content are acquired separately; installation needs internet. Every appliance establishes its own private identity.\n\nPreview release: physical Pi validation is the next step.\n\nSource: https://github.com/DavJenkins/pharos/tree/{revision}\nGuide: https://www.dejsoftware.com/data-ark/installation/\nResults: https://github.com/DavJenkins/pharos/blob/2506c8215dd079799a5f29ce27d278a6ca92d444/docs/20-Administration/FrozenBootstrapReplay.md\n'''
@@ -73,8 +78,8 @@ def build(input_kit,version,output,source_ref='HEAD'):
  payload['MANIFEST.json']=(json.dumps(manifest,indent=2).encode()+b'\n',0o644)
  body=archive_bytes(payload);name='data-ark-bootstrap-'+version+'.tar.gz';path=output/name;path.write_bytes(body)
  (output/'SHA256SUMS').write_text(sha(body)+'  '+name+'\n',encoding='utf-8')
- (output/'release-manifest.json').write_text(json.dumps({'version':version,'source_revision':revision,'asset':name,'bytes':len(body),'sha256':sha(body),'channel':'preview','validated_executable_files_unchanged':compared},indent=2)+'\n',encoding='utf-8')
- print(json.dumps({'asset':str(path),'bytes':len(body),'sha256':sha(body),'validated_executable_files_unchanged':compared},indent=2))
+ (output/'release-manifest.json').write_text(json.dumps({'version':version,'source_revision':revision,'asset':name,'bytes':len(body),'sha256':sha(body),'channel':'preview','validated_executable_files_unchanged':compared,'platform_files':platform_files,'platform_profile':'raspberry-pi-debian13-arm64','architecture':'aarch64'},indent=2)+'\n',encoding='utf-8')
+ print(json.dumps({'asset':str(path),'bytes':len(body),'sha256':sha(body),'validated_executable_files_unchanged':compared,'platform_files':platform_files,'platform_profile':'raspberry-pi-debian13-arm64','architecture':'aarch64'},indent=2))
  return path
 if __name__=='__main__':
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--input-kit',type=Path,required=True);p.add_argument('--version',required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--source-ref',default='HEAD');a=p.parse_args();build(a.input_kit,a.version,a.output,a.source_ref)

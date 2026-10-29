@@ -72,6 +72,8 @@ The design treats the system medium and content medium as separately replaceable
 
 The stock-Pi setup path turns a supported running Debian-based Pi into an Ark through explicit setup steps rather than requiring a clone of the original system image. Device-specific private identity is separate from the portable public description.
 
+That coordinator now shares platform profiles for the Pi and generic Debian 13 ARM64/x86-64 LAN machines. Read-only discovery binds reviewed roles to hardware identities; LAN profiles retain existing NetworkManager connections. Architecture-specific PMTiles and Kiwix pins prevent shipping the source machine's binaries indiscriminately. See [Platform flavors](PlatformProfiles.md).
+
 Drive replication adds a capacity-aware file-copy plan rather than a block image: configuration only, whole collections that fit, or all public content. The exact reviewed plan binds public configuration, source revision, selected file sizes/timestamps and destination UUID. The terminal worker protects backing disks, coordinates with content workers, checks partial prefixes before appending and records SHA-256 verification receipts. Its portable catalogue includes only verified copied payloads, while its recipe preserves full restoration intent. See [Clone a content drive](../20-Administration/CloneDrive.md).
 
 **Why it matters:** the desired end state is understandable and reproducible, rather than existing only as the accidental contents of one working machine.

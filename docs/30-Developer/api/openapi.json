@@ -162,6 +162,11 @@
             "title": "Gateway",
             "type": "string"
           },
+          "interface": {
+            "default": "eth0",
+            "title": "Interface",
+            "type": "string"
+          },
           "ip": {
             "title": "Ip",
             "type": "string"

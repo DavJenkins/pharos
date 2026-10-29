@@ -63,6 +63,7 @@
 ## Developer
 
 - [Stock-Pi setup and Ark-drive replication](30-Developer/StockPiSetup.md)
+- [Platform flavors and hardware discovery](30-Developer/PlatformProfiles.md)
 - [Bootstrap release publishing](30-Developer/BootstrapReleases.md)
 - [Image-to-Ark bootstrap plan](30-Developer/BootstrapPlan.md)
 - [Developer Guide](30-Developer/DeveloperGuide.md)

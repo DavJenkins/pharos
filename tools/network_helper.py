@@ -11,7 +11,7 @@ import tempfile
 import uuid
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from wifi_interfaces import interfaces
+from wifi_interfaces import interfaces, platform_settings
 
 NMCLI = '/usr/bin/nmcli'
 ENV = {'PATH': '/usr/sbin:/usr/bin:/sbin:/bin', 'LC_ALL': 'C'}
@@ -117,6 +117,8 @@ def protect_access(data, interface):
 
 def execute(data):
     action = validate(data)
+    if platform_settings() and action not in ('diagnostics','publish-configuration','access','scan'):
+        raise NetworkError('This LAN profile preserves the operating system’s network settings. Use its local network settings to make changes.')
     if action == 'publish-configuration':
         result = subprocess.run(['/usr/bin/systemctl','start','--no-block','dataark-configuration-publish.service'],capture_output=True,text=True,timeout=10,check=False)
         return {'ok':result.returncode==0,'error':'Configuration publisher could not start.'}

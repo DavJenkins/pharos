@@ -1,5 +1,7 @@
 # Set up a stock Pi and prepare another Ark drive
 
+Raspberry Pi is the reference profile. Current source also provides generic Debian 13 ARM64 and x86-64 LAN profiles with reviewed hardware discovery; see [Platform flavors](PlatformProfiles.md). The existing published Pi preview retains its original setup procedure.
+
 **Restoration update:** Optional content now requires a capacity-checked preset and explicit queue approval. The legacy `content_profile.py restore --apply` path is disabled. Fresh bootstrap does not start optional downloads or automatic download timers. See [Restore presets and queue](../20-Administration/RecoveryQueue.md). Spare-media acceptance remains pending.
 
 ## Current status and supported starting point
@@ -18,10 +20,15 @@ The drive carries `START-ARK.txt`, `START-ARK.html`, `START-ARK.sh`, `DATA-ARK-C
 
 ```sh
 sudo bash START-ARK.sh
+```
+
+The command only previews. Newly generated kits print the exact reviewed apply command, including `--accept-plan`; run that command and confirm `INSTALL`. Review/edit `DATA-ARK-RECOVERY/site.json` before accepting its plan. The existing published Pi preview instead uses:
+
+```sh
 sudo bash START-ARK.sh --apply
 ```
 
-The first command only previews. The second checks the target and asks for `INSTALL` before making the described changes. Review/edit `DATA-ARK-RECOVERY/site.json` for the permitted settings: SSID, country, hostname policy, FTP and other base-device settings; optional restoration and download timers are separately gated. Core layout constraints remain fixed until separately supported. There are no credentials in this JSON. The helper installer privately prompts for a new management password; do not reuse the source Ark's credentials.
+Permitted site settings include SSID, country, hostname policy, FTP and other base-device settings; optional restoration and download timers are separately gated. Core layout constraints remain fixed until separately supported. There are no credentials in this JSON. The helper installer privately prompts for a new management password; do not reuse the source Ark's credentials.
 
 Stages: distribution packages; checksum-verified public source; existing content-volume mount; Python environment and PMTiles CLI; API/Apache/Kiwix and protected helpers; hotspot/portal/public content access; missing library content; timers and service checks. The source archive is expanded with traversal/link/special-file checks. A local Git repository is initialized so the new Ark can checkpoint and prepare another kit without a GitHub account. It does not automatically push to GitHub.
 

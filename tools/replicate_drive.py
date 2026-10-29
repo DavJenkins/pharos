@@ -30,7 +30,14 @@ def safe_target(target,resume=False):
  if bool(result.get('resume'))!=resume:raise ValueError('Use --resume only for the matching incomplete clone.')
  return target.resolve()
 
-def kit_files(target, profile=None, revision=None):
+def kit_files(target, profile=None, revision=None, platform_profile=None):
+ git=['git','-c','safe.directory='+str(ROOT),'-c','core.filemode=false','-C',str(ROOT)]
+ current=subprocess.check_output(git+['rev-parse','HEAD'],text=True).strip()
+ if revision and revision!=current:raise ValueError('Use the approved source checkpoint when preparing its installer kit.')
+ executable_paths=[':(glob)app/**/*.py',':(glob)tools/**/*.py',':(glob)deploy/**/*.py','deploy/platforms','config/stock-pi.json']
+ if subprocess.run(git+['diff','--quiet','HEAD','--']+executable_paths).returncode:raise ValueError('Commit installer/platform code changes before preparing a kit; private content selections need not be committed.')
+ untracked=subprocess.check_output(git+['ls-files','--others','--exclude-standard','--','app','tools','deploy'],text=True).splitlines()
+ if any(name.endswith('.py') or name.startswith('deploy/platforms/') for name in untracked):raise ValueError('Untracked installer code/profile files must be reviewed and committed before preparing a kit.')
  # Mirror the saved desired profile; never recapture an empty destination as intent.
  from tools.content_profile import mirror,read
  profile=Path(profile) if profile else ROOT/'config/content/content.yaml';mirror(read(profile),profile.parent,target/'DATA-ARK-CONFIG')
@@ -51,16 +58,27 @@ def kit_files(target, profile=None, revision=None):
  for required in ['ethtool','docker-cli','ntfs-3g']:
   if required not in site['packages']:site['packages'].append(required)
  (kit/'site.json').write_text(json.dumps(site,indent=2)+'\n')
- pmtiles=Path('/usr/local/bin/pmtiles')
- if not pmtiles.is_file():raise RuntimeError('Install the documented official ARM64 PMTiles CLI before preparing a replication kit.')
+ from deploy import bootstrap_platform as platforms
+ from tools.platform_tools import pmtiles as platform_tool
+ if platform_profile:site=platforms.configure(site,platform_profile)
+ else:
+  installed=ROOT/'config/installed-site.json'
+  name=json.loads(installed.read_text()).get('platform_profile',platforms.DEFAULT) if installed.is_file() else platforms.DEFAULT
+  site=platforms.configure(site,name)
+ (kit/'site.json').write_text(json.dumps(site,indent=2)+'\n')
+ spec=platforms.selected(site)
+ pmtiles=platform_tool(spec,ROOT/'output/platform-tools')
+ platform_files={}
+ for source,name in [(ROOT/'deploy/bootstrap_platform.py','bootstrap_platform.py')]+[(p,'platforms/'+p.name) for p in sorted((ROOT/'deploy/platforms').glob('*.json'))]:
+  dest=kit/name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,dest);platform_files[name]=sha(dest)
  shutil.copyfile(pmtiles,kit/'pmtiles');(kit/'pmtiles').chmod(0o755)
  shutil.copyfile(ROOT/'deploy/reference/pmtiles-LICENSE.txt',kit/'PMTILES-LICENSE.txt')
- (kit/'PMTILES-NOTICE.txt').write_text('Protomaps go-pmtiles CLI 1.31.2, BSD-3-Clause; official source https://github.com/protomaps/go-pmtiles . Original release tarball SHA-256: f8bd47e7ea866863489cad588fbaf2f31f42e5821f7a03f009b3769f05801cb1. Binary checksum recorded in kit.json.\n')
- metadata={'schema':1,'source_revision':revision,'source_sha256':sha(kit/'dataark-source.tar.gz'),'bootstrap_sha256':sha(kit/'bootstrap_stock_pi.py'),'pmtiles_sha256':sha(kit/'pmtiles'),'status':'experimental_stock_pi_installer_spare_system_acceptance_pending','credentials_included':False,'device_identity_included':False,'public_manifest_only':True}
+ (kit/'PMTILES-NOTICE.txt').write_text('Protomaps go-pmtiles CLI '+spec['pmtiles']['version']+', BSD-3-Clause; official source https://github.com/protomaps/go-pmtiles . Processor: '+spec['baseline']['architecture']+'. Official archive SHA-256: '+spec['pmtiles']['archive_sha256']+'. Binary checksum recorded in kit.json.\n')
+ metadata={'schema':1,'source_revision':revision,'source_sha256':sha(kit/'dataark-source.tar.gz'),'bootstrap_sha256':sha(kit/'bootstrap_stock_pi.py'),'pmtiles_sha256':sha(kit/'pmtiles'),'status':'experimental_platform_installer_acceptance_pending','credentials_included':False,'device_identity_included':False,'public_manifest_only':True,'platform_profile':spec['id'],'architecture':spec['baseline']['architecture'],'platform_files':platform_files}
  (kit/'kit.json').write_text(json.dumps(metadata,indent=2)+'\n');(target/'START-ARK.sh').write_text(START);(target/'START-ARK.sh').chmod(0o755)
  text='''Data Ark installation drive
 
-Supported starting point: Raspberry Pi OS 64-bit based on Debian 13 (Trixie),
+Selected platform: PLATFORM. Debian 13 (Trixie),
 with primary account admin (UID 1000). Use a local terminal and Ethernet or a
 second Wi-Fi adapter for upstream internet. This installer needs internet for
 OS/Python/container software; this is not a complete offline software kit.
@@ -78,7 +96,7 @@ A populated drive reuses existing library files. A configuration-only drive
 keeps the restoration choices without starting optional content downloads. It preserves saved selections when files are absent. Interrupted
 software phases can be resumed using the same command and site settings.
 
-This coordinator has unit/preflight tests but has not passed a fresh spare-Pi
+This coordinator has unit/preflight tests but has not passed a fresh spare-system
 installation test. Follow the bundled docs/30-Developer/StockPiSetup.md in the
 source archive for the acceptance checklist and current boundaries.
 
@@ -89,6 +107,9 @@ Review the preview and run its exact command including --accept-plan and --apply
 Use --mode fit for whole collections that fit, or populated for all public content. No private household
 backups, credentials, host keys or Linux login files are copied.
 '''
+ text=text.replace('PLATFORM',spec['label'])
+ text=text.replace('Apply only on the supported target:\n  sudo bash START-ARK.sh --apply', 'Review the discovery plan and use the exact apply command it prints, including --accept-plan.')
+ if spec['network_mode']=='lan':text=text.replace('It will turn wlan0 into an open\nDataArk hotspot;', 'Existing LAN connections are preserved; no hotspot is created;')
  (target/'START-ARK.txt').write_text(text)
  (target/'START-ARK.html').write_text('<!doctype html><html><meta charset="utf-8"><title>Set up a Data Ark</title><h1>Set up a Data Ark</h1><pre>'+text.replace('&','&amp;').replace('<','&lt;')+'</pre></html>')
  return metadata

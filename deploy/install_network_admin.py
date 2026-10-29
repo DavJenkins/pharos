@@ -75,6 +75,7 @@ def main():
     compile(support,'support_diagnostics.py','exec')
     install(Path('/usr/local/libexec/dataark-support-diagnostics'),support,0o755)
     install(Path('/usr/local/libexec/dataark-network'), helper, 0o755)
+    install(Path('/usr/local/libexec/wifi_interfaces.py'),(source.parent/'wifi_interfaces.py').read_bytes(),0o644)
     if new_credentials is not None:
         install(credentials, new_credentials, 0o640, gid)
     install(Path('/etc/sudoers.d/dataark-network'), rule, 0o440)
