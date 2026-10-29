@@ -54,3 +54,9 @@ test('file change clears the old editor contents synchronously before the respon
  assert.equal(h.node('configuration-text').value,'');assert.equal(h.node('configuration-section').disabled,true);assert.match(h.node('configuration-active-file').textContent,/Loading state\/order.yaml/);
  await pending;assert.equal(h.node('configuration-text').value,'assets: []\n');assert.equal(h.node('configuration-active-file').textContent,'state/order.yaml (read-only)');
 });
+
+test('unsaved indicator tracks edits and disappears after reloading saved content',async()=>{
+ const h=harness(true);await h.node('configuration-load').onclick();assert.equal(h.node('configuration-unsaved').hidden,true);
+ h.node('configuration-text').value+='\n';h.node('configuration-text').oninput();assert.equal(h.node('configuration-unsaved').hidden,false);
+ await h.node('configuration-load').onclick();assert.equal(h.node('configuration-unsaved').hidden,true);
+});
