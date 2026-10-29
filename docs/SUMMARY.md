@@ -12,6 +12,7 @@
 
 - [User Guide](10-User/UserGuide.md)
 - [The Data Ark collection: standalone catalogue](10-User/CollectionCatalogue.md)
+- [What the Ark can do: feature catalogue](10-User/FeatureCatalogue.md)
 - [Detailed content index](10-User/ContentSources.md)
 - [Frequently Asked Questions](10-User/FAQ.md)
 - [Resources beyond the library](10-User/Resources.md)

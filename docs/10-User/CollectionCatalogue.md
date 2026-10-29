@@ -363,3 +363,7 @@ A local community message board supports announcements, requests, offers and con
 This catalogue describes the content preserved on this Ark as of October 28, 2026. It omits uninstalled wishlist items and blocked acquisition attempts. Collections are snapshots with their original source editions; availability and freshness differ by source. State constitutional snapshots are not complete state statute books. The Massachusetts code files are amendments and named references, not a complete licensed building-code library. Vehicle files are owner manuals and quick guides, not factory service manuals. Street maps are not nautical charts. Original publishers retain their rights and individual notices apply.
 
 DEJ Software | Practical Software for Real Life | dejsoftware.com
+
+## The capabilities behind the collection
+
+For connectivity, sharing, community tools, administration, diagnostics and recovery, see [What the Ark can do](FeatureCatalogue.md) or [download the feature catalogue](../../feature-catalogue.pdf).

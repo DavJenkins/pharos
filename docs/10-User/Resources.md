@@ -9,7 +9,7 @@ Start with [the resource overview](/resources.html). Library use and public file
 ## Available on the current Ark
 
 ### Local network and browser services
-The DataArk hotspot provides access to the library, maps, forms, documentation and local APIs without upstream internet. Open http://192.168.4.1/ if automatic portal discovery does not open the page. Power and working storage/network hardware are still required. This is not a configured mesh network, local chat system or general communications relay.
+The DataArk hotspot provides access to the library, maps, forms, documentation and local APIs without upstream internet. Open http://192.168.4.1/ if automatic portal discovery does not open the page. Power and working storage/network hardware are still required. The local community board supports announcements, requests, offers and nested replies. Mesh networking, live chat and general communications relays are not configured.
 
 Internet pass-through can use the Ark's upstream connection for an individual hotspot device when upstream service exists. It does not create internet connectivity during an upstream outage. See [portal behavior](../20-Administration/Portal.md).
 
@@ -43,7 +43,7 @@ The working source and maintenance tools are on the Ark at `/opt/dataark`, with 
 
 ## Potential resources — not configured capabilities
 
-- A local notebook, message board or coordination app could use the existing browser/network platform. No such collaboration service is currently promised.
+- Additional notebook or live-collaboration applications could use the existing browser/network platform alongside the implemented community board.
 - USB devices, GPIO, a display or a keyboard could support local work, sensing or equipment interfaces, subject to actual hardware, power, drivers and testing. An available connector is not proof of an available function. No printer, radio gateway, sensor suite or GPIO control service is installed by this guide.
 - Additional editors, conversion tools, packages or SDKs could broaden offline computing. Include their dependencies, licenses and working examples before marking them available.
 - Shared writable workspaces or public compute could be useful. They need explicit storage, privacy, cleanup and resource policies; neither is enabled here.
