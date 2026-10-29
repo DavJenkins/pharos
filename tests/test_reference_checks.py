@@ -101,6 +101,18 @@ class ReferenceChecksTests(unittest.TestCase):
         self.assertIn('Generated locally', view.projection({'id': 'generated'}, {}, self.cfg, {}, 0)['summary'])
         self.assertIsNone(view.projection(dict(self.asset, update_source={'kind': 'kiwix_zim'}), {}, self.cfg, {}, 0))
 
+    def test_release_notice_checks_do_not_compare_metadata_with_package_hash(self):
+        asset=dict(self.asset, relative_path='software/kit.tar.gz', expected_hash='a'*64,
+                   source_check_url='https://publisher.test/release.json')
+        url=view.source(asset)
+        self.assertEqual(url,asset['source_check_url'])
+        first=worker.check(url,[asset],{},self.cfg,Path('/tmp'),lambda *a,**k:Response(b'{"version":"1"}'))
+        self.assertEqual(first['status'],'baseline')
+        next_check=worker.check(url,[asset],first,self.cfg,Path('/tmp'),lambda *a,**k:Response(b'{"version":"2"}'))
+        self.assertTrue(next_check['pending_change'])
+        projected=view.projection(asset,{},self.cfg,{'sources':{url:next_check}},0)
+        self.assertTrue(projected['pending_change'])
+
     def test_shared_sources_checked_once_and_removed_files_skipped(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder); (root / 'docs').mkdir(); (root / 'docs/file.pdf').write_bytes(b'original')

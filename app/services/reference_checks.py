@@ -19,6 +19,8 @@ def settings():
 def source(asset):
     if asset.get('update_source', {}).get('kind') == 'kiwix_zim':
         return None
+    if asset.get('source_check_url'):
+        return asset['source_check_url']
     if asset['id'] == 'callbook-callsigns-sqlite':
         return 'https://data.fcc.gov/download/pub/uls/complete/l_amat.zip'
     if asset['id'] == 'osm-massachusetts':

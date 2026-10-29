@@ -108,7 +108,7 @@ def check(url, assets, previous, config, root, opener=urlopen):
             if length and int(length) > limit: raise ValueError('Source exceeds the bounded check size; collection-specific check required')
             data = response.read(limit + 1)
             if len(data) > limit: raise ValueError('Source exceeds the bounded check size')
-            expected_suffix = Path(assets[0]['relative_path']).suffix.lower()
+            expected_suffix = Path(assets[0]['relative_path']).suffix.lower() if not assets[0].get('source_check_url') else ''
             if expected_suffix == '.pdf' and not data.startswith(b'%PDF-'):
                 raise ValueError('Publisher did not return a PDF; current copy retained')
             if expected_suffix == '.docx':
@@ -119,7 +119,7 @@ def check(url, assets, previous, config, root, opener=urlopen):
     baseline = previous.get('baseline')
     # Byte-identical direct files can be compared with the installed copy immediately.
     if not baseline and kind == 'bytes':
-        direct = [a for a in assets if Path(a['relative_path']).suffix.lower() in ('.pdf', '.docx', '.json', '.txt')]
+        direct = [a for a in assets if not a.get('source_check_url') and Path(a['relative_path']).suffix.lower() in ('.pdf', '.docx', '.json', '.txt')]
         baseline = next((a.get('expected_hash') for a in direct if a.get('expected_hash')), None)
     changed = bool(baseline and fingerprint != baseline)
     result.update(fingerprint=fingerprint, baseline=baseline or fingerprint, pending_change=changed,

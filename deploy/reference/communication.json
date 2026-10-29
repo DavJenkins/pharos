@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "title": "Communication & Accessibility",
+  "title": "DEJ Software",
   "communicate_version": "2e334dd4c301c2c37d83ff4fc461a2d6a0d5cb39cd63d042172bb238f022deec",
   "keyboard": {
     "schemaVersion": 1,
@@ -95,11 +95,106 @@
       "url": "https://dejsoftware.com/communicate-keyboard-dev/communicate-keyboard-dev-13-c5de874bd628.apk",
       "bytes": 1602628,
       "sha256": "c5de874bd628faa8608be431367ae629cee9a683b23e523df408c2c503e84c5b"
+    },
+    {
+      "id": "data-ark-bootstrap-kit",
+      "path": "communication/ark-bootstrap/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
+      "url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
+      "bytes": 42114981,
+      "sha256": "c03b4679137f8b537230068516376e52dcf6db478193ace8ebd63ebdcded3fa4"
     }
   ],
   "notes": [
     "Published Communicate files are preserved without modifications.",
     "Keyboard APK is a development-channel build, not the Play signing identity.",
-    "Speech uses the client device and requires a locally installed offline voice."
+    "Speech uses the client device and requires a locally installed offline voice.",
+    "The public Ark bootstrap release is kept locally as ordinary content. Its release notice is checked for changes; the pinned package is not silently replaced."
+  ],
+  "bootstrap": {
+    "version": "2026.10.29-preview.1",
+    "source_revision": "de6db475e4a405148a6a4b78dc49883dc2cccdef",
+    "asset": "data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
+    "bytes": 42114981,
+    "sha256": "c03b4679137f8b537230068516376e52dcf6db478193ace8ebd63ebdcded3fa4",
+    "channel": "preview",
+    "validated_executable_files_unchanged": 221,
+    "release_tag": "bootstrap-2026.10.29-preview.1",
+    "download_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
+    "checksum_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/SHA256SUMS",
+    "release_url": "https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.29-preview.1",
+    "prerelease": true,
+    "hosting": "github-releases",
+    "validated_installation": "Uninterrupted clean ARM64 software installation; 43 regressions and reboot checks passed.",
+    "path": "communication/ark-bootstrap/data-ark-bootstrap-2026.10.29-preview.1.tar.gz"
+  },
+  "repository": {
+    "id": "communication-accessibility",
+    "category": "content_sources",
+    "title": "DEJ Software",
+    "description": "Communicate, Communicate Keyboard for Android, and a downloadable Data Ark bootstrap kit. These copies are served locally by the Ark.",
+    "collapse_assets": true,
+    "artwork": {
+      "path": "app/static/assets/icons/DEJ-hanging-sign.webp",
+      "alt": "DEJ Software hanging sign"
+    },
+    "update_policy": "manual",
+    "refresh_interval": "never",
+    "links": [
+      {
+        "title": "Open Communicate",
+        "url": "/library-files/communication/communicate/index.html"
+      },
+      {
+        "title": "Android keyboard installer & setup",
+        "url": "/library-files/communication/index.html"
+      },
+      {
+        "title": "Ark bootstrap kit & setup",
+        "url": "/library-files/communication/index.html#bootstrap"
+      }
+    ]
+  },
+  "assets": [
+    {
+      "id": "communicate-web",
+      "repository_id": "communication-accessibility",
+      "category": "utilities_binaries",
+      "title": "Communicate — offline browser communication tool",
+      "relative_path": "communication/communicate/index.html",
+      "service_endpoint": "/library-files/communication/communicate/index.html",
+      "download_url": "https://dejsoftware.com/communicate/index.html",
+      "update_policy": "manual",
+      "refresh_interval": "never",
+      "source_note": "Pinned public publisher files. Supporting web assets are restored by the communication recipe. Original DEJ Software notices retained.",
+      "expected_hash": "ee66d45e9c31cfa52afab4e871a13e8c7ee81ba4c6420b70aff03b6b636a8870"
+    },
+    {
+      "id": "communicate-keyboard-android",
+      "repository_id": "communication-accessibility",
+      "category": "utilities_binaries",
+      "title": "Communicate Keyboard — Android development build 0.2.1-dev.13",
+      "relative_path": "communication/android/communicate-keyboard-dev-13-c5de874bd628.apk",
+      "service_endpoint": "/library-files/communication/android/communicate-keyboard-dev-13-c5de874bd628.apk",
+      "download_url": "https://dejsoftware.com/communicate-keyboard-dev/communicate-keyboard-dev-13-c5de874bd628.apk",
+      "update_policy": "manual",
+      "refresh_interval": "never",
+      "source_note": "Pinned public publisher files. Supporting web assets are restored by the communication recipe. Original DEJ Software notices retained.",
+      "expected_hash": "c5de874bd628faa8608be431367ae629cee9a683b23e523df408c2c503e84c5b"
+    },
+    {
+      "id": "data-ark-bootstrap-kit",
+      "repository_id": "communication-accessibility",
+      "category": "utilities_binaries",
+      "title": "Data Ark bootstrap kit — 2026.10.29-preview.1",
+      "relative_path": "communication/ark-bootstrap/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
+      "service_endpoint": "/library-files/communication/ark-bootstrap/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
+      "download_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
+      "source_check_url": "https://www.dejsoftware.com/data-ark/bootstrap-release.json",
+      "expected_hash": "c03b4679137f8b537230068516376e52dcf6db478193ace8ebd63ebdcded3fa4",
+      "update_policy": "pin_version",
+      "version_pin": "2026.10.29-preview.1",
+      "refresh_interval": "7d",
+      "source_note": "Pinned public bootstrap release. Local download needs no internet; new Pi setup needs internet for software dependencies. Weekly checks watch the publisher release notice; updates require review."
+    }
   ]
 }

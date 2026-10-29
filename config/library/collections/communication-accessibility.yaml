@@ -1,9 +1,9 @@
 repository:
   id: communication-accessibility
   category: content_sources
-  title: Communication & Accessibility
-  description: Communicate browser speech tool and an offline Android installer for
-    Communicate Keyboard. Speech requires an offline voice on the device you use.
+  title: DEJ Software
+  description: Communicate, Communicate Keyboard for Android, and a downloadable Data
+    Ark bootstrap kit. These copies are served locally by the Ark.
   collapse_assets: true
   artwork:
     path: app/static/assets/icons/DEJ-hanging-sign.webp
@@ -15,5 +15,7 @@ repository:
     url: /library-files/communication/communicate/index.html
   - title: Android keyboard installer & setup
     url: /library-files/communication/index.html
+  - title: Ark bootstrap kit & setup
+    url: /library-files/communication/index.html#bootstrap
 catalogue: catalogues/communication-accessibility.yaml
 versions: state/versions/communication-accessibility.yaml

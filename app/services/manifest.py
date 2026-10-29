@@ -103,7 +103,7 @@ def policy(item):
     if item.get('expected_hash') is not None:
         if not isinstance(item['expected_hash'], str) or not re.fullmatch(r'[0-9a-fA-F]{64}', item['expected_hash']):
             raise ManifestError('expected_hash must be a SHA-256 hex digest when supplied.')
-    for name in ('download_url', 'mirror_url', 'online_url'):
+    for name in ('download_url', 'mirror_url', 'online_url', 'source_check_url'):
         if item.get(name):
             url(item[name], name, local=False)
 

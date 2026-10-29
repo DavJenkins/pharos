@@ -13,3 +13,7 @@ API: GET `/api/sources/check` reads progress/results; POST with an empty JSON ob
 Source: `app/services/source_check.py`, `app/routers/source_check.py`, `app/services/upstream.py`, `app/static/assets/js/source-check.js`, and the heading renderer in `app/services/manifest.py`. Tests cover job locking, cooldown, failed-check preservation, URL cache validity, bounded concurrency, progress, request restrictions, and manifest rendering. These sources and this guide are included in the recovery source kit and [GitHub repository](https://github.com/DavJenkins/pharos).
 
 On narrow displays the source heading keeps the title and Check now button together on the first row. The smaller timestamp and status move below as a group when there is not enough room; they remain alongside the title on wider displays.
+
+## Scheduled release-notice checks
+
+The separate weekly reference-check worker can use an asset’s optional `source_check_url` instead of its download URL. This is useful for a pinned software archive whose new releases are announced in a small publisher manifest, such as the Ark bootstrap kit. The normal download URL and expected SHA-256 still identify the actual package; the notice has its own change baseline. A change is reported for review and never installs a replacement. This scheduled check is distinct from the heading’s immediate reachability sweep described above.

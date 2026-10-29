@@ -10,6 +10,7 @@ assets:
   refresh_interval: never
   source_note: Pinned public publisher files. Supporting web assets are restored by
     the communication recipe. Original DEJ Software notices retained.
+  expected_hash: ee66d45e9c31cfa52afab4e871a13e8c7ee81ba4c6420b70aff03b6b636a8870
 - id: communicate-keyboard-android
   repository_id: communication-accessibility
   category: utilities_binaries
@@ -21,3 +22,19 @@ assets:
   refresh_interval: never
   source_note: Pinned public publisher files. Supporting web assets are restored by
     the communication recipe. Original DEJ Software notices retained.
+  expected_hash: c5de874bd628faa8608be431367ae629cee9a683b23e523df408c2c503e84c5b
+- id: data-ark-bootstrap-kit
+  repository_id: communication-accessibility
+  category: utilities_binaries
+  title: Data Ark bootstrap kit — 2026.10.29-preview.1
+  relative_path: communication/ark-bootstrap/data-ark-bootstrap-2026.10.29-preview.1.tar.gz
+  service_endpoint: /library-files/communication/ark-bootstrap/data-ark-bootstrap-2026.10.29-preview.1.tar.gz
+  download_url: https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz
+  source_check_url: https://www.dejsoftware.com/data-ark/bootstrap-release.json
+  expected_hash: c03b4679137f8b537230068516376e52dcf6db478193ace8ebd63ebdcded3fa4
+  update_policy: pin_version
+  version_pin: 2026.10.29-preview.1
+  refresh_interval: 7d
+  source_note: Pinned public bootstrap release. Local download needs no internet;
+    new Pi setup needs internet for software dependencies. Weekly checks watch the
+    publisher release notice; updates require review.

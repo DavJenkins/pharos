@@ -1,7 +1,8 @@
 {
   "schema": 1,
-  "public_sha256": "051aa69cb3db10d60fee77daae6dab1921d2908fb1e99b3d7bf57774e8837d8b",
+  "public_sha256": "7eb2aedd1ae1508967dad0590a94a3c059d4316883125f9d8bf60b84de696ab5",
   "files": {
+    "ark.yaml": "da8c9ffeb05d3876280841e0618fc52bc3a2d06be681f5942d850728aa8d17b1",
     "collections/wikipedia.yaml": "71cebd6ca9dd357a439745ca22cd9820b3b0fa8abe2e538cefc7acc596400204",
     "catalogues/wikipedia.yaml": "06e18a0bf19bb309eb2dbd8b663b5cba7c0c64b6d3792d4e7927dcd265fe75ca",
     "state/versions/wikipedia.yaml": "dee5798258c06a3412139e9bfc65959dc09a16a2ba61740dcbb55153c9493b28",
@@ -83,10 +84,9 @@
     "collections/curriculum.yaml": "6cf078f865b52498ab2a5224bb3ce7e43de25fdc42ce7cc430f6e7ca62f3f5d9",
     "catalogues/curriculum.yaml": "8edad57559d088a88ca5f8f8bf6cc951cd96fec63f2f8c73cea78d4cb3b99d52",
     "state/versions/curriculum.yaml": "365b79cbe5bddbe1dafcdcc59c705159dd0b98f4dacba382053cea5482c23922",
-    "collections/communication-accessibility.yaml": "bb2b90b9dc9875a0b46bc088aadbb2b52da42c7ceb19dfea63eb7656873c960f",
-    "catalogues/communication-accessibility.yaml": "2acf4770562cea087e5335ba3b0c3da019cc02a0142f7f79c1896cc919c61dcf",
+    "collections/communication-accessibility.yaml": "77183bcf1efca039a0c7dc45bb875492d90a6bc4f7ed2b5ba66422d503fe1b77",
+    "catalogues/communication-accessibility.yaml": "2148c95fc28e42c42575765938b931c59f219a2ef74dcb85e07e290372ec8c8e",
     "state/versions/communication-accessibility.yaml": "94c9cba849ea3c3abfe9675db0b4c3eba13271354c358b19aa7a81a134441312",
-    "state/order.yaml": "073da3c3548f464d4b94db57946c89f79034c3b70b52852ad88951b2592a8f3d",
-    "ark.yaml": "da8c9ffeb05d3876280841e0618fc52bc3a2d06be681f5942d850728aa8d17b1"
+    "state/order.yaml": "073da3c3548f464d4b94db57946c89f79034c3b70b52852ad88951b2592a8f3d"
   }
 }
