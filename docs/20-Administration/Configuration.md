@@ -351,6 +351,3 @@ and manifest rules. High-contrast system modes retain readable native text.
 ### Fresh authentication for credential changes
 
 Changing the caretaker password must always require the current password again, regardless of a cached caretaker session. Browser implementations must call `CaretakerAuth.freshAuthorization(purpose)` (or `authorization(purpose, {forceFresh:true})`), rather than the normal cached helper. This clears the previous cache, displays a fresh password prompt with remembering disabled, and cannot fall back to cached authorization if cancelled. Password-change success must leave the session locked. The current browser UI does not provide a caretaker-password change form; the helper is the required interface when that form is added. Server-side password rotation must verify the current credential independently.
-
-
-The landing-page introduction is configured as `system.introduction` in `config/library/ark.yaml`. It is displayed as plain, escaped text beneath the Pharos wordmark. The Help contents hold the About and maintain the Ark links; they are not a landing-page resource shelf.
