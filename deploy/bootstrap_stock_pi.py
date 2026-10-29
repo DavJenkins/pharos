@@ -142,14 +142,30 @@ class Installer:
   run(['a2enmod','proxy','proxy_http','headers','alias','autoindex','mime','dir'])
   atomic(Path('/etc/apache2/sites-available/000-default.conf'),(self.repo/'deploy/reference/apache-vhost.conf').read_text())
   run(['apache2ctl','configtest']);run(['systemctl','daemon-reload']);run(['systemctl','enable','--now','apache2','docker','smbd','avahi-daemon'])
+  run(['systemctl','reload','apache2'])
   run(['docker','pull',self.c['kiwix_image']])
+  reader_state=self.root/'.dataark-reader'
+  if reader_state.is_symlink():raise RuntimeError('Unexpected reader-state symlink')
+  reader_state.mkdir(exist_ok=True)
+  atomic(reader_state/'empty.xml','<?xml version="1.0" encoding="UTF-8"?><library version="20110515"></library>\n')
   if subprocess.run(['docker','inspect','kiwix-serve'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode==0:
-   label=output(['docker','inspect','kiwix-serve','--format','{{index .Config.Labels \"org.dataark.bootstrap\"}}'])
+   label=output(['docker','inspect','kiwix-serve','--format','{{index .Config.Labels "org.dataark.bootstrap"}}'])
    if label!=self.state['configuration_sha256']:raise RuntimeError('Unmanaged kiwix-serve container exists.')
-   run(['docker','start','kiwix-serve'])
-  else:run(['docker','run','-d','--name','kiwix-serve','--label','org.dataark.bootstrap='+self.state['configuration_sha256'],'--restart','unless-stopped','-p','8080:8080','-v','/mnt/storage:/data',self.c['kiwix_image'],'*.zim'])
-  self.script('install_reliability_logging.py');self.script('install_network_admin.py');self.script('install_library.py');run(['install','-m','644',str(self.repo/'deploy/dataark-recovery.service'),'/etc/systemd/system/dataark-recovery.service']);run(['systemctl','daemon-reload']);self.script('install_usage.py');self.script('install_shell_welcome.py');self.script('install_community.py');self.script('install_https.py')
+   run(['docker','rm','-f','kiwix-serve'])
+  run(['docker','run','-d','--name','kiwix-serve','--label','org.dataark.bootstrap='+self.state['configuration_sha256'],'--restart','unless-stopped','-p','8080:8080','-v','/mnt/storage:/data','-v',str(self.repo/'deploy/reference/kiwix-start.sh')+':/usr/local/bin/dataark-start:ro','--entrypoint','/bin/sh',self.c['kiwix_image'],'/usr/local/bin/dataark-start'])
+  self.script('install_reliability_logging.py');self.script('install_network_admin.py','--defer-wifi-roles');self.script('install_library.py');run(['install','-m','644',str(self.repo/'deploy/dataark-recovery.service'),'/etc/systemd/system/dataark-recovery.service']);run(['systemctl','daemon-reload']);self.script('install_usage.py');self.script('install_shell_welcome.py');self.script('install_community.py');self.script('install_https.py')
   run(['bash',str(self.repo/'deploy/deploy-web.sh')]);run(['systemctl','enable','--now','dataark'])
+ def content_access(self):
+  # Public distribution does not depend on a radio or an AP profile.
+  smb=Path('/etc/samba/smb.conf');text=smb.read_text()
+  defaults={'Offline-Archives':'path = /mnt/storage\nread only = yes\nguest ok = yes\nbrowseable = yes',
+            'Bugout-Staging':'path = /mnt/storage/bugout-drop\nread only = yes\nguest ok = no\nvalid users = admin\nbrowseable = no'}
+  for name,body in defaults.items():
+   if not re.search(r'^\s*\['+re.escape(name)+r'\]\s*$',text,re.M|re.I):text+='\n['+name+']\n'+body+'\n'
+  if text!=smb.read_text():
+   backup=Path('/var/backups/dataark-bootstrap');backup.mkdir(parents=True,exist_ok=True);shutil.copy2(smb,backup/'smb.conf.before-share-creation');atomic(smb,text)
+  self.script('install_content_access.py')
+  if self.c['anonymous_ftp']:self.script('install_ftp.py')
  def network(self):
   if 'wlan0' not in output(['nmcli','-g','DEVICE','device']).splitlines():raise RuntimeError('wlan0 is missing.')
   profiles=output(['nmcli','-g','NAME','connection','show']).splitlines()
@@ -163,7 +179,8 @@ class Installer:
   run(['hostnamectl','set-hostname',host])
   if 'DataArk' not in profiles:run(['nmcli','connection','add','type','wifi','ifname','wlan0','con-name','DataArk','connection.uuid',self.state['ap_uuid'],'ssid',self.c['hotspot']['ssid'],'802-11-wireless.mode','ap','ipv4.method','shared','ipv4.addresses','192.168.4.1/24','ipv6.method','disabled','connection.autoconnect','yes'])
   run(['nmcli','connection','up','DataArk'])
-  self.script('install_content_access.py');self.script('install_portal.py');self.script('install_pass_through.py');self.script('install_portal_monitor.py')
+  self.script('install_wifi_roles.py')
+  self.script('install_portal.py');self.script('install_pass_through.py');self.script('install_portal_monitor.py')
   role_config=self.kit/'wifi-roles.json'
   if role_config.is_file():
    preference=json.loads(role_config.read_text())
@@ -171,7 +188,6 @@ class Installer:
    if adapter is not None and not re.fullmatch(r'(?:[0-9a-f]{2}:){5}[0-9a-f]{2}',adapter):raise ValueError('Invalid saved Wi-Fi adapter identity')
    atomic(Path('/etc/dataark/wifi-roles.json'),json.dumps({'schema':1,'hotspot_adapter':adapter,'fallback':'builtin'})+'\n')
   run(['/usr/local/libexec/dataark-wifi-roles','--boot'])
-  if self.c['anonymous_ftp']:self.script('install_ftp.py')
  def content(self):
   # Device setup approval does not authorize optional content downloads.
   print('Base services are ready. Choose optional content separately at /recovery.html or use tools/recovery_queue.py plan.')
@@ -181,13 +197,13 @@ class Installer:
  def finish(self):
   print('Automatic download timers remain off until content selection is approved; enable them separately after restoration.')
   run(['systemctl','is-active','--quiet','dataark','apache2','docker'])
-  run(['curl','--fail','--max-time','15','--output','/dev/null','http://127.0.0.1/api/'])
-  run(['curl','--fail','--max-time','15','--output','/dev/null','http://127.0.0.1/'])
+  run(['curl','--fail','--retry','10','--retry-connrefused','--retry-delay','1','--max-time','15','--output','/dev/null','http://127.0.0.1/api/'])
+  run(['curl','--fail','--retry','10','--retry-connrefused','--retry-delay','1','--max-time','15','--output','/dev/null','http://127.0.0.1/'])
   atomic(Path('/var/lib/dataark/bootstrap-readiness.json'),json.dumps({'status':'software_phases_completed_client_acceptance_required','checks_remaining':['Reboot and confirm mount','Hotspot client and captive detection','Offline article and image','Maps/forms/radio tools','Management authentication','Independent fresh-media recovery'],'finished_at':time.time()},indent=2)+'\n')
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--kit',type=Path,required=True);p.add_argument('--site',type=Path);p.add_argument('--apply',action='store_true');a=p.parse_args();kit=a.kit.resolve();site=a.site or kit/'site.json';c=json.loads(site.read_text());validate(c)
  journal=Path('/var/lib/dataark/bootstrap.json');errors=preflight(c,kit,journal)
- print('Supported baseline: Raspberry Pi OS 64-bit, Debian 13, admin UID 1000.\nStages: packages -> source -> existing storage mount -> Python -> services -> hotspot -> missing content -> verification.\nNo disk formatting or content removal. Software downloads require internet.\nNetwork change: wlan0 becomes the open DataArk hotspot at 192.168.4.1. Use local console and an Ethernet/second-adapter upstream.\nAdministration password is entered privately by the existing helper installer.')
+ print('Supported baseline: Raspberry Pi OS 64-bit, Debian 13, admin UID 1000.\nStages: packages -> source -> existing storage mount -> Python -> services -> public distribution -> hotspot -> missing content -> verification.\nNo disk formatting or content removal. Software downloads require internet.\nNetwork change: wlan0 becomes the open DataArk hotspot at 192.168.4.1. Use local console and an Ethernet/second-adapter upstream.\nAdministration password is entered privately by the existing helper installer.')
  for error in errors:print('BLOCKED:',error)
  if not a.apply:print('Preview only. Re-run with --apply on the supported target.');return
  if errors:raise SystemExit('Preflight failed; no installation changes made.')
@@ -199,6 +215,6 @@ def main():
  if state.get('configuration_sha256')!=fingerprint:raise SystemExit('Site settings changed since the previous run; review the journal before resuming.')
  if state.get('kit_source_sha256')!=json.loads((kit/'kit.json').read_text())['source_sha256']:raise SystemExit('Installation kit source changed since the interrupted run; use the original kit or review the journal.')
  installer=Installer(c,kit,state,journal)
- for name in ['packages','source','storage','python','base_services','network','content','finish']:installer.phase(name,getattr(installer,name))
+ for name in ['packages','source','storage','python','base_services','content_access','network','content','finish']:installer.phase(name,getattr(installer,name))
  print('Software setup completed. Reboot and perform the client acceptance checks; this experimental installer has not yet passed a spare-Pi installation test.')
 if __name__=='__main__':main()

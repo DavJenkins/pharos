@@ -74,6 +74,8 @@ The stock-Pi setup path turns a supported running Debian-based Pi into an Ark th
 
 **Why it matters:** the desired end state is understandable and reproducible, rather than existing only as the accidental contents of one working machine.
 
+A [clean generic ARM64 software-phase test](../20-Administration/CleanBootstrapTest.md) has now exercised fresh package, Python and service installation, finding and correcting bootstrap defects. It omits physical radio setup and is distinct from complete Pi acceptance.
+
 **Acceptance boundary:** these mechanisms do not yet establish dependable two-way regeneration. Fresh-system, spare-media and interruption acceptance remain required.
 
 See [Paired-media recovery](../20-Administration/PairedRecovery.md), [Stock-Pi setup](StockPiSetup.md) and [Recovery validation](../20-Administration/RecoveryValidation.md).

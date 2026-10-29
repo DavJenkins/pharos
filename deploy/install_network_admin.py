@@ -28,6 +28,7 @@ def install(path, content, mode, gid=0):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--reset-password', action='store_true', help='Replace the administration password after entering and confirming a new one.')
+    parser.add_argument('--defer-wifi-roles', action='store_true', help='Bootstrap only: install radio-role configuration after the AP profile is created.')
     args = parser.parse_args()
     if os.geteuid() != 0:
         raise SystemExit('Run with sudo python3 deploy/install_network_admin.py')
@@ -67,7 +68,8 @@ def main():
         if folder == directory:
             os.chown(folder, 0, gid)
             folder.chmod(mode)
-    subprocess.run(['/usr/bin/python3',str(source.parents[1]/'deploy/install_wifi_roles.py')],check=True)
+    if not args.defer_wifi_roles:
+        subprocess.run(['/usr/bin/python3',str(source.parents[1]/'deploy/install_wifi_roles.py')],check=True)
     subprocess.run(['/usr/bin/python3',str(source.parents[1]/'deploy/install_configuration.py')],check=True)
     support=(source.parent/'support_diagnostics.py').read_bytes()
     compile(support,'support_diagnostics.py','exec')

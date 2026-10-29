@@ -39,6 +39,8 @@ class PortableContentTests(unittest.TestCase):
             root = Path(directory)
             self.assertEqual(publish_content.publish(root), 0)
             self.assertIn('No content files', (root / 'START-HERE.html').read_text(encoding='utf-8'))
+            for name in publish_content.OUTPUTS:
+                self.assertTrue((root/name).stat().st_mode & 0o004, name+' must be publicly readable')
         page, _ = publish_content.render([{'path':'<script>.pdf','bytes':1}], 'today', False)
         self.assertIn('&lt;script&gt;.pdf', page)
         self.assertNotIn('<script>.pdf', page)

@@ -28,6 +28,7 @@
 - [Administrator Guide](20-Administration/AdministratorGuide.md)
 - [Household Bugout Backups](20-Administration/Bugout.md)
 - [Reliability acceptance tests](20-Administration/AcceptanceTests.md)
+- [Clean-OS software bootstrap test](20-Administration/CleanBootstrapTest.md)
 - [Content download gaps and alternatives](20-Administration/ContentGaps.md)
 - [Browser download capture](20-Administration/BrowserCapture.md)
 - [AP Welcome Portal](20-Administration/Portal.md)

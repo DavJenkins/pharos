@@ -158,6 +158,8 @@ def publish(root, checksums=False):
             temp = Path(stream.name)
             stream.write(content.encode('utf-8'))
         try:
+            # These are public distribution files; mkstemp defaults to 0600 on ext4.
+            temp.chmod(0o644)
             os.replace(temp, root / name)
         finally:
             temp.unlink(missing_ok=True)

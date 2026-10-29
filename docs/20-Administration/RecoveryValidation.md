@@ -75,3 +75,8 @@ Separately, **34 stock-setup, content-profile and restoration-queue regression t
 Evidence retained in the guest: `/var/tmp/ark-empty-media-drill-20261028/result.json`, its queue state and worker log, and `/var/tmp/ark-recovery-regression-disk.log`. The disposable filesystem remains mounted separately for inspection; it is not configured as the Ark's content mount or a boot-time mount.
 
 Still untested by this drill: fresh stock-Pi installation, replacement of physical content media, the complete saved selection, collection-reader/index activation, real-client offline viewing, reboot/power-interruption recovery on replacement media, and regeneration of a complete kit from that rebuilt appliance. The two-test physical acceptance chain above is therefore **not complete**. No recovery merge or dependable-regeneration claim follows from these results.
+
+
+## Clean-OS bootstrap test
+
+The clean Debian ARM64 software-phase test is documented separately in [Clean-OS software bootstrap acceptance](CleanBootstrapTest.md). The clean software phases passed after fixes and recorded retries, with two guest reboots and 43 relevant regressions passing. Physical network setup and zero-intervention replay of the final kit remain untested. Its phase journal and outcome must be reviewed independently of the earlier empty-volume drill; that drill began with an already configured Ark.

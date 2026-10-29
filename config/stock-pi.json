@@ -17,7 +17,7 @@
     "subnet": "192.168.4.1/24",
     "security": "open"
   },
-  "kiwix_image": "ghcr.io/kiwix/kiwix-serve@sha256:7431be257ac0b0b6f14633ef088774f6d5122246940b594b3017a70169058b08",
+  "kiwix_image": "ghcr.io/kiwix/kiwix-serve@sha256:7096f2f2098bbb9ac97f02fe11d51195861a2507667d87a5e8d932fc28106bc2",
   "anonymous_ftp": true,
   "restore_missing_content": false,
   "automatic_archive_updates": false,
@@ -31,6 +31,7 @@
     "apache2",
     "rsync",
     "docker.io",
+    "docker-cli",
     "network-manager",
     "dnsmasq-base",
     "nftables",

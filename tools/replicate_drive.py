@@ -44,7 +44,10 @@ def kit_files(target):
  preference=Path('/etc/dataark/wifi-roles.json')
  if preference.is_file():shutil.copyfile(preference,kit/'wifi-roles.json')
  site=json.loads((kit/'site.json').read_text())
- if 'ethtool' not in site['packages']:site['packages'].append('ethtool')
+ if site.get('kiwix_image')=='ghcr.io/kiwix/kiwix-serve@sha256:7431be257ac0b0b6f14633ef088774f6d5122246940b594b3017a70169058b08':
+  site['kiwix_image']=json.loads((ROOT/'config/stock-pi.json').read_text())['kiwix_image']
+ for required in ['ethtool','docker-cli']:
+  if required not in site['packages']:site['packages'].append(required)
  (kit/'site.json').write_text(json.dumps(site,indent=2)+'\n')
  pmtiles=Path('/usr/local/bin/pmtiles')
  if not pmtiles.is_file():raise RuntimeError('Install the documented official ARM64 PMTiles CLI before preparing a replication kit.')
