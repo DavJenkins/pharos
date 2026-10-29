@@ -22,7 +22,7 @@ No. Reading and copying the public library are open. Changing the library curren
 
 ## Why did a management action ask for the password again?
 
-Successful authentication is remembered in that page's memory for 15 minutes after the last successful action. Reloading, leaving, locking management, or an authentication rejection clears it. A rejected password explicitly says Password not accepted. The browser does not save this session credential in localStorage or cookies.
+Caretaker actions use an on-demand password prompt. Remembering is optional: choose 1–120 minutes (default 10). The fixed expiry does not extend with use. The cache survives navigation and reload in the same browser tab and Ark address using tab-scoped session storage; it is not shared across addresses or independent tabs. Expiry, a rejected credential, **Lock now**, or the floating red unlocked padlock clears it. The padlock shows remaining minutes; the inline indicator gives the same countdown. Without remembering, only that action is authorized. A rejected password explicitly says **Password not accepted**. The server verifies every protected request.
 
 ## Is Download queued the same as Download complete?
 

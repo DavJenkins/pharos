@@ -28,6 +28,6 @@ Open it through the Learning card or the Kiwix library, selecting Khan Academy. 
 
 The public manifest and portable content profile retain the archive source, release series and checksum, allowing a replacement content drive to download it again. The large archive is not stored in Git. To inspect activity use `systemctl status dataark-update.service` and `/var/lib/dataark/updates/status.json`.
 
-## Installation checkpoint: October 26, 2026
+## Collection coverage
 
-The PDF shelf contains **1,090 verified files: 1,026 Core Knowledge resources and 64 OpenStax textbooks**. Another 287 discovered files remain outside the published library because the automated front-matter check did not establish their open license. This is a review queue, not evidence that all 287 are prohibited. The collection inventory includes 1,392 assets with the Khan Academy archive. The permanent catalogue describes the completed collection; consult the dashboard for live installation and verification progress.
+The PDF shelf contains **1,090 verified files: 1,026 Core Knowledge resources and 64 OpenStax textbooks**. Another 287 discovered files remain outside the published library because the automated front-matter check did not establish their open license. This is a review queue, not evidence that all 287 are prohibited. Khan Academy is a separate registered archive alongside the PDF shelf. The permanent catalogue describes the completed collection; consult the dashboard for live installation and verification progress.

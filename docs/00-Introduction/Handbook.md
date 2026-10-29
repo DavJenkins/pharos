@@ -50,11 +50,11 @@ The public library, household backup credentials, upload staging, configuration 
 
 ## What the appliance contains
 
-The deployed hardware is a Raspberry Pi 4 Model B with a separate exFAT SSD at /mnt/storage. Debian 13 on arm64 and Python 3.13 were observed on the reviewed host. The precise installed package list and kernel belong to a private capture; they are not a guarantee of compatibility with every Pi image.
+The deployed hardware is a Raspberry Pi 4 Model B with 2 GB installed RAM and a separate exFAT SSD at /mnt/storage. Debian 13 on arm64 and Python 3.13 were observed on the reviewed host. The precise installed package list and kernel belong to a private capture; they are not a guarantee of compatibility with every Pi image.
 
 Apache serves the browser interface, local documentation and public original files. FastAPI supplies status and management APIs. Kiwix provides ZIM reading. Samba and anonymous read-only FTP distribute public files. SSH/SFTP and rsync over SSH are account-based maintenance methods. Background systemd workers manage reference archives, map resources and household backup jobs.
 
-The DataArk hotspot uses wlan0 and 192.168.4.1/24. The separate wlan1 interface is the upstream Wi-Fi client; Ethernet can also supply upstream connectivity. Captive-portal discovery helps a phone find the local landing page, but manual access to http://192.168.4.1/ remains essential.
+The DataArk hotspot is available at 192.168.4.1/24. Wi-Fi adapter roles are configurable: the built-in radio is the default hotspot and the USB radio the default upstream client. Ethernet can also supply upstream connectivity. Captive-portal discovery helps a phone find the library; manual access to http://192.168.4.1/ remains essential. See [Wi-Fi adapter assignment](../20-Administration/WifiAdapters.md).
 
 ## Source code stays with the Ark
 
@@ -79,7 +79,7 @@ Maps, household backups and portal behavior have dedicated guides in the [conten
 
 ## What is working versus what is promised
 
-Implemented capabilities include the local Massachusetts street-map viewer, the forms/reference collections, the authenticated HTTPS browser terminal, local library discovery, the management lifecycle, shared caretaker authentication, per-device pass-through, bounded portal capture, library lifecycle events, file distribution and documented configuration capture. FTP download/resume, blocked writes and private-path exclusion were verified on loopback and from the desktop LAN.
+Implemented capabilities include the offline all-50-state and Caribbean street-map viewer, the forms/reference collections, the authenticated HTTPS browser terminal, local library discovery, the management lifecycle, shared caretaker authentication, per-device pass-through, bounded portal capture, library lifecycle events, file distribution and documented configuration capture. FTP download/resume, blocked writes and private-path exclusion were verified on loopback and from the desktop LAN.
 
 The reader audit identified archive-page timeouts even when the Kiwix catalogue was available. Do not mark all viewers healthy until actual articles and images pass. PDF and GIS formats differ: map indexes are not an integrated GIS viewer. Portable Windows software has its own execution/compatibility checks. See [Acceptance tests](../20-Administration/AcceptanceTests.md) for observed results and unresolved tests.
 

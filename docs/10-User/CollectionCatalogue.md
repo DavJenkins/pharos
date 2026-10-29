@@ -6,11 +6,11 @@
 
 An encyclopedia. A library of books. A repair bench, map cabinet, classroom and emergency reference shelf. The Data Ark brings them together on one local device - ready to serve a household or community when an internet connection is unavailable.
 
-23 collections combine 1,392 registered archives, publications, datasets and packs, plus local tools for maps, radio practice, PDF forms, coloring, games and practical planning. A single archive can contain an entire searchable collection; 1,392 is an inventory count, not a count of its articles, books, maps or pages.
+24 collections combine 1,394 registered archives, publications, datasets and packs, plus local tools for maps, radio practice, PDF forms, coloring, games and practical planning. A single archive can contain an entire searchable collection; 1,394 is an inventory count, not a count of its articles, books, maps or pages.
 
 Connect to the Ark and open a browser. Read, search, learn, plan, fill forms, print worksheets, or take copies of the content with you. The collection is stored locally, rather than being a directory of websites you still need the internet to visit.
 
-Collection snapshot | October 26, 2026
+Collection snapshot | October 28, 2026
 
 ## 1. Wikipedia
 
@@ -345,12 +345,21 @@ Planning that accounts for mobility, communication, medical devices and individu
 - Hot and Cold: The Effects of Temperature on MS — MS Society
 - Ready Now! Emergency Preparedness Tool Kit — OHSU
 
+## 24. Communication & Accessibility
+
+Tools to help people communicate across speech and precise-touch barriers.
+
+- Communicate browser speech tool, hosted locally
+- Communicate Keyboard Android installer and setup guide, available offline
+
+Speech uses the viewing device’s voice; an offline voice must be installed for offline speech.
+
 ## Beyond the shelves
 
 A local community message board supports announcements, requests, offers and conversations. The Ark can also provide file access and maintenance tools alongside the library. Its purpose is to keep useful knowledge and practical capabilities available under adverse conditions.
 
 ## About this edition
 
-This catalogue describes the content preserved on this Ark as of October 26, 2026. It omits uninstalled wishlist items and blocked acquisition attempts. Collections are snapshots with their original source editions; availability and freshness differ by source. State constitutional snapshots are not complete state statute books. The Massachusetts code files are amendments and named references, not a complete licensed building-code library. Vehicle files are owner manuals and quick guides, not factory service manuals. Street maps are not nautical charts. Original publishers retain their rights and individual notices apply.
+This catalogue describes the content preserved on this Ark as of October 28, 2026. It omits uninstalled wishlist items and blocked acquisition attempts. Collections are snapshots with their original source editions; availability and freshness differ by source. State constitutional snapshots are not complete state statute books. The Massachusetts code files are amendments and named references, not a complete licensed building-code library. Vehicle files are owner manuals and quick guides, not factory service manuals. Street maps are not nautical charts. Original publishers retain their rights and individual notices apply.
 
 DEJ Software | Practical Software for Real Life | dejsoftware.com

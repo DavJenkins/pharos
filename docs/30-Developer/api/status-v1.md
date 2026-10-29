@@ -156,12 +156,12 @@ the example service list above is illustrative, not a set of implemented probes.
 
 ## Simultaneous network interfaces
 
-Ethernet (eth0), upstream Wi-Fi (wlan1), and the access point (wlan0) are
+Ethernet (eth0), the assigned upstream Wi-Fi radio, and the assigned hotspot radio are
 independent. Multiple interfaces may be active together. These fields do not
 select a preferred route or establish internet reachability.
 
 Ethernet and Wi-Fi connected values are null when the collector cannot establish
 state. Access-point active is true when iw reports AP mode and NetworkManager
-reports that wlan0 is connected, false when known inactive, and null when unknown.
+reports that the assigned hotspot interface is connected, false when known inactive, and null when unknown.
 The AP also exposes state and ip. Client count is separate: an active AP with
 zero clients remains active in the dashboard.

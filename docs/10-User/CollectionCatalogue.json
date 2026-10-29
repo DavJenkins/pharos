@@ -1,7 +1,7 @@
 {
   "title": "PHAROS DATA ARK",
   "subtitle": "An extraordinary collection. Ready without the internet.",
-  "edition": "Collection snapshot | October 26, 2026",
+  "edition": "Collection snapshot | October 28, 2026",
   "cards": [
     {
       "number": 1,
@@ -393,7 +393,19 @@
         "Ready Now! Emergency Preparedness Tool Kit — OHSU"
       ],
       "tools": []
+    },
+    {
+      "number": 24,
+      "title": "Communication & Accessibility",
+      "hook": "Tools to help people communicate across speech and precise-touch barriers.",
+      "items": [
+        "Communicate browser speech tool, hosted locally",
+        "Communicate Keyboard Android installer and setup guide, available offline"
+      ],
+      "tools": [
+        "Speech uses the viewing device’s voice; an offline voice must be installed for offline speech."
+      ]
     }
   ],
-  "installed_asset_count": 1392
+  "installed_asset_count": 1394
 }

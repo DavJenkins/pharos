@@ -1,17 +1,17 @@
 # System inventory
 
-Reviewed on the live appliance October 22, 2026. This is an implementation inventory; collection membership and free space change during normal operation.
+Implementation inventory, reviewed for obsolete instructions October 28, 2026. Hardware observations are specific to this appliance; consult the live System tab for current resource and build information.
 
 ## Hardware and storage
 
-- Raspberry Pi 4 Model B, with an SD-root filesystem and a separate content SSD mounted at /mnt/storage.
+- Raspberry Pi 4 Model B, 2 GB installed RAM, with an SD-root filesystem and a separate content SSD mounted at /mnt/storage.
 - The content volume is exFAT, labeled OfflineRepo, approximately 954 GiB in filesystem capacity.
 - Public orientation files at the SSD root include START-HERE.html, BROWSE.html, README-DATA-ARK.txt and DATA-ARK-CATALOG.json.
 - Installed content and pending archives are listed by Manage Library. Do not use a static archive count as an availability check.
 
 ## Network and serving
 
-- wlan0: DataArk hotspot, 192.168.4.1/24. wlan1: upstream Wi-Fi client. Ethernet is another possible upstream connection.
+- Hotspot: 192.168.4.1/24. Wi-Fi adapter assignments are configurable; built-in-hotspot/USB-upstream is the default, not a fixed runtime rule. Current roles: /run/dataark-wifi-roles.json. Ethernet is another upstream route.
 - Apache: HTTP port 80, web root /var/www/html, /api proxy to loopback port 8000, /library-files alias to public SSD files.
 - FastAPI: dataark.service, user/group admin, checkout /opt/dataark, loopback binding.
 - Kiwix: kiwix-serve Docker container, host port 8080, content mount /data from /mnt/storage, configured archive glob *.zim.

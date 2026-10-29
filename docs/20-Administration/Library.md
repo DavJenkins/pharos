@@ -36,7 +36,7 @@ Reinstatement needs upstream internet and is not a recovery guarantee if the pub
 
 ## Session behavior
 
-Caretaker actions use the shared on-demand password pop-up. Its slide switch optionally remembers the password for a chosen 1–120 minutes (default 10), across pages in the same browser tab and Ark address. The fixed expiry is not extended by actions. Remembered credentials use tab-scoped session storage; leaving the switch off retains no session credential. Expiry, authentication rejection, or Lock library management clears the remembered password. Each removal still needs confirmation.
+Caretaker actions use an on-demand password prompt. Remembering is optional: choose 1–120 minutes (default 10). The fixed expiry does not extend with use. The cache survives navigation and reload in the same browser tab and Ark address using tab-scoped session storage; it is not shared across addresses or independent tabs. Expiry, a rejected credential, **Lock now**, or the floating red unlocked padlock clears it. The padlock shows remaining minutes; the inline indicator gives the same countdown. Without remembering, only that action is authorized. A rejected password explicitly says **Password not accepted**. The server verifies every protected request. Each removal still needs confirmation.
 
 ## Diagnostics
 

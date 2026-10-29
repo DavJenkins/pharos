@@ -2,7 +2,7 @@
 
 ## How to read this reference
 
-This records the settings observed on the deployed Ark on October 22, 2026, and points to reproducible source where it exists. Installed helper copies are not automatically updated by editing the repository. Site-specific secrets belong in the root-only configuration capture, not this page.
+This reference describes the deployed Ark and the reproducible configuration sources. Reviewed for obsolete instructions on October 28, 2026; machine-specific observations still require verification on a replacement device. Installed helper copies are not automatically updated by editing the repository. Site-specific secrets belong in the root-only configuration capture, not this page.
 
 Do not paste all commands into a running appliance. Network, mount and firewall changes can sever access or interrupt real work. For a new build, use spare media and a local recovery console until the bootstrap process has been validated.
 
@@ -20,7 +20,7 @@ The private snapshot records the installed package list and Python freeze. A cle
 
 The reviewed storage device identifies as MZVLB1T0HALR (about 954 GiB), behind a JMicron USB storage bridge; the SD capacity is about 116.5 GiB. A Netgear A6150/Realtek RTL8812BU USB Wi-Fi adapter supplies the additional radio. Multiple USB hubs are present. The storage bridge appeared in the USB 2.0 bus tree during this review; do not assume the USB 3-capable bridge is actually using a SuperSpeed path. Port placement, hub power and actual I/O performance need verification, especially when readers stall during writes.
 
-The Pi reports roughly 1.8 GiB usable RAM with zram swap present. Power-supply rating, enclosure cooling, optional RTC/UPS hardware and spare-media restore results are not established by this inventory. Record them after physical inspection instead of inventing a hardware bill of materials.
+The board has 2 GB installed RAM, with roughly 1.8 GiB available to the operating system and zram swap present. Power-supply rating, enclosure cooling, optional RTC/UPS hardware and spare-media restore results are not established by this inventory. Record them after physical inspection instead of inventing a hardware bill of materials.
 
 Observed boot configuration includes arm_64bit=1, auto_initramfs=1, vc4-kms-v3d, arm_boost=1, audio/camera/display auto-detection and display defaults. Conditional cm4/cm5 entries are image defaults, not Pi 4 requirements. The observed config is saved as a review reference, not a portable prescription for all boards.
 
@@ -36,7 +36,7 @@ The SD root uses ext4 with noatime, and /boot/firmware uses vfat. Their PARTUUID
 
 ## NetworkManager hotspot and upstream
 
-The DataArk profile is AP mode on wlan0, autoconnect enabled, ipv4.method shared, address 192.168.4.1/24. NetworkManager provides the base shared-network/DHCP behavior. wlan1 is the separate upstream client. AP and upstream credentials are site-specific and must be entered or restored privately.
+The DataArk hotspot uses AP mode, autoconnect, ipv4.method shared and 192.168.4.1/24. The built-in radio (normally wlan0) is the default hotspot; the USB radio (normally wlan1) is the default upstream client. Either AP-capable radio can be assigned to the hotspot. Read the current roles from `/run/dataark-wifi-roles.json`; preferred hardware identity is in `/etc/dataark/wifi-roles.json`. Use [Wi-Fi adapter assignment](WifiAdapters.md), not a hard-coded interface name, when configuring or diagnosing a running Ark. Credentials remain site-specific and private.
 
 Keep the AP subnet distinct from the upstream network. The interface names are part of today's deployment, not a portable hardware guarantee. A bootstrap must verify AP capability and select the correct physical interfaces before writing profiles. The kernel's observed net.ipv4.ip_forward setting is 1.
 
@@ -135,21 +135,21 @@ Existing installers cover feature-specific configuration but do not fully provis
 ## Temporarily disable upstream Wi-Fi
 
 Open `/config/wifi.html` through the DataArk hotspot at `http://192.168.4.1`.
-The enable/disable buttons require the existing network administration (caretaker) password.
-Disable disconnects only `wlan1` using NetworkManager’s per-device disconnect operation;
-it preserves saved SSIDs, passwords and profile autoconnect settings. The `wlan0` hotspot
-remains running. Enable reconnects `wlan1` to a suitable saved network. A restart can
+The enable/disable slider switch requires caretaker authorization.
+Disable disconnects only the assigned upstream Wi-Fi interface using NetworkManager’s per-device disconnect operation;
+it preserves saved SSIDs, passwords and profile autoconnect settings. The assigned hotspot radio
+remains running. Enable reconnects the upstream radio to a suitable saved network. A restart can
 also restore upstream Wi-Fi; this is an offline-test control, not a persistent radio block.
 Never use `nmcli radio wifi off` for this purpose: that disables both wireless adapters.
 
-For a complete offline test, disable upstream Wi-Fi, unplug the Ark’s Ethernet,
+For a complete offline test, disable upstream Wi-Fi and Ethernet through their pop-ups,
 and disconnect other internet routes on the client (Ethernet or cellular data).
 Keep the client on DataArk Wi-Fi. Disabling through the upstream address can end
 that browser connection; use `192.168.4.1` so the controls remain reachable.
 
 
-The dashboard’s Wi-Fi and Ethernet pop-ups each have an enable checkbox. Every
-change prompts for the caretaker password. Ethernet uses a fixed `eth0` device
+The dashboard’s Wi-Fi and Ethernet pop-ups each have an enable slider switch. Each
+change requires caretaker authorization, using the optional cache when valid. Ethernet uses a fixed `eth0` device
 disconnect/connect operation and retains its saved profile. Both controls are
 temporary until re-enabled or restarted. Use the hotspot address `192.168.4.1`
 before disabling either upstream route; disabling both simulates isolation
@@ -158,8 +158,8 @@ without unplugging cables. Client-side Ethernet/cellular routes must also be off
 
 ### Protect the current access path
 
-Wi-Fi, Ethernet and Hotspot pop-ups provide password-protected enable checkboxes.
-The hotspot uses only the saved DataArk profile on wlan0. Disabling or changing
+Wi-Fi, Ethernet and Hotspot pop-ups provide password-protected enable slider switches.
+The hotspot uses the saved DataArk profile on the currently assigned hotspot radio. Disabling or changing
 the current access path is refused by the privileged helper, using Apache's
 overwritten client address, local kernel HTTP socket records and the return
 route. On a shared upstream subnet both receiving and return interfaces may be
@@ -168,10 +168,7 @@ Hotspot clients cannot disable or rename the hotspot even using a LAN URL.
 Use a different interface before changing the current connection. The Pi's
 local keyboard/KVM remains an independent recovery path.
 
-The password prompt optionally remembers the password in that page's JavaScript
-memory for ten minutes. It is not written to browser storage. Reload, expiry,
-or an authentication failure clears it. The server authenticates every request
-and rechecks the access path regardless of the password cache.
+Caretaker actions use an on-demand password prompt. Remembering is optional: choose 1–120 minutes (default 10). The fixed expiry does not extend with use. The cache survives navigation and reload in the same browser tab and Ark address using tab-scoped session storage; it is not shared across addresses or independent tabs. Expiry, a rejected credential, **Lock now**, or the floating red unlocked padlock clears it. The padlock shows remaining minutes; the inline indicator gives the same countdown. Without remembering, only that action is authorized. A rejected password explicitly says **Password not accepted**. The server verifies every protected request.
 
 ## Reboot diagnostics
 
@@ -243,8 +240,8 @@ metadata checks without downloading the roughly 200 MB callbook on each check.
 The six on/off status controls (Ethernet, Wi-Fi, Hotspot, Internet pass-through,
 Auto refresh and Debug) use accessible slider switches at the upper right of
 their pop-ups. Opening a pop-up does not change state. Network authorization and
-current-access-path protections are unchanged. Remember for 10 minutes in the
-caretaker prompt also uses a slider; it is still off by default.
+current-access-path protections are unchanged. The optional remember switch in the
+caretaker prompt is off by default, with a selectable 1–120 minute duration (default 10).
 
 Auto refresh accepts whole-number intervals from 5 through 300 seconds. Choose
 Apply interval (or press Enter) to apply and save the choice in this browser's
@@ -289,9 +286,14 @@ manifest and its portable configuration mirror.
 
 ## Editing YAML
 
-The editor shows the public content/presentation sections of `dataark.yaml`, not
-private household or authentication settings. It supports section jumps, text
-search, YAML download, validation and a preview summary of the configured cards.
+The editor opens public modular configuration files; the combined `dataark.yaml`
+compatibility snapshot is an advanced option. Private household and authentication
+settings are excluded. The folder picker, section selector and search sit directly
+above the editor. The active filename and an unsaved-changes indicator identify the
+current draft. Switching files clears the editor immediately while loading and
+resets the section choices; a sole section is selected automatically and disabled.
+**How configuration files work** and **History** are expandable disclosures. YAML
+download, validation and a card summary remain available.
 Storage/service paths and the schema version cannot be changed in this editor.
 Use spaces for indentation and keep boolean values as `true` or `false`.
 
@@ -319,7 +321,7 @@ of every collection-specific installer decision into configuration.
 
 ## Previous versions and recovery
 
-Every save keeps the previous public configuration in the editor's version list.
+Every save keeps the previous public configuration under **History**.
 Load a version into the editor, inspect it, validate it and publish to restore it.
 The list shows the latest 20 versions. A full private pre-change manifest is also
 kept root-only under `/var/backups/dataark-configuration` for console recovery.

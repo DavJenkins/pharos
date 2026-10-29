@@ -501,7 +501,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                         attrs=f' data-manifest-kiwix-port="{port}" data-manifest-kiwix-path="{html.escape(path,quote=True)}"'
                     else:target=link['url'];attrs=''
                     group_links.append(external_link(target,link['title']) if link.get('requires_internet') else '<a href="'+html.escape(target,quote=True)+'"'+attrs+'>'+html.escape(link['title'])+'</a>')
-                grouped_links.append('<div class="manifest-link-group"><h4>'+html.escape(group['title'])+'</h4>'+' · '.join(group_links)+'</div>')
+                grouped_links.append('<div class="manifest-link-group"><h4>'+html.escape(group['title'])+'</h4><nav class="manifest-links" aria-label="'+html.escape(group['title'],quote=True)+'">'+' '.join(group_links)+'</nav></div>')
             entries = []
             for item in items:
                 if hide and not item['available']:

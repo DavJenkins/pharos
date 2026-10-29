@@ -38,7 +38,6 @@
 - [Paper, play and family resources](20-Administration/FamilyResources.md)
 - [Browser terminal](20-Administration/BrowserTerminal.md)
 - [VNC desktop access](20-Administration/VNC.md)
-- [Project status: October 21, 2026](20-Administration/ProjectStatus-2026-10-21.md)
 - [Survival, power, laws and PDF forms](20-Administration/ResilienceResources.md)
 - [Paired-media recovery](20-Administration/PairedRecovery.md)
 - [Content configuration and restoration](20-Administration/ContentRestoration.md)

@@ -13,6 +13,7 @@ parser.add_argument('--output', type=Path, default=Path(__file__).resolve().pare
 args=parser.parse_args()
 R=Path(__file__).resolve().parents[1]
 data=json.loads((R/'docs/10-User/CollectionCatalogue.json').read_text(encoding='utf-8'))
+card_count=len(data['cards']);item_count=data['installed_asset_count'];edition=data['edition'].split('|')[-1].strip()
 fonts=Path('C:/Windows/Fonts')
 if fonts.exists():
     variants=[('Ark','arial.ttf'),('ArkBold','arialbd.ttf'),('ArkItalic','ariali.ttf')]
@@ -40,7 +41,7 @@ def bg(canvas,doc):
  canvas.setFillColor(HexColor('#dfbb65'));canvas.setFont('ArkBold',10);canvas.drawString(42,H-29,'PHAROS  /  DATA ARK')
  canvas.setFillColor(CREAM);canvas.setFont('Ark',12);canvas.drawString(42,H-54,'THE COLLECTION / PRESERVED ON THE ARK')
  canvas.setStrokeColor(GOLD);canvas.line(42,43,W-42,43)
- canvas.setFont('Ark',8);canvas.setFillColor(GRAY);canvas.drawString(42,29,'DEJ SOFTWARE  |  COLLECTION SNAPSHOT: OCTOBER 26, 2026');canvas.drawRightString(W-42,29,str(doc.page))
+ canvas.setFont('Ark',8);canvas.setFillColor(GRAY);canvas.drawString(42,29,'DEJ SOFTWARE  |  COLLECTION SNAPSHOT: '+edition.upper());canvas.drawRightString(W-42,29,str(doc.page))
 def cover(canvas,doc):
  canvas.setFillColor(BLUE);canvas.rect(0,0,W,H,fill=1,stroke=0)
  canvas.setStrokeColor(GOLD);canvas.setLineWidth(1);canvas.rect(27,27,W-54,H-54,fill=0,stroke=1)
@@ -53,8 +54,8 @@ path.parent.mkdir(parents=True,exist_ok=True)
 doc=BaseDocTemplate(str(path),pagesize=(W,H),title='Pharos Data Ark - The Collection',author='DEJ Software',allowSplitting=1)
 frames=[Frame(42,59,255,635,id='left',leftPadding=0,rightPadding=8,topPadding=0,bottomPadding=0),Frame(315,59,255,635,id='right',leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)]
 doc.addPageTemplates([PageTemplate(id='cover',frames=[Frame(58,85,496,468,id='coverbody',leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)],onPage=cover),PageTemplate(id='inside',frames=frames,onPage=bg)])
-story=[p('An extraordinary collection.\nReady without the internet.','cover'),p('An encyclopedia. A library of books. A repair bench, map cabinet, classroom and emergency reference shelf. All on one local device.','coverbody'),p('23 collections  /  50-state street maps\n1,392 preserved archives, publications, datasets and packs','covergold'),p('Read. Search. Repair. Learn. Prepare. Create.','coverbody'),p('Connect to the Ark and open a browser. Useful knowledge stays within reach when the internet is unavailable.','coverbody'),NextPageTemplate('inside'),PageBreak()]
-groups=[list(range(1,24))]
+story=[p('An extraordinary collection.\nReady without the internet.','cover'),p('An encyclopedia. A library of books. A repair bench, map cabinet, classroom and emergency reference shelf. All on one local device.','coverbody'),p(f'{card_count} collections  /  50-state street maps\n{item_count:,} preserved archives, publications, datasets and packs','covergold'),p('Read. Search. Repair. Learn. Prepare. Create.','coverbody'),p('Connect to the Ark and open a browser. Useful knowledge stays within reach when the internet is unavailable.','coverbody'),NextPageTemplate('inside'),PageBreak()]
+groups=[list(range(1,card_count+1))]
 for gi,group in enumerate(groups):
  for n in group:
   c=data['cards'][n-1];story += [p(str(n).zfill(2)+'  '+c['title'],'head'),p(c['hook'],'hook')]
@@ -62,12 +63,8 @@ for gi,group in enumerate(groups):
   if c['tools']:
    story.append(p('LOCAL TOOLS','small'))
    for item in c['tools']:story.append(p(item,'tool'))
- if False:
-  story += [Spacer(1,10),p('A library within the library','head'),p('A single searchable archive contains an entire body of material. The 1,392-item inventory is not a count of individual books, articles, map features or pages. Wikipedia, WikiMed, iFixit and Project Gutenberg each open into much larger collections.','tool')]
- if False:story.append(p('The vehicle files are owner manuals and quick guides. Street maps are not nautical charts or a routing service. Massachusetts layers retain their regional scope.','small'))
- if False:story.append(p('State constitutional snapshots are not complete state statute books. Code files are the named amendments and references, not a complete licensed building-code library.','small'))
  if gi==len(groups)-1:
-  story += [Spacer(1,10),p('A resource for the community','head'),p('The local community board supports announcements, requests, offers and conversations, even without upstream internet. Practical browser tools sit alongside the saved knowledge.','tool'),p('About this edition','head'),p('This catalogue describes installed content as of October 26, 2026. Uninstalled wishlist items and blocked acquisition attempts are excluded. Saved material retains its source edition; freshness varies. Original publisher rights and individual notices apply.','small'),p('DEJ Software | dejsoftware.com','small')]
+  story += [Spacer(1,10),p('A resource for the community','head'),p('The local community board supports announcements, requests, offers and conversations, even without upstream internet. Practical browser tools sit alongside the saved knowledge.','tool'),p('About this edition','head'),p('This catalogue describes installed content as of '+edition+'. Uninstalled wishlist items and blocked acquisition attempts are excluded. Saved material retains its source edition; freshness varies. Original publisher rights and individual notices apply.','small'),p('DEJ Software | dejsoftware.com','small')]
  if gi<len(groups)-1:story.append(PageBreak())
 doc.build(story)
 print('Created',path)

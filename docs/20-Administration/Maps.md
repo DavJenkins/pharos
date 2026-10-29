@@ -46,7 +46,7 @@ The installed unit assumes `/opt/dataark`, `/mnt/storage`, and the admin account
 
 Use **Local maps** near the bottom of the landing page. Its collection index links to Flood, Property, and Topographic pages, source attribution, file availability, saved/check dates, and errors. Archives are labelled **Download GIS ZIP**; PDFs are labelled **Open PDF**. The generated pages and files are portable when the SSD is mounted on another computer.
 
-Direct browser status: `/library-files/maps/index.html`; machine-readable status: `/library-files/maps/status.json`. Map status is not yet part of the upper-right Kiwix sync indicator or the household HA sensor. HA can separately poll the map status JSON.
+Direct browser status: `/library-files/maps/index.html`; machine-readable status: `/library-files/maps/status.json`. The dashboard includes national street-map extraction/publication activity in its upper-right sync status. `/api/health` also reports map update failures for Home Assistant. The map index/status JSON remains the detailed source for the separate Massachusetts GIS collections; the compact sync label is not a full per-layer inventory.
 
 ```bash
 # Start a due check without waiting for the daily timer:

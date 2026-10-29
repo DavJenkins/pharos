@@ -242,7 +242,7 @@ The website itself is maintained under source control and deployed automatically
                   │                     │
                   └──────────┬──────────┘
                              │
-                     Wi-Fi AP (wlan0)
+                     Wi-Fi AP (assigned radio)
                       SSID: DataArk
                              │
           Phones • Tablets • Laptops • Desktops
@@ -300,49 +300,11 @@ to the running appliance.
 
 ---
 
-# Roadmap
+# Current status and remaining work
 
-## Dashboard
+The Ark implements manifest-driven content updates, library/storage management, configuration backup, health monitoring, offline U.S./Caribbean street maps, a local community board, Home Assistant integration and a modular public configuration editor. See [current implementation notes](docs/20-Administration/ReleaseNotes.md) and the [complete collection](docs/10-User/ContentSources.md).
 
-- [ ] Configurable dashboard widgets
-- [ ] Theme support
-- [ ] Better mobile experience
-- [ ] System graphs
-- [ ] Notification center
-
----
-
-## Knowledge
-
-- [ ] CD3WD Engineering Library
-- [ ] Equipment repair manuals
-- [ ] FEMA publications
-- [ ] Local ordinances
-- [ ] Building codes
-- [ ] Amateur radio references
-- [ ] Survival manuals
-- [ ] Medical reference expansion
-
----
-
-## Appliance
-
-- [ ] Automatic content updates
-- [ ] Backup and restore
-- [ ] Storage management
-- [ ] User accounts
-- [ ] Health monitoring
-- [ ] Configuration backup
-
----
-
-## Hardware
-
-- [ ] Battery monitoring
-- [ ] Solar charging integration
-- [ ] Generator monitoring
-- [ ] Environmental sensors
-- [ ] UPS support
+Remaining work includes spare-media/fresh-Pi acceptance, public collection suggestions and caretaker approval, additional specialized GIS viewers and map search/routing, UPS/power telemetry, shutdown/eject and retention policy. Planned hardware integrations are not installed capabilities. See [integration status](docs/20-Administration/PlannedIntegrations.md) and [acceptance tests](docs/20-Administration/AcceptanceTests.md).
 
 ---
 

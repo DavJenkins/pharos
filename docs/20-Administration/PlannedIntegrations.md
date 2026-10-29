@@ -1,16 +1,20 @@
 # Integration status
 
-Implemented: household SMB, mounted local file/directory and HTTP-file snapshots; private SMB credentials; per-source readiness; independent normal maintenance and bugout policies; optional OpenPGP; authenticated HA triggers/cancellation and a retrying event outbox. Normal maintenance can be manual, scheduled, or refreshed on reconnection. Bugout has a time budget and optional background handoff on cancellation. See [Household Bugout Backups](Bugout.md).
+## Implemented
 
-Manuals is configured at `//192.168.40.127/Manuals` for daily prefetch and refresh at bugout. Verified on 2026-10-21: private credentials are installed, the household worker is running, and scheduled snapshots completed October 20 and 21. All 89 regular-file members of the latest snapshot were read successfully; three samples were restored into temporary storage with matching SHA-256 hashes. Independent source-to-restore comparison remains pending.
+Household backup supports SMB, mounted local files/directories and HTTP snapshots, independent maintenance and bug-out policies, private credentials, optional OpenPGP, authenticated triggers/cancellation and event delivery. See [Household bug-out backups](Bugout.md) for configuration and acceptance requirements.
 
-Nested resource sections are implemented in the central manifest. They are a display index, not implicit backup jobs or synchronization rules; see [Manifest](Manifest.md). Existing reference-library updates remain with the separate content update worker and are excluded from bugout unless explicitly configured as household tasks.
+Home Assistant is configured for health/certificate monitoring, bug-out controls and collection/configuration lifecycle events. Installation and tested delivery are documented in [Home Assistant](HomeAssistant.md); integration tokens remain private. No physical-device action or phone push notification is implied by the package.
 
-Still pending: HA connection credentials and package installation, live source/encryption/HA acceptance tests, UPS/power-budget telemetry, application-specific quiesce/export hooks, removable-media export, hardware/GPIO triggers, shutdown/eject policy and retention policy. No door, light or other physical-device actions are configured automatically.
+Manage Library provides installed/pending/removed inventory, storage and activity, password-protected supported downloads/removal/reinstatement, lifecycle diagnostics and public file access. Caretaker caching is optional and tab-scoped. **System → Library** holds the management link. See [Library management](Library.md).
 
+Offline street-map viewing covers all 50 U.S. states and a separate Caribbean archive. Massachusetts flood, parcel and topographic datasets retain their narrower scope. See [Offline references](OfflineReferences.md) and [Local reference maps](Maps.md).
 
-## Library management status
+## Remaining work
 
-Implemented October 22, 2026: Manage Library in the System pop-up; installed/pending/removed inventory; free-space and full updater status; curated English Gutenberg download requests; password-protected removal and reinstatement; retained sources for pre-seeded archives; page-memory caretaker authentication; lifecycle diagnostics; and anonymous read-only FTP. See [Library management](Library.md) for current behavior.
+- Public collection suggestions and storage-sensitive caretaker approval (Send to the Ark).
+- Street-map search/routing and browser viewers for additional specialized GIS formats.
+- Spare-media and fresh-system recovery acceptance; wider household-source and encryption acceptance.
+- UPS/power-budget telemetry, application-specific quiesce/export hooks, hardware/GPIO triggers, shutdown/eject and retention policies.
 
-Still planned: public collection requests and storage-sensitive caretaker approval, OpenStreetMap region/package/reader selection, and a browser viewer for specialized GIS datasets. Utilities without an automatic adapter retain a source link for manual restoration. The existence of a reference link does not establish offline installation.
+Configured capability is not an acceptance result. The [acceptance checklist](AcceptanceTests.md) and feature-specific guides identify outstanding tests. No door, light or other physical-device action is configured automatically.

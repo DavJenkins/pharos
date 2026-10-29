@@ -92,14 +92,14 @@ is stored under /etc/dataark; this is not your Linux or Wi-Fi password.
 Run the tests, publish the website, and restart dataark.service as described above.
 Open /config/wifi.html or /config/system.html and enter the new password.
 Legacy CGI scripts are no longer used. Do not enable CGI or grant general nmcli
-sudo access to the API. Passwords are kept only in the current form, not localStorage.
+sudo access to the API. The shared password prompt can optionally cache authorization in tab-scoped session storage for a chosen fixed duration. See [session behavior](Library.md#session-behavior); use Lock now or the floating padlock to clear it.
 
-The appliance currently serves HTTP: administration credentials and submitted
-Wi-Fi passwords are not encrypted in transit. Use a trusted local connection;
+HTTP administration credentials and submitted Wi-Fi passwords are not encrypted
+in transit. Optional HTTPS is documented in [HTTPS](HTTPS.md). Use a trusted local connection;
 do not expose these administration endpoints to the internet.
 
-The helper scans/connects only on wlan1 and renames only the DataArk profile
-after verifying AP mode on wlan0. Open and WPA/WPA2 Personal are supported;
+The helper scans/connects only on the assigned upstream Wi-Fi radio and renames
+only the DataArk profile after verifying the assigned hotspot is in AP mode. Open and WPA/WPA2 Personal are supported;
 WPA3-only and enterprise networks require local configuration.
 SSID length is checked in UTF-8 bytes. Passwords go through stdin and a private
 temporary password file, never shell interpolation, process arguments, or logs.

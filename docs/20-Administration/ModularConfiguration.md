@@ -28,7 +28,7 @@ explicit configuration remains distinct from its absence on disk.
 ## Web editor
 
 Open **Settings → System → Configuration… → Load configuration**. The editor opens
-`ark.yaml` first. Use **Configuration file** to choose a collection or catalogue.
+`ark.yaml` first. **Configuration file** opens a folder tree: expand folders individually and select a file. The filename stays above the editor; unsaved changes are marked. **Section** rebuilds for each file, preselecting and disabling a single available section. Old text clears immediately while another file loads. Technical help and full-snapshot **History** are collapsed disclosures.
 Generated `state/` files can be inspected and downloaded but are read-only.
 The advanced combined compatibility snapshot remains available.
 

@@ -11,8 +11,8 @@ class ContentGuideTests(unittest.TestCase):
         expected = {a['id'] for a in data['assets'] if not a.get('removed')}
         self.assertEqual(set(identifiers), expected)
         self.assertEqual(len(identifiers), len(expected))
-        self.assertEqual(len(cards), 23)
-        self.assertEqual(len([line for line in text.splitlines() if line.startswith('## ') and line[3:4].isdigit()]), 23)
+        self.assertEqual(len(cards), 24)
+        self.assertEqual(len([line for line in text.splitlines() if line.startswith('## ') and line[3:4].isdigit()]), 24)
         self.assertIn('Caribbean island groups and destinations', text)
         self.assertIn('not a complete collection of every state statute', text)
         self.assertIn('http://dataark:8080/content/wikipedia_', text)

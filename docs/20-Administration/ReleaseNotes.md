@@ -1,23 +1,15 @@
-# Release notes
+# Current implementation notes
 
-## October 22, 2026 — library and dashboard work
+Reviewed October 28, 2026. These notes describe the working feature set; they are not a tagged-release guarantee. Use the **System** tab or `/assets/build-info.json` for the deployed revision, branch, source fingerprint and publication time.
 
-This is a dated development summary, not a claim of a separately tagged software release. The manifest currently identifies version 1.4 while the API application metadata still reports 1.0.0; do not treat those labels as synchronized release identifiers.
+- Public configuration is split into `ark.yaml`, collection definitions, catalogues and generated version/order snapshots. The folder-based editor supports syntax coloring, section navigation, search, validation, full-snapshot History and an unsaved-changes indicator. Reads require no caretaker password.
+- Caretaker authorization uses an optional fixed 1–120 minute, tab-scoped cache. A red floating unlocked padlock displays remaining minutes and locks on tap. Credential changes require the fresh-authentication helper; there is no browser password-change form yet.
+- System details use System, Library and Usage tabs. Manage Library is on Library; system administration actions are on System. Network and display controls use slider switches; Help and Developer API open directly.
+- All 24 collection cards have distinct artwork. Installed national and Caribbean street maps, Gutenberg, Khan Academy, and offline Communicate tools are represented in the library. The live inventory, not an old count, determines availability.
+- The banner supports Markdown, date/greeting variables, variable syntax coloring, appearance controls and optional broadcast to open clients. The community board supports nested replies, author removal links, caretaker editing and backup/restore.
+- Home Assistant health, bug-out controls and collection/configuration events are configured. Phone notifications and physical-device actions require explicit household automations.
+- File distribution includes HTTP, read-only SMB and anonymous read-only FTP. SSH/SFTP, rsync and the browser terminal use their own account authorization.
 
-- Added illustrated English iFixit offline content, attribution, publisher hash verification, reader activation, and local landing-page access.
-- Hid online-only source cards from the main library; retained source references in management.
-- Added Manage Library, linked from the System pop-up, with inventory, free space, full activity, and curated English Gutenberg downloads. Gutenberg is a large optional collection; consult live status rather than assuming it is installed.
-- Added password-protected removal and reinstatement of supported archives, including pre-seeded archives. Removal disables automatic re-download and retains source information.
-- Added right-aligned trash-can controls, explicit queued/working/completion/error headings, and page-memory caretaker authentication with expiry and manual locking.
-- Reworked the nine status controls into Connections, Access and monitoring, and Support tools. Seven open details first; Help and Developer API open directly. Desktop hover text remains.
-- Tied portal capture to Debug and added library lifecycle events, durations, bytes, failures and recovery outcomes.
-- Corrected public documentation-directory permissions and linked Help directly to the contents page.
-- Added anonymous read-only FTP with denied uploads and excluded private/staging paths. SSH/SFTP and account-based rsync remain administrator access methods.
+## Still incomplete
 
-## Remaining work
-
-Public collection requests and storage-based approvals are not implemented. OpenStreetMap offline region/format/reader selection is still planned. GIS data do not yet all have an in-browser map viewer. Full spare-storage recovery, broad client acceptance and some household integration tests remain pending.
-
-## Earlier foundation
-
-The initial API foundation introduced FastAPI, OpenAPI, native Python collectors, service/health reporting and static browser integration. Later manifest, portal, map-maintenance and household-backup changes are described in their administration guides. See the [October 21 project snapshot](ProjectStatus-2026-10-21.md) for historical context; newer behavior above supersedes that snapshot where they differ.
+Public Send to the Ark suggestions and caretaker approval are not implemented. Specialized GIS datasets do not all have browser viewers; street-map search and routing are absent. Fresh/spare-media acceptance remains required for dependable recovery. Broad client/offline tests, household-source/encryption acceptance and UPS/shutdown policies retain their specific acceptance requirements. See [Acceptance tests](AcceptanceTests.md), [Recovery queue](RecoveryQueue.md) and [Home Assistant](HomeAssistant.md).

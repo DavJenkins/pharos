@@ -12,7 +12,7 @@ The browser terminal uses Apache HTTPS on port 4200, proxied to an unprivileged 
 
 - app/main.py registers the active FastAPI routers. app/routers contains HTTP boundaries; app/services contains policy and implementation helpers; app/models defines typed status contracts.
 - app/templates/index.html is the dashboard source template. app/static contains browser assets and generated index.html.
-- dataark.yaml identifies repositories, assets, update series, map coverage, resource sections, and configured household tasks.
+- config/library/ark.yaml and its collection/catalogue files are the public authoring project. dataark.yaml remains the runtime compatibility manifest and can include private household tasks; public exports exclude those private sections. See [Modular configuration](../20-Administration/ModularConfiguration.md).
 - tools/render_dashboard.py validates the manifest and renders the dashboard. It does not download content.
 - tools/publish_docs.py converts docs Markdown to local HTML. deploy/deploy-web.sh builds and publishes both site and docs.
 - deploy contains explicit installers for root helpers, services, networking, and distribution configuration. Editing source alone does not update an already installed root helper.
@@ -21,7 +21,7 @@ Do not infer active behavior from every file present: legacy modules and scripts
 
 ## Network roles
 
-wlan0 provides the DataArk hotspot at 192.168.4.1/24. wlan1 is the upstream Wi-Fi client. Ethernet may provide another upstream route. A hotspot client can use the library without upstream access. Internet pass-through is separate per-device state, normally with a six-hour limit and reset on reboot.
+The hotspot uses 192.168.4.1/24. The built-in radio (normally wlan0) is the default hotspot, but either AP-capable Wi-Fi adapter may be assigned; the other handles optional upstream Wi-Fi. `tools/wifi_interfaces.py` resolves current roles from `/run/dataark-wifi-roles.json`. Ethernet is another upstream route. Local library access is independent of upstream connectivity. Internet pass-through is per-device state, normally with a six-hour limit and reset on reboot.
 
 The portal intercepts known HTTP connectivity probes and uses trusted peer information supplied by Apache. The API must stay loopback-bound; untrusted callers must not be able to forge the peer header by reaching it directly. Client captive-portal behavior is not fully controlled by the server.
 
@@ -29,7 +29,7 @@ The portal intercepts known HTTP connectivity probes and uses trusted peer infor
 
 The API runs as admin. Network, pass-through, library, and household operations use fixed-scope helpers with validated inputs and narrowly scoped installed permissions. Library and network management share a salted password hash in /etc/dataark/network-admin.json. Public reading is independent of that credential. SSH and Samba accounts have their own credentials and permissions.
 
-Management is currently HTTP on the local network, so the application does not provide transport encryption for those forms. Preserve the intended local deployment boundary. Logs must never include submitted credentials, authorization headers, or raw request bodies.
+HTTP remains available for local management; optional HTTPS can also be configured. HTTP forms have no transport encryption. Preserve the intended local deployment boundary. Logs must never include submitted credentials, authorization headers, or raw request bodies.
 
 ## Update and removal transactions
 

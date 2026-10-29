@@ -43,6 +43,14 @@ class ManifestTests(unittest.TestCase):
         result = build(self.manifest, self.template, self.output, content_root=self.content)
         return result, self.output.read_text(encoding='utf-8')
 
+    def test_grouped_actions_share_standard_link_navigation(self):
+        self.data['repositories'][0]['link_groups']=[{'title':'Radio tools','links':[{'title':'Practice','url':'/radio-study.html'},{'title':'Callsign search','url':'/callsigns.html'}]}]
+        _,page=self.render()
+        self.assertIn('<h4>Radio tools</h4><nav class="manifest-links" aria-label="Radio tools">',page)
+        self.assertIn('href="/radio-study.html"',page)
+        self.assertIn('href="/callsigns.html"',page)
+        self.assertNotIn('</a> · <a',page)
+
     def test_collapsed_collection_keeps_files_and_primary_link(self):
         (self.content/'book.pdf').write_bytes(b'pdf')
         self.data['repositories'][0]['collapse_assets']=True

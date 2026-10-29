@@ -1921,4 +1921,4 @@ Communicate browser speech tool and an offline Android installer for Communicate
 
 ## Scope and maintenance
 
-This guide documents registered collections and linked tools. The Community board is a separate local service, not a twenty-fourth content-source card. USA.gov is an online-only reference and is not presented as an installed collection. Unregistered files and every article/book inside a ZIM are outside this item-level inventory. The wider [content-gap register](../20-Administration/ContentGaps.md) records acquisition work; use Manage Library and the catalogue source logs for current status.
+This guide documents registered collections and linked tools. The Community board is a separate local service, outside the content-source card count. USA.gov is an online-only reference and is not presented as an installed collection. Unregistered files and every article/book inside a ZIM are outside this item-level inventory. The wider [content-gap register](../20-Administration/ContentGaps.md) records acquisition work; use Manage Library and the catalogue source logs for current status.
