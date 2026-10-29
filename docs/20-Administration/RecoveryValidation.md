@@ -80,3 +80,12 @@ Still untested by this drill: fresh stock-Pi installation, replacement of physic
 ## Clean-OS bootstrap test
 
 The clean Debian ARM64 software-phase test is documented separately in [Clean-OS software bootstrap acceptance](CleanBootstrapTest.md). The clean software phases passed after fixes and recorded retries, with two guest reboots and 43 relevant regressions passing. A subsequent [uninterrupted frozen-kit replay](FrozenBootstrapReplay.md) also passed, including 43 regressions and reboot/service checks. Physical network setup and spare-media acceptance remain untested. Its phase journal and outcome must be reviewed independently of the earlier empty-volume drill; that drill began with an already configured Ark.
+
+
+## 29 October 2026: physical spare-drive Minimal content proof
+
+**Passed:** the existing Ark supplied the Minimal payload to an empty 474.9 GiB NTFS partition on the separate Toshiba USB drive (filesystem UUID `5A5A5A1A5A59F2ED`). The original OfflineRepo volume remained mounted and the active configuration stayed unchanged.
+
+The proof copied and SHA-256 verified 39 files, totaling 17,060,358 bytes: the three selected preparedness PDFs, radio-study pools and diagrams, and Communicate/Communicate Keyboard support files. The five registered payload restore handlers then reused these files successfully inside a private network namespace with no external network access. No content was downloaded. Portable catalogues were generated from the spare's actual files; the spare was unmounted and remounted, every copied hash was rechecked, and seven representative HTTP reads passed, including all three PDFs.
+
+The filesystem also passed staged writing, file and directory fsync, permissions requests, atomic replacement and clean unmount/remount. This is a physical content-copy/reuse proof, separate from the native restoration-queue, live-content-volume swap and clean-OS bootstrap tests. Evidence is retained on the boot card under `/var/lib/dataark/acceptance/physical-spare-20261029/`, including `minimal-proof-result.json` and `copied-minimal.json`.

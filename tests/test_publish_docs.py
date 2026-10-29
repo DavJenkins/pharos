@@ -61,3 +61,16 @@ class MarkdownListConsistency(unittest.TestCase):
         self.assertEqual(rendered.count('<li>'),3)
         self.assertNotIn('<p>* ',rendered)
         self.assertIn('</ul>\n<p>After the list.</p>',rendered)
+
+
+class PublicationInputIdentity(unittest.TestCase):
+    def test_generated_css_cache_marker_does_not_change_content_identity(self):
+        from tools.build_public_documents import input_digest
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'guide.html'
+            path.write_text('<link href="/assets/css/ark-pages.css?v=123abc"><main>Guide</main>',encoding='utf-8')
+            first=input_digest(path)
+            path.write_text('<link href="/assets/css/ark-pages.css?v=456def"><main>Guide</main>',encoding='utf-8')
+            self.assertEqual(first,input_digest(path))
+            path.write_text('<link href="/assets/css/ark-pages.css?v=456def"><main>Changed guide</main>',encoding='utf-8')
+            self.assertNotEqual(first,input_digest(path))

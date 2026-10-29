@@ -9,7 +9,11 @@ import yaml
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 def input_digest(path):
  path=Path(path)
- content=path.read_bytes() if path.suffix=='.pdf' else path.read_text(encoding='utf-8-sig').encode('utf-8')
+ if path.suffix=='.pdf':content=path.read_bytes()
+ else:
+  value=path.read_text(encoding='utf-8-sig')
+  if path.suffix=='.html':value=re.sub(r'(/assets/css/ark-pages\.css)\?v=[0-9a-f]+',r'\1',value)
+  content=value.encode('utf-8')
  return hashlib.sha256(content).hexdigest()
 from tools.publish_docs import markdown_to_html
 from tools import public_handbook, public_downloads
@@ -57,7 +61,7 @@ def build(website=None):
     (target/'index.html').write_text(public,encoding='utf-8')
    if pdf:
     for folder in [archive]:shutil.copyfile(ROOT/pdf,folder/Path(pdf).name)
- meta={'schema':1,'edition':edition,'source_revision':revision,'source_revision_note':'Repository HEAD at build; source_sha256 identifies the exact publication inputs.','update_policy':c['update_policy'],'supported_bootstrap_released':False,'text_hash_normalization':'UTF-8 without BOM, with LF line endings; PDF hashes use original bytes','source_sha256':fingerprints,'pages':[{**p,'local_permalink':url_for(p['id'],False),'website_permalink':url_for(p['id'],True)} for p in pages]}
+ meta={'schema':1,'edition':edition,'source_revision':revision,'source_revision_note':'Repository HEAD at build; source_sha256 identifies the exact publication inputs.','update_policy':c['update_policy'],'supported_bootstrap_released':False,'text_hash_normalization':'UTF-8 without BOM, with LF line endings; PDF hashes use original bytes; generated ark-pages.css cache-query values are excluded from HTML input hashes','source_sha256':fingerprints,'pages':[{**p,'local_permalink':url_for(p['id'],False),'website_permalink':url_for(p['id'],True)} for p in pages]}
  (local/'publication.json').write_text(json.dumps(meta,indent=2)+'\n',encoding='utf-8')
  if website:
   def frame(title,body,path,prefix):
