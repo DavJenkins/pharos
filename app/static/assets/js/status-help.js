@@ -1,7 +1,7 @@
 "use strict";
 (() => {
     const items = {
-        "eth-button": {name:"Ethernet", description:"The Ark's wired upstream connection. Disabling it preserves its configuration and leaves the DataArk hotspot available. A restart can reconnect it.", toggle:true},
+        "eth-button": {name:"Ethernet", description:"The Ark's wired connections. Select an adapter to inspect or control it. Current access paths are protected; saved connection settings are retained.", toggle:true},
         "wifi-button": {name:"Wi-Fi", description:"The Ark’s upstream Wi-Fi. Disabling it retains saved networks and leaves the DataArk hotspot available. A restart can reconnect it.", settings:"/config/wifi.html", settingsLabel:"Choose a Wi-Fi network", toggle:true},
         "ap-button": {name:"Hotspot", description:"The DataArk Wi-Fi network your devices join to use the Ark.", settings:"/config/system.html", settingsLabel:"Change hotspot settings", toggle:true},
         "portal-continue": {name:"Internet pass-through", description:"Allow this device to reach the internet through the Ark. This does not change access for other devices. Permission lasts up to six hours and resets when the Ark restarts.", toggle:true},
@@ -60,6 +60,16 @@
         intervalResult.className = "refresh-interval-result";
         intervalResult.setAttribute("role", "status");
         intervalPanel.append(intervalLabel, intervalInput, intervalApply, intervalHelp, intervalResult);
+        const wiredPanel=document.createElement("label");
+        wiredPanel.textContent="Ethernet adapter ";
+        const wiredSelect=document.createElement("select");
+        wiredSelect.id="status-ethernet-adapter";
+        wiredSelect.style.cssText="display:block;box-sizing:border-box;width:100%;max-width:100%;padding:.6rem;margin:.4rem 0 1rem";
+        wiredPanel.append(wiredSelect);description.after(wiredPanel);
+        let wiredChoice="";
+        function wiredItems(){return DataArkStatus.data?.network?.ethernet_interfaces || (DataArkStatus.ethernet.interface?[DataArkStatus.ethernet]:[]);}
+        function currentWired(){const rows=wiredItems();return rows.find(e=>e.interface===wiredChoice)||rows.find(e=>e.interface===DataArkStatus.ethernet.interface)||rows[0]||{};}
+        wiredSelect.addEventListener("change",()=>{wiredChoice=wiredSelect.value;wifiMessage.textContent="";render();refreshAccess();});
         description.after(intervalPanel);
         let intervalDirty = false;
         intervalInput.addEventListener("input", () => { intervalInput.setCustomValidity(""); intervalDirty = true; });
@@ -274,25 +284,36 @@
             intervalPanel.hidden = selected !== "refresh-button";
             if (selected === "refresh-button" && !intervalDirty && document.activeElement !== intervalInput) intervalInput.value = String(Dashboard.refreshIntervalSeconds);
             if (selected === "refresh-button" && intervalResult.textContent) intervalResult.textContent = Dashboard.refreshEnabled ? "Checking every " + Dashboard.refreshIntervalSeconds + " seconds." : "Paused. Checks resume at this interval when Auto refresh is on.";
-            renderDetails(item, original.title);
+            wiredPanel.hidden=selected!=="eth-button";
+            if(selected==="eth-button"){
+                const rows=wiredItems(), chosen=currentWired();wiredChoice=chosen.interface||"";
+                const signature=JSON.stringify(rows.map(e=>[e.interface,e.ip,e.connected,e.enabled]));
+                if(wiredSelect.dataset.signature!==signature){
+                    wiredSelect.replaceChildren(...rows.map(e=>{const option=document.createElement("option");option.value=e.interface;option.textContent=e.interface+" · "+(e.ip||"no IP address")+" · "+(e.enabled===false?"disabled":e.connected?"connected":"no link");return option;}));
+                    wiredSelect.dataset.signature=signature;
+                }
+                wiredSelect.value=wiredChoice;wiredSelect.disabled=wifiBusy || !!pending;
+            }
+            renderDetails(item, selected==="eth-button"?DataArkStatus.ethernetTooltip(currentWired()):original.title);
             value.hidden = !!item.url || (!!item.toggle && !["wifi-button", "eth-button", "ap-button"].includes(selected));
             wifiMessage.hidden = !["wifi-button", "eth-button", "ap-button"].includes(selected);
             document.getElementById("status-dialog-toggle-row").hidden = !item.toggle;
             if (item.toggle) {
-                const enabled = ["wifi-button", "eth-button", "ap-button"].includes(selected) ? ((selected === "ap-button" ? DataArkStatus.accessPoint : selected === "eth-button" ? DataArkStatus.ethernet : DataArkStatus.wifi).enabled ?? (selected === "ap-button" ? DataArkStatus.accessPoint.active : selected === "eth-button" ? DataArkStatus.ethernet.connected : DataArkStatus.wifi.connected)) === true : original.classList.contains("on");
-                const unavailable = original.getAttribute("data-action-disabled") === "true" || original.classList.contains("error");
+                const enabled = ["wifi-button", "eth-button", "ap-button"].includes(selected) ? ((selected === "ap-button" ? DataArkStatus.accessPoint : selected === "eth-button" ? currentWired() : DataArkStatus.wifi).enabled ?? (selected === "ap-button" ? DataArkStatus.accessPoint.active : selected === "eth-button" ? currentWired().connected : DataArkStatus.wifi.connected)) === true : original.classList.contains("on");
+                const unavailable = selected==="eth-button" ? (!currentWired().permanent_mac || currentWired().managed===false) : original.getAttribute("data-action-disabled") === "true" || original.classList.contains("error");
                 if (pending && pending.id === selected && enabled === pending.checked) {
                     pending = null;
                     clearTimeout(pendingTimer);
                 }
-                const interfaceName = {"ap-button":DataArkStatus.accessPoint.interface, "wifi-button":DataArkStatus.wifi.interface, "eth-button":"eth0"}[selected];
+                const interfaceName = {"ap-button":DataArkStatus.accessPoint.interface, "wifi-button":DataArkStatus.wifi.interface, "eth-button":currentWired().interface}[selected];
                 const protectedPath = interfaceName && enabled && (!access.known || access.protected.includes(interfaceName));
+                if(selected==="eth-button" && unavailable && !wifiBusy)wifiMessage.textContent=currentWired().managed===false?"This profile preserves operating-system network settings; these controls are read-only.":"A permanent hardware identity is required before changing this adapter.";
                 if (interfaceName && !wifiBusy && protectedPath) wifiMessage.textContent = protectedPath ? (access.known ? "This is your current access path. Connect through another interface to disable it." : "Checking your access path; disabling is blocked until it can be verified.") : "";
                 if (interfaceName && !wifiBusy && !protectedPath && (wifiMessage.textContent.startsWith("Checking your access path") || wifiMessage.textContent.startsWith("This is your current access path"))) wifiMessage.textContent = "";
                 action.disabled = !!protectedPath || wifiBusy || unavailable || original.getAttribute("aria-busy") === "true" || !!pending;
                 action.checked = pending && pending.id === selected ? pending.checked : enabled;
                 switchState.textContent = action.checked ? "On" : "Off";
-                document.getElementById("status-dialog-toggle-label").textContent = selected === "ap-button" ? "Enable hotspot" : selected === "eth-button" ? "Enable Ethernet" : selected === "wifi-button" ? "Enable upstream Wi-Fi" : selected === "debug-button" ? "Enable debug diagnostics" : selected === "refresh-button" ? "Update status automatically" : "Use the Ark's internet connection on this device";
+                document.getElementById("status-dialog-toggle-label").textContent = selected === "ap-button" ? "Enable hotspot" : selected === "eth-button" ? "Enable Ethernet ("+(currentWired().interface||"—")+")" : selected === "wifi-button" ? "Enable upstream Wi-Fi" : selected === "debug-button" ? "Enable debug diagnostics" : selected === "refresh-button" ? "Update status automatically" : "Use the Ark's internet connection on this device";
             }
             adapterLink.hidden = !["wifi-button","ap-button"].includes(selected);
             updateTabActions();
@@ -325,6 +346,7 @@
                 const hotspot = selected === "ap-button";
                 const networkName = hotspot ? "hotspot" : wired ? "Ethernet" : "upstream Wi-Fi";
                 const enabled = action.checked;
+                const wiredTarget=wired?{interface:currentWired().interface,expected_mac:currentWired().permanent_mac}:{};
                 switchState.textContent = enabled ? "On" : "Off";
                 wifiBusy = true;
                 action.disabled = true;
@@ -340,7 +362,7 @@
                         response = await fetch("/api/network/admin/" + (hotspot ? "hotspot" : wired ? "ethernet" : "uplink"), {
                             method:"POST", cache:"no-store", signal:controller.signal,
                             headers:{"Content-Type":"application/json", "Authorization":"Basic " + btoa(Array.from(bytes, b => String.fromCharCode(b)).join(""))},
-                            body:JSON.stringify({enabled})
+                            body:JSON.stringify({enabled,...wiredTarget})
                         });
                     } finally { clearTimeout(timeout); }
                     const result = await response.json();

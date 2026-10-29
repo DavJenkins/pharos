@@ -1,5 +1,7 @@
 from pathlib import Path
-from tools.wifi_interfaces import interfaces, ethernet_interface
+from tools.wifi_interfaces import interfaces, ethernet_interface, platform_settings
+from tools.wired_interfaces import devices as wired_devices, permanent_mac
+import json
 from app.core.command import run
 
 
@@ -23,8 +25,8 @@ def _gateway(dev: str) -> str:
         return ""
 
 
-def ethernet():
-    device=ethernet_interface()
+def ethernet(device=None):
+    device=device if device is not None else ethernet_interface()
     if not device:return {'interface':'','carrier':False,'enabled':False,'state':'not_configured','connected':False,'ip':'','gateway':''}
     carrier = run(["nmcli", "-g", "WIRED-PROPERTIES.CARRIER", "device", "show", device]).strip()
     autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", device]).strip()
@@ -35,6 +37,8 @@ def ethernet():
 
     return {
         "interface": device,
+        "permanent_mac": permanent_mac(device),
+        "managed": not bool(platform_settings()),
         "carrier": True if carrier == "on" else False if carrier == "off" else None,
         "enabled": True if autoconnect == "yes" else False if autoconnect == "no" else None,
         "state": "disabled" if autoconnect == "no" else state,
@@ -155,8 +159,22 @@ def access_point():
 
 
 def collect():
+    names=wired_devices()
+    legacy=ethernet_interface()
+    if not names and legacy:names=[legacy]
+    wired=[ethernet(name) for name in names]
+    try:routes=json.loads((run(['ip','-j','route','show','default']) if wired else '') or '[]')
+    except (ValueError,TypeError):routes=[]
+    for item in wired:
+        matching=[r for r in routes if r.get('dev')==item['interface']]
+        item['default_route']=bool(matching)
+        item['route_metric']=min((r.get('metric',0) for r in matching),default=None)
+        raw=run(['ip','-o','addr','show','dev',item['interface']])
+        item['addresses']=[line.split()[3] for line in raw.splitlines() if len(line.split())>3 and line.split()[2] in ('inet','inet6')]
+    primary=min(wired,key=lambda e:(not bool(e['connected']),e['enabled'] is False,not e['default_route'],e['route_metric'] if e['route_metric'] is not None else 2**32,e['interface'])) if wired else ethernet('')
     return {
-        "ethernet": ethernet(),
+        "ethernet": primary,
+        "ethernet_interfaces": wired,
         "wifi": wifi(),
         "access_point": access_point(),
     }

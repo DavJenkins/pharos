@@ -144,13 +144,21 @@ const DataArkStatus = {
         return lines.join("\n");
     },
 
-    ethernetTooltip() {
+    ethernetTooltip(adapter = null) {
 
-        const e = this.ethernet;
+        if(!adapter && (this.data?.network?.ethernet_interfaces||[]).length>1){
+            const rows=this.data.network.ethernet_interfaces;
+            return "Ethernet\n\nAdapters : "+rows.length+"\n"+rows.map(e=>e.interface+" : "+(e.enabled===false?"Disabled":e.connected?"Connected":"No link")+(e.ip?" · "+e.ip:"")).join("\n");
+        }
+        const e = adapter || this.ethernet;
 
         return [
             "Ethernet",
             "",
+            `Interface : ${e.interface || "—"}`,
+            `Hardware  : ${e.permanent_mac || "—"}`,
+            `Addresses : ${(e.addresses || []).join(", ") || e.ip || "—"}`,
+            `Default route : ${e.default_route ? "Yes (metric " + e.route_metric + ")" : "No"}`,
             `Enabled   : ${e.enabled === false ? "No — disabled" : e.enabled === true ? "Yes" : "Unknown"}`,
             `Cable link: ${e.carrier === true ? "Connected" : e.carrier === false ? "Disconnected" : "Unknown"}`,
             `Connected : ${e.connected === true ? "Yes" : e.connected === false ? "No" : "Unavailable"}`,

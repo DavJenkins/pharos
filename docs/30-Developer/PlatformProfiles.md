@@ -37,7 +37,13 @@ Review the proposed interface identities, existing uplinks, network changes and 
 
 LAN profiles keep the existing hostname and NetworkManager connections. They do not install Ark hotspot, captive-portal or internet pass-through rules. Docker and the public library services are still installed, so this is an appliance installation rather than a read-only application preview. Initial hotspot installation requires a local console; the LAN path may use an interactive SSH terminal.
 
-The root-owned `/etc/dataark/platform.json` records the installed profile and discovered roles. LAN network controls are read-only in the Ark helper: changing connectivity remains an operating-system operation. Missing Wi-Fi or a deliberately absent hotspot is represented as **not configured**, rather than probing invented `wlan0`/`wlan1` devices. Ethernet status uses the discovered interface and recorded hardware identity. A corrupt platform record fails closed for network-changing actions.
+The root-owned `/etc/dataark/platform.json` records the installed profile and discovered roles. LAN network controls are read-only in the Ark helper: changing connectivity remains an operating-system operation. Missing Wi-Fi or a deliberately absent hotspot is represented as **not configured**, rather than probing invented `wlan0`/`wlan1` devices. A corrupt platform record fails closed for network-changing actions.
+
+### Multiple Ethernet connections
+
+Discovery records all wired adapters, including wired bridge, bond and VLAN dependencies. The Ethernet popup has an adapter selector: each connection shows its own link state, addresses, gateway, permanent hardware address and default-route metric. Desktop hover text summarizes all adapters. The public network response exposes `ethernet_interfaces`; the legacy `ethernet` field remains a summary, preferring a connected, enabled default-route interface with the lowest route metric.
+
+On the reference Pi, the switch affects only the selected adapter and retains its saved connection settings. Requests name both the interface and its permanent hardware address; changed hardware is refused. An older request without a selector is accepted only when exactly one wired interface exists. The helper protects the request's receiving interface and return route, including underlying bridge or bond members. If it cannot establish the access path, disabling fails closed. Generic LAN profiles remain read-only, and adapters without a verified hardware identity cannot be switched from the dashboard.
 
 ## Produce a flavor-specific kit
 

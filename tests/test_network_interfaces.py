@@ -19,6 +19,8 @@ def output(cmd, **kwargs):
     return ''
 
 class ConcurrentNetworkTests(unittest.TestCase):
+    def setUp(self):
+        patcher=patch.object(network,"permanent_mac",return_value=None);patcher.start();self.addCleanup(patcher.stop)
     def test_all_three_interfaces_active_without_ap_clients(self):
         with patch.object(network, 'run', side_effect=output), patch.object(network.Path,'read_text', return_value='up'):
             data = Network.model_validate(network.collect()).model_dump()

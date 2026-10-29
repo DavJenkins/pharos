@@ -125,6 +125,13 @@
       },
       "Ethernet": {
         "properties": {
+          "addresses": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Addresses",
+            "type": "array"
+          },
           "carrier": {
             "anyOf": [
               {
@@ -146,6 +153,11 @@
               }
             ],
             "title": "Connected"
+          },
+          "default_route": {
+            "default": false,
+            "title": "Default Route",
+            "type": "boolean"
           },
           "enabled": {
             "anyOf": [
@@ -170,6 +182,33 @@
           "ip": {
             "title": "Ip",
             "type": "string"
+          },
+          "managed": {
+            "default": true,
+            "title": "Managed",
+            "type": "boolean"
+          },
+          "permanent_mac": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Permanent Mac"
+          },
+          "route_metric": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Route Metric"
           },
           "state": {
             "title": "State",
@@ -228,6 +267,13 @@
           },
           "ethernet": {
             "$ref": "#/components/schemas/Ethernet"
+          },
+          "ethernet_interfaces": {
+            "items": {
+              "$ref": "#/components/schemas/Ethernet"
+            },
+            "title": "Ethernet Interfaces",
+            "type": "array"
           },
           "wifi": {
             "$ref": "#/components/schemas/Wifi"

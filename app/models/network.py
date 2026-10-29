@@ -8,6 +8,11 @@ class Signal(BaseModel):
 
 class Ethernet(BaseModel):
     interface: str = 'eth0'
+    permanent_mac: str | None = None
+    addresses: list[str] = Field(default_factory=list)
+    default_route: bool = False
+    route_metric: int | None = None
+    managed: bool = True
     carrier: bool | None = None
     enabled: bool | None = None
     state: str
@@ -41,5 +46,6 @@ class AccessPoint(BaseModel):
 
 class Network(BaseModel):
     ethernet: Ethernet
+    ethernet_interfaces: list[Ethernet] = Field(default_factory=list)
     wifi: Wifi
     access_point: AccessPoint

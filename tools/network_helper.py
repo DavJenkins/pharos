@@ -12,6 +12,7 @@ import uuid
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from wifi_interfaces import interfaces, platform_settings
+from wired_interfaces import devices as wired_devices, permanent_mac, dependencies, NAME as INTERFACE_NAME
 
 NMCLI = '/usr/bin/nmcli'
 ENV = {'PATH': '/usr/sbin:/usr/bin:/sbin:/bin', 'LC_ALL': 'C'}
@@ -36,13 +37,16 @@ def validate(data):
         raise ValueError('Expected a JSON object.')
     action = data.get('action')
     allowed = {'scan': {'action'}, 'connect': {'action', 'ssid', 'security', 'password'},
-               'rename': {'action', 'ssid'}, 'uplink': {'action', 'enabled'}, 'ethernet': {'action', 'enabled'}, 'hotspot': {'action', 'enabled'}, 'access': {'action'}, 'adapters': {'action'}, 'diagnostics': {'action'}, 'publish-configuration': {'action'}, 'assign': {'action','adapter'}, 'confirm-roles': {'action'}, 'revert-roles': {'action'}}
+               'rename': {'action', 'ssid'}, 'uplink': {'action', 'enabled'}, 'ethernet': {'action', 'enabled','interface','expected_mac'}, 'hotspot': {'action', 'enabled'}, 'access': {'action'}, 'adapters': {'action'}, 'diagnostics': {'action'}, 'publish-configuration': {'action'}, 'assign': {'action','adapter'}, 'confirm-roles': {'action'}, 'revert-roles': {'action'}}
     for fields in allowed.values():
         fields.update({'peer'})
     if action not in allowed or set(data) - allowed[action]:
         raise ValueError('Unsupported network operation.')
     if action in ('uplink', 'ethernet', 'hotspot') and type(data.get('enabled')) is not bool:
         raise ValueError('Enabled must be true or false.')
+    if action=='ethernet' and ('interface' in data or 'expected_mac' in data):
+        if not isinstance(data.get('interface'),str) or not INTERFACE_NAME.fullmatch(data['interface']) or not re.fullmatch(r'(?:[0-9a-f]{2}:){5}[0-9a-f]{2}',str(data.get('expected_mac',''))):
+            raise ValueError('Choose an identified Ethernet adapter from the current status.')
     if action == 'assign' and not re.fullmatch(r'(?:[0-9a-f]{2}:){5}[0-9a-f]{2}', str(data.get('adapter',''))):
         raise ValueError('Choose an adapter from the hardware list.')
     if action not in ('scan', 'access', 'uplink', 'ethernet', 'hotspot', 'adapters', 'assign', 'confirm-roles', 'revert-roles', 'diagnostics', 'publish-configuration'):
@@ -80,7 +84,7 @@ def access_interfaces(data):
         raise NetworkError('Cannot determine your access path. Reopen the Ark directly through a known network address.') from None
     protected = set()
     local_interfaces = {}
-    for interface in dict.fromkeys([v for v in (*interfaces(),'eth0') if v]):
+    for interface in dict.fromkeys([v for v in (*interfaces(),*wired_devices()) if v]):
         addresses = nm('-g', 'IP4.ADDRESS,IP6.ADDRESS', 'device', 'show', interface)
         for address in addresses.splitlines():
             try: local = ipaddress.ip_interface(address)
@@ -98,18 +102,19 @@ def access_interfaces(data):
             local, remote = fields[2], fields[3]
             host, port = local.rsplit(':',1)
             remote_host = remote.rsplit(':',1)[0].strip('[]').split('%')[0]
-            if port == '80' and ipaddress.ip_address(remote_host) == peer:
+            if port in ('80','443') and ipaddress.ip_address(remote_host) == peer:
                 interface = local_interfaces.get(host.strip('[]').split('%')[0])
-                if interface: protected.add(interface)
+                if not interface:raise NetworkError('Cannot identify the receiving network interface. No network connection was changed.')
+                protected.add(interface)
         route = subprocess.run(['/usr/sbin/ip', '-j', 'route', 'get', str(peer)],
                                capture_output=True,text=True,timeout=3,check=True)
         interface = json.loads(route.stdout)[0].get('dev')
-        if interface in (*interfaces(),'eth0'): protected.add(interface)
+        if isinstance(interface,str) and INTERFACE_NAME.fullmatch(interface):protected.add(interface)
     except (OSError,ValueError,IndexError,subprocess.SubprocessError):
         raise NetworkError('Cannot verify your connection. No network connection was changed.') from None
     if not protected:
         raise NetworkError('Cannot identify a safe access path. No network connection was changed.')
-    return sorted(protected)
+    return sorted({member for interface in protected for member in dependencies(interface)})
 
 def protect_access(data, interface):
     if interface in access_interfaces(data):
@@ -137,7 +142,16 @@ def execute(data):
         return {'ok': True, 'protected': access_interfaces(data)}
     if action in ('uplink', 'ethernet', 'hotspot'):
         ap_details()
-        interface = {'ethernet':'eth0', 'uplink':interfaces()[1], 'hotspot':interfaces()[0]}[action]
+        if action=='ethernet':
+            available=wired_devices()
+            if 'interface' in data:
+                interface=data['interface']
+                if interface not in available or permanent_mac(interface)!=data['expected_mac']:
+                    raise NetworkError('Ethernet hardware changed. Refresh and select the adapter again.')
+            else:
+                if len(available)!=1:raise NetworkError('Select an Ethernet adapter explicitly; the request is ambiguous.')
+                interface=available[0]
+        else:interface={'uplink':interfaces()[1],'hotspot':interfaces()[0]}[action]
         label = {'ethernet':'Ethernet', 'uplink':'Upstream Wi-Fi', 'hotspot':'Hotspot'}[action]
         # Never use radio wifi off: it also disables the hotspot adapter.
         if data['enabled']:
@@ -146,6 +160,7 @@ def execute(data):
             protect_access(data, interface)
             nm('device', 'disconnect', interface, timeout=15)
         return {'ok': True, 'enabled': data['enabled'],
+                'interface':interface,
                 'message': label + ' enabled.' if data['enabled'] else
                 label + ' disabled until enabled again or the Ark restarts. Saved networks are retained.'}
     if action == 'scan':

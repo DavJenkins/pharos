@@ -142,6 +142,8 @@ def proposal(config, facts):
            'ethernet':next((r['interface'] for r in routes if any(i['name']==r['interface'] and i['kind'] in {'ethernet','bridge','bond','vlan'} for i in facts['interfaces'])),None),
            'wifi':next((r['interface'] for r in routes if any(i['name']==r['interface'] and i['kind']=='wifi' for i in facts['interfaces'])),None)}
     roles['identities']={role:next((i['permanent_mac'] for i in facts['interfaces'] if i['name']==roles[role]),None) for role in ('ethernet','wifi','upstream')}
+    roles['ethernets']=sorted(i['name'] for i in facts['interfaces'] if i['kind']=='ethernet' or i['name'] in uplinks and i['kind'] in {'bridge','bond','vlan'})
+    roles['ethernet_identities']={i['name']:i.get('permanent_mac') for i in facts['interfaces'] if i['name'] in roles['ethernets']}
     # Link state and DHCP address churn do not change the hardware assignment.
     basis={'profile':spec,'configuration':config,'os':facts['os'],'architecture':facts['architecture'],
            'machine':facts['machine_id_sha256'],'roles':roles,

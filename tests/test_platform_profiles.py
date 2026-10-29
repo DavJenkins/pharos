@@ -82,7 +82,7 @@ class PlatformTests(unittest.TestCase):
     def test_lan_without_radios_is_valid_public_network_response(self):
         from app.services import network
         from app.models.network import Network
-        with patch.object(network,'interfaces',return_value=('','')),patch.object(network,'ethernet_interface',return_value=''),patch.object(network,'run') as run:
+        with patch.object(network,'interfaces',return_value=('','')),patch.object(network,'ethernet_interface',return_value=''),patch.object(network,'wired_devices',return_value=[]),patch.object(network,'run') as run:
             response=Network.model_validate(network.collect())
             self.assertEqual(response.access_point.state,'not_configured')
             self.assertEqual(response.wifi.state,'not_configured')
