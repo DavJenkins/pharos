@@ -1,32 +1,34 @@
-# Download and build a Data Ark
+# Build a Data Ark
 
-The recovery process is the foundation for a downloadable Data Ark bootstrap: start with a supported operating system and a prepared content drive, then install the Ark software and restore an explicitly selected library.
+Turn a supported Raspberry Pi into a local knowledge appliance, then choose the content you want it to carry.
 
-## Bootstrap release status
+## Get the bootstrap
 
-**A supported downloadable bootstrap has not been released yet.** The corrected kit has passed an uninterrupted clean Debian 13 ARM64 software-phase replay, including service, authentication, file-sharing and reboot checks. Physical Pi networking, local-console installation and spare-media acceptance are still pending. The experimental source is available for developers; it is not a certified ready-to-run appliance installer.
+[Download bootstrap — Preview 1](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz)
 
-## What the first supported download will provide
+About **42 MB**, hosted on GitHub Releases. [Release notes](https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.29-preview.1) · [SHA-256 checksum](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/SHA256SUMS)
 
-- A versioned public source and configuration kit, a manifest and checksums.
-- Supported operating-system, architecture, account and storage requirements.
-- A preview before installation and explicit authorization for system changes.
-- Separate content presets with capacity checks and explicit download approval.
-- Instructions for validation, recovery and preparing another configuration-only or populated drive.
+The corrected kit completed a clean ARM64 installation in one run, with 43 regression tests and successful service, file-sharing, authentication and reboot checks.
 
-The kit does not include private household data, appliance passwords, SSH host keys or a shared device certificate. A new Ark establishes its own private identity. Preparing or formatting a disk is a separate explicit operation.
+## Start in three steps
 
-## What remains available offline
+1. Prepare Raspberry Pi OS 64-bit based on Debian 13 with the primary account named `admin`, plus an Ethernet or second-adapter internet connection.
+2. Extract the kit onto a separate prepared content drive and open a local terminal on the Pi.
+3. Run `sudo bash START-ARK.sh` to preview the plan, then `sudo bash START-ARK.sh --apply` to install.
 
-Each Ark carries documentation matched to its installed software. Public website editions supplement those local copies. Website publication does not cause an older Ark to download newer operational instructions independently of a software upgrade.
+Setup asks for confirmation and a private caretaker password. The installer does not format drives. See the [installation guide](../30-Developer/StockPiSetup.md) for mount ownership and the supported layout.
 
-The configuration registers this documentation shelf and stable local addresses. Its pages are generated from repository sources during software publication, rather than being removable publications managed by the content downloader.
+## Make it your Ark
 
-## Installation and evidence
+The kit includes public source, readable configuration and the PMTiles tool. System dependencies are installed online. After setup, choose None, Minimal, Recommended or Full content; downloads use the Ark's connection and available storage.
 
-- [Stock-Pi setup guide](../30-Developer/StockPiSetup.md)
-- [Uninterrupted frozen-kit replay](../20-Administration/FrozenBootstrapReplay.md)
-- [Clean-OS software test](../20-Administration/CleanBootstrapTest.md)
-- [Recovery acceptance results](../20-Administration/RecoveryValidation.md)
+Each appliance establishes its own private identity. Public configuration travels with the content drive, while household data and credentials stay separate. The local handbook remains available without internet access.
+
+Preview 1: physical Pi validation is the next step.
+
+## Explore
+
+- [What the Ark can do](../10-User/FeatureCatalogue.md)
 - [Engineering behind the Ark](../30-Developer/Engineering.md)
-- [Experimental source repository](https://github.com/DavJenkins/pharos/tree/feature/readme-foundation)
+- [Uninterrupted installation results](../20-Administration/FrozenBootstrapReplay.md)
+- [Source repository](https://github.com/DavJenkins/pharos/tree/feature/readme-foundation)
