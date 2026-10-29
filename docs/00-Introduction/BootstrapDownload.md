@@ -6,7 +6,7 @@ Turn a supported Raspberry Pi into a local knowledge appliance, then choose the 
 
 [Download bootstrap — Preview 1](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz)
 
-About **42 MB**, hosted on GitHub Releases. [Release notes](https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.29-preview.1) · [SHA-256 checksum](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/SHA256SUMS)
+**42.1 MB**, hosted on GitHub Releases. [Release notes](https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.29-preview.1) · [SHA-256 checksum](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/SHA256SUMS)
 
 The corrected kit completed a clean ARM64 installation in one run, with 43 regression tests and successful service, file-sharing, authentication and reboot checks.
 

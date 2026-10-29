@@ -1,0 +1,16 @@
+{
+  "version": "2026.10.29-preview.1",
+  "source_revision": "de6db475e4a405148a6a4b78dc49883dc2cccdef",
+  "asset": "data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
+  "bytes": 42114981,
+  "sha256": "c03b4679137f8b537230068516376e52dcf6db478193ace8ebd63ebdcded3fa4",
+  "channel": "preview",
+  "validated_executable_files_unchanged": 221,
+  "release_tag": "bootstrap-2026.10.29-preview.1",
+  "download_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
+  "checksum_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/SHA256SUMS",
+  "release_url": "https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.29-preview.1",
+  "prerelease": true,
+  "hosting": "github-releases",
+  "validated_installation": "Uninterrupted clean ARM64 software installation; 43 regressions and reboot checks passed."
+}
