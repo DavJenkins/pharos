@@ -34,6 +34,7 @@ system:
   project_name: Data Ark
   version: '1.4'
   theme: Ark of the Covenant
+  introduction: Inspired by the ancient Pharos of Alexandria—both a vital navigational aid for travelers and a beacon leading directly to the greatest repository of knowledge in the classical world. A modern, self-contained harbor for offline reference, technical guides, and preserved human knowledge.
   base_mount: /mnt/storage
   hide_missing: true
   services:
