@@ -1,6 +1,6 @@
 # Community board
 
-[Open the board](/community.html). This is a small, local place for announcements, requests, offers, and general discussion. No internet, account, email address, or external service is required. Anyone who can reach the Ark can read posts and replies. Display names are optional and unverified. Messages support safe offline Markdown, formatting help and optional preview. There are no attachments, external embeds, private messages or notifications. Replies can be nested under any message.
+[Open the board](/community.html). This is a small, local place for announcements, requests, offers, and general discussion. No internet, account, email address, or external service is required. Anyone who can reach the Ark can read posts and replies. Display names are optional and unverified. Messages support safe offline Markdown, formatting help and optional preview. There are no attachments, external embeds, private messages or post-subscription notifications. Banner broadcasts are a separate feature described below. Replies can be nested under any message.
 
 ## Posting and removal
 
