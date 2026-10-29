@@ -7,6 +7,10 @@ import argparse,hashlib,html,json,re,shutil,subprocess,sys
 from urllib.parse import urlsplit,urlunsplit
 import yaml
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
+def input_digest(path):
+ path=Path(path)
+ content=path.read_bytes() if path.suffix=='.pdf' else path.read_text(encoding='utf-8-sig').encode('utf-8')
+ return hashlib.sha256(content).hexdigest()
 from tools.publish_docs import markdown_to_html
 
 def build(website=None):
@@ -17,9 +21,9 @@ def build(website=None):
  fingerprints={}
  for p in pages:
   assert re.fullmatch('[a-z][a-z-]+',p['id'])
-  for name in [p['source']]+([p['pdf']] if p.get('pdf') else []):fingerprints[name]=hashlib.sha256((ROOT/name).read_bytes()).hexdigest()
- fingerprints['config/documentation.yaml']=hashlib.sha256((ROOT/'config/documentation.yaml').read_bytes()).hexdigest()
- fingerprints['tools/build_public_documents.py']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+  for name in [p['source']]+([p['pdf']] if p.get('pdf') else []):fingerprints[name]=input_digest(ROOT/name)
+ fingerprints['config/documentation.yaml']=input_digest(ROOT/'config/documentation.yaml')
+ fingerprints['tools/build_public_documents.py']=input_digest(Path(__file__))
  revision=subprocess.check_output(['git','-c','safe.directory='+str(ROOT),'-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()
  edition=c['publication_date']+'-'+hashlib.sha256(json.dumps({'inputs':fingerprints,'revision':revision},sort_keys=True).encode()).hexdigest()[:10]
  local=ROOT/'app/static/about';local.mkdir(exist_ok=True)
@@ -62,7 +66,7 @@ def build(website=None):
     (target/'index.html').write_text(public,encoding='utf-8')
    if pdf:
     for folder in [web,archive]:shutil.copyfile(ROOT/pdf,folder/Path(pdf).name)
- meta={'schema':1,'edition':edition,'source_revision':revision,'source_revision_note':'Repository HEAD at build; source_sha256 identifies the exact publication inputs.','update_policy':c['update_policy'],'supported_bootstrap_released':False,'source_sha256':fingerprints,'pages':[{**p,'local_permalink':url_for(p['id'],False),'website_permalink':url_for(p['id'],True)} for p in pages]}
+ meta={'schema':1,'edition':edition,'source_revision':revision,'source_revision_note':'Repository HEAD at build; source_sha256 identifies the exact publication inputs.','update_policy':c['update_policy'],'supported_bootstrap_released':False,'text_hash_normalization':'UTF-8 without BOM, with LF line endings; PDF hashes use original bytes','source_sha256':fingerprints,'pages':[{**p,'local_permalink':url_for(p['id'],False),'website_permalink':url_for(p['id'],True)} for p in pages]}
  (local/'publication.json').write_text(json.dumps(meta,indent=2)+'\n',encoding='utf-8')
  if website:
   for folder in [web,archive]:(folder/'publication.json').write_text(json.dumps(meta,indent=2)+'\n',encoding='utf-8')
