@@ -35,7 +35,10 @@ document.addEventListener('click',async function(event){
 
 def escaped_inline(text):
     parts = re.split(r"(`[^`]+`)", text)
-    return "".join("<code>" + html.escape(part[1:-1]) + "</code>" if part.startswith("`") and part.endswith("`") else re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', html.escape(part)) for part in parts)
+    def formatted(part):
+        value=re.sub(r'\*\*([^*]+)\*\*',r'<strong>\1</strong>',html.escape(part))
+        return re.sub(r'(?<!\*)\*([^*]+)\*(?!\*)',r'<em>\1</em>',value)
+    return "".join("<code>" + html.escape(part[1:-1]) + "</code>" if part.startswith("`") and part.endswith("`") else formatted(part) for part in parts)
 
 
 def inline_html(text):

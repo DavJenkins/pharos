@@ -1,5 +1,9 @@
 # Welcome to Data Ark
 
+*Inspired by the ancient Pharos of Alexandria—both a vital navigational aid for travelers and a beacon leading directly to the greatest repository of knowledge in the classical world. A modern, self-contained harbor for offline reference, technical guides, and preserved human knowledge.*
+
+[Access your content](/content.html) · [Other resources](/resources.html) · [Community board](/community.html)
+
 ## What the Ark does
 
 Data Ark is a Raspberry Pi appliance with a content SSD and its own Wi-Fi hotspot. It serves locally preserved knowledge to phones, tablets, and computers. Reading the local library does not require an account, a subscription, or an internet connection.
