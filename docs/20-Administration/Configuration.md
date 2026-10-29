@@ -87,7 +87,7 @@ Worker state is /var/lib/dataark/updates; downloads and transaction files are in
 
 Root-owned helpers live under /usr/local/libexec. Reviewed sudoers files allow the network, library and pass-through helpers with no command-line arguments. Library operations accept only fixed operations and registered identifiers; callers do not supply shell commands or arbitrary deletion/download paths.
 
-Deploy/install_network_admin.py preserves the existing credential unless explicitly reset. Deploy/install_library.py updates its installed helper but does not initiate a collection download. The library UI remembers successful authentication in page memory, expires after 15 minutes since successful activity, and clears on navigation, reload, explicit lock or 401. Removal still requires confirmation.
+Deploy/install_network_admin.py preserves the existing credential unless explicitly reset. Deploy/install_library.py updates its installed helper but does not initiate a collection download. The shared caretaker prompt optionally caches authorization for a chosen fixed 1–120 minute duration in tab-scoped session storage. Reload and same-address navigation retain that cache; expiry, explicit locking or 401 clears it. Removal still requires confirmation.
 
 This application uses local HTTP, not encrypted management transport. The caretaker password is not an SSH or Samba account. Keep credential use within the intended local deployment boundary and document any future transport/authentication changes.
 
