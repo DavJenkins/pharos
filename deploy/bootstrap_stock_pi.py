@@ -113,7 +113,7 @@ class Installer:
   device=output(['findmnt','-n','-o','SOURCE','--target',str(self.kit)])
   if not device.startswith('/dev/') or device==output(['findmnt','-n','-o','SOURCE','/']):raise RuntimeError('Kit must be on a separate local content volume, not the system disk.')
   uuid=output(['blkid','-s','UUID','-o','value',device]);fs=output(['blkid','-s','TYPE','-o','value',device])
-  if not re.fullmatch('[A-Za-z0-9-]+',uuid) or fs not in ['exfat','ext4']:raise RuntimeError('Only existing exFAT or ext4 content filesystems are supported.')
+  if not re.fullmatch('[A-Za-z0-9-]+',uuid) or fs not in ['exfat','ext4','ntfs']:raise RuntimeError('Only existing exFAT, ext4 or NTFS content filesystems are supported.')
   mounted=Path(output(['findmnt','-n','-o','TARGET','--target',str(self.kit)]))
   if self.root.is_mount():
    if self.root.stat().st_dev!=self.kit.stat().st_dev:raise RuntimeError('/mnt/storage is occupied by another filesystem.')
@@ -125,7 +125,8 @@ class Installer:
   if not any(row[:2]==['UUID='+uuid,'/mnt/storage'] for row in rows):
    backup=Path('/var/backups/dataark-bootstrap');backup.mkdir(parents=True,mode=0o700,exist_ok=True);shutil.copy2(fstab,backup/'fstab')
    opts='defaults,nofail,x-systemd.device-timeout=10'
-   if fs=='exfat':opts+=',uid=1000,gid='+str(pwd.getpwnam('admin').pw_gid)+',fmask=0133,dmask=0022'
+   if fs in ['exfat','ntfs']:opts+=',uid=1000,gid='+str(pwd.getpwnam('admin').pw_gid)+',fmask=0133,dmask=0022'
+   if fs=='ntfs':fs='ntfs-3g'
    atomic(fstab,text.rstrip()+'\n# Data Ark content volume\nUUID='+uuid+' /mnt/storage '+fs+' '+opts+' 0 0\n')
   self.kit=self.root/'DATA-ARK-RECOVERY'
  def python(self):

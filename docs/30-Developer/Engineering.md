@@ -72,6 +72,8 @@ The design treats the system medium and content medium as separately replaceable
 
 The stock-Pi setup path turns a supported running Debian-based Pi into an Ark through explicit setup steps rather than requiring a clone of the original system image. Device-specific private identity is separate from the portable public description.
 
+Drive replication adds a capacity-aware file-copy plan rather than a block image: configuration only, whole collections that fit, or all public content. The exact reviewed plan binds public configuration, source revision, selected file sizes/timestamps and destination UUID. The terminal worker protects backing disks, coordinates with content workers, checks partial prefixes before appending and records SHA-256 verification receipts. Its portable catalogue includes only verified copied payloads, while its recipe preserves full restoration intent. See [Clone a content drive](../20-Administration/CloneDrive.md).
+
 **Why it matters:** the desired end state is understandable and reproducible, rather than existing only as the accidental contents of one working machine.
 
 A [clean generic ARM64 software-phase test](../20-Administration/CleanBootstrapTest.md) has now exercised fresh package, Python and service installation, finding and correcting bootstrap defects. A subsequent [uninterrupted frozen-kit replay](../20-Administration/FrozenBootstrapReplay.md) passed in one invocation without manual installer corrections. It omits physical radio setup and is distinct from complete Pi acceptance.

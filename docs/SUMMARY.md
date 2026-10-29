@@ -35,6 +35,7 @@
 - [Public and offline documentation](20-Administration/DocumentationPublication.md)
 - [Source repository, backups and handover](20-Administration/SourceAndHandover.md)
 - [Administrator Guide](20-Administration/AdministratorGuide.md)
+- [Clone a content drive](20-Administration/CloneDrive.md)
 - [Household Bugout Backups](20-Administration/Bugout.md)
 - [Reliability acceptance tests](20-Administration/AcceptanceTests.md)
 - [Clean-OS software bootstrap test](20-Administration/CleanBootstrapTest.md)

@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "reserve_gib": 2,
+  "public_directories": [
+    {"path": "communication", "title": "Communication and accessibility", "priority": 0},
+    {"path": "preparedness", "title": "Preparedness references", "priority": 0},
+    {"path": "radio-study", "title": "Amateur-radio study", "priority": 0},
+    {"path": "vehicles", "title": "Vehicle manuals", "priority": 1},
+    {"path": "forms", "title": "Forms and templates", "priority": 1},
+    {"path": "family-resources", "title": "Family and practical resources", "priority": 1},
+    {"path": "resilience", "title": "Resilience references", "priority": 1},
+    {"path": "civic-reference", "title": "Civic references and radio callsigns", "priority": 1},
+    {"path": "curriculum", "title": "Offline curriculum", "priority": 1},
+    {"path": "maps", "title": "Offline maps", "priority": 1},
+    {"path": "kiwix-viewer", "title": "Portable Kiwix reader", "priority": 1}
+  ]
+}

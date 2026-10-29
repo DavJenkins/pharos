@@ -30,6 +30,7 @@
     "python3-reportlab",
     "apache2",
     "rsync",
+    "ntfs-3g",
     "docker.io",
     "docker-cli",
     "network-manager",

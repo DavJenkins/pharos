@@ -905,6 +905,95 @@
         ]
       }
     },
+    "/clone/drives": {
+      "get": {
+        "operationId": "drives_clone_drives_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Drives",
+        "tags": [
+          "Drive cloning"
+        ]
+      }
+    },
+    "/clone/plan": {
+      "get": {
+        "operationId": "plan_clone_plan_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "drive",
+            "required": true,
+            "schema": {
+              "title": "Drive",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "mode",
+            "required": false,
+            "schema": {
+              "default": "config",
+              "pattern": "^(config|fit|populated)$",
+              "title": "Mode",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Plan",
+        "tags": [
+          "Drive cloning"
+        ]
+      }
+    },
+    "/clone/status": {
+      "get": {
+        "operationId": "status_clone_status_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Status",
+        "tags": [
+          "Drive cloning"
+        ]
+      }
+    },
     "/community/backup": {
       "post": {
         "operationId": "backup_community_backup_post",

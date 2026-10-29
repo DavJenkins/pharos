@@ -2,7 +2,7 @@
   "title": "PHAROS DATA ARK",
   "subtitle": "What it can do",
   "tagline": "The capabilities behind the collection",
-  "edition": "Implemented features | October 28, 2026",
+  "edition": "Implemented features | October 29, 2026",
   "intro": "An offline library with the tools to connect, share, create, coordinate, maintain and rebuild. The Data Ark turns a small local appliance into a shared resource that remains useful when normal connectivity is unavailable.",
   "scope": "A companion to The Collection. This document describes implemented software and configured capabilities, independent of which publications or datasets are installed. It does not repeat the content inventory.",
   "sections": [
@@ -272,6 +272,8 @@
       "title": "Recovery planning and reproducible selections",
       "hook": "Carry the instructions for the library as well as its files.",
       "items": [
+        "Clone a content drive previews a public configuration/software kit, whole collections that fit, or all public content. Capacity policy keeps a reserve; a caretaker approves the exact plan in the terminal.",
+        "Resumable copies retain partial files and SHA-256 receipts. The destination catalogue lists verified copied files, while its public recipe retains the desired collection for later restoration. Boot/content disks and their other partitions are protected; unrelated destination files are never erased.",
         "Human-readable public profiles record desired content, sources, handlers, sizes/hashes and dependencies; absence on disk does not erase the intended selection.",
         "Public configuration and source checkpoints are mirrored onto the content drive, with software-baseline descriptions and source identity.",
         "Restoration can preview None, Minimal, Recommended or Full presets against destination capacity before approval.",

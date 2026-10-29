@@ -39,32 +39,9 @@ A configuration-only kit may need hundreds of gigabytes and a long download. It 
 
 ## Prepare another drive
 
-On a working Ark, capture intentional library changes first using `tools/content_profile.py export`, review them, and make a Git checkpoint of intended public source/configuration. The kit's source archive comes from committed Git content, not arbitrary uncommitted edits.
+Open **Manage Library > Clone a content drive** to preview configuration-only, whole-collections-that-fit, or all-public-content cloning. See the [drive-cloning guide](../20-Administration/CloneDrive.md) for destination checks, priorities, checksums and resuming interrupted copies.
 
-Use a separate, already formatted and mounted drive. Preview:
-
-```sh
-cd /opt/dataark
-sudo venv/bin/python tools/replicate_drive.py --target /media/admin/NewDrive --mode config
-```
-
-Then prepare the configuration and software kit:
-
-```sh
-sudo venv/bin/python tools/replicate_drive.py --target /media/admin/NewDrive --mode config --apply
-```
-
-Or include the public content:
-
-```sh
-sudo venv/bin/python tools/replicate_drive.py --target /media/admin/NewDrive --mode populated --apply
-```
-
-Targets on the live content filesystem or system filesystem are rejected. Existing unrelated files remain; pre-existing Ark-reserved paths are refused unless resuming this tool's matching interrupted preparation. Copying uses relative paths, does not follow symlinks, and does not delete destination files. Public content comes from selected archive names and allowlisted library directories; household bugout backups/drops, Linux identities, passwords and private configuration are excluded. Source and map workers are locked during preparation so the library is quiescent for copying. A running worker causes a clean refusal rather than being killed.
-
-For an interrupted copy, use the same target/mode and add `--resume --apply`. It must have this tool's `copying` marker and matching desired-profile hash; a completed or unrelated kit cannot be overwritten through this path. rsync retains partial files. Two GiB of free space beyond the estimated copied content is required. Safely unmount the completed drive before passing it on.
-
-Each installed Ark retains the coordinator, configuration and local Git history needed to prepare another drive. Neither a private account token nor an original Linux password is propagated.
+The kit exports the current public configuration and uses committed Git source. Make a Git checkpoint of intended software changes first. No credentials, hardware identity, private backups or boot OS image are copied. Optional content downloads remain a separate explicit restoration choice.
 
 ## Remaining acceptance test
 

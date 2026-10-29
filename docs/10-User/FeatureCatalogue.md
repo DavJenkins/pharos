@@ -1,6 +1,6 @@
 # PHAROS Data Ark — What it can do
 
-*Implemented features | October 28, 2026*
+*Implemented features | October 29, 2026*
 
 [Download the feature catalogue (PDF)](../../feature-catalogue.pdf) · [Companion: The Collection](CollectionCatalogue.md)
 
@@ -282,6 +282,8 @@ For the internal mechanisms and design decisions, see [Engineering behind the Ar
 
 *Carry the instructions for the library as well as its files.*
 
+- Clone a content drive previews a public configuration/software kit, whole collections that fit, or all public content. Capacity policy keeps a reserve; a caretaker approves the exact plan in the terminal.
+- Resumable copies retain partial files and SHA-256 receipts. The destination catalogue lists verified copied files, while its public recipe retains the desired collection for later restoration. Boot/content disks and their other partitions are protected; unrelated destination files are never erased.
 - Human-readable public profiles record desired content, sources, handlers, sizes/hashes and dependencies; absence on disk does not erase the intended selection.
 - Public configuration and source checkpoints are mirrored onto the content drive, with software-baseline descriptions and source identity.
 - Restoration can preview None, Minimal, Recommended or Full presets against destination capacity before approval.

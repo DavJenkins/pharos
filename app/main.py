@@ -59,6 +59,8 @@ app.include_router(integration_health_router)
 
 from app.routers.recovery import router as recovery_router
 app.include_router(recovery_router)
+from app.routers.clone import router as clone_router
+app.include_router(clone_router)
 
 from app.routers.configuration import router as configuration_router
 app.include_router(configuration_router)
