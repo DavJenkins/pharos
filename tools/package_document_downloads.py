@@ -22,6 +22,7 @@ for directory in sorted((web/'data-ark/editions').iterdir()):
      attr,url=m.groups();target=None
      if url.startswith(prefix):target=url[len(prefix):]
      elif url.startswith('/styles.css'):target='styles.css'
+     elif url=='/assets/dej_software_footer.webp':target='assets/dej_software_footer.webp'
      elif url.startswith('/data-ark/'):target='https://www.dejsoftware.com'+url
      elif url.startswith('/') and not url.startswith('//'):target='https://www.dejsoftware.com'+url
      if target is None:return m.group(0)
@@ -32,6 +33,7 @@ for directory in sorted((web/'data-ark/editions').iterdir()):
     text=re.sub(r'(href|src)="([^"]+)"',link,text);data=text.encode('utf-8')
    bundle.writestr(rel,data)
   bundle.writestr('styles.css',(web/'styles.css').read_bytes())
+  bundle.writestr('assets/dej_software_footer.webp',(web/'assets/dej_software_footer.webp').read_bytes())
   bundle.writestr('index.html','<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Data Ark handbook '+edition+'</title><link rel="stylesheet" href="styles.css"><main class="wrap collection-document"><h1>Data Ark handbook</h1><p>Edition '+edition+'</p><ul>'+''.join('<li><a href="'+p+'/index.html">'+p.title()+'</a></li>' for p in ['handbook','collection','features','engineering','installation','bootstrap'])+'</ul>'+('<p><a href="docs/index.html">Complete handbook contents</a> · <a href="api/index.html">API reference</a></p>' if (directory/'docs').exists() else '')+'</main></html>')
   bundle.writestr('README.txt','Extract this entire ZIP, then open index.html. Its edition pages and stylesheet are bundled. External website links and Ark administration links require their respective connections.\n')
  digest=hashlib.sha256(archive.read_bytes()).hexdigest();final=archive.with_name(archive.stem+'-'+digest[:12]+archive.suffix);archive.replace(final);archive=final

@@ -5,6 +5,8 @@ import html,json,re,shutil,subprocess,sys
 def finish(root,website,edition,config):
     stage=root/'output/document-download-staging'
     shutil.copyfile(website/'styles.css',stage/'styles.css')
+    (stage/'assets').mkdir(exist_ok=True)
+    shutil.copyfile(website/'assets/dej_software_footer.webp',stage/'assets/dej_software_footer.webp')
     data=stage/'data-ark';data.mkdir(exist_ok=True)
     for name in ['collection-catalogue.pdf','feature-catalogue.pdf']:
         shutil.copyfile(root/'app/static'/name,data/name)

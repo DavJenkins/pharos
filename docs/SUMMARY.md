@@ -2,7 +2,6 @@
 
 ## Introduction
 
-- [Complete handbook and handover](00-Introduction/Handbook.md)
 - [Welcome](00-Introduction/Welcome.md)
 - [Why Data Ark?](00-Introduction/Why.md)
 
@@ -11,12 +10,21 @@
 ## User
 
 - [User Guide](10-User/UserGuide.md)
-- [The Data Ark collection: standalone catalogue](10-User/CollectionCatalogue.md)
-- [What the Ark can do: feature catalogue](10-User/FeatureCatalogue.md)
 - [Detailed content index](10-User/ContentSources.md)
 - [Frequently Asked Questions](10-User/FAQ.md)
 - [Resources beyond the library](10-User/Resources.md)
 - [Community board](20-Administration/CommunityBoard.md)
+
+---
+
+## About and maintain the Ark
+
+- [The collection](10-User/CollectionCatalogue.md)
+- [What the Ark can do](10-User/FeatureCatalogue.md)
+- [Engineering behind the Ark](30-Developer/Engineering.md)
+- [Bootstrap and release status](00-Introduction/BootstrapDownload.md)
+- [Installation guide](30-Developer/StockPiSetup.md)
+- [Complete handbook and handover](00-Introduction/Handbook.md)
 
 ---
 

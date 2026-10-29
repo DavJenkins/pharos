@@ -11,7 +11,7 @@ from urllib.parse import urlsplit, urlunsplit
 
 SOURCE = Path(__file__).resolve().parents[1] / 'docs'
 sys.path.insert(0, str(SOURCE.parent))
-from app.services.documentation_theme import masthead, footer
+from app.services.documentation_theme import masthead, footer, stylesheet_url
 
 
 
@@ -74,6 +74,7 @@ def markdown_to_html(text):
 </head>
 <body class="ark-documentation"><div class="documentation-shell">
 """)
+    out[0]=out[0].replace("/assets/css/ark-documentation.css?v=1",stylesheet_url())
     out.append(masthead('HELP & HANDBOOK', 'help'))
     out.append('<main class="docs-paper handbook-paper"><p class="docs-eyebrow">THE DATA ARK HANDBOOK</p>')
 

@@ -55,3 +55,5 @@ body.ark-documentation{margin:0;padding:clamp(.5rem,2.5vw,2rem);background:#203e
 .handbook-paper .content-details summary{cursor:pointer;font-weight:650;color:#203e54;min-height:1.5rem}
 .handbook-paper .content-details[open] summary{padding-bottom:.6rem;border-bottom:1px solid #d8cba9}
 .handbook-paper .content-details a{overflow-wrap:anywhere}
+
+.docs-footer{justify-content:center;align-items:center}.docs-footer-brand{display:block;line-height:0;max-width:100%}.docs-footer-brand img{display:block;width:420px;max-width:100%;height:auto}

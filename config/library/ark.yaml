@@ -120,22 +120,6 @@ resource_sections:
       path: maps/topographic/index.html
     - title: USGS topographic maps (online)
       url: https://www.usgs.gov/programs/national-geospatial-program/us-topo-maps-america
-- title: About and maintain the Ark
-  description: Offline documentation matched to the installed software. Public editions
-    and release status are available on DEJ Software.
-  items:
-  - title: The collection
-    url: /about/collection/
-  - title: What the Ark can do
-    url: /about/features/
-  - title: Engineering behind the Ark
-    url: /about/engineering/
-  - title: Bootstrap and release status
-    url: /about/bootstrap/
-  - title: Installation guide
-    url: /about/installation/
-  - title: Handbook and handover
-    url: /about/handbook/
 dashboard:
   cards:
   - id: repairs-maintenance

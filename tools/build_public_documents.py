@@ -9,7 +9,7 @@ import yaml
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 def input_digest(path):
  path=Path(path)
- if path.suffix=='.pdf':content=path.read_bytes()
+ if path.suffix in {'.pdf','.webp','.png','.jpg','.jpeg','.ttf','.woff','.woff2'}:content=path.read_bytes()
  else:
   value=path.read_text(encoding='utf-8-sig')
   if path.suffix=='.html':value=re.sub(r'(/assets/css/ark-pages\.css)\?v=[0-9a-f]+',r'\1',value)
@@ -28,7 +28,7 @@ def build(website=None):
   assert re.fullmatch('[a-z][a-z-]+',p['id'])
   for name in [p['source']]+([p['pdf']] if p.get('pdf') else []):fingerprints[name]=input_digest(ROOT/name)
  for path in public_handbook.inputs(ROOT):fingerprints[path.relative_to(ROOT).as_posix()]=input_digest(path)
- for name in ['tools/publish_docs.py','tools/public_downloads.py','tools/package_document_downloads.py',c['download_history']]:fingerprints[name]=input_digest(ROOT/name)
+ for name in ['app/services/documentation_theme.py','app/static/assets/css/ark-documentation.css','app/static/assets/dej-software-footer.webp','tools/publish_docs.py','tools/public_downloads.py','tools/package_document_downloads.py',c['download_history']]:fingerprints[name]=input_digest(ROOT/name)
  fingerprints['tools/public_handbook.py']=input_digest(ROOT/'tools/public_handbook.py')
  fingerprints['config/documentation.yaml']=input_digest(ROOT/'config/documentation.yaml')
  fingerprints['tools/build_public_documents.py']=input_digest(Path(__file__))
@@ -57,7 +57,7 @@ def build(website=None):
     nav=''.join('<a href="'+(('/data-ark/editions/'+edition+'/' if pinned else '/data-ark/')+'docs/' if v['id']=='handbook' else url_for(v['id'],True,pinned))+'">'+html.escape(labels[v['id']])+'</a>' for v in pages)
     pagebody=links(p,body,True,pinned)
     pdf=p.get('pdf');download='<p><a class="button" href="'+('/data-ark/editions/'+edition+'/' if pinned else '/data-ark/')+Path(pdf).name+'">Download PDF ↓</a></p>' if pdf else ''
-    public='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(p['title'])+' | DEJ Software</title><link rel="canonical" href="'+c['website_base']+url_for(p['id'],True,pinned)+'"><link rel="stylesheet" href="/styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="wrap"><p><a href="/#pharos">← Pharos Data Ark</a></p><nav class="ark-document-nav" aria-label="Ark publications">'+nav+'</nav></header><main id="main" class="wrap collection-document"><p class="eyebrow">PHAROS DATA ARK · '+edition+'</p>'+download+pagebody+'<p class="collection-edition">Generated from the Ark repository. <a href="/data-ark/editions/'+edition+'/'+p['id']+'/">Permanent edition</a> · <a href="/data-ark/publication.json">Publication checksums</a></p></main><footer class="wrap footer"><p>DEJ Software · Practical Software for Real Life</p><a href="/#pharos">Back to Pharos Data Ark</a></footer></body></html>'
+    public='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(p['title'])+' | DEJ Software</title><link rel="canonical" href="'+c['website_base']+url_for(p['id'],True,pinned)+'"><link rel="stylesheet" href="/styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="wrap"><p><a href="/#pharos">← Pharos Data Ark</a></p><nav class="ark-document-nav" aria-label="Ark publications">'+nav+'</nav></header><main id="main" class="wrap collection-document"><p class="eyebrow">PHAROS DATA ARK · '+edition+'</p>'+download+pagebody+'<p class="collection-edition">Generated from the Ark repository. <a href="/data-ark/editions/'+edition+'/'+p['id']+'/">Permanent edition</a> · <a href="/data-ark/publication.json">Publication checksums</a></p></main><footer class="wrap footer"><a class="footer-brand" href="/"><img src="/assets/dej_software_footer.webp" width="1024" height="192" alt="DEJ Software™ — Practical Software for Real Life"></a><a href="/#pharos">Back to Pharos Data Ark</a></footer></body></html>'
     (target/'index.html').write_text(public,encoding='utf-8')
    if pdf:
     for folder in [archive]:shutil.copyfile(ROOT/pdf,folder/Path(pdf).name)
@@ -66,7 +66,7 @@ def build(website=None):
  if website:
   def frame(title,body,path,prefix):
    nav=''.join('<a href="'+(prefix+'docs/' if p['id']=='handbook' else prefix+p['id']+'/')+'">'+html.escape(labels[p['id']])+'</a>' for p in pages)+'<a href="'+prefix+'api/">API</a>'
-   return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(title)+' | DEJ Software</title><link rel="canonical" href="'+c['website_base']+path+'"><link rel="stylesheet" href="/styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="wrap"><p><a href="/#pharos">← Pharos Data Ark</a></p><nav class="ark-document-nav" aria-label="Ark documentation">'+nav+'</nav></header><main id="main" class="wrap collection-document"><p class="eyebrow">PHAROS DATA ARK · '+edition+'</p>'+body+'</main><footer class="wrap footer"><p>DEJ Software · Practical Software for Real Life</p><a href="'+prefix+'docs/">Handbook contents</a></footer></body></html>'
+   return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(title)+' | DEJ Software</title><link rel="canonical" href="'+c['website_base']+path+'"><link rel="stylesheet" href="/styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="wrap"><p><a href="/#pharos">← Pharos Data Ark</a></p><nav class="ark-document-nav" aria-label="Ark documentation">'+nav+'</nav></header><main id="main" class="wrap collection-document"><p class="eyebrow">PHAROS DATA ARK · '+edition+'</p>'+body+'</main><footer class="wrap footer"><a class="footer-brand" href="/"><img src="/assets/dej_software_footer.webp" width="1024" height="192" alt="DEJ Software™ — Practical Software for Real Life"></a><a href="'+prefix+'docs/">Handbook contents</a></footer></body></html>'
   count=public_handbook.publish(ROOT,web,archive,edition,c,frame)
   meta['handbook_documents']=count;meta['handbook_permalink']='/data-ark/docs/';meta['api_permalink']='/data-ark/api/'
   (local/'publication.json').write_text(json.dumps(meta,indent=2)+'\n',encoding='utf-8')

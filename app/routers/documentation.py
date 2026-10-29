@@ -2,7 +2,7 @@
 from fastapi import APIRouter, Request
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import HTMLResponse, RedirectResponse
-from app.services.documentation_theme import masthead, footer
+from app.services.documentation_theme import masthead, footer, stylesheet_url
 
 router = APIRouter()
 
@@ -18,7 +18,7 @@ def documentation(request: Request):
         swagger_ui_parameters={'filter': True, 'docExpansion': 'none', 'displayRequestDuration': True,
                                'validatorUrl': None, 'persistAuthorization': False},
     ).body.decode()
-    page = page.replace('</head>', '<link rel="stylesheet" href="/assets/css/ark-documentation.css?v=1"></head>')
+    page = page.replace('</head>', '<link rel="stylesheet" href="'+stylesheet_url()+'"></head>')
     page = page.replace('<body>', '<body class="ark-documentation api-documentation"><div class="documentation-shell">' + masthead('DEVELOPER REFERENCE', 'api') + '<main class="docs-paper api-paper"><p class="docs-eyebrow">EXPLORE THE ARK</p><h1>Developer API</h1><p class="docs-introduction">Inspect the available endpoints, read request and response formats, and try requests against this Ark.</p>')
     page = page.replace('</body>', '</main>' + footer() + '</div></body>')
     return HTMLResponse(page)
