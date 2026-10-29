@@ -82,3 +82,12 @@ console.log('Banner line groups preserve explicit breaks, formatting and literal
 
 assert.equal(expand('[today] [today:MM/DD] [TODAY:YYYY-MM-DD]'),'Monday 10/26 2026-10-26');
 assert.equal(expand('[today] [today:YYYY-MM-DD]',new Date(2028,1,29,0,0)),'Tuesday 2028-02-29');
+
+const colored=new Node('pre');context.ArkNoticeMarkdown.highlightVariables(colored,'Good [daypart] [today:MM/DD] [typo] <script> [Link](https://example.org)');
+const variableSpans=all(colored).filter(n=>n.tag==='span');
+assert.deepEqual(variableSpans.map(n=>n.attributes.class),['notice-variable-known','notice-variable-known','notice-variable-unknown']);
+assert(colored.textContent.includes('<script>'));assert(!tags(colored).includes('script'));
+context.ArkNoticeMarkdown.highlightVariables(colored,'[nextdaypart] [tomorrow] [nextweekpart] [unknown:MM/DD]');
+assert.equal(all(colored).filter(n=>n.attributes.class==='notice-variable-known').length,3);
+assert.equal(all(colored).filter(n=>n.attributes.class==='notice-variable-unknown').length,1);
+console.log('Variable syntax coloring passed.');

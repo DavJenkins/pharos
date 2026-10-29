@@ -39,6 +39,19 @@
       return original;
     });
   }
+  function highlightVariables(target, source) {
+    const nodes=[];let end=0;
+    for(const match of source.matchAll(/\[[^\[\]\n]*\]/g)) {
+      const at=match.index,token=match[0];
+      // Markdown link labels and escaped brackets are not variable references.
+      if(source[at-1]==='\\'||source[at+token.length]==='('||source[at+token.length]==='[')continue;
+      nodes.push(document.createTextNode(source.slice(end,at)));
+      const span=document.createElement('span');
+      span.setAttribute('class',expandVariables(token)!==token?'notice-variable-known':'notice-variable-unknown');
+      span.textContent=token;nodes.push(span);end=at+token.length;
+    }
+    nodes.push(document.createTextNode(source.slice(end)+'\n'));target.replaceChildren(...nodes);
+  }
   function render(target, source, options={}) {
     const now=options.now||new Date();
     const expand=value=>options.variables?expandVariables(value,now):value;
@@ -141,5 +154,5 @@
     target.style.setProperty('--ark-notice-margin',margin+'%');
     for(const key of ['margin_top','margin_bottom']){const value=Number(data[key]??12);target.style.setProperty('--ark-notice-'+key.replace('_','-'),(Number.isFinite(value)?Math.max(0,Math.min(200,value)):12)+'px');}
   }
-  window.ArkNoticeMarkdown=Object.freeze({render,applyColor,applyAppearance,expandVariables});
+  window.ArkNoticeMarkdown=Object.freeze({render,applyColor,applyAppearance,expandVariables,highlightVariables});
 })();

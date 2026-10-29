@@ -4,6 +4,11 @@
   const $=selector=>document.querySelector(selector),dialog=$('#notice-dialog');
   if(!dialog)return;
   const form=$('#notice-form'),text=$('#notice-text'),picker=$('#notice-color'),hex=$('#notice-color-hex');
+  const messageEditor=document.createElement('div'),messageColors=document.createElement('pre');
+  messageEditor.className='notice-message-editor';messageColors.className='notice-message-colors';messageColors.setAttribute('aria-hidden','true');
+  text.parentNode.insertBefore(messageEditor,text);messageEditor.append(messageColors,text);
+  function colorVariables(){window.ArkNoticeMarkdown.highlightVariables(messageColors,text.value);messageColors.scrollTop=text.scrollTop;messageColors.scrollLeft=text.scrollLeft;}
+  text.addEventListener('scroll',colorVariables);
   const save=form.querySelector('[type=submit]'),clear=$('#clear-notice'),error=form.querySelector('.form-error');
   const mode=$('#notice-text-mode'),foreground=$('#notice-text-color'),width=$('#notice-width'),margin=$('#notice-margin');
   const position=$('#notice-position');
@@ -13,6 +18,7 @@
   const settings=()=>({color:hex.value,text_color:mode.value==='auto'?'auto':textHex.value,width:width.value,margin:Number(margin.value),margin_top:Number(top.value),margin_bottom:Number(bottom.value),font:font.value,position:position.value});
   let generation=0,busy=false;
   function preview() {
+    colorVariables();
     const value=text.value,target=$('#notice-preview');
     window.ArkNoticeMarkdown.render(target,value,{variables:true});window.ArkNoticeMarkdown.applyAppearance(target,settings());
     if(mode.value==='auto'){const actual=target.style.getPropertyValue('--ark-notice-fg');foreground.value=actual;textHex.value=actual;}
