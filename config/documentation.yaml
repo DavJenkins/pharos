@@ -3,6 +3,7 @@ publication_date: '2026-10-29'
 website_base: https://www.dejsoftware.com
 supported_bootstrap_released: false
 update_policy: bundled-with-software
+download_history: config/document-downloads.json
 pages:
 - id: collection
   title: The Data Ark collection

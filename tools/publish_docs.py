@@ -6,12 +6,32 @@ import tempfile
 import html
 import re
 import sys
+import shutil
 from urllib.parse import urlsplit, urlunsplit
 
 SOURCE = Path(__file__).resolve().parents[1] / 'docs'
 sys.path.insert(0, str(SOURCE.parent))
 from app.services.documentation_theme import masthead, footer
 
+
+
+CODE_CONTROLS = r'''<style>
+.command-block{position:relative;margin:1.2rem 0;padding:1rem;border:1px solid #54718a;border-radius:.5rem;background:#0b1c30;color:#f4e8c6}
+.command-block pre{margin:0 0 .8rem!important;padding:.3rem!important;background:transparent!important;color:inherit!important;overflow:auto;white-space:pre!important;text-align:left}
+.command-block code{background:transparent!important;color:inherit!important;font-family:Consolas,monospace}
+.command-block .copy-command{min-height:44px;padding:.4rem .9rem;border:1px solid #c5a253;border-radius:.35rem;background:#f3e7c8;color:#142c43;cursor:pointer;font:inherit}
+.copy-feedback{margin-left:.7rem;font-size:.9rem}
+</style><script>
+document.addEventListener('click',async function(event){
+ const button=event.target.closest('.copy-command');if(!button)return;
+ const block=button.closest('.command-block'),text=block.querySelector('code').textContent.replace(/^\n|\n$/g,''),feedback=block.querySelector('.copy-feedback');
+ try{
+  if(window.isSecureContext&&navigator.clipboard){await navigator.clipboard.writeText(text);}
+  else{const field=document.createElement('textarea');field.value=text;field.style.position='fixed';field.style.opacity='0';document.body.appendChild(field);field.select();let copied=false;try{copied=document.execCommand('copy');}finally{field.remove();button.focus();}if(!copied)throw new Error('Clipboard unavailable');}
+  feedback.textContent='Copied';
+ }catch(error){feedback.textContent='Select the code and copy it manually.';}
+});
+</script>'''
 
 def escaped_inline(text):
     parts = re.split(r"(`[^`]+`)", text)
@@ -59,13 +79,15 @@ def markdown_to_html(text):
 
     in_list = False
     in_code = False
+    has_code = False
 
     for line in text.splitlines():
         if line.startswith("```"):
             if in_list:
                 out.append("</ul>")
                 in_list = False
-            out.append("</code></pre>" if in_code else "<pre><code>")
+            has_code = True
+            out.append('</code></pre><button type="button" class="copy-command">Copy code</button><span class="copy-feedback" role="status"></span></div>' if in_code else '<div class="command-block"><pre><code>')
             in_code = not in_code
             continue
         if in_code:
@@ -129,7 +151,9 @@ def markdown_to_html(text):
         out.append("</ul>")
 
     if in_code:
-        out.append("</code></pre>")
+        out.append('</code></pre><button type="button" class="copy-command">Copy code</button><span class="copy-feedback" role="status"></span></div>')
+    if has_code:
+        out.append(CODE_CONTROLS)
     out.append('</main>' + footer() + '</div></body></html>')
 
     return "\n".join(out)
@@ -151,6 +175,9 @@ def publish(source, target):
         outfile = target / md.relative_to(source).with_suffix('.html')
         outfile.parent.mkdir(parents=True, exist_ok=True)
         outfile.write_text(markdown_to_html(md.read_text(encoding='utf-8')), encoding='utf-8')
+    for asset in source.rglob('*'):
+        if asset.is_file() and asset.suffix in {'.json','.yaml','.yml','.txt','.pdf','.png','.jpg','.jpeg','.svg','.webp','.css'}:
+            destination=target/asset.relative_to(source);destination.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(asset,destination)
     return len(documents)
 
 

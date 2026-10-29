@@ -12,6 +12,7 @@ class DocumentationPublishingTests(unittest.TestCase):
             (source / 'nested').mkdir(parents=True)
             (source / 'index.md').write_text('# Ark\n[Guide](nested/guide.md)', encoding='utf-8')
             (source / 'nested/guide.md').write_text('# Reader\nArk’s content', encoding='utf-8')
+            (source/'nested/schema.json').write_text('{"schema":1}',encoding='utf-8')
             old = root / 'dataark-docs'
             old.mkdir()
             (old / 'keep.txt').write_text('previous deployment', encoding='utf-8')
@@ -21,6 +22,7 @@ class DocumentationPublishingTests(unittest.TestCase):
                 self.assertEqual(publish(source, output), 2)
                 self.assertIn('href="nested/guide.html"', (output / 'index.html').read_text(encoding='utf-8'))
                 self.assertIn('Ark’s content', (output / 'nested/guide.html').read_text(encoding='utf-8'))
+                self.assertEqual((output/'nested/schema.json').read_bytes(),(source/'nested/schema.json').read_bytes())
             self.assertEqual((old / 'keep.txt').read_text(), 'previous deployment')
             with self.assertRaisesRegex(ValueError, 'new or empty'):
                 publish(source, old)

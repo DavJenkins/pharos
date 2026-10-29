@@ -17,7 +17,18 @@ The control reports the Ark's upstream availability separately from this device'
 
 ## Install
 
-From /opt/dataark, run the Python tests, deploy the web interface, and restart dataark.service. Then run sudo python3 deploy/install_portal.py. After that installation succeeds, run sudo python3 deploy/install_pass_through.py to enforce default-off forwarding. The latter immediately stops AP internet forwarding until a device opts in. It leaves the Pi's own downloads and local services running. Deploy the updated website and restart dataark.service for the toggle UI/API.
+Run these commands in a terminal on the Ark. Run each step only after the previous one succeeds.
+
+```sh
+cd /opt/dataark
+venv/bin/python -m unittest discover -s tests
+sudo bash deploy/deploy-web.sh
+sudo systemctl restart dataark.service
+sudo python3 deploy/install_portal.py
+sudo python3 deploy/install_pass_through.py
+```
+
+The final installer immediately stops hotspot internet forwarding until a device opts in. The Pi's own downloads and local services keep running.
 
 The installer checks the DataArk profile, loopback-only API listener, native dnsmasq/nftables syntax, Apache configuration, a live HTTP probe and the dedicated DNS listener. It backs up affected configuration beneath /var/backups/dataark-portal and rolls back on installation failure. It prints an exact rollback command for later use.
 
@@ -65,7 +76,15 @@ Inspect sudo nft list table inet dataark_forward and systemctl status dataark-pa
 
 ## Upgrade from DNS-based detection
 
-Run `sudo python3 deploy/install_portal.py` followed by `sudo python3 deploy/install_pass_through.py`. The first installs the dedicated redirect listener and removes detection-host DNS overrides; the second installs HTTP interception and resets opt-ins to Off. Each installer prints its own backup/rollback command and performs native configuration checks before activation. No Wi-Fi, NetworkManager or Docker restart is required. Reconnect the test phone to clear connection state, then verify the sign-in prompt and both pass-through settings. If undoing both steps, roll back pass-through first, then the portal, using the backups from this upgrade.
+Run these in order, waiting for each installer to succeed:
+
+```sh
+cd /opt/dataark
+sudo python3 deploy/install_portal.py
+sudo python3 deploy/install_pass_through.py
+```
+
+The first installs the dedicated redirect listener and removes detection-host DNS overrides; the second installs HTTP interception and resets opt-ins to Off. Each installer prints its own backup/rollback command and performs native configuration checks before activation. No Wi-Fi, NetworkManager or Docker restart is required. Reconnect the test phone to clear connection state, then verify the sign-in prompt and both pass-through settings. If undoing both steps, roll back pass-through first, then the portal, using the backups from this upgrade.
 
 
 ## Debug-controlled discovery diagnostics

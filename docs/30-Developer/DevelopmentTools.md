@@ -17,7 +17,14 @@ New terminal sessions provide a brief orientation. Run `ark-help` anywhere, or c
 
 ## Local workflow
 
-From /opt/dataark, use `venv/bin/python -m unittest discover -s tests` for the Python tests. They use Python unittest rather than pytest. Use the same virtual environment for application dependencies. Docs are rendered by tools/publish_docs.py without a separate Markdown toolchain. The existing deploy/deploy-web.sh validates/renders the dashboard and publishes the static site and documentation. Deployment and system service changes need the existing administrative privileges; editing code alone does not restart the API.
+Run the Python tests from a terminal on the Ark:
+
+```sh
+cd /opt/dataark
+venv/bin/python -m unittest discover -s tests
+```
+
+ They use Python unittest rather than pytest. Use the same virtual environment for application dependencies. Docs are rendered by tools/publish_docs.py without a separate Markdown toolchain. The existing deploy/deploy-web.sh validates/renders the dashboard and publishes the static site and documentation. Deployment and system service changes need the existing administrative privileges; editing code alone does not restart the API.
 
 Use Chromium to check the actual landing page, library manager, maps, pop-ups and documentation. A passing unit suite is not proof that every reader, network route or recovery scenario works. Consult the acceptance tests and the source/handover guide before changing running services.
 

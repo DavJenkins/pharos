@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "release_url": "https://github.com/DavJenkins/pharos/releases/tag/documentation-2026.10.29",
+  "base_url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/",
+  "pdfs": {
+    "collection-catalogue.pdf": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-collection-catalogue-7b7686e77360.pdf",
+    "feature-catalogue.pdf": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-feature-catalogue-27e257b3c850.pdf"
+  },
+  "editions": {
+    "2026-10-29-2f137191b1": {
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-handbook-2026-10-29-2f137191b1.zip",
+      "filename": "data-ark-handbook-2026-10-29-2f137191b1.zip"
+    },
+    "2026-10-29-8e09780345": {
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-handbook-2026-10-29-8e09780345.zip",
+      "filename": "data-ark-handbook-2026-10-29-8e09780345.zip"
+    },
+    "2026-10-29-a98d8c270a": {
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-handbook-2026-10-29-a98d8c270a.zip",
+      "filename": "data-ark-handbook-2026-10-29-a98d8c270a.zip"
+    }
+  },
+  "assets": [
+    {
+      "filename": "data-ark-collection-catalogue-7b7686e77360.pdf",
+      "size": 363599,
+      "sha256": "7b7686e77360feee05d833508688cefbc364a8a1adb1bde3d98ae7f6f44aa339",
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-collection-catalogue-7b7686e77360.pdf"
+    },
+    {
+      "filename": "data-ark-feature-catalogue-27e257b3c850.pdf",
+      "size": 371927,
+      "sha256": "27e257b3c850d0f48877831093aa66b8c0d2436cd7eeab4087687fcd88bde628",
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-feature-catalogue-27e257b3c850.pdf"
+    },
+    {
+      "filename": "data-ark-handbook-2026-10-29-2f137191b1.zip",
+      "size": 1149330,
+      "sha256": "72a3c48befa2bafb5017becdee862a771f2d0768a1afb929a8bb25fb8d7857b6",
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-handbook-2026-10-29-2f137191b1.zip"
+    },
+    {
+      "filename": "data-ark-handbook-2026-10-29-8e09780345.zip",
+      "size": 749163,
+      "sha256": "29d5600c174d78fe53580a747c93034109be2c27699de5c85ad8e0331a31cc9a",
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-handbook-2026-10-29-8e09780345.zip"
+    },
+    {
+      "filename": "data-ark-handbook-2026-10-29-a98d8c270a.zip",
+      "size": 749276,
+      "sha256": "7c97db0357cfae09a6dcd9bf2b1df95b8860f9b96cc26a4816009feebd043f3d",
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-handbook-2026-10-29-a98d8c270a.zip"
+    }
+  ]
+}

@@ -47,7 +47,7 @@ The fixture initially stopped at marker/identity safety checks, before formattin
 
 ## Evidence and reproduction
 
-[Machine-readable result in the source repository (online)](https://github.com/DavJenkins/pharos/blob/feature/readme-foundation/docs/20-Administration/FrozenBootstrapReplay.json) records frozen inputs and checked outcomes. The fixture used is retained as `deploy/emulator/run_frozen_replay.py`; the committed software-phase harness came from inside the frozen source archive.
+[Machine-readable result](FrozenBootstrapReplay.json) records frozen inputs and checked outcomes. The fixture used is retained as `deploy/emulator/run_frozen_replay.py`; the committed software-phase harness came from inside the frozen source archive.
 
 Host instance: `F:\DataArk-Bootstrap-Replay-20261029`. Guest evidence is under `/var/lib/dataark/` (`uninterrupted-replay.json`, `replay-source-verification.json`, `replay-final-attestation.json` and service verification JSON), `/var/log/ark-uninterrupted-bootstrap.log`, and `/var/tmp/uninterrupted-regressions.log`. A non-secret evidence copy is retained in the desktop workspace. Guest credentials and SSH private keys are not part of the public report or kit.
 

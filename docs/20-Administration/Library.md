@@ -46,7 +46,14 @@ The separate portal monitor records bounded local network diagnostics while Debu
 
 ## Install or update management support
 
-From /opt/dataark on the Pi, run sudo venv/bin/python deploy/install_library.py after reviewing the helper. This installs a root-owned fixed-scope helper and a narrowly scoped sudo rule. Deploy the web/API changes and restart dataark.service. Installation does not download a collection itself.
+After reviewing the helper, run this in a terminal on the Ark:
+
+```sh
+cd /opt/dataark
+sudo venv/bin/python deploy/install_library.py
+```
+
+ This installs a root-owned fixed-scope helper and a narrowly scoped sudo rule. Deploy the web/API changes and restart dataark.service. Installation does not download a collection itself.
 
 After a code change, verify anonymous inventory access, rejection of unauthenticated mutation requests, a disposable-fixture removal/rollback test, and a visible confirmation. Do not remove a user's archive merely to test the interface.
 

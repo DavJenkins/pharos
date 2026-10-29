@@ -36,3 +36,6 @@ config/content/project-snapshot/
 
 # Generated from the installed software revision during web deployment.
 /app/static/about/
+
+# Generated publication and GitHub release staging
+/output/

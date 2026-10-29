@@ -1,5 +1,7 @@
 # Data Ark handbook and handover
 
+[Browse the complete handbook](../SUMMARY.md)
+
 ## Purpose and scope
 
 This handbook is the entry point for someone inheriting the appliance or returning to it after time away. It records the philosophy, intended behavior, deployed design, configuration dependencies, routine care and remaining work. It is also a navigation map to the more detailed guides, not a claim that every recovery scenario has been tested.
