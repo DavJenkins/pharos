@@ -52,3 +52,14 @@ test('floating unlocked padlock is visible only while cached and locks on click'
  assert.equal(h.node('button').hidden,false);assert.match(h.node('button').title,/10 min remaining/);assert.equal(h.node('#caretaker-auth-floating-minutes').textContent,'10');h.advance(61000);assert.equal(h.node('#caretaker-auth-floating-minutes').textContent,'9');
  h.node('button').onclick();assert.equal(h.node('button').hidden,true);assert.equal(h.auth.isRemembered(),false);
 });
+
+test('fresh authorization bypasses and clears cache and cannot renew it',async()=>{
+ const h=harness();const first=h.auth.password();await h.submit('secret',10);await first;
+ const fresh=h.auth.freshAuthorization('Change caretaker password.');assert.equal(h.node('dialog').open,true);assert.equal(h.auth.isRemembered(),false);assert.equal(h.node('#caretaker-auth-remember').disabled,true);assert.equal(h.node('.caretaker-auth-remember').hidden,true);
+ await h.submit('secret',10);await fresh;assert.equal(h.calls(),2);assert.equal(h.auth.isRemembered(),false);
+});
+test('cancelling fresh authentication cannot fall back to a cached password',async()=>{
+ const h=harness();const first=h.auth.password();await h.submit('secret',10);await first;
+ const fresh=h.auth.authorization('Sensitive action.',{forceFresh:true});h.node('#caretaker-auth-close').onclick();await assert.rejects(fresh,{name:'AbortError'});assert.equal(h.auth.isRemembered(),false);
+ const regular=h.auth.password();assert.equal(h.node('#caretaker-auth-remember').disabled,false);assert.equal(h.node('.caretaker-auth-remember').hidden,false);h.node('dialog').close();await assert.rejects(regular);
+});

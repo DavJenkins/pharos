@@ -34,3 +34,4 @@
 
 #caretaker-auth-floating-minutes{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);min-width:17px;background:#fff7ef;color:#a41420;text-align:center;font:800 11px/14px system-ui,sans-serif;font-variant-numeric:tabular-nums;pointer-events:none}
 #caretaker-auth-floating-lock:hover #caretaker-auth-floating-minutes{background:#ffe1dd}
+#caretaker-auth-dialog .caretaker-auth-remember[hidden]{display:none!important}

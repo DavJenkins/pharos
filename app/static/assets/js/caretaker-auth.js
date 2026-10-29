@@ -66,10 +66,15 @@
         document.body.append(dialog);
         return dialog;
     }
-    async function password(purpose = "Authorize this caretaker action.") {
-        const saved = cached();
+    async function password(purpose = "Authorize this caretaker action.", {forceFresh = false} = {}) {
+        if (forceFresh) forget();
+        const saved = forceFresh ? null : cached();
         if (saved) return saved.password;
-        if (pending) return pending;
+        if (pending) {
+            if (!forceFresh) return pending;
+            try { await pending; } catch (_) {}
+            return password(purpose, {forceFresh:true});
+        }
         const popup = makeDialog(), form = popup.querySelector("form");
         const input = popup.querySelector("#caretaker-auth-password");
         const remember = popup.querySelector("#caretaker-auth-remember");
@@ -78,6 +83,11 @@
         const submit = form.querySelector('[type="submit"]');
         popup.querySelector("#caretaker-auth-purpose").textContent = purpose;
         form.reset(); popup.querySelectorAll("button").forEach(button => button.disabled = false); input.value = ""; minutes.disabled = true; error.textContent = "";
+        remember.disabled = forceFresh;
+        popup.querySelector(".caretaker-auth-remember").hidden = forceFresh;
+        popup.querySelector(".caretaker-auth-scope").textContent = forceFresh
+            ? "Enter the current password again. This action cannot use or renew cached authorization."
+            : "Applies to this browser tab on this Ark address. Leaving the switch off authorizes only this action.";
         pending = new Promise((resolve, reject) => {
             let accepted = false, checking = false;
             remember.onchange = () => { minutes.disabled = !remember.checked; };
@@ -97,7 +107,7 @@
                         throw new Error("The Ark could not verify the password. Please try again.");
                     }
                     if (!popup.open) return;
-                    if (remember.checked) {
+                    if (!forceFresh && remember.checked) {
                         const duration = Number(minutes.value);
                         if (!Number.isInteger(duration) || duration < 1 || duration > 120) throw new Error("Choose a whole number from 1 to 120 minutes.");
                         memory = {password:candidate, until:Date.now()+duration*60000};
@@ -124,7 +134,8 @@
     window.addEventListener("pageshow", refreshIndicator);
     window.addEventListener("focus", refreshIndicator);
     refreshIndicator();
-    window.CaretakerAuth = Object.freeze({password, authorization:async purpose => basic(await password(purpose)),
+    window.CaretakerAuth = Object.freeze({password, authorization:async (purpose, options) => basic(await password(purpose, options)),
+        freshAuthorization:async purpose => basic(await password(purpose, {forceFresh:true})),
         cachedAuthorization:() => { const value = cached(); return value ? basic(value.password) : null; },
         isRemembered:() => !!cached(), forget,
         rejected:response => { if (response.status === 401) forget(); return response; }});
