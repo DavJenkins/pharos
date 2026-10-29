@@ -7,6 +7,7 @@ TARGET="/var/www/html"
 # Fail before changing the deployed site if configuration/artwork is invalid.
 cd /opt/dataark
 bash tools/render_dashboard.sh
+python3 tools/build_public_documents.py
 
 # Build documentation before changing the live site. Each run owns its output.
 DOCS_STAGE="$(mktemp -d "${TMPDIR:-/tmp}/dataark-docs.XXXXXXXX")"

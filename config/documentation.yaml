@@ -1,0 +1,26 @@
+schema: 1
+publication_date: '2026-10-29'
+website_base: https://www.dejsoftware.com
+supported_bootstrap_released: false
+update_policy: bundled-with-software
+pages:
+- id: collection
+  title: The Data Ark collection
+  source: docs/10-User/CollectionCatalogue.md
+  pdf: app/static/collection-catalogue.pdf
+- id: features
+  title: What the Ark can do
+  source: docs/10-User/FeatureCatalogue.md
+  pdf: app/static/feature-catalogue.pdf
+- id: engineering
+  title: Engineering behind the Ark
+  source: docs/30-Developer/Engineering.md
+- id: bootstrap
+  title: Download and build a Data Ark
+  source: docs/00-Introduction/BootstrapDownload.md
+- id: installation
+  title: Stock-Pi installation guide
+  source: docs/30-Developer/StockPiSetup.md
+- id: handbook
+  title: Handbook and handover
+  source: docs/00-Introduction/Handbook.md

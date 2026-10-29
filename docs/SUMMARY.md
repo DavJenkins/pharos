@@ -24,6 +24,7 @@
 
 - [Configuration reference](20-Administration/Configuration.md)
 - [Source availability checks](20-Administration/SourceChecks.md)
+- [Public and offline documentation](20-Administration/DocumentationPublication.md)
 - [Source repository, backups and handover](20-Administration/SourceAndHandover.md)
 - [Administrator Guide](20-Administration/AdministratorGuide.md)
 - [Household Bugout Backups](20-Administration/Bugout.md)
