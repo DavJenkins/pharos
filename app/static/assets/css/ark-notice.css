@@ -37,6 +37,6 @@
 .ark-banner-dialog .notice-message-editor textarea,.notice-message-colors{box-sizing:border-box;width:100%;padding:.65rem;border:1px solid transparent;font:400 16px/1.5 system-ui,sans-serif;letter-spacing:normal;tab-size:8;white-space:pre-wrap;overflow-wrap:break-word;word-break:normal}
 .ark-banner-dialog .notice-message-editor textarea{position:relative;z-index:1;margin:0;background:transparent;color:transparent;caret-color:#294761;border-color:#90a5b5;-webkit-text-fill-color:transparent}
 .notice-message-colors{position:absolute;inset:0;height:100%;margin:0;overflow:hidden;pointer-events:none;color:#294761;border-radius:7px}
-.notice-variable-known{color:#137333}
+.notice-variable-known{color:#008a20}
 .notice-variable-unknown{color:#bd2026;text-decoration:underline wavy;text-underline-offset:3px}
 @media(forced-colors:active){.notice-message-colors{display:none}.ark-banner-dialog .notice-message-editor textarea{color:CanvasText;-webkit-text-fill-color:CanvasText}}
