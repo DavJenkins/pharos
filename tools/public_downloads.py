@@ -13,6 +13,8 @@ def finish(root,website,edition,config):
     output=root/'output/document-downloads'
     subprocess.run([sys.executable,str(root/'tools/package_document_downloads.py'),'--website',str(stage),'--output',str(output),'--edition',edition],check=True,stdout=subprocess.DEVNULL)
     record=json.loads((output/'download-manifest.json').read_text(encoding='utf-8'))
+    previous=json.loads((root/config['download_history']).read_text(encoding='utf-8'))
+    replaced={url:record['pdfs'][name] for name,url in previous['pdfs'].items()}
     # Only lightweight download landing pages are created in the public archive tree.
     for key,asset in record['editions'].items():
         folder=website/'data-ark/editions'/key;folder.mkdir(parents=True,exist_ok=True)
@@ -22,6 +24,7 @@ def finish(root,website,edition,config):
         if '.git' in page.parts or 'saved' in page.parts:continue
         def link(match):
             url=match.group(1);name=url.split('?')[0].rsplit('/',1)[-1]
+            if url in replaced:return 'href="'+html.escape(replaced[url],quote=True)+'"'
             if name=='data-ark-collection-catalogue.pdf':name='collection-catalogue.pdf'
             if name in record['pdfs']:return 'href="'+html.escape(record['pdfs'][name],quote=True)+'"'
             # Permanent edition links lead to that edition's download page.
