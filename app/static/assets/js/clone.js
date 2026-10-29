@@ -4,7 +4,7 @@
   const size = n => (n / 1073741824).toFixed(2) + ' GiB';
   let drives = [];
   async function read(path) {
-    const response = await fetch(path, {cache: 'no-store'});
+    const response = await fetch('/api'+path, {cache: 'no-store'});
     const result = await response.json();
     if (!response.ok) throw Error(result.detail || 'Request failed');
     return result;
