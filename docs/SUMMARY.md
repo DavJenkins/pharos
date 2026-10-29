@@ -104,22 +104,22 @@
 
 - [Offline curriculum and coverage](20-Administration/Curriculum.md)
 
-* [Capacity-aware restore presets and queue](20-Administration/RecoveryQueue.md)
+- [Capacity-aware restore presets and queue](20-Administration/RecoveryQueue.md)
 
-* [Publication edition discovery](20-Administration/EditionDiscovery.md)
+- [Publication edition discovery](20-Administration/EditionDiscovery.md)
 
-* [Local usage history](20-Administration/Usage.md)
+- [Local usage history](20-Administration/Usage.md)
 
-* [Communication and accessibility tools](20-Administration/CommunicationTools.md)
+- [Communication and accessibility tools](20-Administration/CommunicationTools.md)
 
-* [Wi-Fi adapter assignment and fallback](20-Administration/WifiAdapters.md)
+- [Wi-Fi adapter assignment and fallback](20-Administration/WifiAdapters.md)
 
-* [Build information and support email](20-Administration/Support.md)
+- [Build information and support email](20-Administration/Support.md)
 
-* [Community visibility and configuration editor](20-Administration/Configuration.md#configuration-editor)
+- [Community visibility and configuration editor](20-Administration/Configuration.md#configuration-editor)
 
-* [Content type registry and handler API](20-Administration/ContentHandlers.md)
+- [Content type registry and handler API](20-Administration/ContentHandlers.md)
 
-* [Modular public configuration](20-Administration/ModularConfiguration.md)
+- [Modular public configuration](20-Administration/ModularConfiguration.md)
 
 - [Desktop ARM64 test Ark](20-Administration/Emulator.md)

@@ -133,13 +133,15 @@ def markdown_to_html(text):
             out.append(f"<h3>{inline_html(line[4:])}</h3>")
             continue
 
-        if line.startswith("- "):
+        if line.startswith(("- ", "* ", "+ ")):
             if not in_list:
                 out.append("<ul>")
                 in_list = True
             out.append(f"<li>{inline_html(line[2:])}</li>")
             continue
 
+        if not line.strip():
+            continue
         if in_list:
             out.append("</ul>")
             in_list = False

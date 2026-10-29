@@ -51,3 +51,13 @@ class HandbookCodeFormatting(unittest.TestCase):
     def test_inline_code_is_escaped(self):
         from tools.publish_docs import inline_html
         self.assertIn('<code>&lt;path&gt;</code>',inline_html('Use `<path>`'))
+
+
+class MarkdownListConsistency(unittest.TestCase):
+    def test_equivalent_markers_and_blank_lines_share_one_list(self):
+        from tools.publish_docs import markdown_to_html
+        rendered=markdown_to_html('# Contents\n- [First](one.md)\n\n* [Second](two.md)\n\n+ [Third](three.md)\n\nAfter the list.')
+        self.assertEqual(rendered.count('<ul>'),1)
+        self.assertEqual(rendered.count('<li>'),3)
+        self.assertNotIn('<p>* ',rendered)
+        self.assertIn('</ul>\n<p>After the list.</p>',rendered)
