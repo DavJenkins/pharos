@@ -139,13 +139,13 @@ def proposal(config, facts):
     if not uplinks:issues.append('No existing upstream/default route was discovered.')
     roles={'hotspot':ap,'hotspot_identity':next((i['permanent_mac'] for i in facts['interfaces'] if i['name']==ap),None),
            'upstream':routes[0]['interface'] if routes else None,
-           'ethernet':next((r['interface'] for r in routes if any(i['name']==r['interface'] and i['kind']=='ethernet' for i in facts['interfaces'])),None),
+           'ethernet':next((r['interface'] for r in routes if any(i['name']==r['interface'] and i['kind'] in {'ethernet','bridge','bond','vlan'} for i in facts['interfaces'])),None),
            'wifi':next((r['interface'] for r in routes if any(i['name']==r['interface'] and i['kind']=='wifi' for i in facts['interfaces'])),None)}
     roles['identities']={role:next((i['permanent_mac'] for i in facts['interfaces'] if i['name']==roles[role]),None) for role in ('ethernet','wifi','upstream')}
     # Link state and DHCP address churn do not change the hardware assignment.
     basis={'profile':spec,'configuration':config,'os':facts['os'],'architecture':facts['architecture'],
            'machine':facts['machine_id_sha256'],'roles':roles,
-           'interfaces':[{k:i[k] for k in ('name','kind','permanent_mac','hotspot_capable')} for i in sorted(facts['interfaces'],key=lambda i:i['name'])],
+           'interfaces':[{k:i[k] for k in ('name','kind','permanent_mac','hotspot_capable')} for i in sorted(facts['interfaces'],key=lambda i:i['name']) if i['name'] in uplinks or i['name']==ap or i['kind'] in {'wifi','ethernet'} and i.get('permanent_mac')],
            'upstreams':uplinks}
     return {'profile':spec['id'],'label':spec['label'],'network_mode':spec['network_mode'],
             'roles':roles,'interfaces':facts['interfaces'],'issues':issues,
