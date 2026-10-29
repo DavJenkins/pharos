@@ -26,6 +26,8 @@ Before declaring a recovery pair, finish or pause content updates, take a Git ch
 
 Acceptance requires spare media, leaving the originals available for rollback. Test original-card/new-content and original-content/new-card independently. Verify actual articles/images, maps, PDF tools, radio databases, library management, portal behavior and offline operation from a separate client. Reboot each rebuilt appliance and confirm that both desired selections and configuration mirrors persist. Repeat an interrupted rebuild. Only then label the two-way regeneration path supported.
 
+The acceptance sequence can reuse the functioning Ark produced by the populated-media/new-system test: swap in a separate empty content volume and test reconstruction from the surviving system configuration. See the [chained acceptance procedure](RecoveryValidation.md#chained-acceptance-rebuilt-ark-then-empty-content-media).
+
 ## Latest validation record
 
 See [Recovery validation — 25 October 2026](RecoveryValidation.md) for the isolated recovery drill, kit preflight results and remaining spare-media acceptance work.

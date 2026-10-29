@@ -19,3 +19,33 @@ The setup tests cover supported configuration, safe extraction, interrupted phas
 This is not a fresh-Pi certification. No replacement boot card was flashed, no content drive was emptied, no reboot or network change was performed. Initial packages, Python dependencies and the Kiwix container still require internet; an offline software cache has not been completed.
 
 Use the procedure in [Stock-Pi setup](../30-Developer/StockPiSetup.md) on a spare supported Raspberry Pi OS 64-bit / Debian 13 installation, with admin UID 1000 and a separate content volume. Test populated and configuration-only media, interruption/resume, reboot, portal access, real offline content, management authentication and preparation of another kit. See [paired-media recovery](PairedRecovery.md).
+
+
+## Chained acceptance: rebuilt Ark, then empty content media
+
+The successful populated-media/new-system test should leave a functioning Ark. Preserve that recovered system as the starting point for the next test: replace its content medium with a separate empty, prepared volume and rebuild from the surviving system's saved configuration. This tests the other half of recovery without rebuilding the operating system again.
+
+This is the **empty-media scenario**, distinct from a configuration-only seed drive: the replacement contains neither content nor an Ark configuration kit. The surviving system must supply the desired selection and recovery tools. A fresh system plus completely empty media is not the same test.
+
+### Before the swap
+
+1. Complete the preceding test's real-client, offline and reboot checks. Record the source revision and the chosen restoration preset; keep the original media available for rollback.
+2. Quiesce downloads, restoration and household jobs. Verify that the recovered system holds a valid desired-content profile independently of the content drive. Record its checksum, selected package IDs, disabled selections, source information and personalization. A passing preceding test must not merely leave these on the drive about to be removed.
+3. Save the evidence and protected appliance settings outside the replacement volume. Identify the spare volume explicitly by stable device identity, capacity and filesystem. No test step formats or empties the original collection.
+4. Shut down cleanly and swap only the content medium. Use a separately prepared empty supported filesystem at the expected mount point; device preparation is an explicit operator step.
+
+### Rebuild and observe
+
+1. Boot with the replacement volume. Verify that the saved desired selection has not been replaced by an empty inventory, and that no optional download or formatting has started automatically.
+2. Confirm basic dashboard, terminal and caretaker access. Missing content should be reported honestly; it must not be presented as readable merely because it remains configured.
+3. Preview the restoration presets against the new volume. Check dependencies, source identities, temporary space, headroom and reserve. Approve the exact reviewed plan using the [restoration queue workflow](RecoveryQueue.md). Use a capacity-appropriate preset; a partial preset is not evidence that Full has passed.
+4. Run restoration with upstream connectivity. Record queue transitions, per-package outcomes, verification and activation. Where practical, pause and resume a small package before attempting an interruption drill; perform the interruption drill on spare media only.
+5. Verify real restored files through their intended readers and distribution paths, including an article with images, a PDF and a map when included by the approved preset. Check that installed material appears on the landing page and that intentionally excluded packages remain excluded.
+6. Isolate upstream access and repeat the local client checks. Reboot and verify that the mount, services, installed selection and queue state return correctly.
+7. Prepare a new public configuration mirror and recovery source checkpoint on the rebuilt content drive. Verify their revision and checksums. The rebuilt half should now carry the information needed for a subsequent replacement-system test, without copying private machine identity into a public kit.
+
+### Record the result
+
+Record both tests separately, including hardware/media identities, source revision, profile checksum, preset, restored package IDs, bytes, timings, failures, interruption behavior and client checks. Compare the before/after desired selections and explain any intentional differences. Retain rollback media until review is complete.
+
+**Status:** this is the next acceptance procedure, not a completed test. The desktop emulator's read-only production-media mount cannot establish empty-media or physical spare-system acceptance. Do not merge the recovery branch or call two-way regeneration dependable on the strength of this procedure alone.
