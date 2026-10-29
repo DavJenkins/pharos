@@ -49,3 +49,29 @@ This is the **empty-media scenario**, distinct from a configuration-only seed dr
 Record both tests separately, including hardware/media identities, source revision, profile checksum, preset, restored package IDs, bytes, timings, failures, interruption behavior and client checks. Compare the before/after desired selections and explain any intentional differences. Retain rollback media until review is complete.
 
 **Status:** this is the next acceptance procedure, not a completed test. The desktop emulator's read-only production-media mount cannot establish empty-media or physical spare-system acceptance. Do not merge the recovery branch or call two-way regeneration dependable on the strength of this procedure alone.
+
+
+## 28 October 2026: ARM64 empty-filesystem drill
+
+**Result: passed within the software-only scope below. Physical paired-media acceptance remains pending.**
+
+The running generic Debian ARM64 emulator was used as the surviving system. A new, exclusively created 16 GiB sparse image was formatted as ext4 and mounted separately at `/var/tmp/ark-empty-media-drill-20261028/media`. The production `/mnt/storage` share remained read-only; neither physical medium was swapped, formatted or overwritten.
+
+The drill used a deliberately small saved profile, held outside the replacement filesystem, with two enabled PDF targets and one disabled target. Both enabled targets retrieved the public IRS W-9 PDF over HTTPS (140,815 bytes, SHA-256 `2d420cbb4123dcf1fb82595b2359cfbb5d81f00b9df9d359fcc7af361d093f53`). This exercised the real queue subprocess, type handler, downloader and checksum verification. It did not restore the full appliance profile or run collection/index recipes.
+
+Verified:
+
+- The new mounted filesystem initially contained no content or configuration kit.
+- Capacity planning included the 10 GiB reserve, and queue creation used the exact reviewed plan identity.
+- The first package completed, then the queue paused before the second.
+- The second package resumed with a 1,024-byte staged partial file.
+- The completed first package was not rerun; both jobs completed in one attempt each.
+- Both final PDF hashes matched the baseline, the disabled target stayed absent and the saved profile checksum stayed unchanged.
+- Unmounting and remounting the new filesystem retained both verified files.
+- The emulator dashboard still returned HTTP 200 and its production-media CIFS mount remained read-only.
+
+Separately, **34 stock-setup, content-profile and restoration-queue regression tests passed** inside the ARM64 guest with local-caretaker privilege and disk-backed temporary storage. Initial unprivileged execution correctly met the worker privilege boundary. A subsequent run in RAM-backed `/tmp` failed two reserve checks; using `TMPDIR=/var/tmp` supplied the disk capacity required by those fixtures. Production reserve policy was not reduced or bypassed.
+
+Evidence retained in the guest: `/var/tmp/ark-empty-media-drill-20261028/result.json`, its queue state and worker log, and `/var/tmp/ark-recovery-regression-disk.log`. The disposable filesystem remains mounted separately for inspection; it is not configured as the Ark's content mount or a boot-time mount.
+
+Still untested by this drill: fresh stock-Pi installation, replacement of physical content media, the complete saved selection, collection-reader/index activation, real-client offline viewing, reboot/power-interruption recovery on replacement media, and regeneration of a complete kit from that rebuilt appliance. The two-test physical acceptance chain above is therefore **not complete**. No recovery merge or dependable-regeneration claim follows from these results.
