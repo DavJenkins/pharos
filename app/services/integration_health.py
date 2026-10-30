@@ -17,8 +17,8 @@ def failed_units():
         raise OSError('Service health query failed')
     return sorted({line.split()[0] for line in result.stdout.splitlines() if line.strip()})
 
-def collect():
-    status = get_status()
+def collect(status=None):
+    status = status if status is not None else get_status()
     problems = []
     def add(code, severity, message):
         problems.append({'id':code, 'severity':severity, 'message':message})

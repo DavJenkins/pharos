@@ -55,6 +55,8 @@ A valid changed copy requires the current baseline hash and preserves the previo
 
 Home Assistant receives the read-only `source_checks.browser_review` object through `/api/health`: required and overdue counts, individual titles, last verification, next review dates, intervals, and the capture-page link. Stable health fingerprints change on reviews becoming due, completion, detected changes, and automated-check recovery, rather than on every poll. Overdue reviews create a health warning; a known blocked automated check alone does not. The HA package records transitions, exposes review counts, and includes source-check context in `dataark_health_changed`.
 
+The dashboard uses the same health report. Unresolved warnings prevent the green collapsed Settings gear. Publisher-check issues and overdue reviews have a Capture downloads link in the status box; the System popup’s Library tab also links to scheduled browser reviews. Configured reviews that are not due remain informational.
+
 Update observations live in /var/lib/dataark/browser-capture/update-checks.json, with a public non-sensitive view at /library-files/browser-capture-status.json. They are runtime observations rather than content selection. Previous-copy history is on the system disk; it is not included in the public library or automatically replicated as payload. An administrator can recover an earlier PDF and its saved sources record after checking its SHA-256. No automatic history deletion policy is installed.
 
 When upgrading this unpacked extension, replace package files while retaining local config.json and the native-host launcher/registration, then click Reload on its card at chrome://extensions and refresh the capture page. Permissions and extension ID are unchanged.

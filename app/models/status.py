@@ -11,6 +11,7 @@ class Status(BaseModel):
     debug: bool
     sync: str = "Unavailable"
     update: dict | None = None
+    health: dict | None = None
     issues: list[str] = Field(default_factory=list)
     updated: str | None = None
 
