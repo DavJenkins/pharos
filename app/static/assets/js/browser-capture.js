@@ -89,3 +89,17 @@ function styleCaptureErrors(){
 }
 new MutationObserver(styleCaptureErrors).observe(document.querySelector('main'),{childList:true,subtree:true,characterData:true});
 styleCaptureErrors();
+
+// Legacy extensions leave retry acknowledgements in the global status line.
+// Keep live per-item activity authoritative instead of showing an endless retry.
+let retryNoticeSince=0;
+setInterval(()=>{
+ const output=document.querySelector('#update-status');
+ if(!/^Retrying \d+ captured download/.test(output?.textContent||'')){retryNoticeSince=0;return;}
+ if(!retryNoticeSince){retryNoticeSince=Date.now();return;}
+ const active=Array.from(document.querySelectorAll('#items section > [role="status"]')).some(row=>/^(Downloaded;|Downloading)/.test(row.textContent));
+ if(!active && Date.now()-retryNoticeSince>=10000){
+  output.textContent='No active import is reported. Review the individual item results below.';
+  retryNoticeSince=0;
+ }
+},2000);

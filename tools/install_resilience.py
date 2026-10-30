@@ -59,7 +59,18 @@ def previous(item,path,error):
 def download(item):
  item=dict(item);path=MOUNT/item['collection']/'documents'/(item['id']+'.'+item['format']);item['filename']='documents/'+path.name;item['checked_at']=now()
  try:
-  data,resolved=fetch(item['url']);item['resolved_url']=resolved
+  if item.get('browser_snapshot'):
+   name=item['browser_snapshot']
+   if Path(name).name!=name or item['format']!='html':raise ValueError('Invalid browser snapshot recipe')
+   raw=(ROOT/'deploy/reference'/name).read_bytes()
+   if hashlib.sha256(raw).hexdigest()!=item['browser_snapshot_sha256']:raise ValueError('Browser snapshot checksum mismatch')
+   snapshot=json.loads(raw)
+   if snapshot['source_url']!=item['url'] or not snapshot['text'].strip():raise ValueError('Browser snapshot source mismatch')
+   item['source_captured_at']=snapshot['retrieved_at'];item['acquisition']={'method':snapshot['capture_method'],'captured_at':snapshot['retrieved_at']}
+   data=('<main><p>Publisher text captured '+html.escape(snapshot['retrieved_at'])+'. This is a preserved snapshot, not a fresh publisher check.</p>'+''.join('<p>'+html.escape(line)+'</p>' for line in snapshot['text'].splitlines() if line.strip())+'</main>').encode()
+   resolved=item['url']
+  else:data,resolved=fetch(item['url'])
+  item['resolved_url']=resolved
   if item['format']=='pdf':
    if not data.startswith(b'%PDF-'):raise ValueError('Publisher did not return a PDF')
    with tempfile.NamedTemporaryFile(suffix='.pdf') as f:

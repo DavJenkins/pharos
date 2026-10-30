@@ -90,19 +90,6 @@
       "disposition": "retired"
     },
     {
-      "id": "ma-building-preamble",
-      "collection": "civic-reference",
-      "title": "Massachusetts Building Code 780 CMR — tenth-edition preamble",
-      "source_url": "https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download",
-      "last_attempt": "2026-10-30T18:00:00+00:00",
-      "observed_failure": "HTTP 404 in caretaker browser; automated requests may instead receive HTTP 403.",
-      "assessment": "Broken download URL; current publisher handbook provides HTML introduction.",
-      "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
-      "retry_priority": "Optional front matter: use publisher handbook; do not prompt browser capture until a replacement PDF is verified.",
-      "evidence": "/mnt/storage/civic-reference/sources.json",
-      "disposition": "optional"
-    },
-    {
       "id": "ma-building-toc",
       "collection": "civic-reference",
       "title": "Massachusetts Building Code 780 CMR — tenth-edition contents",
@@ -437,6 +424,21 @@
       "sha256": "b05af6b1db2612070a16636372ae70bebd119e9943e8b2f48cd17937b96b77e6",
       "pages": 2,
       "resolution": "Downloaded directly on the Ark and validated with PDF parser, document identity and SHA-256. 2021 recreation checklist is a related replacement for the retired link, not the identical old publication."
+    },
+    {
+      "id": "ma-building-preamble",
+      "collection": "civic-reference",
+      "title": "Massachusetts Building Code 780 CMR — tenth-edition preamble",
+      "source_url": "https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download",
+      "last_attempt": "2026-10-30T18:00:00+00:00",
+      "observed_failure": "HTTP 404 in caretaker browser; automated requests may instead receive HTTP 403.",
+      "assessment": "Broken download URL; current publisher handbook provides HTML introduction.",
+      "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
+      "retry_priority": "Optional front matter: use publisher handbook; do not prompt browser capture until a replacement PDF is verified.",
+      "evidence": "/mnt/storage/civic-reference/sources.json",
+      "disposition": "optional",
+      "resolution": "Preserved current publisher handbook introduction as attributed text-only HTML; obsolete PDF not recovered.",
+      "local_url": "/library-files/civic-reference/documents/ma-building-preamble.html"
     }
   ],
   "retry_notes": [

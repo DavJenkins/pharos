@@ -163,11 +163,13 @@
     "id": "ma-building-preamble",
     "collection": "civic-reference",
     "group": "Electrical, building and fire codes",
-    "title": "Massachusetts Building Code 780 CMR — tenth-edition preamble",
-    "format": "pdf",
-    "url": "https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download",
-    "edition": "Tenth edition; concurrency ended June 30, 2025",
-    "note": "Preamble and adoption context only; not the complete building code or the copyrighted model-code books."
+    "title": "Massachusetts Building Code 780 CMR — tenth-edition introduction",
+    "format": "html",
+    "url": "https://www.mass.gov/handbook/tenth-edition-of-the-ma-state-building-code-780",
+    "edition": "Publisher handbook introduction captured 2026-10-30",
+    "note": "Introduction and adoption context from the Mass.gov handbook, preserved as text-only HTML. Replaces the broken preamble PDF reference; not the complete building code or model-code books.",
+    "browser_snapshot": "ma-building-introduction.json",
+    "browser_snapshot_sha256": "1c963e246f8e6d39d285f067c151ab410d2955be4b00d63c0d0d4daf9e115dcc"
   },
   {
     "id": "ma-building-toc",
