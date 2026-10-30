@@ -14,6 +14,15 @@ RESOURCES = {"cpu": {"temperature_c": 40.0, "load": [0.0, 0.0, 0.0]},
 SERVICES = {"fastapi": "running", "apache": "running", "network_manager": "running", "samba": "running"}
 
 class HealthTests(unittest.TestCase):
+    def test_lan_optional_sensors_and_networkmanager_do_not_degrade_health(self):
+        resource=deepcopy(RESOURCES);resource['cpu']['temperature_c']=None
+        states={**SERVICES,'network_manager':'not_applicable'}
+        with patch.object(health,'platform_settings',return_value={'network_mode':'lan'}):
+            state,issues=health.assess(resource,states,'Idle',[])
+        self.assertEqual(state,'ok');self.assertEqual(issues,[])
+        with patch.object(health,'platform_settings',return_value={'network_mode':'lan','configuration_error':True}):
+            self.assertIn('Platform configuration is invalid',health.assess(resource,states,'Idle',[])[1])
+
     @patch("app.services.update_status.progress", return_value=None)
     def test_sync_exit_codes_and_timeout(self, _progress):
         for code, state in [(0, "Syncing"), (1, "Idle"), (2, "Unavailable")]:

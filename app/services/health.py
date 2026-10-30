@@ -2,6 +2,8 @@
 import subprocess
 from http.client import HTTPConnection, HTTPException
 
+from tools.wifi_interfaces import platform_settings
+
 UNITS = {"apache": "apache2.service", "network_manager": "NetworkManager.service", "samba": "smbd.service"}
 
 def sync_state():
@@ -34,17 +36,19 @@ def kiwix_state():
 
 
 def services():
-    states = {"fastapi": "running", "kiwix": kiwix_state(), **{name: "unknown" for name in UNITS}}
+    units={name:unit for name,unit in UNITS.items() if name!="network_manager" or not platform_settings()}
+    states = {"fastapi": "running", "kiwix": kiwix_state(), **{name: "unknown" for name in units}}
+    if "network_manager" not in units:states["network_manager"]="not_applicable"
     try:
         result = subprocess.run(
-            ["systemctl", "show", *UNITS.values(), "--property=Id,LoadState,ActiveState", "--no-pager"],
+            ["systemctl", "show", *units.values(), "--property=Id,LoadState,ActiveState", "--no-pager"],
             capture_output=True, text=True, timeout=3, check=False,
         )
     except (OSError, subprocess.TimeoutExpired):
         return states
     for block in result.stdout.strip().split("\n\n"):
         values = dict(line.split("=", 1) for line in block.splitlines() if "=" in line)
-        for name, unit in UNITS.items():
+        for name, unit in units.items():
             if values.get("Id") == unit:
                 if values.get("LoadState") == "not-found":
                     states[name] = "not_installed"
@@ -56,10 +60,12 @@ def services():
 def assess(resources, service_states, sync, unavailable):
     issues = list(unavailable)
     critical = False
+    settings=platform_settings()
+    if settings.get("configuration_error"):issues.append("Platform configuration is invalid")
     if resources is not None:
         temperature = resources["cpu"]["temperature_c"]
         if temperature is None:
-            issues.append("CPU temperature unavailable")
+            if not settings:issues.append("CPU temperature unavailable")
         elif temperature >= 70:
             issues.append("CPU temperature is high")
             critical |= temperature >= 80
@@ -71,7 +77,7 @@ def assess(resources, service_states, sync, unavailable):
                 issues.append(f"{name.upper()} storage usage is high")
                 critical |= percent >= 90
     for name, state in service_states.items():
-        if state != "running":
+        if state not in ("running","not_applicable"):
             issues.append(f"{name}: {state}")
     if sync.startswith(("Update failed", "Update status")):
         issues.append(sync)
