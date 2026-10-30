@@ -1,10 +1,11 @@
+param([string]$ArkHost = 'dataark')
 $ErrorActionPreference = 'Stop'
 $captureRoot = $PSScriptRoot
 $pythonPath = (Get-Command python.exe).Source
 $sshPath = (Get-Command ssh.exe).Source
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 $configuration = @{
-  ark_host = '192.168.40.123'
+  ark_host = $ArkHost
   ssh_executable = $sshPath
   ssh_key = "$env:USERPROFILE\.ssh\id_rsa"
   download_directories = @("$env:USERPROFILE\Downloads")

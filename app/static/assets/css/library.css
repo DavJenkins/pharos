@@ -33,3 +33,5 @@ body.library-page{max-width:none;margin:0;padding:clamp(.5rem,3vw,2rem);color:#2
 @media(max-width:480px){.installed-tools{gap:.5rem}.installed-tools label{flex-basis:100%}.installed-collection>summary{padding:.7rem}.collection-files{padding:0 .4rem .6rem}}
 
 .collection-variants{padding:.75rem;margin:.75rem 0;background:#f5f1e5;border:1px solid #c8b67e;border-radius:6px}.collection-variants h3{margin:0;font-size:1rem}.collection-variants>p{font-size:.85rem}.collection-variants>div{display:flex;align-items:center;justify-content:space-between;gap:.75rem;border-top:1px solid #d9cfb4;padding:.65rem 0}.collection-variants p{margin:.2rem 0}.collection-variants small{display:block;color:#526779}.collection-variants button{flex-shrink:0}@media(max-width:600px){.collection-variants>div{display:block}.collection-variants button{margin-top:.4rem;width:100%}}
+
+.library-header a,.library-header a:visited{color:#ffe29b;text-decoration:underline;text-underline-offset:.18em}.library-header a:hover{color:#fff}.library-header a:focus-visible{outline:2px solid #ffe29b;outline-offset:4px}

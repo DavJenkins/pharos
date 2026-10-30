@@ -3,13 +3,13 @@
 This folder is a Chrome extension and its Windows native-messaging helper. It only captures explicitly selected, known public references. It does not collect unrelated browser downloads. The extension receives no SSH private key or caretaker password.
 
 1. Keep this extracted folder in a permanent location.
-2. Run `install.ps1` with PowerShell. It registers only this extension's fixed ID in the current user's Chrome native-messaging registry. It does not install the extension or alter Chrome download preferences.
+2. Run `install.cmd` (from PowerShell, `./install.cmd`). It registers only this extension's fixed ID in the current user's Chrome native-messaging registry. It does not install the extension or alter Chrome download preferences.
 3. Open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, and select this folder.
 4. Open `http://dataark/capture.html` or the Ark's IP-address equivalent. Choose **Download & import**.
 
 For a publisher that requires browsing first, choose **Open publisher**, then use that PDF viewer's download button within ten minutes. The original download URL must match the selected reference. Downloads with unrelated URLs are ignored. Chrome's save-location prompt, if enabled, still applies; the helper accepts files only inside configured download folders.
 
-`config.json` is local configuration, not part of the public package. It selects the Ark host, existing SSH identity, OpenSSH executable and allowed Downloads folders. The default uses this Windows user's existing `.ssh/id_rsa`, the Ark at `192.168.40.123`, and the standard Downloads folder. SSH host-key verification must already succeed. Password and host-key prompts are not bypassed. The helper uses the existing root SSH authorization solely for a fixed import command; pairing requires an authorized Ark administrator. Review this configuration if installing on another computer. Never put a private key in this folder.
+`config.json` is local configuration, not part of the public package. It selects the Ark host, existing SSH identity, OpenSSH executable and allowed Downloads folders. The default uses this Windows user's existing `.ssh/id_rsa`, the Ark at `dataark`, and the standard Downloads folder. SSH host-key verification must already succeed. Password and host-key prompts are not bypassed. The helper uses the existing root SSH authorization solely for a fixed import command; pairing requires an authorized Ark administrator. Review this configuration if installing on another computer. Never put a private key in this folder.
 
 The import accepts approved PDFs only, validates document identity/year, parses with Poppler, hashes the file and uses the existing collection installer. A selected replacement must match the installed baseline hash; the previous verified copy is retained privately on the Ark before replacement. The original desktop download stays in Downloads. Metadata, index, manifest and portable configuration are refreshed; no Git commit/push happens automatically. The machine-readable gap record is updated; the narrative gap report is regenerated from the reviewed JSON assessment after each import.
 
@@ -30,3 +30,13 @@ Run `sudo python3 /opt/dataark/deploy/install_pi_browser_capture.py` from the Pi
 The helper reads only explicitly selected approved PDFs under `/home/admin/Downloads`. Registration is `/etc/chromium/native-messaging-hosts/com.dejsoftware.dataark_capture.json`; the on-demand host and local configuration are in `/usr/local/lib/dataark-browser-capture`. A dedicated sudo rule permits only `/usr/local/libexec/dataark-browser-import` with no arguments, invoking the existing validated importer. No browser-controlled shell command or destination path is accepted. This is for the Pi administrator account; public library visitors do not gain installation rights.
 
 Re-run the installer after source upgrades. The source is in the repository and recovery archive. It requires an already configured Ark, mounted content drive, admin account and Debian Chromium launcher; fresh-system acceptance remains separate. To uninstall, remove the extension directory, native registration, local host directory, import wrapper and `/etc/sudoers.d/dataark-browser-capture`, then restart Chromium. Library content remains.
+
+## Windows script-policy troubleshooting
+
+If PowerShell reports **running scripts is disabled**, run `install.cmd` (or `./install.cmd` from PowerShell). It launches the installer with an execution-policy override for that process only; it does not change your saved execution policy. The equivalent command is:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\install.ps1
+```
+
+Organization-enforced Group Policy can still prevent execution; ask that computer’s administrator rather than changing machine-wide settings. Existing `config.json` pairing is preserved. New pairings default to `dataark`; set the Ark’s reachable hostname or address in `config.json` if needed.

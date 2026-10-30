@@ -12,7 +12,7 @@ Re-run the installer after source upgrades. The source is in the repository and 
 
 ## One-time Windows / Chrome setup
 
-1. Download the capture ZIP from the page, extract it to a permanent folder, and run install.ps1 using PowerShell. Python 3.9+ and Windows OpenSSH must be installed. Keep the extracted extension folder in place. The installer registers the helper for your Windows user account; moving the files later requires updating that registration and loading the extension from its new folder.
+1. Download the capture ZIP from the page, extract it to a permanent folder, and run `install.cmd` (from PowerShell, `./install.cmd`). Python 3.9+ and Windows OpenSSH must be installed. Keep the extracted extension folder in place. The installer registers the helper for your Windows user account; moving the files later requires updating that registration and loading the extension from its new folder.
 2. Open chrome://extensions, enable Developer mode, choose Load unpacked and select that same folder. Extension ID: gilcpcndoddadpkefaeecjemhhcahhig. Chrome requires this local installation step; the Ark cannot silently install an extension.
 3. Open http://dataark/capture.html, or use the Ark’s current address followed by `/capture.html`. The page reports whether the extension is connected.
 
@@ -69,3 +69,13 @@ The capture page separates missing files, broken links, browser checks, and inst
 `deploy/reference/capture-sources.json` records the publication page where verified, the current download URL, assessment date, failure classification, and any reviewed replacement candidate. `discovery_rule: null` explicitly means there is no automated edition-discovery rule for that source yet. This file travels with recovery configuration. Download identities and permitted URLs remain pinned to the catalogue; metadata does not broaden importer permissions.
 
 The October 27 assessment found nine installed captures with blocked automated checks, four missing publications requiring browser checks, and three missing publications with confirmed 404 URLs. Broken links have no capture action. The Forest Service recreation checklist is a working related candidate, not a verified identical replacement for the older brochure. Its review link does not arm capture.
+
+## Windows script-policy troubleshooting
+
+If PowerShell reports **running scripts is disabled**, run `install.cmd` (or `./install.cmd` from PowerShell). It launches the installer with an execution-policy override for that process only; it does not change your saved execution policy. The equivalent command is:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\install.ps1
+```
+
+Organization-enforced Group Policy can still prevent execution; ask that computer’s administrator rather than changing machine-wide settings. Existing `config.json` pairing is preserved. New pairings default to `dataark`; set the Ark’s reachable hostname or address in `config.json` if needed.
