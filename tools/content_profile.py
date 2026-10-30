@@ -62,7 +62,9 @@ def bound_recipes(recipes, root):
 def apply_public_profile(c,folder,variant_preferences=None):
  public=read(inside(folder,c['manifest']));live=read(REPO/'dataark.yaml') if (REPO/'dataark.yaml').exists() else public
  for key in PUBLIC_KEYS:
-  if key!='system' and key in public:live[key]=public[key]
+  if key=='system':continue
+  if key in public:live[key]=public[key]
+  else:live.pop(key,None)
  from app.services.collection_variants import recovery_archives
  excluded=recovery_archives(c,{'variant_preferences':variant_preferences or {}})
  for asset in live.get('assets',[]):

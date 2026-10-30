@@ -3,6 +3,15 @@ from pathlib import Path
 from unittest.mock import patch
 from tools import content_profile as m
 class ContentProfileTests(unittest.TestCase):
+ def test_public_profile_replaces_optional_metadata_and_preserves_private_settings(self):
+  import yaml
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);profile=root/'profile';profile.mkdir()
+   old={'system':{'hostname':'keep-host'},'assets':[{'id':'old'}],'personalization':{'old':'reference'},'dashboard':{'old':'reference'},'bugout':{'private':'retained'}}
+   (root/'dataark.yaml').write_text(yaml.safe_dump(old));(profile/'public.yaml').write_text(yaml.safe_dump({'assets':[{'id':'new'}],'repositories':[]}))
+   with patch.object(m,'REPO',root):m.apply_public_profile({'manifest':'public.yaml','archives':[]},profile)
+   restored=yaml.safe_load((root/'dataark.yaml').read_text());self.assertEqual(restored['assets'],[{'id':'new'}]);self.assertNotIn('personalization',restored);self.assertNotIn('dashboard',restored);self.assertEqual(restored['bugout'],old['bugout']);self.assertEqual(restored['system'],old['system'])
+
  def test_paths_and_sources(self):
   root=Path('/tmp/profile-test')
   for path in ['../escape','/absolute','a/../../escape','a\\..\\escape']:

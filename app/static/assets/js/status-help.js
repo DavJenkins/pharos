@@ -257,7 +257,7 @@
                 }
                 libraryPanel.append(summary);
                 const review=DataArkStatus.data?.status?.health?.source_checks?.browser_review;
-                if(review?.required){const p=document.createElement('p'),a=document.createElement('a');a.href='/capture.html';a.textContent=review.overdue?review.overdue+' browser reviews due':review.required+' sources use scheduled browser review';p.append(a);libraryPanel.append(p);}
+                if(review?.required){const p=document.createElement('p'),a=document.createElement('a');a.href='/capture.html';a.textContent=review.required+' sources use scheduled browser review ('+(Number.isInteger(review.overdue)?review.overdue+' due':'status unavailable')+')';p.append(a);libraryPanel.append(p);}
                 systemPanel.append(systemActions);libraryPanel.append(libraryActions);
                 selectTab(Math.max(0,keys.indexOf(systemTab)));
                 document.getElementById("system-panel-"+systemTab).scrollTop=panelScroll;

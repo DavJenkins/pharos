@@ -10,9 +10,9 @@ from app.services.manifest import load_manifest
 from tools.library_removal import serialize
 state=Path('/var/lib/dataark-lan-acceptance');report=json.loads((state/'result.json').read_text());assert report['status']=='installed',report
 assert set(json.loads(Path('/var/lib/dataark/bootstrap.json').read_text())['completed'])=={'packages','source','storage','python','platform_settings','base_services','content_access','network','content','finish'}
-def run(args):return subprocess.run(args,check=True,capture_output=True,text=True).stdout
+def run(args):return subprocess.run(args,check=True,capture_output=True,text=True,cwd=root).stdout
 checks={}
-subprocess.run(['systemctl','reset-failed','dataark-lan-acceptance','dataark-lan-install','dataark-lan-content-proof','dataark-lan-minimal-proof'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+subprocess.run(['systemctl','reset-failed','dataark-lan-acceptance','dataark-lan-install','dataark-lan-content-proof','dataark-lan-minimal-proof','dataark-lan-paired-proof'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def save(phase):report.update(phase=phase,checks=checks);(state/'result.json').write_text(json.dumps(report,indent=2))
 def get(path):return urllib.request.urlopen('http://127.0.0.1'+path,timeout=30).read()
 for name in ['dataark','apache2','docker','smbd','avahi-daemon','systemd-networkd']:run(['systemctl','is-active','--quiet',name])
@@ -39,7 +39,8 @@ manifest['assets']=[asset];(folder/'public-manifest.yaml').write_text(serialize(
 profile={'schema':1,'name':'LAN acceptance minimal proof','content_root':'/mnt/storage','manifest':'public-manifest.yaml','reserve_gib':10,'archives':[],'map_files':[],'variant_groups':[],'direct_files':[{'id':asset['id'],'title':asset['title'],'path':asset['relative_path'],'url':url,'bytes':size,'sha256':sha},{'id':'disabled-proof','enabled':False,'path':'preparedness/disabled.pdf','url':url,'bytes':size,'sha256':sha}],'recipes':[{'id':'indexes','enabled':True,'installed_bytes':0,'temporary_bytes':0,'update_headroom_bytes':0}]}
 (folder/'content.yaml').write_text(yaml.safe_dump(profile,sort_keys=False));profile_path=folder/'content.yaml'
 def restore(directory):
- plan=q.build_plan(profile_path,'minimal');assert plan['capacity']['fits'];assert [j['id'] for j in plan['jobs']]==['lan-proof-checklist','indexes'];q.create(plan,plan['plan_id'],directory)
+ plan=q.build_plan(profile_path,'minimal');assert plan['capacity']['fits'];assert [j['id'] for j in plan['jobs']]==['lan-proof-checklist','indexes'];
+ if not (directory/'queue.json').exists():q.create(plan,plan['plan_id'],directory)
  run([str(root/'venv/bin/python'),'-m','tools.recovery_queue','resume','--state',str(directory)])
  result=q.snapshot(directory);assert result['status']=='complete',result
  data=(Path('/mnt/storage')/asset['relative_path']).read_bytes();assert hashlib.sha256(data).hexdigest()==sha;assert get(asset['service_endpoint'])==data;assert not Path('/mnt/storage/preparedness/disabled.pdf').exists()
