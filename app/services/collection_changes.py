@@ -106,7 +106,7 @@ def from_library(event, fields):
     else:
         kind = {'operation_started':'request_started', 'operation_failed':'failed',
                 'archive_activated':'installed', 'operation_completed':
-                'removed' if fields.get('outcome') == 'removed' else 'queued'}.get(event)
+                'removed' if fields.get('outcome') == 'removed' else 'configuration_published' if fields.get('outcome')=='configuration_published' else 'queued'}.get(event)
         if kind:
             if kind == 'queued' and identity['action'] in {'download', 'restore'}:
                 safe_record('approved', **identity)

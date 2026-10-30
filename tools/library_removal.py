@@ -165,7 +165,10 @@ def restore(payload):
             raise ValueError('A release or sufficient free space is unavailable.')
         asset.pop('removed')
         asset['refresh_interval']='1d'
-        next(r for r in data['repositories'] if r['id']==asset['repository_id'])['enabled']=True
+        repo=next(r for r in data['repositories'] if r['id']==asset['repository_id'])
+        repo['enabled']=True
+        for option in repo.get('variants',[]):
+            if option['asset_id']==asset['id']:repo['preferred_variant']=option['id']
         atomic_write(ROOT/'dataark.yaml',serialize(data).encode())
         history_path=Path('/var/lib/dataark/updates/checked.json')
         history=json.loads(history_path.read_text()) if history_path.exists() else {}
@@ -173,3 +176,24 @@ def restore(payload):
         atomic_write(history_path,json.dumps(history).encode())
     subprocess.run(['/usr/bin/systemctl','start','--no-block','dataark-update.service'],check=True)
     return {'message':'Reinstatement requested. The archive will be downloaded, verified and returned to the landing page.'}
+
+
+@tracked('variant_preference')
+def prefer_variant(payload):
+    if set(payload)!={'action','repository_id','variant_id'} or payload['action']!='prefer':raise ValueError('Invalid variant preference request')
+    import fcntl
+    from app.services.collection_variants import groups
+    with Path('/var/lib/dataark/updates/worker.lock').open('a') as lock:
+        try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        except BlockingIOError:raise ValueError('An update is running. Wait for it to finish.') from None
+        data=load_manifest(ROOT/'dataark.yaml');options=groups(data)
+        group=next((g for g in options if g['id']==payload['repository_id']),None)
+        variant=next((v for v in group['variants'] if v['id']==payload['variant_id']),None) if group else None
+        if not variant:raise ValueError('Unknown collection variant')
+        asset=next(a for a in data['assets'] if a['id']==variant['asset_id'])
+        mount=Path(data['system']['base_mount'])
+        if not mount.is_mount() or asset.get('removed') or not inside(mount,asset['relative_path']).is_file():raise ValueError('Download and activate this variant before preferring it for restoration.')
+        repo=next(r for r in data['repositories'] if r['id']==group['id']);repo['preferred_variant']=variant['id']
+        atomic_write(ROOT/'dataark.yaml',serialize(data).encode())
+    subprocess.run([str(ROOT/'venv/bin/python'),'-m','tools.content_profile','export'],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+    return {'message':'Restoration preference saved. Existing copies were kept.'}

@@ -52,3 +52,8 @@ No anonymous rsync daemon or WebDAV service is configured. A Massachusetts OpenS
 ## Peripheral resource principle
 
 The network, Linux computer, storage, terminal, tools and physical interfaces incidental to serving content are potential resources under adverse conditions. Their utility is not limited to administration. Discoverability, offline dependencies, access requirements and operational limits belong in the [resource guide](../10-User/Resources.md). Preserve open library access and continuity when adding features. Workload quotas, isolation and public compute are not automatically provided by this architecture; they must be separately designed and verified.
+
+
+## Appliance and network-server deployments
+
+The core Ark is a network content server. A single-board computer, hotspot and captive portal are deployment capabilities rather than requirements of its content model. A LAN-only host should retain its existing network configuration and expose the same local readers and management tools without a hotspot. Capability discovery and platform adapters are the boundary for optional radios and network administration; collection configuration and archive alternatives remain hardware-independent.

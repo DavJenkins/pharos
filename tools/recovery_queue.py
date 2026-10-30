@@ -45,7 +45,7 @@ def save(path, value):
 def fingerprint(profile, policy):
     c = content.read(profile)
     h = hashlib.sha256(json.dumps(policy, sort_keys=True).encode())
-    for source in ['tools/recovery_queue.py','tools/content_profile.py','tools/content_lock.py','tools/content_types.py','app/services/configuration_project.py','tools/configuration_project.py'] + [v[0] for v in content.COLLECTIONS.values()]:
+    for source in ['app/services/collection_variants.py','tools/recovery_queue.py','tools/content_profile.py','tools/content_lock.py','tools/content_types.py','app/services/configuration_project.py','tools/configuration_project.py'] + [v[0] for v in content.COLLECTIONS.values()]:
         h.update(source.encode() + b'\0' + (ROOT/source).read_bytes() + b'\0')
     for path, name in sorted(content.portable_files(c, Path(profile).parent), key=lambda pair: pair[1]):
         h.update(name.encode() + b'\0' + path.read_bytes() + b'\0')
@@ -54,10 +54,12 @@ def fingerprint(profile, policy):
 
 def packages(c, policy):
     """Profiles carry measured recipe bounds; unknown bounds remain unknown."""
+    from app.services.collection_variants import recovery_archives
+    excluded=recovery_archives(c,policy)
     result = []
     for group in GROUPS:
         for original in c.get(group, []):
-            if not original.get('enabled', True):
+            if not original.get('enabled', True) or (group=='archives' and original['id'] in excluded):
                 continue
             item = copy.deepcopy(original)
             size = item.get('installed_bytes', item.get('bytes'))
@@ -390,7 +392,7 @@ def main():
     if fingerprint(q['profile'], q['policy']) != q['profile_sha256']:
         raise SystemExit('Profile changed; approve a new plan before applying selections')
     if q['jobs']:
-        content.apply_public_profile(content.read(q['profile']), Path(q['profile']).parent)
+        content.apply_public_profile(content.read(q['profile']), Path(q['profile']).parent,q['policy'].get('variant_preferences',{}))
     run(a.state, restart=a.action == 'restart')
 
 

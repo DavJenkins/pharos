@@ -1,7 +1,17 @@
 repository:
   id: wikipedia
   category: content_sources
-  title: Wikipedia
+  title: Wikipedia - English
+  preferred_variant: with-images
+  variants:
+  - id: with-images
+    title: With images
+    asset_id: wikipedia-main
+    description: Richly illustrated encyclopedia; larger download and storage requirement.
+  - id: without-images
+    title: Without images
+    asset_id: wikipedia-nopic
+    description: Text-focused encyclopedia; smaller download and storage requirement.
   description: English encyclopedias preserved on this Ark.
   artwork:
     path: app/static/assets/icons/Wikipedia.png

@@ -79,3 +79,29 @@ FTP installation: install the Debian vsftpd package, then run sudo python3 deplo
 ## Displayed update schedule
 
 Manage Library displays each registered item’s effective update policy and configured publisher-check interval, its last completed worker check from checked.json, and its next due time. These are read-only settings. Times are formatted in the viewing device’s timezone. Due work waits for connectivity and the worker; it is not a guaranteed start time or publisher release date. Manual, disabled and removed items are not scheduled. Missing history is shown as not recorded; unreadable or invalid history is shown as unavailable rather than inventing a date.
+
+
+## Large inventories and collection alternatives
+
+Installed files are grouped into collapsed collections with counts and total sizes. Search matches titles, collection names and paths. Open a collection to see its first 25 files, then use Show next 25. Each file has expandable update details and its own removal confirmation.
+
+A collection can declare archive variants in its public configuration. Wikipedia - English offers With images and Without images. Manage Library shows these alternatives together, including installed/download-registered state and the preferred restoration edition. Download alternative uses the caretaker-authorized reinstatement path, checks publisher size and available space, and verifies the archive before activation. The current copy is retained; removal remains a separate explicit action. Pending or failed alternatives do not remove the working edition.
+
+Example repository configuration (the asset IDs refer to archive recipes in the same collection):
+
+```yaml
+preferred_variant: with-images
+variants:
+  - id: with-images
+    title: With images
+    asset_id: wikipedia-main
+    description: Illustrated edition; larger download and storage requirement.
+  - id: without-images
+    title: Without images
+    asset_id: wikipedia-nopic
+    description: Text-focused edition; smaller download and storage requirement.
+```
+
+The configuration editor exposes this in config/library/collections/wikipedia.yaml. The combined active manifest carries the same metadata. Public recovery exports include variant_groups, so restoration selects one enabled variant. Disabled choices remain disabled. If the preferred choice is disabled, restoration falls back to another enabled member. To override the saved preference in config/recovery-presets.json, set variant_preferences: {wikipedia: without-images}; an override of a disabled choice is refused. Restoring never deletes existing files. To keep two copies intentionally, preserve the second separately; a collection alternative group requests only one copy during restoration.
+
+Preference changes and alternative download requests enter the collection event feed used by Home Assistant. Preference changes are configuration events, rather than fictitious downloads.

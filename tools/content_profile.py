@@ -59,10 +59,18 @@ def bound_recipes(recipes, root):
   item.update(installed_bytes=size,temporary_bytes=2*size,update_headroom_bytes=max(16*1024**2,size//5),estimate_basis='Observed source collection including auxiliary files, plus 25% growth; review on a new publisher edition')
  return recipes
 
-def apply_public_profile(c,folder):
+def apply_public_profile(c,folder,variant_preferences=None):
  public=read(inside(folder,c['manifest']));live=read(REPO/'dataark.yaml') if (REPO/'dataark.yaml').exists() else public
  for key in PUBLIC_KEYS:
   if key!='system' and key in public:live[key]=public[key]
+ from app.services.collection_variants import recovery_archives
+ excluded=recovery_archives(c,{'variant_preferences':variant_preferences or {}})
+ for asset in live.get('assets',[]):
+  if asset['id'] in excluded:asset.update(removed=True,update_policy='manual',refresh_interval='never')
+ for group in c.get('variant_groups',[]):
+  chosen=next((v for v in group['variants'] if v['asset_id'] not in excluded),None)
+  repo=next((r for r in live['repositories'] if r['id']==group['id']),None)
+  if chosen and repo:repo['preferred_variant']=chosen['id']
  write(REPO/'dataark.yaml',yaml.safe_dump(live,sort_keys=False,allow_unicode=True))
 
 def export(folder):
@@ -100,6 +108,8 @@ def export(folder):
  # Report large unregistered root archives, rather than silently treating stale copies as selected.
  unmanaged=[{'path':p.name,'bytes':p.stat().st_size,'note':'Not registered; preserve separately or add an explicit source recipe.'} for p in root.glob('*.zim') if p.name not in owned]
  recipe={'schema':1,'name':'Data Ark content selection','exported_at':datetime.now(timezone.utc).isoformat(),'source_repository':'https://github.com/DavJenkins/pharos','source_commit':subprocess.check_output(['git','-c','safe.directory='+str(REPO),'-C',str(REPO),'rev-parse','HEAD'],text=True).strip(),'content_root':str(root),'manifest':'public-manifest.yaml','reserve_gib':10,'download_rate_kib':0,'notes':['This file and referenced catalogues describe public content, not passwords, networking or private backups.','enabled=false preserves an uninstalled choice without downloading it.','Pinned archives require the recorded hash. Rolling publisher datasets and regenerated HTML may differ from the export.','No content is deleted by restoration. Source availability and network access are required unless files are supplied separately.'],'archives':archives,'direct_files':files,'map_files':mapfiles,'recipes':[{'id':'portable-reader','enabled':True,'url':next(a['download_url'] for a in manifest['assets'] if a['id']=='kiwix-windows-reader'),'target':'kiwix-viewer','files':[{'path':str(p.relative_to(root/'kiwix-viewer')),'bytes':p.stat().st_size} for p in sorted((root/'kiwix-viewer').rglob('*')) if p.is_file()],'note':'Keep the entire extracted Windows reader folder.'},{'id':'osm','enabled':True,'configuration':'deploy/reference/osm-massachusetts.json'},{'id':'osm-caribbean','enabled':True,'configuration':'deploy/reference/osm-caribbean.json'},{'id':'forms','enabled':True,'catalogue':COLLECTIONS['forms'][2]},{'id':'family','enabled':True,'catalogue':COLLECTIONS['family'][2],'requires':['forms']},{'id':'resilience','enabled':True,'catalogue':COLLECTIONS['resilience'][2],'settings':'deploy/reference/resilience-settings.json','us_code_release':'deploy/reference/us-code-release.json'},{'id':'jurisdictions','enabled':True,'catalogue':COLLECTIONS['jurisdictions'][2],'requires':['resilience']},{'id':'callsigns','enabled':True,'configuration':COLLECTIONS['callsigns'][2],'note':'FCC complete ZIP is a rolling source. Preserved source ZIP restores the old snapshot; otherwise a new snapshot is imported.'},{'id':'radio-study','enabled':True,'configuration':COLLECTIONS['radio-study'][2]},{'id':'curriculum','enabled':True,'catalogue':COLLECTIONS['curriculum'][2],'note':'Original curriculum PDFs and explicit coverage; licenses retained.'},{'id':'communication','enabled':True,'catalogue':COLLECTIONS['communication'][2]},{'id':'indexes','enabled':True}],'snapshots':snapshots,'unmanaged_archives':unmanaged}
+ from app.services.collection_variants import groups
+ recipe['variant_groups']=groups(manifest)
  bound_recipes(recipe['recipes'],root)
  write(folder/'content.yaml','# Public content recipe. Edit enabled flags and source catalogues; keep this folder with the source repository.\n'+yaml.safe_dump(recipe,sort_keys=False,allow_unicode=True));write(folder/'content-lock.json',json.dumps({'assets':coverage,'unmanaged_archives':unmanaged},indent=2)+'\n')
  if folder.resolve()==(REPO/'config/content').resolve():mirror(recipe,folder,root/'DATA-ARK-CONFIG')
@@ -160,10 +170,12 @@ def selected(c,only):
   if i['id'] in only:
    for dependency in i.get('requires',[]):
     if dependency not in only:only.append(dependency)
+ from app.services.collection_variants import recovery_archives
+ excluded=recovery_archives(c,{})
  jobs=[]
  for group in ['archives','direct_files','map_files']:
   for i in c.get(group,[]):
-   if i.get('enabled',True) and (not only or group in only or i['id'] in only):jobs.append((group,i))
+   if i.get('enabled',True) and not (group=='archives' and i['id'] in excluded) and (not only or group in only or i['id'] in only):jobs.append((group,i))
  for i in c.get('recipes',[]):
   if i.get('enabled',True) and (not only or i['id'] in only):jobs.append(('recipe',i))
  return jobs

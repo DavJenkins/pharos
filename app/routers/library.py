@@ -43,6 +43,10 @@ async def remove(request: Request):
 async def restore(request: Request):
     return await mutation(request,'restore')
 
+@router.post('/prefer')
+async def prefer(request: Request):
+    return await mutation(request,'prefer')
+
 async def mutation(request: Request, action: str):
     await check_password(request)
     if request.headers.get('content-type','').split(';')[0] != 'application/json':
@@ -54,7 +58,7 @@ async def mutation(request: Request, action: str):
             raise HTTPException(413, 'Request too large')
     try:
         payload=json.loads(body)
-        fields={'install':{'repository_id','release','bytes'},'remove':{'asset_id','relative_path','bytes'},'restore':{'asset_id'}}
+        fields={'install':{'repository_id','release','bytes'},'remove':{'asset_id','relative_path','bytes'},'restore':{'asset_id'},'prefer':{'repository_id','variant_id'}}
         if not isinstance(payload,dict) or set(payload)!=fields[action]:
             raise ValueError('Invalid library request')
         if action!='install':

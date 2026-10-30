@@ -57,7 +57,7 @@ def tracked(action):
                     fields['bytes_freed']=payload['bytes']
                 if action=='download' and isinstance(payload,dict) and type(payload.get('bytes')) is int:
                     fields['bytes_requested']=payload['bytes']
-                emit('operation_completed',outcome='removed' if action=='remove' else 'queued',**fields)
+                emit('operation_completed',outcome='removed' if action=='remove' else 'configuration_published' if action=='variant_preference' else 'queued',**fields)
                 return result
             except Exception as error:
                 emit('operation_failed',action=action,error_type=type(error).__name__,reason=str(error),elapsed_seconds=round(time.monotonic()-started,2),**identity)

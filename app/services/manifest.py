@@ -291,6 +291,11 @@ def load_manifest(path):
                 raise ManifestError('requires_internet must be true or false.')
         artwork(repo.get('artwork'))
         policy(repo)
+    from app.services.collection_variants import groups as variant_groups
+    try:
+        variant_groups(data)
+    except ValueError as error:
+        raise ManifestError(str(error)) from error
     for asset in assets.values():
         if asset.get('repository_id') not in repositories:
             raise ManifestError(f'Unknown repository_id for asset {asset["id"]}.')

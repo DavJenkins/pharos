@@ -77,8 +77,16 @@ def inventory():
             installed.append(item)
         elif asset.get('update_source'):
             pending.append(item)
+    from app.services.collection_variants import groups
+    variants=groups(data)
+    all_items={i['id']:i for i in installed+pending+removed}
+    for group in variants:
+        for option in group['variants']:
+            item=all_items.get(option['asset_id'])
+            option['item']=item
+            option['state']='installed' if item in installed else 'downloading' if item in pending else 'not_installed'
     usage = shutil.disk_usage(mount)
-    return {'installed':installed, 'pending':pending, 'removed':removed, 'free_bytes':usage.free, 'total_bytes':usage.total, 'used_bytes':usage.used,
+    return {'variants':variants, 'installed':installed, 'pending':pending, 'removed':removed, 'free_bytes':usage.free, 'total_bytes':usage.total, 'used_bytes':usage.used,
         'storage_ready':mount.is_mount(), 'downloads_enabled':Path('/usr/local/libexec/dataark-library').is_file(), 'progress':progress()}
 
 def catalogue():
