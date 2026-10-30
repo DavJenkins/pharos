@@ -17,5 +17,11 @@ class VariantTests(unittest.TestCase):
   self.data['repositories'][0]['variants'][1]['asset_id']='large'
   with self.assertRaises(ValueError):groups(self.data)
   with self.assertRaises(ValueError):recovery_archives(self.profile,{'variant_preferences':{'typo':'text'}})
+ def test_recovery_packages_select_one_enabled_archive(self):
+  from tools.recovery_queue import packages
+  policy={'recipe_tiers':{},'recommended_archives':[],'minimal_file_max_bytes':1}
+  self.assertEqual([p['id'] for p in packages(self.profile,policy)],['large'])
+  policy['variant_preferences']={'encyclopedia':'text'}
+  self.assertEqual([p['id'] for p in packages(self.profile,policy)],['small'])
  def test_legacy_profiles_unchanged(self):self.assertEqual(recovery_archives({'archives':[{'id':'a'},{'id':'b'}]},{}),set())
 if __name__=='__main__':unittest.main()

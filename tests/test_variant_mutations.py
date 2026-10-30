@@ -5,7 +5,7 @@ from tools import library_removal as removal
 class VariantMutations(unittest.TestCase):
  setUp=RemovalTests.setUp
  def configure(self):
-  repo=self.data['repositories'][0];repo.update(preferred_variant='first',variants=[{'id':'first','title':'Original','asset_id':'example'},{'id':'second','title':'Alternative','asset_id':'alternative'}])
+  repo=self.data['repositories'][0];repo.update(title='Example collection',preferred_variant='first',variants=[{'id':'first','title':'Original','asset_id':'example'},{'id':'second','title':'Alternative','asset_id':'alternative'}])
   second={**self.data['assets'][0],'id':'alternative','relative_path':'alternative.zim','removed':True};self.data['assets'].append(second)
   (self.root/'dataark.yaml').write_text(yaml.safe_dump(self.data))
  def test_download_alternative_preserves_original_and_records_desired_variant(self):

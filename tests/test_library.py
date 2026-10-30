@@ -29,7 +29,7 @@ class LibraryTests(unittest.TestCase):
             write.assert_not_called()
 
     def test_route_exists(self):
-        self.assertEqual({r.path for r in router.routes},{'/library','/library/catalogue','/library/install','/library/remove','/library/restore','/library/unlock'})
+        self.assertEqual({r.path for r in router.routes},{'/library','/library/catalogue','/library/install','/library/remove','/library/restore','/library/unlock','/library/changes','/library/prefer'})
 
     def test_catalogue_passes_identity_and_reports_release(self):
         from app.services import library

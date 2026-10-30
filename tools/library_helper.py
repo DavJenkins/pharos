@@ -5,7 +5,7 @@ import json
 import subprocess
 import sys
 from pathlib import Path
-sys.path.insert(0,'/opt/dataark')
+if '/opt/dataark' not in sys.path:sys.path.append('/opt/dataark')
 import yaml
 from app.services.library import PACKAGES, ROOT
 from app.services.manifest import atomic_write, load_manifest
