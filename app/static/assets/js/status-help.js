@@ -267,6 +267,7 @@
         function render() {
             if (!selected) return;
             const item = items[selected], original = document.getElementById(selected);
+            const readonlyNetwork=DataArkStatus.data?.network?.capabilities?.network_controls===false && ["eth-button","wifi-button","ap-button"].includes(selected);
             if(selected!=="system-button")toggleHome.append(link,bannerButton,terminalLink,httpsLink,configurationLink,supportButton);
             heading.textContent = item.name;
             const networkSwitch = !!item.toggle;
@@ -282,7 +283,7 @@
             switchState.hidden = !networkSwitch;
             if (networkSwitch) action.setAttribute("role", "switch");
             else action.removeAttribute("role");
-            description.textContent = selected === "refresh-button" ? "Update the displayed dashboard status every " + Dashboard.refreshIntervalSeconds + " seconds. Pausing this does not stop the Ark's services." : item.description;
+            description.textContent = readonlyNetwork ? "This connection is managed by the host operating system. The Ark displays its status without changing its settings." : selected === "refresh-button" ? "Update the displayed dashboard status every " + Dashboard.refreshIntervalSeconds + " seconds. Pausing this does not stop the Ark's services." : item.description;
             intervalPanel.hidden = selected !== "refresh-button";
             if (selected === "refresh-button" && !intervalDirty && document.activeElement !== intervalInput) intervalInput.value = String(Dashboard.refreshIntervalSeconds);
             if (selected === "refresh-button" && intervalResult.textContent) intervalResult.textContent = Dashboard.refreshEnabled ? "Checking every " + Dashboard.refreshIntervalSeconds + " seconds." : "Paused. Checks resume at this interval when Auto refresh is on.";
@@ -299,7 +300,6 @@
             renderDetails(item, selected==="eth-button"?DataArkStatus.ethernetTooltip(currentWired()):original.title);
             value.hidden = !!item.url || (!!item.toggle && !["wifi-button", "eth-button", "ap-button"].includes(selected));
             wifiMessage.hidden = !["wifi-button", "eth-button", "ap-button"].includes(selected);
-            const readonlyNetwork=DataArkStatus.data?.network?.capabilities?.network_controls===false && ["eth-button","wifi-button","ap-button"].includes(selected);
             document.getElementById("status-dialog-toggle-row").hidden = !item.toggle || readonlyNetwork;
             if (item.toggle) {
                 const enabled = ["wifi-button", "eth-button", "ap-button"].includes(selected) ? ((selected === "ap-button" ? DataArkStatus.accessPoint : selected === "eth-button" ? currentWired() : DataArkStatus.wifi).enabled ?? (selected === "ap-button" ? DataArkStatus.accessPoint.active : selected === "eth-button" ? currentWired().connected : DataArkStatus.wifi.connected)) === true : original.classList.contains("on");
@@ -319,8 +319,8 @@
                 document.getElementById("status-dialog-toggle-label").textContent = selected === "ap-button" ? "Enable hotspot" : selected === "eth-button" ? "Enable Ethernet ("+(currentWired().interface||"—")+")" : selected === "wifi-button" ? "Enable upstream Wi-Fi" : selected === "debug-button" ? "Enable debug diagnostics" : selected === "refresh-button" ? "Update status automatically" : "Use the Ark's internet connection on this device";
             }
             adapterLink.hidden = !["wifi-button","ap-button"].includes(selected) || readonlyNetwork;
-            link.hidden=readonlyNetwork;
             updateTabActions();
+            if(readonlyNetwork)link.hidden=true;
             link.href = item.settings || item.url || "#";
             link.textContent = item.settingsLabel || item.openLabel || "";
         }

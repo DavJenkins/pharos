@@ -16,7 +16,6 @@ function arkStatusWorking(data) {
  const gear=settings.querySelector('summary');let idleSince=null,lastRefresh=null,attentionUntil=0,lastKey='';
  const badge=document.createElement('span');badge.className='status-attention-count';badge.setAttribute('aria-hidden','true');badge.hidden=true;gear.append(badge);
  const attention=document.createElement('section');attention.className='status-attention';attention.hidden=true;settings.before(attention);
- const reviewLink=document.createElement('a');reviewLink.href='/capture.html';reviewLink.className='status-review-link';reviewLink.hidden=true;panel.append(reviewLink);
  function update(){
   const now=Date.now(),fresh=lastRefresh!==null&&now-lastRefresh<=(Dashboard.refreshIntervalSeconds+10)*1000;
   const data=DataArkStatus.data,health=arkCompactHealth(data,fresh,Dashboard.refreshEnabled);
@@ -45,11 +44,6 @@ function arkStatusWorking(data) {
   const label=health.tone==='green'?'Healthy':health.tone==='gray'?'Status unknown or stale':(health.tone==='red'?'Failure':'Warning')+' - '+health.count+' '+(health.count===1?'item needs':'items need')+' attention';
   gear.title=label+' - Settings';gear.setAttribute('aria-label',gear.title);
   attention.hidden=compact||health.tone==='green';
-  const checks=data?.status?.health?.source_checks,reviews=checks?.browser_review;
-  const reviewWarning=!!(reviews?.overdue||checks?.errors||checks?.changed);
-  reviewLink.hidden=compact||reviewWarning||!reviews?.required;
-  reviewLink.textContent=reviews?.overdue?'Browser reviews due: '+reviews.overdue:checks?.errors||checks?.changed?'Publisher checks need attention':'Browser reviews: '+(reviews?.overdue||0)+' due';
-  reviewLink.title='Open Capture downloads to review publisher files and compare saved copies';
  }
  window.addEventListener('dataark:dashboard-refreshed',()=>{lastRefresh=Date.now();update();});
  window.addEventListener('dataark:connectivity-refreshed',update);

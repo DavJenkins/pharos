@@ -5,7 +5,8 @@ const gear=element(),settings={open:false,before(node){panel.children.unshift(no
 const data={status:{state:'ok',sync:'Idle',issues:[],health:{state:'ok',problems:[],source_checks:{}}}};
 const context={document:{createElement:element,querySelector:()=>panel,getElementById:id=>id==='ark-settings'?settings:element()},window:{addEventListener:(n,f)=>events[n]=f},Dashboard:{refreshEnabled:true,refreshIntervalSeconds:60},DataArkStatus:{data},Date:{now:()=>clock},setInterval:f=>tick=f};vm.createContext(context);vm.runInContext(src,context);
 function at(t,refresh=true){clock=t;if(refresh)events['dataark:dashboard-refreshed']();else tick();}
-at(1);assert.equal(gear.dataset.health,'green');at(30001);assert(classes.has('status-condensed'));
+data.status.health.source_checks={browser_review:{required:9,overdue:0}};
+at(1);assert.equal(panel.children.length,1,'No standalone zero-due review notice');assert.equal(gear.dataset.health,'green');at(30001);assert(classes.has('status-condensed'));
 data.status.health={state:'warning',problems:[{id:'content.browser_reviews',message:'Review due'}]};at(31000);assert.equal(gear.dataset.health,'amber');assert(!classes.has('status-condensed'));assert.equal(gear.children[0].textContent,'1');
 at(61000);assert(classes.has('status-condensed'));const attention=panel.children[0];assert.equal(attention.children[1].children[0].children[0].href,'/capture.html');
 settings.open=true;events.toggle();assert(!classes.has('status-condensed'));assert(!attention.hidden);settings.open=false;events.toggle();at(92000);assert(classes.has('status-condensed'));

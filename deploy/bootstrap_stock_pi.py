@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Experimental stock Raspberry Pi OS 64-bit / Debian 13 installer.
+"""Data Ark installer for reviewed Debian 13 platform profiles.
 No formatting. Defaults to a read-only plan. Fresh-system acceptance pending.
 """
 import argparse,fcntl,hashlib,json,os,platform,pwd,re,shutil,subprocess,tarfile,tempfile,time,uuid

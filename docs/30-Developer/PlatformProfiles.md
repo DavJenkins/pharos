@@ -12,9 +12,9 @@ The generic LAN profiles are experimental installation profiles. Their software 
 
 ## Common operating-system contract
 
-The initial family is **Debian 13, systemd and NetworkManager**, with primary account `admin` at UID 1000, `/opt/dataark` for source and a separately mounted content drive at `/mnt/storage`. Existing unmanaged Ark installations, conflicting services and incompatible baselines are refused. Other distributions and 32-bit processors are not silently treated as compatible.
+The initial family is **Debian 13 and systemd**, with primary account `admin` at UID 1000, `/opt/dataark` for source and a separately mounted content drive at `/mnt/storage`. Existing unmanaged Ark installations, conflicting services and incompatible baselines are refused. Other distributions and 32-bit processors are not silently treated as compatible.
 
-NetworkManager must already manage the target's connections. Read-only discovery also needs `ip` (iproute2), ethtool, and iw when wireless adapters are present. Missing prerequisites are reported before installation; discovery does not install packages, activate radios, scan for nearby networks or change connections.
+The hotspot profile requires NetworkManager, ethtool and iw. LAN profiles preserve the existing network manager (including systemd-networkd), do not install NetworkManager or dnsmasq, and require only iproute2 for initial read-only discovery. Optional discovery tools can add detail after installation without invalidating the LAN review. Missing prerequisites are reported before installation; discovery does not install packages, activate radios, scan for nearby networks or change connections.
 
 ## Discover and review
 

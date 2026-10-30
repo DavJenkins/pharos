@@ -107,6 +107,8 @@ Review the preview and run its exact command including --accept-plan and --apply
 Use --mode fit for whole collections that fit, or populated for all public content. No private household
 backups, credentials, host keys or Linux login files are copied.
 '''
+ if spec['network_mode']=='lan':
+  text=text.replace('Use a local terminal and Ethernet or a\nsecond Wi-Fi adapter for upstream internet.','Use the existing LAN connection and a local or SSH terminal.').replace('Read/edit DATA-ARK-RECOVERY/site.json for SSID, country and content choices.','Review DATA-ARK-RECOVERY/site.json for platform and content choices. Host network settings are retained.')
  text=text.replace('PLATFORM',spec['label'])
  text=text.replace('Apply only on the supported target:\n  sudo bash START-ARK.sh --apply', 'Review the discovery plan and use the exact apply command it prints, including --accept-plan.')
  if spec['network_mode']=='lan':text=text.replace('It will turn wlan0 into an open\nDataArk hotspot;', 'Existing LAN connections are preserved; no hotspot is created;')
