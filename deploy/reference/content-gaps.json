@@ -8,36 +8,39 @@
       "collection": "preparedness",
       "title": "FEMA CERT Annex for All Abilities",
       "source_url": "https://www.fema.gov/sites/default/files/2020-07/fema_cert-annex-for-all-abilities_091615.pdf",
-      "last_attempt": "2026-10-23T04:41:39.009405+00:00",
+      "last_attempt": "2026-10-30T22:37:03.743365+00:00",
       "observed_failure": "HTTP Error 403: Forbidden",
       "assessment": "Partial coverage",
       "installed_alternative": "OHSU Ready Now!, disability planning, FEMA caregiver guide and CERT basic manual.",
       "retry_priority": "Medium: household planning does not replace CERT-specific inclusive response instruction.",
-      "evidence": "/mnt/storage/preparedness/sources.json"
+      "evidence": "/mnt/storage/preparedness/sources.json",
+      "release_status": "maintenance_only"
     },
     {
       "id": "mema-flyer.pdf",
       "collection": "preparedness",
       "title": "Massachusetts MEMA Emergency Preparedness Flyer",
       "source_url": "https://www.mass.gov/doc/english-emergency-preparedness-flyer/download",
-      "last_attempt": "2026-10-23T04:41:39.122634+00:00",
+      "last_attempt": "2026-10-30T22:37:03.744365+00:00",
       "observed_failure": "HTTP Error 403: Forbidden",
       "assessment": "Covered differently",
       "installed_alternative": "FEMA Are You Ready? and CERT references.",
       "retry_priority": "Low: general preparedness covered; Massachusetts contacts are not equivalent.",
-      "evidence": "/mnt/storage/preparedness/sources.json"
+      "evidence": "/mnt/storage/preparedness/sources.json",
+      "release_status": "maintenance_only"
     },
     {
       "id": "mema-winter-2026.pdf",
       "collection": "preparedness",
       "title": "Massachusetts MEMA Winter Weather Preparedness Toolkit",
       "source_url": "https://www.mass.gov/doc/winter-weather-preparedness-toolkit-2026/download",
-      "last_attempt": "2026-10-23T04:41:39.264494+00:00",
+      "last_attempt": "2026-10-30T22:37:03.744365+00:00",
       "observed_failure": "HTTP Error 403: Forbidden",
       "assessment": "Covered differently",
       "installed_alternative": "NWS winter checklist/booklet, FEMA archived winter guide, heating/generator references.",
       "retry_priority": "Low: winter topics covered; local 2026 contacts remain absent.",
-      "evidence": "/mnt/storage/preparedness/sources.json"
+      "evidence": "/mnt/storage/preparedness/sources.json",
+      "release_status": "maintenance_only"
     },
     {
       "id": "usfs-outdoor-safety",
@@ -57,12 +60,13 @@
       "collection": "resilience",
       "title": "DOE — Microhydropower Systems",
       "source_url": "https://www.energy.gov/energysaver/microhydropower-systems",
-      "last_attempt": "2026-10-24T01:21:52.763383+00:00",
+      "last_attempt": "2026-10-30T22:37:03.744365+00:00",
       "observed_failure": "HTTP Error 404: Not Found",
       "assessment": "Covered differently",
       "installed_alternative": "NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation, February 2011, 28 pages, installed from NCAT. Archived engineering/planning reference, not current Massachusetts permitting or electrical code.",
       "retry_priority": "Low: exact failed titles optional; retain historical source failures.",
-      "evidence": "/mnt/storage/resilience/sources.json"
+      "evidence": "/mnt/storage/resilience/sources.json",
+      "release_status": "maintenance_only"
     },
     {
       "id": "colorado-microhydro",
@@ -82,60 +86,66 @@
       "collection": "civic-reference",
       "title": "Massachusetts Electrical Code — adoption and source information",
       "source_url": "https://www.mass.gov/info-details/massachusetts-electrical-code",
-      "last_attempt": "2026-10-24T01:21:53.142874+00:00",
+      "last_attempt": "2026-10-30T22:37:03.744365+00:00",
       "observed_failure": "HTTP Error 403: Forbidden",
-      "assessment": "Open need",
-      "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
+      "assessment": "Publisher adoption/index page not archived",
+      "installed_alternative": "Massachusetts 527 CMR 12.00 electrical amendments installed; this missing page is adoption/source context, not the amendment PDF. NFPA base text is not bundled.",
       "retry_priority": "High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.",
-      "evidence": "/mnt/storage/civic-reference/sources.json"
+      "evidence": "/mnt/storage/civic-reference/sources.json",
+      "release_status": "maintenance_only"
     },
     {
       "id": "ma-fire-adoption",
       "collection": "civic-reference",
       "title": "Massachusetts Fire Code — adoption and source information",
       "source_url": "https://www.mass.gov/info-details/massachusetts-fire-code",
-      "last_attempt": "2026-10-24T01:21:53.284516+00:00",
+      "last_attempt": "2026-10-30T22:37:03.744365+00:00",
       "observed_failure": "HTTP Error 403: Forbidden",
-      "assessment": "Open need",
-      "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
+      "assessment": "Publisher adoption/index page not archived",
+      "installed_alternative": "Massachusetts 527 CMR 1.00 fire amendments installed; this missing page is adoption/source context, not the amendment PDF. NFPA base text is not bundled.",
       "retry_priority": "High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.",
-      "evidence": "/mnt/storage/civic-reference/sources.json"
+      "evidence": "/mnt/storage/civic-reference/sources.json",
+      "release_status": "maintenance_only"
     },
     {
       "id": "ma-building-adoption",
       "collection": "civic-reference",
       "title": "Massachusetts Building Code — tenth-edition amendment index",
       "source_url": "https://www.mass.gov/regulations/780-cmr-tenth-edition-table-of-contents",
-      "last_attempt": "2026-10-24T01:21:53.301860+00:00",
+      "last_attempt": "2026-10-30T22:37:03.744365+00:00",
       "observed_failure": "HTTP Error 403: Forbidden",
-      "assessment": "Open need",
-      "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
+      "assessment": "Publisher adoption/index page not archived",
+      "installed_alternative": "Tenth-edition contents PDF and publisher introduction HTML installed. The full set of state amendments and ICC base books is not claimed.",
       "retry_priority": "High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.",
-      "evidence": "/mnt/storage/civic-reference/sources.json"
+      "evidence": "/mnt/storage/civic-reference/sources.json",
+      "release_status": "maintenance_only"
     },
     {
       "id": "gardner-code",
       "collection": "civic-reference",
       "title": "Gardner City Code",
       "source_url": "https://www.ecode360.com/GA3020",
-      "last_attempt": "2026-10-24T01:21:53.695984+00:00",
+      "last_attempt": "2026-10-30T22:37:03.744365+00:00",
       "observed_failure": "No substantive public text found",
       "assessment": "Open need",
       "installed_alternative": "City source directory is installed, but it is not ordinance text.",
       "retry_priority": "Medium for local-law coverage; obtain authorized substantive text.",
-      "evidence": "/mnt/storage/civic-reference/sources.json"
+      "evidence": "/mnt/storage/civic-reference/sources.json",
+      "release_status": "maintenance_only"
     },
     {
       "id": "ma-small-claims",
       "collection": "civic-reference",
       "title": "Massachusetts Uniform Small Claims Rules — source index",
       "source_url": "https://www.mass.gov/rules-of-court/uniform-small-claims-rules",
-      "last_attempt": "2026-10-24T01:21:53.377922+00:00",
+      "last_attempt": "2026-10-30T22:37:03.744365+00:00",
       "observed_failure": "HTTP Error 403: Forbidden",
       "assessment": "Open need",
       "installed_alternative": "Massachusetts Chapter 93A snapshot is not court procedure.",
-      "retry_priority": "Medium for local-law coverage; rules and amendments remain absent.",
-      "evidence": "/mnt/storage/civic-reference/sources.json"
+      "retry_priority": "Current publisher index identified at the trial-court-rules URL; automated capture still refused. Full rule text remains unarchived; do not claim court-procedure coverage.",
+      "evidence": "/mnt/storage/civic-reference/sources.json",
+      "replacement_candidate_url": "https://www.mass.gov/trial-court-rules/trial-court-rule-iii-uniform-small-claims-rules",
+      "release_status": "maintenance_only"
     }
   ],
   "omitted_candidates": [
@@ -466,5 +476,10 @@
       "resource": "SSA SS-5",
       "result": "Current /forms/ss-5.pdf endpoint still 403 from Ark. Not installed."
     }
-  ]
+  ],
+  "release_review": {
+    "date": "2026-10-30",
+    "method": "One bounded retry of non-retired recorded URLs; publisher searches; no failed request is counted as installed.",
+    "result": "13 URLs refused automated access with HTTP 403; 2 returned HTTP 404. Two early candidates have no recorded URL. Previously retired sources were not retried."
+  }
 }

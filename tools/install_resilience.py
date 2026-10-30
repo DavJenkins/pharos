@@ -136,11 +136,7 @@ def index(collection,records):
   for r in group_records:
    p.append('<li data-reference data-form-id="ref-'+e(r['id'].lower(),quote=True)+'" data-search="'+e((r['title']+' '+r['note']).lower(),quote=True)+'"><a data-form-file href="'+e(r['filename'],quote=True)+'">'+e(r['title'])+'</a><small>'+e(r['edition'])+' · '+r['format'].upper()+((' · '+str(r['pages'])+' pages') if r.get('pages') else '')+' · '+str(round(r['bytes']/1024**2,2))+' MiB</small><small>'+e(r['note']+' '+r.get('coverage',''))+'</small><details><summary>Source and retrieval</summary><p>'+e(r.get('document_header',''))+'</p><p>Retrieved '+e(r['checked_at'])+' from <a href="'+e(r['url'],quote=True)+'">publisher (internet)</a>.</p></details></li>')
   p.append('</ul></section>')
- missing=[r for r in records if r['status']!='installed']
- if missing:
-  p.append('<section><h2>Not installed / publisher unavailable</h2><ul>')
-  for r in missing:p.append('<li>'+e(r['title'])+' — '+e(r['error'])+'<small>'+e(r['note'])+'</small><a href="'+e(r['url'],quote=True)+'">Original source (internet)</a></li>')
-  p.append('</ul></section>')
+ # Failed acquisitions remain in sources.json and the caretaker report, not visitor offers.
  p.append('<footer><a href="sources.json">Source records, hashes and coverage</a> · <a href="/docs/20-Administration/ResilienceResources.html">Maintenance & remaining gaps</a></footer><script src="/assets/js/forms-availability.js"></script><script src="/assets/js/reference-search.js?v=20261023-resilience1"></script></body></html>');atomic(MOUNT/collection/'index.html',''.join(p).encode())
 def register(records):
  import fcntl

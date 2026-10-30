@@ -14,63 +14,99 @@ This is an acquisition and coverage register, not the Ark’s live health report
 
 ### preparedness
 
-[FEMA CERT Annex for All Abilities](https://www.fema.gov/sites/default/files/2020-07/fema_cert-annex-for-all-abilities_091615.pdf)
+### FEMA CERT Annex for All Abilities
 
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-23).
+[Recorded source](https://www.fema.gov/sites/default/files/2020-07/fema_cert-annex-for-all-abilities_091615.pdf)
+
+- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
 - Coverage: Partial coverage. OHSU Ready Now!, disability planning, FEMA caregiver guide and CERT basic manual.
 - Decision: Medium: household planning does not replace CERT-specific inclusive response instruction.
 
-[Massachusetts MEMA Emergency Preparedness Flyer](https://www.mass.gov/doc/english-emergency-preparedness-flyer/download)
+---
 
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-23).
+### Massachusetts MEMA Emergency Preparedness Flyer
+
+[Recorded source](https://www.mass.gov/doc/english-emergency-preparedness-flyer/download)
+
+- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
 - Coverage: Covered differently. FEMA Are You Ready? and CERT references.
 - Decision: Low: general preparedness covered; Massachusetts contacts are not equivalent.
 
-[Massachusetts MEMA Winter Weather Preparedness Toolkit](https://www.mass.gov/doc/winter-weather-preparedness-toolkit-2026/download)
+---
 
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-23).
+### Massachusetts MEMA Winter Weather Preparedness Toolkit
+
+[Recorded source](https://www.mass.gov/doc/winter-weather-preparedness-toolkit-2026/download)
+
+- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
 - Coverage: Covered differently. NWS winter checklist/booklet, FEMA archived winter guide, heating/generator references.
 - Decision: Low: winter topics covered; local 2026 contacts remain absent.
 
+---
+
 ### resilience
 
-[DOE — Microhydropower Systems](https://www.energy.gov/energysaver/microhydropower-systems)
+### DOE — Microhydropower Systems
 
-- Recorded failure: HTTP Error 404: Not Found (last attempt 2026-10-24).
+[Recorded source](https://www.energy.gov/energysaver/microhydropower-systems)
+
+- Recorded failure: HTTP Error 404: Not Found (last attempt 2026-10-30).
 - Coverage: Covered differently. NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation, February 2011, 28 pages, installed from NCAT. Archived engineering/planning reference, not current Massachusetts permitting or electrical code.
 - Decision: Low: exact failed titles optional; retain historical source failures.
 
+---
+
 ### civic-reference
 
-[Massachusetts Electrical Code — adoption and source information](https://www.mass.gov/info-details/massachusetts-electrical-code)
+### Massachusetts Electrical Code — adoption and source information
 
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-24).
-- Coverage: Open need. No equivalent state code/amendment package installed. General safety guides are not code books.
+[Recorded source](https://www.mass.gov/info-details/massachusetts-electrical-code)
+
+- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
+- Coverage: Publisher adoption/index page not archived. Massachusetts 527 CMR 12.00 electrical amendments installed; this missing page is adoption/source context, not the amendment PDF. NFPA base text is not bundled.
 - Decision: High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.
 
-[Massachusetts Fire Code — adoption and source information](https://www.mass.gov/info-details/massachusetts-fire-code)
+---
 
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-24).
-- Coverage: Open need. No equivalent state code/amendment package installed. General safety guides are not code books.
+### Massachusetts Fire Code — adoption and source information
+
+[Recorded source](https://www.mass.gov/info-details/massachusetts-fire-code)
+
+- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
+- Coverage: Publisher adoption/index page not archived. Massachusetts 527 CMR 1.00 fire amendments installed; this missing page is adoption/source context, not the amendment PDF. NFPA base text is not bundled.
 - Decision: High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.
 
-[Massachusetts Building Code — tenth-edition amendment index](https://www.mass.gov/regulations/780-cmr-tenth-edition-table-of-contents)
+---
 
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-24).
-- Coverage: Open need. No equivalent state code/amendment package installed. General safety guides are not code books.
+### Massachusetts Building Code — tenth-edition amendment index
+
+[Recorded source](https://www.mass.gov/regulations/780-cmr-tenth-edition-table-of-contents)
+
+- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
+- Coverage: Publisher adoption/index page not archived. Tenth-edition contents PDF and publisher introduction HTML installed. The full set of state amendments and ICC base books is not claimed.
 - Decision: High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.
 
-[Gardner City Code](https://www.ecode360.com/GA3020)
+---
 
-- Recorded failure: No substantive public text found (last attempt 2026-10-24).
+### Gardner City Code
+
+[Recorded source](https://www.ecode360.com/GA3020)
+
+- Recorded failure: No substantive public text found (last attempt 2026-10-30).
 - Coverage: Open need. City source directory is installed, but it is not ordinance text.
 - Decision: Medium for local-law coverage; obtain authorized substantive text.
 
-[Massachusetts Uniform Small Claims Rules — source index](https://www.mass.gov/rules-of-court/uniform-small-claims-rules)
+---
 
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-24).
+### Massachusetts Uniform Small Claims Rules — source index
+
+[Recorded source](https://www.mass.gov/rules-of-court/uniform-small-claims-rules)
+
+- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
 - Coverage: Open need. Massachusetts Chapter 93A snapshot is not court procedure.
-- Decision: Medium for local-law coverage; rules and amendments remain absent.
+- Decision: Current publisher index identified at the trial-court-rules URL; automated capture still refused. Full rule text remains unarchived; do not claim court-procedure coverage.
+
+---
 
 ## Optional and retired references
 
@@ -92,124 +128,170 @@ Retired. Retired by caretaker decision: retain failure history and installed alt
 
 ## Resolved entries and corrected targets
 
-[Massachusetts Health Care Proxy](/library-files/forms/government/ma-health-proxy.pdf)
+### [Massachusetts Health Care Proxy](/library-files/forms/government/ma-health-proxy.pdf)
 
 Installed replacement: Honoring Choices Massachusetts September 2025 instructions and blank proxy; two pages, reproduction notice preserved.
 
-44 CFR — Emergency Management and Assistance, Volume 2
+---
+
+### 44 CFR — Emergency Management and Assistance, Volume 2
 
 Retired invalid catalogue target. Official GovInfo 2025 Title 44 bulk directory lists only volume 1, already installed (606 pages). This closes a false gap, not a successful volume-2 download.
 
 [Publisher evidence](https://www.govinfo.gov/bulkdata/CFR/2025/title-44)
 
-[Ready Wrigley: Coping After a Disaster](/library-files/family-resources/kids/cdc-wrigley-en.pdf)
+---
+
+### [Ready Wrigley: Coping After a Disaster](/library-files/family-resources/kids/cdc-wrigley-en.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 20 PDF pages.
 
-[Ready Wrigley: Coping After a Disaster — Spanish](/library-files/family-resources/kids/cdc-wrigley-es.pdf)
+---
+
+### [Ready Wrigley: Coping After a Disaster — Spanish](/library-files/family-resources/kids/cdc-wrigley-es.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 20 PDF pages.
 
-[CDC Backpack Emergency Contact Card](/library-files/family-resources/readiness/cdc-backpack.pdf)
+---
+
+### [CDC Backpack Emergency Contact Card](/library-files/family-resources/readiness/cdc-backpack.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 1 PDF pages.
 
-[CDC Pet Emergency Kit Checklist](/library-files/family-resources/readiness/cdc-pet-kit.pdf)
+---
+
+### [CDC Pet Emergency Kit Checklist](/library-files/family-resources/readiness/cdc-pet-kit.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 1 PDF pages.
 
-[CDC My Family Communication Plan](/library-files/family-resources/readiness/cdc-family-plan.pdf)
+---
+
+### [CDC My Family Communication Plan](/library-files/family-resources/readiness/cdc-family-plan.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 1 PDF pages.
 
-[Massachusetts Form 1 — Resident income tax return](/library-files/forms/tax/ma-form1-2025.pdf)
+---
+
+### [Massachusetts Form 1 — Resident income tax return](/library-files/forms/tax/ma-form1-2025.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 4 PDF pages.
 
-[Massachusetts Form 1 instructions](/library-files/forms/tax/ma-form1-instructions-2025.pdf)
+---
+
+### [Massachusetts Form 1 instructions](/library-files/forms/tax/ma-form1-instructions-2025.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 40 PDF pages.
 
-[Massachusetts electrical-code amendments — 527 CMR 12.00](/library-files/civic-reference/documents/ma-electrical.pdf)
+---
+
+### [Massachusetts electrical-code amendments — 527 CMR 12.00](/library-files/civic-reference/documents/ma-electrical.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 14 PDF pages.
 
-[Massachusetts fire-code amendments — 527 CMR 1.00](/library-files/civic-reference/documents/ma-fire.pdf)
+---
+
+### [Massachusetts fire-code amendments — 527 CMR 1.00](/library-files/civic-reference/documents/ma-fire.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 182 PDF pages.
 
-[Good and Cheap — Leanne Brown](/library-files/family-resources/cookbooks/cook-good-cheap.pdf)
+---
+
+### [Good and Cheap — Leanne Brown](/library-files/family-resources/cookbooks/cook-good-cheap.pdf)
 
 Downloaded directly on the Ark and validated with PDF parser, document identity and SHA-256. Author-hosted version 1.1; license and notices preserved. 90 PDF pages.
 
-[US Forest Service - Know Before You Go: Recreation Checklist](/library-files/resilience/documents/usfs-before-you-go.pdf)
+---
+
+### [US Forest Service - Know Before You Go: Recreation Checklist](/library-files/resilience/documents/usfs-before-you-go.pdf)
 
 Downloaded directly on the Ark and validated with PDF parser, document identity and SHA-256. 2021 recreation checklist is a related replacement for the retired link, not the identical old publication. 2 PDF pages.
 
-[SSA SS-5 — Application for a Social Security card](/library-files/forms/government/ss5.pdf)
+---
+
+### [SSA SS-5 — Application for a Social Security card](/library-files/forms/government/ss5.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 5 PDF pages.
 
-[Massachusetts Building Code 780 CMR — tenth-edition contents](/library-files/civic-reference/documents/ma-building-toc.pdf)
+---
+
+### [Massachusetts Building Code 780 CMR — tenth-edition contents](/library-files/civic-reference/documents/ma-building-toc.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 3 PDF pages.
 
-[Massachusetts Building Code 780 CMR — tenth-edition preamble](/library-files/civic-reference/documents/ma-building-preamble.html)
+---
+
+### [Massachusetts Building Code 780 CMR — tenth-edition preamble](/library-files/civic-reference/documents/ma-building-preamble.html)
 
 Preserved current publisher handbook introduction as attributed text-only HTML; obsolete PDF not recovered.
+
+---
 
 ## Candidates omitted before registration
 
 These are separate from the current unavailable count. Exact URLs were not retained for two early candidates; no replacement URL has been invented.
 
-CDC pregnancy / infant / child handout (June 2026)
+### CDC pregnancy / infant / child handout (June 2026)
 
 - Recorded failure: HTTP 403; omitted before registration.
 - Alternative: AAP Road to Readiness and existing caregiver/family planning; pregnancy-specific equivalence not verified.
 - Decision: Medium: pregnancy-specific need remains unverified.
-[Original record](FirstAidCare.md)
+[Source record for this candidate](FirstAidCare.md)
 
-[Massachusetts DOI disaster brochure](https://www.mass.gov/doc/disasterguidepdf/download)
+---
+
+### [Massachusetts DOI disaster brochure](https://www.mass.gov/doc/disasterguidepdf/download)
 
 - Recorded failure: HTTP 403; omitted before registration.
 - Alternative: NAIC / Maine claims guide installed; Maine legal context is not Massachusetts advice.
 - Decision: Medium for Massachusetts claims contacts and law.
-[Original record](DisasterRecovery.md)
+[Source record for this candidate](DisasterRecovery.md)
 
-[FTC post-disaster scams handout](https://consumer.ftc.gov/system/files/consumer_ftc_gov/pdf/WE-Resource%20One%20Page_FTC_EN_FINAL.pdf)
+---
+
+### [FTC post-disaster scams handout](https://consumer.ftc.gov/system/files/consumer_ftc_gov/pdf/WE-Resource%20One%20Page_FTC_EN_FINAL.pdf)
 
 - Recorded failure: HTTP 404; omitted before registration.
 - Alternative: HUD Avoiding Post-Disaster Scams and Fraud installed.
 - Decision: Low: topic covered differently.
-[Original record](DisasterRecovery.md)
+[Source record for this candidate](DisasterRecovery.md)
 
-Archived Iowa State farm disaster plan
+---
+
+### Archived Iowa State farm disaster plan
 
 - Recorded failure: HTTP 404 at old test server; omitted before registration.
 - Alternative: Iowa State 2023 farm basics and UMN cattle backup-care forms installed.
 - Decision: Low: not a comprehensive farm/veterinary manual.
-[Original record](AnimalsEmergency.md)
+[Source record for this candidate](AnimalsEmergency.md)
 
-[Australian Red Cross disability emergency planning](https://www.redcross.org.au/globalassets/cms/downloads/pdfs/disaster-plan/staying-safe-and-prepared-emergency-planning-for-people-with-disability.pdf)
+---
+
+### [Australian Red Cross disability emergency planning](https://www.redcross.org.au/globalassets/cms/downloads/pdfs/disaster-plan/staying-safe-and-prepared-emergency-planning-for-people-with-disability.pdf)
 
 - Recorded failure: HTTP 403; omitted before registration.
 - Alternative: OHSU Ready Now!, archived American Red Cross disability guide and FEMA caregiver plan.
 - Decision: Low for general planning; alternative accessibility features not asserted equal.
-[Original record](DisabilityPreparedness.md)
+[Source record for this candidate](DisabilityPreparedness.md)
 
-[Australian Red Cross Cool Kit checklist](https://www.redcross.org.au/globalassets/cms/emergency-services/heatwaves/cool-kit-packing-checklist.pdf)
+---
+
+### [Australian Red Cross Cool Kit checklist](https://www.redcross.org.au/globalassets/cms/emergency-services/heatwaves/cool-kit-packing-checklist.pdf)
 
 - Recorded failure: HTTP 403; omitted before registration.
 - Alternative: MS Society temperature-sensitivity reference; no identical printable cool-kit checklist.
 - Decision: Low: useful optional checklist, not an uncovered subject.
-[Original record](DisabilityPreparedness.md)
+[Source record for this candidate](DisabilityPreparedness.md)
 
-[Australian Red Cross Easy English RediPlan](https://www.redcross.org.au/globalassets/cms/downloads/pdfs/disaster-plan/easy-english-rediplan-accessible.pdf)
+---
+
+### [Australian Red Cross Easy English RediPlan](https://www.redcross.org.au/globalassets/cms/downloads/pdfs/disaster-plan/easy-english-rediplan-accessible.pdf)
 
 - Recorded failure: HTTP 403; omitted before registration.
 - Alternative: OHSU plain-language toolkit; digital accessibility improvements pending per publisher.
 - Decision: Medium: equivalent easy-read and screen-reader accessibility is not verified.
-[Original record](DisabilityPreparedness.md)
+[Source record for this candidate](DisabilityPreparedness.md)
+
+---
 
 ## Remaining scope and maintenance limits
 

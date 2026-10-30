@@ -1,6 +1,6 @@
 # Content sources: the landing-page collections
 
-This guide follows the same order and grouping as the landing page: 24 content cards and 1394 registered content items. Archives, datasets and grouped packs count as items; their internal articles, books, map features and individual pages are not separate cards.
+This guide follows the same order and grouping as the landing page: 24 content cards and 1400 registered content items. Archives, datasets and grouped packs count as items; their internal articles, books, map features and individual pages are not separate cards.
 
 Local links open saved content or browser tools on the Ark. Publisher links identify the original sources and require upstream internet. Saved editions are snapshots; a blocked publisher check does not mean the installed copy is missing. Long inventories expand below. Outstanding gaps are listed separately from installed material.
 
@@ -8,19 +8,19 @@ Generated from `dataark.yaml` and the dashboard card composition by `tools/docum
 
 ## Card index
 
-- [1. Wikipedia](#1-wikipedia) — 1 registered item
+- [1. Wikipedia - English](#1-wikipedia-english) — 1 registered item
 - [2. Technical Q&A](#2-technical-q-a) — 3 registered items
 - [3. WikiMed](#3-wikimed) — 1 registered item
 - [4. Repairs & Maintenance](#4-repairs-maintenance) — 13 registered items
 - [5. Maps & Navigation](#5-maps-navigation) — 2 registered items
 - [6. Project Gutenberg](#6-project-gutenberg) — 1 registered item
 - [7. Emergency preparedness and CERT](#7-emergency-preparedness-and-cert) — 3 registered items
-- [8. Forms & Household Paperwork](#8-forms-household-paperwork) — 35 registered items
+- [8. Forms & Household Paperwork](#8-forms-household-paperwork) — 36 registered items
 - [9. Learning & Homeschooling](#9-learning-homeschooling) — 1096 registered items
-- [10. Games, Coloring & Activities](#10-games-coloring-activities) — 8 registered items
+- [10. Games, Coloring & Activities](#10-games-coloring-activities) — 9 registered items
 - [11. Wilderness & Field Skills](#11-wilderness-field-skills) — 8 registered items
-- [12. Power & Energy](#12-power-energy) — 7 registered items
-- [13. Laws, Regulations & Codes](#13-laws-regulations-codes) — 123 registered items
+- [12. Power & Energy](#12-power-energy) — 8 registered items
+- [13. Laws, Regulations & Codes](#13-laws-regulations-codes) — 125 registered items
 - [14. Radio & Communications](#14-radio-communications) — 14 registered items
 - [15. Food Preservation & Cooking](#15-food-preservation-cooking) — 17 registered items
 - [16. Sanitation & Hygiene](#16-sanitation-hygiene) — 12 registered items
@@ -31,9 +31,9 @@ Generated from `dataark.yaml` and the dashboard card composition by `tools/docum
 - [21. Pets & Livestock](#21-pets-livestock) — 8 registered items
 - [22. Disaster Recovery & Cleanup](#22-disaster-recovery-cleanup) — 5 registered items
 - [23. Disability Preparedness](#23-disability-preparedness) — 4 registered items
-- [24. Communication & Accessibility](#24-communication-accessibility) — 2 registered items
+- [24. DEJ Software](#24-dej-software) — 3 registered items
 
-## 1. Wikipedia
+## 1. Wikipedia - English
 
 English encyclopedias preserved on this Ark.
 
@@ -209,10 +209,6 @@ FEMA preparedness and CERT manuals, preserved as readable PDFs. Massachusetts ME
 
 :::
 
-### Outstanding acquisition gaps
-
-- CERT Annex for All Abilities, MEMA Emergency Preparedness Flyer and MEMA Winter Weather Preparedness Toolkit (blocked downloads).
-
 ## 8. Forms & Household Paperwork
 
 Tax and government forms, contracts, incident forms and household worksheets.
@@ -230,7 +226,7 @@ Tax and government forms, contracts, incident forms and household worksheets.
 - [PDF form tool](/pdf-forms.html) — Open PDFs, fill interactive fields, write on the page, preview and save.
 - [Paper studio](/printables.html) — Emergency contacts, household/supply inventories, medication records, evacuation planning, pet care, expenses, receipts, maintenance logs, equipment handovers and project planning; printable in A4 and US Letter.
 
-::: details Saved content (35 items)
+::: details Saved content (36 items)
 
 - [IRS Individual income tax return — Tax year 2025](/library-files/forms/tax/f1040-2025.pdf) — [publisher](https://www.irs.gov/pub/irs-prior/f1040--2025.pdf)
 - [IRS 1040 and 1040-SR instructions — Tax year 2025](/library-files/forms/tax/i1040gi-2025.pdf) — [publisher](https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf)
@@ -261,6 +257,7 @@ Tax and government forms, contracts, incident forms and household worksheets.
 - [Massachusetts Health Care Proxy — Honoring Choices (instructions and form) — Honoring Choices Massachusetts, September 1, 2025 English edition](/library-files/forms/government/ma-health-proxy.pdf) — [publisher](https://www.honoringchoicesmass.com/wp-content/uploads/2025/08/Health-Care-Proxy-Instructions-Document-ENGLISH-2025-09-01.pdf)
 - [Massachusetts Form 1 — Resident income tax return — Tax year 2025](/library-files/forms/tax/ma-form1-2025.pdf) — [publisher](https://www.mass.gov/doc/2025-form-1-massachusetts-resident-income-tax-return/download)
 - [Massachusetts Form 1 instructions — Tax year 2025](/library-files/forms/tax/ma-form1-instructions-2025.pdf) — [publisher](https://www.mass.gov/doc/2025-form-1-instructions/download)
+- [SSA SS-5 — Application for a Social Security card — Publisher revision at retrieval](/library-files/forms/government/ss5.pdf) — [publisher](https://www.ssa.gov/forms/ss-5.pdf)
 - [FEMA NIMS Incident Command System Forms & Instructions](/library-files/family-resources/readiness/fema-ics.pdf) — [publisher](https://training.fema.gov/emiweb/is/icsresource/)
 - [Common Paper Independent Contractor Agreement](/library-files/family-resources/contracts/cp-contractor.docx) — [publisher](https://commonpaper.com/documents/independent-contractor-agreement)
 - [Common Paper Agreement Amendment](/library-files/family-resources/contracts/cp-amendment.docx) — [publisher](https://commonpaper.com/documents/amendment)
@@ -269,10 +266,6 @@ Tax and government forms, contracts, incident forms and household worksheets.
 - [Household worksheet pack — US Letter](/library-files/family-resources/generated/household-letter.pdf)
 
 :::
-
-### Outstanding acquisition gaps
-
-- SSA SS-5 application for a Social Security card (blocked download).
 
 ## 9. Learning & Homeschooling
 
@@ -1419,8 +1412,9 @@ Offline games, drawing, PDF coloring, adult and holiday coloring, and printable 
 - [PDF coloring studio](/coloring.html) — Open a PDF, select a page, color or draw and save the result.
 - [Paper studio](/printables.html) — Printable paper patterns, ready-made packs and everyday worksheets; A4 and US Letter. Available patterns: Square grid; Engineering grid (5 subdivisions); Dot grid; Cross grid; Isometric / triangular; Isometric dots; Hexagonal; Polar coordinates; Logarithmic (both axes); Semi-logarithmic; Ruled lines; Wide ruled (8.7 mm); Narrow ruled (6.35 mm); Handwriting guides; Double-line handwriting; Cornell lined notes; Cornell grid notes; Cornell dot notes; Music staves; Guitar tablature; Bass tablature; Calligraphy guides; Character-writing squares; Chess / checkers board; Go board (19 × 19); Undated monthly calendar; Story & drawing page; Blank page.
 
-::: details Saved content (8 items)
+::: details Saved content (9 items)
 
+- [Good and Cheap — Leanne Brown](/library-files/family-resources/cookbooks/cook-good-cheap.pdf) — [publisher](https://leannebrown.com/updated-version-of-good-and-cheap-now-available/)
 - [NASA Exoplanets Coloring Book](/library-files/family-resources/kids/nasa-exoplanets.pdf) — [publisher](https://science.nasa.gov/toolkit/coloring-books/)
 - [Paper pattern pack — A4](/library-files/family-resources/generated/paper-a4.pdf)
 - [Paper pattern pack — US Letter](/library-files/family-resources/generated/paper-letter.pdf)
@@ -1456,10 +1450,6 @@ Outdoor survival, trip preparation, compass skills and field navigation.
 
 :::
 
-### Outstanding acquisition gaps
-
-- Forest Service Know Before You Go and Outdoor Safety (recorded URLs return 404).
-
 ## 12. Power & Energy
 
 Solar, wind, micro-hydro, energy storage, generator safety and offline planning tools.
@@ -1475,7 +1465,7 @@ Solar, wind, micro-hydro, energy storage, generator safety and offline planning 
 
 - [Power planner](/power.html) — Load inventory, daily energy, battery/solar estimates and micro-hydro estimate; printable results.
 
-::: details Saved content (7 items)
+::: details Saved content (8 items)
 
 - [DOE / NREL — Own Your Power: Solar Electricity for the Home](/library-files/resilience/documents/nrel-solar-basics.pdf) — [publisher](https://www1.eere.energy.gov/solar/pdfs/43844.pdf)
 - [DOE — Solar Power in Your Community](/library-files/resilience/documents/doe-solar-community.pdf) — [publisher](https://www.energy.gov/sites/default/files/2022-02/solar-power-in-your-community-guidebook.pdf)
@@ -1484,12 +1474,9 @@ Solar, wind, micro-hydro, energy storage, generator safety and offline planning 
 - [OSHA — Using Portable Generators Safely](/library-files/resilience/documents/osha-generators.pdf) — [publisher](https://www.osha.gov/sites/default/files/publications/OSHA3286.pdf)
 - [PNNL — Introductory Guide to Generating, Using and Storing Energy](/library-files/resilience/documents/pnnl-energy-storage.pdf) — [publisher](https://www.osti.gov/servlets/purl/2327029)
 - [Micro-Hydro Power: A Beginners Guide to Design and Installation — NCAT](/library-files/resilience/documents/ncat-microhydro.pdf) — [publisher](https://www.ncat.org/wp-content/uploads/2025/12/microhydrodesign.pdf)
+- [US Forest Service - Know Before You Go: Recreation Checklist](/library-files/resilience/documents/usfs-before-you-go.pdf) — [publisher](https://www.fs.usda.gov/media/21573)
 
 :::
-
-### Outstanding acquisition gaps
-
-- DOE Microhydropower Systems and Colorado Small Hydropower Handbook (recorded URLs return 404); the separate NCAT micro-hydro guide is installed.
 
 ## 13. Laws, Regulations & Codes
 
@@ -1503,7 +1490,7 @@ The state/territory collection is constitutional text (and the DC Home Rule Act/
 - [U.S. Code title index](/library-files/civic-reference/us-code/index.html)
 - [State and territorial coverage](/library-files/civic-reference/jurisdictions/index.html)
 
-::: details Saved content (11 items)
+::: details Saved content (13 items)
 
 - [U.S. Constitution, Declaration of Independence and index — Pocket Edition](/library-files/civic-reference/documents/us-constitution.pdf) — [publisher](https://www.govinfo.gov/content/pkg/GPO-CDOC-111sdoc4/pdf/GPO-CDOC-111sdoc4.pdf)
 - [44 CFR — Emergency Management and Assistance, Volume 1](/library-files/civic-reference/documents/cfr44-v1.pdf) — [publisher](https://www.govinfo.gov/content/pkg/CFR-2025-title44-vol1/pdf/CFR-2025-title44-vol1.pdf)
@@ -1516,6 +1503,8 @@ The state/territory collection is constitutional text (and the DC Home Rule Act/
 - [2025 Census ZIP-area coordinates](/library-files/civic-reference/zcta-2025.zip) — [publisher](https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_Gaz_zcta_national.zip)
 - [Massachusetts electrical-code amendments — 527 CMR 12.00](/library-files/civic-reference/documents/ma-electrical.pdf) — [publisher](https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download)
 - [Massachusetts fire-code amendments — 527 CMR 1.00](/library-files/civic-reference/documents/ma-fire.pdf) — [publisher](https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download)
+- [Massachusetts Building Code 780 CMR — tenth-edition contents](/library-files/civic-reference/documents/ma-building-toc.pdf) — [publisher](https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download)
+- [Massachusetts Building Code 780 CMR — tenth-edition introduction](/library-files/civic-reference/documents/ma-building-preamble.html) — [publisher](https://www.mass.gov/handbook/tenth-edition-of-the-ma-state-building-code-780)
 
 :::
 
@@ -1641,11 +1630,6 @@ The state/territory collection is constitutional text (and the DC Home Rule Act/
 
 :::
 
-### Outstanding acquisition gaps
-
-- Massachusetts building-code preamble/contents, code adoption/source pages and small-claims rules source index (blocked downloads).
-- Full Gardner City Code text (dynamic source extraction unresolved); the official city source page is preserved.
-
 ## 14. Radio & Communications
 
 Emergency communications, amateur radio exam practice, callsign search and Part 97.
@@ -1715,10 +1699,6 @@ Canning, drying, fermentation, food storage, cookbooks, pantry meals and emergen
 - [Recipes and Tips for Healthy, Thrifty Meals](/library-files/family-resources/cookbooks/cook-usda-thrifty.pdf) — [publisher](https://ageconsearch.umn.edu/record/311366)
 
 :::
-
-### Outstanding acquisition gaps
-
-- Good and Cheap by Leanne Brown (blocked download).
 
 ## 16. Sanitation & Hygiene
 
@@ -1901,9 +1881,9 @@ Accessible evacuation, communication and mobility planning, backup support, medi
 
 :::
 
-## 24. Communication & Accessibility
+## 24. DEJ Software
 
-Communicate browser speech tool and an offline Android installer for Communicate Keyboard. Speech requires an offline voice on the device you use.
+Communicate, Communicate Keyboard for Android, and a downloadable Data Ark bootstrap kit. These copies are served locally by the Ark.
 
 
 
@@ -1911,11 +1891,13 @@ Communicate browser speech tool and an offline Android installer for Communicate
 
 - [Open Communicate](/library-files/communication/communicate/index.html)
 - [Android keyboard installer & setup](/library-files/communication/index.html)
+- [Ark bootstrap kit & setup](/library-files/communication/index.html#bootstrap)
 
-::: details Saved content (2 items)
+::: details Saved content (3 items)
 
 - [Communicate — offline browser communication tool](/library-files/communication/communicate/index.html) — [publisher](https://dejsoftware.com/communicate/index.html)
 - [Communicate Keyboard — Android development build 0.2.1-dev.13](/library-files/communication/android/communicate-keyboard-dev-13-c5de874bd628.apk) — [publisher](https://dejsoftware.com/communicate-keyboard-dev/communicate-keyboard-dev-13-c5de874bd628.apk)
+- [Data Ark bootstrap kit — 2026.10.29-preview.1](/library-files/communication/ark-bootstrap/data-ark-bootstrap-2026.10.29-preview.1.tar.gz) — [publisher](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz)
 
 :::
 

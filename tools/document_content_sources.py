@@ -25,14 +25,9 @@ NOTES = {
  'laws-codes': 'The state/territory collection is constitutional text (and the DC Home Rule Act/Charter), not a complete collection of every state statute, regulation or adopted building code. Massachusetts and local references have the narrower scope named in each title.',
  'repairs-maintenance': 'iFixit, practical repairs and the two vehicle collections stay distinct within this card. Honda owner manuals and quick guides are not factory workshop/service manuals.',
 }
-GAPS = {
- 'forms-household': ['SSA SS-5 application for a Social Security card (blocked download).'],
- 'food-cooking': ['Good and Cheap by Leanne Brown (blocked download).'],
- 'wilderness-field': ['Forest Service Know Before You Go and Outdoor Safety (recorded URLs return 404).'],
- 'power-energy': ['DOE Microhydropower Systems and Colorado Small Hydropower Handbook (recorded URLs return 404); the separate NCAT micro-hydro guide is installed.'],
- 'preparedness': ['CERT Annex for All Abilities, MEMA Emergency Preparedness Flyer and MEMA Winter Weather Preparedness Toolkit (blocked downloads).'],
- 'laws-codes': ['Massachusetts building-code preamble/contents, code adoption/source pages and small-claims rules source index (blocked downloads).', 'Full Gardner City Code text (dynamic source extraction unresolved); the official city source page is preserved.'],
-}
+# Acquisition failures are maintained in ContentGaps, not the installed-content guide.
+GAPS = {}
+
 ISLANDS = [
  'Greater Antilles: Cuba, Hispaniola (Haiti and the Dominican Republic), Jamaica and Puerto Rico.',
  'Virgin Islands: U.S. Virgin Islands and British Virgin Islands.',

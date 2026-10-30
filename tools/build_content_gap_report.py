@@ -17,22 +17,23 @@ def render(data):
   lines+=['### '+folder,'']
   for x in missing:
    if x['collection']!=folder:continue
-   lines+=['['+x['title']+']('+x['source_url']+')','',
+   lines+=['### '+x['title'],'','[Recorded source]('+x['source_url']+')','',
            '- Recorded failure: '+x['observed_failure']+' (last attempt '+x['last_attempt'][:10]+').',
            '- Coverage: '+x['assessment']+'. '+x['installed_alternative'],
-           '- Decision: '+x['retry_priority'],'']
+           '- Decision: '+x['retry_priority'],'','---','']
  lines+=['## Optional and retired references','']
  for x in deferred:
   lines+=['### '+x['title'],'',x['disposition'].capitalize()+'. '+x['retry_priority'],'','- Original source: '+x['source_url'],'- Recorded failure: '+x['observed_failure'],'- Alternative: '+x['installed_alternative'],'']
  lines+=['## Resolved entries and corrected targets','']
  for x in resolved:
   title='['+x['title']+']('+x['local_url']+')' if x.get('local_url') else x['title']
-  lines+=[title,'',x['resolution']+((' '+str(x['pages'])+' PDF pages.') if x.get('pages') else ''),'']
+  lines+=['### '+title,'',x['resolution']+((' '+str(x['pages'])+' PDF pages.') if x.get('pages') else ''),'']
   if x.get('evidence_url'):lines+=['[Publisher evidence]('+x['evidence_url']+')','']
+  lines+=['---','']
  lines+=['## Candidates omitted before registration','', 'These are separate from the current unavailable count. Exact URLs were not retained for two early candidates; no replacement URL has been invented.','']
  for x in omitted:
   title='['+x['title']+']('+x['url']+')' if x.get('url') else x['title']
-  lines+=[title,'','- Recorded failure: '+x['reason']+'.', '- Alternative: '+x['alternative'], '- Decision: '+x['priority'], '[Original record]('+x['evidence']+')','']
+  lines+=['### '+title,'','- Recorded failure: '+x['reason']+'.', '- Alternative: '+x['alternative'], '- Decision: '+x['priority'], '[Source record for this candidate]('+x['evidence']+')','','---','']
  lines+=['## Remaining scope and maintenance limits','',
          'Not every blocked URL represents a distinct uncovered need. The installed NCAT hydro guide addresses dedicated hydro planning differently from the failed DOE/Colorado titles. Public state amendments do not include the complete copyrighted ICC/NFPA base books. Gardner ordinance text and small-claims procedure remain separate gaps. Owner manuals are not full Honda factory workshop manuals. Pregnancy-specific coverage and screen-reader/easy-read equivalence remain unverified.','',
          'The 2025 Title 44 volume-2 target was erroneous: the [official GovInfo directory](https://www.govinfo.gov/bulkdata/CFR/2025/title-44) lists volume 1 only, already installed. Annual snapshots are not live eCFR. Legal and technical currency must be checked against the actual jurisdiction and edition.','',
