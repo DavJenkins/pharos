@@ -51,6 +51,16 @@ class CaptureTests(unittest.TestCase):
  def test_encrypted_pdf_rejected(self):
   with patch.object(server.subprocess,'check_output',return_value='Pages: 4\nEncrypted: yes\n'):
    with self.assertRaises(ValueError):server.validate_pdf(b'%PDF-test','ss5')
+ def test_public_ss5_permissions_preserved_and_identity_checked(self):
+  info='Pages: 5\nEncrypted: yes (print:yes copy:no change:no addNotes:yes algorithm:AES)\n'
+  data=b'%PDF-public-original'
+  with patch.object(server.subprocess,'check_output',side_effect=[info,'SS-5 Application for Social Security Card']):
+   self.assertEqual(server.validate_pdf(data,'ss5'),5)
+  self.assertEqual(data,b'%PDF-public-original')
+  with patch.object(server.subprocess,'check_output',side_effect=[info,'Unrelated document']):
+   with self.assertRaises(ValueError):server.validate_pdf(data,'ss5')
+  with patch.object(server.subprocess,'check_output',return_value=info):
+   with self.assertRaises(ValueError):server.validate_pdf(data,'ma-form1-2025')
  def test_native_file_boundary_and_fixed_command(self):
   with tempfile.TemporaryDirectory() as tmp:
    root=Path(tmp);downloads=root/'Downloads';downloads.mkdir();pdf=downloads/'form.pdf';pdf.write_bytes(b'%PDF-fixture');outside=root/'private.pdf';outside.write_bytes(b'%PDF-private')

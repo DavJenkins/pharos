@@ -27,7 +27,11 @@ def validate_pdf(data,identifier):
  with tempfile.NamedTemporaryFile(suffix='.pdf') as f:
   f.write(data);f.flush()
   info=subprocess.check_output(['pdfinfo',f.name],text=True,stderr=subprocess.STDOUT,timeout=30)
-  if re.search(r'^Encrypted:\s+yes',info,re.M):raise ValueError('Encrypted PDFs are not accepted.')
+  # SS-5 is publicly readable without a password but carries publisher
+  # print/copy permissions. Keep the original bytes and restrictions intact.
+  encrypted=re.search(r'^Encrypted:\s+yes',info,re.M)
+  public_ss5=identifier=='ss5' and re.search(r'^Encrypted:\s+yes \(print:yes\b',info,re.M)
+  if encrypted and not public_ss5:raise ValueError('This encrypted PDF is not supported. No file was installed.')
   pages=int(re.search(r'^Pages:\s+(\d+)',info,re.M)[1])
   if not 1<=pages<=2000:raise ValueError('Unexpected page count.')
   text=subprocess.check_output(['pdftotext','-f','1','-l','3',f.name,'-'],text=True,stderr=subprocess.DEVNULL,timeout=30)
