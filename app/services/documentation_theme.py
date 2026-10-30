@@ -10,7 +10,7 @@ def stylesheet_url():
 def masthead(section, active):
     links = [('dashboard', '/', 'Dashboard'), ('help', '/docs/SUMMARY.html', 'Help'), ('api', '/api/docs', 'Developer API')]
     navigation = ''.join('<a href="' + url + '"' + (' aria-current="page"' if key == active else '') + '>' + title + '</a>' for key, url, title in links)
-    return '<header class="docs-masthead"><a class="docs-brand" href="/"><span class="docs-maker">DEJ SOFTWARE</span><strong>Data Ark</strong></a><div class="docs-masthead-right"><p>' + html.escape(section) + '</p><nav aria-label="Documentation navigation">' + navigation + '</nav></div></header>'
+    return '<header class="docs-masthead"><a class="docs-brand" href="/"><span class="docs-maker"><img src="/assets/dej-software-footer.webp" width="1024" height="192" alt="DEJ Software™"></span><strong>Data Ark</strong></a><div class="docs-masthead-right"><p>' + html.escape(section) + '</p><nav aria-label="Documentation navigation">' + navigation + '</nav></div></header>'
 
 def footer():
     return '<footer class="docs-footer"><a class="docs-footer-brand" href="https://www.dejsoftware.com/" title="DEJ Software website (internet required)"><img src="/assets/dej-software-footer.webp" width="1024" height="192" alt="DEJ Software™ — Practical Software for Real Life"></a></footer>'

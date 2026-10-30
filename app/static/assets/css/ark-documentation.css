@@ -57,3 +57,6 @@ body.ark-documentation{margin:0;padding:clamp(.5rem,2.5vw,2rem);background:#203e
 .handbook-paper .content-details a{overflow-wrap:anywhere}
 
 .docs-footer{justify-content:center;align-items:center}.docs-footer-brand{display:block;line-height:0;max-width:100%}.docs-footer-brand img{display:block;width:420px;max-width:100%;height:auto}
+
+/* Reuse the established wordmark; clip only its footer tagline and padding. */
+.docs-maker{display:block;position:relative;width:14.1rem;height:2.25rem;overflow:hidden;letter-spacing:normal}.docs-maker img{position:absolute;width:32.5rem!important;max-width:none!important;height:auto!important;left:-9.15rem;top:-.95rem}
