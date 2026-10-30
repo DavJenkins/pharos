@@ -126,6 +126,10 @@ const Dashboard = {
         const eth = DataArkStatus.ethernet;
         const wifi = DataArkStatus.wifi;
         const ap = DataArkStatus.accessPoint;
+        const caps=DataArkStatus.data?.network?.capabilities;
+        for(const [id,available] of [["wifi-button",caps?.wifi],["ap-button",caps?.hotspot],["portal-continue",caps?.hotspot]]){
+            const tile=this.byId(id)?.closest(".status-tile");if(tile)tile.hidden=available===false;
+        }
 
         this.byId("eth-button").className =
             "status-button " +

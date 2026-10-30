@@ -29,6 +29,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--reset-password', action='store_true', help='Replace the administration password after entering and confirming a new one.')
     parser.add_argument('--defer-wifi-roles', action='store_true', help='Bootstrap only: install radio-role configuration after the AP profile is created.')
+    parser.add_argument('--read-only-network',action='store_true',help='LAN server: install caretaker authentication without requiring or installing NetworkManager.')
     args = parser.parse_args()
     if os.geteuid() != 0:
         raise SystemExit('Run with sudo python3 deploy/install_network_admin.py')
@@ -36,7 +37,7 @@ def main():
     source = Path(__file__).resolve().parents[1] / 'tools/network_helper.py'
     helper = source.read_bytes()
     compile(helper, str(source), 'exec')
-    for command in ('/usr/bin/nmcli', '/usr/sbin/visudo', '/usr/bin/sudo'):
+    for command in (('/usr/sbin/visudo','/usr/bin/sudo') if args.read_only_network else ('/usr/bin/nmcli', '/usr/sbin/visudo', '/usr/bin/sudo')):
         if not Path(command).is_file():
             raise SystemExit(f'Required command missing: {command}')
     account = subprocess.run(['systemctl', 'show', 'dataark.service', '-p', 'User', '--value'],
@@ -68,7 +69,7 @@ def main():
         if folder == directory:
             os.chown(folder, 0, gid)
             folder.chmod(mode)
-    if not args.defer_wifi_roles:
+    if not args.defer_wifi_roles and not args.read_only_network:
         subprocess.run(['/usr/bin/python3',str(source.parents[1]/'deploy/install_wifi_roles.py')],check=True)
     subprocess.run(['/usr/bin/python3',str(source.parents[1]/'deploy/install_configuration.py')],check=True)
     support=(source.parent/'support_diagnostics.py').read_bytes()

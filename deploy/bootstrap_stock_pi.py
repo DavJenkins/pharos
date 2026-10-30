@@ -27,7 +27,7 @@ def validate(c):
  if platforms.selected(c)['network_mode']=='hotspot':
   if ap.get('interface')!='wlan0' or ap.get('connection')!='DataArk' or ap.get('subnet')!='192.168.4.1/24' or ap.get('security')!='open':raise ValueError('Existing portal helpers require the documented wlan0/open DataArk layout.')
   if not isinstance(ap.get('ssid'),str) or not 1<=len(ap['ssid'].encode())<=32 or any(ord(x)<32 for x in ap['ssid']):raise ValueError('Invalid SSID')
- if not re.fullmatch('[A-Z]{2}',c.get('wifi_country','')):raise ValueError('Use a two-letter regulatory country.')
+ if platforms.selected(c)['network_mode']=='hotspot' and not re.fullmatch('[A-Z]{2}',c.get('wifi_country','')):raise ValueError('Use a two-letter regulatory country.')
  if c.get('hostname') not in ('auto','keep') and not re.fullmatch('[a-z][a-z0-9-]{0,61}[a-z0-9]',c.get('hostname','')):raise ValueError('Invalid hostname')
  if not re.fullmatch(r'ghcr\.io/kiwix/kiwix-serve@sha256:[0-9a-f]{64}',c.get('kiwix_image','')):raise ValueError('Kiwix must have a pinned image digest.')
  if not c.get('packages') or any(not re.fullmatch('[a-z0-9][a-z0-9+.-]*',x) for x in c['packages']):raise ValueError('Invalid package list')
@@ -116,6 +116,7 @@ class Installer:
 
  def packages(self):
   self.adapter.packages(self.c['packages'])
+  if platforms.selected(self.c)['network_mode']=='lan':return
   try:pwd.getpwnam('dnsmasq')
   except KeyError:run(['useradd','--system','--home-dir','/var/lib/misc','--no-create-home','--shell','/usr/sbin/nologin','dnsmasq'])
  def storage(self):
@@ -164,7 +165,7 @@ class Installer:
    if label!=self.state['configuration_sha256']:raise RuntimeError('Unmanaged kiwix-serve container exists.')
    run(['docker','rm','-f','kiwix-serve'])
   run(['docker','run','-d','--name','kiwix-serve','--label','org.dataark.bootstrap='+self.state['configuration_sha256'],'--restart','unless-stopped','-p','8080:8080','-v','/mnt/storage:/data','-v',str(self.repo/'deploy/reference/kiwix-start.sh')+':/usr/local/bin/dataark-start:ro','--entrypoint','/bin/sh',self.c['kiwix_image'],'/usr/local/bin/dataark-start'])
-  self.script('install_reliability_logging.py');self.script('install_network_admin.py','--defer-wifi-roles');self.script('install_library.py');run(['install','-m','644',str(self.repo/'deploy/dataark-recovery.service'),'/etc/systemd/system/dataark-recovery.service']);run(['systemctl','daemon-reload']);self.script('install_usage.py');self.script('install_shell_welcome.py');self.script('install_community.py');self.script('install_https.py')
+  self.script('install_reliability_logging.py');self.script('install_network_admin.py','--defer-wifi-roles',*(['--read-only-network'] if platforms.selected(self.c)['network_mode']=='lan' else []));self.script('install_library.py');run(['install','-m','644',str(self.repo/'deploy/dataark-recovery.service'),'/etc/systemd/system/dataark-recovery.service']);run(['systemctl','daemon-reload']);self.script('install_usage.py');self.script('install_shell_welcome.py');self.script('install_community.py');self.script('install_https.py')
   run(['bash',str(self.repo/'deploy/deploy-web.sh')]);run(['systemctl','enable','--now','dataark'])
  def content_access(self):
   # Public distribution does not depend on a radio or an AP profile.
@@ -218,7 +219,7 @@ class Installer:
   run(['curl','--fail','--retry','10','--retry-connrefused','--retry-delay','1','--max-time','15','--output','/dev/null','http://127.0.0.1/api/'])
   run(['curl','--fail','--retry','10','--retry-connrefused','--retry-delay','1','--max-time','15','--output','/dev/null','http://127.0.0.1/'])
   self.script('install_software_updater.py','--revision',json.loads((self.kit/'kit.json').read_text())['source_revision'],'--profile',self.c.get('platform_profile',platforms.DEFAULT))
-  atomic(Path('/var/lib/dataark/bootstrap-readiness.json'),json.dumps({'status':'software_phases_completed_client_acceptance_required','checks_remaining':['Reboot and confirm mount','Hotspot client and captive detection','Offline article and image','Maps/forms/radio tools','Management authentication','Independent fresh-media recovery'],'finished_at':time.time()},indent=2)+'\n')
+  atomic(Path('/var/lib/dataark/bootstrap-readiness.json'),json.dumps({'status':'software_phases_completed_client_acceptance_required','checks_remaining':['Reboot and confirm mount']+(['Hotspot client and captive detection'] if platforms.selected(self.c)['network_mode']=='hotspot' else ['Existing LAN connectivity retained'])+['Offline article and image','Maps/forms/radio tools','Management authentication','Independent fresh-media recovery'],'finished_at':time.time()},indent=2)+'\n')
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--kit',type=Path);p.add_argument('--site',type=Path);p.add_argument('--profile');p.add_argument('--list-profiles',action='store_true');p.add_argument('--discover',action='store_true');p.add_argument('--accept-plan');p.add_argument('--apply',action='store_true');a=p.parse_args()
  if a.list_profiles:

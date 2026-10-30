@@ -48,7 +48,9 @@ def configure(config, name):
     result['platform_profile']=name;result['baseline']=copy.deepcopy(spec['baseline'])
     result['network']={'mode':spec['network_mode']}
     result['kiwix_image']=spec['kiwix_image']
-    if spec['network_mode']=='lan':result['hostname']='keep'
+    if spec['network_mode']=='lan':
+        result['hostname']='keep'
+        result['packages']=[p for p in result.get('packages',[]) if p not in {'network-manager','dnsmasq-base'}]
     return result
 
 
@@ -100,7 +102,7 @@ def discover():
             if match:
                 modes=query(['iw','phy','phy'+match[1],'info'])
                 ap=bool(re.search(r'^\s*\* AP\s*$',modes,re.M)) if modes else None
-        interfaces.append({'name':name,'kind':'wifi' if wireless else 'ethernet' if kind in {'ethernet','802-3-ethernet'} else kind or row.get('link_type','unknown'),
+        interfaces.append({'name':name,'kind':'wifi' if wireless else 'ethernet' if kind in {'ethernet','802-3-ethernet'} else kind or ('ethernet' if row.get('link_type')=='ether' and (Path('/sys/class/net')/name/'device').exists() else row.get('link_type','unknown')),
                            'permanent_mac':mac or None,'current_mac':row.get('address'),
                            'hotspot_capable':ap,'state':row.get('operstate','unknown'),
                            'addresses':[a['local'] for a in row.get('addr_info',[]) if a.get('local')]})
@@ -122,9 +124,9 @@ def proposal(config, facts):
         issues.append('Operating system or processor architecture does not match the selected profile.')
     if config['baseline'].get('require_raspberry_pi_os') and not facts.get('raspberry_pi_os'):
         issues.append('This profile requires Raspberry Pi OS; choose a generic Debian profile for another machine.')
-    if not facts.get('systemd') or not facts.get('network_manager'):
-        issues.append('This profile requires an existing systemd and active NetworkManager setup.')
-    required={'ip','nmcli','ethtool'}|({'iw'} if any(i['kind']=='wifi' for i in facts['interfaces']) else set())
+    if not facts.get('systemd'):issues.append('This profile requires systemd.')
+    if spec['network_mode']=='hotspot' and not facts.get('network_manager'):issues.append('The hotspot profile requires active NetworkManager.')
+    required={'ip'} if spec['network_mode']=='lan' else {'ip','nmcli','ethtool','iw'}
     if any(not facts.get('tools',{}).get(name) for name in required):
         issues.append('Install the discovery prerequisites before review: iproute2, NetworkManager, ethtool and iw for wireless adapters.')
     routes=sorted(facts['default_routes'],key=lambda r:(r['metric'],r['interface']))

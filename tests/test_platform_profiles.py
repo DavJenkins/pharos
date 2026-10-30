@@ -59,9 +59,9 @@ class PlatformTests(unittest.TestCase):
         facts['interfaces'].append({'name':'docker0','kind':'bridge','permanent_mac':None,'hotspot_capable':None,'state':'UP','addresses':['172.17.0.1']})
         self.assertEqual(initial,p.proposal(self.config(),facts)['plan_id'])
         facts=self.facts();facts['tools']['ethtool']=False
-        self.assertTrue(p.proposal(self.config(),facts)['issues'])
-        facts=self.facts();facts['network_manager']=False
-        self.assertTrue(p.proposal(self.config(),facts)['issues'])
+        self.assertFalse(p.proposal(self.config(),facts)['issues'])
+        facts=self.facts();facts['network_manager']=False;facts['tools']['nmcli']=False
+        self.assertFalse(p.proposal(self.config(),facts)['issues'])
 
     def test_hotspot_requires_capability_identity_and_separate_upstream(self):
         c=self.config(p.DEFAULT);facts=self.facts('aarch64');facts['raspberry_pi_os']=True
@@ -72,6 +72,9 @@ class PlatformTests(unittest.TestCase):
         self.assertTrue(p.proposal(c,facts)['issues'])
         radio['hotspot_capable']=True;facts['default_routes'].append({'interface':'wlan0','metric':50})
         self.assertTrue(any('default route' in issue for issue in p.proposal(c,facts)['issues']))
+
+    def test_lan_does_not_install_network_manager_or_dnsmasq(self):
+        c=self.config();self.assertNotIn('network-manager',c['packages']);self.assertNotIn('dnsmasq-base',c['packages'])
 
     def test_generic_network_phase_performs_no_network_commands(self):
         with tempfile.TemporaryDirectory() as tmp,patch.object(b,'run') as run:

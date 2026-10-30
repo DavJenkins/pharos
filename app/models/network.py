@@ -45,6 +45,7 @@ class AccessPoint(BaseModel):
 
 
 class Network(BaseModel):
+    capabilities: dict = Field(default_factory=dict)
     ethernet: Ethernet
     ethernet_interfaces: list[Ethernet] = Field(default_factory=list)
     wifi: Wifi

@@ -28,13 +28,17 @@ def _gateway(dev: str) -> str:
 def ethernet(device=None):
     device=device if device is not None else ethernet_interface()
     if not device:return {'interface':'','carrier':False,'enabled':False,'state':'not_configured','connected':False,'ip':'','gateway':''}
-    carrier = run(["nmcli", "-g", "WIRED-PROPERTIES.CARRIER", "device", "show", device]).strip()
-    autoconnect = run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", device]).strip()
+    readonly=bool(platform_settings())
+    carrier = "" if readonly else run(["nmcli", "-g", "WIRED-PROPERTIES.CARRIER", "device", "show", device]).strip()
+    autoconnect = "" if readonly else run(["nmcli", "-g", "GENERAL.AUTOCONNECT", "device", "show", device]).strip()
     try:
         state = (Path("/sys/class/net")/device/"operstate").read_text().strip()
     except OSError:
         state = "unknown"
 
+    if readonly:
+        try:carrier="on" if (Path("/sys/class/net")/device/"carrier").read_text().strip()=="1" else "off"
+        except OSError:pass
     return {
         "interface": device,
         "permanent_mac": permanent_mac(device),
@@ -177,4 +181,5 @@ def collect():
         "ethernet_interfaces": wired,
         "wifi": wifi(),
         "access_point": access_point(),
+        "capabilities":{"network_mode":"lan" if platform_settings() else "hotspot","hotspot":not bool(platform_settings()),"wifi":bool(interfaces()[1]),"network_controls":not bool(platform_settings())},
     }
