@@ -27,7 +27,7 @@ echo "1. Deploying static website..."
 
 sudo mkdir -p "$TARGET"
 
-sudo rsync -av --delete \
+sudo rsync -av --delete --chmod=D755,F644 \
     --exclude='*.bak' \
     --exclude='docs/' \
     "$SOURCE"/ \
