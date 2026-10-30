@@ -22,7 +22,7 @@ async function loadCapture() {
   for (const item of targets) {
    const record=inventories[item.collection].find(x=>x.id===item.id);
    const present=record?.status==='installed';let check=checks[item.id];const review=reviews[item.id];
-   if(review){check={...check,...review,installed_sha256:record.sha256,state:review.changed?'changed':check?.state||'blocked'};}
+   if(review){check={...check,...review,installed_sha256:record.sha256,state:review.changed?'changed':check?.state||'blocked',message:review.changed?'Publisher PDF changed; review a browser copy before replacing the saved edition.':review.review_due?'Browser review is due. The verified offline copy remains available.':'Verified offline copy retained; next browser review is scheduled below.'};}
    const category=captureCategory(item,record,check);const actionNeeded=category!=='Installed — no action needed';const broken=item.source?.failure_kind==='broken_link';
    const section=document.createElement('section');const h=document.createElement('h2');h.textContent=item.title;section.append(h);
    const explanation=document.createElement('p');
