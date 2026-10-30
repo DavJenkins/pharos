@@ -24,18 +24,18 @@ async function loadCapture() {
   for (const item of targets) {
    const record=inventories[item.collection].find(x=>x.id===item.id);
    const present=record?.status==='installed';let check=checks[item.id];const review=reviews[item.id];
-   if(review){check={...check,...review,installed_sha256:record.sha256,state:review.changed?'changed':check?.state||'blocked',message:review.changed?'Publisher PDF changed; review a browser copy before replacing the saved edition.':review.review_due?'Browser review is due. The verified offline copy remains available.':'Verified offline copy retained; next browser review is scheduled below.'};}
+   if(review){check={...check,...review,installed_sha256:record.sha256,state:review.changed?'changed':'blocked',message:review.changed?'Publisher PDF changed; review a browser copy before replacing the saved edition.':review.review_due?'Browser review is due. The verified offline copy remains available.':'Verified offline copy retained; next browser review is scheduled below.'};}
    const category=captureCategory(item,record,check);const isOptional=category==='Optional references';const actionNeeded=category!=='Installed — no action needed' && !isOptional;const broken=item.source?.failure_kind==='broken_link';
    const section=document.createElement('section');const h=document.createElement('h2');h.textContent=item.title;section.append(h);
    const explanation=document.createElement('p');
    explanation.textContent=present?(check?.installed_sha256===record.sha256?check.message||'Verified offline copy retained.':'Installed; no current publisher comparison recorded.'):'Not installed.';
    if(check?.checked_at && present)explanation.textContent+=' Last checked '+new Date(check.checked_at).toLocaleString()+'.';section.append(explanation);
    if(review){const schedule=document.createElement('p');schedule.textContent=(review.review_due?'Browser review due':'Browser review scheduled')+' · Last verified: '+(review.last_verified?new Date(review.last_verified).toLocaleDateString():'—')+' · Next review: '+(review.next_due?new Date(review.next_due).toLocaleDateString():'Now')+' · Every '+review.review_interval_days+' days.';section.append(schedule);}
-   if(!broken){const button=document.createElement('button');button.dataset.captureId=item.id;
+   if(item.format==='html' && present){const reviewButton=document.createElement('button');reviewButton.textContent='Confirm compared — no changes';reviewButton.onclick=async()=>{if(!confirm('Have you compared the saved introduction with the current publisher webpage and confirmed that its content is unchanged? If anything changed, cancel; a new snapshot is needed.'))return;const status=section.querySelector('[role=status]');try{const auth=await window.CaretakerAuth.authorization('Record your comparison of this publisher webpage.');const response=await fetch('/api/library/webpage-review',{method:'POST',headers:{'Content-Type':'application/json',Authorization:auth},body:JSON.stringify({id:item.id,sha256:record.sha256})});const result=await response.json();if(!response.ok)throw Error(result.detail||'Review could not be recorded');status.textContent=result.message;await loadCapture();}catch(e){status.textContent='Review failed: '+e.message;}};section.append(reviewButton);}else if(!broken){const button=document.createElement('button');button.dataset.captureId=item.id;
    button.textContent=present?(check?.state==='changed'?'Capture reviewed replacement':'Compare browser copy'):'Download & import';
    if(present)button.dataset.expectedHash=record.sha256;section.append(button);
    const link=document.createElement('a');link.href=item.url;link.target='_blank';link.rel='noopener';link.dataset.armId=item.id;if(present)link.dataset.expectedHash=record.sha256;link.textContent='Open publisher download';section.append(link);}
-   if(item.source?.note && (actionNeeded||isOptional)){const note=document.createElement('p');note.textContent=item.source.note;if(broken)note.className='capture-broken-source';section.append(note);}
+   if(item.source?.note && (actionNeeded||isOptional||item.format==='html')){const note=document.createElement('p');note.textContent=item.source.note;if(broken)note.className='capture-broken-source';section.append(note);}
    for(const [label,url] of [['Publication page',item.source?.publication_page],['Review replacement candidate',item.source?.candidate?.url]]){if(url){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent=label+' ↗';const p=document.createElement('p');p.append(a);section.append(p);}}
    if(item.source?.candidate){const p=document.createElement('p');p.textContent=item.source.candidate.title+'. '+item.source.candidate.note;section.append(p);}
    if(present){const local=document.createElement('a');local.href='/library-files/'+item.collection+'/'+record.filename;local.textContent=' · Read installed copy';section.append(local);}
@@ -43,7 +43,7 @@ async function loadCapture() {
    if(isOptional){optional.append(section);optionalCount++;}else if(actionNeeded){if(!groups.has(category)){const group=document.createElement('div'),title=document.createElement('h2');title.textContent=category;group.append(title);groups.set(category,group);pending.append(group);}groups.get(category).append(section);pendingCount++;}else installed.append(section);
    if(!actionNeeded && !isOptional)installedCount++;
   }
-  summary.textContent='Installed captures ('+installedCount+') — optional browser comparisons';
+  summary.textContent='Installed sources ('+installedCount+') — optional browser comparisons';
   const heading=document.createElement('h2');heading.textContent='Needs capture or review ('+pendingCount+')';root.append(heading);
   if(!pendingCount){const p=document.createElement('p');p.textContent='No capture or update review is pending.';pending.append(p);}
   optionalSummary.textContent='Optional references ('+optionalCount+') — not required';

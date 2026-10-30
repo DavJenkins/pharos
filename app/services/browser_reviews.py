@@ -1,4 +1,4 @@
-"""Read-only browser review schedules for explicitly configured public references."""
+"""Browser review schedules for explicitly configured public references."""
 import json
 import time
 from functools import lru_cache
@@ -23,7 +23,7 @@ def review(record, check, days, now=None):
     now = now or datetime.now(timezone.utc)
     verified = record.get('acquisition', {}).get('verified_at', record.get('checked_at'))
     # A successful automatic comparison also establishes a current baseline.
-    if check.get('installed_sha256') == record.get('sha256') and check.get('state') == 'current':
+    if check.get('installed_sha256') == record.get('sha256') and check.get('state') in ('current','reviewed'):
         verified = check.get('checked_at') or verified
     try:
         stamp = datetime.fromisoformat(verified.replace('Z', '+00:00'))
@@ -76,3 +76,29 @@ def _cached_snapshot(bucket):
 
 def cached_snapshot():
     return _cached_snapshot(int(time.monotonic() // 10))
+
+
+def confirm_webpage_review(identifier, expected_sha256):
+    """Record an explicit caretaker comparison, never fetch or replace content."""
+    import hashlib
+    import fcntl
+    from tools.install_family_resources import atomic
+    policy=read(POLICY,{})
+    if identifier not in policy.get('webpage_reviews',[]):
+        raise ValueError('This source is not configured for webpage review.')
+    with (MOUNT/'.dataark-webpage-review.lock').open('a') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        record=None
+        for folder in policy.get('collections',[]):
+            candidate=next((r for r in read(MOUNT/folder/'sources.json',[]) if r.get('id')==identifier),None)
+            if candidate:
+                record=candidate;path=(MOUNT/folder/record['filename']).resolve();break
+        if not record or record.get('status')!='installed':raise ValueError('Saved webpage is not installed.')
+        if not path.is_relative_to(MOUNT.resolve()) or not path.is_file():raise ValueError('Saved webpage is unavailable.')
+        if record.get('format')!='html' or record.get('sha256')!=expected_sha256 or hashlib.sha256(path.read_bytes()).hexdigest()!=expected_sha256:
+            raise ValueError('The saved copy changed. Reload and compare it again.')
+        state=read(CAPTURES,{})
+        state[identifier]={'state':'reviewed','installed_sha256':expected_sha256,'checked_at':datetime.now(timezone.utc).isoformat(),'method':'caretaker visual comparison; no content replaced','message':'Caretaker compared the publisher webpage with the saved snapshot and confirmed no changes.'}
+        atomic(CAPTURES,(json.dumps(state,ensure_ascii=False,indent=2)+'\n').encode())
+    _cached_snapshot.cache_clear()
+    return {'message':'Webpage review recorded. The saved content was not changed.'}

@@ -1,6 +1,7 @@
 [
   {
     "id": "cdc-wrigley-en",
+    "format": "pdf",
     "title": "Ready Wrigley: Coping After a Disaster",
     "url": "https://stacks.cdc.gov/view/cdc/58346/cdc_58346_DS1.pdf",
     "collection": "family-resources",
@@ -15,6 +16,7 @@
   },
   {
     "id": "cdc-wrigley-es",
+    "format": "pdf",
     "title": "Ready Wrigley: Coping After a Disaster — Spanish",
     "url": "https://stacks.cdc.gov/view/cdc/58345/cdc_58345_DS1.pdf",
     "collection": "family-resources",
@@ -29,6 +31,7 @@
   },
   {
     "id": "cdc-backpack",
+    "format": "pdf",
     "title": "CDC Backpack Emergency Contact Card",
     "url": "https://stacks.cdc.gov/view/cdc/34175/cdc_34175_DS1.pdf",
     "collection": "family-resources",
@@ -43,6 +46,7 @@
   },
   {
     "id": "cdc-pet-kit",
+    "format": "pdf",
     "title": "CDC Pet Emergency Kit Checklist",
     "url": "https://stacks.cdc.gov/view/cdc/139819/cdc_139819_DS1.pdf",
     "collection": "family-resources",
@@ -57,6 +61,7 @@
   },
   {
     "id": "cdc-family-plan",
+    "format": "pdf",
     "title": "CDC My Family Communication Plan",
     "url": "https://stacks.cdc.gov/view/cdc/139817/cdc_139817_DS1.pdf",
     "collection": "family-resources",
@@ -71,6 +76,7 @@
   },
   {
     "id": "cook-good-cheap",
+    "format": "pdf",
     "title": "Good and Cheap — Leanne Brown",
     "url": "https://leannebrown.com/wp-content/uploads/2024/08/good-and-cheap-by-leanne-brown.pdf",
     "collection": "family-resources",
@@ -86,6 +92,7 @@
   },
   {
     "id": "ma-form1-2025",
+    "format": "pdf",
     "title": "Massachusetts Form 1 — Resident income tax return",
     "url": "https://www.mass.gov/doc/2025-form-1-massachusetts-resident-income-tax-return/download",
     "collection": "forms",
@@ -100,6 +107,7 @@
   },
   {
     "id": "ma-form1-instructions-2025",
+    "format": "pdf",
     "title": "Massachusetts Form 1 instructions",
     "url": "https://www.mass.gov/doc/2025-form-1-instructions/download",
     "collection": "forms",
@@ -114,6 +122,7 @@
   },
   {
     "id": "ss5",
+    "format": "pdf",
     "title": "SSA SS-5 — Application for a Social Security card",
     "url": "https://www.ssa.gov/forms/ss-5.pdf",
     "collection": "forms",
@@ -129,6 +138,7 @@
   },
   {
     "id": "usfs-before-you-go",
+    "format": "pdf",
     "title": "US Forest Service - Know Before You Go: Recreation Checklist",
     "url": "https://www.fs.usda.gov/media/21573",
     "collection": "resilience",
@@ -144,6 +154,7 @@
   },
   {
     "id": "ma-electrical",
+    "format": "pdf",
     "title": "Massachusetts electrical-code amendments — 527 CMR 12.00",
     "url": "https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download",
     "collection": "civic-reference",
@@ -158,6 +169,7 @@
   },
   {
     "id": "ma-fire",
+    "format": "pdf",
     "title": "Massachusetts fire-code amendments — 527 CMR 1.00",
     "url": "https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download",
     "collection": "civic-reference",
@@ -171,7 +183,25 @@
     }
   },
   {
+    "id": "ma-building-preamble",
+    "format": "html",
+    "title": "Massachusetts Building Code 780 CMR — tenth-edition introduction",
+    "url": "https://www.mass.gov/handbook/tenth-edition-of-the-ma-state-building-code-780",
+    "collection": "civic-reference",
+    "source": {
+      "current_download_url": "https://www.mass.gov/handbook/tenth-edition-of-the-ma-state-building-code-780",
+      "assessed_at": "2026-10-30",
+      "failure_kind": "access_blocked",
+      "publication_page": "https://www.mass.gov/handbook/tenth-edition-of-the-ma-state-building-code-780",
+      "discovery_rule": null,
+      "note": "Installed as a text-only publisher webpage snapshot. Compare the saved introduction with the current publisher page, then record an unchanged review. A changed page needs a new reviewed snapshot; this action never replaces content.",
+      "disposition": "installed_webpage",
+      "browser_observation": "HTTP 404 reported by caretaker"
+    }
+  },
+  {
     "id": "ma-building-toc",
+    "format": "pdf",
     "title": "Massachusetts Building Code 780 CMR — tenth-edition contents",
     "url": "https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download",
     "collection": "civic-reference",

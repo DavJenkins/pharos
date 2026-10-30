@@ -79,3 +79,9 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\install.ps1
 ```
 
 Organization-enforced Group Policy can still prevent execution; ask that computer’s administrator rather than changing machine-wide settings. Existing `config.json` pairing is preserved. New pairings default to `dataark`; set the Ark’s reachable hostname or address in `config.json` if needed.
+
+## Reviewing publisher webpages
+
+Some references are preserved as attributed HTML snapshots rather than PDFs. They appear alongside installed PDFs on the capture page, with links to the saved copy and current publisher page. These entries do not offer PDF download or import buttons.
+
+Compare both versions before choosing **Confirm compared — no changes**. The caretaker password is required. Confirmation records a visual comparison against the saved file’s current SHA-256 and advances its configured review date; it does not download, replace or certify the publisher’s content. If the publisher text changed, cancel and arrange a newly reviewed snapshot. A changed or missing local file cannot be acknowledged against an old hash. The tenth-edition Massachusetts building-code introduction uses a 90-day review interval.

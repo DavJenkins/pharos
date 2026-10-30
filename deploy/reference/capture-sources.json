@@ -115,13 +115,13 @@
       "note": "Automated access was refused; this does not establish that the file is missing or a new edition exists."
     },
     "ma-building-preamble": {
-      "current_download_url": "https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download",
+      "current_download_url": "https://www.mass.gov/handbook/tenth-edition-of-the-ma-state-building-code-780",
       "assessed_at": "2026-10-30",
-      "failure_kind": "broken_link",
+      "failure_kind": "access_blocked",
       "publication_page": "https://www.mass.gov/handbook/tenth-edition-of-the-ma-state-building-code-780",
       "discovery_rule": null,
-      "note": "Download URL returns 404 in the caretaker’s browser. The current Mass.gov handbook presents the introductory/adoption material as HTML; no replacement PDF has been verified. Use Publication page. Existing saved copies, if any, remain unchanged.",
-      "disposition": "optional",
+      "note": "Installed as a text-only publisher webpage snapshot. Compare the saved introduction with the current publisher page, then record an unchanged review. A changed page needs a new reviewed snapshot; this action never replaces content.",
+      "disposition": "installed_webpage",
       "browser_observation": "HTTP 404 reported by caretaker"
     },
     "ma-building-toc": {

@@ -66,3 +66,21 @@ async def mutation(request: Request, action: str):
         return await run_in_threadpool(library.install,payload)
     except (ValueError, OSError) as error:
         raise HTTPException(400,str(error)) from None
+
+
+@router.post('/webpage-review')
+async def webpage_review(request: Request):
+    await check_password(request)
+    if request.headers.get('content-type','').split(';')[0]!='application/json':raise HTTPException(415,'JSON required')
+    body=bytearray()
+    async for chunk in request.stream():
+        body.extend(chunk)
+        if len(body)>1024:raise HTTPException(413,'Request too large')
+    try:
+        payload=json.loads(body)
+        if not isinstance(payload,dict) or set(payload)!={'id','sha256'} or not all(isinstance(v,str) for v in payload.values()):raise ValueError('Invalid review request')
+        from app.services.browser_reviews import confirm_webpage_review
+        result=await run_in_threadpool(confirm_webpage_review,payload['id'],payload['sha256'])
+        emit('webpage_review_recorded')
+        return result
+    except (ValueError,OSError) as error:raise HTTPException(400,str(error)) from None

@@ -18,7 +18,11 @@
     "ma-electrical": 90,
     "ma-fire": 90,
     "ss5": 365,
-    "ma-building-toc": 90
+    "ma-building-toc": 90,
+    "ma-building-preamble": 90
   },
-  "note": "Verified browser imports use source-specific caretaker review schedules. Weekly publisher retries continue. An HTTP 403 is informational for these installed copies; overdue reviews and validated changes need attention. Tax-year editions remain pinned; a new tax year needs its own catalogue entry."
+  "note": "Verified browser imports use source-specific caretaker review schedules. Weekly publisher retries continue. An HTTP 403 is informational for these installed copies; overdue reviews and validated changes need attention. Tax-year editions remain pinned; a new tax year needs its own catalogue entry.",
+  "webpage_reviews": [
+    "ma-building-preamble"
+  ]
 }
