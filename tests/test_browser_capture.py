@@ -61,6 +61,14 @@ class CaptureTests(unittest.TestCase):
    with self.assertRaises(ValueError):server.validate_pdf(data,'ss5')
   with patch.object(server.subprocess,'check_output',return_value=info):
    with self.assertRaises(ValueError):server.validate_pdf(data,'ma-form1-2025')
+ def test_building_contents_uses_actual_publisher_identifiers(self):
+  info='Pages: 3\nEncrypted: no\n'
+  valid='10th Edition - Table of Contents CHAPTER 1: SCOPE AND ADMINISTRATION CHAPTER 51: MASSACHUSETTS RESIDENTIAL CODE'
+  for text in [valid,valid.replace('10th','9th'),valid.replace('MASSACHUSETTS RESIDENTIAL CODE','OTHER CODE')]:
+   with patch.object(server.subprocess,'check_output',side_effect=[info,text]):
+    if text==valid:self.assertEqual(server.validate_pdf(b'%PDF-fixture','ma-building-toc'),3)
+    else:
+     with self.assertRaises(ValueError):server.validate_pdf(b'%PDF-fixture','ma-building-toc')
  def test_native_file_boundary_and_fixed_command(self):
   with tempfile.TemporaryDirectory() as tmp:
    root=Path(tmp);downloads=root/'Downloads';downloads.mkdir();pdf=downloads/'form.pdf';pdf.write_bytes(b'%PDF-fixture');outside=root/'private.pdf';outside.write_bytes(b'%PDF-private')

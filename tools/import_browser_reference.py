@@ -19,7 +19,7 @@ IDENTITY={
  'ss5':['ss5','socialsecurity'], 'usfs-before-you-go':['before','go'],
  'usfs-outdoor-safety':['outdoor','safety'], 'ma-electrical':['527','1200'],
  'ma-fire':['527','100'], 'ma-building-preamble':['780','preamble'],
- 'ma-building-toc':['780','contents'], 'colorado-microhydro':['colorado','hydropower']}
+ 'ma-building-toc':['10th edition','table of contents','massachusetts residential code','scope and administration'], 'colorado-microhydro':['colorado','hydropower']}
 
 def validate_pdf(data,identifier):
  if identifier not in IDENTITY:raise ValueError('Item is not approved for browser capture.')
