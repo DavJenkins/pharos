@@ -1,7 +1,7 @@
 {
   "title": "PHAROS DATA ARK",
   "subtitle": "An extraordinary collection. Ready without the internet.",
-  "edition": "Collection snapshot | October 28, 2026",
+  "edition": "Collection snapshot | October 30, 2026",
   "cards": [
     {
       "number": 1,
@@ -124,7 +124,8 @@
         "Common Paper Agreement Amendment",
         "Common Paper Statement of Work",
         "Household worksheet pack — A4",
-        "Household worksheet pack — US Letter"
+        "Household worksheet pack — US Letter",
+        "SSA SS-5 — Application for a Social Security card (December 2024 revision)"
       ],
       "tools": [
         "PDF form tool: Open PDFs, fill interactive fields, write on the page, preview and save.",
@@ -182,7 +183,8 @@
         "You Alone in the Maine Woods",
         "National Park Service — The Ten Essentials",
         "USGS — Finding Your Way with Map and Compass",
-        "NPS — Wilderness Sanitation and Water Treatment"
+        "NPS — Wilderness Sanitation and Water Treatment",
+        "US Forest Service — Know Before You Go: Recreation Checklist (2021)"
       ],
       "tools": []
     },
@@ -221,7 +223,9 @@
         "2025 Census ZIP-area coordinates",
         "Massachusetts electrical-code amendments — 527 CMR 12.00",
         "Massachusetts fire-code amendments — 527 CMR 1.00",
-        "U.S. Code — original full publisher XHTML ZIP"
+        "U.S. Code — original full publisher XHTML ZIP",
+        "Massachusetts Building Code 780 CMR — tenth-edition contents",
+        "Massachusetts Building Code 780 CMR — tenth-edition introduction (publisher webpage snapshot)"
       ],
       "tools": []
     },
@@ -266,7 +270,8 @@
         "Grilling Fire Safety — U.S. Fire Administration",
         "Preparedness & Resiliency — Pantry Meals for Seven Days",
         "A Harvest of Recipes with USDA Foods",
-        "Recipes and Tips for Healthy, Thrifty Meals"
+        "Recipes and Tips for Healthy, Thrifty Meals",
+        "Good and Cheap — Leanne Brown, version 1.1"
       ],
       "tools": []
     },
@@ -396,16 +401,17 @@
     },
     {
       "number": 24,
-      "title": "Communication & Accessibility",
-      "hook": "Tools to help people communicate across speech and precise-touch barriers.",
+      "title": "DEJ Software",
+      "hook": "Communication tools and a public bootstrap kit, available locally.",
       "items": [
         "Communicate browser speech tool, hosted locally",
-        "Communicate Keyboard Android installer and setup guide, available offline"
+        "Communicate Keyboard Android installer and setup guide, available offline",
+        "Data Ark bootstrap kit — public software and configuration for building another Ark"
       ],
       "tools": [
         "Speech uses the viewing device’s voice; an offline voice must be installed for offline speech."
       ]
     }
   ],
-  "installed_asset_count": 1394
+  "installed_asset_count": 1400
 }

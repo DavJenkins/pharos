@@ -1,11 +1,11 @@
 {
-  "version": "2026.10.30-preview.2",
-  "source_revision": "bbf93a1ea05c37df8879aaa7c1a6079cd05a2cb2",
-  "asset": "data-ark-bootstrap-2026.10.30-preview.2.tar.gz",
-  "bytes": 42639388,
-  "sha256": "30a92327c0765be01999963e3bbba9ca58b5d797973d3d20e55783717beb53e7",
+  "version": "2026.10.30-preview.2.1",
+  "source_revision": "8dd8b4abb6b0cabe3fec2878d5a5d2cc7876e26a",
+  "asset": "data-ark-bootstrap-2026.10.30-preview.2.1.tar.gz",
+  "bytes": 42637190,
+  "sha256": "95002d3b5686b1f482ba9c5df22dd05479f8b6c15e744521676c001aa1623a34",
   "channel": "preview",
-  "validated_executable_files_unchanged": 263,
+  "validated_executable_files_unchanged": 264,
   "platform_files": {
     "bootstrap_platform.py": "b04814f55e555103efd919d4c650fc99fba77d32f8cf1c35eed18a0323c060ca",
     "platforms/debian13-amd64-lan.json": "ceda4160a66850bd361e0979f6e6c6c167d7ac85eb5e0b569f363ed223e27022",
@@ -14,12 +14,12 @@
   },
   "platform_profile": "raspberry-pi-debian13-arm64",
   "architecture": "aarch64",
-  "release_tag": "bootstrap-2026.10.30-preview.2",
-  "download_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/data-ark-bootstrap-2026.10.30-preview.2.tar.gz",
-  "checksum_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/SHA256SUMS",
-  "release_url": "https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.30-preview.2",
+  "release_tag": "bootstrap-2026.10.30-preview.2.1",
+  "download_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2.1/data-ark-bootstrap-2026.10.30-preview.2.1.tar.gz",
+  "checksum_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2.1/SHA256SUMS",
+  "release_url": "https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.30-preview.2.1",
   "prerelease": true,
   "hosting": "github-releases",
-  "validation_summary": "Isolated normal web deployment replay; 1497 local links/assets; 8 Kiwix entry pages; 105 focused Python regressions; JavaScript interaction checks; 11 caretaker authentication boundaries.",
-  "validation_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/release-validation.json"
+  "validation_summary": "Isolated deployment replay; 1497 local links/assets; 8 Kiwix entry pages; 106 focused Python regressions; JavaScript checks; 11 caretaker authentication boundaries; corrected plan-acceptance quick start.",
+  "validation_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2.1/release-validation.json"
 }

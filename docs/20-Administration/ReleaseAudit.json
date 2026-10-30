@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "passed",
-  "source_revision": "bbf93a1ea05c37df8879aaa7c1a6079cd05a2cb2",
-  "checked_at": "2026-10-30T23:08:27.887461+00:00",
+  "source_revision": "8dd8b4abb6b0cabe3fec2878d5a5d2cc7876e26a",
+  "checked_at": "2026-10-30T23:36:56.372395+00:00",
   "deployment_replay_passed": true,
   "deployment_environment": "Private mount namespace; normal deployment script; staging web root; content mount read-only",
   "regression_tests_passed": true,
-  "python_regressions": 105,
-  "python_regression_revision": "989447f4a6946f745c02963737f5141861ad2069",
+  "python_regressions": 106,
+  "python_regression_revision": "8dd8b4abb6b0cabe3fec2878d5a5d2cc7876e26a",
   "python_executable_sources_unchanged": true,
   "javascript_checks": [
     "bugout interactions",
@@ -24,5 +24,7 @@
   "non_content_findings": [
     "Gutenberg archive references two absent favicon PNGs; its actual favicon.ico, required CSS and JavaScript load. Original archive bytes retained."
   ],
-  "scope": "Web deployment, link serving, representative reader entry resources and authentication boundaries; does not claim a new physical spare-media or clean-OS acceptance run."
+  "scope": "Web deployment, link serving, representative reader entry resources and authentication boundaries; does not claim a new physical spare-media or clean-OS acceptance run.",
+  "hardware_credit_tests_passed": true,
+  "quickstart_accept_plan_documented": true
 }

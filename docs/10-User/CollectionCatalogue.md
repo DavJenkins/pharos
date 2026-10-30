@@ -6,11 +6,11 @@
 
 An encyclopedia. A library of books. A repair bench, map cabinet, classroom and emergency reference shelf. The Data Ark brings them together on one local device - ready to serve a household or community when an internet connection is unavailable.
 
-24 collections combine 1,394 registered archives, publications, datasets and packs, plus local tools for maps, radio practice, PDF forms, coloring, games and practical planning. A single archive can contain an entire searchable collection; 1,394 is an inventory count, not a count of its articles, books, maps or pages.
+24 collections combine 1,400 registered archives, publications, datasets and packs, plus local tools for maps, radio practice, PDF forms, coloring, games and practical planning. A single archive can contain an entire searchable collection; 1,400 is an inventory count, not a count of its articles, books, maps or pages.
 
 Connect to the Ark and open a browser. Read, search, learn, plan, fill forms, print worksheets, or take copies of the content with you. The collection is stored locally, rather than being a directory of websites you still need the internet to visit.
 
-Collection snapshot | October 28, 2026
+Collection snapshot | October 30, 2026
 
 ## 1. Wikipedia
 
@@ -118,6 +118,8 @@ The paperwork of everyday life, business and emergency response, ready to read, 
 - PDF form tool: Open PDFs, fill interactive fields, write on the page, preview and save.
 - Paper studio: Emergency contacts, household/supply inventories, medication records, evacuation planning, pet care, expenses, receipts, maintenance logs, equipment handovers and project planning; printable in A4 and US Letter.
 
+- SSA SS-5 — Application for a Social Security card (December 2024 revision)
+
 ## 9. Learning & Homeschooling
 
 - Khan Academy: the full English US-curriculum Kiwix archive, with 180 GB of offline videos and exercises in mathematics, physics, chemistry, biology and history (March 2023 edition).
@@ -169,6 +171,8 @@ Know-how for finding your way, preparing a trip and looking after yourself outdo
 - USGS — Finding Your Way with Map and Compass
 - NPS — Wilderness Sanitation and Water Treatment
 
+- US Forest Service — Know Before You Go: Recreation Checklist (2021)
+
 ## 12. Power & Energy
 
 Understand energy needs, compare options and plan for life beyond the wall socket.
@@ -203,6 +207,10 @@ The foundations of government and law, alongside practical regional references.
 - Massachusetts electrical-code amendments — 527 CMR 12.00
 - Massachusetts fire-code amendments — 527 CMR 1.00
 - U.S. Code — original full publisher XHTML ZIP
+
+- Massachusetts Building Code 780 CMR — tenth-edition contents
+
+- Massachusetts Building Code 780 CMR — tenth-edition introduction (publisher webpage snapshot)
 
 ## 14. Radio & Communications
 
@@ -244,6 +252,8 @@ Grow the pantry, preserve the harvest and put a meal on the table.
 - Preparedness & Resiliency — Pantry Meals for Seven Days
 - A Harvest of Recipes with USDA Foods
 - Recipes and Tips for Healthy, Thrifty Meals
+
+- Good and Cheap — Leanne Brown, version 1.1
 
 ## 16. Sanitation & Hygiene
 
@@ -345,7 +355,7 @@ Planning that accounts for mobility, communication, medical devices and individu
 - Hot and Cold: The Effects of Temperature on MS — MS Society
 - Ready Now! Emergency Preparedness Tool Kit — OHSU
 
-## 24. Communication & Accessibility
+## 24. DEJ Software
 
 Tools to help people communicate across speech and precise-touch barriers.
 
@@ -354,13 +364,15 @@ Tools to help people communicate across speech and precise-touch barriers.
 
 Speech uses the viewing device’s voice; an offline voice must be installed for offline speech.
 
+- Data Ark bootstrap kit — public software and configuration for building another Ark
+
 ## Beyond the shelves
 
 A local community message board supports announcements, requests, offers and conversations. The Ark can also provide file access and maintenance tools alongside the library. Its purpose is to keep useful knowledge and practical capabilities available under adverse conditions.
 
 ## About this edition
 
-This catalogue describes the content preserved on this Ark as of October 28, 2026. It omits uninstalled wishlist items and blocked acquisition attempts. Collections are snapshots with their original source editions; availability and freshness differ by source. State constitutional snapshots are not complete state statute books. The Massachusetts code files are amendments and named references, not a complete licensed building-code library. Vehicle files are owner manuals and quick guides, not factory service manuals. Street maps are not nautical charts. Original publishers retain their rights and individual notices apply.
+This catalogue describes the content preserved on this Ark as of October 30, 2026. It omits uninstalled wishlist items and blocked acquisition attempts. Collections are snapshots with their original source editions; availability and freshness differ by source. State constitutional snapshots are not complete state statute books. The Massachusetts code files are amendments and named references, not a complete licensed building-code library. Vehicle files are owner manuals and quick guides, not factory service manuals. Street maps are not nautical charts. Original publishers retain their rights and individual notices apply.
 
 DEJ Software | Practical Software for Real Life | dejsoftware.com
 

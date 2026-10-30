@@ -4,11 +4,11 @@ Turn a supported Raspberry Pi into a local knowledge appliance, then choose the 
 
 ## Get the bootstrap
 
-[Download bootstrap — Preview 2](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/data-ark-bootstrap-2026.10.30-preview.2.tar.gz)
+[Download bootstrap — Preview 2.1](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2.1/data-ark-bootstrap-2026.10.30-preview.2.1.tar.gz)
 
-**42.6 MB**, hosted on GitHub Releases. [Release notes](https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.30-preview.2) · [SHA-256 checksum](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/SHA256SUMS)
+**42.6 MB**, hosted on GitHub Releases. [Release notes](https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.30-preview.2.1) · [SHA-256 checksum](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2.1/SHA256SUMS)
 
-Preview 2 passed an isolated deployment replay, 105 focused Python regressions, reader checks and caretaker authentication checks. See the [release audit](../20-Administration/ReleaseAudit.md). The earlier Preview 1 clean ARM64 installation and reboot results are separate evidence; Preview 2 has not repeated that full installation test.
+Preview 2.1 passed an isolated deployment replay, 106 focused Python regressions, reader checks and caretaker authentication checks. See the [release audit](../20-Administration/ReleaseAudit.md). The earlier Preview 1 clean ARM64 installation and reboot results are separate evidence; Preview 2.1 has not repeated that full installation test.
 
 ## Start in three steps
 

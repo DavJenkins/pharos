@@ -27,7 +27,7 @@ W,H=612,792
 styles={
  'head':ParagraphStyle('head',fontName='ArkBold',fontSize=14,leading=17,textColor=BLUE,spaceBefore=14,spaceAfter=6,keepWithNext=True),
  'hook':ParagraphStyle('hook',fontName='ArkItalic',fontSize=10,leading=14,textColor=GRAY,spaceAfter=8,keepWithNext=True),
- 'bullet':ParagraphStyle('bullet',fontName='Ark',fontSize=10,leading=14,textColor=INK,leftIndent=9,firstLineIndent=-9,spaceAfter=4),
+ 'bullet':ParagraphStyle('bullet',fontName='Ark',fontSize=10,leading=14,textColor=INK,leftIndent=9,firstLineIndent=-9,spaceAfter=3),
  'small':ParagraphStyle('small',fontName='Ark',fontSize=8.2,leading=11,textColor=GRAY,spaceAfter=5),
  'tool':ParagraphStyle('tool',fontName='Ark',fontSize=10,leading=14,textColor=INK,spaceAfter=6),
  'cover':ParagraphStyle('cover',fontName='ArkBold',fontSize=32,leading=38,textColor=CREAM,spaceAfter=20),
