@@ -352,3 +352,5 @@ body{background-image:none}
 .status-attention a,.status-review-link{color:#234a62}.status-review-link{display:block;margin-top:.5rem;font-size:.85rem}
 
 .status-tile[hidden]{display:none!important}
+
+.status-attention[data-tone="gray"]{background:#edf4f9;border-color:#809aad}.status-attention[data-tone="gray"] ul{list-style:none;padding-left:0}.status-attention button{display:block;margin-top:.5rem;min-height:36px;padding:.35rem .65rem;border:1px solid #809aad;border-radius:5px;background:#fff;color:#234a62;font:inherit;cursor:pointer}
