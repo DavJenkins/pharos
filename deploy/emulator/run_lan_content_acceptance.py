@@ -12,9 +12,14 @@ state=Path('/var/lib/dataark-lan-acceptance');report=json.loads((state/'result.j
 assert set(json.loads(Path('/var/lib/dataark/bootstrap.json').read_text())['completed'])=={'packages','source','storage','python','platform_settings','base_services','content_access','network','content','finish'}
 def run(args):return subprocess.run(args,check=True,capture_output=True,text=True,cwd=root).stdout
 checks={}
-subprocess.run(['systemctl','reset-failed','dataark-lan-acceptance','dataark-lan-install','dataark-lan-content-proof','dataark-lan-minimal-proof','dataark-lan-paired-proof'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+subprocess.run(['systemctl','reset-failed','dataark-lan-acceptance','dataark-lan-install','dataark-lan-content-proof','dataark-lan-minimal-proof','dataark-lan-paired-proof','dataark-lan-replacement-proof','dataark-lan-recovery-proof','dataark-lan-final-recovery-proof','dataark-lan-empty-volume-proof'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def save(phase):report.update(phase=phase,checks=checks);(state/'result.json').write_text(json.dumps(report,indent=2))
-def get(path):return urllib.request.urlopen('http://127.0.0.1'+path,timeout=30).read()
+def get(path):
+ for attempt in range(20):
+  try:return urllib.request.urlopen('http://127.0.0.1'+path,timeout=30).read()
+  except (OSError,urllib.error.HTTPError):
+   if attempt==19:raise
+   time.sleep(.5)
 for name in ['dataark','apache2','docker','smbd','avahi-daemon','systemd-networkd']:run(['systemctl','is-active','--quiet',name])
 for path in ['/','/api/','/docs/SUMMARY.html','/library.html','/community.html','/api/docs']:assert get(path),path
 net=json.loads(get('/api/status'))['network'];assert net['capabilities']['network_mode']=='lan';assert net['capabilities']['hotspot'] is False;assert not net['access_point']['interface']
@@ -45,19 +50,24 @@ def restore(directory):
  result=q.snapshot(directory);assert result['status']=='complete',result
  data=(Path('/mnt/storage')/asset['relative_path']).read_bytes();assert hashlib.sha256(data).hexdigest()==sha;assert get(asset['service_endpoint'])==data;assert not Path('/mnt/storage/preparedness/disabled.pdf').exists()
  return result
-first=restore(state/'initial-queue');checks['minimal_real_download_verified_and_served']=True;checks['disabled_choice_not_downloaded']=True;save('minimal_ready')
+first=restore(state/'initial-queue-v2');checks['minimal_real_download_verified_and_served']=True;checks['disabled_choice_not_downloaded']=True;save('minimal_ready')
 c.mirror(profile,folder,Path('/mnt/storage/DATA-ARK-CONFIG'))
 # Only a newly hot-plugged, specifically serialized blank test disk may be formatted.
 device=Path('/dev/disk/by-id/virtio-DATAARK-LAN-EMPTY');assert device.is_symlink();disk=device.resolve()
 boot_source=run(['findmnt','-n','-o','SOURCE','/']).strip();boot_chain=run(['lsblk','-sno','KNAME',boot_source]).split();assert disk.name not in boot_chain
 assert run(['findmnt','-n','-o','SOURCE','/mnt/storage']).strip()!=str(disk)
 assert int((Path('/sys/class/block')/disk.name/'size').read_text())*512==16*1024**3
-assert subprocess.run(['blkid',str(disk)],stdout=subprocess.DEVNULL).returncode!=0
-run(['mkfs.ext4','-q','-L','ARK-LAN-REPLACEMENT',str(disk)])
-run(['systemctl','stop','dataark']);run(['docker','stop','kiwix-serve']);original=Path('/mnt/dataark-lan-original');original.mkdir(exist_ok=True);run(['mount','--move','/mnt/storage',str(original)]);run(['mount',str(disk),'/mnt/storage']);os.chown('/mnt/storage',1000,1000)
+if subprocess.run(['blkid',str(disk)],stdout=subprocess.DEVNULL).returncode!=0:
+ run(['mkfs.ext4','-q','-L','ARK-LAN-SPARE',str(disk)])
+else:
+ assert run(['blkid','-s','LABEL','-o','value',str(disk)]).strip() in {'ARK-LAN-SPARE','ARK-LAN-REPLACEMENT'[:16]}
+ inspect=Path('/mnt/dataark-lan-empty-inspect');inspect.mkdir(exist_ok=True);run(['mount','-o','ro',str(disk),str(inspect)])
+ try:assert not any(p.name!='lost+found' for p in inspect.iterdir())
+ finally:run(['umount',str(inspect)])
+run(['systemctl','stop','dataark']);run(['docker','stop','kiwix-serve']);original=Path('/mnt/dataark-lan-original');original.mkdir(exist_ok=True);run(['mount','--bind','/mnt/storage',str(original)]);run(['umount','/mnt/storage']);run(['mount',str(disk),'/mnt/storage']);os.chown('/mnt/storage',1000,1000)
 assert not any(p.name!='lost+found' for p in Path('/mnt/storage').iterdir());checks['replacement_started_empty']=True
 uuid=run(['blkid','-s','UUID','-o','value',str(disk)]).strip();fstab=Path('/etc/fstab');old=fstab.read_text();(state/'fstab-before-replacement').write_text(old);lines=[line for line in old.splitlines() if len(line.split())<2 or line.split()[1]!='/mnt/storage'];fstab.write_text('\n'.join(lines)+'\nUUID='+uuid+' /mnt/storage ext4 defaults,nofail 0 0\n')
-second=restore(state/'replacement-queue');checks['system_half_rebuilt_empty_content_volume']=True
+second=restore(state/'replacement-queue-v2');checks['system_half_rebuilt_empty_content_volume']=True
 from tools.replicate_drive import kit_files
 meta=kit_files(Path('/mnt/storage'),profile=profile_path,platform_profile='debian13-arm64-lan');assert meta['platform_profile']=='debian13-arm64-lan';checks['replacement_content_has_regenerated_bootstrap_kit']=True
 run(['docker','restart','kiwix-serve']);run(['systemctl','start','dataark'])

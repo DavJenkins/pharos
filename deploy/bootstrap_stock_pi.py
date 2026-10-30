@@ -165,6 +165,7 @@ class Installer:
    if label!=self.state['configuration_sha256']:raise RuntimeError('Unmanaged kiwix-serve container exists.')
    run(['docker','rm','-f','kiwix-serve'])
   run(['docker','run','-d','--name','kiwix-serve','--label','org.dataark.bootstrap='+self.state['configuration_sha256'],'--restart','unless-stopped','-p','8080:8080','-v','/mnt/storage:/data','-v',str(self.repo/'deploy/reference/kiwix-start.sh')+':/usr/local/bin/dataark-start:ro','--entrypoint','/bin/sh',self.c['kiwix_image'],'/usr/local/bin/dataark-start'])
+  run(['/usr/bin/python3',str(self.repo/'tools/configure_kiwix_catalogue.py'),'--apply','--restart'])
   self.script('install_reliability_logging.py');self.script('install_network_admin.py','--defer-wifi-roles',*(['--read-only-network'] if platforms.selected(self.c)['network_mode']=='lan' else []));self.script('install_library.py');run(['install','-m','644',str(self.repo/'deploy/dataark-recovery.service'),'/etc/systemd/system/dataark-recovery.service']);run(['systemctl','daemon-reload']);self.script('install_usage.py');self.script('install_shell_welcome.py');self.script('install_community.py');self.script('install_https.py')
   run(['bash',str(self.repo/'deploy/deploy-web.sh')]);run(['systemctl','enable','--now','dataark'])
  def content_access(self):
