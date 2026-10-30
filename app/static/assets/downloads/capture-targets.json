@@ -15,7 +15,7 @@
   },
   {
     "id": "cdc-wrigley-es",
-    "title": "Ready Wrigley: Coping After a Disaster — Spanish",
+    "title": "Ready Wrigley: Coping After a Disaster â€” Spanish",
     "url": "https://stacks.cdc.gov/view/cdc/58345/cdc_58345_DS1.pdf",
     "collection": "family-resources",
     "source": {
@@ -71,21 +71,22 @@
   },
   {
     "id": "cook-good-cheap",
-    "title": "Good and Cheap — Leanne Brown",
-    "url": "https://ecuphysicians.ecu.edu/wp-content/pv-uploads/sites/78/2020/06/good-and-cheap.pdf",
+    "title": "Good and Cheap â€” Leanne Brown",
+    "url": "https://leannebrown.com/wp-content/uploads/2024/08/good-and-cheap-by-leanne-brown.pdf",
     "collection": "family-resources",
     "source": {
-      "current_download_url": "https://ecuphysicians.ecu.edu/wp-content/pv-uploads/sites/78/2020/06/good-and-cheap.pdf",
-      "assessed_at": "2026-10-27",
-      "failure_kind": "access_blocked",
+      "current_download_url": "https://leannebrown.com/wp-content/uploads/2024/08/good-and-cheap-by-leanne-brown.pdf",
+      "assessed_at": "2026-10-30",
+      "failure_kind": "repaired",
       "publication_page": "https://leannebrown.com/updated-version-of-good-and-cheap-now-available/",
       "discovery_rule": null,
-      "note": "Automated access was refused; this does not establish that the file is missing or a new edition exists."
+      "note": "Replacement URL downloaded directly on the Ark; PDF identity validated. Author-hosted version 1.1, redistribution license retained.",
+      "previous_download_url": "https://ecuphysicians.ecu.edu/wp-content/pv-uploads/sites/78/2020/06/good-and-cheap.pdf"
     }
   },
   {
     "id": "ma-form1-2025",
-    "title": "Massachusetts Form 1 — Resident income tax return",
+    "title": "Massachusetts Form 1 â€” Resident income tax return",
     "url": "https://www.mass.gov/doc/2025-form-1-massachusetts-resident-income-tax-return/download",
     "collection": "forms",
     "source": {
@@ -113,54 +114,56 @@
   },
   {
     "id": "ss5",
-    "title": "SSA SS-5 — Application for a Social Security card",
-    "url": "https://www.ssa.gov/online/ss-5.pdf",
+    "title": "SSA SS-5 â€” Application for a Social Security card",
+    "url": "https://www.ssa.gov/forms/ss-5.pdf",
     "collection": "forms",
     "source": {
-      "current_download_url": "https://www.ssa.gov/online/ss-5.pdf",
-      "assessed_at": "2026-10-27",
+      "current_download_url": "https://www.ssa.gov/forms/ss-5.pdf",
+      "assessed_at": "2026-10-30",
       "failure_kind": "access_blocked",
-      "publication_page": null,
+      "publication_page": "https://www.ssa.gov/forms/",
       "discovery_rule": null,
-      "note": "Automated access was refused; this does not establish that the file is missing or a new edition exists."
+      "note": "Canonical SSA forms URL confirmed; automated access still returns HTTP 403. Browser capture required; do not treat this as a missing publication.",
+      "previous_download_url": "https://www.ssa.gov/online/ss-5.pdf"
     }
   },
   {
     "id": "usfs-before-you-go",
-    "title": "US Forest Service — Know Before You Go",
-    "url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5300292.pdf",
+    "title": "US Forest Service - Know Before You Go: Recreation Checklist",
+    "url": "https://www.fs.usda.gov/media/21573",
     "collection": "resilience",
     "source": {
-      "current_download_url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5300292.pdf",
-      "assessed_at": "2026-10-27",
-      "failure_kind": "broken_link",
+      "current_download_url": "https://www.fs.usda.gov/media/21573",
+      "assessed_at": "2026-10-30",
+      "failure_kind": "repaired",
       "publication_page": null,
       "discovery_rule": null,
-      "note": "The recorded PDF URL returned HTTP 404. A replacement needs publication and identity review before import.",
-      "candidate": {
-        "url": "https://www.fs.usda.gov/media/21573",
-        "title": "Know Before You Go! — recreation checklist (2021)",
-        "note": "Verified PDF destination. A related replacement candidate; not established as the same publication or edition."
-      }
+      "note": "Replacement URL downloaded directly on the Ark; PDF identity validated. 2021 related recreation checklist replaces the retired link; not the same edition.",
+      "previous_download_url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5300292.pdf"
     }
   },
   {
     "id": "usfs-outdoor-safety",
-    "title": "US Forest Service — Outdoor Safety",
+    "title": "US Forest Service â€” Outdoor Safety",
     "url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd524522.pdf",
     "collection": "resilience",
     "source": {
       "current_download_url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd524522.pdf",
-      "assessed_at": "2026-10-27",
+      "assessed_at": "2026-10-30",
       "failure_kind": "broken_link",
       "publication_page": null,
       "discovery_rule": null,
-      "note": "The recorded PDF URL returned HTTP 404. A replacement needs publication and identity review before import."
+      "note": "Retired PDF returns 404. The installed 2021 Forest Service recreation checklist provides related safety coverage; exact old publication has not been located.",
+      "candidate": {
+        "url": "/library-files/resilience/documents/usfs-before-you-go.pdf",
+        "title": "Installed Forest Service recreation checklist (2021)",
+        "note": "Related safety coverage; not the missing original publication."
+      }
     }
   },
   {
     "id": "ma-electrical",
-    "title": "Massachusetts electrical-code amendments — 527 CMR 12.00",
+    "title": "Massachusetts electrical-code amendments â€” 527 CMR 12.00",
     "url": "https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download",
     "collection": "civic-reference",
     "source": {
@@ -174,7 +177,7 @@
   },
   {
     "id": "ma-fire",
-    "title": "Massachusetts fire-code amendments — 527 CMR 1.00",
+    "title": "Massachusetts fire-code amendments â€” 527 CMR 1.00",
     "url": "https://www.mass.gov/doc/massachusetts-527-cmr-100-2021-edition-effective-may-12-2023/download",
     "collection": "civic-reference",
     "source": {
@@ -188,12 +191,12 @@
   },
   {
     "id": "ma-building-preamble",
-    "title": "Massachusetts Building Code 780 CMR — tenth-edition preamble",
+    "title": "Massachusetts Building Code 780 CMR â€” tenth-edition preamble",
     "url": "https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download",
     "collection": "civic-reference",
     "source": {
       "current_download_url": "https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download",
-      "assessed_at": "2026-10-27",
+      "assessed_at": "2026-10-30",
       "failure_kind": "access_blocked",
       "publication_page": "https://www.mass.gov/handbook/tenth-edition-of-the-ma-state-building-code-780",
       "discovery_rule": null,
@@ -202,12 +205,12 @@
   },
   {
     "id": "ma-building-toc",
-    "title": "Massachusetts Building Code 780 CMR — tenth-edition contents",
+    "title": "Massachusetts Building Code 780 CMR â€” tenth-edition contents",
     "url": "https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download",
     "collection": "civic-reference",
     "source": {
       "current_download_url": "https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download",
-      "assessed_at": "2026-10-27",
+      "assessed_at": "2026-10-30",
       "failure_kind": "access_blocked",
       "publication_page": "https://www.mass.gov/regulations/780-CMR-tenth-edition-table-of-contents",
       "discovery_rule": null,
@@ -221,11 +224,11 @@
     "collection": "resilience",
     "source": {
       "current_download_url": "https://extension.colostate.edu/docs/energy/hydro-handbook.pdf",
-      "assessed_at": "2026-10-27",
+      "assessed_at": "2026-10-30",
       "failure_kind": "broken_link",
       "publication_page": null,
       "discovery_rule": null,
-      "note": "The recorded PDF URL returned HTTP 404. A replacement needs publication and identity review before import."
+      "note": "CSU PDF returns 404; historical Colorado.gov URL cited by a 2025 federal report returned 502. Exact handbook remains unlocated. Installed NCAT micro-hydro guide provides related coverage."
     }
   }
 ]

@@ -4,18 +4,6 @@
   "scope": "Five current collection sources.json inventories plus historical failures in administration guides; not a complete history of every exploratory URL or a fresh publisher retry.",
   "unavailable_entries": [
     {
-      "id": "cook-good-cheap",
-      "collection": "family-resources",
-      "title": "Good and Cheap — Leanne Brown",
-      "source_url": "https://ecuphysicians.ecu.edu/wp-content/pv-uploads/sites/78/2020/06/good-and-cheap.pdf",
-      "last_attempt": "2026-10-24T15:21:16.529375+00:00",
-      "observed_failure": "HTTP Error 403: Forbidden",
-      "assessment": "Covered differently",
-      "installed_alternative": "Three installed cookbooks: EFNEP Pantry Meals, USDA Harvest of Recipes and Healthy Thrifty Meals.",
-      "retry_priority": "Low: optional author/title addition.",
-      "evidence": "/mnt/storage/family-resources/sources.json"
-    },
-    {
       "id": "cert-all-abilities.pdf",
       "collection": "preparedness",
       "title": "FEMA CERT Annex for All Abilities",
@@ -55,8 +43,8 @@
       "id": "ss5",
       "collection": "forms",
       "title": "SSA SS-5 — Application for a Social Security card",
-      "source_url": "https://www.ssa.gov/online/ss-5.pdf",
-      "last_attempt": "2026-10-23T04:57:00.030152+00:00",
+      "source_url": "https://www.ssa.gov/forms/ss-5.pdf",
+      "last_attempt": "2026-10-30T18:00:00+00:00",
       "observed_failure": "HTTP Error 403: Forbidden",
       "assessment": "Open need",
       "installed_alternative": "No equivalent SSA application installed.",
@@ -64,26 +52,14 @@
       "evidence": "/mnt/storage/forms/sources.json"
     },
     {
-      "id": "usfs-before-you-go",
-      "collection": "resilience",
-      "title": "US Forest Service — Know Before You Go",
-      "source_url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5300292.pdf",
-      "last_attempt": "2026-10-24T01:21:50.748360+00:00",
-      "observed_failure": "HTTP Error 404: Not Found",
-      "assessment": "Covered differently",
-      "installed_alternative": "Maine survival booklet, NPS Ten Essentials and NPS trip-planning package.",
-      "retry_priority": "Low: broken old URL; exact title is optional.",
-      "evidence": "/mnt/storage/resilience/sources.json"
-    },
-    {
       "id": "usfs-outdoor-safety",
       "collection": "resilience",
       "title": "US Forest Service — Outdoor Safety",
       "source_url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd524522.pdf",
-      "last_attempt": "2026-10-24T01:21:50.320538+00:00",
+      "last_attempt": "2026-10-30T18:00:00+00:00",
       "observed_failure": "HTTP Error 404: Not Found",
       "assessment": "Covered differently",
-      "installed_alternative": "Maine survival, NPS outdoor/trip guidance, navigation and first-aid references.",
+      "installed_alternative": "Forest Service Know Before You Go: Recreation Checklist (2021), two pages, now installed; related coverage, not identical old publication. NPS and Maine outdoor references remain available.",
       "retry_priority": "Low: broad topics covered, not asserted identical.",
       "evidence": "/mnt/storage/resilience/sources.json"
     },
@@ -104,7 +80,7 @@
       "collection": "resilience",
       "title": "Colorado Small Hydropower Handbook",
       "source_url": "https://extension.colostate.edu/docs/energy/hydro-handbook.pdf",
-      "last_attempt": "2026-10-24T01:28:51.083228+00:00",
+      "last_attempt": "2026-10-30T18:00:00+00:00",
       "observed_failure": "HTTP Error 404: Not Found",
       "assessment": "Covered differently",
       "installed_alternative": "NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation, February 2011, 28 pages, installed from NCAT. Archived engineering/planning reference, not current Massachusetts permitting or electrical code.",
@@ -116,7 +92,7 @@
       "collection": "civic-reference",
       "title": "Massachusetts Building Code 780 CMR — tenth-edition preamble",
       "source_url": "https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download",
-      "last_attempt": "2026-10-24T01:21:52.945403+00:00",
+      "last_attempt": "2026-10-30T18:00:00+00:00",
       "observed_failure": "HTTP Error 403: Forbidden",
       "assessment": "Open need",
       "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
@@ -128,7 +104,7 @@
       "collection": "civic-reference",
       "title": "Massachusetts Building Code 780 CMR — tenth-edition contents",
       "source_url": "https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download",
-      "last_attempt": "2026-10-24T01:21:53.173597+00:00",
+      "last_attempt": "2026-10-30T18:00:00+00:00",
       "observed_failure": "HTTP Error 403: Forbidden",
       "assessment": "Open need",
       "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
@@ -252,7 +228,7 @@
       "url": "https://www.redcross.org.au/globalassets/cms/downloads/pdfs/disaster-plan/easy-english-rediplan-accessible.pdf"
     }
   ],
-  "updated_at": "2026-10-24T20:12:23.278749+00:00",
+  "updated_at": "2026-10-30",
   "resolved_entries": [
     {
       "id": "ma-health-proxy",
@@ -425,6 +401,38 @@
       "local_url": "/library-files/civic-reference/documents/ma-fire.pdf",
       "sha256": "2096abb22f66daf14520b104dcb3798e9000df9a8f03cdb2c58dd0c0a44d585e",
       "pages": 182
+    },
+    {
+      "id": "cook-good-cheap",
+      "collection": "family-resources",
+      "title": "Good and Cheap — Leanne Brown",
+      "source_url": "https://leannebrown.com/wp-content/uploads/2024/08/good-and-cheap-by-leanne-brown.pdf",
+      "last_attempt": "2026-10-24T15:21:16.529375+00:00",
+      "observed_failure": "HTTP Error 403: Forbidden",
+      "assessment": "Covered differently",
+      "installed_alternative": "Three installed cookbooks: EFNEP Pantry Meals, USDA Harvest of Recipes and Healthy Thrifty Meals.",
+      "retry_priority": "Low: optional author/title addition.",
+      "evidence": "/mnt/storage/family-resources/sources.json",
+      "local_url": "/library-files/family-resources/cookbooks/cook-good-cheap.pdf",
+      "sha256": "d23f8476365a464ce4639aaddfff7d4ca449031ddd51de2c3de548f1a09bc6a6",
+      "pages": 90,
+      "resolution": "Downloaded directly on the Ark and validated with PDF parser, document identity and SHA-256. Author-hosted version 1.1; license and notices preserved."
+    },
+    {
+      "id": "usfs-before-you-go",
+      "collection": "resilience",
+      "title": "US Forest Service - Know Before You Go: Recreation Checklist",
+      "source_url": "https://www.fs.usda.gov/media/21573",
+      "last_attempt": "2026-10-24T01:21:50.748360+00:00",
+      "observed_failure": "HTTP Error 404: Not Found",
+      "assessment": "Covered differently",
+      "installed_alternative": "Maine survival booklet, NPS Ten Essentials and NPS trip-planning package.",
+      "retry_priority": "Low: broken old URL; exact title is optional.",
+      "evidence": "/mnt/storage/resilience/sources.json",
+      "local_url": "/library-files/resilience/documents/usfs-before-you-go.pdf",
+      "sha256": "b05af6b1db2612070a16636372ae70bebd119e9943e8b2f48cd17937b96b77e6",
+      "pages": 2,
+      "resolution": "Downloaded directly on the Ark and validated with PDF parser, document identity and SHA-256. 2021 recreation checklist is a related replacement for the retired link, not the identical old publication."
     }
   ],
   "retry_notes": [

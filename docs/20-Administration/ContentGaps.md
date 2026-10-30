@@ -1,20 +1,12 @@
 # Content download gaps and alternatives
 
-Updated 2026-10-24. This register separates unavailable documents, useful alternatives and actual uncovered needs. It is not a list of proposed new collections.
+Updated 2026-10-30. This register separates unavailable documents, useful alternatives and actual uncovered needs. It is not a list of proposed new collections.
 
-16 unavailable catalogue entries; 7 omitted candidates; 11 entries resolved or corrected. Related guides do not mean the requested document is installed. HTTP errors describe recorded requests, not whether you can open a public document in your browser.
+14 unavailable catalogue entries; 7 omitted candidates; 13 entries resolved or corrected. Related guides do not mean the requested document is installed. HTTP errors describe recorded requests, not whether you can open a public document in your browser.
 
 [Capture missing PDFs or review updates](/capture.html). Successful captures automatically move their entry to the resolved section. The capture page also shows current update-check status.
 
 ## Current unavailable catalogue entries
-
-### family-resources
-
-[Good and Cheap — Leanne Brown](https://ecuphysicians.ecu.edu/wp-content/pv-uploads/sites/78/2020/06/good-and-cheap.pdf)
-
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-24).
-- Coverage: Covered differently. Three installed cookbooks: EFNEP Pantry Meals, USDA Harvest of Recipes and Healthy Thrifty Meals.
-- Decision: Low: optional author/title addition.
 
 ### preparedness
 
@@ -38,24 +30,18 @@ Updated 2026-10-24. This register separates unavailable documents, useful altern
 
 ### forms
 
-[SSA SS-5 — Application for a Social Security card](https://www.ssa.gov/online/ss-5.pdf)
+[SSA SS-5 — Application for a Social Security card](https://www.ssa.gov/forms/ss-5.pdf)
 
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-23).
+- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
 - Coverage: Open need. No equivalent SSA application installed.
 - Decision: Medium: optional administrative form; verify accepted edition before use.
 
 ### resilience
 
-[US Forest Service — Know Before You Go](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5300292.pdf)
-
-- Recorded failure: HTTP Error 404: Not Found (last attempt 2026-10-24).
-- Coverage: Covered differently. Maine survival booklet, NPS Ten Essentials and NPS trip-planning package.
-- Decision: Low: broken old URL; exact title is optional.
-
 [US Forest Service — Outdoor Safety](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd524522.pdf)
 
-- Recorded failure: HTTP Error 404: Not Found (last attempt 2026-10-24).
-- Coverage: Covered differently. Maine survival, NPS outdoor/trip guidance, navigation and first-aid references.
+- Recorded failure: HTTP Error 404: Not Found (last attempt 2026-10-30).
+- Coverage: Covered differently. Forest Service Know Before You Go: Recreation Checklist (2021), two pages, now installed; related coverage, not identical old publication. NPS and Maine outdoor references remain available.
 - Decision: Low: broad topics covered, not asserted identical.
 
 [DOE — Microhydropower Systems](https://www.energy.gov/energysaver/microhydropower-systems)
@@ -66,7 +52,7 @@ Updated 2026-10-24. This register separates unavailable documents, useful altern
 
 [Colorado Small Hydropower Handbook](https://extension.colostate.edu/docs/energy/hydro-handbook.pdf)
 
-- Recorded failure: HTTP Error 404: Not Found (last attempt 2026-10-24).
+- Recorded failure: HTTP Error 404: Not Found (last attempt 2026-10-30).
 - Coverage: Covered differently. NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation, February 2011, 28 pages, installed from NCAT. Archived engineering/planning reference, not current Massachusetts permitting or electrical code.
 - Decision: Low: exact failed titles optional; retain historical source failures.
 
@@ -74,13 +60,13 @@ Updated 2026-10-24. This register separates unavailable documents, useful altern
 
 [Massachusetts Building Code 780 CMR — tenth-edition preamble](https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download)
 
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-24).
+- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
 - Coverage: Open need. No equivalent state code/amendment package installed. General safety guides are not code books.
 - Decision: High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.
 
 [Massachusetts Building Code 780 CMR — tenth-edition contents](https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download)
 
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-24).
+- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
 - Coverage: Open need. No equivalent state code/amendment package installed. General safety guides are not code books.
 - Decision: High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.
 
@@ -161,6 +147,14 @@ Imported from explicitly selected browser download; PDF identity/year validated.
 [Massachusetts fire-code amendments — 527 CMR 1.00](/library-files/civic-reference/documents/ma-fire.pdf)
 
 Imported from explicitly selected browser download; PDF identity/year validated. 182 PDF pages.
+
+[Good and Cheap — Leanne Brown](/library-files/family-resources/cookbooks/cook-good-cheap.pdf)
+
+Downloaded directly on the Ark and validated with PDF parser, document identity and SHA-256. Author-hosted version 1.1; license and notices preserved. 90 PDF pages.
+
+[US Forest Service - Know Before You Go: Recreation Checklist](/library-files/resilience/documents/usfs-before-you-go.pdf)
+
+Downloaded directly on the Ark and validated with PDF parser, document identity and SHA-256. 2021 recreation checklist is a related replacement for the retired link, not the identical old publication. 2 PDF pages.
 
 ## Candidates omitted before registration
 
