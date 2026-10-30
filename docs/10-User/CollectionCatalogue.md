@@ -367,3 +367,11 @@ DEJ Software | Practical Software for Real Life | dejsoftware.com
 ## The capabilities behind the collection
 
 For connectivity, sharing, community tools, administration, diagnostics and recovery, see [What the Ark can do](FeatureCatalogue.md) or [download the feature catalogue](../../feature-catalogue.pdf).
+
+## About the content
+
+DEJ Software creates the Data Ark software and curates references to third-party resources. We claim no ownership of those resources. Copyright, trademarks, attribution requirements and license terms remain with their respective owners.
+
+The bootstrap kit includes software, configuration and source references; it does not bundle the referenced third-party collections. Downloads populate an individual Ark for offline use. Public accessibility does not necessarily grant permission to redistribute content. Consult each publisher’s license and individual notices before sharing copies.
+
+Even without downloaded collections, the configured catalogue is a curated reference list to online resources. Publisher links and source details remain useful before installation and after removal; a source reference does not mean a local copy is available. Installed collections provide offline access, while online references require an internet connection.
