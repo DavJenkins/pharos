@@ -1975,6 +1975,68 @@
         ]
       }
     },
+    "/software-updates": {
+      "get": {
+        "description": "Read the published build identity without contacting the internet.",
+        "operationId": "current_build_software_updates_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Current Build",
+        "tags": [
+          "Software updates"
+        ]
+      }
+    },
+    "/software-updates/check": {
+      "post": {
+        "description": "Check official software releases; no installation or configuration changes.",
+        "operationId": "check_software_updates_check_post",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "preview",
+            "required": false,
+            "schema": {
+              "default": false,
+              "title": "Preview",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Check",
+        "tags": [
+          "Software updates"
+        ]
+      }
+    },
     "/sources/check": {
       "get": {
         "operationId": "status_sources_check_get",

@@ -64,3 +64,6 @@ app.include_router(clone_router)
 
 from app.routers.configuration import router as configuration_router
 app.include_router(configuration_router)
+
+from app.routers.software_updates import router as software_updates_router
+app.include_router(software_updates_router)
