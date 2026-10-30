@@ -1,6 +1,6 @@
 # Engineering behind the Ark
 
-*Companion to [What the Ark can do](../10-User/FeatureCatalogue.md) · Implemented design, October 28, 2026*
+*Companion to [What the Ark can do](../10-User/FeatureCatalogue.md) · Implemented design, October 30, 2026*
 
 The collection tells you what the Ark holds. The feature catalogue tells you what people can do with it. This chapter describes the less visible engineering that makes those capabilities possible: how the Ark represents intent, protects working content, handles interruptions, preserves open access and prepares to reproduce itself.
 
@@ -64,6 +64,8 @@ The importer validates selected supported downloads, maintains source records an
 
 **Why it matters:** a person can supply the missing browser interaction without becoming responsible for the Ark's internal file layout.
 
+Publisher-hosted HTML introductions can be retained as attributed, checksummed snapshots when an old PDF URL is no longer usable. Their recipe preserves the captured text, source URL and capture time. A caretaker can compare the current publisher page with the saved copy and record an unchanged review tied to that copy’s hash. This advances a review deadline without downloading, rewriting or claiming byte-for-byte automatic verification of the publisher page. Missing or changed local bytes invalidate the acknowledgement.
+
 See [Browser download capture](../20-Administration/BrowserCapture.md).
 
 ## 7. Recovery preserves intent across two replaceable halves
@@ -72,7 +74,7 @@ The design treats the system medium and content medium as separately replaceable
 
 The stock-Pi setup path turns a supported running Debian-based Pi into an Ark through explicit setup steps rather than requiring a clone of the original system image. Device-specific private identity is separate from the portable public description.
 
-That coordinator now shares platform profiles for the Pi and generic Debian 13 ARM64/x86-64 LAN machines. Read-only discovery binds reviewed roles to hardware identities; LAN profiles retain existing NetworkManager connections. Architecture-specific PMTiles and Kiwix pins prevent shipping the source machine's binaries indiscriminately. See [Platform flavors](PlatformProfiles.md).
+That coordinator now shares platform profiles for the Pi and generic Debian 13 ARM64/x86-64 LAN machines. Read-only discovery binds reviewed roles to hardware identities; LAN profiles retain the host’s existing network configuration and network manager, including systemd-networkd; they do not require NetworkManager or install a hotspot. Architecture-specific PMTiles and Kiwix pins prevent shipping the source machine's binaries indiscriminately. See [Platform flavors](PlatformProfiles.md).
 
 Drive replication adds a capacity-aware file-copy plan rather than a block image: configuration only, whole collections that fit, or all public content. The exact reviewed plan binds public configuration, source revision, selected file sizes/timestamps and destination UUID. The terminal worker protects backing disks, coordinates with content workers, checks partial prefixes before appending and records SHA-256 verification receipts. Its portable catalogue includes only verified copied payloads, while its recipe preserves full restoration intent. See [Clone a content drive](../20-Administration/CloneDrive.md).
 
@@ -177,6 +179,18 @@ The worker snapshots affected software and build metadata, writes a durable tran
 Acceptance includes real API stop/start, automatic rollback of an invalid API release, an interrupted worker process, restore-before-startup and post-recovery checks in the disposable ARM64 QEMU Ark. Physical-media and schema-migration acceptance remain separate.
 
 See [Software updates and maintenance](../20-Administration/SoftwareUpdates.md).
+
+## 17. Deployment repeatability is tested, rather than assumed
+
+A normal import can trigger web publication, so a live-only correction is insufficient: the deployment source must retain it too. Shared status, capture styling, library contrast, branding links and backup actions are kept in the source used by subsequent publications.
+
+The release audit runs the actual deployment script in a private mount namespace. Its source and web paths point to an isolated checkout and staging destination, with the real content mounted read-only. Assertions verify the expected interface contracts after deployment. Read-only HTTP checks exercise local landing-page destinations, actual Kiwix entry pages and representative reader resources. Anonymous mutation requests verify caretaker boundaries without performing destructive actions.
+
+The refreshed kit carries a validation record tied to its exact source revision. This record separates deployment/serving checks from earlier clean-OS bootstrap and physical-media acceptance; a passing web replay is not silently promoted into a complete hardware-recovery claim. [October 30 release audit](../20-Administration/ReleaseAudit.md).
+
+## 18. Hardware attribution follows observed hardware
+
+“Powered by Raspberry Pi” is conditional on the machine’s reported device-tree model. A missing identity, generic ARM board or QEMU/server identity does not receive the badge. Platform capability discovery and this presentation check serve different purposes: choosing a compatible installer profile does not by itself establish hardware branding.
 
 ## Maintaining this chapter
 

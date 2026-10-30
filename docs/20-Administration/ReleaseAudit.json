@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "source_revision": "bbf93a1ea05c37df8879aaa7c1a6079cd05a2cb2",
+  "checked_at": "2026-10-30T23:08:27.887461+00:00",
+  "deployment_replay_passed": true,
+  "deployment_environment": "Private mount namespace; normal deployment script; staging web root; content mount read-only",
+  "regression_tests_passed": true,
+  "python_regressions": 105,
+  "python_regression_revision": "989447f4a6946f745c02963737f5141861ad2069",
+  "python_executable_sources_unchanged": true,
+  "javascript_checks": [
+    "bugout interactions",
+    "public polling without caretaker prompts",
+    "compact health states"
+  ],
+  "local_links_checked": 1497,
+  "local_link_failures": 0,
+  "reader_entry_pages": 8,
+  "reader_entry_failures": 0,
+  "caretaker_anonymous_rejection_checks": 11,
+  "external_reference_count": 664,
+  "external_reference_note": "Publisher URLs are references, not part of the local HTTP pass count; monitored source status is separate.",
+  "non_content_findings": [
+    "Gutenberg archive references two absent favicon PNGs; its actual favicon.ico, required CSS and JavaScript load. Original archive bytes retained."
+  ],
+  "scope": "Web deployment, link serving, representative reader entry resources and authentication boundaries; does not claim a new physical spare-media or clean-OS acceptance run."
+}

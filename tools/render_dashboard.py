@@ -19,6 +19,17 @@ def version_static_pages(static):
             page.write_text(updated,encoding='utf-8')
 
 
+def raspberry_pi_hardware(model_paths=(Path('/proc/device-tree/model'),Path('/sys/firmware/devicetree/base/model'))):
+    """Show vendor credit only when the machine reports Raspberry Pi hardware."""
+    for path in model_paths:
+        try:
+            if path.read_bytes().rstrip(b'\0').decode('utf-8',errors='replace').strip().startswith('Raspberry Pi '):
+                return True
+        except OSError:
+            continue
+    return False
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('manifest', nargs='?', type=Path, default=ROOT / 'dataark.yaml')
@@ -31,6 +42,9 @@ def main():
     except (ManifestError, OSError) as error:
         print(f'Manifest build failed: {error}', file=sys.stderr)
         return 1
+    page=args.output.read_text(encoding="utf-8")
+    if raspberry_pi_hardware():page=page.replace('<footer class="platform-credit" hidden>','<footer class="platform-credit">')
+    args.output.write_text(page,encoding="utf-8")
     capacity=installed_ram()
     if capacity:
         page=args.output.read_text(encoding='utf-8')

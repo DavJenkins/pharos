@@ -20,5 +20,6 @@
   "release_url": "https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.30-preview.2",
   "prerelease": true,
   "hosting": "github-releases",
-  "validated_installation": "Preview 2 deployment and release audit passed; earlier Preview 1 clean-install evidence is separate. Physical Pi acceptance remains pending."
+  "validation_summary": "Isolated normal web deployment replay; 1497 local links/assets; 8 Kiwix entry pages; 105 focused Python regressions; JavaScript interaction checks; 11 caretaker authentication boundaries.",
+  "validation_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/release-validation.json"
 }

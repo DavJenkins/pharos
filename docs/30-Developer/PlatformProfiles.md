@@ -5,7 +5,7 @@ The Ark is a Linux knowledge appliance. Raspberry Pi is its reference hardware r
 | Profile | Processor | Network behavior |
 | --- | --- | --- |
 | `raspberry-pi-debian13-arm64` | ARM64 | Raspberry Pi OS / Debian 13; reviewed `wlan0` hotspot and separate upstream. |
-| `debian13-arm64-lan` | ARM64 | Debian 13; retains existing NetworkManager connections; no Ark hotspot or captive portal. |
+| `debian13-arm64-lan` | ARM64 | Debian 13; retains existing host networking; no Ark hotspot or captive portal. |
 | `debian13-amd64-lan` | x86-64 | The same LAN behavior on a desktop, laptop or server. |
 
 The generic LAN profiles are experimental installation profiles. Their software checks do not replace fresh-machine and spare-media acceptance. The published bootstrap download remains the existing Pi preview; new profiles can be built from the feature branch without replacing that release.
@@ -35,7 +35,7 @@ sudo bash START-ARK.sh
 
 Review the proposed interface identities, existing uplinks, network changes and public services. Run the generated command containing `--accept-plan` and `--apply`, then confirm `INSTALL`. A changed machine, hardware identity, upstream assignment, site settings or profile invalidates the reviewed plan. Normal DHCP address and link-state changes do not change its identity. An interrupted installation also checks the saved assignment before resuming.
 
-LAN profiles keep the existing hostname and NetworkManager connections. They do not install Ark hotspot, captive-portal or internet pass-through rules. Docker and the public library services are still installed, so this is an appliance installation rather than a read-only application preview. Initial hotspot installation requires a local console; the LAN path may use an interactive SSH terminal.
+LAN profiles keep the existing hostname and network-manager configuration. They do not install Ark hotspot, captive-portal or internet pass-through rules. Docker and the public library services are still installed, so this is an appliance installation rather than a read-only application preview. Initial hotspot installation requires a local console; the LAN path may use an interactive SSH terminal.
 
 The root-owned `/etc/dataark/platform.json` records the installed profile and discovered roles. LAN network controls are read-only in the Ark helper: changing connectivity remains an operating-system operation. Missing Wi-Fi or a deliberately absent hotspot is represented as **not configured**, rather than probing invented `wlan0`/`wlan1` devices. A corrupt platform record fails closed for network-changing actions.
 

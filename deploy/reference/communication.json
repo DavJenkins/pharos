@@ -98,10 +98,10 @@
     },
     {
       "id": "data-ark-bootstrap-kit",
-      "path": "communication/ark-bootstrap/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
-      "url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
-      "bytes": 42114981,
-      "sha256": "c03b4679137f8b537230068516376e52dcf6db478193ace8ebd63ebdcded3fa4"
+      "path": "communication/ark-bootstrap/data-ark-bootstrap-2026.10.30-preview.2.tar.gz",
+      "url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/data-ark-bootstrap-2026.10.30-preview.2.tar.gz",
+      "bytes": 42639388,
+      "sha256": "30a92327c0765be01999963e3bbba9ca58b5d797973d3d20e55783717beb53e7"
     }
   ],
   "notes": [
@@ -111,21 +111,30 @@
     "The public Ark bootstrap release is kept locally as ordinary content. Its release notice is checked for changes; the pinned package is not silently replaced."
   ],
   "bootstrap": {
-    "version": "2026.10.29-preview.1",
-    "source_revision": "de6db475e4a405148a6a4b78dc49883dc2cccdef",
-    "asset": "data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
-    "bytes": 42114981,
-    "sha256": "c03b4679137f8b537230068516376e52dcf6db478193ace8ebd63ebdcded3fa4",
+    "version": "2026.10.30-preview.2",
+    "source_revision": "bbf93a1ea05c37df8879aaa7c1a6079cd05a2cb2",
+    "asset": "data-ark-bootstrap-2026.10.30-preview.2.tar.gz",
+    "bytes": 42639388,
+    "sha256": "30a92327c0765be01999963e3bbba9ca58b5d797973d3d20e55783717beb53e7",
     "channel": "preview",
-    "validated_executable_files_unchanged": 221,
-    "release_tag": "bootstrap-2026.10.29-preview.1",
-    "download_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
-    "checksum_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/SHA256SUMS",
-    "release_url": "https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.29-preview.1",
+    "validated_executable_files_unchanged": 263,
+    "platform_files": {
+      "bootstrap_platform.py": "b04814f55e555103efd919d4c650fc99fba77d32f8cf1c35eed18a0323c060ca",
+      "platforms/debian13-amd64-lan.json": "ceda4160a66850bd361e0979f6e6c6c167d7ac85eb5e0b569f363ed223e27022",
+      "platforms/debian13-arm64-lan.json": "5db3310e07ee69e4e4033551770889aa75f7907c27b8d9e6bdfb28f1af61a990",
+      "platforms/raspberry-pi-debian13-arm64.json": "31423b756b7a2fd3c9544bb39290ba3bd4d8b0d87da54994decddec58d59c17d"
+    },
+    "platform_profile": "raspberry-pi-debian13-arm64",
+    "architecture": "aarch64",
+    "release_tag": "bootstrap-2026.10.30-preview.2",
+    "download_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/data-ark-bootstrap-2026.10.30-preview.2.tar.gz",
+    "checksum_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/SHA256SUMS",
+    "release_url": "https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.30-preview.2",
     "prerelease": true,
     "hosting": "github-releases",
-    "validated_installation": "Uninterrupted clean ARM64 software installation; 43 regressions and reboot checks passed.",
-    "path": "communication/ark-bootstrap/data-ark-bootstrap-2026.10.29-preview.1.tar.gz"
+    "validation_summary": "Isolated normal web deployment replay; 1497 local links/assets; 8 Kiwix entry pages; 105 focused Python regressions; JavaScript interaction checks; 11 caretaker authentication boundaries.",
+    "validation_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/release-validation.json",
+    "path": "communication/ark-bootstrap/data-ark-bootstrap-2026.10.30-preview.2.tar.gz"
   },
   "repository": {
     "id": "communication-accessibility",
@@ -185,14 +194,14 @@
       "id": "data-ark-bootstrap-kit",
       "repository_id": "communication-accessibility",
       "category": "utilities_binaries",
-      "title": "Data Ark bootstrap kit — 2026.10.29-preview.1",
-      "relative_path": "communication/ark-bootstrap/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
-      "service_endpoint": "/library-files/communication/ark-bootstrap/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
-      "download_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz",
+      "title": "Data Ark bootstrap kit — 2026.10.30-preview.2",
+      "relative_path": "communication/ark-bootstrap/data-ark-bootstrap-2026.10.30-preview.2.tar.gz",
+      "service_endpoint": "/library-files/communication/ark-bootstrap/data-ark-bootstrap-2026.10.30-preview.2.tar.gz",
+      "download_url": "https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/data-ark-bootstrap-2026.10.30-preview.2.tar.gz",
       "source_check_url": "https://www.dejsoftware.com/data-ark/bootstrap-release.json",
-      "expected_hash": "c03b4679137f8b537230068516376e52dcf6db478193ace8ebd63ebdcded3fa4",
+      "expected_hash": "30a92327c0765be01999963e3bbba9ca58b5d797973d3d20e55783717beb53e7",
       "update_policy": "pin_version",
-      "version_pin": "2026.10.29-preview.1",
+      "version_pin": "2026.10.30-preview.2",
       "refresh_interval": "7d",
       "source_note": "Pinned public bootstrap release. Local download needs no internet; new Pi setup needs internet for software dependencies. Weekly checks watch the publisher release notice; updates require review."
     }

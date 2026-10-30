@@ -13,7 +13,7 @@ Preview 2 passed an isolated deployment replay, 105 focused Python regressions, 
 ## Start in three steps
 
 1. Prepare Raspberry Pi OS 64-bit based on Debian 13 with the primary account named `admin`, plus an Ethernet or second-adapter internet connection.
-2. Extract the kit onto a separate prepared content drive and open a local terminal on the Pi.
+2. Extract the kit onto a separate, already formatted content drive and open a local terminal on the Pi.
 3. Run `sudo bash START-ARK.sh` to preview the plan, then `sudo bash START-ARK.sh --apply` to install.
 
 Setup asks for confirmation and a private caretaker password. The installer does not format drives. See the [installation guide](../30-Developer/StockPiSetup.md) for mount ownership and the supported layout.
@@ -24,7 +24,7 @@ The kit includes public source, readable configuration and the PMTiles tool. Sys
 
 Each appliance establishes its own private identity. Public configuration travels with the content drive, while household data and credentials stay separate. The local handbook remains available without internet access.
 
-Preview 2: physical Pi validation is the next step.
+Preview release: physical spare-media acceptance remains separate.
 
 ## Explore
 

@@ -58,7 +58,7 @@ The PDFs live in `/mnt/storage/family-resources/holidays/`. Rebuild with `/usr/b
 
 The family index has a Cooking & pantry meals section, linked directly from the landing-page family card. Installed originals are the EFNEP Preparedness & Resiliency guide (48 pages), USDA A Harvest of Recipes with USDA Foods (2013, 98 pages), and USDA Recipes and Tips for Healthy, Thrifty Meals (May 2000, 78 pages). They cover everyday meals, pantry staples, substitutions, kitchen basics and meal planning. Historical prices and nutrition-policy statements remain identified by edition. Original documents and notices are kept unchanged.
 
-Files live in `family-resources/cookbooks/`, with source URLs in `deploy/reference/family-catalogue.json` and verified metadata in `family-resources/sources.json`. The family restoration recipe and populated drive replication include them. Good and Cheap was also considered, but its university mirror blocked retrieval and the author’s old direct download no longer returns a PDF; it is recorded as not installed, not presented as local content.
+Files live in `family-resources/cookbooks/`, with source URLs in `deploy/reference/family-catalogue.json` and verified metadata in `family-resources/sources.json`. The family restoration recipe and populated drive replication include them. Good and Cheap by Leanne Brown is installed from the author-hosted version 1.1: 90 pages, with license and notices preserved. Earlier blocked mirror and obsolete direct-download attempts remain source history.
 
 ## Sanitation and hygiene
 
