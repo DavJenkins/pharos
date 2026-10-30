@@ -24,6 +24,18 @@ views:
 
 
       Collection changes are recorded in Activity. Outcomes appear in Notifications.'
+  - type: entities
+    title: Browser reviews
+    show_header_toggle: false
+    entities:
+    - entity: sensor.data_ark_browser_reviews
+      name: Reviews due
+    - entity: sensor.data_ark_blocked_publisher_checks
+      name: Automated checks blocked
+    - type: weblink
+      name: Review downloads on the Ark
+      url: http://dataark/capture.html
+      icon: mdi:open-in-new
   - type: markdown
     title: HTTPS certificate
     content: '{% set cert = state_attr(''sensor.data_ark_health'', ''certificate'')
