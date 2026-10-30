@@ -95,10 +95,10 @@
       "title": "Massachusetts Building Code 780 CMR — tenth-edition preamble",
       "source_url": "https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download",
       "last_attempt": "2026-10-30T18:00:00+00:00",
-      "observed_failure": "HTTP Error 403: Forbidden",
-      "assessment": "Open need",
+      "observed_failure": "HTTP 404 in caretaker browser; automated requests may instead receive HTTP 403.",
+      "assessment": "Broken download URL; current publisher handbook provides HTML introduction.",
       "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
-      "retry_priority": "Optional front matter: available for manual capture, excluded from the actionable queue.",
+      "retry_priority": "Optional front matter: use publisher handbook; do not prompt browser capture until a replacement PDF is verified.",
       "evidence": "/mnt/storage/civic-reference/sources.json",
       "disposition": "optional"
     },
