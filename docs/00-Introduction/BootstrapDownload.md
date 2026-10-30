@@ -14,7 +14,13 @@ Preview 2 passed an isolated deployment replay, 105 focused Python regressions, 
 
 1. Prepare Raspberry Pi OS 64-bit based on Debian 13 with the primary account named `admin`, plus an Ethernet or second-adapter internet connection.
 2. Extract the kit onto a separate, already formatted content drive and open a local terminal on the Pi.
-3. Run `sudo bash START-ARK.sh` to preview the plan, then `sudo bash START-ARK.sh --apply` to install.
+3. From the extracted folder, preview the plan:
+
+```sh
+sudo bash START-ARK.sh
+```
+
+Copy and run the exact apply command printed by the preview, including its `--accept-plan` value and `--apply`.
 
 Setup asks for confirmation and a private caretaker password. The installer does not format drives. See the [installation guide](../30-Developer/StockPiSetup.md) for mount ownership and the supported layout.
 

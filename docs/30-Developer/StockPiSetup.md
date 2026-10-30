@@ -22,11 +22,7 @@ The drive carries `START-ARK.txt`, `START-ARK.html`, `START-ARK.sh`, `DATA-ARK-C
 sudo bash START-ARK.sh
 ```
 
-The command only previews. Newly generated kits print the exact reviewed apply command, including `--accept-plan`; run that command and confirm `INSTALL`. Review/edit `DATA-ARK-RECOVERY/site.json` before accepting its plan. The existing published Pi preview instead uses:
-
-```sh
-sudo bash START-ARK.sh --apply
-```
+The command only previews. Current kits print the exact reviewed apply command, including `--accept-plan` and `--apply`; copy and run that command, then confirm `INSTALL`. Review/edit `DATA-ARK-RECOVERY/site.json` before accepting its plan. If the hardware or settings change, run the preview again and use its newly printed command.
 
 Permitted site settings include SSID, country, hostname policy, FTP and other base-device settings; optional restoration and download timers are separately gated. Core layout constraints remain fixed until separately supported. There are no credentials in this JSON. The helper installer privately prompts for a new management password; do not reuse the source Ark's credentials.
 

@@ -4,7 +4,13 @@
 
 ## On the Ark Pi / Chromium
 
-Run `sudo python3 /opt/dataark/deploy/install_pi_browser_capture.py` from the Pi terminal. Fully quit and reopen Chromium, then open [the capture page](http://dataark/capture.html). The Debian Chromium launcher loads `/usr/share/chromium/extensions/dataark-capture`. No ZIP extraction, Windows PowerShell, SSH identity or IP-address pairing is needed on the Pi.
+From the Pi terminal:
+
+```sh
+sudo python3 /opt/dataark/deploy/install_pi_browser_capture.py
+```
+
+Fully quit and reopen Chromium, then open [the capture page](http://dataark/capture.html). The Debian Chromium launcher loads `/usr/share/chromium/extensions/dataark-capture`. No ZIP extraction, Windows PowerShell, SSH identity or IP-address pairing is needed on the Pi.
 
 The helper reads only explicitly selected approved PDFs under `/home/admin/Downloads`. Registration is `/etc/chromium/native-messaging-hosts/com.dejsoftware.dataark_capture.json`; the on-demand host and local configuration are in `/usr/local/lib/dataark-browser-capture`. A dedicated sudo rule permits only `/usr/local/libexec/dataark-browser-import` with no arguments, invoking the existing validated importer. No browser-controlled shell command or destination path is accepted. This is for the Pi administrator account; public library visitors do not gain installation rights.
 

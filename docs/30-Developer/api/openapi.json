@@ -265,6 +265,11 @@
           "access_point": {
             "$ref": "#/components/schemas/AccessPoint"
           },
+          "capabilities": {
+            "additionalProperties": true,
+            "title": "Capabilities",
+            "type": "object"
+          },
           "ethernet": {
             "$ref": "#/components/schemas/Ethernet"
           },
@@ -374,6 +379,18 @@
           "debug": {
             "title": "Debug",
             "type": "boolean"
+          },
+          "health": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Health"
           },
           "issues": {
             "items": {
@@ -1802,6 +1819,25 @@
         ]
       }
     },
+    "/library/prefer": {
+      "post": {
+        "operationId": "prefer_library_prefer_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Prefer",
+        "tags": [
+          "Library"
+        ]
+      }
+    },
     "/library/remove": {
       "post": {
         "operationId": "remove_library_remove_post",
@@ -1854,6 +1890,25 @@
           }
         },
         "summary": "Unlock",
+        "tags": [
+          "Library"
+        ]
+      }
+    },
+    "/library/webpage-review": {
+      "post": {
+        "operationId": "webpage_review_library_webpage_review_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Webpage Review",
         "tags": [
           "Library"
         ]
