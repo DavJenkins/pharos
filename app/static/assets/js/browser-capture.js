@@ -74,3 +74,17 @@ function updateCaptureConnection(){
 setTimeout(updateCaptureConnection,1000);
 new MutationObserver(updateCaptureConnection).observe(document.documentElement,{attributes:true,attributeFilter:['data-ark-capture']});
 
+
+// Older installed extensions supply plain status text; recognize their failure
+// messages too, so error presentation does not require reinstalling the extension.
+function styleCaptureErrors(){
+ for(const output of document.querySelectorAll('#items section > [role="status"],#update-status,#error')){
+  const text=output.textContent.trim();
+  const failed=!!text && (output.id==='error'||/not accepted|not supported|failed|\berror\b|unavailable|interrupted|could not|refused|did not match|not enough|no file was installed|use the ark capture page/i.test(text));
+  output.classList.toggle('capture-error',failed);
+  const live=failed?'assertive':'polite';
+  if(output.getAttribute('aria-live')!==live)output.setAttribute('aria-live',live);
+ }
+}
+new MutationObserver(styleCaptureErrors).observe(document.querySelector('main'),{childList:true,subtree:true,characterData:true});
+styleCaptureErrors();
