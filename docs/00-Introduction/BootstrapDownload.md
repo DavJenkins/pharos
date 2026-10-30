@@ -4,11 +4,11 @@ Turn a supported Raspberry Pi into a local knowledge appliance, then choose the 
 
 ## Get the bootstrap
 
-[Download bootstrap — Preview 1](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/data-ark-bootstrap-2026.10.29-preview.1.tar.gz)
+[Download bootstrap — Preview 2](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/data-ark-bootstrap-2026.10.30-preview.2.tar.gz)
 
-**42.1 MB**, hosted on GitHub Releases. [Release notes](https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.29-preview.1) · [SHA-256 checksum](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.29-preview.1/SHA256SUMS)
+**42.6 MB**, hosted on GitHub Releases. [Release notes](https://github.com/DavJenkins/pharos/releases/tag/bootstrap-2026.10.30-preview.2) · [SHA-256 checksum](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2/SHA256SUMS)
 
-The corrected kit completed a clean ARM64 installation in one run, with 43 regression tests and successful service, file-sharing, authentication and reboot checks.
+Preview 2 passed an isolated deployment replay, 105 focused Python regressions, reader checks and caretaker authentication checks. See the [release audit](../20-Administration/ReleaseAudit.md). The earlier Preview 1 clean ARM64 installation and reboot results are separate evidence; Preview 2 has not repeated that full installation test.
 
 ## Start in three steps
 
@@ -24,7 +24,7 @@ The kit includes public source, readable configuration and the PMTiles tool. Sys
 
 Each appliance establishes its own private identity. Public configuration travels with the content drive, while household data and credentials stay separate. The local handbook remains available without internet access.
 
-Preview 1: physical Pi validation is the next step.
+Preview 2: physical Pi validation is the next step.
 
 ## Explore
 

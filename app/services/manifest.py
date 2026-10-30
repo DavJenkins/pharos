@@ -570,6 +570,14 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                             html.escape(str(category.get('description', ''))) + '</p><div class="manifest-grid">' +
                             ''.join(cards) + '</div></section>')
     template = Path(template_path).read_text(encoding='utf-8')
+    # Credit the actual rendering host, rather than the selected install profile.
+    try:
+        is_raspberry_pi = Path('/proc/device-tree/model').read_bytes().rstrip(b'\0').startswith(b'Raspberry Pi')
+    except OSError:
+        is_raspberry_pi = False
+    if not is_raspberry_pi:
+        template = re.sub(r'<footer class="platform-credit">.*?</footer>', '', template, flags=re.S)
+
     for token in ('{{PROJECT_NAME}}', '{{MANIFEST_CARDS}}', '{{BACKGROUND_STYLE}}'):
         if token not in template:
             raise ManifestError('Dashboard template is missing ' + token)
