@@ -25,6 +25,20 @@ class AutomaticUpdateTests(unittest.TestCase):
         a['update_policy']='auto';a['refresh_interval']='never'
         self.assertFalse(eligible(a,0,100000))
 
+    def test_scheduled_bootstrap_and_other_non_archives_do_not_enter_zim_worker(self):
+        for path in ['data-ark-bootstrap.tar.gz','forms/tax.pdf','maps/region.pmtiles']:
+            asset={'id':'non-archive','relative_path':path,'update_policy':'pin_version','refresh_interval':'7d','version_pin':'2026.10.29'}
+            self.assertFalse(eligible(asset,0,1000000),path)
+        # The valid archive following an unrelated pinned kit still gets work.
+        mixed=[asset,self.asset()]
+        self.assertEqual([item['id'] for item in mixed if eligible(item,0,1000000)],['wiki'])
+
+    def test_missing_or_bad_zim_recipe_is_still_a_configuration_error(self):
+        for spec in [None,{'kind':'unsupported'}]:
+            asset=self.asset();asset['update_source']=spec
+            self.assertTrue(eligible(asset,0,100000))
+            with self.assertRaisesRegex(ValueError,'explicit supported'):source_config(asset)
+
     def test_discovery_keeps_series_and_honors_pin(self):
         html=''.join('<a href="'+name+'">x</a>' for name in [
             'wikipedia_en_all_maxi_2026-02.zim','wikipedia_en_all_maxi_2026-08.zim',

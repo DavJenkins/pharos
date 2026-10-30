@@ -57,7 +57,20 @@ def interval_seconds(value):
     return int(match[1]) * {'s':1, 'm':60, 'h':3600, 'd':86400, 'w':604800}[match[2]]
 
 
+def archive_candidate(asset):
+    """Route only archive work here; other publishers have their own checker.
+
+    A .zim with a missing/bad recipe must still fail source validation rather
+    than silently losing its configured automatic updates.
+    """
+    spec=asset.get('update_source')
+    path=asset.get('relative_path','')
+    return (isinstance(spec,dict) and spec.get('kind')=='kiwix_zim') or (isinstance(path,str) and path.lower().endswith('.zim'))
+
+
 def eligible(asset, checked, now):
+    if not archive_candidate(asset):
+        return False
     if asset.get('update_policy', 'manual') == 'manual':
         return False
     interval = interval_seconds(asset.get('refresh_interval', 'never'))
