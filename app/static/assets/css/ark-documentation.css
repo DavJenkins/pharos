@@ -60,3 +60,5 @@ body.ark-documentation{margin:0;padding:clamp(.5rem,2.5vw,2rem);background:#203e
 
 /* Reuse the established wordmark; clip only its footer tagline and padding. */
 .docs-maker{display:block;position:relative;width:10.575rem;height:1.6875rem;overflow:hidden;letter-spacing:normal}.docs-maker img{position:absolute;width:24.375rem!important;max-width:none!important;height:auto!important;left:-6.8625rem;top:-.7125rem}
+
+.docs-brand a{color:var(--dej-gold);text-decoration:none}.documentation-shell{position:relative;z-index:2}

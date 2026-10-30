@@ -58,6 +58,7 @@ sudo rm -f \
 echo
 echo "============================================================"
 sudo python3 tools/inject_motd_client.py "$TARGET"
+sudo python3 tools/inject_brand_links.py "$TARGET"
 echo " Deployment Complete"
 echo "============================================================"
 
