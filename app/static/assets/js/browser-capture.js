@@ -53,7 +53,7 @@ async function loadCapture() {
 }
 document.addEventListener('ark-capture-refresh',loadCapture);
 loadCapture();
-setTimeout(()=>{
+function updateCaptureConnection(){
  const box=document.querySelector('#connection');
  const connected=document.documentElement.dataset.arkCapture==='ready';
  box.dataset.state=connected?'connected':'disconnected';
@@ -62,8 +62,15 @@ setTimeout(()=>{
  box.replaceChildren(heading);
  if(!connected){
   const explanation=document.createElement('p');
-  explanation.textContent='Automatic download capture is not ready in this browser. Use Chrome or Chromium and complete the one-time extension setup.';
+  explanation.textContent='The installer registers the helper; it does not load the Chrome extension. In Chrome, open chrome://extensions, turn on Developer mode, choose Load unpacked, and select the extracted capture folder. If already loaded, enable or reload the extension, then reload this page in that same browser.';
   const link=document.createElement('a');link.href='/docs/20-Administration/BrowserCapture.html';link.textContent='Set up the capture extension →';
   box.append(explanation,link);
  }
-},1000);
+ const setup=document.querySelector('#setup');
+ if(setup && setup.dataset.connected!==String(connected)){
+  setup.open=!connected;setup.dataset.connected=String(connected);
+ }
+}
+setTimeout(updateCaptureConnection,1000);
+new MutationObserver(updateCaptureConnection).observe(document.documentElement,{attributes:true,attributeFilter:['data-ark-capture']});
+
