@@ -40,6 +40,6 @@ def render(data):
  return '\n'.join(lines)+'\n'
 
 def main():
- data=json.loads((ROOT/'deploy/reference/content-gaps.json').read_text())
- (ROOT/'docs/20-Administration/ContentGaps.md').write_text(render(data))
+ data=json.loads((ROOT/'deploy/reference/content-gaps.json').read_text(encoding='utf-8'))
+ (ROOT/'docs/20-Administration/ContentGaps.md').write_text(render(data),encoding='utf-8')
 if __name__=='__main__':main()

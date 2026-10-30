@@ -6,13 +6,13 @@ ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from tools.import_browser_reference import IDENTITY
 
 def main():
- report=json.loads((ROOT/'deploy/reference/content-gaps.json').read_text())
+ report=json.loads((ROOT/'deploy/reference/content-gaps.json').read_text(encoding='utf-8'))
  missing={x['id']:x for x in report['unavailable_entries']}
  metadata=json.loads((ROOT/'deploy/reference/capture-sources.json').read_text(encoding='utf-8'))['sources']
  if set(metadata)-set(IDENTITY): raise ValueError('Unknown capture source identity')
  targets=[]
  for group,folder in [('family','family-resources'),('forms','forms'),('resilience',None)]:
-  for item in json.loads((ROOT/('deploy/reference/'+group+'-catalogue.json')).read_text()):
+  for item in json.loads((ROOT/('deploy/reference/'+group+'-catalogue.json')).read_text(encoding='utf-8')):
    if item['id'] in IDENTITY and metadata.get(item['id'],{}).get('disposition')!='retired':
     targets.append({'id':item['id'],'title':item['title'],'url':item['url'],'collection':folder or item['collection'],'source':metadata.get(item['id'],{})})
  source=ROOT/'tools/browser-capture';data=(json.dumps(targets,ensure_ascii=False,indent=2)+'\n').encode();(source/'targets.json').write_bytes(data)
