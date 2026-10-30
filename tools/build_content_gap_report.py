@@ -9,8 +9,10 @@ def render(data):
  lines=['# Content download gaps and alternatives','',
         'Updated '+data.get('updated_at',data['audited_at'])[:10]+'. This register separates unavailable documents, useful alternatives and actual uncovered needs. It is not a list of proposed new collections.','',
         str(len(missing))+' unavailable catalogue entries; '+str(len(omitted))+' omitted candidates; '+str(len(resolved))+' entries resolved or corrected. Related guides do not mean the requested document is installed. HTTP errors describe recorded requests, not whether you can open a public document in your browser.','',
+        '## How to read this report','',
+        'This is an acquisition and coverage register, not the Ark’s live health report. Historical unavailable sources and subject gaps can remain here while the Ark has no active warnings. Resolved entries below identify saved copies or explicitly described replacements; they do not prove complete subject coverage. [Current capture and browser-review queue](/capture.html).','',
         '[Capture missing PDFs or review updates](/capture.html). Successful captures automatically move their entry to the resolved section. The capture page also shows current update-check status.','',
-        '## Current unavailable catalogue entries','']
+        '## Recorded acquisition and coverage gaps','']
  for folder in dict.fromkeys(x['collection'] for x in missing):
   lines+=['### '+folder,'']
   for x in missing:

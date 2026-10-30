@@ -2,11 +2,15 @@
 
 Updated 2026-10-30. This register separates unavailable documents, useful alternatives and actual uncovered needs. It is not a list of proposed new collections.
 
-10 unavailable catalogue entries; 7 omitted candidates; 13 entries resolved or corrected. Related guides do not mean the requested document is installed. HTTP errors describe recorded requests, not whether you can open a public document in your browser.
+9 unavailable catalogue entries; 7 omitted candidates; 16 entries resolved or corrected. Related guides do not mean the requested document is installed. HTTP errors describe recorded requests, not whether you can open a public document in your browser.
+
+## How to read this report
+
+This is an acquisition and coverage register, not the Ark’s live health report. Historical unavailable sources and subject gaps can remain here while the Ark has no active warnings. Resolved entries below identify saved copies or explicitly described replacements; they do not prove complete subject coverage. [Current capture and browser-review queue](/capture.html).
 
 [Capture missing PDFs or review updates](/capture.html). Successful captures automatically move their entry to the resolved section. The capture page also shows current update-check status.
 
-## Current unavailable catalogue entries
+## Recorded acquisition and coverage gaps
 
 ### preparedness
 
@@ -27,14 +31,6 @@ Updated 2026-10-30. This register separates unavailable documents, useful altern
 - Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-23).
 - Coverage: Covered differently. NWS winter checklist/booklet, FEMA archived winter guide, heating/generator references.
 - Decision: Low: winter topics covered; local 2026 contacts remain absent.
-
-### forms
-
-[SSA SS-5 — Application for a Social Security card](https://www.ssa.gov/forms/ss-5.pdf)
-
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
-- Coverage: Open need. No equivalent SSA application installed.
-- Decision: Medium: optional administrative form; verify accepted edition before use.
 
 ### resilience
 
@@ -94,22 +90,6 @@ Retired. Retired by caretaker decision: retain failure history and installed alt
 - Recorded failure: HTTP Error 404: Not Found
 - Alternative: NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation, February 2011, 28 pages, installed from NCAT. Archived engineering/planning reference, not current Massachusetts permitting or electrical code.
 
-### Massachusetts Building Code 780 CMR — tenth-edition preamble
-
-Optional. Optional front matter: available for manual capture, excluded from the actionable queue.
-
-- Original source: https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download
-- Recorded failure: HTTP Error 403: Forbidden
-- Alternative: No equivalent state code/amendment package installed. General safety guides are not code books.
-
-### Massachusetts Building Code 780 CMR — tenth-edition contents
-
-Optional. Optional front matter: available for manual capture, excluded from the actionable queue.
-
-- Original source: https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download
-- Recorded failure: HTTP Error 403: Forbidden
-- Alternative: No equivalent state code/amendment package installed. General safety guides are not code books.
-
 ## Resolved entries and corrected targets
 
 [Massachusetts Health Care Proxy](/library-files/forms/government/ma-health-proxy.pdf)
@@ -165,6 +145,18 @@ Downloaded directly on the Ark and validated with PDF parser, document identity 
 [US Forest Service - Know Before You Go: Recreation Checklist](/library-files/resilience/documents/usfs-before-you-go.pdf)
 
 Downloaded directly on the Ark and validated with PDF parser, document identity and SHA-256. 2021 recreation checklist is a related replacement for the retired link, not the identical old publication. 2 PDF pages.
+
+[SSA SS-5 — Application for a Social Security card](/library-files/forms/government/ss5.pdf)
+
+Imported from explicitly selected browser download; PDF identity/year validated. 5 PDF pages.
+
+[Massachusetts Building Code 780 CMR — tenth-edition contents](/library-files/civic-reference/documents/ma-building-toc.pdf)
+
+Imported from explicitly selected browser download; PDF identity/year validated. 3 PDF pages.
+
+[Massachusetts Building Code 780 CMR — tenth-edition preamble](/library-files/civic-reference/documents/ma-building-preamble.html)
+
+Preserved current publisher handbook introduction as attributed text-only HTML; obsolete PDF not recovered.
 
 ## Candidates omitted before registration
 

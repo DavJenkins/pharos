@@ -40,18 +40,6 @@
       "evidence": "/mnt/storage/preparedness/sources.json"
     },
     {
-      "id": "ss5",
-      "collection": "forms",
-      "title": "SSA SS-5 — Application for a Social Security card",
-      "source_url": "https://www.ssa.gov/forms/ss-5.pdf",
-      "last_attempt": "2026-10-30T18:00:00+00:00",
-      "observed_failure": "HTTP Error 403: Forbidden",
-      "assessment": "Open need",
-      "installed_alternative": "No equivalent SSA application installed.",
-      "retry_priority": "Medium: optional administrative form; verify accepted edition before use.",
-      "evidence": "/mnt/storage/forms/sources.json"
-    },
-    {
       "id": "usfs-outdoor-safety",
       "collection": "resilience",
       "title": "US Forest Service — Outdoor Safety",
@@ -88,19 +76,6 @@
       "retry_priority": "Retired by caretaker decision: retain failure history and installed alternatives; no further automatic retries.",
       "evidence": "/mnt/storage/resilience/sources.json",
       "disposition": "retired"
-    },
-    {
-      "id": "ma-building-toc",
-      "collection": "civic-reference",
-      "title": "Massachusetts Building Code 780 CMR — tenth-edition contents",
-      "source_url": "https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download",
-      "last_attempt": "2026-10-30T18:00:00+00:00",
-      "observed_failure": "HTTP Error 403: Forbidden",
-      "assessment": "Open need",
-      "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
-      "retry_priority": "Optional front matter: available for manual capture, excluded from the actionable queue.",
-      "evidence": "/mnt/storage/civic-reference/sources.json",
-      "disposition": "optional"
     },
     {
       "id": "ma-electrical-adoption",
@@ -426,6 +401,39 @@
       "resolution": "Downloaded directly on the Ark and validated with PDF parser, document identity and SHA-256. 2021 recreation checklist is a related replacement for the retired link, not the identical old publication."
     },
     {
+      "id": "ss5",
+      "collection": "forms",
+      "title": "SSA SS-5 — Application for a Social Security card",
+      "source_url": "https://www.ssa.gov/forms/ss-5.pdf",
+      "last_attempt": "2026-10-30T18:00:00+00:00",
+      "observed_failure": "HTTP Error 403: Forbidden",
+      "assessment": "Open need",
+      "installed_alternative": "No equivalent SSA application installed.",
+      "retry_priority": "Medium: optional administrative form; verify accepted edition before use.",
+      "evidence": "/mnt/storage/forms/sources.json",
+      "resolution": "Imported from explicitly selected browser download; PDF identity/year validated.",
+      "local_url": "/library-files/forms/government/ss5.pdf",
+      "sha256": "281da43ef49cb74103515b9a6a27c70fc429070dbf93f6758dc425d47fb8620b",
+      "pages": 5
+    },
+    {
+      "id": "ma-building-toc",
+      "collection": "civic-reference",
+      "title": "Massachusetts Building Code 780 CMR — tenth-edition contents",
+      "source_url": "https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download",
+      "last_attempt": "2026-10-30T18:00:00+00:00",
+      "observed_failure": "HTTP Error 403: Forbidden",
+      "assessment": "Open need",
+      "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
+      "retry_priority": "Optional front matter: available for manual capture, excluded from the actionable queue.",
+      "evidence": "/mnt/storage/civic-reference/sources.json",
+      "disposition": "optional",
+      "resolution": "Imported from explicitly selected browser download; PDF identity/year validated.",
+      "local_url": "/library-files/civic-reference/documents/ma-building-toc.pdf",
+      "sha256": "a132e24883189b424a15d91afc6295204949e07a36ae7babdbac763b0b8c53b0",
+      "pages": 3
+    },
+    {
       "id": "ma-building-preamble",
       "collection": "civic-reference",
       "title": "Massachusetts Building Code 780 CMR — tenth-edition preamble",
@@ -438,7 +446,8 @@
       "evidence": "/mnt/storage/civic-reference/sources.json",
       "disposition": "optional",
       "resolution": "Preserved current publisher handbook introduction as attributed text-only HTML; obsolete PDF not recovered.",
-      "local_url": "/library-files/civic-reference/documents/ma-building-preamble.html"
+      "local_url": "/library-files/civic-reference/documents/ma-building-preamble.html",
+      "sha256": "2b09efa6ed0af5f27904e99afcbbcb85dc9643765efd822e3e825718c9bc9be3"
     }
   ],
   "retry_notes": [
