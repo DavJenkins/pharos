@@ -103,6 +103,7 @@ class Installer:
     if p.is_symlink():raise RuntimeError('Unexpected configuration symlink')
     if p.is_file():target=self.repo/relative/p.relative_to(mirror/relative);target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,target)
   atomic(self.repo/'config/installed-site.json',json.dumps(self.c,indent=2)+'\n')
+  atomic(self.repo/'config/installed-software.json',json.dumps({'revision':json.loads((self.kit/'kit.json').read_text())['source_revision'],'source_sha256':expected},indent=2)+'\n')
   run(['chown','-R','admin:admin',str(self.repo)])
   if not (self.repo/'.git').exists():
    run(['runuser','-u','admin','--','git','-C',str(self.repo),'init','-b','ark-local'])
@@ -216,6 +217,7 @@ class Installer:
   run(['systemctl','is-active','--quiet','dataark','apache2','docker'])
   run(['curl','--fail','--retry','10','--retry-connrefused','--retry-delay','1','--max-time','15','--output','/dev/null','http://127.0.0.1/api/'])
   run(['curl','--fail','--retry','10','--retry-connrefused','--retry-delay','1','--max-time','15','--output','/dev/null','http://127.0.0.1/'])
+  self.script('install_software_updater.py','--revision',json.loads((self.kit/'kit.json').read_text())['source_revision'],'--profile',self.c.get('platform_profile',platforms.DEFAULT))
   atomic(Path('/var/lib/dataark/bootstrap-readiness.json'),json.dumps({'status':'software_phases_completed_client_acceptance_required','checks_remaining':['Reboot and confirm mount','Hotspot client and captive detection','Offline article and image','Maps/forms/radio tools','Management authentication','Independent fresh-media recovery'],'finished_at':time.time()},indent=2)+'\n')
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--kit',type=Path);p.add_argument('--site',type=Path);p.add_argument('--profile');p.add_argument('--list-profiles',action='store_true');p.add_argument('--discover',action='store_true');p.add_argument('--accept-plan');p.add_argument('--apply',action='store_true');a=p.parse_args()

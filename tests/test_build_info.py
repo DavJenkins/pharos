@@ -5,6 +5,12 @@ from unittest.mock import patch
 from tools import write_build_info
 
 class BuildInfoTests(unittest.TestCase):
+    def test_bootstrap_checkout_uses_verified_upstream_revision(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);(root/'config').mkdir();(root/'config/installed-software.json').write_text('{"revision":"'+('b'*40)+'"}')
+            def git(*args):return 'ark-local' if args[0]=='branch' else 'a'*40
+            with patch.object(write_build_info,'ROOT',root),patch.object(write_build_info,'git',side_effect=git):
+                self.assertEqual(write_build_info.build_info()['revision'],'b'*40)
     def test_fingerprint_tracks_code_and_excludes_private_configuration(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);(root/'app').mkdir();source=root/'app/example.py';source.write_text('first')

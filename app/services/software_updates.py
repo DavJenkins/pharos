@@ -13,14 +13,22 @@ RELEASES='https://api.github.com/repos/DavJenkins/pharos/releases?per_page=100'
 LOCK=threading.Lock()
 CACHE={}
 SHA=re.compile(r'[0-9a-f]{40}')
-TAG=re.compile(r'bootstrap-([0-9]{4}\.[0-9]{2}\.[0-9]{2})(?:-preview\.([0-9]+))?')
+TAG=re.compile(r'(?:bootstrap|software)-([0-9]{4}\.[0-9]{2}\.[0-9]{2})(?:-preview\.([0-9]+))?')
 
 
 def installed():
     try:
         value=json.loads((ROOT/'app/static/assets/build-info.json').read_text())
-        return {key:value.get(key) for key in ('revision','branch','source_date','published_at')}
-    except (OSError,ValueError,AttributeError):return {'revision':None}
+        result={key:value.get(key) for key in ('revision','branch','source_date','published_at')}
+    except (OSError,ValueError,AttributeError):result={'revision':None}
+    from app.services.software_installation import status
+    receipt=status()
+    if receipt.get('ok'):
+        result['revision']=receipt['revision']
+        if receipt.get('sequence',0)>0:
+            result['branch']='release: '+receipt['installed_release']
+            result['published_at']=datetime.fromtimestamp(receipt['installed_at'],timezone.utc).isoformat()
+    return result
 
 
 def read_releases():
@@ -41,10 +49,10 @@ def candidates(releases,preview=False):
         match=TAG.fullmatch(tag) if isinstance(tag,str) else None
         if not match or item.get('draft') or (not preview and (item.get('prerelease') or match[2])):continue
         # A handbook or bootstrap archive is not an in-place software updater.
-        asset='data-ark-bootstrap-'+tag.removeprefix('bootstrap-')+'.tar.gz'
+        asset='data-ark-'+tag+'.tar.gz'
         if not any(a.get('name')==asset and a.get('state')=='uploaded' for a in item.get('assets',[]) if isinstance(a,dict)):continue
-        result.append((match[1],0 if match[2] else 1,int(match[2] or 0),item))
-    return [row[3] for row in sorted(result,key=lambda row:row[:3],reverse=True)]
+        result.append((match[1],0 if match[2] else 1,int(match[2] or 0),int(tag.startswith('software-')),item))
+    return [row[-1] for row in sorted(result,key=lambda row:row[:-1],reverse=True)]
 
 
 def relationship(current,target):
@@ -76,10 +84,12 @@ def check(preview=False):
                 result['release']={'tag':tag,'published_at':item.get('published_at'),'preview':bool(item.get('prerelease') or '-preview.' in tag),
                     'url':'https://github.com/DavJenkins/pharos/releases/tag/'+tag,'source_revision':item.get('target_commitish')}
                 messages={'same':'This build matches the published source revision.',
-                    'development_ahead':'This development build already contains the published release and newer changes. Do not replace it with the older bootstrap kit.',
+                    'development_ahead':'This development build already contains the published release and newer changes. Do not install an older release over this build.',
                     'newer_release':'A newer published source revision is available for review.',
                     'uncompared':'A published release is available, but its revision cannot be reliably compared with this build.'}
-                result.update(state=relation,message=messages[relation]+' The published kit is for bootstrap/recovery; it is not an in-place update package.')
+                result['installation_supported']=tag.startswith('software-')
+                suffix=' Review the signed software package and compatibility requirements before staging it.' if result['installation_supported'] else ' The published kit is for bootstrap/recovery; it is not an in-place update package.'
+                result.update(state=relation,message=messages[relation]+suffix)
         except Exception:
             result.update(state='unavailable',message='The release service could not be checked. The Ark may be offline, or the service may be unavailable or rate limited. This does not mean the software is current.')
             if previous:result['previous_check']={key:previous[1].get(key) for key in ('checked_at','state','release')}

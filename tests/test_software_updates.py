@@ -6,10 +6,12 @@ CURRENT='a'*40
 TARGET='b'*40
 
 def release(tag,preview=False):
-    return {'tag_name':tag,'prerelease':preview,'draft':False,'target_commitish':TARGET,'published_at':'2026-10-29T00:00:00Z','assets':[{'name':'data-ark-bootstrap-'+tag.removeprefix('bootstrap-')+'.tar.gz','state':'uploaded'}]}
+    return {'tag_name':tag,'prerelease':preview,'draft':False,'target_commitish':TARGET,'published_at':'2026-10-29T00:00:00Z','assets':[{'name':'data-ark-'+tag+'.tar.gz','state':'uploaded'}]}
 
 class SoftwareUpdateTests(unittest.TestCase):
-    def setUp(self):service.CACHE.clear()
+    def setUp(self):
+        service.CACHE.clear()
+        p=patch('app.services.software_installation.status',return_value={'ok':False});p.start();self.addCleanup(p.stop)
     def test_filter_documentation_drafts_and_preview(self):
         stable=release('bootstrap-2026.10.28');preview=release('bootstrap-2026.10.29-preview.1',True);draft=release('bootstrap-2026.10.30');draft['draft']=True
         data=[{'tag_name':'documentation-2026.10.29'},preview,draft,stable]
@@ -18,6 +20,11 @@ class SoftwareUpdateTests(unittest.TestCase):
     def test_release_needs_actual_package_and_tag(self):
         item=release('bootstrap-2026.10.29');item['assets']=[]
         self.assertEqual(service.candidates([item,release('bootstrap-../../evil')]),[])
+    def test_signed_software_release_is_distinct_from_bootstrap(self):
+        software=release('software-2026.10.29');bootstrap=release('bootstrap-2026.10.29')
+        self.assertEqual(service.candidates([bootstrap,software])[0],software)
+        with patch.object(service,'read_releases',return_value=[software]),patch.object(service,'relationship',return_value='newer_release'):
+            result=service.check();self.assertTrue(result['installation_supported']);self.assertNotIn('not an in-place update',result['message'])
     def test_equal_unknown_and_ancestor_comparison(self):
         self.assertEqual(service.relationship(CURRENT,CURRENT),'same')
         self.assertEqual(service.relationship('main',TARGET),'uncompared')

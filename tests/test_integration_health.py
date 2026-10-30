@@ -8,7 +8,13 @@ def base():
     return {'status':{'state':'ok','issues':[],'update':None}, 'services':{'fastapi':'running'}}
 
 class IntegrationHealthTests(unittest.TestCase):
+    def test_successful_software_update_changes_fingerprint_without_warning(self):
+        with patch.object(health,'get_status',return_value=base()),patch.object(health,'public_status',return_value={}),patch.object(health,'failed_units',return_value=[]),patch.object(health,'REFERENCE',self.root/'missing'),patch('app.services.software_installation.status') as software:
+            software.return_value={'state':'completed','revision':'a','sequence':1};first=health.collect()
+            software.return_value={'state':'completed','revision':'b','sequence':2};second=health.collect()
+        self.assertEqual(first['state'],'ok');self.assertEqual(second['state'],'ok');self.assertNotEqual(first['fingerprint'],second['fingerprint'])
     def setUp(self):
+        p=patch('app.services.software_installation.status',return_value={'state':'not_installed'});p.start();self.addCleanup(p.stop)
         self.temp=tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         from pathlib import Path

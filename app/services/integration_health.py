@@ -27,6 +27,10 @@ def collect():
     update = status['status'].get('update') or {}
     if update.get('state') == 'error':
         add('content.update_failed', 'error', update.get('label', 'Content update failed'))
+    from app.services.software_installation import status as software_status
+    software=software_status()
+    if software.get('state') in ('rolling_back','rollback_pending_health','rolled_back','refused'):
+        add('software.update', 'warning', 'Software update: '+software['state'].replace('_',' '))
     certificate = public_status()
     health = certificate.get('certificate_health')
     if health in ('expired', 'renewal_due', 'unknown'):
@@ -53,9 +57,9 @@ def collect():
     except (OSError, ValueError, KeyError, TypeError, AttributeError):
         add('content.check_telemetry', 'warning', 'Publisher-check telemetry unavailable')
     problems.sort(key=lambda value:value['id'])
-    fingerprint = hashlib.sha256(json.dumps(problems, sort_keys=True).encode()).hexdigest()[:24]
+    fingerprint = hashlib.sha256(json.dumps({'problems':problems,'software':{key:software.get(key) for key in ('state','revision','sequence','operation_id')}}, sort_keys=True).encode()).hexdigest()[:24]
     return {'schema_version':1, 'state':'error' if any(p['severity']=='error' for p in problems) else 'warning' if problems else 'ok',
             'problem_count':len(problems), 'fingerprint':fingerprint, 'problems':problems,
             'certificate':certificate, 'source_checks':reference,
-            'services':status['services'], 'update':update,
+            'services':status['services'], 'update':update, 'software_update':software,
             'observed_at':datetime.now(timezone.utc).isoformat(timespec='seconds')}

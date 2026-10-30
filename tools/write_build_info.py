@@ -20,7 +20,11 @@ def build_info():
             if not path.is_file() or any(part in ('vendor','__pycache__','.git') for part in path.parts):continue
             if path.suffix not in ('.py','.js','.css','.html','.sh'):continue
             digest.update(path.relative_to(ROOT).as_posix().encode()+b'\0'+path.read_bytes()+b'\0')
-    return {'schema':1,'revision':git('rev-parse','HEAD'),'branch':git('branch','--show-current'),
+    revision=git('rev-parse','HEAD');branch=git('branch','--show-current')
+    if not revision or branch=='ark-local':
+        try:revision=json.loads((ROOT/'config/installed-software.json').read_text())['revision']
+        except (OSError,ValueError,KeyError):pass
+    return {'schema':1,'revision':revision,'branch':branch,
             'source_date':git('show','-s','--format=%cI','HEAD'),
             'source_fingerprint':digest.hexdigest(),'published_at':datetime.now(timezone.utc).isoformat(timespec='seconds')}
 

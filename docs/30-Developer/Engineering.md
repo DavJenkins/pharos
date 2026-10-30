@@ -166,6 +166,18 @@ A separate guarded application entry point rejects physical-network, media-resto
 
 See [Desktop ARM64 test Ark](../20-Administration/Emulator.md).
 
+## 16. Software changes are signed, journaled transactions
+
+The software updater separates public release discovery, caretaker authorization, root-owned signature verification and a fixed systemd worker. The release-signing key is independent of the caretaker password. A package is an explicit file inventory, not an executable installation script: platform, base revision, dependency lock, schema and local-file hashes must match before installation begins.
+
+The worker snapshots affected software and build metadata, writes a durable transaction journal, and stops the API before replacing files. Health failure restores the prior files and identity. An interrupted transaction is restored before the API starts at boot, with health verification deferred until services are available. A transient root-owned runtime marker separates a legitimate update restart from boot recovery; it disappears on reboot. Schema, dependency, OS, network and privileged-helper changes are deliberately outside this first software-only package contract.
+
+**Why it matters:** an offline, already acquired update can use the same verification path as an online release, while the content drive, personalized configuration and credentials remain outside the update payload. Recovery is part of the transaction rather than an instruction to reinstall after a failure.
+
+Acceptance includes real API stop/start, automatic rollback of an invalid API release, an interrupted worker process, restore-before-startup and post-recovery checks in the disposable ARM64 QEMU Ark. Physical-media and schema-migration acceptance remain separate.
+
+See [Software updates and maintenance](../20-Administration/SoftwareUpdates.md).
+
 ## Maintaining this chapter
 
 Keep this document focused on implemented mechanisms and the design reasoning behind them. Add source-specific contracts and operational instructions to the linked developer/admin guides. Record acceptance results in the validation documentation. The companion feature catalogue remains the account of what these mechanisms let people do.

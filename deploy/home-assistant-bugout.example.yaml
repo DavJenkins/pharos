@@ -110,6 +110,7 @@ automation:
     event_data:
       state: '{{ states(''sensor.data_ark_health'') }}'
       problems: '{{ state_attr(''sensor.data_ark_health'', ''problems'') }}'
+      software_update: '{{ state_attr(''sensor.data_ark_health'', ''software_update'') }}'
   - if:
     - condition: state
       entity_id: sensor.data_ark_health
@@ -195,6 +196,7 @@ rest:
     - source_checks
     - services
     - update
+    - software_update
     - observed_at
 - resource: http://dataark/api/bugout/state
   scan_interval: 30

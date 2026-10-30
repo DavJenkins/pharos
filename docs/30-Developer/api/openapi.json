@@ -2037,6 +2037,64 @@
         ]
       }
     },
+    "/software-updates/install": {
+      "post": {
+        "operationId": "install_software_updates_install_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Install",
+        "tags": [
+          "Software updates"
+        ]
+      }
+    },
+    "/software-updates/installation": {
+      "get": {
+        "operationId": "installation_status_software_updates_installation_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Installation Status",
+        "tags": [
+          "Software updates"
+        ]
+      }
+    },
+    "/software-updates/stage": {
+      "post": {
+        "description": "Verify an explicitly submitted signed package; does not install it.",
+        "operationId": "stage_software_updates_stage_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Stage",
+        "tags": [
+          "Software updates"
+        ]
+      }
+    },
     "/sources/check": {
       "get": {
         "operationId": "status_sources_check_get",
