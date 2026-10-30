@@ -3,6 +3,7 @@ function captureCategory(item,record,check) {
  const current=present && check?.installed_sha256===record.sha256;
  if(present && !(current && (check.state==='changed'||(['blocked','unknown'].includes(check.state)&&check.review_due))))return 'Installed — no action needed';
  if(item.source?.failure_kind==='broken_link')return 'Broken links — repair needed';
+ if(present && check?.review_due)return 'Browser review due';
  if(present || item.source?.failure_kind==='access_blocked')return 'Browser check needed';
  return 'Missing files';
 }
@@ -14,17 +15,20 @@ async function loadCapture() {
   const folders=[...new Set(targets.map(x=>x.collection))];const inventories={};
   for (const folder of folders) inventories[folder]=await (await fetch('/library-files/'+folder+'/sources.json',{cache:'no-store'})).json();
   let checks={};try{const response=await fetch('/library-files/browser-capture-status.json',{cache:'no-store'});if(response.ok)checks=await response.json();}catch(_){}
+  let reviews={};try{const response=await fetch('/api/health',{cache:'no-store'});if(!response.ok)throw new Error('Health unavailable');{const health=await response.json();if(!health.source_checks?.available)throw new Error('Schedules unavailable');reviews=Object.fromEntries((health.source_checks?.browser_review?.reviews||[]).map(r=>[r.id,r]));}}catch(_){throw new Error('Browser review schedules unavailable; try again shortly.');}
   const root=document.querySelector('#items');root.replaceChildren();
   const pending=document.createElement('div'),installed=document.createElement('details'),groups=new Map();
   const summary=document.createElement('summary');installed.append(summary);let installedCount=0,pendingCount=0;
   for (const item of targets) {
    const record=inventories[item.collection].find(x=>x.id===item.id);
-   const present=record?.status==='installed';const check=checks[item.id];
+   const present=record?.status==='installed';let check=checks[item.id];const review=reviews[item.id];
+   if(review){check={...check,...review,installed_sha256:record.sha256,state:review.changed?'changed':check?.state||'blocked'};}
    const category=captureCategory(item,record,check);const actionNeeded=category!=='Installed — no action needed';const broken=item.source?.failure_kind==='broken_link';
    const section=document.createElement('section');const h=document.createElement('h2');h.textContent=item.title;section.append(h);
    const explanation=document.createElement('p');
-   explanation.textContent=present?(check?.installed_sha256===record.sha256?check.message:'Installed; no current publisher comparison recorded.'):'Not installed.';
+   explanation.textContent=present?(check?.installed_sha256===record.sha256?check.message||'Verified offline copy retained.':'Installed; no current publisher comparison recorded.'):'Not installed.';
    if(check?.checked_at && present)explanation.textContent+=' Last checked '+new Date(check.checked_at).toLocaleString()+'.';section.append(explanation);
+   if(review){const schedule=document.createElement('p');schedule.textContent=(review.review_due?'Browser review due':'Browser review scheduled')+' · Last verified: '+(review.last_verified?new Date(review.last_verified).toLocaleDateString():'—')+' · Next review: '+(review.next_due?new Date(review.next_due).toLocaleDateString():'Now')+' · Every '+review.review_interval_days+' days.';section.append(schedule);}
    if(!broken){const button=document.createElement('button');button.dataset.captureId=item.id;
    button.textContent=present?(check?.state==='changed'?'Capture reviewed replacement':'Compare browser copy'):'Download & import';
    if(present)button.dataset.expectedHash=record.sha256;section.append(button);

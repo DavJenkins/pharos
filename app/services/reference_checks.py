@@ -51,11 +51,15 @@ def projection(asset, repository, config, state, now):
             return None
     last = date(attempt)
     due = date(attempt + seconds) if last and seconds else None
+    from app.services import browser_reviews
+    manual = next((r for r in browser_reviews.cached_snapshot()['reviews'] if r['source_url'] == url), None)
+    manual = manual if manual and browser_reviews.known_block(record) else None
     return {'policy': 'source_check', 'interval': interval, 'enabled': enabled,
+            'browser_review': manual,
             'last_checked': last, 'last_success': date(record.get('checked_at')),
             'next_due': due, 'due_now': enabled and (not last or attempt + seconds <= now),
             'history_available': not state.get('unreadable', False),
-            'result': 'edition_available' if candidate else 'error' if edition.get('status')=='error' else record.get('status', 'awaiting'), 'detail': (edition.get('detail','')+' '+record.get('detail','')).strip() if candidate or edition.get('status')=='error' else record.get('detail', ''),
+            'result': 'edition_available' if candidate else 'error' if edition.get('status')=='error' else ('browser_review_due' if manual['review_due'] else 'browser_review_scheduled') if manual else record.get('status', 'awaiting'), 'detail': (edition.get('detail','')+' '+record.get('detail','')).strip() if candidate or edition.get('status')=='error' else ('Browser review due. Saved copy remains available.' if manual['review_due'] else 'Verified offline copy retained; browser review scheduled.') if manual else record.get('detail', ''),
             'available_edition': candidate, 'edition_check': edition,
             'pending_change': bool(record.get('pending_change') or candidate), 'source_url': url,
             'pinned_version': asset.get('version_pin'),

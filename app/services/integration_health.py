@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from app.services.https_setup import public_status
 from app.services.status_service import get_status
+from app.services import browser_reviews
 
 REFERENCE = Path('/var/lib/dataark/reference-checks/state.json')
 
@@ -45,19 +46,24 @@ def collect():
         add('services.telemetry', 'warning', 'Failed-service telemetry unavailable')
     reference = {'available':False}
     try:
-        entries = json.loads(REFERENCE.read_text())['sources'].values()
-        entries = list(entries)
-        errors = sum(v.get('status') == 'error' for v in entries)
+        sources = json.loads(REFERENCE.read_text())['sources']
+        entries = list(sources.values())
+        reviews = browser_reviews.snapshot()
+        manual_urls = {r['source_url'] for r in reviews['reviews']}
+        blocked = sum(url in manual_urls and browser_reviews.known_block(v) for url,v in sources.items())
+        errors = sum(v.get('status') == 'error' for v in entries) - blocked
         changed = sum(bool(v.get('pending_change')) for v in entries)
-        reference = {'available':True, 'checked_sources':len(entries), 'errors':errors, 'changed':changed}
+        reference = {'available':True, 'checked_sources':len(entries), 'errors':errors, 'changed':changed,
+                     'blocked_automated_checks':blocked, 'browser_review':reviews}
         if errors: add('content.source_checks', 'warning', f'{errors} publisher checks need attention; saved content is retained')
         if changed: add('content.source_changes', 'warning', f'{changed} publisher changes await review')
+        if reviews['overdue']: add('content.browser_reviews', 'warning', f"{reviews['overdue']} browser reviews due; saved content is retained")
     except FileNotFoundError:
         pass  # Not configured on every Ark.
     except (OSError, ValueError, KeyError, TypeError, AttributeError):
         add('content.check_telemetry', 'warning', 'Publisher-check telemetry unavailable')
     problems.sort(key=lambda value:value['id'])
-    fingerprint = hashlib.sha256(json.dumps({'problems':problems,'software':{key:software.get(key) for key in ('state','revision','sequence','operation_id')}}, sort_keys=True).encode()).hexdigest()[:24]
+    fingerprint = hashlib.sha256(json.dumps({'problems':problems,'source_checks':reference,'software':{key:software.get(key) for key in ('state','revision','sequence','operation_id')}}, sort_keys=True).encode()).hexdigest()[:24]
     return {'schema_version':1, 'state':'error' if any(p['severity']=='error' for p in problems) else 'warning' if problems else 'ok',
             'problem_count':len(problems), 'fingerprint':fingerprint, 'problems':problems,
             'certificate':certificate, 'source_checks':reference,

@@ -114,3 +114,10 @@ The API restart cleared its shutdown timeouts without rebooting the Pi. The
 pre-install source backup is `/var/backups/dataark-ha-collections-20261028T160727Z`.
 Existing publisher-check warnings are independent of the notification integration.
 The Send to the Ark submission interface remains separate future work.
+
+
+## Browser review schedules
+
+The health sensor’s `source_checks.browser_review` attribute includes configured installed references, review intervals, last verification, next due dates, changed flags, overdue counts, and `/capture.html`. Known HTTP 403 refusals for those verified saved copies are counted separately as `blocked_automated_checks`; they do not alone make health amber. Overdue reviews and detected changes do. Automated retries continue on the publisher schedule.
+
+Install `deploy/home-assistant-browser-reviews.example.yaml` as an additional package to expose review and blocked-check counts plus a Data Ark browser review event and one replaceable overdue notification. It polls the existing health sensor attributes and requires no credentials. Update the health event to include `source_checks` for downstream automations. Review completion or transition to a working automatic check changes the stable fingerprint; timestamps from routine polling do not. The capture page provides the browser actions. HA does not bypass publisher restrictions or install replacements.

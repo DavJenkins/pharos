@@ -75,11 +75,13 @@ def inspect_source(identifier):
  except Exception as e:
   verified=old.get('acquisition',{}).get('verified_at',old.get('checked_at')) if old.get('acquisition') else None
   policy=json.loads((ROOT/'deploy/reference/browser-capture-policy.json').read_text())
-  age_days=(datetime.now(timezone.utc)-datetime.fromisoformat(verified)).total_seconds()/86400 if verified else float('inf')
+  days=policy.get('review_intervals_days',{}).get(identifier,policy['manual_review_after_days'])
+  from app.services.browser_reviews import review
+  scheduled=review(old,{},days)
   result={'state':'blocked' if isinstance(e,urllib.error.HTTPError) and e.code==403 else 'unknown',
           'installed_sha256':old['sha256'],'checked_at':now(),
-          'browser_verified_at':verified,'review_due':age_days>=policy['manual_review_after_days'],
-          'message':('Automated check could not verify the publisher file. Installed copy remains available; browser review is due. ' if age_days>=policy['manual_review_after_days'] else 'Automated publisher check was blocked or inconclusive. Recent browser verification still stands; no review is due. ')+str(e)[:200]}
+          'browser_verified_at':verified,**scheduled,
+          'message':('Automated check could not verify the publisher file. Installed copy remains available; browser review is due. ' if scheduled['review_due'] else 'Automated publisher check was blocked or inconclusive. Recent browser verification still stands; no review is due. ')+str(e)[:200]}
  return result
 
 def check_updates():

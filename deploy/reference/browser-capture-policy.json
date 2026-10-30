@@ -2,5 +2,17 @@
   "schema": 1,
   "automatic_checks": false,
   "manual_review_after_days": 30,
-  "note": "Blocked/unknown source checks do not reopen a recently browser-verified capture. Changed validated bytes always require review. Checks are explicitly requested, not scheduled."
+  "collections": ["family-resources", "forms", "civic-reference"],
+  "review_intervals_days": {
+    "cdc-wrigley-en": 365,
+    "cdc-wrigley-es": 365,
+    "cdc-backpack": 365,
+    "cdc-pet-kit": 365,
+    "cdc-family-plan": 365,
+    "ma-form1-2025": 365,
+    "ma-form1-instructions-2025": 365,
+    "ma-electrical": 90,
+    "ma-fire": 90
+  },
+  "note": "Verified browser imports use source-specific caretaker review schedules. Weekly publisher retries continue. An HTTP 403 is informational for these installed copies; overdue reviews and validated changes need attention. Tax-year editions remain pinned; a new tax year needs its own catalogue entry."
 }

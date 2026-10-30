@@ -1,0 +1,37 @@
+template:
+  - sensor:
+      - name: Data Ark browser reviews
+        unique_id: dataark_browser_reviews
+        availability: "{{ state_attr('sensor.data_ark_health', 'source_checks') is mapping }}"
+        state: "{{ (state_attr('sensor.data_ark_health', 'source_checks') or {}).get('browser_review', {}).get('overdue', 0) }}"
+        unit_of_measurement: reviews
+        icon: mdi:clipboard-clock-outline
+        attributes:
+          review_status: "{{ (state_attr('sensor.data_ark_health', 'source_checks') or {}).get('browser_review', {}) }}"
+          review_page: http://192.168.40.70/capture.html
+      - name: Data Ark blocked publisher checks
+        unique_id: dataark_blocked_publisher_checks
+        availability: "{{ state_attr('sensor.data_ark_health', 'source_checks') is mapping }}"
+        state: "{{ (state_attr('sensor.data_ark_health', 'source_checks') or {}).get('blocked_automated_checks', 0) }}"
+        icon: mdi:web-clock
+
+automation:
+  - id: dataark_browser_reviews_changed
+    alias: Record Data Ark browser reviews
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: sensor.data_ark_browser_reviews
+    conditions:
+      - condition: template
+        value_template: "{{ states('sensor.data_ark_browser_reviews') not in ['unknown', 'unavailable'] }}"
+    actions:
+      - event: dataark_browser_reviews_changed
+        event_data:
+          reviews: "{{ state_attr('sensor.data_ark_browser_reviews', 'review_status') }}"
+          source_checks: "{{ state_attr('sensor.data_ark_health', 'source_checks') }}"
+          review_page: http://192.168.40.70/capture.html
+      - action: logbook.log
+        data:
+          name: Data Ark browser reviews
+          message: "{{ states('sensor.data_ark_browser_reviews') }} reviews due; {{ states('sensor.data_ark_blocked_publisher_checks') }} automated publisher checks blocked. Review at http://192.168.40.70/capture.html"

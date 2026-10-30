@@ -111,6 +111,7 @@ automation:
       state: '{{ states(''sensor.data_ark_health'') }}'
       problems: '{{ state_attr(''sensor.data_ark_health'', ''problems'') }}'
       software_update: '{{ state_attr(''sensor.data_ark_health'', ''software_update'') }}'
+      source_checks: '{{ state_attr(''sensor.data_ark_health'', ''source_checks'') }}'
   - if:
     - condition: state
       entity_id: sensor.data_ark_health

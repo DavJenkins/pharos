@@ -11,5 +11,5 @@ const installed={status:'installed',sha256:'abc'};
 assert.equal(classify({},installed,{installed_sha256:'abc',state:'blocked',review_due:false}),'Installed — no action needed');
 assert.equal(classify({},installed,{installed_sha256:'abc',state:'changed'}),'Browser check needed');
 assert.equal(classify({},installed,{installed_sha256:'old',state:'changed'}),'Installed — no action needed');
-assert.equal(classify({},installed,{installed_sha256:'abc',state:'blocked',review_due:true}),'Browser check needed');
+assert.equal(classify({},installed,{installed_sha256:'abc',state:'blocked',review_due:true}),'Browser review due');
 console.log('7 capture classification checks passed');
