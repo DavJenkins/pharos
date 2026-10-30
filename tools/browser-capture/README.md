@@ -40,3 +40,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\install.ps1
 ```
 
 Organization-enforced Group Policy can still prevent execution; ask that computer’s administrator rather than changing machine-wide settings. Existing `config.json` pairing is preserved. New pairings default to `dataark`; set the Ark’s reachable hostname or address in `config.json` if needed.
+
+## Extension enabled but page says not connected
+
+Reload the extension in `chrome://extensions`, then reload the capture page in that same Chrome profile. Version 1.2.1 recognizes `dataark`, `dataark.lan`, `dataark.local` and the registered Ark IP addresses over HTTP or HTTPS. Older versions did not recognize the `.lan` or `.local` aliases or HTTPS. A service worker marked Inactive is normal while idle. The page indicator confirms that the extension loaded on this page; import errors separately report native-helper or SSH pairing failures.
