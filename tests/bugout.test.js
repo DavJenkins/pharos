@@ -52,7 +52,9 @@ async function scenario(state,failed=false,testResult={ok:true,message:"Share re
  for (const result of [{ok:true,message:"Share readable; not saved"},{ok:false,message:"Credentials rejected"}]) {
    s=await scenario({configured:true,ready:false,tasks:[{id:"manuals",title:"Manuals",ready:false,reason:"Credentials required",credential_configured:true}]},false,result);
    const row=s.elements["bugout-tasks"].children[0];
-   row.children.find(n=>n?.textContent==="Set credentials").listeners.click();
+   const actions=row.children.find(n=>n?.className==="household-task-actions");
+   assert.ok(actions,"Credential actions share the dedicated button row");
+   actions.children.find(n=>n?.textContent==="Set credentials").listeners.click();
    s.elements["bugout-admin"].value="admin-secret";
    s.elements["bugout-username"].value="dave";
    s.elements["bugout-password"].value="share-secret";
@@ -75,11 +77,11 @@ async function scenario(state,failed=false,testResult={ok:true,message:"Share re
  }
  s=await scenario({configured:true,ready:true,tasks:[{id:"manuals",title:"Manuals",ready:true,reason:"Ready",credential_configured:true,credentials_saved:true,cache:{state:"failed",message:"Copy failed",checked:"2026-09-27T12:00:00Z"}}]});
  let row=s.elements["bugout-tasks"].children[0];
- assert.ok(row.children.find(n=>n?.textContent==="Update credentials"));
+ assert.ok(row.children.find(n=>n?.className==="household-task-actions").children.find(n=>n?.textContent==="Update credentials"));
  assert.ok(row.children.find(n=>n?.className==="household-copy-status").textContent.includes("No completed"));
  s=await scenario({configured:true,ready:true,tasks:[{id:"manuals",title:"Manuals",ready:true,reason:"Ready",cache:{state:"completed",file:"manuals.tar",last_success:"2026-09-27T12:00:00Z"}}]});
  row=s.elements["bugout-tasks"].children[0];
- assert.equal(row.children.find(n=>n?.className==="household-copy-status").textContent,"Prefetched copy available on this Ark");
+ assert.equal(row.children.find(n=>n?.className==="household-copy-status").textContent,"Saved backup available on the Ark");
  const mutable={configured:true,ready:true,tasks:[{id:"manuals",title:"Manuals",ready:true,reason:"Ready",cache:{state:"failed",message:"Access denied",failure_count:4,next_attempt:"2026-10-13T08:00:00Z",file:"last-good.tar"}}]};
  s=await scenario(mutable);
  assert.equal(s.elements["bugout-warning"].hidden,false);
