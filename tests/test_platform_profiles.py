@@ -45,7 +45,7 @@ class PlatformTests(unittest.TestCase):
         facts['interfaces'][0].update(state='DOWN',addresses=['192.0.2.20'])
         self.assertEqual(initial,p.proposal(self.config(),facts)['plan_id'])
         facts['interfaces'][0]['permanent_mac']='aa:bb:cc:dd:ee:02'
-        self.assertNotEqual(initial,p.proposal(self.config(),facts)['plan_id'])
+        self.assertEqual(initial,p.proposal(self.config(),facts)['plan_id'])
         facts=self.facts();facts['machine_id_sha256']='b'*64
         self.assertNotEqual(initial,p.proposal(self.config(),facts)['plan_id'])
 

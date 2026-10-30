@@ -151,6 +151,11 @@ def proposal(config, facts):
            'machine':facts['machine_id_sha256'],'roles':roles,
            'interfaces':[{k:i[k] for k in ('name','kind','permanent_mac','hotspot_capable')} for i in sorted(facts['interfaces'],key=lambda i:i['name']) if i['name'] in uplinks or i['name']==ap or i['kind'] in {'wifi','ethernet'} and i.get('permanent_mac')],
            'upstreams':uplinks}
+    if spec['network_mode']=='lan':
+        # Read-only LAN installation is bound to the machine and interfaces, not
+        # optional ethtool data that becomes available during package installation.
+        basis['roles']={k:v for k,v in roles.items() if k not in {'identities','ethernet_identities'}}
+        for item in basis['interfaces']:item['permanent_mac']=None
     return {'profile':spec['id'],'label':spec['label'],'network_mode':spec['network_mode'],
             'roles':roles,'interfaces':facts['interfaces'],'issues':issues,
             'network_changes':('Existing NetworkManager connections and addresses are preserved; no Ark hotspot, captive portal or internet pass-through rules are created.' if not ap else 'The reviewed radio becomes the DataArk hotspot; existing uplinks are retained.'),
