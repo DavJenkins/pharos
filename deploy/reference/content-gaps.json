@@ -60,8 +60,9 @@
       "observed_failure": "HTTP Error 404: Not Found",
       "assessment": "Covered differently",
       "installed_alternative": "Forest Service Know Before You Go: Recreation Checklist (2021), two pages, now installed; related coverage, not identical old publication. NPS and Maine outdoor references remain available.",
-      "retry_priority": "Low: broad topics covered, not asserted identical.",
-      "evidence": "/mnt/storage/resilience/sources.json"
+      "retry_priority": "Retired by caretaker decision: retain failure history and installed alternatives; no further automatic retries.",
+      "evidence": "/mnt/storage/resilience/sources.json",
+      "disposition": "retired"
     },
     {
       "id": "doe-microhydro",
@@ -84,8 +85,9 @@
       "observed_failure": "HTTP Error 404: Not Found",
       "assessment": "Covered differently",
       "installed_alternative": "NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation, February 2011, 28 pages, installed from NCAT. Archived engineering/planning reference, not current Massachusetts permitting or electrical code.",
-      "retry_priority": "Low: exact failed titles optional; retain historical source failures.",
-      "evidence": "/mnt/storage/resilience/sources.json"
+      "retry_priority": "Retired by caretaker decision: retain failure history and installed alternatives; no further automatic retries.",
+      "evidence": "/mnt/storage/resilience/sources.json",
+      "disposition": "retired"
     },
     {
       "id": "ma-building-preamble",
@@ -96,8 +98,9 @@
       "observed_failure": "HTTP Error 403: Forbidden",
       "assessment": "Open need",
       "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
-      "retry_priority": "High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.",
-      "evidence": "/mnt/storage/civic-reference/sources.json"
+      "retry_priority": "Optional front matter: available for manual capture, excluded from the actionable queue.",
+      "evidence": "/mnt/storage/civic-reference/sources.json",
+      "disposition": "optional"
     },
     {
       "id": "ma-building-toc",
@@ -108,8 +111,9 @@
       "observed_failure": "HTTP Error 403: Forbidden",
       "assessment": "Open need",
       "installed_alternative": "No equivalent state code/amendment package installed. General safety guides are not code books.",
-      "retry_priority": "High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.",
-      "evidence": "/mnt/storage/civic-reference/sources.json"
+      "retry_priority": "Optional front matter: available for manual capture, excluded from the actionable queue.",
+      "evidence": "/mnt/storage/civic-reference/sources.json",
+      "disposition": "optional"
     },
     {
       "id": "ma-electrical-adoption",

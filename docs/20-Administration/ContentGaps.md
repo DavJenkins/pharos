@@ -2,7 +2,7 @@
 
 Updated 2026-10-30. This register separates unavailable documents, useful alternatives and actual uncovered needs. It is not a list of proposed new collections.
 
-14 unavailable catalogue entries; 7 omitted candidates; 13 entries resolved or corrected. Related guides do not mean the requested document is installed. HTTP errors describe recorded requests, not whether you can open a public document in your browser.
+10 unavailable catalogue entries; 7 omitted candidates; 13 entries resolved or corrected. Related guides do not mean the requested document is installed. HTTP errors describe recorded requests, not whether you can open a public document in your browser.
 
 [Capture missing PDFs or review updates](/capture.html). Successful captures automatically move their entry to the resolved section. The capture page also shows current update-check status.
 
@@ -38,37 +38,13 @@ Updated 2026-10-30. This register separates unavailable documents, useful altern
 
 ### resilience
 
-[US Forest Service — Outdoor Safety](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd524522.pdf)
-
-- Recorded failure: HTTP Error 404: Not Found (last attempt 2026-10-30).
-- Coverage: Covered differently. Forest Service Know Before You Go: Recreation Checklist (2021), two pages, now installed; related coverage, not identical old publication. NPS and Maine outdoor references remain available.
-- Decision: Low: broad topics covered, not asserted identical.
-
 [DOE — Microhydropower Systems](https://www.energy.gov/energysaver/microhydropower-systems)
 
 - Recorded failure: HTTP Error 404: Not Found (last attempt 2026-10-24).
 - Coverage: Covered differently. NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation, February 2011, 28 pages, installed from NCAT. Archived engineering/planning reference, not current Massachusetts permitting or electrical code.
 - Decision: Low: exact failed titles optional; retain historical source failures.
 
-[Colorado Small Hydropower Handbook](https://extension.colostate.edu/docs/energy/hydro-handbook.pdf)
-
-- Recorded failure: HTTP Error 404: Not Found (last attempt 2026-10-30).
-- Coverage: Covered differently. NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation, February 2011, 28 pages, installed from NCAT. Archived engineering/planning reference, not current Massachusetts permitting or electrical code.
-- Decision: Low: exact failed titles optional; retain historical source failures.
-
 ### civic-reference
-
-[Massachusetts Building Code 780 CMR — tenth-edition preamble](https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download)
-
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
-- Coverage: Open need. No equivalent state code/amendment package installed. General safety guides are not code books.
-- Decision: High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.
-
-[Massachusetts Building Code 780 CMR — tenth-edition contents](https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download)
-
-- Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-30).
-- Coverage: Open need. No equivalent state code/amendment package installed. General safety guides are not code books.
-- Decision: High if code compliance is claimed; verify adopted edition and obtain authorized state text plus licensed base code as needed.
 
 [Massachusetts Electrical Code — adoption and source information](https://www.mass.gov/info-details/massachusetts-electrical-code)
 
@@ -99,6 +75,40 @@ Updated 2026-10-30. This register separates unavailable documents, useful altern
 - Recorded failure: HTTP Error 403: Forbidden (last attempt 2026-10-24).
 - Coverage: Open need. Massachusetts Chapter 93A snapshot is not court procedure.
 - Decision: Medium for local-law coverage; rules and amendments remain absent.
+
+## Optional and retired references
+
+### US Forest Service — Outdoor Safety
+
+Retired. Retired by caretaker decision: retain failure history and installed alternatives; no further automatic retries.
+
+- Original source: https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd524522.pdf
+- Recorded failure: HTTP Error 404: Not Found
+- Alternative: Forest Service Know Before You Go: Recreation Checklist (2021), two pages, now installed; related coverage, not identical old publication. NPS and Maine outdoor references remain available.
+
+### Colorado Small Hydropower Handbook
+
+Retired. Retired by caretaker decision: retain failure history and installed alternatives; no further automatic retries.
+
+- Original source: https://extension.colostate.edu/docs/energy/hydro-handbook.pdf
+- Recorded failure: HTTP Error 404: Not Found
+- Alternative: NCAT Micro-Hydro Power: A Beginners Guide to Design and Installation, February 2011, 28 pages, installed from NCAT. Archived engineering/planning reference, not current Massachusetts permitting or electrical code.
+
+### Massachusetts Building Code 780 CMR — tenth-edition preamble
+
+Optional. Optional front matter: available for manual capture, excluded from the actionable queue.
+
+- Original source: https://www.mass.gov/doc/10th-edition-780-cmr-preamble/download
+- Recorded failure: HTTP Error 403: Forbidden
+- Alternative: No equivalent state code/amendment package installed. General safety guides are not code books.
+
+### Massachusetts Building Code 780 CMR — tenth-edition contents
+
+Optional. Optional front matter: available for manual capture, excluded from the actionable queue.
+
+- Original source: https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download
+- Recorded failure: HTTP Error 403: Forbidden
+- Alternative: No equivalent state code/amendment package installed. General safety guides are not code books.
 
 ## Resolved entries and corrected targets
 

@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def render(data):
- missing=data['unavailable_entries'];omitted=data['omitted_candidates'];resolved=data.get('resolved_entries',[])
+ entries=data['unavailable_entries'];missing=[x for x in entries if x.get('disposition') not in ('retired','optional')];deferred=[x for x in entries if x.get('disposition') in ('retired','optional')];omitted=data['omitted_candidates'];resolved=data.get('resolved_entries',[])
  lines=['# Content download gaps and alternatives','',
         'Updated '+data.get('updated_at',data['audited_at'])[:10]+'. This register separates unavailable documents, useful alternatives and actual uncovered needs. It is not a list of proposed new collections.','',
         str(len(missing))+' unavailable catalogue entries; '+str(len(omitted))+' omitted candidates; '+str(len(resolved))+' entries resolved or corrected. Related guides do not mean the requested document is installed. HTTP errors describe recorded requests, not whether you can open a public document in your browser.','',
@@ -19,6 +19,9 @@ def render(data):
            '- Recorded failure: '+x['observed_failure']+' (last attempt '+x['last_attempt'][:10]+').',
            '- Coverage: '+x['assessment']+'. '+x['installed_alternative'],
            '- Decision: '+x['retry_priority'],'']
+ lines+=['## Optional and retired references','']
+ for x in deferred:
+  lines+=['### '+x['title'],'',x['disposition'].capitalize()+'. '+x['retry_priority'],'','- Original source: '+x['source_url'],'- Recorded failure: '+x['observed_failure'],'- Alternative: '+x['installed_alternative'],'']
  lines+=['## Resolved entries and corrected targets','']
  for x in resolved:
   title='['+x['title']+']('+x['local_url']+')' if x.get('local_url') else x['title']

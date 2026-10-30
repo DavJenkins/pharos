@@ -2,6 +2,7 @@ function captureCategory(item,record,check) {
  const present=record?.status==='installed';
  const current=present && check?.installed_sha256===record.sha256;
  if(present && !(current && (check.state==='changed'||(['blocked','unknown'].includes(check.state)&&check.review_due))))return 'Installed — no action needed';
+ if(!present && item.source?.disposition==='optional')return 'Optional references';
  if(item.source?.failure_kind==='broken_link')return 'Broken links — repair needed';
  if(present && check?.review_due)return 'Browser review due';
  if(present || item.source?.failure_kind==='access_blocked')return 'Browser check needed';
@@ -17,13 +18,14 @@ async function loadCapture() {
   let checks={};try{const response=await fetch('/library-files/browser-capture-status.json',{cache:'no-store'});if(response.ok)checks=await response.json();}catch(_){}
   let reviews={};try{const response=await fetch('/api/health',{cache:'no-store'});if(!response.ok)throw new Error('Health unavailable');{const health=await response.json();if(!health.source_checks?.available)throw new Error('Schedules unavailable');reviews=Object.fromEntries((health.source_checks?.browser_review?.reviews||[]).map(r=>[r.id,r]));}}catch(_){throw new Error('Browser review schedules unavailable; try again shortly.');}
   const root=document.querySelector('#items');root.replaceChildren();
-  const pending=document.createElement('div'),installed=document.createElement('details'),groups=new Map();
+  const pending=document.createElement('div'),installed=document.createElement('details'),optional=document.createElement('details'),groups=new Map();
+  const optionalSummary=document.createElement('summary');optional.append(optionalSummary);let optionalCount=0;
   const summary=document.createElement('summary');installed.append(summary);let installedCount=0,pendingCount=0;
   for (const item of targets) {
    const record=inventories[item.collection].find(x=>x.id===item.id);
    const present=record?.status==='installed';let check=checks[item.id];const review=reviews[item.id];
    if(review){check={...check,...review,installed_sha256:record.sha256,state:review.changed?'changed':check?.state||'blocked',message:review.changed?'Publisher PDF changed; review a browser copy before replacing the saved edition.':review.review_due?'Browser review is due. The verified offline copy remains available.':'Verified offline copy retained; next browser review is scheduled below.'};}
-   const category=captureCategory(item,record,check);const actionNeeded=category!=='Installed — no action needed';const broken=item.source?.failure_kind==='broken_link';
+   const category=captureCategory(item,record,check);const isOptional=category==='Optional references';const actionNeeded=category!=='Installed — no action needed' && !isOptional;const broken=item.source?.failure_kind==='broken_link';
    const section=document.createElement('section');const h=document.createElement('h2');h.textContent=item.title;section.append(h);
    const explanation=document.createElement('p');
    explanation.textContent=present?(check?.installed_sha256===record.sha256?check.message||'Verified offline copy retained.':'Installed; no current publisher comparison recorded.'):'Not installed.';
@@ -33,18 +35,19 @@ async function loadCapture() {
    button.textContent=present?(check?.state==='changed'?'Capture reviewed replacement':'Compare browser copy'):'Download & import';
    if(present)button.dataset.expectedHash=record.sha256;section.append(button);
    const link=document.createElement('a');link.href=item.url;link.target='_blank';link.rel='noopener';link.dataset.armId=item.id;if(present)link.dataset.expectedHash=record.sha256;link.textContent='Open publisher download';section.append(link);}
-   if(item.source?.note && actionNeeded){const note=document.createElement('p');note.textContent=item.source.note;section.append(note);}
+   if(item.source?.note && (actionNeeded||isOptional)){const note=document.createElement('p');note.textContent=item.source.note;section.append(note);}
    for(const [label,url] of [['Publication page',item.source?.publication_page],['Original recorded URL',broken?item.url:null],['Review replacement candidate',item.source?.candidate?.url]]){if(url){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent=label+' ↗';const p=document.createElement('p');p.append(a);section.append(p);}}
    if(item.source?.candidate){const p=document.createElement('p');p.textContent=item.source.candidate.title+'. '+item.source.candidate.note;section.append(p);}
    if(present){const local=document.createElement('a');local.href='/library-files/'+item.collection+'/'+record.filename;local.textContent=' · Read installed copy';section.append(local);}
    const status=document.createElement('p');status.setAttribute('role','status');section.append(status);
-   if(actionNeeded){if(!groups.has(category)){const group=document.createElement('div'),title=document.createElement('h2');title.textContent=category;group.append(title);groups.set(category,group);pending.append(group);}groups.get(category).append(section);pendingCount++;}else installed.append(section);
-   if(!actionNeeded)installedCount++;
+   if(isOptional){optional.append(section);optionalCount++;}else if(actionNeeded){if(!groups.has(category)){const group=document.createElement('div'),title=document.createElement('h2');title.textContent=category;group.append(title);groups.set(category,group);pending.append(group);}groups.get(category).append(section);pendingCount++;}else installed.append(section);
+   if(!actionNeeded && !isOptional)installedCount++;
   }
   summary.textContent='Installed captures ('+installedCount+') — optional browser comparisons';
   const heading=document.createElement('h2');heading.textContent='Needs capture or review ('+pendingCount+')';root.append(heading);
   if(!pendingCount){const p=document.createElement('p');p.textContent='No capture or update review is pending.';pending.append(p);}
-  root.append(pending,installed);
+  optionalSummary.textContent='Optional references ('+optionalCount+') — not required';
+  root.append(pending,installed);if(optionalCount)root.append(optional);
  } catch(e){document.querySelector('#error').textContent='Could not read the current Ark inventory: '+e.message;}
  finally{refreshing=false;if(refreshAgain){refreshAgain=false;loadCapture();}}
 }

@@ -95,7 +95,8 @@
         "url": "/library-files/resilience/documents/usfs-before-you-go.pdf",
         "title": "Installed Forest Service recreation checklist (2021)",
         "note": "Related safety coverage; not the missing original publication."
-      }
+      },
+      "disposition": "retired"
     },
     "ma-electrical": {
       "current_download_url": "https://www.mass.gov/doc/527-cmr-1200-massachusetts-electrical-code-effective-42426/download",
@@ -119,7 +120,8 @@
       "failure_kind": "access_blocked",
       "publication_page": "https://www.mass.gov/handbook/tenth-edition-of-the-ma-state-building-code-780",
       "discovery_rule": null,
-      "note": "Automated access was refused; this does not establish that the file is missing or a new edition exists."
+      "note": "Automated access was refused; this does not establish that the file is missing or a new edition exists.",
+      "disposition": "optional"
     },
     "ma-building-toc": {
       "current_download_url": "https://www.mass.gov/doc/10th-edition-780-cmr-table-of-contents/download",
@@ -127,7 +129,8 @@
       "failure_kind": "access_blocked",
       "publication_page": "https://www.mass.gov/regulations/780-CMR-tenth-edition-table-of-contents",
       "discovery_rule": null,
-      "note": "Automated access was refused; this does not establish that the file is missing or a new edition exists."
+      "note": "Automated access was refused; this does not establish that the file is missing or a new edition exists.",
+      "disposition": "optional"
     },
     "colorado-microhydro": {
       "current_download_url": "https://extension.colostate.edu/docs/energy/hydro-handbook.pdf",
@@ -135,7 +138,8 @@
       "failure_kind": "broken_link",
       "publication_page": null,
       "discovery_rule": null,
-      "note": "CSU PDF returns 404; historical Colorado.gov URL cited by a 2025 federal report returned 502. Exact handbook remains unlocated. Installed NCAT micro-hydro guide provides related coverage."
+      "note": "CSU PDF returns 404; historical Colorado.gov URL cited by a 2025 federal report returned 502. Exact handbook remains unlocated. Installed NCAT micro-hydro guide provides related coverage.",
+      "disposition": "retired"
     }
   }
 }

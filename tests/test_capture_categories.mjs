@@ -12,4 +12,6 @@ assert.equal(classify({},installed,{installed_sha256:'abc',state:'blocked',revie
 assert.equal(classify({},installed,{installed_sha256:'abc',state:'changed'}),'Browser check needed');
 assert.equal(classify({},installed,{installed_sha256:'old',state:'changed'}),'Installed — no action needed');
 assert.equal(classify({},installed,{installed_sha256:'abc',state:'blocked',review_due:true}),'Browser review due');
-console.log('7 capture classification checks passed');
+assert.equal(classify({source:{disposition:'optional',failure_kind:'access_blocked'}},null,null),'Optional references');
+assert.equal(classify({source:{disposition:'optional'}},installed,{installed_sha256:'abc',state:'blocked',review_due:true}),'Browser review due');
+console.log('9 capture classification checks passed');

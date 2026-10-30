@@ -20,16 +20,6 @@
     "note": "Related replacement for the retired Forest Service link, not asserted to be the identical publication. Trip preparation, equipment, water and wildfire precautions. U.S. government publication."
   },
   {
-    "id": "usfs-outdoor-safety",
-    "collection": "resilience",
-    "group": "Wilderness survival",
-    "title": "US Forest Service — Outdoor Safety",
-    "format": "pdf",
-    "url": "https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd524522.pdf",
-    "edition": "Publisher file retrieved at installation",
-    "note": "Outdoor hazards, exposure and lost-person guidance. Reference, not a substitute for first-aid training."
-  },
-  {
     "id": "nps-ten-essentials",
     "collection": "resilience",
     "group": "Wilderness survival",
@@ -258,16 +248,6 @@
     "format": "pdf",
     "edition": "PNNL-33984, April 2023",
     "note": "Electricity, household loads, batteries, solar sizing and microgrids. Public DOE-sponsored report; original notices retained."
-  },
-  {
-    "id": "colorado-microhydro",
-    "collection": "resilience",
-    "group": "Off-grid power",
-    "title": "Colorado Small Hydropower Handbook",
-    "url": "https://extension.colostate.edu/docs/energy/hydro-handbook.pdf",
-    "format": "pdf",
-    "edition": "Colorado Energy Office handbook; edition retained in publisher file",
-    "note": "Micro-hydro planning and engineering reference. Colorado permitting context is not Massachusetts law. Original publisher notices retained."
   },
   {
     "id": "fcc-part97",
