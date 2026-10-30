@@ -2,7 +2,11 @@
   "schema": 1,
   "automatic_checks": false,
   "manual_review_after_days": 30,
-  "collections": ["family-resources", "forms", "civic-reference"],
+  "collections": [
+    "family-resources",
+    "forms",
+    "civic-reference"
+  ],
   "review_intervals_days": {
     "cdc-wrigley-en": 365,
     "cdc-wrigley-es": 365,
@@ -12,7 +16,9 @@
     "ma-form1-2025": 365,
     "ma-form1-instructions-2025": 365,
     "ma-electrical": 90,
-    "ma-fire": 90
+    "ma-fire": 90,
+    "ss5": 365,
+    "ma-building-toc": 90
   },
   "note": "Verified browser imports use source-specific caretaker review schedules. Weekly publisher retries continue. An HTTP 403 is informational for these installed copies; overdue reviews and validated changes need attention. Tax-year editions remain pinned; a new tax year needs its own catalogue entry."
 }
