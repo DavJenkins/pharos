@@ -8,6 +8,7 @@ from pathlib import Path,PurePosixPath
 from urllib.parse import urlsplit
 import yaml
 REPO=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(REPO))
 COLLECTIONS={
  'communication':('tools/install_communication.py',[],'deploy/reference/communication.json'),
  'curriculum':('tools/install_curriculum.py',['--apply'],'deploy/reference/curriculum-catalogue.json'),
