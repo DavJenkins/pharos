@@ -16,7 +16,7 @@ async function setStatus(id, state, message) {
 chrome.runtime.onMessage.addListener((message, sender, reply) => {
   (async () => {
     const u = new URL(sender.url);
-    if (!['dataark','192.168.40.123','192.168.40.70','192.168.8.112','192.168.4.1'].includes(u.hostname) || u.protocol !== 'http:' || u.pathname !== '/capture.html') throw Error('Use the Ark capture page.');
+    if (!['dataark','dataark.lan','dataark.local','192.168.40.123','192.168.40.70','192.168.8.112','192.168.4.1'].includes(u.hostname) || !['http:','https:'].includes(u.protocol) || u.pathname !== '/capture.html') throw Error('Use the Ark capture page.');
     if (message.action === 'status') return (await chrome.storage.local.get('status')).status || {};
     if (message.action === 'check_updates') {
       await setStatus('__updates__','checking','Checking installed captures against their pinned publisher URLs…');
@@ -29,7 +29,7 @@ chrome.runtime.onMessage.addListener((message, sender, reply) => {
     if (message.action === 'retry') {
       const d=(await chrome.storage.local.get('downloads')).downloads||{};
       for (const id of Object.keys(d)) await inspect(id);
-      return {ok:true};
+      return {ok:true,message:Object.keys(d).length?'Retrying '+Object.keys(d).length+' captured download(s).':'No saved downloads to retry. Choose Download & import again.'};
     }
     if (message.action === 'arm') {
       const targets=await (await fetch(chrome.runtime.getURL('targets.json'))).json();
@@ -68,7 +68,7 @@ async function inspect(downloadId) {
   port.onMessage.addListener(async result => {
     answered = true;
     await setStatus(target.id,result.ok?'installed':'failed',result.message || result.error || 'Import finished.');
-    const latest = (await chrome.storage.local.get('downloads')).downloads || {}; delete latest[downloadId]; await chrome.storage.local.set({downloads:latest});
+    if(result.ok){const latest = (await chrome.storage.local.get('downloads')).downloads || {}; delete latest[downloadId]; await chrome.storage.local.set({downloads:latest});}
     jobs.delete(downloadId); activePorts.delete(port); port.disconnect();
   });
   port.onDisconnect.addListener(async () => {

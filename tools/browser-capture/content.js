@@ -16,7 +16,10 @@ document.addEventListener('click', async event => {
     return;
   }
   if (event.target.closest('#retry-capture') && event.isTrusted) {
-    await chrome.runtime.sendMessage({action:'retry'});return;
+    const output=document.querySelector('#update-status');
+    try{const result=await chrome.runtime.sendMessage({action:'retry'});if(output)output.textContent=result.error||result.message;}
+    catch(e){if(output)output.textContent=e.message;}
+    return;
   }
   const button = event.target.closest('button[data-capture-id]');
   if (!button || !event.isTrusted) return;
