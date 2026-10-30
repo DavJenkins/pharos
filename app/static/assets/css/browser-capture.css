@@ -3,3 +3,5 @@
 .capture-error{padding:1rem 1.15rem;border:2px solid #a12424;border-left-width:7px;border-radius:9px;background:#fff0f0;color:#781919;font-weight:600;overflow-wrap:anywhere}.capture-error::before{content:"⚠ Error";display:block;font-size:1.05rem;font-weight:800;margin-bottom:.35rem}
 
 .capture-progress{padding:1rem 1.15rem;border:2px solid #28678e;border-left-width:7px;border-radius:9px;background:#e9f4ff;color:#163e5b;font-weight:600;overflow-wrap:anywhere}.capture-progress::before{content:"↻ In progress";display:block;font-size:1.05rem;font-weight:800;margin-bottom:.35rem}
+
+.capture-broken-source{padding:1rem;border:2px solid #866000;border-radius:9px;background:#fff1c4;color:#493300}.capture-broken-source::before{content:"⚠ Broken download link";display:block;font-weight:800;margin-bottom:.35rem}

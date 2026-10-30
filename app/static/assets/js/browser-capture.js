@@ -35,11 +35,11 @@ async function loadCapture() {
    button.textContent=present?(check?.state==='changed'?'Capture reviewed replacement':'Compare browser copy'):'Download & import';
    if(present)button.dataset.expectedHash=record.sha256;section.append(button);
    const link=document.createElement('a');link.href=item.url;link.target='_blank';link.rel='noopener';link.dataset.armId=item.id;if(present)link.dataset.expectedHash=record.sha256;link.textContent='Open publisher download';section.append(link);}
-   if(item.source?.note && (actionNeeded||isOptional)){const note=document.createElement('p');note.textContent=item.source.note;section.append(note);}
-   for(const [label,url] of [['Publication page',item.source?.publication_page],['Original recorded URL',broken?item.url:null],['Review replacement candidate',item.source?.candidate?.url]]){if(url){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent=label+' ↗';const p=document.createElement('p');p.append(a);section.append(p);}}
+   if(item.source?.note && (actionNeeded||isOptional)){const note=document.createElement('p');note.textContent=item.source.note;if(broken)note.className='capture-broken-source';section.append(note);}
+   for(const [label,url] of [['Publication page',item.source?.publication_page],['Review replacement candidate',item.source?.candidate?.url]]){if(url){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent=label+' ↗';const p=document.createElement('p');p.append(a);section.append(p);}}
    if(item.source?.candidate){const p=document.createElement('p');p.textContent=item.source.candidate.title+'. '+item.source.candidate.note;section.append(p);}
    if(present){const local=document.createElement('a');local.href='/library-files/'+item.collection+'/'+record.filename;local.textContent=' · Read installed copy';section.append(local);}
-   const status=document.createElement('p');status.setAttribute('role','status');section.append(status);
+   if(broken){const history=document.createElement('details');const label=document.createElement('summary');label.textContent='Broken URL (for reference)';const link=document.createElement('a');link.href=item.url;link.textContent=item.url;link.target='_blank';link.rel='noopener';history.append(label,link);section.append(history);}else{const status=document.createElement('p');status.setAttribute('role','status');section.append(status);}
    if(isOptional){optional.append(section);optionalCount++;}else if(actionNeeded){if(!groups.has(category)){const group=document.createElement('div'),title=document.createElement('h2');title.textContent=category;group.append(title);groups.set(category,group);pending.append(group);}groups.get(category).append(section);pendingCount++;}else installed.append(section);
    if(!actionNeeded && !isOptional)installedCount++;
   }
