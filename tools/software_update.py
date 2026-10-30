@@ -210,6 +210,11 @@ class Updater:
     def journal(self):
         try:return json.loads((self.state/'transaction.json').read_text())
         except FileNotFoundError:return {'state':'idle'}
+    def write_journal(self,value):
+        value['updated_at']=datetime.now(timezone.utc).isoformat(timespec='seconds')
+        save(self.state/'transaction.json',value)
+        folder=self.state/'transactions'/value['id']
+        if folder.is_dir():save(folder/'result.json',{key:value.get(key) for key in ('id','state','release','updated_at','error')})
     def restore(self,journal,boot=False):
         if not boot:self.runtime.stop()
         backup=self.state/'transactions'/journal['id']
@@ -227,7 +232,7 @@ class Updater:
         if not boot:
             self.runtime.start()
             if not self.runtime.healthy():raise ValueError('Rollback health check failed; local recovery required')
-        journal['state']='rollback_pending_health' if boot else 'rolled_back';save(self.state/'transaction.json',journal)
+        journal['state']='rollback_pending_health' if boot else 'rolled_back';self.write_journal(journal)
     def recover(self,boot=False):
         with self.lock():
             journal=self.journal()
@@ -235,14 +240,14 @@ class Updater:
                 self.restore(journal,boot)
             elif journal['state']=='preparing':
                 if not boot:self.runtime.start()
-                journal['state']='interrupted_before_apply';save(self.state/'transaction.json',journal)
+                journal['state']='interrupted_before_apply';self.write_journal(journal)
             return self.journal()
     def verify_recovery(self):
         with self.lock():
             journal=self.journal()
             if journal['state']=='rollback_pending_health':
                 if not self.runtime.healthy():raise ValueError('Recovered software failed health checks')
-                journal['state']='rolled_back';save(self.state/'transaction.json',journal)
+                journal['state']='rolled_back';self.write_journal(journal)
             return journal
     def apply(self,identifier,checkpoint=None):
         with self.lock():
@@ -258,7 +263,7 @@ class Updater:
             if backup.exists():raise ValueError('Transaction ID has already been used')
             backup.mkdir(parents=True,mode=0o700)
             journal={'id':identifier,'state':'preparing','release':m['release'],'originals':{}}
-            save(self.state/'transaction.json',journal)
+            self.write_journal(journal)
             try:
                 self.runtime.stop()
                 # Detect edits after staging and before quiescence.
@@ -277,7 +282,7 @@ class Updater:
                     if target.exists():
                         stat=target.stat();build_files.append({'mode':stat.st_mode&0o777,'uid':stat.st_uid,'gid':stat.st_gid});atomic(backup/('build-'+str(index)),target.read_bytes())
                     else:build_files.append(None)
-                journal.update(state='applying',originals=originals,build_files=build_files);save(self.state/'transaction.json',journal)
+                journal.update(state='applying',originals=originals,build_files=build_files);self.write_journal(journal)
                 for name in m['files']:
                     old=originals[name]
                     target=self.destination(name);atomic(target,(folder/'payload'/name).read_bytes(),old['mode'] if old else 0o644)
@@ -286,7 +291,7 @@ class Updater:
                         stat=(self.root/'opt/dataark').stat();os.chown(target,stat.st_uid,stat.st_gid)
                     if checkpoint:checkpoint(name)
                 for name in m['removals']:self.destination(name).unlink()
-                journal['state']='checking';save(self.state/'transaction.json',journal)
+                journal['state']='checking';self.write_journal(journal)
                 self.runtime.start()
                 if not self.runtime.healthy():raise ValueError('Updated software failed health checks')
                 receipt.update(revision=m['source_revision'],sequence=m['sequence'],release=m['release'],installed_at=time.time())
@@ -300,12 +305,12 @@ class Updater:
                     old=build_files[index]
                     if old:os.chown(target,old['uid'],old['gid'])
                 save(self.state/'installed.json',receipt)
-                journal['state']='completed';save(self.state/'transaction.json',journal)
+                journal['state']='completed';self.write_journal(journal)
             except Exception as error:
                 if journal['state']=='preparing':
-                    self.runtime.start();journal.update(state='refused',error=str(error)[:300]);save(self.state/'transaction.json',journal)
+                    self.runtime.start();journal.update(state='refused',error=str(error)[:300]);self.write_journal(journal)
                     return journal
-                journal.update(state='rolling_back',error=str(error)[:300]);save(self.state/'transaction.json',journal)
+                journal.update(state='rolling_back',error=str(error)[:300]);self.write_journal(journal)
                 self.restore(journal)
             return self.journal()
 

@@ -45,6 +45,8 @@ class SoftwareTransactions(unittest.TestCase):
     def test_success_preserves_private_state(self):
         self.assertEqual(self.updater.apply(self.stage())['state'],'completed');self.preserved()
         self.assertEqual((self.source/'app/main.py').read_bytes(),b'new source');self.assertEqual(self.updater.receipt()['revision'],'b'*40)
+        outcome=json.loads((self.updater.state/'transactions'/self.updater.journal()['id']/'result.json').read_text())
+        self.assertEqual(outcome['state'],'completed');self.assertIn('updated_at',outcome)
     def test_failed_health_rolls_back_code_and_receipt(self):
         self.updater.runtime=Runtime((False,True))
         self.assertEqual(self.updater.apply(self.stage())['state'],'rolled_back');self.preserved()

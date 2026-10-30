@@ -22,7 +22,7 @@ An enrolled baseline records hashes of managed files. A package must match the i
 
 After staging, the worker verifies again, refuses active content/configuration/bug-out work, stops the API, snapshots affected software and publication metadata, and applies atomic file replacements with a durable journal. Failed health checks restore the previous files, ownership, modes, build identity and receipt. Boot recovery restores an interrupted transaction before the API starts, then a separate service verifies it after startup. A rollback that fails health checks remains visibly unresolved. Content and databases are not migrated or rewritten by this installer.
 
-Transactions and backups live in root-only `/var/lib/dataark-software-updates`, outside the admin-writable application state. The upload inbox is separate. Do not delete transaction backups while an update or recovery is unresolved. Completed backups are retained for inspection; automatic backup pruning is not implemented.
+Transactions and backups live in root-only `/var/lib/dataark-software-updates`, outside the admin-writable application state. Each transaction retains a readable `result.json` with release, timestamp, outcome and any failure; the installed receipt records the current revision and installation date. The upload inbox is separate. Do not delete transaction backups while an update or recovery is unresolved. Completed backups are retained for inspection; automatic backup pruning is not implemented.
 
 ### Signing and enrollment
 
