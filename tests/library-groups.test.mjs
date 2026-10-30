@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const s=fs.readFileSync('app/static/assets/js/library.js','utf8');
+const context={};vm.createContext(context);vm.runInContext(s.slice(s.indexOf('function installedGroups'),s.indexOf('function renderInstalled')),context);
+const items=[{repository_id:'school',repository:'Learning',title:'Algebra',relative_path:'school/math.pdf',bytes:20},{repository_id:'school',repository:'Learning',title:'Physics',relative_path:'school/science.pdf',bytes:30},{repository_id:'maps',repository:'Maps',title:'Caribbean',bytes:40}];
+let groups=context.installedGroups(items,'');assert.equal(groups.length,2);assert.equal(groups[0].title,'Learning');assert.equal(groups[0].items.length,2);assert.equal(groups[0].bytes,50);
+assert.equal(context.installedGroups(items,'learning physics')[0].items[0].title,'Physics');
+assert.equal(context.installedGroups(items,'MATH')[0].items[0].title,'Algebra');
+assert.equal(context.installedGroups(items,'missing').length,0);
+assert.equal(items.length,3);console.log('Collection grouping, size totals and title/path searches passed.');
