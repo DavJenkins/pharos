@@ -31,7 +31,7 @@
         el("bugout-form-result").textContent = "";
         el("bugout-credential-fields").hidden = !task;
         el("bugout-dialog-title").textContent = task ? "Credentials for " + task.title : action === "sync" ? "Sync household sources now" : action.startsWith("cancel") ? "Cancel bugout" : "Start household backup";
-        el("bugout-submit").textContent = task ? "Save credentials" : action === "sync" ? "Sync now" : action === "cancel-continue" ? "Cancel and continue updates" : action === "cancel" ? "Cancel bugout" : "Start backup";
+        el("bugout-submit").textContent = task ? "Save credentials" : action === "sync" ? "Refresh backups now" : action === "cancel-continue" ? "Cancel and continue updates" : action === "cancel" ? "Cancel bugout" : "Start backup";
         dialog.showModal();
     }
     async function refresh() {
@@ -70,6 +70,8 @@
             list.replaceChildren();
             state.tasks.forEach(item => {
                 const row = document.createElement("li");
+                row.className = "household-task";
+                const actions = document.createElement("div"); actions.className = "household-task-actions";
                 const result = op?.results?.find(r => r.id === item.id);
                 row.textContent = `${item.title}: ${item.reason} · Priority ${item.priority ?? 100} · ${item.prefetch ? "Normal sync: " + (item.normal_sync || "scheduled") : "No normal sync"}`;
                 row.append(document.createTextNode(item.include_in_bugout === false ? " · Excluded from bugout" : " · Included in bugout"));
@@ -82,7 +84,7 @@
                 const activeCopy = background?.results?.find(r => r.id === item.id);
                 const localCopy = document.createElement("span");
                 localCopy.className = "household-copy-status";
-                localCopy.textContent = item.cache?.file ? "Prefetched copy available on this Ark" : "No completed prefetched copy on this Ark";
+                localCopy.textContent = item.cache?.file ? "Saved backup available on the Ark" : "No completed backup on the Ark";
                 if (activeCopy) {
                     localCopy.textContent += ` · Prefetch ${activeCopy.state}`;
                     if (activeCopy.bytes_written != null) localCopy.textContent += ` · ${(activeCopy.bytes_written / 1024**2).toFixed(1)} MiB received`;
@@ -90,7 +92,7 @@
                 row.append(localCopy);
                 if (item.cache) {
                     const cache = item.cache;
-                    if (cache.last_success) row.append(document.createTextNode(" · Last prefetched " + localTime(cache.last_success)));
+                    if (cache.last_success) { const stamp=document.createElement("span");stamp.className="household-backup-time";stamp.textContent="Last successful backup: "+localTime(cache.last_success);row.append(stamp); }
                     if (cache.state !== "completed") row.append(document.createTextNode(" · Last prefetch attempt: " + cache.message + (cache.checked ? " · " + localTime(cache.checked) : "")));
                     if (cache.missing_file || ["failed","unavailable","interrupted"].includes(cache.state)) {
                         const problem = document.createElement("strong");
@@ -104,8 +106,8 @@
                     if (cache.file) {
                         const link = document.createElement("a");
                         link.href = "/library-files/bugout-backups/" + encodeURIComponent(cache.file);
-                        link.textContent = " Download prefetched copy";
-                        row.append(link);
+                        link.textContent = "Download saved copy";
+                        link.className = "household-action"; actions.append(link);
                     }
                 }
                 if (result) {
@@ -114,8 +116,8 @@
                     if (result.state === "completed" && result.file) {
                         const link = document.createElement("a");
                         link.href = "/library-files/bugout-backups/" + encodeURIComponent(result.file);
-                        link.textContent = " Download snapshot";
-                        row.append(link);
+                        link.textContent = "Download snapshot";
+                        link.className = "household-action"; actions.append(link);
                     }
                 }
                 if (item.credential_configured) {
@@ -123,8 +125,9 @@
                     button.type = "button"; button.textContent = item.credentials_saved ? "Update credentials" : "Set credentials";
                     button.disabled = busy || !!background || ["queued","running"].includes(op?.state);
                     button.addEventListener("click", () => openForm(item));
-                    row.append(document.createTextNode(" "), button);
+                    button.className = "household-action"; actions.append(button);
                 }
+                if (actions.children.length) row.append(actions);
                 list.append(row);
             });
         } catch (_) {

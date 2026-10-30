@@ -354,3 +354,5 @@ body{background-image:none}
 .status-tile[hidden]{display:none!important}
 
 .status-attention[data-tone="gray"]{background:#edf4f9;border-color:#809aad}.status-attention[data-tone="gray"] ul{list-style:none;padding-left:0}.status-attention button{display:block;margin-top:.5rem;min-height:36px;padding:.35rem .65rem;border:1px solid #809aad;border-radius:5px;background:#fff;color:#234a62;font:inherit;cursor:pointer}
+
+#bugout-tasks{list-style:none;padding:0}#bugout-tasks .household-task{padding:.9rem 0;border-top:1px solid #9eafb9}.household-task-actions{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:.65rem}.household-backup-time{display:block;margin-top:.35rem}#bugout-panel .household-action{display:inline-flex;align-items:center;justify-content:center;min-height:40px;box-sizing:border-box;padding:.5rem .8rem;margin:0;border:1px solid #90a5b5;border-radius:6px;background:#e5edf3;color:#234a62;text-decoration:none;font:inherit;line-height:1.25;text-align:center}#bugout-panel .household-action:hover{background:#d2e3ef}#bugout-panel .household-action:focus-visible{outline:3px solid #2872aa;outline-offset:3px}
