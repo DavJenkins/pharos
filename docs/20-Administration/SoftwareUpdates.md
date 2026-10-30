@@ -2,6 +2,8 @@
 
 [Check for updates](/config/updates.html) is available from Help. It reads official Pharos software releases on GitHub when requested. Anyone can inspect availability; no caretaker password is needed to read version information. Checks are cached for one minute, do not execute downloaded code, and do not install or download a kit. Preview releases are opt-in. Documentation releases are excluded.
 
+![The software-update page shows the installed build and offers a separate preview-release option. Build identities and dates vary.](../assets/screenshots/software-updates.jpg)
+
 The installed build revision, branch and local publication time identify the running software. The checker compares published source revisions using local Git history when possible. A development build containing a published release is reported as ahead, not offered the old kit as an upgrade. Missing Git history or incomparable revisions produce an explicit comparison warning. An unavailable check never means “up to date.” The last successful result can be retained within the running service; restarting the service clears that cache.
 
 ## Three distinct updates
@@ -15,6 +17,8 @@ The current public archive is a bootstrap/recovery kit, not an in-place update p
 ## Software-only installer
 
 Choose a signed `.tar.gz` update package, select **Verify and stage**, review the release and file/removal counts, then select **Install staged update**. Staging does not change running software. Installation asks for caretaker authorization on demand, confirms the restart, and queues a fixed root-owned systemd worker so the browser connection can close safely. The page reconnects to show completion or rollback.
+
+![Illustrative verified-package preview: review the file counts before the separate Install staged update action. This example is not a published release.](../assets/screenshots/software-update-staging.jpg)
 
 Version 1 updates application Python, frontend JavaScript/CSS, configuration-page HTML and handbook source/rendered pages. It does not replace the personalized landing-page HTML, private configuration, content, community database, credentials, TLS/clone identity, network profiles, dependencies, OS packages, privileged helpers or service definitions. Templates and provisioning changes need a separately reviewed deployment. Packages declaring a schema migration or changed dependency lock are refused before installation.
 

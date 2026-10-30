@@ -32,6 +32,10 @@ Open **Settings → System → Configuration… → Load configuration**. The ed
 Generated `state/` files can be inspected and downloaded but are read-only.
 The advanced combined compatibility snapshot remains available.
 
+![The configuration file picker uses expandable folders. This example selects the public repair-guides collection.](../assets/screenshots/configuration-picker.jpg)
+
+![The selected filename stays visible above syntax-colored YAML. Reading and switching files do not require the caretaker password.](../assets/screenshots/configuration-editor.jpg)
+
 Reading, downloading, switching files and validating drafts require no caretaker
 password. **Save & publish** and the Community switch still require authorization.
 Saving one file assembles and validates the complete public configuration, preserves

@@ -19,7 +19,7 @@ def body(text):
 def rewrite(root,source,value,prefix,local=False,selected=None):
  selected=selected or {}
  def transform(match):
-  raw=html.unescape(match.group(1));url=urlsplit(raw)
+  attribute=match.group(1);raw=html.unescape(match.group(2));url=urlsplit(raw)
   if url.scheme or url.netloc or not url.path:return match.group(0)
   path=unquote(url.path);target=None;device=False
   if Path(path).name in ['collection-catalogue.pdf','feature-catalogue.pdf']:
@@ -51,8 +51,8 @@ def rewrite(root,source,value,prefix,local=False,selected=None):
    else:target=raw.split('#')[0].split('?')[0]
   if url.query:target+='?'+url.query
   if url.fragment:target+='#'+url.fragment
-  return 'href="'+html.escape(target,quote=True)+'"'+(' title="Open on your Ark" data-on-ark="true"' if device else '')
- return re.sub(r'href="([^"]+)"',transform,value)
+  return attribute+'="'+html.escape(target,quote=True)+'"'+(' title="Open on your Ark" data-on-ark="true"' if device and attribute=='href' else '')
+ return re.sub(r'(href|src)="([^"]+)"',transform,value)
 
 def api_body(schema,schema_url,contents):
  parts=['<h1>Data Ark API reference</h1><p>The HTTP contract shipped with this software edition. <a href="'+schema_url+'">Download OpenAPI JSON</a> · <a href="'+contents+'">Handbook contents</a></p><p><a href="http://dataark/api/docs" title="Open on your Ark">Interactive reference on your Ark</a>. Protected operations use the caretaker or integration authorization described in the administrator guides.</p>']

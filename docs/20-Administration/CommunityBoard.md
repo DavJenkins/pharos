@@ -4,6 +4,8 @@
 
 ## Posting and removal
 
+![The New post dialog includes category, title, optional name and Markdown message fields. This illustrative draft has not been posted.](../assets/screenshots/community-compose.jpg)
+
 Choose New post, a category, a title, and a message. Replies appear beneath the original post. Each successful post or reply returns a random deletion code shown once. Keep it to remove your own message. Codes are not saved in browser storage or returned with public messages. The database stores only their SHA-256 hashes. Losing a code means asking the caretaker for help. Removing the original post removes its replies too; the removal dialog states this before submission.
 
 Every message has a Remove button. Enter its deletion code, or select caretaker moderation and use the existing Ark caretaker password. Caretakers can remove any message. Caretaker credentials are requested by the shared on-demand pop-up. Its optional slide switch remembers them for the chosen number of minutes in this browser tab; without that choice they are used only for the action. Rejected codes/passwords leave the conversation unchanged. As elsewhere on the Ark's HTTP interface, this is intended for a trusted local network.
@@ -11,6 +13,8 @@ Every message has a Remove button. Enter its deletion code, or select caretaker 
 Read access is open. Posting is bounded by per-device and board-wide limits. Default limits are six messages per minute per device, 100 per minute overall, 5,000 total posts/replies, 200 replies per thread, 4,000 characters per message, 120 for titles, and 40 for names. At capacity the board asks the caretaker to clear old conversations; it does not silently expire discussions. Different people behind the same proxy may share a rate limit. Rate-limit identifiers are salted hashes of addresses, kept for approximately one minute; raw addresses are not stored in the board database. Apache may still record its normal access logs.
 
 ## Message of the day
+
+![The banner editor previews greeting variables and groups appearance and spacing controls. The example remains unpublished until Save banner is confirmed.](../assets/screenshots/banner-editor.jpg)
 
 On the landing page, open **Settings → System → Ark banner…** to set a short caretaker announcement. A live preview shows the text before saving. Background and text colors each have a picker and hex field. Automatic contrast is optional; selecting or changing a text color switches to manual mode. The chosen color is stored with the message and backed up with it. Existing colors are retained. Position is configurable: top, below header, or fixed bottom on both pages. It supports Markdown formatting, at most 300 source characters, and requires the caretaker password to save, replace or clear. An empty message hides the banner entirely. No announcement is published by the installer.
 

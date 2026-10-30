@@ -1,5 +1,7 @@
 # User Guide
 
+Screenshots use example values. Your installed collections, capacity, dates and connection status may differ. Select any screenshot to see it at full size.
+
 ## Connect and open the library
 
 - Power the Ark and leave its content SSD connected.
@@ -13,7 +15,7 @@ On the home network, http://dataark/ may also work. Name resolution varies by de
 
 Choose a local collection or archive link on the landing page. ZIM archives open in the Ark's Kiwix reader. Search within that reader to find articles. Local links can work without upstream internet; links marked online need it.
 
-Only installed material is available offline. Project Gutenberg being listed as downloading does not mean the books are ready. OpenStreetMap is a source reference, not an installed interactive map service. Local Massachusetts resources include PDFs and downloadable GIS datasets; those do not all have a browser viewer.
+Only installed material is available offline. A downloading or queued collection is not ready yet. Installed OpenStreetMap packages open in the local map viewer; an external publisher link still requires internet. Other geographic resources may be PDFs or downloadable GIS datasets and need their own viewers.
 
 ## Copy content for another device
 
@@ -27,17 +29,19 @@ Sync shows the updater's current activity, including downloading, verifying, act
 
 Open the gear to see three groups. Desktop users can also hover for short details.
 
+![The expanded Settings panel groups connections, monitoring and support tools. Status values shown are examples.](../assets/screenshots/dashboard-status.jpg)
+
 ### Connections
 
-- Ethernet shows the wired connection, address, and gateway when available.
+- Ethernet shows wired connections, addresses, and gateways when available. Its pop-up lets you select an adapter when there is more than one.
 - Wi-Fi shows the Ark's upstream wireless connection. Its settings link changes that upstream network; it is not your phone's hotspot connection.
-- Hotspot shows the DataArk network, its address, and connected-client count. Its settings currently rename the hotspot; they do not provide a hotspot-off switch.
+- Hotspot shows the DataArk network, its address, and connected-client count. Protected switches cannot disable the connection you are currently using. Its settings include the hotspot name and Wi-Fi adapter assignment.
 
 ### Access and monitoring
 
 - Internet pass-through controls internet forwarding for the device making the request while connected to the hotspot. It does not enable everyone else's internet. It requires a working upstream connection and normally expires after six hours or a restart.
-- System shows health, platform, hostname, and running time, plus installed/pending/removed library counts, free SSD capacity and current library activity. Manage Library opens from this pop-up. Terminal opens an HTTPS Linux shell in a new tab and requires the Linux admin password; see [Browser terminal](../20-Administration/BrowserTerminal.md) for first-use certificate trust.
-- Auto refresh updates the dashboard's status about every five seconds. Turning it off does not stop downloads or the Ark's services. Reload the page to pick up newly deployed interface code.
+- System has tabs for System, Library and Usage. System includes health, platform, RAM, running time and maintenance links. Library shows installed/pending/removed counts, free SSD capacity and activity, with Manage Library below. Usage shows activity and connected-device information. Terminal requires the Linux admin password; see [Browser terminal](../20-Administration/BrowserTerminal.md).
+- Auto refresh updates the dashboard's status at the selected interval; five seconds is the default. Turning it off does not stop downloads or the Ark's services. Reload the page to pick up newly deployed interface code.
 
 ### Support tools
 
@@ -49,7 +53,9 @@ The seven status/control icons open details before changing anything. Help and D
 
 ## Manage library content
 
-Open Settings, then System, then Manage Library. The page lists installed files, registered downloads, free space, and removed items. Removal uses a right-aligned trash can and a confirmation naming the collection and space freed. Supported removed archives offer Reinstate. See [Library management](../20-Administration/Library.md).
+Open Settings, then System, choose the Library tab, then Manage Library. The page lists installed files, registered downloads, free space, and removed items. Removal uses a right-aligned trash can and a confirmation naming the collection and space freed. Supported removed archives offer Reinstate. See [Library management](../20-Administration/Library.md).
+
+![Manage Library is on the Library tab of the System pop-up. Counts and storage in this example are illustrative.](../assets/screenshots/system-library.jpg)
 
 ## Disconnect or move the drive
 

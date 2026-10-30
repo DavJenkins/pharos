@@ -99,6 +99,16 @@ def markdown_to_html(text):
             out.append(html.escape(line))
             continue
 
+        screenshot = re.fullmatch(r'!\[([^\]]*)\]\(([^\s)]+)\)\s*',line)
+        if screenshot:
+            if in_list:out.append('</ul>');in_list=False
+            caption,target=screenshot.groups();url=urlsplit(target)
+            if url.scheme or url.netloc or Path(url.path).suffix.lower() not in {'.png','.jpg','.jpeg','.webp'}:
+                raise ValueError('Help screenshots must use local image files')
+            escaped=html.escape(target,quote=True);alt=html.escape(caption,quote=True)
+            out.append('<figure class="help-screenshot" style="margin:1.4rem 0"><a href="'+escaped+'" aria-label="Open full-size screenshot: '+alt+'"><img src="'+escaped+'" alt="'+alt+'" loading="lazy" style="display:block;width:auto;max-width:100%;height:auto;max-height:680px;border:1px solid #8ea6b8;border-radius:8px"></a><figcaption style="font-size:.9rem;line-height:1.5;margin-top:.5rem">'+html.escape(caption)+' Select the image to enlarge it.</figcaption></figure>')
+            continue
+
         if line.startswith('::: details '):
             if in_list:
                 out.append('</ul>'); in_list = False

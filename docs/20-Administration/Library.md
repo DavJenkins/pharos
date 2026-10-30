@@ -2,7 +2,9 @@
 
 ## Entry point and permissions
 
-Open the dashboard's Settings gear, choose System, then Manage Library. Installed content remains on the landing page; available sources belong in management rather than appearing as offline holdings.
+Open the dashboard's Settings gear, choose System, select the Library tab, then Manage Library. Installed content remains on the landing page; available sources belong in management rather than appearing as offline holdings.
+
+![Manage Library provides navigation for installed content, removed collections, downloads and source changes. Example storage values are shown.](../assets/screenshots/library-management.jpg)
 
 Public reading and copying require no caretaker login. Install, remove, and reinstate operations currently require the same administration password as network settings. Public requests and storage-based approval policies are future work. The helper accepts registered identifiers, not arbitrary caller-supplied shell commands or download locations.
 
@@ -24,6 +26,10 @@ The updater runs through dataark-update.service and dataark-update.timer. Progre
 
 Use its right-aligned trash can. Review the exact collection and displayed space, supply the caretaker password if the page is locked, then explicitly confirm Remove from Ark. The action updates the reader and published catalogue before deleting its staged file. It disables automatic updates for that asset and retains its source metadata.
 
+![Each installed item shows its update schedule and a right-aligned removal control. These are example collections.](../assets/screenshots/library-installed.jpg)
+
+![Review the named collection and space to be freed before confirming removal. Opening this dialog does not remove anything.](../assets/screenshots/library-remove-confirmation.jpg)
+
 Removal applies to the registered file. For a portable program registration this is not a recursive deletion of the entire distribution folder; other files may remain. Removal does not delete copies already made on other devices or unrelated historical archives that were never registered as that asset.
 
 The worker lock prevents removal racing an update. A durable removal journal supports rollback before commit and final cleanup after commit. Do not manually delete its hidden staging file or journal. If interrupted, the updater attempts recovery before processing new work.
@@ -35,6 +41,8 @@ The Not installed list retains removed records. Supported ZIM archives, includin
 Reinstatement needs upstream internet and is not a recovery guarantee if the publisher no longer offers the series. Utilities without an automatic adapter keep the original package link for manual restoration. Do not run an incompatible program merely because its file is present.
 
 ## Session behavior
+
+![Caretaker authorization is requested on demand. The optional switch remembers the password for the selected number of minutes in this browser tab.](../assets/screenshots/caretaker-password.jpg)
 
 Caretaker actions use an on-demand password prompt. Remembering is optional: choose 1–120 minutes (default 10). The fixed expiry does not extend with use. The cache survives navigation and reload in the same browser tab and Ark address using tab-scoped session storage; it is not shared across addresses or independent tabs. Expiry, a rejected credential, **Lock now**, or the floating red unlocked padlock clears it. The padlock shows remaining minutes; the inline indicator gives the same countdown. Without remembering, only that action is authorized. A rejected password explicitly says **Password not accepted**. The server verifies every protected request. Each removal still needs confirmation.
 
