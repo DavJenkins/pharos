@@ -82,6 +82,7 @@ function styleCaptureErrors(){
   const text=output.textContent.trim();
   const failed=!!text && (output.id==='error'||/not accepted|not supported|failed|\berror\b|unavailable|interrupted|could not|refused|did not match|not enough|no file was installed|use the ark capture page/i.test(text));
   output.classList.toggle('capture-error',failed);
+  output.classList.toggle('capture-progress',!failed && /^(Downloaded;|Downloading|Checking installed|Retrying \d)|validating and importing/i.test(text));
   const live=failed?'assertive':'polite';
   if(output.getAttribute('aria-live')!==live)output.setAttribute('aria-live',live);
  }
