@@ -45,6 +45,15 @@ class ReferenceChecksTests(unittest.TestCase):
         self.assertTrue(result['pending_change'])
         self.assertEqual(result['status'], 'changed')
 
+    def test_unicode_publisher_filename_is_encoded_without_double_escaping(self):
+        url = 'https://publisher.test/Gu\u0308ero%20book.pdf?edition=2&name=\u00e9'
+        def opener(request, **kwargs):
+            self.assertEqual(request.full_url, 'https://publisher.test/Gu%CC%88ero%20book.pdf?edition=2&name=%C3%A9')
+            request.full_url.encode('ascii')
+            return Response(b'%PDF-1.4\nbook')
+        with patch.object(worker.subprocess, 'run'):
+            self.assertEqual(worker.check(url, [self.asset], {}, self.cfg, Path('/tmp'), opener)['status'], 'baseline')
+
     def test_pdf_challenge_page_is_never_an_update(self):
         with self.assertRaisesRegex(ValueError, 'PDF'):
             worker.check(self.asset['download_url'], [self.asset], {}, self.cfg, Path('/tmp'), lambda *a, **k: Response(b'<html>Access denied</html>', {'Content-Type': 'text/html'}))

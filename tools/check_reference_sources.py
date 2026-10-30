@@ -15,7 +15,7 @@ import argparse
 import time
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, quote
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -65,6 +65,9 @@ def body_fingerprint(data, content_type, url):
 def check(url, assets, previous, config, root, opener=urlopen):
     if urlsplit(url).scheme != 'https':
         raise ValueError('Only explicit HTTPS publisher sources are checked')
+    # Publisher filenames can contain Unicode. Encode their UTF-8 bytes for
+    # HTTP without changing existing escapes, separators or the state key.
+    request_url = quote(url, safe=":/?#[]@!$&'()*+,;=%")
     metadata_only = any(urlsplit(url).path.lower().endswith(ext) for ext in ('.zip', '.pmtiles')) or any(a.get('repository_id') == 'curriculum' for a in assets)
     headers = {'User-Agent': 'Mozilla/5.0 (DataArk offline reference source check)'}
     if previous.get('etag'): headers['If-None-Match'] = previous['etag']
@@ -78,12 +81,12 @@ def check(url, assets, previous, config, root, opener=urlopen):
         options['context'] = context
     try:
         try:
-            response = opener(Request(url, headers=headers, method='HEAD' if metadata_only else 'GET'), **options)
+            response = opener(Request(request_url, headers=headers, method='HEAD' if metadata_only else 'GET'), **options)
         except HTTPError as error:
             if not metadata_only or error.code not in (403, 405, 501): raise
             # Some public package hosts (including FCC) refuse HEAD. Ask for
             # one byte, inspect headers, then close without reading the body.
-            response = opener(Request(url, headers={**headers, 'Range': 'bytes=0-0'}, method='GET'), **options)
+            response = opener(Request(request_url, headers={**headers, 'Range': 'bytes=0-0'}, method='GET'), **options)
     except HTTPError as error:
         if error.code == 304:
             return dict(previous, status='changed' if previous.get('pending_change') else 'unchanged', detail='Publisher confirms the previously checked version.')
