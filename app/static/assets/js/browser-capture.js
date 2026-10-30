@@ -53,4 +53,17 @@ async function loadCapture() {
 }
 document.addEventListener('ark-capture-refresh',loadCapture);
 loadCapture();
-setTimeout(()=>{document.querySelector('#connection').textContent=document.documentElement.dataset.arkCapture==='ready'?'Capture extension connected.':'Extension not connected. Use Chrome or Chromium and follow the one-time setup instructions.';},1000);
+setTimeout(()=>{
+ const box=document.querySelector('#connection');
+ const connected=document.documentElement.dataset.arkCapture==='ready';
+ box.dataset.state=connected?'connected':'disconnected';
+ const heading=document.createElement('strong');
+ heading.textContent=connected?'✓ Capture extension connected':'⚠ Extension not connected';
+ box.replaceChildren(heading);
+ if(!connected){
+  const explanation=document.createElement('p');
+  explanation.textContent='Automatic download capture is not ready in this browser. Use Chrome or Chromium and complete the one-time extension setup.';
+  const link=document.createElement('a');link.href='/docs/20-Administration/BrowserCapture.html';link.textContent='Set up the capture extension →';
+  box.append(explanation,link);
+ }
+},1000);
