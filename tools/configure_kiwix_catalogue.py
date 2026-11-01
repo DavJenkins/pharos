@@ -21,15 +21,20 @@ def render(page):
  page=re.sub(re.escape(BEGIN)+'.*?'+re.escape(END)+r'\r?\n?','',page,flags=re.S)
  if 'id="searchFilter"' not in page or 'id="searchButton"' not in page or '</body>' not in page:raise ValueError('Unrecognized Kiwix catalogue page; existing page was not changed.')
  return page.replace('</body>',BEGIN+SCRIPT+END+'\n</body>',1)
+def fetch_catalogue(startup_timeout=120):
+ deadline=time.monotonic()+startup_timeout
+ while True:
+  try:
+   with urllib.request.urlopen('http://127.0.0.1:8080/',timeout=min(5,max(.1,deadline-time.monotonic()))) as response:
+    return response.read(2*1024**2).decode('utf-8')
+  except OSError:
+   remaining=deadline-time.monotonic()
+   if remaining<=0:raise
+   time.sleep(min(1,remaining))
+
 def install(root=Path('/mnt/storage')):
  if not root.is_mount():raise ValueError('Content drive is not mounted')
- for attempt in range(30):
-  try:
-   with urllib.request.urlopen('http://127.0.0.1:8080/',timeout=5) as r:page=r.read(2*1024**2).decode('utf-8')
-   break
-  except OSError:
-   if attempt==29:raise
-   time.sleep(.5)
+ page=fetch_catalogue()
  folder=root/'.dataark-reader'
  if folder.is_symlink():raise ValueError('Reader configuration cannot be a symlink')
  folder.mkdir(exist_ok=True);folder.chmod(0o755)

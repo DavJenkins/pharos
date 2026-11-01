@@ -69,7 +69,7 @@ def kit_files(target, profile=None, revision=None, platform_profile=None):
  spec=platforms.selected(site)
  pmtiles=platform_tool(spec,ROOT/'output/platform-tools')
  platform_files={}
- for source,name in [(ROOT/'deploy/bootstrap_platform.py','bootstrap_platform.py')]+[(p,'platforms/'+p.name) for p in sorted((ROOT/'deploy/platforms').glob('*.json'))]:
+ for source,name in [(ROOT/'deploy/bootstrap_platform.py','bootstrap_platform.py'),(ROOT/'deploy/demo_library.py','demo_library.py'),(ROOT/'config/demo-library.json','demo-library.json')]+[(p,'platforms/'+p.name) for p in sorted((ROOT/'deploy/platforms').glob('*.json'))]:
   dest=kit/name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,dest);platform_files[name]=sha(dest)
  shutil.copyfile(pmtiles,kit/'pmtiles');(kit/'pmtiles').chmod(0o755)
  shutil.copyfile(ROOT/'deploy/reference/pmtiles-LICENSE.txt',kit/'PMTILES-LICENSE.txt')

@@ -65,8 +65,8 @@ def build(input_kit,version,output,source_ref='HEAD',audit_report=None):
  payload['DATA-ARK-RECOVERY/site.json']=(json.dumps(site,indent=2).encode()+b'\n',0o644)
  platform_files={}
  for name,(data,mode) in source.items():
-  if name=='deploy/bootstrap_platform.py' or name.startswith('deploy/platforms/') and name.endswith('.json'):
-   relative=name.removeprefix('deploy/');payload['DATA-ARK-RECOVERY/'+relative]=(data,0o644);platform_files[relative]=sha(data)
+  if name in {'deploy/bootstrap_platform.py','deploy/demo_library.py','config/demo-library.json'} or name.startswith('deploy/platforms/') and name.endswith('.json'):
+   relative=name.removeprefix('deploy/').removeprefix('config/');payload['DATA-ARK-RECOVERY/'+relative]=(data,0o644);platform_files[relative]=sha(data)
  for name in ['pmtiles','PMTILES-LICENSE.txt','PMTILES-NOTICE.txt']:
   payload['DATA-ARK-RECOVERY/'+name]=(files['DATA-ARK-RECOVERY/'+name],0o755 if name=='pmtiles' else 0o644)
  metadata={'schema':1,'version':version,'source_revision':revision,'source_sha256':sha(source_zip),'bootstrap_sha256':sha(coordinator),'pmtiles_sha256':sha(files['DATA-ARK-RECOVERY/pmtiles']),'status':'experimental_preview','credentials_included':False,'device_identity_included':False,'public_manifest_only':True,'validated_runtime_source':old['source_revision'],'validated_executable_files_unchanged':compared,'platform_files':platform_files,'platform_profile':'raspberry-pi-debian13-arm64','architecture':'aarch64'}

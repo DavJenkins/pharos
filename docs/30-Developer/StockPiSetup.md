@@ -49,3 +49,24 @@ The kit exports the current public configuration and uses committed Git source. 
 ## Remaining acceptance test
 
 Use spare media and a supported stock Pi. Test both populated and configuration-only kits. Interrupt/resume setup and a drive copy, reboot, and verify the UUID mount, actual Kiwix article/image, maps, PDF/radio tools, captive portal, management password, offline behavior and public/private file boundaries from a separate client. Then use that newly built Ark to prepare a third kit. Only after these tests should the coordinator be described as a supported reproduction process.
+
+
+## Optional demo library on the system card
+
+A card-only demonstration can use a capped local library instead of a separate content drive. When the kit is on the system card, the interactive preview offers this choice. It is optional and defaults to no allocation. An explicit preview is:
+
+```bash
+sudo bash START-ARK.sh --demo-library-gib 4
+```
+
+The preview shows the allocation, remaining system space, exact sample titles and download size. Copy the complete apply command it prints, including its plan ID and demo size. No allocation or sample download occurs during preview.
+
+The default is 4 GiB, with a supported range of 2–16 GiB. Allocation must leave at least 10 GiB free for the OS. The space is preallocated in a private system-side file and formatted as its own ext4 filesystem, mounted at `/mnt/storage`. This gives a hard filesystem capacity limit and preserves the ordinary missing-mount guards. Physical devices are not formatted. An existing content mount, configured content-drive mount entry, nonempty bare mount directory, unknown image or changed image blocks allocation rather than being overwritten.
+
+The approved sample set is defined in `config/demo-library.json`: the official English Wikipedia 100-article archive (333,429,922 download bytes, pinned SHA-256) and the bundled collection and feature catalogue PDFs. Downloads are size-bounded and checksum-verified before activation. The sample plan is bound to that configuration's checksum. Other collections are not automatically downloaded. The full source catalogue is retained, and the dashboard and library storage label identify the system-card demo explicitly.
+
+An interrupted allocation is not reformatted automatically. A completed image is reused and remounted without changing its capacity. Its mount entry persists across reboot. Ordinary content permissions and caretaker controls apply.
+
+For a larger library, use **Clone a content drive** to copy the configuration and samples onto a separately formatted drive. Review and change the content mount explicitly before using that drive; attaching one does not replace the demo or trigger downloads. Retain the demo image until the migrated library has been verified.
+
+See [Recovery validation](../20-Administration/RecoveryValidation.md) for test evidence and the separate full card-only installation and client acceptance checks.

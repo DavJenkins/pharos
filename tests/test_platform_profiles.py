@@ -55,7 +55,7 @@ class PlatformTests(unittest.TestCase):
 
     def test_docker_virtual_link_churn_does_not_invalidate_resume(self):
         facts=self.facts();initial=p.proposal(self.config(),facts)['plan_id']
-        facts['interfaces'].append({'name':'veth123','kind':'veth','permanent_mac':None,'hotspot_capable':None,'state':'UP','addresses':[]})
+        facts['interfaces'].append({'name':'veth123','kind':'ethernet','permanent_mac':None,'hotspot_capable':None,'state':'UP','addresses':[]})
         facts['interfaces'].append({'name':'docker0','kind':'bridge','permanent_mac':None,'hotspot_capable':None,'state':'UP','addresses':['172.17.0.1']})
         self.assertEqual(initial,p.proposal(self.config(),facts)['plan_id'])
         facts=self.facts();facts['tools']['ethtool']=False

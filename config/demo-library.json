@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "label": "Demo library on the system card",
+  "notice": "Demo library on the system card: a small offline sample alongside the complete online source catalogue. Add a content drive for a larger local collection.",
+  "default_size_gib": 4,
+  "system_reserve_gib": 10,
+  "samples": [
+    {
+      "id": "demo-wikipedia",
+      "title": "Wikipedia \u2014 100 selected articles (August 2026 demo)",
+      "path": "wikipedia_en_100_2026-08.zim",
+      "repository_id": "wikipedia",
+      "category": "zim_archives",
+      "url": "https://download.kiwix.org/zim/wikipedia/wikipedia_en_100_2026-08.zim",
+      "bytes": 333429922,
+      "sha256": "2eb7fd115bfb8644a08a9482f01f52b507428b1b8a30129fead92f7b6715440b"
+    },
+    {
+      "id": "demo-collection-guide",
+      "title": "Data Ark collection catalogue (demo PDF)",
+      "path": "demo/collection-catalogue.pdf",
+      "repository_id": "communication",
+      "category": "pdf_reference",
+      "source": "app/static/collection-catalogue.pdf",
+      "max_bytes": 8388608
+    },
+    {
+      "id": "demo-feature-guide",
+      "title": "Data Ark feature catalogue (demo PDF)",
+      "path": "demo/feature-catalogue.pdf",
+      "repository_id": "communication",
+      "category": "pdf_reference",
+      "source": "app/static/feature-catalogue.pdf",
+      "max_bytes": 8388608
+    }
+  ],
+  "repository": {
+    "id": "demo-library",
+    "category": "content_sources",
+    "title": "Demo library",
+    "description": "A small offline sample on the system card. The other cards show the full range of available sources.",
+    "artwork": {
+      "path": "app/static/assets/icons/Kiwix.png",
+      "alt": "Offline demo library"
+    },
+    "update_policy": "manual",
+    "refresh_interval": "never",
+    "links": [
+      {
+        "title": "Read the demo archive",
+        "service": "kiwix",
+        "path": "/#name=wikipedia_en_100"
+      }
+    ]
+  }
+}

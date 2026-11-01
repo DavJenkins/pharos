@@ -74,3 +74,19 @@ class StockSetupTests(unittest.TestCase):
    with patch.object(r,'SOURCE',source):r.copy_public_content(target,['forms'])
    self.assertEqual((target/'forms/example.pdf').read_bytes(),b'public fixture');self.assertFalse((target/'private').exists());self.assertFalse((target/'forms/link').exists());self.assertFalse((target/'mnt').exists())
 if __name__=='__main__':unittest.main()
+
+class WiredResumeTests(unittest.TestCase):
+ def test_requires_journal_and_original_plan_and_wired_route(self):
+  plan={'plan_id':'same','roles':{'ethernets':['eth0'],'hotspot':'wlan0'}}
+  with tempfile.TemporaryDirectory() as tmp:
+   journal=Path(tmp)/'journal.json'
+   journal.write_text(json.dumps({'completed':['packages','source','storage'],'network_plan_id':'same'}))
+   with patch.object(b,'output',return_value='[{"dev":"eth0"}]'):
+    self.assertEqual(b.verify_remote_resume(plan,journal,'192.168.40.115 1234 192.168.40.70 22'),'eth0')
+   with patch.object(b,'output',return_value='[{"dev":"wlan0"}]'):
+    with self.assertRaises(ValueError):b.verify_remote_resume(plan,journal,'192.168.40.115 1234 192.168.40.70 22')
+   journal.write_text(json.dumps({'completed':[],'network_plan_id':'same'}))
+   with self.assertRaises(ValueError):b.verify_remote_resume(plan,journal,'192.168.40.115 1 192.168.40.70 22')
+   journal.write_text(json.dumps({'completed':['packages','source','storage'],'network_plan_id':'changed'}))
+   with self.assertRaises(ValueError):b.verify_remote_resume(plan,journal,'192.168.40.115 1 192.168.40.70 22')
+   with self.assertRaises(ValueError):b.verify_remote_resume(plan,journal,'')

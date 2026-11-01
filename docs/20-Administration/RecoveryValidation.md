@@ -89,3 +89,63 @@ The clean Debian ARM64 software-phase test is documented separately in [Clean-OS
 The proof copied and SHA-256 verified 39 files, totaling 17,060,358 bytes: the three selected preparedness PDFs, radio-study pools and diagrams, and Communicate/Communicate Keyboard support files. The five registered payload restore handlers then reused these files successfully inside a private network namespace with no external network access. No content was downloaded. Portable catalogues were generated from the spare's actual files; the spare was unmounted and remounted, every copied hash was rechecked, and seven representative HTTP reads passed, including all three PDFs.
 
 The filesystem also passed staged writing, file and directory fsync, permissions requests, atomic replacement and clean unmount/remount. This is a physical content-copy/reuse proof, separate from the native restoration-queue, live-content-volume swap and clean-OS bootstrap tests. Evidence is retained on the boot card under `/var/lib/dataark/acceptance/physical-spare-20261029/`, including `minimal-proof-result.json` and `copied-minimal.json`.
+
+
+## Acceptance cases: content drive absent or lost
+
+These cases test the system half independently of a usable content drive. A missing drive is distinct from an attached empty drive. Record each result separately; a clean installation or successful empty-drive restore does not establish these cases.
+
+### A. No content drive has ever been attached
+
+Use a spare system card with the appliance software and its system-side configuration, but no content volume. Boot with Ethernet and, where configured, the hotspot available.
+
+- Boot reaches a usable system without an indefinite mount wait. Dashboard, Help, status and caretaker recovery access remain reachable.
+- Status explicitly reports **Content drive not connected**; it does not show healthy/green, an empty installed library, zero-capacity storage, or the system card's capacity as content capacity.
+- Configured source references remain discoverable; offline files and readers are not advertised as available.
+- The desired selection and source definitions remain intact. No automatic formatting, initialization, reinstatement or download starts.
+- Content writes, queue activation and content removal refuse the absent mount. Nothing falls through into the bare mount directory on the system card. Record mount-directory contents and system-card free space before and after.
+- Connecting the intended volume, then using the documented mount/recovery action, restores its catalogue without replacing the saved selection. A different volume requires an explicit reviewed action.
+- Home Assistant receives the missing-storage condition and its resolution when configured.
+
+### B. A connected content drive disappears during operation
+
+Use disposable test media or an isolated fault-injection fixture. Do not pull the original library drive to simulate a fault. Exercise loss while idle, while reading, and during a small staged write/update; retain checksums and the pre-test configuration.
+
+- Within a bounded status-check interval, the dashboard changes from healthy to an explicit missing/disconnected or I/O-error state. Previously cached green state must not mask the failure.
+- Dashboard, Help, network access, caretaker controls and system-side diagnostics remain usable. Reader/file requests fail clearly and promptly rather than hanging indefinitely or serving a misleading success page.
+- In-flight work fails or pauses with a recorded reason. It does not mark partial files verified, activate an incomplete edition, erase the desired selection, or repeatedly fill the system card.
+- Verify both a genuinely absent mount and a mount that remains listed but returns I/O errors; a mount-point check alone is not sufficient for the latter.
+- Reconnect the same media and follow the documented recovery action. Recheck filesystem health, retained file hashes, reader operation and queue state. Healthy status returns only after fresh successful checks.
+- Retry/resume preserves the last verified copy and requires normal caretaker approval where applicable. Repeat a reboot after recovery.
+- Home Assistant receives the storage-loss and recovery events when configured; local diagnostic evidence survives the missing drive.
+
+**Evidence:** record boot duration, detection/recovery times, status transitions, HTTP outcomes, system-card usage, mount identities, file hashes, queue/journal records and Home Assistant results. The automated resource/health regressions cover detection and recovery of an absent mount; they do not establish boot, hot-unplug, I/O-fault or complete writer protection acceptance.
+
+
+### 31 October 2026: live unmounted-media check
+
+On the restored physical Pi, both the 1 TB exFAT content volume and the separate NTFS spare volume were cleanly unmounted. The Kiwix reader and the usage/community-backup timers were paused for the operation; no forced removal or in-flight writer fault was used.
+
+Dashboard, status API, Help, Manage Library and the community page returned HTTP 200 with both volumes absent. Status changed to degraded and reported SSD storage unavailable and Kiwix unavailable. Content-storage capacity was unknown rather than falling back to the system card. The bare content mount directory remained empty, and the system-side desired-selection checksum was unchanged.
+
+Both volumes were remounted and services/timers restored. The spare's desktop-managed mount directory had been removed automatically during unmount; recreating it allowed the same volume UUID to be remounted without filesystem repair. The reader returned HTTP 200 and health returned to OK with no problems.
+
+This establishes graceful live operation and reconnection for a clean unmount. It does not establish cold boot without a drive, never-attached demonstration provisioning, sudden I/O failure, or interruption of an active write. Evidence: `/var/lib/dataark/acceptance/no-content-drive-20261031/result.json` on the test system.
+
+
+### 31 October 2026: capped demo-library component acceptance
+
+In a private mount namespace on the test Pi, the demo-storage component allocated and mounted a real 2 GiB ext4 image on the system card. A write exceeding the image capacity failed with ENOSPC, did not grow the backing image, and consumed no additional system-card space. Repeated setup reused the same image without formatting it again. The official 100-article Wikipedia sample passed its pinned size and checksum, both bundled catalogue PDFs were copied, and the samples survived unmount/remount.
+
+The live content SSD remained mounted in the host namespace and the API remained active. Thirty-six allocation, installer, platform and reader tests passed, including capacity/headroom checks, refusal to replace existing drives or mount entries, preservation of original source definitions, and interruption/symlink guards. Evidence: `/var/lib/dataark/acceptance/demo-library-20261031/result.json` on the test Pi.
+
+This component test is separate from a complete fresh-system installation with the demo option, reboot, browser-reader and client checks. Those form the card-only demonstration acceptance case; they are not established merely by successful loop-volume creation.
+
+
+### 31 October 2026: physical spare-boot-card software recovery
+
+A newly imaged Raspberry Pi OS 64-bit Debian 13 card booted the reference Pi with admin UID 1000 and no Ark software installed. The existing content drive supplied the source/configuration kit. Recovery completed all ten phases and the rebuilt appliance rebooted with its content mount, Ethernet, hotspot, web/API, Kiwix, SMB and FTP services active. All eight archive entry pages and representative PDFs returned HTTP 200; health reported OK with no problems. Windows LAN checks also passed.
+
+The run required recorded corrections: a longer bounded cold-reader startup wait, explicit guarded Ethernet resume, exclusion of transient Docker links from physical-network identity, and consistent local/cloud-init hostname ownership. It is a resumed recovery with documented fixes, not an uninterrupted replay of the published kit. The original system card was retained. Physical client/offline and the complete paired-media sequence remain separate acceptance cases.
+
+Evidence on the test system: `/var/lib/dataark/acceptance/physical-boot-card-20261031/`. Copies of the pre-swap and post-reboot results were also retained outside both test media.

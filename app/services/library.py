@@ -87,7 +87,7 @@ def inventory():
             option['state']='installed' if item in installed else 'downloading' if item in pending else 'not_installed'
     usage = shutil.disk_usage(mount)
     return {'variants':variants, 'installed':installed, 'pending':pending, 'removed':removed, 'free_bytes':usage.free, 'total_bytes':usage.total, 'used_bytes':usage.used,
-        'storage_ready':mount.is_mount(), 'downloads_enabled':Path('/usr/local/libexec/dataark-library').is_file(), 'progress':progress()}
+        'storage_label':data['system'].get('demo_library',{}).get('label','Content drive'), 'storage_ready':mount.is_mount(), 'downloads_enabled':Path('/usr/local/libexec/dataark-library').is_file(), 'progress':progress()}
 
 def catalogue():
     from tools.update_worker import release_info

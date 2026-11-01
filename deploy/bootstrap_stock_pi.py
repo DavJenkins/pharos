@@ -6,10 +6,13 @@ import argparse,fcntl,hashlib,json,os,platform,pwd,re,shutil,subprocess,tarfile,
 from pathlib import Path
 try:
  from . import bootstrap_platform as platforms
+ import demo_library
+ from . import demo_library
 except ImportError:
  import sys
  sys.path.insert(0,str(Path(__file__).resolve().parent))
  import bootstrap_platform as platforms
+ import demo_library
 
 def run(args,**kw):return subprocess.run(args,check=True,**kw)
 def output(args):return subprocess.check_output(args,text=True).strip()
@@ -31,6 +34,8 @@ def validate(c):
  if c.get('hostname') not in ('auto','keep') and not re.fullmatch('[a-z][a-z0-9-]{0,61}[a-z0-9]',c.get('hostname','')):raise ValueError('Invalid hostname')
  if not re.fullmatch(r'ghcr\.io/kiwix/kiwix-serve@sha256:[0-9a-f]{64}',c.get('kiwix_image','')):raise ValueError('Kiwix must have a pinned image digest.')
  if not c.get('packages') or any(not re.fullmatch('[a-z0-9][a-z0-9+.-]*',x) for x in c['packages']):raise ValueError('Invalid package list')
+ if c.get('demo_library') is not None:
+  demo_library.plan(c['demo_library']['size_gib'],100*demo_library.GIB)
  for key in ['anonymous_ftp','restore_missing_content','automatic_archive_updates','automatic_map_updates']:
   if type(c.get(key)) is not bool:raise ValueError('Expected boolean '+key)
 def extract_source(archive,target):
@@ -43,8 +48,21 @@ def extract_source(archive,target):
   t.extractall(target,members=members,filter='data')
 def os_info():
  return dict(line.split('=',1) for line in Path('/etc/os-release').read_text().replace('"','').splitlines() if '=' in line)
+def verify_remote_resume(plan,journal,connection):
+ import ipaddress
+ if not connection:raise ValueError('Remote resume requires an SSH connection.')
+ state=json.loads(journal.read_text())
+ if not {'packages','source','storage'}.issubset(state.get('completed',[])):raise ValueError('Remote resume requires completed package, source and storage phases.')
+ if state.get('network_plan_id')!=plan['plan_id']:raise ValueError('Remote resume requires the original unchanged network plan.')
+ peer=str(ipaddress.ip_address(connection.split()[0]))
+ routes=json.loads(output(['ip','-j','route','get',peer]))
+ allowed=plan['roles'].get('ethernets',[])
+ if not routes or routes[0].get('dev') not in allowed or routes[0].get('dev')==plan['roles'].get('hotspot'):raise ValueError('SSH must use a preserved wired Ethernet interface.')
+ return routes[0]['dev']
+
 def preflight(c,kit,journal):
  errors=[];info=os_info();b=c['baseline']
+ if not c.get('demo_library') and kit.stat().st_dev==Path('/').stat().st_dev:errors.append('Attach a content drive, or explicitly choose --demo-library-gib for a capped system-card demo.')
  if info.get('ID')!=b['os_id'] or info.get('VERSION_ID')!=b['version_id'] or platforms.architecture()!=b['architecture']:errors.append('Operating system or processor does not match the selected platform profile.')
  if b.get('require_raspberry_pi_os') and not Path('/etc/rpi-issue').exists():errors.append('Raspberry Pi OS image marker is missing.')
  try:
@@ -120,6 +138,8 @@ class Installer:
   try:pwd.getpwnam('dnsmasq')
   except KeyError:run(['useradd','--system','--home-dir','/var/lib/misc','--no-create-home','--shell','/usr/sbin/nologin','dnsmasq'])
  def storage(self):
+  if self.c.get('demo_library'):
+   demo_library.create(self.c['demo_library']['size_gib']);return
   # The kit must be on a distinct, already formatted local content volume.
   device=output(['findmnt','-n','-o','SOURCE','--target',str(self.kit)])
   if not device.startswith('/dev/') or device==output(['findmnt','-n','-o','SOURCE','/']):raise RuntimeError('Kit must be on a separate local content volume, not the system disk.')
@@ -197,6 +217,7 @@ class Installer:
   host=self.c['hostname']
   if host=='auto':host='dataark-'+Path('/etc/machine-id').read_text().strip()[:6]
   self.adapter.hostname(host)
+  self.script('configure_hostname.py',host)
   if 'DataArk' not in profiles:run(['nmcli','connection','add','type','wifi','ifname','wlan0','con-name','DataArk','connection.uuid',self.state['ap_uuid'],'ssid',self.c['hotspot']['ssid'],'802-11-wireless.mode','ap','ipv4.method','shared','ipv4.addresses','192.168.4.1/24','ipv6.method','disabled','connection.autoconnect','yes'])
   run(['nmcli','connection','up','DataArk'])
   self.script('install_wifi_roles.py')
@@ -209,6 +230,13 @@ class Installer:
    atomic(Path('/etc/dataark/wifi-roles.json'),json.dumps({'schema':1,'hotspot_adapter':adapter,'fallback':'builtin'})+'\n')
   run(['/usr/local/libexec/dataark-wifi-roles','--boot'])
  def content(self):
+  if self.c.get('demo_library'):
+   if sha(self.repo/'config/demo-library.json')!=self.c['demo_library']['sample_configuration_sha256']:raise RuntimeError('Demo samples changed after plan approval.')
+   run([str(self.repo/'venv/bin/python'),str(self.repo/'deploy/install_demo_samples.py')])
+   run(['docker','restart','kiwix-serve'])
+   run(['/usr/bin/python3',str(self.repo/'tools/configure_kiwix_catalogue.py'),'--apply','--restart'])
+   run(['bash',str(self.repo/'deploy/deploy-web.sh')])
+   return
   # Device setup approval does not authorize optional content downloads.
   print('Base services are ready. Choose optional content separately at /recovery.html or use tools/recovery_queue.py plan.')
   print('None starts no downloads. Minimal/Recommended/Full require explicit plan acceptance.')
@@ -222,29 +250,48 @@ class Installer:
   self.script('install_software_updater.py','--revision',json.loads((self.kit/'kit.json').read_text())['source_revision'],'--profile',self.c.get('platform_profile',platforms.DEFAULT))
   atomic(Path('/var/lib/dataark/bootstrap-readiness.json'),json.dumps({'status':'software_phases_completed_client_acceptance_required','checks_remaining':['Reboot and confirm mount']+(['Hotspot client and captive detection'] if platforms.selected(self.c)['network_mode']=='hotspot' else ['Existing LAN connectivity retained'])+['Offline article and image','Maps/forms/radio tools','Management authentication','Independent fresh-media recovery'],'finished_at':time.time()},indent=2)+'\n')
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--kit',type=Path);p.add_argument('--site',type=Path);p.add_argument('--profile');p.add_argument('--list-profiles',action='store_true');p.add_argument('--discover',action='store_true');p.add_argument('--accept-plan');p.add_argument('--apply',action='store_true');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--kit',type=Path);p.add_argument('--site',type=Path);p.add_argument('--profile');p.add_argument('--list-profiles',action='store_true');p.add_argument('--discover',action='store_true');p.add_argument('--accept-plan');p.add_argument('--apply',action='store_true');p.add_argument('--demo-library-gib',type=int,help='Explicitly reserve 2–16 GiB on the system card and install the fixed demo samples');p.add_argument('--resume-over-ethernet',action='store_true',help='Resume a journaled installation over an unchanged wired SSH path');a=p.parse_args()
  if a.list_profiles:
   print(json.dumps([platforms.profile(p.stem) for p in sorted(platforms.PROFILES.glob('*.json'))],indent=2));return
  if a.discover:print(json.dumps(platforms.discover(),indent=2));return
  if not a.kit:p.error('--kit is required except with --discover')
  kit=a.kit.resolve();site=a.site or kit/'site.json';c=json.loads(site.read_text())
  if a.profile:c=platforms.configure(c,a.profile)
+ if a.demo_library_gib is not None:c['demo_library']={'size_gib':a.demo_library_gib}
+ if not a.apply and a.demo_library_gib is None and not c.get('demo_library') and os.isatty(0) and kit.stat().st_dev==Path('/').stat().st_dev:
+  answer=input('No separate content drive selected. Optional demo library on system card? Enter GiB (2–16, suggested 4), or Enter to decline: ').strip()
+  if answer.lower() not in ('','n','no'):
+   try:c['demo_library']={'size_gib':int(answer)}
+   except ValueError:p.error('Enter a whole demo-library size from 2 to 16 GiB, or decline.')
+ if c.get('demo_library'):
+  c['demo_library']['sample_configuration_sha256']=sha(kit/'demo-library.json')
+  if 'e2fsprogs' not in c['packages']:c['packages'].append('e2fsprogs')
  validate(c)
  journal=Path('/var/lib/dataark/bootstrap.json');plan=platforms.proposal(c,platforms.discover());errors=preflight(c,kit,journal)+plan['issues']
+ if c.get('demo_library'):
+  try:
+   allocation=demo_library.plan(c['demo_library']['size_gib'],shutil.disk_usage('/var/lib').free,existing=demo_library.STATE.exists())
+   print(json.dumps(allocation,indent=2));samples=json.loads((kit/'demo-library.json').read_text());print('Approved demo samples:', ', '.join(item['title'] for item in samples['samples']));print('Sample download bytes:',sum(item.get('bytes',0) for item in samples['samples']))
+   if Path('/mnt/storage').is_mount() and not demo_library.STATE.exists():errors.append('A content drive is mounted; demo allocation cannot replace it.')
+  except ValueError as error:errors.append(str(error))
  print(json.dumps(plan,indent=2))
  print('Stages: packages -> source -> existing storage -> Python -> platform settings -> services -> public distribution -> reviewed network -> optional content -> verification.')
- print('No formatting or content removal. Public services use the existing networks. Software downloads require internet.')
+ print('No physical-device formatting or content removal. Demo mode formats only its newly allocated image file. Software downloads require internet.')
  for error in errors:print('BLOCKED:',error)
  if not a.apply:
   import shlex
   args=['sudo','python3',str(Path(__file__).resolve()),'--kit',str(kit)]
   if a.site:args+=['--site',str(a.site)]
   if a.profile:args+=['--profile',a.profile]
+  if c.get('demo_library'):args+=['--demo-library-gib',str(c['demo_library']['size_gib'])]
   print('Preview only. Reviewed apply command:',shlex.join(args+['--accept-plan',plan['plan_id'],'--apply']));return
  if errors:raise SystemExit('Preflight failed; no installation changes made.')
  if a.accept_plan!=plan['plan_id']:raise SystemExit('Accept the exact current discovery plan with --accept-plan before applying.')
  if os.geteuid()!=0 or not os.isatty(0):raise SystemExit('Run with sudo from a local interactive terminal.')
- if os.environ.get('SSH_CONNECTION') and plan['network_mode']=='hotspot':raise SystemExit('Use the local console for initial hotspot setup.')
+ if a.resume_over_ethernet:
+  try:print('Verified wired resume:',verify_remote_resume(plan,journal,os.environ.get('SSH_CONNECTION')))
+  except (OSError,ValueError,KeyError,subprocess.CalledProcessError) as error:raise SystemExit(str(error))
+ elif os.environ.get('SSH_CONNECTION') and plan['network_mode']=='hotspot':raise SystemExit('Use the local console for initial hotspot setup, or an explicitly verified wired resume.')
  if input('Type INSTALL to apply this reviewed plan: ')!='INSTALL':raise SystemExit('Cancelled.')
  journal.parent.mkdir(parents=True,exist_ok=True);lock=(journal.parent/'bootstrap.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
  fingerprint=hashlib.sha256(json.dumps(c,sort_keys=True).encode()).hexdigest();state=json.loads(journal.read_text()) if journal.exists() else {'completed':[],'configuration_sha256':fingerprint,'kit_source_sha256':json.loads((kit/'kit.json').read_text())['source_sha256'],'network_plan_id':plan['plan_id'],'network_roles':plan['roles']}

@@ -240,6 +240,17 @@ def load_manifest(path):
         from app.services.configuration_project import load
         try:data=load(path)
         except (ValueError,OSError,KeyError,yaml.YAMLError) as error:raise ManifestError('Invalid configuration project: '+str(error)) from None
+    if path.name == 'dataark.yaml':
+        site = path.parent / 'config/installed-site.json'
+        if site.is_file():
+            installed = json.loads(site.read_text(encoding='utf-8'))
+            if installed.get('demo_library'):
+                config_path = path.parent / 'config/demo-library.json'
+                raw_demo = config_path.read_bytes()
+                if hashlib.sha256(raw_demo).hexdigest() != installed['demo_library'].get('sample_configuration_sha256'):
+                    raise ManifestError('Demo sample configuration differs from the approved installation plan.')
+                from app.services.demo_library import overlay
+                data = overlay(data, json.loads(raw_demo))
     community = data.get('community', {'enabled': True})
     if not isinstance(community, dict) or set(community)!={'enabled'} or type(community.get('enabled', True)) is not bool:
         raise ManifestError('community accepts only enabled: true or false.')
@@ -580,6 +591,10 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
     community_enabled = data.get('community', {}).get('enabled', True)
     community_card = '<section id="community-board" class="resource-section" aria-labelledby="community-heading"><h2 id="community-heading">Community</h2><div class="manifest-grid"><article class="manifest-card"><h3>💬 Community board</h3><p>Local announcements, requests, offers, and conversations. Everyone can read and post, even without internet.</p><p><a href="/community.html">Open the community board</a></p></article></div></section>'
     rendered = rendered.replace('{{COMMUNITY_CARD}}', community_card if community_enabled else '').replace('{{COMMUNITY_NAV}}', ' · <a href="/community.html">Community board</a>' if community_enabled else '')
+    demo = system.get('demo_library')
+    if isinstance(demo, dict) and demo.get('notice'):
+        notice = '<section class="resource-section demo-library-notice" aria-label="Demo library"><p>'+html.escape(str(demo['notice']))+'</p></section>'
+        rendered = rendered.replace('<main class="manifest-catalog">', '<main class="manifest-catalog">'+notice, 1)
     rendered = version_dashboard_assets(rendered)
     compiled = {**data, 'assets': compiled_assets}
     # Complete validation/rendering before replacing the previously working page.

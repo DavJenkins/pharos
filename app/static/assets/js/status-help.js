@@ -251,7 +251,7 @@
                     row("Installed",libraryInfo.installed.length+(libraryInfo.installed.length===1?" registered item":" registered items"));
                     row("Pending",libraryInfo.pending.length+(libraryInfo.pending.length===1?" download":" downloads"));
                     row("Not installed",libraryInfo.removed.length+(libraryInfo.removed.length===1?" removed item":" removed items"));
-                    row("Storage",libraryInfo.storage_ready?gib(libraryInfo.free_bytes)+" free of "+gib(libraryInfo.total_bytes):"Content SSD not mounted");
+                    row("Storage",libraryInfo.storage_ready?(libraryInfo.storage_label||"Content drive")+": "+gib(libraryInfo.free_bytes)+" free of "+gib(libraryInfo.total_bytes):"Content drive not mounted");
                     row("Activity",libraryInfo.progress?.label||"—");
                     if(libraryInfo.progress?.detail)row("Details",libraryInfo.progress.detail);
                 }

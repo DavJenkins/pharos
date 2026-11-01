@@ -92,3 +92,25 @@ class ThermalProbeTests(unittest.TestCase):
         for value in ['not a temperature','9999999']:
             with patch.object(resources.Path,'read_text',return_value=value):self.assertIsNone(resources._cpu_temp())
         with patch.object(resources.Path,'read_text',side_effect=OSError):self.assertIsNone(resources._cpu_temp())
+
+class MissingContentDriveTests(unittest.TestCase):
+    def test_never_attached_drive_does_not_report_system_card_capacity(self):
+        with patch.object(resources.Path,'is_mount',return_value=False),patch.object(resources,'_run') as command:
+            disk=resources._df('/mnt/storage')
+        command.assert_not_called()
+        self.assertIsNone(disk['percent']);self.assertEqual(disk['free'],'')
+        data=deepcopy(RESOURCES);data['storage']['ssd']=disk
+        with patch.object(health,'platform_settings',return_value={}):
+            state,issues=health.assess(data,SERVICES,'Idle',[])
+        self.assertNotEqual(state,'ok');self.assertIn('SSD storage unavailable',issues)
+
+    def test_mounted_lost_and_reconnected_drive_replaces_previous_good_state(self):
+        states=[]
+        for present in [True,False,True]:
+            with patch.object(resources.Path,'is_mount',return_value=present),patch.object(resources,'_run',return_value='Filesystem 1B-blocks Used Available Use% Mounted on\n/dev/test 1000 200 800 20% /mnt/storage') as command:
+                disk=resources._df('/mnt/storage')
+                self.assertEqual(command.call_count,1 if present else 0)
+            data=deepcopy(RESOURCES);data['storage']['ssd']=disk
+            with patch.object(health,'platform_settings',return_value={}):
+                states.append(health.assess(data,SERVICES,'Idle',[])[0])
+        self.assertEqual(states,['ok','degraded','ok'])
