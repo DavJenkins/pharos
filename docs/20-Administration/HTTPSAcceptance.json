@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-01",
+  "hostname": "ark-test.dejsoftware.com",
+  "staging_issuance": true,
+  "staging_renewal_dry_run": true,
+  "production_issuance": true,
+  "production_certificate": {
+    "expires_at": "2027-01-30T19:32:14+00:00",
+    "issuer": "issuer=C=US, O=Let's Encrypt, CN=YE1"
+  },
+  "linux_system_trust": true,
+  "windows_system_trust": true,
+  "wired_browser_trust": true,
+  "http_remains_available": true,
+  "offline": {
+    "certificate_hostname": "ark-test.dejsoftware.com",
+    "no_ipv4_upstream_route": true,
+    "local_http_and_trusted_https_offline": true,
+    "routes_restored": true
+  },
+  "expiry_simulation": {
+    "renewal_due": {
+      "health": "warning",
+      "certificate_health": "renewal_due"
+    },
+    "expired": {
+      "health": "error",
+      "certificate_health": "expired"
+    },
+    "real_certificate_status_restored": true
+  },
+  "home_assistant_observed": [
+    "warning at 15:34:28 America/New_York",
+    "error at 15:35:30 America/New_York",
+    "ok at 15:36:01 America/New_York"
+  ],
+  "hotspot_dns_listener": {
+    "port": 1053,
+    "answers": [
+      "192.168.4.1"
+    ],
+    "client_prerouting_configured": true
+  },
+  "recipient_certificate_guard": true,
+  "focused_tests": 27,
+  "phone_hotspot_browser_check": "pending",
+  "recipient_setup": "paused while owner-specific HTTPS is installed",
+  "tested_source_sha256": {
+    "tools/https_helper.py": "77628e47356f38980e70711add7c1c25287d7a5bd20299bcca4c0a1c8f004729",
+    "tools/prepare_recipient.py": "5f1d63f022a5561f333e9d9217ca3c5d72a1334a950d19b242b43e38982acbd9"
+  },
+  "temporary_dns_challenge_removed": true,
+  "temporary_windows_hostname_mapping_removed": true
+}

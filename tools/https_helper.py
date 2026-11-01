@@ -85,7 +85,10 @@ def status(phase=None, **fields):
     return value
 
 def running():
-    return subprocess.run(['/usr/bin/systemctl', 'is-active', '--quiet', UNIT], capture_output=True).returncode == 0
+    # Type=oneshot remains activating throughout its long-running DNS wait.
+    result = subprocess.run(['/usr/bin/systemctl', 'show', UNIT, '--property=ActiveState', '--value'],
+                            capture_output=True, text=True, timeout=5, check=False)
+    return result.returncode == 0 and result.stdout.strip() in {'active', 'activating', 'reloading'}
 
 def cert_name(domain): return 'dataark-' + hashlib.sha256(domain.encode()).hexdigest()[:16]
 

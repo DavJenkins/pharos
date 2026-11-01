@@ -11,3 +11,7 @@ Renewal uses the same manual DNS workflow; the Ark does not hold DNS-provider cr
 Private keys, ACME accounts, contact details and device identity live on the system drive under root-owned `/etc/dataark`, outside content/recovery exports. Configuration-only and populated source-based clones start with a new identity and deferred HTTPS setup. A raw full system-drive image can copy private identity and secrets: do not distribute it as a public seed.
 
 The stock installer installs Certbot and `deploy/install_https.py`. The privileged helper accepts a fixed JSON protocol through a single no-argument command; it does not accept arbitrary shell commands. Failed activation rolls back the previous Apache/DNS configuration. A fresh device needs an internet connection for certificate issuance, but continues serving local content without one.
+
+## Physical acceptance
+
+DNS issuance, a staging renewal dry run, browser/system trust, offline serving and Home Assistant expiry/recovery were exercised on the reference Pi. See [HTTPS acceptance](HTTPSAcceptance.md) for the result and the separate phone-hotspot check. Recipient preparation refuses owner-specific certificates; retire them before transferring an installed system card.

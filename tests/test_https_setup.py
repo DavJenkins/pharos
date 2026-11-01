@@ -25,6 +25,12 @@ class HTTPSSetupTests(unittest.TestCase):
         for p in self.patches:p.start()
         self.addCleanup(lambda:[p.stop() for p in self.patches]);self.addCleanup(self.temp.cleanup)
 
+    def test_oneshot_dns_wait_is_running_while_systemd_is_activating(self):
+        from types import SimpleNamespace
+        for state,expected in [('activating',True),('active',True),('reloading',True),('inactive',False),('failed',False)]:
+            with self.subTest(state=state),patch.object(h.subprocess,'run',return_value=SimpleNamespace(returncode=0,stdout=state+'\n')):
+                self.assertEqual(h.running(),expected)
+
     def test_domain_is_a_hostname_not_a_command_url_or_private_address(self):
         self.assertEqual(h.domain_name('Ark.Owner-Domain.org.'),'ark.owner-domain.org')
         for domain in ['192.168.4.1','dataark','dataark.lan','a.local','example.org','ark.example.org','*.owner.org','https://owner.org/','owner.org:443','owner.org\nServerName bad','--server=bad','../secret','[::1]']:

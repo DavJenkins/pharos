@@ -22,7 +22,7 @@ STATE = '/var/lib/dataark/recipient.json'
 UNIT = '''[Unit]
 Description=Establish a unique Data Ark recipient identity
 After=local-fs.target
-Before=network-pre.target NetworkManager.service ssh.service dataark.service
+Before=network-pre.target NetworkManager.service ssh.service dataark-https-reconcile.service dataark.service
 Wants=network-pre.target
 ConditionPathExists=/var/lib/dataark/recipient-armed
 
@@ -110,6 +110,10 @@ def arm(root=Path('/'), runner=subprocess.run):
 def first_boot(root=Path('/'),runner=subprocess.run):
     marker=root/'var/lib/dataark/recipient-armed'
     if not marker.is_file():return
+    # A certificate could have been configured after the card was armed.
+    active=root/'etc/dataark/https/active.json'
+    if active.exists() and json.loads(active.read_text()).get('domain'):
+        raise ValueError('Remove this owner certificate before recipient identity setup; HTTP remains available.')
     # A retry reuses the chosen identity instead of generating another one.
     state_path=root/STATE.lstrip('/')
     state=json.loads(state_path.read_text())

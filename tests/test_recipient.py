@@ -81,6 +81,17 @@ class RecipientTests(unittest.TestCase):
             (root/'etc/dataark-physical-bootstrap-test').unlink()
             with self.assertRaisesRegex(ValueError,'demonstration'):r.arm(root)
 
+    def test_identity_precedes_https_reconciliation(self):
+        self.assertIn('dataark-https-reconcile.service',r.UNIT.split('Before=')[1].splitlines()[0])
+
+    def test_certificate_added_after_arming_blocks_identity_replacement(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);self.fixture(root);r.arm(root)
+            active=root/'etc/dataark/https/active.json';active.parent.mkdir();active.write_text('{"domain":"ark.owner-domain.org"}')
+            with self.assertRaisesRegex(ValueError,'certificate'):r.first_boot(root)
+            self.assertEqual((root/'etc/machine-id').read_text(),'old')
+            self.assertTrue((root/'var/lib/dataark/recipient-armed').exists())
+
     def test_password_minimum_and_unique_salts(self):
         with self.assertRaises(ValueError):r.password_record('short')
         a=r.password_record('a sufficiently long phrase');b=r.password_record('a sufficiently long phrase')
