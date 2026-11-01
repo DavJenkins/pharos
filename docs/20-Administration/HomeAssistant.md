@@ -116,6 +116,19 @@ Existing publisher-check warnings are independent of the notification integratio
 The Send to the Ark submission interface remains separate future work.
 
 
+## Pending and performed updates
+
+The existing durable change feed also carries update notifications; an HA installation already using `dataark_collections.yaml` needs no new credentials or inbound permissions. Events retain their sequence/cursor behavior while HA is disconnected.
+
+- Verified publisher changes and new publication editions produce a pending-review notification. Existing content remains available.
+- A newer installable signed Ark release produces an availability notification. Bootstrap kits, an older release already contained in a development build, and an inconclusive/offline check are not reported as pending software installations.
+- Completed content activation and signed software installation produce completion notifications. Software messages include the release and old/new revision identifiers. Refusals, interruptions and rollbacks produce failure outcomes rather than a successful-update claim.
+- A read-only OS monitor checks cached package availability and completed apt history every five minutes. It reports pending package counts and newly completed package transactions. Its first observation establishes a history baseline rather than replaying old upgrades. It does not refresh package indexes, install packages or reboot.
+
+These use the established `suggested`, `installed` and `failed` lifecycle kinds with `action` values `content_update`, `software_update` or `os_update`. Repeated checks of the same pending version do not create repeated notifications. An offline software check retains the last known pending result. Only non-secret identifiers, counts and outcomes are published; commands, credentials and configuration bodies are excluded.
+
+The observer is `dataark-os-update-monitor.timer`; standard systemd controls can disable it. Automatic installation policy remains separate from notification delivery.
+
 ## Browser review schedules
 
 The health sensor’s `source_checks.browser_review` attribute includes configured installed references, review intervals, last verification, next due dates, changed flags, overdue counts, and `/capture.html`. Known HTTP 403 refusals for those verified saved copies are counted separately as `blocked_automated_checks`; they do not alone make health amber. Overdue reviews and detected changes do. Automated retries continue on the publisher schedule.

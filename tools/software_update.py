@@ -215,6 +215,12 @@ class Updater:
         save(self.state/'transaction.json',value)
         folder=self.state/'transactions'/value['id']
         if folder.is_dir():save(folder/'result.json',{key:value.get(key) for key in ('id','state','release','updated_at','error')})
+        if self.root==Path('/'):
+            try:
+                try:from .update_notifications import transaction
+                except ImportError:from update_notifications import transaction
+                transaction(value)
+            except Exception:pass  # Never compromise installation or recovery for a notification.
     def restore(self,journal,boot=False):
         if not boot:self.runtime.stop()
         backup=self.state/'transactions'/journal['id']
@@ -262,7 +268,7 @@ class Updater:
             receipt=self.receipt();backup=self.state/'transactions'/identifier
             if backup.exists():raise ValueError('Transaction ID has already been used')
             backup.mkdir(parents=True,mode=0o700)
-            journal={'id':identifier,'state':'preparing','release':m['release'],'originals':{}}
+            journal={'id':identifier,'state':'preparing','release':m['release'],'originals':{},'from_revision':receipt['revision'],'to_revision':m['source_revision']}
             self.write_journal(journal)
             try:
                 self.runtime.stop()

@@ -94,4 +94,6 @@ def check(preview=False):
             result.update(state='unavailable',message='The release service could not be checked. The Ark may be offline, or the service may be unavailable or rate limited. This does not mean the software is current.')
             if previous:result['previous_check']={key:previous[1].get(key) for key in ('checked_at','state','release')}
         CACHE[preview]=(time.monotonic(),result)
+        from tools.update_notifications import available
+        available(result)
         return result

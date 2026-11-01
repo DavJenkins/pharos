@@ -72,13 +72,10 @@ def check(url, assets, previous, config, root, opener=urlopen):
     headers = {'User-Agent': 'Mozilla/5.0 (DataArk offline reference source check)'}
     if previous.get('etag'): headers['If-None-Match'] = previous['etag']
     elif previous.get('last_modified'): headers['If-Modified-Since'] = previous['last_modified']
-    # Honda omits its intermediate certificate. Add the recorded chain while
-    # retaining the system roots, hostname checks and normal TLS verification.
+    from tools.source_tls import extra_ca, context
     options = {'timeout': config.get('timeout_seconds', 45)}
-    if urlsplit(url).hostname == 'techinfo.honda.com':
-        context = ssl.create_default_context()
-        context.load_verify_locations(cafile=str(ROOT / 'deploy/reference/honda-intermediate.pem'))
-        options['context'] = context
+    if extra_ca(url, ROOT):
+        options['context'] = context(url, ROOT)
     try:
         try:
             response = opener(Request(request_url, headers=headers, method='HEAD' if metadata_only else 'GET'), **options)
@@ -153,6 +150,8 @@ def discover_editions(manifest, root, state, config, retry_errors=False):
             result={**previous,'status':'error','detail':'Edition discovery failed; installed copy retained.','issues':[failure_detail(error)]}
         result['attempted_at']=time.time();record['edition_discovery']=result
         atomic_write(STATE,(json.dumps(state,indent=2)+'\n').encode())
+        from tools.update_notifications import content
+        content(asset,record)
         print('edition',asset['id'],result['status'],flush=True)
         time.sleep(config.get('request_delay_seconds',1))
 
@@ -184,6 +183,8 @@ def run(retry_errors=False):
         result['attempted_at'] = attempted
         state['sources'][url] = result
         atomic_write(STATE, (json.dumps(state, indent=2) + '\n').encode())
+        from tools.update_notifications import content
+        for asset in assets:content(asset,result)
         print(result['status'], ','.join(a['id'] for a in assets), result.get('detail', ''), flush=True)
         time.sleep(config.get('request_delay_seconds', 1))
 

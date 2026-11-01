@@ -18,7 +18,7 @@ COLLECTIONS={
  'resilience':('tools/install_resilience.py',['--register'],'deploy/reference/resilience-catalogue.json'),
  'callsigns':('tools/install_callsigns.py',[],'deploy/reference/callsign-sources.json'),
  'radio-study':('tools/install_radio_study.py',[],'deploy/reference/radio-pools.json')}
-REFERENCE_FILES=['browser-capture-policy.json','ma-building-introduction.json','communication.json','capture-sources.json','edition-discovery.json','reference-checks.json','jurisdictions.json','family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','osm-usa.json','osm-usa.geojson','osm-caribbean.json','vehicle-manuals.json','honda-intermediate.pem','holiday-themes.json','curriculum-settings.json','curriculum-catalogue.json']
+REFERENCE_FILES=['source-tls.json','browser-capture-policy.json','ma-building-introduction.json','communication.json','capture-sources.json','edition-discovery.json','reference-checks.json','jurisdictions.json','family-catalogue.json','forms-catalogue.json','resilience-catalogue.json','resilience-settings.json','us-code-release.json','callsign-sources.json','radio-pools.json','osm-massachusetts.json','osm-usa.json','osm-usa.geojson','osm-caribbean.json','vehicle-manuals.json','honda-intermediate.pem','holiday-themes.json','curriculum-settings.json','curriculum-catalogue.json']
 PUBLIC_KEYS=['system','geography','maps','categories','scenarios','repositories','assets','resource_sections','dashboard','personalization','community']
 def read(path):
  value=yaml.load(Path(path).read_text(), Loader=getattr(yaml,'CSafeLoader',yaml.SafeLoader))
@@ -203,12 +203,12 @@ def download(item,root,c,verify_existing=False,progress=None):
   part.rename(part.with_name(part.name+'.rejected-'+str(time.time_ns())))
  args=['curl','--fail','--location','--proto','=https','--proto-redir','=https','--speed-time','120','--speed-limit','1024','--retry','2','--connect-timeout','30','--max-filesize',str(size),'--continue-at','-','--output',str(part)]
  if c.get('download_rate_kib'):args+=['--limit-rate',str(c['download_rate_kib'])+'K']
- # Honda omits an intermediate certificate. Supply its CA chain only for
- # this host, still validating the hostname and the system's trusted roots.
+ from tools.source_tls import extra_ca
  with tempfile.TemporaryDirectory(prefix='dataark-download-ca-') as temporary:
-  if urlsplit(item['url']).hostname=='techinfo.honda.com':
+  certificate=extra_ca(item['url'],REPO)
+  if certificate:
    roots=Path(ssl.get_default_verify_paths().cafile);bundle=Path(temporary)/'ca.pem'
-   bundle.write_bytes(roots.read_bytes()+b'\n'+(REPO/'deploy/reference/honda-intermediate.pem').read_bytes())
+   bundle.write_bytes(roots.read_bytes()+b'\n'+certificate.read_bytes())
    args+=['--cacert',str(bundle)]
   if not ready:
    if progress:progress('downloading')

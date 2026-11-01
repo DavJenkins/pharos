@@ -1,5 +1,7 @@
 # Software updates and maintenance
 
+Home Assistant receives pending and completed update events through the existing durable lifecycle feed. Signed Ark updates include release/revision information and rollback outcomes; content changes and OS package transactions are also covered. See [Home Assistant update notifications](HomeAssistant.md#pending-and-performed-updates). Notification monitoring does not enable automatic installation.
+
 [Check for updates](/config/updates.html) is available from Help. It reads official Pharos software releases on GitHub when requested. Anyone can inspect availability; no caretaker password is needed to read version information. Checks are cached for one minute, do not execute downloaded code, and do not install or download a kit. Preview releases are opt-in. Documentation releases are excluded.
 
 ![The software-update page shows the installed build and offers a separate preview-release option. Build identities and dates vary.](../assets/screenshots/software-updates.jpg)

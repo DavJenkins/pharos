@@ -11,6 +11,7 @@ def release(tag,preview=False):
 class SoftwareUpdateTests(unittest.TestCase):
     def setUp(self):
         service.CACHE.clear()
+        notifications=patch('tools.update_notifications.available');notifications.start();self.addCleanup(notifications.stop)
         p=patch('app.services.software_installation.status',return_value={'ok':False});p.start();self.addCleanup(p.stop)
     def test_filter_documentation_drafts_and_preview(self):
         stable=release('bootstrap-2026.10.28');preview=release('bootstrap-2026.10.29-preview.1',True);draft=release('bootstrap-2026.10.30');draft['draft']=True

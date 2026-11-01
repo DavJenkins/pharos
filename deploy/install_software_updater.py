@@ -12,6 +12,24 @@ from software_update import Updater,atomic
 
 ROOT=Path(__file__).resolve().parents[1]
 UNITS={
+'dataark-os-update-monitor.service':'''[Unit]
+Description=Report OS package updates to the Ark lifecycle feed
+After=network.target
+[Service]
+Type=oneshot
+User=admin
+WorkingDirectory=/opt/dataark
+ExecStart=/usr/bin/python3 /opt/dataark/tools/check_os_updates.py
+TimeoutStartSec=90
+''',
+'dataark-os-update-monitor.timer':'''[Unit]
+Description=Observe OS updates without installing packages
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=5min
+[Install]
+WantedBy=timers.target
+''',
 'dataark-software-update.service':'''[Unit]
 Description=Apply a verified Data Ark software package
 After=network.target
@@ -62,6 +80,9 @@ def main():
         raw=(ROOT/'tools'/name).read_bytes();compile(raw,name,'exec')
         target=Path('/usr/local/libexec')/('dataark-software-update' if name.endswith('control.py') else name)
         atomic(target,raw,0o755 if name.endswith('control.py') else 0o644);os.chown(target,0,0)
+    for source,name in [(ROOT/'tools/update_notifications.py','update_notifications.py'),(ROOT/'app/services/collection_changes.py','software_collection_events.py')]:
+        raw=source.read_bytes();compile(raw,name,'exec');target=Path('/usr/local/libexec')/name
+        atomic(target,raw,0o644);os.chown(target,0,0)
     updater=Updater();updater.state.chmod(0o700);os.chown(updater.state,0,0)
     updater.trust.mkdir(parents=True,exist_ok=True);updater.trust.chmod(0o755);os.chown(updater.trust,0,0)
     inbox=Path('/var/lib/dataark/software-inbox');inbox.mkdir(parents=True,exist_ok=True);inbox.chmod(0o700);os.chown(inbox,account.pw_uid,account.pw_gid)
@@ -88,6 +109,7 @@ def main():
     subprocess.run(['systemd-analyze','verify',*[str(Path('/etc/systemd/system')/name) for name in UNITS]],check=True,capture_output=True)
     subprocess.run(['systemctl','daemon-reload'],check=True)
     subprocess.run(['systemctl','enable','dataark-software-verify-recovery.service'],check=True,capture_output=True)
+    subprocess.run(['systemctl','enable','--now','dataark-os-update-monitor.timer'],check=True,capture_output=True)
     print('Signed software updater installed. No signing keys enrolled and no updates applied.')
 
 if __name__=='__main__':main()

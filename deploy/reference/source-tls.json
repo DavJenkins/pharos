@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "hosts": {
+    "techinfo.honda.com": {
+      "ca_bundle": "honda-intermediate.pem",
+      "note": "Recorded publisher intermediate chain; system trust and hostname verification remain enabled."
+    }
+  }
+}
