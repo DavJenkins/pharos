@@ -1,10 +1,10 @@
 # Engineering behind the Ark
 
-*Companion to [What the Ark can do](../10-User/FeatureCatalogue.md) · Implemented design, October 30, 2026*
+*Companion to [What the Ark can do](../10-User/FeatureCatalogue.md) · Architecture and design*
 
 The collection tells you what the Ark holds. The feature catalogue tells you what people can do with it. This chapter describes the less visible engineering that makes those capabilities possible: how the Ark represents intent, protects working content, handles interruptions, preserves open access and prepares to reproduce itself.
 
-These are distinctive combinations and design decisions in this project, rather than claims that the underlying algorithms or techniques were invented here. Implementation is also distinct from acceptance: the recovery mechanisms below still require the documented spare-media tests.
+These are distinctive combinations and design decisions in this project, rather than claims that the underlying algorithms or techniques were invented here. Recovery validation and its acceptance criteria are documented separately in [Recovery validation](../20-Administration/RecoveryValidation.md).
 
 ## 1. Configuration describes the appliance, not just its settings
 
@@ -56,7 +56,7 @@ A failing source does not invalidate the saved copy. Human-captured files establ
 
 See [Source availability checks](../20-Administration/SourceChecks.md) and [Browser capture](../20-Administration/BrowserCapture.md).
 
-## 6. Human-assisted acquisition still follows a controlled path
+## 6. Browser capture validates content before installation
 
 The capture extension bridges a publisher page that works interactively and an importer that must place files consistently. Pi Chromium can use a narrowly scoped native helper; the desktop workflow can pair through SSH.
 
@@ -74,13 +74,13 @@ The design treats the system medium and content medium as separately replaceable
 
 The stock-Pi setup path turns a supported running Debian-based Pi into an Ark through explicit setup steps rather than requiring a clone of the original system image. Device-specific private identity is separate from the portable public description.
 
-That coordinator now shares platform profiles for the Pi and generic Debian 13 ARM64/x86-64 LAN machines. Read-only discovery binds reviewed roles to hardware identities; LAN profiles retain the host’s existing network configuration and network manager, including systemd-networkd; they do not require NetworkManager or install a hotspot. Architecture-specific PMTiles and Kiwix pins prevent shipping the source machine's binaries indiscriminately. See [Platform flavors](PlatformProfiles.md).
+The coordinator uses platform profiles for the Pi and generic Debian 13 ARM64/x86-64 LAN machines. Read-only discovery binds reviewed roles to hardware identities; LAN profiles retain the host’s existing network configuration and network manager, including systemd-networkd; they do not require NetworkManager or install a hotspot. Architecture-specific PMTiles and Kiwix pins prevent shipping the source machine's binaries indiscriminately. See [Platform flavors](PlatformProfiles.md).
 
 Drive replication adds a capacity-aware file-copy plan rather than a block image: configuration only, whole collections that fit, or all public content. The exact reviewed plan binds public configuration, source revision, selected file sizes/timestamps and destination UUID. The terminal worker protects backing disks, coordinates with content workers, checks partial prefixes before appending and records SHA-256 verification receipts. Its portable catalogue includes only verified copied payloads, while its recipe preserves full restoration intent. See [Clone a content drive](../20-Administration/CloneDrive.md).
 
 **Why it matters:** the desired end state is understandable and reproducible, rather than existing only as the accidental contents of one working machine.
 
-A [clean generic ARM64 software-phase test](../20-Administration/CleanBootstrapTest.md) has now exercised fresh package, Python and service installation, finding and correcting bootstrap defects. A subsequent [uninterrupted frozen-kit replay](../20-Administration/FrozenBootstrapReplay.md) passed in one invocation without manual installer corrections. It omits physical radio setup and is distinct from complete Pi acceptance.
+Validation records cover [clean generic ARM64 installation](../20-Administration/CleanBootstrapTest.md) and [frozen-kit replay](../20-Administration/FrozenBootstrapReplay.md), including package installation, services and reboot checks. Physical Pi acceptance is documented separately.
 
 **Acceptance boundary:** these mechanisms do not yet establish dependable two-way regeneration. Fresh-system, spare-media and interruption acceptance remain required.
 
@@ -186,11 +186,21 @@ A normal import can trigger web publication, so a live-only correction is insuff
 
 The release audit runs the actual deployment script in a private mount namespace. Its source and web paths point to an isolated checkout and staging destination, with the real content mounted read-only. Assertions verify the expected interface contracts after deployment. Read-only HTTP checks exercise local landing-page destinations, actual Kiwix entry pages and representative reader resources. Anonymous mutation requests verify caretaker boundaries without performing destructive actions.
 
-The refreshed kit carries a validation record tied to its exact source revision. This record separates deployment/serving checks from earlier clean-OS bootstrap and physical-media acceptance; a passing web replay is not silently promoted into a complete hardware-recovery claim. [October 30 release audit](../20-Administration/ReleaseAudit.md).
+The bootstrap kit carries a validation record tied to its exact source revision. The record distinguishes web deployment and reader checks from clean-OS installation and physical-media recovery tests. See the [validation report](../20-Administration/ReleaseAudit.md).
 
 ## 18. Hardware attribution follows observed hardware
 
 “Powered by Raspberry Pi” is conditional on the machine’s reported device-tree model. A missing identity, generic ARM board or QEMU/server identity does not receive the badge. Platform capability discovery and this presentation check serve different purposes: choosing a compatible installer profile does not by itself establish hardware branding.
+
+## 19. A system card can carry its own library and establish a new owner
+
+A capped, preallocated ext4 image on the system card provides an independent content filesystem without an external disk. The grow operation verifies the recorded inode/device, mounted loop backing file and filesystem type before extending storage online. It preserves at least 10 GiB of system headroom and never shrinks or formats an existing library. The physical test card expanded from 4 to 80 GiB with all sample hashes preserved.
+
+Recipient preparation separates software/content from the identity of the person who prepared the card. At recipient boot it replaces the hostname, machine/Ark identity and SSH host keys and removes the provisioner authorized keys. A four-digit pairing code gates first-owner setup through the browser; a root-owned, serialized helper persists failed attempts and a one-minute cooldown after five failures. Successful enrollment consumes the code and installs separate caretaker and Linux admin passwords. Root remains locked, with direct root SSH disabled. The local setup prompt dismisses itself if browser enrollment completes.
+
+**Why it matters:** a prepared card can demonstrate the Ark offline, headless and without an external content drive or an activation service. A short pairing code establishes initial ownership without requiring a long transfer secret.
+
+Physical acceptance exercised reboot into recipient setup, browser API enrollment and cooldown from a desktop on the LAN, new identity, password-based admin SSH, rejection of the old provisioning key, and healthy services. A real pseudo-terminal test verified prompt dismissal. This is distinct from a phone-over-hotspot client check and from an uninterrupted fresh-OS bootstrap replay. See [system-card library and recipient setup](../20-Administration/SystemCardLibrary.md).
 
 ## Maintaining this chapter
 

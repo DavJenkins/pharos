@@ -1,12 +1,12 @@
 # Data Ark handbook and handover
 
-[Browse the complete handbook](../SUMMARY.md)
+[Browse the complete handbook](../summary.md)
 
 ## Purpose and scope
 
 This handbook is the entry point for someone inheriting the appliance or returning to it after time away. It records the philosophy, intended behavior, deployed design, configuration dependencies, routine care and remaining work. It is also a navigation map to the more detailed guides, not a claim that every recovery scenario has been tested.
 
-The core implementation and settings were reviewed on October 22, 2026; maps, forms, browser terminal and peripheral-resource guidance were updated on October 23, 2026. Dynamic facts such as installed collections, free space, addresses and job state belong in the live interface and private configuration inventory. Historic project notes must not be mistaken for current instructions.
+Installed collections, free space, network addresses and job state are shown in the live interface. Configuration and operating procedures are described in the guides below; dated test records are kept separately.
 
 ## The central promise
 
@@ -14,13 +14,19 @@ Useful knowledge should remain accessible when the internet does not. A person n
 
 The name and practical mission emphasize preservation, continuity and recoverability. Information should not depend on one person's memory, a single cloud account or an undocumented workstation. Maintenance knowledge belongs with the appliance as well as in its source repository.
 
+## Ways to receive or share an Ark
+
+An Ark can travel as a complete appliance, a prepared microSD with its own offline library, or a populated content drive. A software-only bootstrap is another route; its installation currently needs internet. Prepared appliances and cards require no online activation. A recipient can establish unique credentials through the hotspot using a four-digit pairing code, without a monitor or internet. Root remains locked; there is no shared root password.
+
+See [delivery formats and offline startup](../10-User/SharingAnArk.md) and [system-card library and recipient preparation](../20-Administration/SystemCardLibrary.md).
+
 ## Philosophy and decisions
 
 ### Peripheral resources are part of the mission
 
 The Ark exists to preserve and serve useful content, especially under adverse conditions. Under those conditions, capabilities incidental to that mission should be considered potential peripheral resources: the local network, Linux computer, terminal, storage, file-transfer services, installed tools and physical interfaces may solve problems beyond reading the library.
 
-Make existing capabilities discoverable and usable without crowding out the library. Document what is available now, what requires authentication or additional equipment, what depends on upstream connectivity, and what is only a possibility. Useful peripheral functions are not limited to operating or maintaining the Ark.
+Make existing capabilities discoverable and usable without crowding out the library. Document the available capabilities, what requires authentication or additional equipment, what depends on upstream connectivity, and what is only a possibility. Useful peripheral functions are not limited to operating or maintaining the Ark.
 
 Preserve the primary service while enabling this broader usefulness. Open reading and copying stay open to everyone. Authorization protects actions that can disrupt service, change shared state or destroy content; it is not a separate class of access to knowledge. Resource limits, isolation and recovery paths should be considered when adding a capability. These are design requirements, not a claim that all shell jobs are currently quota-limited or isolated from the library.
 
@@ -30,7 +36,7 @@ See [Resources beyond the library](../10-User/Resources.md) for the current inve
 
 Anyone who can reach the public library should be able to read, search and copy it. Access does not require a personal reader account. Caretaking protects the common copy, storage and network configuration rather than granting a privileged class of readers.
 
-Installed content can be removed only through an explicit, authenticated confirmation. Supported removed collections retain their source definitions and can be reinstated, including pre-seeded archives. Public requests for new collections and approval rules for large storage use are agreed goals, but the current implementation still requires the caretaker password for downloads and reinstatement.
+Installed content can be removed only through an explicit, authenticated confirmation. Supported removed collections retain their source definitions and can be reinstated, including pre-seeded archives. Downloads and reinstatement require caretaker authorization.
 
 ### Show what exists
 
@@ -77,7 +83,7 @@ The GitHub repository is not automatically a backup of the working checkout. Git
 - [Source and handover](../20-Administration/SourceAndHandover.md): repositories, backups, credentials and transfer of responsibility.
 - [Architecture](../30-Developer/Architecture.md) and [Developer Guide](../30-Developer/DeveloperGuide.md): implementation and change workflow.
 
-Maps, household backups and portal behavior have dedicated guides in the [contents](../SUMMARY.md). Their rules are separate; a resource link does not create a synchronization job.
+Maps, household backups and portal behavior have dedicated guides in the [contents](../summary.md). Their rules are separate; a resource link does not create a synchronization job.
 
 ## What is working versus what is promised
 

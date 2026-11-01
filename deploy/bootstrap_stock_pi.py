@@ -251,7 +251,7 @@ class Installer:
   self.script('install_desktop.py')
   atomic(Path('/var/lib/dataark/bootstrap-readiness.json'),json.dumps({'status':'software_phases_completed_client_acceptance_required','checks_remaining':['Reboot and confirm mount']+(['Hotspot client and captive detection'] if platforms.selected(self.c)['network_mode']=='hotspot' else ['Existing LAN connectivity retained'])+['Offline article and image','Maps/forms/radio tools','Management authentication','Independent fresh-media recovery'],'finished_at':time.time()},indent=2)+'\n')
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--kit',type=Path);p.add_argument('--site',type=Path);p.add_argument('--profile');p.add_argument('--list-profiles',action='store_true');p.add_argument('--discover',action='store_true');p.add_argument('--accept-plan');p.add_argument('--apply',action='store_true');p.add_argument('--demo-library-gib',type=int,help='Explicitly reserve 2–16 GiB on the system card and install the fixed demo samples');p.add_argument('--resume-over-ethernet',action='store_true',help='Resume a journaled installation over an unchanged wired SSH path');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--kit',type=Path);p.add_argument('--site',type=Path);p.add_argument('--profile');p.add_argument('--list-profiles',action='store_true');p.add_argument('--discover',action='store_true');p.add_argument('--accept-plan');p.add_argument('--apply',action='store_true');p.add_argument('--demo-library-gib',type=int,help='Explicitly reserve 2â€“16 GiB on the system card and install the fixed demo samples');p.add_argument('--resume-over-ethernet',action='store_true',help='Resume a journaled installation over an unchanged wired SSH path');a=p.parse_args()
  if a.list_profiles:
   print(json.dumps([platforms.profile(p.stem) for p in sorted(platforms.PROFILES.glob('*.json'))],indent=2));return
  if a.discover:print(json.dumps(platforms.discover(),indent=2));return
@@ -260,10 +260,10 @@ def main():
  if a.profile:c=platforms.configure(c,a.profile)
  if a.demo_library_gib is not None:c['demo_library']={'size_gib':a.demo_library_gib}
  if not a.apply and a.demo_library_gib is None and not c.get('demo_library') and os.isatty(0) and kit.stat().st_dev==Path('/').stat().st_dev:
-  answer=input('No separate content drive selected. Optional demo library on system card? Enter GiB (2–16, suggested 4), or Enter to decline: ').strip()
+  answer=input('No separate content drive selected. Optional demo library on system card? Enter GiB (2â€“16, suggested 4), or Enter to decline: ').strip()
   if answer.lower() not in ('','n','no'):
    try:c['demo_library']={'size_gib':int(answer)}
-   except ValueError:p.error('Enter a whole demo-library size from 2 to 16 GiB, or decline.')
+   except ValueError:p.error('Enter a whole demo-library size from 2 to 1024 GiB, or decline.')
  if c.get('demo_library'):
   c['demo_library']['sample_configuration_sha256']=sha(kit/'demo-library.json')
   if 'e2fsprogs' not in c['packages']:c['packages'].append('e2fsprogs')

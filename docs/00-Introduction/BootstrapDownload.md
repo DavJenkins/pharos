@@ -2,6 +2,10 @@
 
 Turn a supported Raspberry Pi into a local knowledge appliance, then choose the content you want it to carry.
 
+## Choose a delivery format
+
+A prepared appliance or ready-to-run microSD can start offline with its installed content. The downloadable bootstrap below is a software/configuration kit: it needs internet for installation dependencies and does not include the full library or a preinstalled operating system. A populated content drive is another way to share installed material. See [ways to build or share an Ark](../10-User/SharingAnArk.md).
+
 ## Get the bootstrap
 
 [Download bootstrap — Preview 2.1](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2.1/data-ark-bootstrap-2026.10.30-preview.2.1.tar.gz)

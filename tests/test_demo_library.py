@@ -10,7 +10,8 @@ from deploy import demo_library as d
 class DemoLibraryTests(unittest.TestCase):
     def test_capacity_is_explicit_and_preserves_system_headroom(self):
         self.assertEqual(d.plan(4, 20*d.GIB)['system_free_after_bytes'],16*d.GIB)
-        for size in [0,1,17,True,1.5]:
+        self.assertEqual(d.plan(80,110*d.GIB)['system_free_after_bytes'],30*d.GIB)
+        for size in [0,1,1025,True,1.5]:
             with self.subTest(size=size),self.assertRaises(ValueError):d.plan(size,100*d.GIB)
         with self.assertRaises(ValueError):d.plan(4,13*d.GIB)
 
@@ -73,3 +74,24 @@ class DemoLibraryTests(unittest.TestCase):
             removed=dict(result['assets'][0],removed=True);result['assets'][0]=removed
             from app.services.demo_library import overlay
             self.assertTrue(overlay(result,config)['assets'][0]['removed'])
+
+
+class LibraryGrowthTests(unittest.TestCase):
+    def test_refuses_shrink_and_unowned_images_without_commands(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);image=root/'image';state=root/'state';mount=root/'mount';mount.mkdir()
+            with image.open('wb') as f:f.truncate(4*d.GIB)
+            info=image.stat()
+            record={'image':str(image),'inode':info.st_ino,'device':info.st_dev,'capacity_bytes':4*d.GIB,'stage':'ready'}
+            state.write_text(json.dumps(record))
+            with self.assertRaisesRegex(ValueError,'Shrinking'):d.grow(2,image,state,mount)
+            record['inode']+=1;state.write_text(json.dumps(record))
+            with self.assertRaisesRegex(ValueError,'ownership'):d.grow(80,image,state,mount)
+
+    def test_insufficient_headroom_is_refused_before_resize(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);image=root/'image';state=root/'state';mount=root/'mount';mount.mkdir()
+            with image.open('wb') as f:f.truncate(4*d.GIB)
+            info=image.stat();state.write_text(json.dumps({'image':str(image),'inode':info.st_ino,'device':info.st_dev,'capacity_bytes':4*d.GIB,'stage':'ready'}))
+            with patch.object(d.shutil,'disk_usage',return_value=SimpleNamespace(free=80*d.GIB)),self.assertRaisesRegex(ValueError,'10 GiB'):d.grow(80,image,state,mount)
+            self.assertEqual(image.stat().st_size,4*d.GIB)

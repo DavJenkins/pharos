@@ -67,3 +67,6 @@ app.include_router(configuration_router)
 
 from app.routers.software_updates import router as software_updates_router
 app.include_router(software_updates_router)
+
+from app.routers.recipient import router as recipient_router
+app.include_router(recipient_router)

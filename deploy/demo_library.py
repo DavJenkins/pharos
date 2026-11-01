@@ -16,8 +16,8 @@ MOUNT = Path('/mnt/storage')
 
 
 def plan(size_gib, free_bytes, existing=False):
-    if type(size_gib) is not int or not 2 <= size_gib <= 16:
-        raise ValueError('Choose a whole number from 2 to 16 GiB.')
+    if type(size_gib) is not int or not 2 <= size_gib <= 1024:
+        raise ValueError('Choose a whole number from 2 to 1024 GiB.')
     remaining = free_bytes if existing else free_bytes - size_gib * GIB
     if remaining < OS_RESERVE_GIB * GIB:
         raise ValueError('Demo allocation must leave at least 10 GiB free for the operating system.')
@@ -159,3 +159,48 @@ def samples(repo, root=MOUNT):
                 raise
         target.chmod(0o644)
     return config
+
+
+def grow(size_gib, image=IMAGE, state=STATE, mount=MOUNT, runner=subprocess.run):
+    """Grow only our mounted ext4 image; never shrink or format existing content."""
+    for path in (image, state, mount):
+        if path.is_symlink() or any(p.is_symlink() for p in path.parents):
+            raise ValueError('Storage paths must not contain symlinks.')
+    saved = json.loads(state.read_text())
+    info = image.stat()
+    old = saved['capacity_bytes']
+    target = size_gib * GIB
+    if saved.get('stage') != 'ready' or saved.get('image') != str(image) or not stat.S_ISREG(info.st_mode) or saved.get('inode') != info.st_ino or saved.get('device') != info.st_dev or info.st_size != old:
+        raise ValueError('Image ownership or size changed; inspect before resizing.')
+    if target < old:
+        raise ValueError('Shrinking is not supported.')
+    plan(size_gib, shutil.disk_usage(image.parent).free - (target-old), existing=True)
+    loop = runner(['findmnt','-n','-o','SOURCE','--mountpoint',str(mount)],capture_output=True,text=True,check=True).stdout.strip()
+    backing = runner(['losetup','-n','-O','BACK-FILE',loop],capture_output=True,text=True,check=True).stdout.strip()
+    filesystem = runner(['findmnt','-n','-o','FSTYPE','--mountpoint',str(mount)],capture_output=True,text=True,check=True).stdout.strip()
+    if not loop.startswith('/dev/loop') or Path(backing).resolve() != image.resolve() or filesystem != 'ext4':
+        raise ValueError('Mounted volume is not the owned ext4 image.')
+    if target == old:return saved
+    journal = state.with_suffix('.resize.json')
+    if journal.exists():raise ValueError('A previous resize needs inspection.')
+    _save(journal, {'stage':'growing','old_bytes':old,'new_bytes':target,'image':str(image)})
+    with image.open('r+b') as stream:
+        os.posix_fallocate(stream.fileno(), old, target-old)
+        os.fsync(stream.fileno())
+    runner(['losetup','--set-capacity',loop],check=True)
+    runner(['resize2fs',loop],check=True)
+    saved.update(capacity_bytes=target,size_gib=size_gib,system_free_after_bytes=shutil.disk_usage(image.parent).free)
+    _save(state,saved)
+    marker=mount/'DEMO-LIBRARY.json'
+    marker.write_text(json.dumps({'label':saved['label'],'size_gib':size_gib,'capacity_bytes':target},indent=2)+'\n')
+    journal.unlink()
+    return saved
+
+
+if __name__ == '__main__':
+    import argparse
+    parser=argparse.ArgumentParser(description='Grow the system-card library without replacing content.')
+    parser.add_argument('--grow-gib',type=int,required=True)
+    args=parser.parse_args()
+    if os.geteuid()!=0:raise SystemExit('Run with sudo.')
+    print(json.dumps(grow(args.grow_gib),indent=2))
