@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "enabled": true,
+  "shortcut": {
+    "name": "Open Data Ark",
+    "comment": "Open this Ark's dashboard, library and community board",
+    "url": "http://127.0.0.1/",
+    "icon": "app/static/assets/Pharos Data Ark.png"
+  },
+  "wallpaper": {
+    "source": "app/static/assets/pharos-desktop-wide.png",
+    "mode": "crop",
+    "background": "#172d40"
+  },
+  "login_background": true,
+  "boot_splash": true
+}
