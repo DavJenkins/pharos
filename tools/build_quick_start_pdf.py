@@ -61,8 +61,8 @@ def frame(c,doc):
  c.setFont('Helvetica',10);c.drawString(50,h-79,'MicroSD quick start  |  Raspberry Pi 4')
  c.setStrokeColor(gold);c.setLineWidth(2);c.line(0,h-97,w,h-97)
  c.setStrokeColor(colors.HexColor('#d5c79f'));c.setLineWidth(.5);c.line(50,35,w-50,35)
- c.setFillColor(ink);c.setFont('Helvetica',8);c.drawString(50,22,'DEJ Software | www.dejsoftware.com');c.drawRightString(w-50,22,'Keep this sheet with your card')
- c.linkURL('https://www.dejsoftware.com/',(50,18,215,30),relative=0)
+ c.setFillColor(ink);c.setFont('Helvetica',8);c.drawString(50,22,'DEJ Software | Online version (internet required)');c.drawRightString(w-50,22,'Keep this sheet with your card')
+ c.linkURL('https://www.dejsoftware.com/data-ark/docs/10-User/assets/data-ark-quick-start.pdf',(50,18,215,30),relative=0)
 
 doc=SimpleDocTemplate(str(out),pagesize=(612,792),leftMargin=50,rightMargin=50,topMargin=111,bottomMargin=45,title='Pharos Data Ark - MicroSD Quick Start',author='DEJ Software')
 doc.build(story,onFirstPage=frame,onLaterPages=frame)

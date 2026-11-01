@@ -7,11 +7,12 @@ import html
 import re
 import sys
 import shutil
+import yaml
 from urllib.parse import urlsplit, urlunsplit
 
 SOURCE = Path(__file__).resolve().parents[1] / 'docs'
 sys.path.insert(0, str(SOURCE.parent))
-from app.services.documentation_theme import masthead, footer, stylesheet_url
+from app.services.documentation_theme import masthead, footer, stylesheet_url, online_notice, online_guide_url
 from tools.documentation_paths import validate as validate_public_paths
 
 
@@ -62,7 +63,7 @@ def inline_html(text):
     return "".join(chunks)
 
 
-def markdown_to_html(text):
+def markdown_to_html(text, online_url=None, publication_date=None):
 
     out = []
 
@@ -171,6 +172,7 @@ def markdown_to_html(text):
         out.append('</code></pre><button type="button" class="copy-command">Copy code</button><span class="copy-feedback" role="status"></span></div>')
     if has_code:
         out.append(CODE_CONTROLS)
+    if online_url:out.append(online_notice(online_url,publication_date))
     out.append('</main>' + footer() + '</div></body></html>')
 
     return "\n".join(out)
@@ -189,10 +191,11 @@ def publish(source, target):
         raise ValueError('No documentation source files found')
     validate_public_paths(source.rglob('*'),source)
     target.mkdir(parents=True, exist_ok=True)
+    config=yaml.safe_load((SOURCE.parent/'config/documentation.yaml').read_text(encoding='utf-8'))
     for md in documents:
         outfile = target / md.relative_to(source).with_suffix('.html')
         outfile.parent.mkdir(parents=True, exist_ok=True)
-        outfile.write_text(markdown_to_html(md.read_text(encoding='utf-8')), encoding='utf-8')
+        outfile.write_text(markdown_to_html(md.read_text(encoding='utf-8'),online_guide_url(md.relative_to(source),config['website_base']),config.get('publication_date')), encoding='utf-8')
     for asset in source.rglob('*'):
         if asset.is_file() and asset.suffix in {'.json','.yaml','.yml','.txt','.pdf','.png','.jpg','.jpeg','.svg','.webp','.css'}:
             destination=target/asset.relative_to(source);destination.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(asset,destination)

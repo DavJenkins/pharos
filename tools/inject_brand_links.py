@@ -2,7 +2,9 @@
 """Link public DEJ branding; leave existing anchors, code and form values alone."""
 from html.parser import HTMLParser
 from pathlib import Path
-import re,sys
+import re,sys,json
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from app.services.documentation_theme import online_notice
 SCRIPT='<script src="/assets/js/background-sign-link.js?v=brand-links-2"></script>'
 class BrandLinks(HTMLParser):
  def __init__(self):super().__init__(convert_charrefs=False);self.out=[];self.skipped=[]
@@ -46,6 +48,10 @@ def inject(target):
   text=p.read_text(encoding='utf-8');updated=application_brand(brand_links(text))
   if 'background-sign-link.js' not in updated:updated=updated.replace('</body>',SCRIPT+'</body>')
   if 'dej-community-links.js' not in updated:updated=updated.replace('</body>','<script src="/assets/js/dej-community-links.js?v=1"></script></body>')
+  counterparts={'content.html':'guides/content.html','resources.html':'guides/resources.html','legal/ifixit.html':'legal/ifixit.html'}
+  counterpart=counterparts.get(p.relative_to(target).as_posix())
+  if counterpart and 'docs-online-version' not in updated:
+   updated=updated.replace('</main>',online_notice('https://www.dejsoftware.com/data-ark/'+counterpart)+'</main>',1)
   if updated!=text:p.write_text(updated,encoding='utf-8');count+=1
  return count
 if __name__=='__main__':print('Brand links updated on',inject(Path(sys.argv[1])),'pages')

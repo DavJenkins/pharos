@@ -16,6 +16,7 @@ def input_digest(path):
   content=value.encode('utf-8')
  return hashlib.sha256(content).hexdigest()
 from tools.publish_docs import markdown_to_html
+from app.services.documentation_theme import online_notice
 from tools import public_handbook, public_downloads
 from tools.documentation_paths import validate as validate_public_paths
 
@@ -55,7 +56,7 @@ def build(website=None):
   body=re.sub(r'^<p class="docs-eyebrow">.*?</p>','',body,count=1)
   body=re.sub(r'<p>\*(.*?)\*</p>',r'<p><em>\1</em></p>',body)
   nav=''.join('<a href="'+('/docs/summary.html' if v['id']=='handbook' else url_for(v['id'],False))+'">'+html.escape(labels[v['id']])+'</a>' for v in pages)
-  offline=rendered.replace('<title>Data Ark Documentation</title>','<title>'+html.escape(p['title'])+'</title>').replace(re.search(r'<main[^>]*>.*?</main>',rendered,re.S).group(0),'<main class="docs-paper handbook-paper"><nav aria-label="Ark publications">'+nav+'</nav><p class="docs-eyebrow">INSTALLED SOFTWARE EDITION · '+edition+'</p>'+links(p,body,False)+'</main>')
+  offline=rendered.replace('<title>Data Ark Documentation</title>','<title>'+html.escape(p['title'])+'</title>').replace(re.search(r'<main[^>]*>.*?</main>',rendered,re.S).group(0),'<main class="docs-paper handbook-paper"><nav aria-label="Ark publications">'+nav+'</nav><p class="docs-eyebrow">INSTALLED SOFTWARE EDITION · '+edition+'</p>'+links(p,body,False)+online_notice(c['website_base']+url_for(p['id'],True),c['publication_date'])+'</main>')
   dest=local/p['id'];dest.mkdir(exist_ok=True);(dest/'index.html').write_text(offline,encoding='utf-8')
   if website:
    for target,pinned in [(web/p['id'],False),(archive/p['id'],True)]:

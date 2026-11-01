@@ -1,6 +1,8 @@
 from pathlib import Path
 import json,hashlib,zipfile,re,os,shutil
-import argparse
+import argparse,sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from app.services.documentation_theme import online_notice
 parser=argparse.ArgumentParser(description='Package complete rendered website editions for GitHub Releases before replacing website archives.')
 parser.add_argument('--edition');parser.add_argument('--website',required=True,type=Path);parser.add_argument('--output',required=True,type=Path);args=parser.parse_args()
 web=args.website.resolve();out=args.output.resolve();out.mkdir(parents=True,exist_ok=True)
@@ -31,12 +33,15 @@ for directory in sorted((web/'data-ark/editions').iterdir()):
       target=os.path.relpath(target.split('?')[0] or '.',str(Path(rel).parent)).replace('\\','/')
       if url.endswith('/'):target=target.rstrip('/')+'/index.html'
      return attr+'="'+target+'"'
-    text=re.sub(r'(href|src)="([^"]+)"',link,text);data=text.encode('utf-8')
+    text=re.sub(r'(href|src)="([^"]+)"',link,text)
+    counterpart='https://www.dejsoftware.com/data-ark/'+(rel[:-10] if rel.endswith('index.html') else rel)
+    text=text.replace('</main>',online_notice(counterpart,edition[:10])+'</main>',1)
+    data=text.encode('utf-8')
    bundle.writestr(rel,data)
   bundle.writestr('styles.css',(web/'styles.css').read_bytes())
   for rel in ['assets/js/dej-community-links.js','assets/dej-affiliations.webp']:bundle.writestr(rel,(web/rel).read_bytes())
   bundle.writestr('assets/dej_software_footer.webp',(web/'assets/dej_software_footer.webp').read_bytes())
-  bundle.writestr('index.html','<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Data Ark handbook '+edition+'</title><link rel="stylesheet" href="styles.css"><main class="wrap collection-document"><h1>Data Ark handbook</h1><p>Edition '+edition+'</p><ul>'+''.join('<li><a href="'+p+'/index.html">'+p.title()+'</a></li>' for p in ['handbook','collection','features','engineering','installation','bootstrap'])+'</ul>'+('<p><a href="docs/index.html">Complete handbook contents</a> · <a href="api/index.html">API reference</a></p>' if (directory/'docs').exists() else '')+'</main><script src="assets/js/dej-community-links.js"></script></html>')
+  bundle.writestr('index.html','<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Data Ark handbook '+edition+'</title><link rel="stylesheet" href="styles.css"><main class="wrap collection-document"><h1>Data Ark handbook</h1><p>Edition '+edition+'</p><ul>'+''.join('<li><a href="'+p+'/index.html">'+p.title()+'</a></li>' for p in ['handbook','collection','features','engineering','installation','bootstrap'])+'</ul>'+('<p><a href="docs/index.html">Complete handbook contents</a> · <a href="api/index.html">API reference</a></p>' if (directory/'docs').exists() else '')+online_notice('https://www.dejsoftware.com/data-ark/docs/',edition[:10])+'</main><script src="assets/js/dej-community-links.js"></script></html>')
   bundle.writestr('README.txt','Extract this entire ZIP, then open index.html. Its edition pages and stylesheet are bundled. External website links and Ark administration links require their respective connections.\n')
  digest=hashlib.sha256(archive.read_bytes()).hexdigest();final=archive.with_name(archive.stem+'-'+digest[:12]+archive.suffix);archive.replace(final);archive=final
  produced.append(archive)

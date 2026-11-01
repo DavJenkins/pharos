@@ -36,6 +36,10 @@ styles={
 }
 def clean(s):return s.replace('\u2014',' - ').replace('\u2013','-').replace('\u2011','-').replace('\u2019',"'").replace('\u201c','"').replace('\u201d','"')
 def p(text,style):return Paragraph(escape(clean(text)),styles[style])
+def online_pdf_link(canvas,y,color):
+ canvas.setFont('Ark',7.5);canvas.setFillColor(color);canvas.drawCentredString(W/2,y,'Online version - internet required')
+ canvas.linkURL('https://www.dejsoftware.com/data-ark/collection/',(W/2-110,y-2,W/2+110,y+9),relative=0)
+
 def bg(canvas,doc):
  canvas.setFillColor(CREAM);canvas.rect(0,0,W,H,fill=1,stroke=0)
  canvas.setFillColor(BLUE);canvas.rect(0,H-82,W,82,fill=1,stroke=0)
@@ -43,12 +47,15 @@ def bg(canvas,doc):
  canvas.setFillColor(CREAM);canvas.setFont('Ark',12);canvas.drawString(42,H-54,'THE COLLECTION / PRESERVED ON THE ARK')
  canvas.setStrokeColor(GOLD);canvas.line(42,43,W-42,43)
  canvas.setFont('Ark',8);canvas.setFillColor(GRAY);canvas.drawString(42,29,'DEJ SOFTWARE  |  COLLECTION SNAPSHOT: '+edition.upper());canvas.drawRightString(W-42,29,str(doc.page))
+ online_pdf_link(canvas,16,GRAY)
+
 def cover(canvas,doc):
  canvas.setFillColor(BLUE);canvas.rect(0,0,W,H,fill=1,stroke=0)
  canvas.setStrokeColor(GOLD);canvas.setLineWidth(1);canvas.rect(27,27,W-54,H-54,fill=0,stroke=1)
  logo=R/'app/static/assets/pharos-data-ark-flat.png'
  if logo.exists():canvas.drawImage(cover_image(logo),80,578,width=452,height=184,mask='auto',preserveAspectRatio=True,anchor='c')
  canvas.setFillColor(HexColor('#d4af37'));canvas.setFont('ArkBold',10);canvas.drawString(58,55,'DEJ SOFTWARE');canvas.setFont('Ark',9);canvas.drawRightString(W-58,55,'PRACTICAL SOFTWARE FOR REAL LIFE')
+ online_pdf_link(canvas,37,HexColor('#e0bd68'))
 page_names={2:'KNOWLEDGE, REPAIRS AND MAPS',3:'PREPAREDNESS, PAPERWORK AND LEARNING',4:'FIELD SKILLS, POWER, LAW AND RADIO',5:'FOOD, WATER, SHELTER AND CARE',6:'GARDENS, ANIMALS AND HOUSEHOLD RESILIENCE'}
 path=args.output
 path.parent.mkdir(parents=True,exist_ok=True)

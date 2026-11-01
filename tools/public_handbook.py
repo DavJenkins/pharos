@@ -79,11 +79,11 @@ def publish(root,web,archive,edition,config,frame):
    if not source.is_file():continue
    rel=source.relative_to(root/'docs');out=docs/rel
    if source.suffix=='.md':
-    out=out.with_suffix('.html');text=source.read_text(encoding='utf-8-sig');title=next((line[2:] for line in text.splitlines() if line.startswith('# ')),source.stem)
+    out=out.with_suffix('.html');out=docs/'overview.html' if rel.as_posix()=='index.md' else out;text=source.read_text(encoding='utf-8-sig');title=next((line[2:] for line in text.splitlines() if line.startswith('# ')),source.stem)
     content='<p><a href="'+prefix+'docs/">Handbook contents</a></p>'+rewrite(root,source,body(text),prefix,selected=selected)
     out.parent.mkdir(parents=True,exist_ok=True);out.write_text(frame(title,content,prefix+'docs/'+rel.with_suffix('.html').as_posix(),prefix),encoding='utf-8')
    elif source.suffix in ASSETS:out.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,out)
-  (docs/'index.html').write_text((docs/'SUMMARY.html').read_text(encoding='utf-8'),encoding='utf-8')
+  (docs/'index.html').write_text((docs/'summary.html').read_text(encoding='utf-8'),encoding='utf-8')
   schema=json.loads((root/'docs/30-Developer/api/openapi.json').read_text(encoding='utf-8-sig'));api=target/'api';api.mkdir(exist_ok=True)
   (api/'index.html').write_text(frame('Data Ark API reference',api_body(schema,prefix+'api/openapi.json',prefix+'docs/'),prefix+'api/',prefix),encoding='utf-8');shutil.copyfile(root/'docs/30-Developer/api/openapi.json',api/'openapi.json')
   for source in list((root/'app/static/legal').glob('*.html'))+[root/'app/static/content.html',root/'app/static/resources.html']:
