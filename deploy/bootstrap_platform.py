@@ -12,6 +12,7 @@ import platform
 import re
 import shutil
 import subprocess
+import tempfile
 
 PROFILES = Path(__file__).resolve().parent/'platforms'
 DEFAULT = 'raspberry-pi-debian13-arm64'
@@ -175,6 +176,28 @@ class DebianAdapter:
     def packages(self,names):
         self.run(['apt-get','update']);self.run(['apt-get','install','-y','--no-install-recommends',*names])
     def hostname(self,name):self.run(['hostnamectl','set-hostname',name])
-    def country(self,country,raspberry=False):
-        if raspberry and Path('/usr/bin/raspi-config').exists():self.run(['raspi-config','nonint','do_wifi_country',country])
-        else:self.run(['iw','reg','set',country])
+    def country(self,country,raspberry=False,root=Path('/')):
+        if not isinstance(country,str) or not re.fullmatch('[A-Z]{2}',country):
+            raise ValueError('A two-letter regulatory country is required.')
+        if raspberry:
+            countries=root/'usr/share/zoneinfo/iso3166.tab'
+            if not countries.is_file() or country not in {line.split()[0] for line in countries.read_text().splitlines() if line.strip() and not line.startswith('#')}:
+                raise ValueError('Regulatory country is not in the system ISO country list.')
+            # raspi-config also refreshes a logged-in desktop panel. Its final
+            # session-bus failure can mask successful provisioning in a service.
+            # Persist the same kernel setting and use the system network tools.
+            target=root/'boot/firmware/cmdline.txt'
+            if target.is_symlink():raise ValueError('Pi kernel command line cannot be a symlink.')
+            text=target.read_text();lines=text.splitlines()
+            if len(lines)!=1:raise ValueError('Pi kernel command line must have one line.')
+            tokens=[v for v in lines[0].split() if not v.startswith('cfg80211.ieee80211_regdom=')]
+            updated=' '.join(tokens+['cfg80211.ieee80211_regdom='+country])+'\n'
+            if updated!=text:
+                backup=root/'var/backups/dataark-bootstrap/cmdline-before-country.txt'
+                if not backup.exists():backup.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(target,backup)
+                with tempfile.NamedTemporaryFile(dir=target.parent,delete=False) as stream:
+                    stream.write(updated.encode());stream.flush();os.fsync(stream.fileno());temp=Path(stream.name)
+                try:temp.chmod(target.stat().st_mode&0o777);temp.replace(target)
+                finally:temp.unlink(missing_ok=True)
+        self.run(['iw','reg','set',country])
+        if raspberry:self.run(['nmcli','radio','wifi','on'])
