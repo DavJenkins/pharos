@@ -13,5 +13,23 @@
     "background": "#172d40"
   },
   "login_background": true,
-  "boot_splash": true
+  "boot_splash": true,
+  "icons": {
+    "layout": "top-center",
+    "top": 60,
+    "spacing": 132,
+    "cell_width": 124,
+    "panel": {
+      "enabled": true,
+      "background": "rgba(23,45,64,0.88)",
+      "border": "#d4af37",
+      "text": "#f8f1dc",
+      "radius": 12
+    },
+    "order": [
+      "files",
+      "trash",
+      "mounts"
+    ]
+  }
 }

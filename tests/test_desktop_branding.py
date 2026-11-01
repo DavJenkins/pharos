@@ -25,6 +25,8 @@ class DesktopBrandingTests(unittest.TestCase):
             root=Path(directory);repo=root/'repo';(repo/'config').mkdir(parents=True)
             config=json.loads((Path(__file__).resolve().parents[1]/'config/desktop.json').read_text())
             (repo/'config/desktop.json').write_text(json.dumps(config))
+            (repo/'deploy').mkdir();(repo/'deploy/desktop_layout.py').write_text('# layout helper\n')
+            (repo/'deploy/desktop_panel.py').write_text('# panel helper\n')
             image=repo/config['wallpaper']['source'];image.parent.mkdir(parents=True);image.write_bytes(b'configured artwork')
             icon=repo/config['shortcut']['icon'];icon.parent.mkdir(parents=True,exist_ok=True);icon.write_bytes(b'configured icon')
             desktop=root/'etc/xdg/pcmanfm/default';desktop.mkdir(parents=True)
@@ -45,3 +47,16 @@ class DesktopBrandingTests(unittest.TestCase):
             self.assertIn(['update-initramfs','-u'],calls)
             self.assertEqual((root/'var/backups/dataark-desktop/etc/xdg/pcmanfm/default/desktop-items-0.conf').read_text(),'[*]\nshow_trash=1\nwallpaper=old.png\n')
             count=len(calls);self.assertEqual(install(repo,root,runner=runner)['changed'],[]);self.assertEqual(len(calls),count)
+
+    def test_icon_row_is_centered(self):
+        from deploy.desktop_layout import positions
+        row=positions(['trash','ark','drive'],1920,{'spacing':132,'cell_width':124,'top':60})
+        self.assertEqual(int(row['ark']['x'])+62,960)
+        self.assertEqual({v['y'] for v in row.values()},{'60'})
+
+    def test_panel_uses_configured_dej_colors(self):
+        from deploy.desktop_panel import panel_css
+        css=panel_css({'background':'rgba(23,45,64,0.88)','border':'#d4af37','text':'#f8f1dc','radius':12})
+        self.assertIn('background-color:rgba(23,45,64,0.88)',css)
+        self.assertIn('1px solid #d4af37',css)
+        self.assertIn('color:#f8f1dc',css)

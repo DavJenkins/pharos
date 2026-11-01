@@ -80,6 +80,13 @@ def install(repo=ROOT, system=Path('/'), user='admin', runner=subprocess.run, ow
     entry = '[Desktop Entry]\nType=Application\nName='+shortcut['name']+'\nComment='+shortcut['comment']+'\nExec=xdg-open '+shortcut['url']+'\nIcon='+icon+'\nTerminal=false\nCategories=Education;Utility;\n'
     write('usr/share/applications/dataark.desktop', entry)
     write('home/'+user+'/Desktop/Open Data Ark.desktop', entry, 0o755, True)
+    if config.get('icons',{}).get('layout')=='top-center':
+        write('usr/local/libexec/dataark-desktop-layout',(repo/'deploy/desktop_layout.py').read_bytes(),0o755)
+        if config['icons'].get('panel',{}).get('enabled'):
+            write('usr/local/libexec/dataark_desktop_panel.py',(repo/'deploy/desktop_panel.py').read_bytes())
+            if system==Path('/') and not any((system/'usr/lib').glob('*/girepository-1.0/GtkLayerShell-0.1.typelib')) and not (system/'usr/lib/girepository-1.0/GtkLayerShell-0.1.typelib').exists():
+                runner(['apt-get','install','-y','gir1.2-gtklayershell-0.1'],check=True)
+        write('home/'+user+'/.config/autostart/dataark-desktop-layout.desktop','[Desktop Entry]\nType=Application\nName=Data Ark desktop layout\nExec=/usr/bin/python3 /usr/local/libexec/dataark-desktop-layout\nTryExec=pcmanfm\nTerminal=false\nNoDisplay=true\n',owned=True)
     names={'desktop-items-0.conf','desktop-items-1.conf'}
     names.update(p.name for p in desktop.glob('desktop-items-*.conf'))
     user_desktop=system/'home'/user/'.config/pcmanfm/default'

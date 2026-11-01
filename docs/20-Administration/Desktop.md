@@ -14,4 +14,6 @@ sudo /usr/bin/python3 /opt/dataark/deploy/install_desktop.py
 
 Existing settings are backed up under `/var/backups/dataark-desktop/`. The previous Plymouth theme name is recorded there. The native Pi splash script is reused with Ark artwork, and the normal initramfs updater rebuilds the boot images. Repeating the installer with unchanged settings does not rebuild them again.
 
+The `icons` section controls a top-centered row, its spacing and its distance from the top. A desktop-session helper groups the visible icons above the lighthouse and recalculates positions when monitors, mounted drives or desktop files change. The optional native container uses configured DEJ navy, gold and light text. Its `order` lists file shortcuts, Trash and mounted drives; the default puts Open Data Ark before Trash. The container stays behind application windows and retains normal opening actions. Setting another layout disables this automatic arrangement.
+
 The desktop reads its configuration when it starts. An already running PCManFM session can reload it with `pcmanfm --reconfigure` as the desktop user. The login background and splash are visible on the next login or boot; applying artwork does not require restarting the current web service.
