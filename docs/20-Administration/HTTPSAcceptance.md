@@ -23,10 +23,12 @@ The root HTTPS helper treated only systemd's `active` state as running. A long `
 
 Recipient identity establishment now precedes HTTPS status reconciliation, preventing stale device identity in certificate telemetry. Recipient startup checks for an owner certificate added after preparation was armed.
 
-## Remaining client check and current test-card state
+## Phone acceptance and test-card cleanup
 
-A real phone browser connected through the DataArk hotspot still needs to open the HTTPS hostname and confirm trust. The browser acceptance above was from the wired LAN, not a phone-radio test.
+The owner confirmed that a phone connected through the DataArk hotspot opened the trusted HTTPS hostname without any certificate warning, then used internet pass-through to continue the conversation. This completes the phone-radio acceptance check.
 
-The test card retains its owner-specific certificate for that check. Recipient preparation is paused; it is not ready to mail in this state. Before handoff, retire owner certificate/ACME credentials, clear private certificate-test material, then prepare a fresh recipient identity and pairing code. Public source/configuration recovery kits exclude system-side private state; do not distribute a raw system-card image containing these credentials.
+After that check, the temporary test certificate, its private key, production and staging ACME account material, and the test hostname's captive-DNS mapping were removed from the test card. Apache and captive DNS configuration checks passed, and local HTTP returned 200 after cleanup. Public acceptance results remain available.
+
+Recipient preparation remains unarmed and the current test login is retained for the clean physical installation replay. The card is not yet prepared for mailing; recipient preparation will replace its identity and credentials before handoff.
 
 The [machine-readable result](HTTPSAcceptance.json) records the public certificate details, observations and exact tested helper hashes. This test does not establish an uninterrupted fresh-OS recovery replay or imply that the older published bootstrap archive contains these fixes.

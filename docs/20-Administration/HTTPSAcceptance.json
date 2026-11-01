@@ -43,12 +43,15 @@
   },
   "recipient_certificate_guard": true,
   "focused_tests": 27,
-  "phone_hotspot_browser_check": "pending",
-  "recipient_setup": "paused while owner-specific HTTPS is installed",
+  "phone_hotspot_browser_check": "passed; user confirmed no certificate warning",
+  "recipient_setup": "not armed; test login retained pending clean physical replay",
   "tested_source_sha256": {
     "tools/https_helper.py": "77628e47356f38980e70711add7c1c25287d7a5bd20299bcca4c0a1c8f004729",
     "tools/prepare_recipient.py": "5f1d63f022a5561f333e9d9217ca3c5d72a1334a950d19b242b43e38982acbd9"
   },
   "temporary_dns_challenge_removed": true,
-  "temporary_windows_hostname_mapping_removed": true
+  "temporary_windows_hostname_mapping_removed": true,
+  "phone_internet_pass_through": "passed; user continued conversation through Ark",
+  "test_certificate_retired": true,
+  "private_acme_material_removed": true
 }
