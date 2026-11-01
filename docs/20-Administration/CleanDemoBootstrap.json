@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-01",
+  "status": "passed",
+  "source_revision": "22bc0fdce5ef469355ae62340873a1c4a1b137e3",
+  "source_sha256": "a4df937f864d79d8a493f7b55de22316a8b2570915caaff42d091ae073a19d45",
+  "profile": "debian13-arm64-lan",
+  "scope": "Fresh Debian 13 ARM64 QEMU, no external content disk; actual top-level CLI and full demo-library install",
+  "coordinator_invocations": 1,
+  "manual_corrections": [],
+  "kit_unchanged": true,
+  "installation_seconds": 987,
+  "demo_gib": 4,
+  "pre_reboot": {
+    "ten_phases_completed": true,
+    "desired_source_profile_preserved": true,
+    "capped_system_card_mount": true,
+    "existing_demo_image_reused": true,
+    "caretaker_authentication": true,
+    "reader_article_and_image": true
+  },
+  "post_reboot": {
+    "ten_phases_completed": true,
+    "desired_source_profile_preserved": true,
+    "capped_system_card_mount": true,
+    "existing_demo_image_reused": true,
+    "caretaker_authentication": true,
+    "reader_article_and_image": true
+  },
+  "boot_id_changed": true,
+  "offline_reads_passed": true,
+  "external_route_removed_for_offline_test": true,
+  "regressions_passed": 63,
+  "samples": {
+    "demo-wikipedia": {
+      "sha256": "2eb7fd115bfb8644a08a9482f01f52b507428b1b8a30129fead92f7b6715440b",
+      "bytes": 333429922
+    },
+    "demo-collection-guide": {
+      "sha256": "1375a5b93479ce11c2c7c101fa5640e88837df8e0c0dfe4ee82ce450eb971d0a",
+      "bytes": 425400
+    },
+    "demo-feature-guide": {
+      "sha256": "a7b26cc2a349c313e305d6017c3dda524227ace161814e9a167362c6efb5082e",
+      "bytes": 433230
+    }
+  },
+  "configured_repositories": 29,
+  "post_reboot_health": "ok",
+  "original_physical_media_used": false,
+  "separate_physical_replay_required": true
+}

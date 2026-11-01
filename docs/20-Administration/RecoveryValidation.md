@@ -149,3 +149,17 @@ A newly imaged Raspberry Pi OS 64-bit Debian 13 card booted the reference Pi wit
 The run required recorded corrections: a longer bounded cold-reader startup wait, explicit guarded Ethernet resume, exclusion of transient Docker links from physical-network identity, and consistent local/cloud-init hostname ownership. It is a resumed recovery with documented fixes, not an uninterrupted replay of the published kit. The original system card was retained. Physical client/offline and the complete paired-media sequence remain separate acceptance cases.
 
 Evidence on the test system: `/var/lib/dataark/acceptance/physical-boot-card-20261031/`. Copies of the pre-swap and post-reboot results were also retained outside both test media.
+
+### 1 November 2026: physical cold boot without mounted content media
+
+**Passed:** the recovered test microSD booted the reference Pi with both USB content volumes unmounted. The known content-volume fstab entry was temporarily disabled and desktop automount was masked. The disks remained physically attached; this is an absent-filesystem boot test, not an electrical hot-unplug test.
+
+The system reached its graphical target in approximately 27 seconds with no failed units. Dashboard, status API, Help, Manage Library, Community and Recovery returned HTTP 200. Health explicitly reported unavailable storage and reader, with unknown content capacity. The hotspot remained active. The desired-selection checksum was unchanged and the bare content directory remained empty.
+
+Both original filesystem UUIDs, the original fstab and service settings were restored. Fresh health returned OK with no issues. No physical medium was formatted or overwritten. Evidence: `/var/lib/dataark/acceptance/cold-no-drive-20261101/result.json` on the test card, with a copy retained outside the Pi.
+
+### 1 November 2026: complete clean demo installation and reboot
+
+The [clean demo-library bootstrap acceptance](CleanDemoBootstrap.md) passed all ten installer phases in one invocation on a fresh Debian ARM64 guest with no external content disk. The actual CLI, reviewed plan and password prompts were exercised. The capped 4 GiB demo library, three verified samples, full source profile, article/image reads, authentication and services passed before and after reboot. Reads also passed with external routing removed, and 63 focused regression tests passed. The successful frozen kit remained unchanged. A separate earlier run found a Windows shell-line-ending packaging defect; it was retained, fixed and followed by a second fresh-disk test rather than a patched resume.
+
+These results establish the complete generic demo path and the separately tested physical absent-mount boot. An uninterrupted fresh physical Pi replay remains a card-preparation/swap step.
