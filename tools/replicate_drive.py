@@ -45,7 +45,7 @@ def kit_files(target, profile=None, revision=None, platform_profile=None):
  revision=revision or subprocess.check_output(['git','-c','safe.directory='+str(ROOT),'-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()
  from tools.build_bootstrap_release import archive_bytes,inspect_config
  import io,tarfile,yaml
- raw=subprocess.check_output(['git','-c','safe.directory='+str(ROOT),'-C',str(ROOT),'archive','--format=tar',revision])
+ raw=subprocess.check_output(['git','-c','safe.directory='+str(ROOT),'-c','core.autocrlf=false','-C',str(ROOT),'archive','--format=tar',revision])
  with tarfile.open(fileobj=io.BytesIO(raw)) as archive:
   files={m.name:(archive.extractfile(m).read(),m.mode) for m in archive.getmembers() if m.isfile()}
  public=read(profile.parent/read(profile)['manifest']);inspect_config(public)
@@ -75,7 +75,7 @@ def kit_files(target, profile=None, revision=None, platform_profile=None):
  shutil.copyfile(ROOT/'deploy/reference/pmtiles-LICENSE.txt',kit/'PMTILES-LICENSE.txt')
  (kit/'PMTILES-NOTICE.txt').write_text('Protomaps go-pmtiles CLI '+spec['pmtiles']['version']+', BSD-3-Clause; official source https://github.com/protomaps/go-pmtiles . Processor: '+spec['baseline']['architecture']+'. Official archive SHA-256: '+spec['pmtiles']['archive_sha256']+'. Binary checksum recorded in kit.json.\n')
  metadata={'schema':1,'source_revision':revision,'source_sha256':sha(kit/'dataark-source.tar.gz'),'bootstrap_sha256':sha(kit/'bootstrap_stock_pi.py'),'pmtiles_sha256':sha(kit/'pmtiles'),'status':'experimental_platform_installer_acceptance_pending','credentials_included':False,'device_identity_included':False,'public_manifest_only':True,'platform_profile':spec['id'],'architecture':spec['baseline']['architecture'],'platform_files':platform_files}
- (kit/'kit.json').write_text(json.dumps(metadata,indent=2)+'\n');(target/'START-ARK.sh').write_text(START);(target/'START-ARK.sh').chmod(0o755)
+ (kit/'kit.json').write_text(json.dumps(metadata,indent=2)+'\n');(target/'START-ARK.sh').write_text(START,newline='\n');(target/'START-ARK.sh').chmod(0o755)
  text='''Data Ark installation drive
 
 Selected platform: PLATFORM. Debian 13 (Trixie),

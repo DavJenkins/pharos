@@ -3,4 +3,4 @@
 *.pdf binary
 config/library/** text eol=lf
 
-deploy/emulator/*.sh text eol=lf
+*.sh text eol=lf
