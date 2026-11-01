@@ -7,6 +7,8 @@ def finish(root,website,edition,config):
     shutil.copyfile(website/'styles.css',stage/'styles.css')
     (stage/'assets').mkdir(exist_ok=True)
     shutil.copyfile(website/'assets/dej_software_footer.webp',stage/'assets/dej_software_footer.webp')
+    (stage/'assets/js').mkdir(parents=True,exist_ok=True)
+    for rel in ['assets/js/dej-community-links.js','assets/dej-affiliations.webp']:shutil.copyfile(website/rel,stage/rel)
     data=stage/'data-ark';data.mkdir(exist_ok=True)
     for name in ['collection-catalogue.pdf','feature-catalogue.pdf']:
         shutil.copyfile(root/'app/static'/name,data/name)
@@ -18,7 +20,7 @@ def finish(root,website,edition,config):
     # Only lightweight download landing pages are created in the public archive tree.
     for key,asset in record['editions'].items():
         folder=website/'data-ark/editions'/key;folder.mkdir(parents=True,exist_ok=True)
-        text='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archived Data Ark handbook</title><link rel="stylesheet" href="/styles.css"></head><body><main class="wrap collection-document"><h1>Archived Data Ark handbook</h1><p>Edition '+html.escape(key)+'</p><p><a class="button" href="'+html.escape(asset['url'],quote=True)+'">Download this handbook edition (ZIP)</a></p><p>Extract the entire ZIP and open index.html.</p><p><a href="/data-ark/docs/">Read the current complete handbook online</a></p></main></body></html>'
+        text='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archived Data Ark handbook</title><link rel="stylesheet" href="/styles.css"></head><body><main class="wrap collection-document"><h1>Archived Data Ark handbook</h1><p>Edition '+html.escape(key)+'</p><p><a class="button" href="'+html.escape(asset['url'],quote=True)+'">Download this handbook edition (ZIP)</a></p><p>Extract the entire ZIP and open index.html.</p><p><a href="/data-ark/docs/">Read the current complete handbook online</a></p></main><script src="/assets/js/dej-community-links.js?v=1"></script></body></html>'
         (folder/'index.html').write_text(text,encoding='utf-8')
     for page in website.rglob('*.html'):
         if '.git' in page.parts or 'saved' in page.parts:continue

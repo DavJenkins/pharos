@@ -32,6 +32,7 @@ def build(website=None):
  for path in public_handbook.inputs(ROOT):fingerprints[path.relative_to(ROOT).as_posix()]=input_digest(path)
  for name in ['tools/documentation_paths.py','app/services/documentation_theme.py','app/static/assets/css/ark-documentation.css','app/static/assets/dej-software-footer.webp','tools/publish_docs.py','tools/public_downloads.py','tools/package_document_downloads.py',c['download_history']]:fingerprints[name]=input_digest(ROOT/name)
  fingerprints['tools/public_handbook.py']=input_digest(ROOT/'tools/public_handbook.py')
+ for name in ['app/static/assets/js/dej-community-links.js','app/static/assets/dej-affiliations.webp']:fingerprints[name]=input_digest(ROOT/name)
  fingerprints['config/documentation.yaml']=input_digest(ROOT/'config/documentation.yaml')
  fingerprints['tools/build_public_documents.py']=input_digest(Path(__file__))
  revision=subprocess.check_output(['git','-c','safe.directory='+str(ROOT),'-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()
@@ -39,6 +40,9 @@ def build(website=None):
  local=ROOT/'app/static/about';local.mkdir(exist_ok=True)
  if website:
   website=Path(website);web=website/'data-ark';web.mkdir(exist_ok=True)
+  (website/'assets/js').mkdir(parents=True,exist_ok=True)
+  shutil.copyfile(ROOT/'app/static/assets/js/dej-community-links.js',website/'assets/js/dej-community-links.js')
+  shutil.copyfile(ROOT/'app/static/assets/dej-affiliations.webp',website/'assets/dej-affiliations.webp')
   archive=ROOT/'output/document-download-staging/data-ark/editions'/edition;archive.mkdir(parents=True,exist_ok=True)
  def url_for(page,online,pinned=False):return ('/data-ark/editions/'+edition+'/' if pinned else '/data-ark/')+page+'/' if online else '/about/'+page+'/'
  def links(page,body,online,pinned=False):
@@ -50,7 +54,7 @@ def build(website=None):
   body=re.search(r'<main[^>]*>(.*?)</main>',rendered,re.S).group(1)
   body=re.sub(r'^<p class="docs-eyebrow">.*?</p>','',body,count=1)
   body=re.sub(r'<p>\*(.*?)\*</p>',r'<p><em>\1</em></p>',body)
-  nav=''.join('<a href="'+('/docs/SUMMARY.html' if v['id']=='handbook' else url_for(v['id'],False))+'">'+html.escape(labels[v['id']])+'</a>' for v in pages)
+  nav=''.join('<a href="'+('/docs/summary.html' if v['id']=='handbook' else url_for(v['id'],False))+'">'+html.escape(labels[v['id']])+'</a>' for v in pages)
   offline=rendered.replace('<title>Data Ark Documentation</title>','<title>'+html.escape(p['title'])+'</title>').replace(re.search(r'<main[^>]*>.*?</main>',rendered,re.S).group(0),'<main class="docs-paper handbook-paper"><nav aria-label="Ark publications">'+nav+'</nav><p class="docs-eyebrow">INSTALLED SOFTWARE EDITION · '+edition+'</p>'+links(p,body,False)+'</main>')
   dest=local/p['id'];dest.mkdir(exist_ok=True);(dest/'index.html').write_text(offline,encoding='utf-8')
   if website:
@@ -59,7 +63,7 @@ def build(website=None):
     nav=''.join('<a href="'+(('/data-ark/editions/'+edition+'/' if pinned else '/data-ark/')+'docs/' if v['id']=='handbook' else url_for(v['id'],True,pinned))+'">'+html.escape(labels[v['id']])+'</a>' for v in pages)
     pagebody=links(p,body,True,pinned)
     pdf=p.get('pdf');download='<p><a class="button" href="'+('/data-ark/editions/'+edition+'/' if pinned else '/data-ark/')+Path(pdf).name+'">Download PDF ↓</a></p>' if pdf else ''
-    public='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(p['title'])+' | DEJ Software</title><link rel="canonical" href="'+c['website_base']+url_for(p['id'],True,pinned)+'"><link rel="stylesheet" href="/styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="wrap"><p><a href="/#pharos">← Pharos Data Ark</a></p><nav class="ark-document-nav" aria-label="Ark publications">'+nav+'</nav></header><main id="main" class="wrap collection-document"><p class="eyebrow">PHAROS DATA ARK · '+edition+'</p>'+download+pagebody+'<p class="collection-edition">Generated from the Ark repository. <a href="/data-ark/editions/'+edition+'/'+p['id']+'/">Permanent edition</a> · <a href="/data-ark/publication.json">Publication checksums</a></p></main><footer class="wrap footer"><a class="footer-brand" href="/"><img src="/assets/dej_software_footer.webp" width="1024" height="192" alt="DEJ Software™ — Practical Software for Real Life"></a><a href="/#pharos">Back to Pharos Data Ark</a></footer></body></html>'
+    public='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(p['title'])+' | DEJ Software</title><link rel="canonical" href="'+c['website_base']+url_for(p['id'],True,pinned)+'"><link rel="stylesheet" href="/styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="wrap"><p><a href="/#pharos">← Pharos Data Ark</a></p><nav class="ark-document-nav" aria-label="Ark publications">'+nav+'</nav></header><main id="main" class="wrap collection-document"><p class="eyebrow">PHAROS DATA ARK · '+edition+'</p>'+download+pagebody+'<p class="collection-edition">Generated from the Ark repository. <a href="/data-ark/editions/'+edition+'/'+p['id']+'/">Permanent edition</a> · <a href="/data-ark/publication.json">Publication checksums</a></p></main><footer class="wrap footer"><a class="footer-brand" href="/"><img src="/assets/dej_software_footer.webp" width="1024" height="192" alt="DEJ Software™ — Practical Software for Real Life"></a><a href="/#pharos">Back to Pharos Data Ark</a></footer><script src="/assets/js/dej-community-links.js?v=1"></script></body></html>'
     (target/'index.html').write_text(public,encoding='utf-8')
    if pdf:
     for folder in [archive]:shutil.copyfile(ROOT/pdf,folder/Path(pdf).name)
@@ -68,7 +72,7 @@ def build(website=None):
  if website:
   def frame(title,body,path,prefix):
    nav=''.join('<a href="'+(prefix+'docs/' if p['id']=='handbook' else prefix+p['id']+'/')+'">'+html.escape(labels[p['id']])+'</a>' for p in pages)+'<a href="'+prefix+'api/">API</a>'
-   return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(title)+' | DEJ Software</title><link rel="canonical" href="'+c['website_base']+path+'"><link rel="stylesheet" href="/styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="wrap"><p><a href="/#pharos">← Pharos Data Ark</a></p><nav class="ark-document-nav" aria-label="Ark documentation">'+nav+'</nav></header><main id="main" class="wrap collection-document"><p class="eyebrow">PHAROS DATA ARK · '+edition+'</p>'+body+'</main><footer class="wrap footer"><a class="footer-brand" href="/"><img src="/assets/dej_software_footer.webp" width="1024" height="192" alt="DEJ Software™ — Practical Software for Real Life"></a><a href="'+prefix+'docs/">Handbook contents</a></footer></body></html>'
+   return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(title)+' | DEJ Software</title><link rel="canonical" href="'+c['website_base']+path+'"><link rel="stylesheet" href="/styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="wrap"><p><a href="/#pharos">← Pharos Data Ark</a></p><nav class="ark-document-nav" aria-label="Ark documentation">'+nav+'</nav></header><main id="main" class="wrap collection-document"><p class="eyebrow">PHAROS DATA ARK · '+edition+'</p>'+body+'</main><footer class="wrap footer"><a class="footer-brand" href="/"><img src="/assets/dej_software_footer.webp" width="1024" height="192" alt="DEJ Software™ — Practical Software for Real Life"></a><a href="'+prefix+'docs/">Handbook contents</a></footer><script src="/assets/js/dej-community-links.js?v=1"></script></body></html>'
   count=public_handbook.publish(ROOT,web,archive,edition,c,frame)
   meta['handbook_documents']=count;meta['handbook_permalink']='/data-ark/docs/';meta['api_permalink']='/data-ark/api/'
   (local/'publication.json').write_text(json.dumps(meta,indent=2)+'\n',encoding='utf-8')
