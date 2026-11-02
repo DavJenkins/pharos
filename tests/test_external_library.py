@@ -72,3 +72,21 @@ def test_insufficient_space_keeps_source_and_target(tmp_path,monkeypatch):
     monkeypatch.setattr(x.shutil,'disk_usage',lambda _:type('Usage',(),{'free':1024**3})())
     with pytest.raises(ValueError,match='whole library'):x.plan('abcd-1234')
     assert list(tmp_path.iterdir())==[]
+
+
+def test_regenerated_usage_does_not_invalidate_collection_preview(tmp_path):
+    (tmp_path/'book.pdf').write_bytes(b'book')
+    (tmp_path/'usage.json').write_text('old activity')
+    before=x.files(tmp_path)
+    (tmp_path/'usage.json').write_text('new activity with changed size')
+    (tmp_path/'usage.tmp').write_text('atomic export in progress')
+    assert x.files(tmp_path)==before
+    assert [item['path'] for item in before]==['book.pdf']
+    (tmp_path/'book.pdf').write_bytes(b'new edition')
+    assert x.files(tmp_path)!=before
+
+
+def test_usage_named_content_in_a_collection_is_still_copied(tmp_path):
+    (tmp_path/'manuals').mkdir()
+    (tmp_path/'manuals/usage.json').write_text('publication data')
+    assert [item['path'] for item in x.files(tmp_path)]==['manuals/usage.json']

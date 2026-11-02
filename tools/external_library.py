@@ -24,10 +24,12 @@ IMAGE = Path('/var/lib/dataark/demo-library.ext4')
 FSTAB = Path('/etc/fstab')
 MARKER = '.dataark-external-library.json'
 IGNORE = {'lost+found', 'System Volume Information', '$RECYCLE.BIN'}
+# Derived host activity is regenerated from /var/lib/dataark/usage after handover.
+GENERATED_USAGE = {'usage.json', 'usage.tmp'}
 LOCKS = [Path('/var/lib/dataark/updates/worker.lock'),Path('/var/lib/dataark/maps/worker.lock'),Path('/var/lib/dataark/cloning/worker.lock')]
 
 def quiesce():
-    units=['dataark.service','dataark-update.timer','dataark-maps.timer']
+    units=['dataark-usage.timer','dataark-usage.service','dataark.service','dataark-update.timer','dataark-maps.timer']
     active=[u for u in units if subprocess.run(['systemctl','is-active','--quiet',u]).returncode==0]
     docker=subprocess.run(['docker','inspect','-f','{{.State.Running}}','kiwix-serve'],capture_output=True,text=True)
     reader=docker.returncode==0 and docker.stdout.strip()=='true'
@@ -115,7 +117,7 @@ def files(root):
                 raise ValueError('Library contains a link, nested mount or special file: '+str(p.relative_to(root)))
         for name in names:
             p=Path(base)/name
-            if p.relative_to(root).as_posix()==MARKER:continue
+            if p.relative_to(root).as_posix() in {MARKER}|GENERATED_USAGE:continue
             s=p.stat();result.append({'path':p.relative_to(root).as_posix(),'bytes':s.st_size,'mtime':s.st_mtime_ns})
     return sorted(result,key=lambda x:x['path'])
 
@@ -219,7 +221,7 @@ def switch():
         installed=REPO/'config/installed-site.json';old_site=installed.read_bytes()
         active,reader=quiesce()
         try:
-            status('switching',message='Switching library storage; reconnecting…')
+            status('switching',message='Switching library storage; reconnectingâ€¦')
             # Recheck after quiescing, before the mount handover.
             if files(SOURCE)!=p['source_files']:raise ValueError('Library changed; repeat copy')
             run(['umount',str(target)]);run(['umount',str(SOURCE)])
@@ -230,6 +232,7 @@ def switch():
             # Keep demo sample registrations; change only its storage label.
             site=json.loads(old_site);site['external_library']={'uuid':p['uuid'],'previous_image':str(IMAGE)};save(installed,site,0o644)
             run([str(REPO/'venv/bin/python'),str(REPO/'tools/render_dashboard.py'),str(REPO/'dataark.yaml'),'/var/www/html/index.html'])
+            run(['systemctl','start','dataark-usage.service'])
             status('ready',message='External library active. The system-card copy is retained.',uuid=p['uuid'])
         except Exception:
             FSTAB.write_text(old);installed.write_bytes(old_site)
