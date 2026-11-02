@@ -22,7 +22,7 @@ The drive carries `START-ARK.txt`, `START-ARK.html`, `START-ARK.sh`, `DATA-ARK-C
 sudo bash START-ARK.sh
 ```
 
-The command only previews. Current kits print the exact reviewed apply command, including `--accept-plan` and `--apply`; copy and run that command, then confirm `INSTALL`. Review/edit `DATA-ARK-RECOVERY/site.json` before accepting its plan. If the hardware or settings change, run the preview again and use its newly printed command.
+The launcher asks for the platform and storage, presents the discovered plan, and accepts approval in the same session before the explicit `INSTALL` confirmation. Review/edit `DATA-ARK-RECOVERY/site.json` before accepting its plan. The printed command with `--accept-plan` and `--apply` remains an optional terminal alternative. A blocked plan cannot proceed. If hardware or settings change, review a fresh plan. Published older kits retain their own versioned instructions.
 
 Permitted site settings include SSID, country, hostname policy, FTP and other base-device settings; optional restoration and download timers are separately gated. Core layout constraints remain fixed until separately supported. There are no credentials in this JSON. The helper installer privately prompts for a new management password; do not reuse the source Ark's credentials.
 
@@ -59,7 +59,7 @@ A card-only demonstration can use a capped local library instead of a separate c
 sudo bash START-ARK.sh --demo-library-gib 4
 ```
 
-The preview shows the allocation, remaining system space, exact sample titles and download size. Copy the complete apply command it prints, including its plan ID and demo size. No allocation or sample download occurs during preview.
+The preview shows the allocation, remaining system space, exact sample titles and download size. The interactive launcher can approve it directly; the explicit command above remains preview-only unless separately given its exact plan ID and `--apply`. No allocation or sample download occurs during preview.
 
 The default is 4 GiB, with an accepted range of 2-1024 GiB, subject to available capacity. Allocation must leave at least 10 GiB free for the OS. The space is preallocated in a private system-side file and formatted as its own ext4 filesystem, mounted at `/mnt/storage`. This gives a hard filesystem capacity limit and preserves the ordinary missing-mount guards. Physical devices are not formatted. An existing content mount, configured content-drive mount entry, nonempty bare mount directory, unknown image or changed image blocks allocation rather than being overwritten.
 

@@ -202,6 +202,16 @@ Recipient preparation separates software/content from the identity of the person
 
 Physical acceptance exercised reboot into recipient setup, browser API enrollment and cooldown from a desktop on the LAN, new identity, password-based admin SSH, rejection of the old provisioning key, and healthy services. A real pseudo-terminal test verified prompt dismissal. This is distinct from a phone-over-hotspot client check and from an uninterrupted fresh-OS bootstrap replay. See [system-card library and recipient setup](../20-Administration/SystemCardLibrary.md).
 
+### Guided provisioning across storage and ownership layouts
+
+The same installation launcher performs discovery, storage selection, plan review and approval without requiring a copied command. Its saved site choices and installation journal bind resumption to the approved settings. A browser builds a portable card-preparation package; local Windows and Linux writers require explicit disk identity and erase confirmation and verify a pinned official OS image. A persistent first-boot service builds the Ark, installs only the fixed sample selection, prepares recipient enrollment and powers off on success. Initial installation needs internet; the prepared recipient appliance can start offline.
+
+Recipient preparation covers managed full-library, system-card and LAN installations. It checks for inherited integration credentials and certificates, requires personal-file review, and generates a private printable welcome sheet. The running identity remains unchanged until the next boot. Public configuration does not carry passwords or private keys.
+
+Library storage handover separates adopting a populated drive from replacing a missing drive. Adoption compares public configurations and verifies available recorded checksums without executing drive-provided code. Replacement retains the desired collection and optionally copies an available original before switching. A root-private journal snapshots configuration and the UUID mount selection before activation; failed or interrupted activation restores them. The management API does not depend on a successful library mount, so a missing drive can be diagnosed and replaced from the browser. Approved actions and outcomes enter the collection lifecycle feed for Home Assistant.
+
+The provisioning regression suite passed 138 tests and 11 subtests on Linux. Four additional private-mount-namespace scenarios exercised real ext4 adoption, injected mount-failure rollback, empty replacement with a missing original, and copying an available original. These isolated tests formatted only temporary sparse images. The card writer's next physical replay remains part of media acceptance; an imaging success is not presented as a completed recipient appliance.
+
 ## Maintaining this chapter
 
 Keep this document focused on implemented mechanisms and the design reasoning behind them. Add source-specific contracts and operational instructions to the linked developer/admin guides. Record acceptance results in the validation documentation. The companion feature catalogue remains the account of what these mechanisms let people do.
