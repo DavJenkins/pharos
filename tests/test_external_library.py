@@ -124,3 +124,15 @@ def test_existing_portable_mount_is_reopened_instead_of_remounted(tmp_path,monke
     assert x.mounted('ABCD-1234')[1]==tmp_path
     assert ['umount',str(tmp_path)] in calls
     assert any(a[0]=='mount' and 'remount' not in a[2] and 'fmask=0133' in a[2] for a in calls)
+
+
+def test_switch_verification_survives_public_status_becoming_queued(tmp_path,monkeypatch):
+    monkeypatch.setattr(x,'PRIVATE',tmp_path)
+    (tmp_path/'verified.json').write_text(json.dumps({'plan_id':'reviewed-copy'}))
+    (tmp_path/'status.json').write_text(json.dumps({'phase':'queued'}))
+    x.require_verified({'plan_id':'reviewed-copy'})
+    with pytest.raises(ValueError,match='Finish verification'):
+        x.require_verified({'plan_id':'different-copy'})
+    (tmp_path/'verified.json').unlink()
+    with pytest.raises(ValueError,match='Finish verification'):
+        x.require_verified({'plan_id':'reviewed-copy'})
