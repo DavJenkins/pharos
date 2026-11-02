@@ -34,6 +34,7 @@
 ## Administration
 
 - [Configuration reference](20-Administration/Configuration.md)
+- [Run a Data Ark in Docker](20-Administration/Container.md)
 - [Source availability checks](20-Administration/SourceChecks.md)
 - [Software updates and maintenance](20-Administration/SoftwareUpdates.md)
 - [Preview release audit](20-Administration/ReleaseAudit.md)

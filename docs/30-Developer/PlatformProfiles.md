@@ -75,3 +75,8 @@ Profiles live in `deploy/platforms/*.json`. `deploy/bootstrap_platform.py` owns 
 A different Debian-compatible board can often use a generic LAN profile unchanged. Another operating-system family needs a reviewed command adapter and package/service mapping. Another processor needs verified tool and container pins. Another hotspot implementation needs an explicit network profile, capability checks and its own client acceptance. Profile JSON does not execute arbitrary shell commands.
 
 Before declaring a flavor dependable, install it on fresh disposable media, interrupt/resume, reboot and verify mount identity, authentication, content readers, public access and preservation of existing connectivity. Radio/portal acceptance belongs to the profiles that actually configure a hotspot.
+
+
+## Container deployment
+
+The [Docker deployment](../20-Administration/Container.md) runs the library/web application on an existing Docker host with external media, public configuration, and separate persistent state/private settings. It uses the host network through an ordinary published port. It does not install the systemd appliance profile, manage host interfaces, or require privileged mode or the Docker socket. Physical-media and software administration remain host operations.
