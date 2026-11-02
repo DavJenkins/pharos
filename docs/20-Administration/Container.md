@@ -6,12 +6,10 @@ The container runs as UID/GID 1000, with Linux capabilities dropped. It needs no
 
 ## Storage layout
 
-| Storage | Container path | Purpose |
-|---|---|---|
-| Existing external library folder | `/mnt/storage` | Public documents, datasets and archives, read-only |
-| Public configuration folder, optionally on the same drive | `/config` | Modular YAML and the compiled public manifest |
-| Docker `state` volume | `/var/lib/dataark` | Community board, banner, events and operational state |
-| Docker `private` volume | `/etc/dataark` | Caretaker password record; no shared default password |
+- **External library → `/mnt/storage`:** public documents, datasets and archives, mounted read-only.
+- **Public configuration → `/config`:** modular YAML and the compiled public manifest; this folder can live on the same external drive.
+- **Docker `state` volume → `/var/lib/dataark`:** community board, banner, events and operational state.
+- **Docker `private` volume → `/etc/dataark`:** caretaker password record, with no shared default password.
 
 Library and configuration paths must already exist on the Docker host. Compose refuses a missing bind source rather than silently creating an empty replacement. A remote Docker daemon uses its own filesystem paths. Docker Desktop requires sharing those host folders with its Linux VM.
 
