@@ -1,4 +1,20 @@
 const form=document.getElementById('setup'),result=document.getElementById('result');
-form.addEventListener('submit',async event=>{event.preventDefault();const data=new FormData(form);if(data.get('password')!==data.get('repeat')||data.get('admin_password')!==data.get('admin_repeat')){result.textContent='The passwords do not match.';return;}const button=form.querySelector('button');button.disabled=true;result.textContent='Setting your caretaker password…';try{const response=await fetch('/api/recipient/setup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:data.get('code'),password:data.get('password'),admin_password:data.get('admin_password')})});const value=await response.json();if(!response.ok)throw new Error(value.detail||'Setup did not complete.');form.reset();form.hidden=true;result.textContent='Ready. Use username admin and your caretaker password when making changes. Use your separate Linux admin password to SSH as admin. Root login is disabled. Browsing remains open to everyone.';}catch(error){result.textContent=error.message;}finally{button.disabled=false;}});
-
-fetch('/api/recipient/status',{cache:'no-store'}).then(r=>r.json()).then(d=>{const p=document.getElementById('setup-connection');if(!p)return;p.textContent=d.network_mode==='lan'?'Keep your browser and Ark on the same local network. Ethernet is the headless first-setup route. Complete HTTP setup privately before inviting other users.':'Connect directly to the '+(d.hotspot_ssid||'DataArk')+' hotspot. Open Wi-Fi and HTTP do not encrypt this exchange; complete setup privately before inviting other users.';}).catch(()=>{});
+const readyText='Ready. Use username admin and your caretaker password when making changes. Use your separate Linux admin password to SSH as admin. Root login is disabled. Browsing remains open to everyone.';
+function showReady(){form.reset();form.hidden=true;result.textContent=readyText;}
+form.hidden=true;
+form.addEventListener('submit',async event=>{
+ event.preventDefault();const data=new FormData(form);
+ if(data.get('password')!==data.get('repeat')||data.get('admin_password')!==data.get('admin_repeat')){result.textContent='The passwords do not match.';return;}
+ const button=form.querySelector('button');button.disabled=true;result.textContent='Setting your caretaker password…';
+ try{
+  const response=await fetch('/api/recipient/setup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:data.get('code'),password:data.get('password'),admin_password:data.get('admin_password')})});
+  const value=await response.json();if(!response.ok)throw new Error(value.detail||'Setup did not complete.');showReady();
+ }catch(error){result.textContent=error.message;}finally{button.disabled=false;}
+});
+fetch('/api/recipient/status',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('Status unavailable');return r.json();}).then(d=>{
+ if(d.setup_required===false){showReady();return;}
+ if(d.setup_required!==true)throw new Error('Unexpected setup state');
+ form.hidden=false;
+ const p=document.getElementById('setup-connection');if(!p)return;
+ p.textContent=d.network_mode==='lan'?'Keep your browser and Ark on the same local network. Ethernet is the headless first-setup route. Complete HTTP setup privately before inviting other users.':'Connect directly to the '+(d.hotspot_ssid||'DataArk')+' hotspot. Open Wi-Fi and HTTP do not encrypt this exchange; complete setup privately before inviting other users.';
+}).catch(()=>{form.hidden=true;result.textContent='Unable to check setup status. Reload this page to try again.';});

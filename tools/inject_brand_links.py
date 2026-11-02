@@ -2,9 +2,10 @@
 """Link public DEJ branding; leave existing anchors, code and form values alone."""
 from html.parser import HTMLParser
 from pathlib import Path
-import re,sys,json
+import re,sys,json,hashlib
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from app.services.documentation_theme import online_notice
+BRAND_STYLESHEET='/assets/css/ark-brand.css?v='+hashlib.sha256((Path(__file__).resolve().parents[1]/'app/static/assets/css/ark-brand.css').read_bytes()).hexdigest()[:16]
 SCRIPT='<script src="/assets/js/background-sign-link.js?v=brand-links-2"></script>'
 class BrandLinks(HTMLParser):
  def __init__(self):super().__init__(convert_charrefs=False);self.out=[];self.skipped=[]
@@ -46,9 +47,9 @@ def application_brand(text):
   text=re.sub(r'(<div class="ark-page-brand ark-shared-brand">.*?</div>)(\s*)(<nav\b[^>]*>.*?</nav>)',r'<header class="ark-app-masthead">\1\3</header>',text,flags=re.S)
   text=re.sub(r'(<div class="ark-page-brand ark-shared-brand">.*?</div>)(?!<nav)',lambda m:'<header class="ark-app-masthead">'+m[1]+'</header>' if '<header class="ark-app-masthead">' not in text else m[0],text,flags=re.S)
  if 'ark-shared-brand' in text and '/assets/css/ark-brand.css' not in text:
-  stylesheet='<link rel="stylesheet" href="/assets/css/ark-brand.css?v=3">'
+  stylesheet='<link rel="stylesheet" href="'+BRAND_STYLESHEET+'">'
   text=text.replace('</head>',stylesheet+'</head>',1) if '</head>' in text else text.replace('<body',stylesheet+'</head><body',1)
- text=re.sub(r'/assets/css/ark-brand.css\?v=[^"\s>]+','/assets/css/ark-brand.css?v=3',text)
+ text=re.sub(r'/assets/css/ark-brand.css\?v=[^"\s>]+',BRAND_STYLESHEET,text)
  return text
 
 def inject(target):
