@@ -44,6 +44,7 @@
 - [Clone a content drive](20-Administration/CloneDrive.md)
 - [Household Bugout Backups](20-Administration/Bugout.md)
 - [Reliability acceptance tests](20-Administration/AcceptanceTests.md)
+- [Physical recovery replay findings](20-Administration/PhysicalRecoveryReplay.md)
 - [Clean-OS software bootstrap test](20-Administration/CleanBootstrapTest.md)
 - [Uninterrupted frozen-kit replay](20-Administration/FrozenBootstrapReplay.md)
 - [Content download gaps and alternatives](20-Administration/ContentGaps.md)
