@@ -25,3 +25,12 @@ The manual preparation script also exposed an overlong exFAT label and Windows e
 The source stays on `feature/readme-foundation`. Desktop acceptance evidence includes `physical-replay-20261102-evidence.tar.gz`; the test host retained installation, pre/post-reboot and repair records under `/var/lib/dataark/acceptance/physical-clean-demo-20261101`, and spare-drive records under `/var/lib/dataark/acceptance/spare-drive-20261102`. Later transfer and phone observations are recorded above from the API and the user's confirmations; they are not a claim that every on-card log was exported.
 
 Next: write a fresh stock Pi OS card with a checksum-pinned corrected kit; repeat installation with the original SSD and spare disconnected; require no manual source or permission repair. Verify healthy services, article/image access, reboot, and the installed UI. Repeat recipient and external-drive acceptance as needed against that frozen revision. Do not merge or describe recovery as dependable until the clean spare-media acceptance passes.
+
+
+## Corrected frozen-kit replay — passed
+
+A fresh physical Raspberry Pi OS card booted the pinned kit from source revision `2245a6c308cbac2f0e03ec49b13b19cbfa852e96`, with no USB content disks attached. All ten installer phases completed. The frozen kit remained byte-for-byte unchanged, and no manual source, permission or service repairs were applied.
+
+Pre- and post-reboot acceptance passed with different boot IDs, healthy API status and zero failed services. The system-card library remained mounted at its 4 GiB allocation; the Wikipedia archive and two guide PDFs matched their expected hashes. An article and archive image, local pages, caretaker authorization, desktop launch/artwork/splash and OS-update monitoring passed. The installed sample is the first card and is prominently linked; the migration link and shared masthead stylesheet were present. The personal-note script has its Help/About page gate.
+
+Evidence is retained as `physical-clean-2245a6c-evidence.tar.gz` and `acceptance-summary.json` in the desktop’s `physical-replay-20261102-clean` acceptance folder. The earlier clean-run failure and repaired-run success remain separate records. This result establishes the physical stock-OS card-only bootstrap and reboot path; it does not retroactively turn the repaired external-drive walkthrough into an untouched test of this exact revision. No merge was performed.
