@@ -34,3 +34,12 @@ A fresh physical Raspberry Pi OS card booted the pinned kit from source revision
 Pre- and post-reboot acceptance passed with different boot IDs, healthy API status and zero failed services. The system-card library remained mounted at its 4 GiB allocation; the Wikipedia archive and two guide PDFs matched their expected hashes. An article and archive image, local pages, caretaker authorization, desktop launch/artwork/splash and OS-update monitoring passed. The installed sample is the first card and is prominently linked; the migration link and shared masthead stylesheet were present. The personal-note script has its Help/About page gate.
 
 Evidence is retained as `physical-clean-2245a6c-evidence.tar.gz` and `acceptance-summary.json` in the desktop’s `physical-replay-20261102-clean` acceptance folder. The earlier clean-run failure and repaired-run success remain separate records. This result establishes the physical stock-OS card-only bootstrap and reboot path; it does not retroactively turn the repaired external-drive walkthrough into an untouched test of this exact revision. No merge was performed.
+
+
+## External-drive repeat on the frozen revision — passed
+
+The same `2245a6c` installation discovered the serial-checked exFAT spare, reused its marked previous test copy and previewed ten files (334,383,170 bytes). Copy and switch requests went through the authenticated external-library HTTP API. Verification and activation succeeded without source or permission repairs. The first CLI preview failed and its immediate retry succeeded; the original stderr was not retained, so the reason is unclassified rather than claimed resolved.
+
+After reboot, UUID `FFF9-D383` mounted automatically, API health was OK, and all sample hashes plus an article and image passed again. The original 4 GiB system-card image remained intact. All 309 installed Python/shell files matched the frozen kit. Windows did not automatically reconnect to the temporarily absent hotspot; after the user rejoined DataArk, article and image retrieval through `192.168.4.1:8080` succeeded. This is a client-reconnection observation, separate from successful Ark startup and drive mounting.
+
+The evidence archive now includes `external/pre-reboot.json` and `external/post-reboot.json`; the desktop `external-acceptance-summary.json` records the refreshed archive hash and post-reboot hotspot checks. Recipient enrollment on this exact fresh installation remains a separate walkthrough from the previously successful repaired-card enrollment. No merge was performed.
