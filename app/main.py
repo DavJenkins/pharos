@@ -63,6 +63,8 @@ from app.routers.clone import router as clone_router
 app.include_router(clone_router)
 from app.routers.external_library import router as external_library_router
 app.include_router(external_library_router)
+from app.routers.appliance_jobs import router as appliance_jobs_router
+app.include_router(appliance_jobs_router)
 
 from app.routers.configuration import router as configuration_router
 app.include_router(configuration_router)

@@ -108,13 +108,17 @@ def order(chosen):
     return output
 
 
-def build_plan(profile, preset, policy=None, free_bytes=None):
+def build_plan(profile, preset, policy=None, free_bytes=None, *, _prepared=None):
     profile = Path(profile).resolve()
     policy = policy or json.loads(POLICY.read_text())
     if preset not in ('none', 'minimal', 'recommended', 'full'):
         raise ValueError('Unknown recovery preset')
-    c = content.read(profile)
-    content.validate(c)
+    if _prepared is None:
+        c = content.read(profile)
+        content.validate(c)
+        profile_hash = fingerprint(profile, policy)
+    else:
+        c,profile_hash=_prepared
     all_packages = {p['id']: p for p in packages(c, policy)}
     tiers = {'none': set(), 'minimal': {'minimal'}, 'recommended': {'minimal', 'recommended'},
              'full': {'minimal', 'recommended', 'full'}}[preset]
@@ -155,7 +159,7 @@ def build_plan(profile, preset, policy=None, free_bytes=None):
     reserve = int(max(c['reserve_gib'], policy['reserve_gib']) * 1024**3)
     required = max(additional, peak) + headroom + reserve if jobs else 0
     body = {'schema': 1, 'preset': preset, 'profile': str(profile), 'content_root': str(root),
-            'profile_sha256': fingerprint(profile, policy), 'policy': policy, 'jobs': jobs,
+            'profile_sha256': profile_hash, 'policy': policy, 'jobs': jobs,
             'capacity': {'free_bytes': free, 'additional_bytes': additional, 'temporary_peak_bytes': peak,
                          'update_headroom_bytes': headroom, 'reserve_bytes': reserve,
                          'required_free_bytes': required, 'unknown_packages': unknown,
@@ -166,6 +170,16 @@ def build_plan(profile, preset, policy=None, free_bytes=None):
     identity['capacity'].pop('fits')
     body['plan_id'] = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
     return body
+
+
+def build_presets(profile):
+    """Share parsing/fingerprinting across one read-only four-preset preview.
+
+    Mutating operations still call build_plan afresh without prepared inputs.
+    """
+    policy=json.loads(POLICY.read_text());c=content.read(profile);content.validate(c)
+    prepared=(c,fingerprint(profile,policy));free=shutil.disk_usage(c['content_root']).free
+    return [build_plan(profile,name,policy,free,_prepared=prepared) for name in ('none','minimal','recommended','full')]
 
 
 def create(plan, accepted, directory=STATE):

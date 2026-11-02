@@ -9,6 +9,8 @@
 
 ## User
 
+- [Make another Ark](/make-ark.html) · [Sharing guide](10-User/MakeAnotherArk.md)
+
 - [User Guide](10-User/UserGuide.md)
 - [Detailed content index](10-User/ContentSources.md)
 - [Frequently Asked Questions](10-User/FAQ.md)

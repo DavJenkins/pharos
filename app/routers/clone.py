@@ -1,4 +1,5 @@
-"""Read-only drive-cloning previews. Applying remains an explicit local command."""
+"""Read-only previews/progress; authenticated jobs use appliance_jobs."""
+import subprocess
 from fastapi import APIRouter, HTTPException, Query
 from tools import clone_drive
 
@@ -24,6 +25,12 @@ def plan(drive: str, mode: str = Query('config', pattern='^(config|fit|populated
 @router.get('/status')
 def status():
     try:
-        return clone_drive.status()
-    except (OSError, ValueError):
+        value=clone_drive.status()
+        if value.get('state')=='queued':
+            result=subprocess.run(['systemctl','show','-p','ActiveState','-p','Job','dataark-clone.service'],capture_output=True,text=True,timeout=3)
+            fields=dict(line.split('=',1) for line in result.stdout.splitlines() if '=' in line)
+            if result.returncode==0 and not fields.get('Job') and fields.get('ActiveState') not in ('active','activating'):
+                value.update(state='interrupted',error='The copy worker did not start. Check the destination and preview again.')
+        return value
+    except (OSError, ValueError, subprocess.TimeoutExpired):
         raise HTTPException(503, 'Cannot read clone progress') from None

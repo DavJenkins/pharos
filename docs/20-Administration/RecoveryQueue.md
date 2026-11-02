@@ -23,6 +23,10 @@ The fit calculation includes cumulative additional installed bytes, the peak sta
 
 Before each package the worker rechecks available space; it pauses if the reserve would be crossed. During child execution it also monitors the reserve. A smaller drive may fit Minimal and Recommended while Full is disabled. None remains possible. No drive is formatted and no existing content is deleted.
 
+## Browser workflow
+
+Open **Restore Library**, review a preset, and authorize **Start this restoration**. Pause, resume unfinished packages or cancel from the progress section. When replacing a completed/cancelled queue, explicitly choose to keep its history; old logs and state are retained. No password prompt occurs merely because the page loads. See [Make another Ark](../10-User/MakeAnotherArk.md).
+
 ## Terminal workflow
 
 From `/opt/dataark`, after exporting a profile from the populated reference Ark:

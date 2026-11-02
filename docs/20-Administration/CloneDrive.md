@@ -1,6 +1,6 @@
 # Clone a content drive
 
-Open **Manage Library → Clone a content drive**. Connect and mount a separate empty drive, reload the drive list, choose a mode and preview. The preview changes no files and starts no downloads.
+Open **Help or Manage Library → Make another Ark → Make a content drive**. Connect a separate empty formatted USB drive, find it, choose a mode and review. Caretaker-authorized discovery handles unmounted eligible drives. Review may mount the selected partition, but copies no content and starts no downloads.
 
 | Mode | What it copies |
 | --- | --- |
@@ -10,7 +10,7 @@ Open **Manage Library → Clone a content drive**. Connect and mount a separate 
 
 Fit mode prioritizes communication, preparedness and radio study, then smaller collections. Each ZIM archive is a collection; public directory collections are kept together so they are not half-copied. Priorities, collection directories and the default **2 GiB reserve** are readable in `config/clone-policy.json`. A separate conservative allowance covers software and configuration. Filesystem allocation rounding is included.
 
-The preview lists included and skipped collections, capacity, destination mount path and filesystem UUID. Copy its generated command into the caretaker terminal. It requires sudo and the exact reviewed plan ID. Changing configuration, source files, target identity or the selected subset invalidates a fresh plan. The website has no command-execution or cloning-write endpoint.
+The preview lists included and skipped collections, capacity, destination mount path and filesystem UUID. Choose **Start verified copy** and authorize with the caretaker password. The fixed helper requires the exact reviewed plan ID; the terminal command remains available as an alternative. Changing configuration, source files, target identity or the selected subset invalidates a fresh plan. The browser uses a fixed, authenticated operation endpoint; no caller-selected command, executable, source path or systemd unit is accepted.
 
 For a terminal-only preview:
 
@@ -34,7 +34,7 @@ Keep the destination at its original mount path. Preview it again using the same
 
 Copies are streamed and SHA-256 verified. Completed files are reused only when both source and destination still match their receipts. A partial file’s entire existing prefix is checked against the source before appending. An unexpected destination file or a mismatch stops copying without overwriting it. The free-space reserve is checked during copying. A disconnected destination stops further writes.
 
-Progress appears on the clone page and in `/var/lib/dataark/cloning/status.json`. The drive retains its plan and per-file receipts. `CLONE-REPORT.json`, `START-HERE.html` and `BROWSE.html` list the verified copied files and skipped collections. Safely unmount after completion.
+Progress appears on the clone page and in `/var/lib/dataark/cloning/status.json`. The drive retains its plan and per-file receipts. `CLONE-REPORT.json`, `START-HERE.html` and `BROWSE.html` list the verified copied files and skipped collections. Choose **Safely eject completed drive** after completion. The helper unmounts only the verified completed destination.
 
 ## What travels with the drive
 
