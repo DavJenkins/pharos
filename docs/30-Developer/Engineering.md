@@ -212,6 +212,14 @@ Library storage handover separates adopting a populated drive from replacing a m
 
 The provisioning regression suite passed 138 tests and 11 subtests on Linux. Four additional private-mount-namespace scenarios exercised real ext4 adoption, injected mount-failure rollback, empty replacement with a missing original, and copying an available original. These isolated tests formatted only temporary sparse images. The card writer's next physical replay remains part of media acceptance; an imaging success is not presented as a completed recipient appliance.
 
+## 20. The library application can run independently of host administration
+
+The Docker deployment separates public media, public configuration, durable application state and private credentials into distinct mounts. Its web/API process and Kiwix reader run as a non-root user without Linux capabilities, host networking, physical devices or the Docker socket. A foreground supervisor starts and stops the processes together and refreshes the configured reader set as media changes.
+
+The same browser-facing address serves the dashboard, documents and Kiwix. The reader proxy streams bytes and preserves range responses needed by large archives and maps. Public file routing permits configured assets and the public-directory policy; it does not turn the entire mounted drive into an unrestricted private-file share. Container recreation retains the board, banner, caretaker record and public collection in their persistent storage.
+
+Capability reporting distinguishes a container from a hardware appliance. Host network, disk and software-changing operations are rejected explicitly; absent systemd or Wi-Fi is not reported as a broken appliance. Configuration reload validates the mounted YAML and retains the last working manifest after invalid edits. [Container deployment](../20-Administration/Container.md) describes the operating boundary and host workflow.
+
 ## Maintaining this chapter
 
 Keep this document focused on implemented mechanisms and the design reasoning behind them. Add source-specific contracts and operational instructions to the linked developer/admin guides. Record acceptance results in the validation documentation. The companion feature catalogue remains the account of what these mechanisms let people do.

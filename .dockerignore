@@ -1,0 +1,16 @@
+.git
+.cache
+.venv
+venv
+output
+archive
+saved
+dataark.yaml
+**/__pycache__
+**/*.pyc
+**/*.bak
+**/*PRIVATE*
+**/.env
+**/node_modules
+config/installed-site.json
+config/content/*.part

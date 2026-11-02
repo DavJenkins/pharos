@@ -4,6 +4,8 @@
 
 Currently available in Raspberry. The shared Linux installer also has experimental Debian 13 ARM64 and x86-64 LAN profiles; see [platform flavors and hardware discovery](docs/30-Developer/PlatformProfiles.md).
 
+The [Docker deployment](docs/20-Administration/Container.md) serves an external library on an existing LAN, with persistent community/state and private caretaker settings. It runs without privileged access or a Docker socket; network and physical-media administration stay with the host.
+
 Start with the [complete handbook and handover](docs/00-Introduction/Handbook.md), [deployed configuration reference](docs/20-Administration/Configuration.md), and [image-to-Ark bootstrap plan](docs/30-Developer/BootstrapPlan.md). The local working source is `/opt/dataark` on the Ark and the `\\dataark\dataark` development share; the canonical remote is [DavJenkins/pharos](https://github.com/DavJenkins/pharos).
 
 
