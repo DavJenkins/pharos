@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare an installed, content-preserving demonstration card for a new owner.
+"""Prepare an installed, content-preserving Ark for a new owner.
 
 Arming does not change the running machine. The next boot replaces device and
 SSH identities and removes provisioner SSH access. Password setup works through the hotspot or local terminal.
@@ -16,6 +16,8 @@ import subprocess
 import uuid
 import time
 import re
+import configparser
+import html
 
 HELPER = '/usr/local/libexec/dataark-recipient'
 STATE = '/var/lib/dataark/recipient.json'
@@ -64,23 +66,66 @@ def password_record(password):
     return {'salt':salt.hex(),'hash':hashlib.pbkdf2_hmac('sha256',password.encode(),salt,300000).hex()}
 
 
-def validate(root):
-    """Version one is deliberately limited to our clean demonstration appliance."""
-    if not (root/'etc/dataark-physical-bootstrap-test').is_file():
-        raise ValueError('This version prepares only the marked demonstration card.')
-    state=json.loads((root/'var/lib/dataark/demo-library.json').read_text())
-    if state.get('stage')!='ready':raise ValueError('A ready system-card library is required.')
+def inspection(root=Path('/')):
+    """Describe ownership preparation without changing identity or credentials."""
+    blockers=[]
+    marked=(root/'etc/dataark-physical-bootstrap-test').is_file()
+    managed=(root/'etc/systemd/system/dataark.service').is_file() and (root/'etc/dataark/network-admin.json').is_file()
+    if not marked and not managed:blockers.append('A managed Data Ark installation is required.')
+    demo=root/'var/lib/dataark/demo-library.json'
+    if demo.exists() and json.loads(demo.read_text()).get('stage')!='ready':blockers.append('Finish system-card library preparation first.')
     for name in ('bugout-ha.json','https/active.json'):
         path=root/'etc/dataark'/name
         if path.exists():
             data=json.loads(path.read_text())
             if any(data.get(k) for k in ('token','url','domain','inbound_token_sha256')):
-                raise ValueError('Configured integration/certificate must be removed before recipient preparation.')
+                blockers.append('Configured integration/certificate must be removed before recipient preparation: '+name)
+    for relative in ('etc/dataark/household-secrets.json','etc/dataark/ha-outbound.json','root/.ssh/id_rsa','root/.ssh/id_ed25519','home/admin/.ssh/id_rsa','home/admin/.ssh/id_ed25519'):
+        if (root/relative).exists():blockers.append('Review and remove owner-private file before handoff: /'+relative)
+    def contains_secret(value):
+        if isinstance(value,dict):return any((str(k).lower() in ('password','token','secret','private_key','api_key','authorization','inbound_token_sha256') and bool(v)) or contains_secret(v) for k,v in value.items())
+        if isinstance(value,list):return any(contains_secret(v) for v in value)
+        return False
+    for path in (root/'etc/dataark').rglob('*.json'):
+        if path.name in ('network-admin.json','device-identity.json'):continue
+        try:data=json.loads(path.read_text())
+        except (ValueError,UnicodeError):continue
+        if contains_secret(data):
+            note='Remove or reconfigure owner credentials before handoff: /'+path.relative_to(root).as_posix()
+            if note not in blockers:blockers.append(note)
+    for relative in ('etc/dataark/https/installed','etc/dataark/https/acme'):
+        folder=root/relative
+        if folder.exists() and any(folder.iterdir()):blockers.append('Private certificate/ACME material must be retired: /'+relative)
+    site=root/'opt/dataark/config/installed-site.json'
+    settings=json.loads(site.read_text()) if site.exists() else {}
+    profile=settings.get('platform_profile','')
+    mode='lan' if str(profile).endswith('-lan') else 'hotspot'
+    ssid=settings.get('hotspot',{}).get('ssid','DataArk')
+    for path in (root/'etc/NetworkManager/system-connections').glob('*'):
+        if not path.is_file() or path.is_symlink():continue
+        config=configparser.ConfigParser(interpolation=None,strict=False)
+        try:config.read_string(path.read_text())
+        except (ValueError,configparser.Error,UnicodeError):continue
+        if any(config.has_section(section) for section in ('vpn','wireguard','802-1x')):blockers.append('Review private network authentication before handoff: '+path.name)
+        if config.get('ipv4','method',fallback='')=='shared':ssid=config.get('wifi','ssid',fallback=config.get('802-11-wireless','ssid',fallback=ssid))
+    result={'eligible':not blockers,'blockers':blockers,'network_mode':mode,'hotspot_ssid':ssid,
+            'layout':'system-card library' if demo.exists() and not settings.get('external_library') else 'external library or LAN server',
+            'changes':['New machine/Ark identity, hostname and SSH host keys on next boot','Remove provisioner login keys and cloud-init access','Replace caretaker and Linux account credentials through recipient setup','Remove saved upstream Wi-Fi profiles; preserve the local hotspot','Keep public library content and configuration'],
+            'personal_review':'Review Linux home/browser files and private household data before giving the entire system to another owner. This is identity preparation, not a secure disk wipe.'}
+    result['plan_id']=hashlib.sha256(json.dumps(result,sort_keys=True).encode()).hexdigest()
+    return result
+
+def validate(root):
+    result=inspection(root)
+    if result['blockers']:raise ValueError(' '.join(result['blockers']))
     armed=root/'var/lib/dataark/recipient-armed'
     if armed.exists():raise ValueError('Recipient setup is already armed.')
 
 
-def arm(root=Path('/'), runner=subprocess.run):
+def arm(root=Path('/'), runner=subprocess.run, code=None, hostname=None):
+    code=code or f'{secrets.randbelow(10000):04d}'
+    if not re.fullmatch('[0-9]{4}',code):raise ValueError('Pairing code must have four digits.')
+    if hostname is not None and (not isinstance(hostname,str) or not re.fullmatch('[a-z][a-z0-9-]{0,61}[a-z0-9]',hostname)):raise ValueError('Invalid recipient hostname')
     validate(root)
     if root==Path('/') and not (root/'var/www/html/setup.html').is_file():raise ValueError('Install the recipient web setup page/API before arming.')
     # Install a root-owned immutable copy, independent of the writable repository.
@@ -93,10 +138,12 @@ def arm(root=Path('/'), runner=subprocess.run):
         account=pwd.getpwnam('admin')
         for relative in ('home/admin/.config/autostart/dataark-recipient.desktop','home/admin/Desktop/Set up Data Ark.desktop'):
             os.chown(root/relative,account.pw_uid,account.pw_gid)
-    code=f'{secrets.randbelow(10000):04d}'
     write(root/'root/dataark-recipient-setup-code',code+'\n')
     write(root/'var/lib/dataark/recipient-enrollment.json',json.dumps({'code_sha256':hashlib.sha256(code.encode()).hexdigest()})+'\n')
-    save(root,{'state':'armed','password_setup':'hotspot with one-time code, or local terminal','content_preserved':True})
+    machine=uuid.uuid4().hex
+    save(root,{'state':'armed','password_setup':'one-time pairing code in a browser, or local terminal','content_preserved':True,
+               'machine_id':machine,'device_id':'ark-'+uuid.uuid4().hex[:16],'hostname':hostname or 'dataark-'+machine[:6],
+               'network_mode':inspection(root)['network_mode'],'hotspot_ssid':inspection(root)['hotspot_ssid']})
     write(root/'var/lib/dataark/recipient-armed','armed\n')
     if root==Path('/'):
         runner(['systemctl','daemon-reload'],check=True)
@@ -110,6 +157,8 @@ def arm(root=Path('/'), runner=subprocess.run):
 def first_boot(root=Path('/'),runner=subprocess.run):
     marker=root/'var/lib/dataark/recipient-armed'
     if not marker.is_file():return
+    blockers=inspection(root)['blockers']
+    if blockers:raise ValueError(' '.join(blockers))
     # A certificate could have been configured after the card was armed.
     active=root/'etc/dataark/https/active.json'
     if active.exists() and json.loads(active.read_text()).get('domain'):
@@ -140,6 +189,17 @@ def first_boot(root=Path('/'),runner=subprocess.run):
         (home/'.ssh/authorized_keys').unlink(missing_ok=True)
     for key in (root/'etc/ssh').glob('ssh_host_*'):key.unlink()
     (root/'var/lib/NetworkManager/secret_key').unlink(missing_ok=True)
+    for profile in (root/'etc/NetworkManager/system-connections').glob('*'):
+        if not profile.is_file() or profile.is_symlink():continue
+        config=configparser.ConfigParser(interpolation=None,strict=False)
+        try:config.read_string(profile.read_text())
+        except (ValueError,configparser.Error,UnicodeError):continue
+        if config.get('connection','type',fallback='') in ('wifi','802-11-wireless') and config.get('ipv4','method',fallback='')!='shared':
+            profile.unlink()
+        elif config.has_section('connection'):
+            config.set('connection','uuid',str(uuid.uuid4()))
+            import io
+            stream=io.StringIO();config.write(stream);write(profile,stream.getvalue())
     (root/'var/lib/systemd/random-seed').unlink(missing_ok=True)
     # Cloud-init must not restore the original provisioner's key on a later boot.
     for relative in ('boot/firmware/user-data','var/lib/cloud/seed/nocloud/user-data','var/lib/cloud/seed/nocloud-net/user-data'):
@@ -148,6 +208,7 @@ def first_boot(root=Path('/'),runner=subprocess.run):
     write(root/'etc/cloud/cloud-init.disabled','Recipient identity is owned by Data Ark.\n')
     for relative in ('root/physical-demo-test-caretaker','root/.bash_history','home/admin/.bash_history'):
         (root/relative).unlink(missing_ok=True)
+    (root/'boot/firmware/dataark-card/provision.json').unlink(missing_ok=True)
     if root==Path('/'):
         runner(['usermod','--lock','admin'],check=True,capture_output=True)
         runner(['usermod','--lock','root'],check=True,capture_output=True)
@@ -156,6 +217,18 @@ def first_boot(root=Path('/'),runner=subprocess.run):
         runner(['ssh-keygen','-A'],check=True)
     state['state']='awaiting_local_password';save(root,state)
     marker.unlink()
+
+
+def welcome_sheet(root=Path('/')):
+    """Private printable sheet. Never place it in the public library."""
+    state=json.loads((root/STATE.lstrip('/')).read_text())
+    code=(root/'root/dataark-recipient-setup-code').read_text().strip()
+    hostname=state['hostname']
+    if state.get('network_mode')=='lan':
+        connection='Connect the Ark and your browser device to the same local network. For headless first setup, use Ethernet.'
+        url='http://'+hostname+'.local/setup.html'
+    else:connection='Join the '+state.get('hotspot_ssid','DataArk')+' Wi-Fi hotspot.';url='http://192.168.4.1/setup.html'
+    return '<!doctype html><html lang="en"><meta charset="utf-8"><title>Your Data Ark</title><style>body{font:18px/1.6 system-ui;max-width:750px;margin:40px auto;padding:24px;color:#203e54}h1{background:#172d40;color:#e0bd68;padding:20px}.code{font:700 36px monospace;letter-spacing:8px}@media print{button{display:none}}</style><h1>Your Pharos Data Ark</h1><p>'+html.escape(connection)+'</p><p>Open <strong>'+html.escape(url)+'</strong></p><p>One-time setup code:</p><p class="code">'+html.escape(code)+'</p><p>Choose separate caretaker and Linux admin passwords, each at least 12 characters. No shared root password or online activation is required. Browse the installed library without signing in.</p><p>Complete initial HTTP setup privately before inviting others. Installed content works offline. Keep this sheet private until setup is complete.</p><p>Device: '+html.escape(hostname)+'</p><button onclick="print()">Print / Save as PDF</button></html>'
 
 
 def complete_password(password,admin_password,root=Path('/')):

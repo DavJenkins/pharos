@@ -17,7 +17,7 @@ The grow operation verifies image ownership and the mounted loop device, allocat
 
 ## Add an external drive
 
-From **Manage Library**, open **Use an external library drive**. Connect an empty, formatted USB drive, choose **Find drives**, select it, and choose **Preview transfer**. These operations use the on-demand caretaker prompt and its optional password cache.
+From **Manage Library → Library storage and recovery**, choose the system-card migration link to open **Use an external library drive**. Connect an empty, formatted USB drive, choose **Find drives**, select it, and choose **Preview transfer**. These operations use the on-demand caretaker prompt and its optional password cache.
 
 The preview names the drive and shows the complete file count, transfer size and free space. The destination must fit the entire library plus 1 GiB; nothing is formatted or erased, and partial collections are never silently omitted. A nonempty drive is refused unless it contains this transfer tool's own resumable preparation marker. Adopting an unrelated populated Ark drive requires a separate public-configuration review; it is not an automatic merge.
 
@@ -51,6 +51,10 @@ The recipient connects to DataArk Wi-Fi, opens `http://192.168.4.1/` and follows
 Root has no shared password and remains locked; direct root SSH is disabled. The recipient logs in as `admin` and uses `sudo`. The installed Pi OS sudo policy is retained. Password-based admin SSH becomes available after successful enrollment. Local desktop/terminal setup is also available.
 
 The hotspot is open and the initial HTTP exchange is not encrypted. Perform initial enrollment privately, before inviting other users, or use the local terminal. Do not publish the one-time code in the public configuration or catalogue.
+
+## Other storage and handover layouts
+
+[Make another Ark](../10-User/MakeAnotherArk.md) also covers adoption of a populated drive, recovery when the configured drive is missing, generalized recipient preparation for external-library and LAN hosts, and the ready-card preparation package. The storage handover backs up public configuration and the mount entry under `/etc/dataark/storage`; its boot recovery service restores an interrupted activation. These private rollback files are not public library content. The card writer never runs from a browser request; the browser builds a package, and a local writer requires explicit disk selection and erase confirmation.
 
 ## Test record
 

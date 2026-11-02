@@ -2,7 +2,7 @@
 """Prepare an already mounted drive as a Data Ark installer, optionally with content.
 No formatting, deletion or credentials. Default is a preview.
 """
-import hashlib,json,shutil,subprocess
+import hashlib,json,os,shutil,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=Path('/mnt/storage')
@@ -10,13 +10,28 @@ PUBLIC_DIRS=[item['path'] for item in json.loads((ROOT/'config/clone-policy.json
 START='''#!/bin/sh
 set -eu
 HERE=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-exec python3 "$HERE/DATA-ARK-RECOVERY/bootstrap_stock_pi.py" --kit "$HERE/DATA-ARK-RECOVERY" "$@"
+exec python3 "$HERE/DATA-ARK-RECOVERY/bootstrap_stock_pi.py" --kit "$HERE/DATA-ARK-RECOVERY" --wizard "$@"
 '''
 def sha(path):
  h=hashlib.sha256()
  with path.open('rb') as f:
   for b in iter(lambda:f.read(1024**2),b''):h.update(b)
  return h.hexdigest()
+
+def checkpoint_kit(target,profile,revision,platform_profile=None):
+ """Build from a clean committed worktree without replacing live local edits."""
+ import fcntl
+ cache=Path('/var/lib/dataark/source-checkpoints');cache.mkdir(parents=True,exist_ok=True)
+ with (cache/'.lock').open('a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX)
+  clean=cache/revision
+  git=['git','-c','safe.directory='+str(ROOT),'-C',str(ROOT)]
+  if not clean.exists():subprocess.run(git+['worktree','add','--detach',str(clean),revision],check=True,capture_output=True)
+  if subprocess.check_output(['git','-c','safe.directory='+str(clean),'-C',str(clean),'rev-parse','HEAD'],text=True).strip()!=revision:raise ValueError('Source checkpoint identity changed')
+ script='import json,sys;from pathlib import Path;from tools.replicate_drive import kit_files;print(json.dumps(kit_files(Path(sys.argv[1]),profile=Path(sys.argv[2]),revision=sys.argv[3],platform_profile=sys.argv[4] or None)))'
+ env={k:v for k,v in os.environ.items() if k not in ('PYTHONPATH','PYTHONHOME')}
+ result=subprocess.run(['/opt/dataark/venv/bin/python','-c',script,str(Path(target).resolve()),str(Path(profile).resolve()),revision,platform_profile or ''],cwd=clean,env=env,capture_output=True,text=True,check=True)
+ return json.loads(result.stdout.splitlines()[-1])
 def payload_paths():
  import yaml
  c=yaml.safe_load((ROOT/'config/content/content.yaml').read_text());paths=[p for p in PUBLIC_DIRS if (SOURCE/p).is_dir() and not (SOURCE/p).is_symlink()]
@@ -35,9 +50,12 @@ def kit_files(target, profile=None, revision=None, platform_profile=None):
  current=subprocess.check_output(git+['rev-parse','HEAD'],text=True).strip()
  if revision and revision!=current:raise ValueError('Use the approved source checkpoint when preparing its installer kit.')
  executable_paths=[':(glob)app/**/*.py',':(glob)tools/**/*.py',':(glob)deploy/**/*.py','deploy/platforms','config/stock-pi.json']
- if subprocess.run(git+['diff','--quiet','HEAD','--']+executable_paths).returncode:raise ValueError('Commit installer/platform code changes before preparing a kit; private content selections need not be committed.')
+ dirty=subprocess.run(git+['diff','--quiet','HEAD','--']+executable_paths).returncode!=0
  untracked=subprocess.check_output(git+['ls-files','--others','--exclude-standard','--','app','tools','deploy'],text=True).splitlines()
- if any(name.endswith('.py') or name.startswith('deploy/platforms/') for name in untracked):raise ValueError('Untracked installer code/profile files must be reviewed and committed before preparing a kit.')
+ dirty=dirty or any(name.endswith('.py') or name.startswith('deploy/platforms/') for name in untracked)
+ if dirty:
+  if ROOT.resolve().is_relative_to(Path('/var/lib/dataark/source-checkpoints')):raise ValueError('Committed source cache was modified; inspect it before preparing another kit')
+  return checkpoint_kit(target,profile or ROOT/'config/content/content.yaml',current,platform_profile)
  # Mirror the saved desired profile; never recapture an empty destination as intent.
  from tools.content_profile import mirror,read
  profile=Path(profile) if profile else ROOT/'config/content/content.yaml';mirror(read(profile),profile.parent,target/'DATA-ARK-CONFIG')
@@ -84,7 +102,7 @@ second Wi-Fi adapter for upstream internet. This installer needs internet for
 OS/Python/container software; this is not a complete offline software kit.
 
 Read/edit DATA-ARK-RECOVERY/site.json for SSID, country and content choices.
-Preview from this drive's directory:
+Start the interactive review from this drive's directory:
   sudo bash START-ARK.sh
 Apply only on the supported target:
   sudo bash START-ARK.sh --apply
@@ -110,7 +128,7 @@ backups, credentials, host keys or Linux login files are copied.
  if spec['network_mode']=='lan':
   text=text.replace('Use a local terminal and Ethernet or a\nsecond Wi-Fi adapter for upstream internet.','Use the existing LAN connection and a local or SSH terminal.').replace('Read/edit DATA-ARK-RECOVERY/site.json for SSID, country and content choices.','Review DATA-ARK-RECOVERY/site.json for platform and content choices. Host network settings are retained.')
  text=text.replace('PLATFORM',spec['label'])
- text=text.replace('Apply only on the supported target:\n  sudo bash START-ARK.sh --apply', 'Review the discovery plan and use the exact apply command it prints, including --accept-plan.')
+ text=text.replace('Apply only on the supported target:\n  sudo bash START-ARK.sh --apply', 'Review the discovered plan and approve it in this same launcher. The printed command remains a terminal alternative.')
  if spec['network_mode']=='lan':text=text.replace('It will turn wlan0 into an open\nDataArk hotspot;', 'Existing LAN connections are preserved; no hotspot is created;')
  (target/'START-ARK.txt').write_text(text)
  (target/'START-ARK.html').write_text('<!doctype html><html><meta charset="utf-8"><title>Set up a Data Ark</title><h1>Set up a Data Ark</h1><pre>'+text.replace('&','&amp;').replace('<','&lt;')+'</pre></html>')

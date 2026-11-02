@@ -18,7 +18,7 @@ A prepared card can start and serve its installed collection without internet. T
 
 ### First-owner setup without a monitor
 
-The sender prepares the card for its recipient and supplies a four-digit one-time pairing code. The first recipient boot establishes a new hostname, machine/Ark identity and SSH host keys and removes the provisioner's SSH access.
+The sender uses [Make another Ark](MakeAnotherArk.md) to prepare the card or installed appliance and supplies its private welcome sheet with a four-digit one-time pairing code. The card package automates installation before handoff; its initial build needs internet and powers off when ready. The first recipient boot establishes a new hostname, machine/Ark identity and SSH host keys and removes the provisioner's SSH access.
 
 Connect to DataArk Wi-Fi and open `http://192.168.4.1/`. Follow the setup banner, enter the code, and choose a caretaker password for web management and a separate Linux admin password for SSH/terminal access. Both passwords require at least 12 characters. Five wrong codes impose a one-minute cooldown. Successful setup consumes the code. Browsing remains open without a password.
 

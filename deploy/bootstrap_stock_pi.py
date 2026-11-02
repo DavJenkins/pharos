@@ -21,6 +21,18 @@ def sha(path):
  with path.open('rb') as f:
   for b in iter(lambda:f.read(1024**2),b''):h.update(b)
  return h.hexdigest()
+
+def storage_choices():
+ """Formatted USB partitions excluding the running system and boot disks."""
+ rows=json.loads(output(['lsblk','-J','-p','-b','-o','PATH,TYPE,TRAN,FSTYPE,UUID,SIZE,MOUNTPOINTS,MODEL']))['blockdevices'];result=[]
+ for disk in rows:
+  children=disk.get('children',[])
+  mounts=[m for row in [disk]+children for m in row.get('mountpoints',[]) if m]
+  if disk.get('tran')!='usb' or any(m in ('/','/boot','/boot/firmware') for m in mounts):continue
+  for row in children:
+   if row.get('type')=='part' and row.get('fstype') in ('ext4','exfat','ntfs') and re.fullmatch('[A-Fa-f0-9-]{4,64}',row.get('uuid') or ''):
+    result.append({'uuid':row['uuid'],'filesystem':row['fstype'],'bytes':row['size'],'model':disk.get('model') or row['path'],'device':row['path']})
+ return result
 def atomic(path,text,mode=0o644):
  path.parent.mkdir(parents=True,exist_ok=True);p=path.with_suffix(path.suffix+'.dataark-new');p.write_text(text);p.chmod(mode);p.replace(path)
 def validate(c):
@@ -35,7 +47,8 @@ def validate(c):
  if not re.fullmatch(r'ghcr\.io/kiwix/kiwix-serve@sha256:[0-9a-f]{64}',c.get('kiwix_image','')):raise ValueError('Kiwix must have a pinned image digest.')
  if not c.get('packages') or any(not re.fullmatch('[a-z0-9][a-z0-9+.-]*',x) for x in c['packages']):raise ValueError('Invalid package list')
  if c.get('demo_library') is not None:
-  demo_library.plan(c['demo_library']['size_gib'],100*demo_library.GIB)
+  size=c['demo_library']['size_gib']
+  if type(size) is not int or not 2<=size<=1024:raise ValueError('System-card library size must be 2–1024 GiB; actual free space is checked separately.')
  for key in ['anonymous_ftp','restore_missing_content','automatic_archive_updates','automatic_map_updates']:
   if type(c.get(key)) is not bool:raise ValueError('Expected boolean '+key)
 def extract_source(archive,target):
@@ -62,7 +75,9 @@ def verify_remote_resume(plan,journal,connection):
 
 def preflight(c,kit,journal):
  errors=[];info=os_info();b=c['baseline']
- if not c.get('demo_library') and kit.stat().st_dev==Path('/').stat().st_dev:errors.append('Attach a content drive, or explicitly choose --demo-library-gib for a capped system-card demo.')
+ if not c.get('demo_library') and not c.get('content_volume_uuid') and kit.stat().st_dev==Path('/').stat().st_dev:errors.append('Attach a content drive, or explicitly choose --demo-library-gib for a capped system-card demo.')
+ if c.get('content_volume_uuid'):
+  if len([r for r in storage_choices() if r['uuid']==c['content_volume_uuid']])!=1:errors.append('Selected content drive is missing, ambiguous or on the system disk.')
  if info.get('ID')!=b['os_id'] or info.get('VERSION_ID')!=b['version_id'] or platforms.architecture()!=b['architecture']:errors.append('Operating system or processor does not match the selected platform profile.')
  if b.get('require_raspberry_pi_os') and not Path('/etc/rpi-issue').exists():errors.append('Raspberry Pi OS image marker is missing.')
  try:
@@ -141,13 +156,27 @@ class Installer:
   if self.c.get('demo_library'):
    demo_library.create(self.c['demo_library']['size_gib']);return
   # The kit must be on a distinct, already formatted local content volume.
-  device=output(['findmnt','-n','-o','SOURCE','--target',str(self.kit)])
+  selected=self.c.get('content_volume_uuid');original_kit=self.kit
+  if selected:
+   matches=[r for r in storage_choices() if r['uuid']==selected]
+   if len(matches)!=1:raise RuntimeError('Selected content drive changed')
+   device=matches[0]['device']
+  else:device=output(['findmnt','-n','-o','SOURCE','--target',str(self.kit)])
   if not device.startswith('/dev/') or device==output(['findmnt','-n','-o','SOURCE','/']):raise RuntimeError('Kit must be on a separate local content volume, not the system disk.')
   uuid=output(['blkid','-s','UUID','-o','value',device]);fs=output(['blkid','-s','TYPE','-o','value',device])
   if not re.fullmatch('[A-Za-z0-9-]+',uuid) or fs not in ['exfat','ext4','ntfs']:raise RuntimeError('Only existing exFAT, ext4 or NTFS content filesystems are supported.')
-  mounted=Path(output(['findmnt','-n','-o','TARGET','--target',str(self.kit)]))
+  if selected:
+   existing=subprocess.run(['findmnt','-n','-o','TARGET','--source',device],capture_output=True,text=True)
+   mounted=Path(existing.stdout.strip()) if existing.returncode==0 else Path('/run/dataark-bootstrap-content')
+   if existing.returncode!=0:
+    mounted.mkdir(parents=True,exist_ok=True);opts='nodev,nosuid'
+    if fs in ('exfat','ntfs'):opts+=',uid=1000,gid=1000,umask=022'
+    run(['mount','-o',opts,device,str(mounted)])
+   if not (mounted/'DATA-ARK-RECOVERY').exists() and any(p.name not in ('lost+found','System Volume Information','$RECYCLE.BIN') for p in mounted.iterdir()):raise RuntimeError('Selected drive is not empty or a matching Ark kit; no files were replaced.')
+   if mounted.stat().st_uid!=1000 and not any(p.name not in ('lost+found',) for p in mounted.iterdir()):os.chown(mounted,1000,1000)
+  else:mounted=Path(output(['findmnt','-n','-o','TARGET','--target',str(self.kit)]))
   if self.root.is_mount():
-   if self.root.stat().st_dev!=self.kit.stat().st_dev:raise RuntimeError('/mnt/storage is occupied by another filesystem.')
+   if self.root.stat().st_dev!=mounted.stat().st_dev:raise RuntimeError('/mnt/storage is occupied by another filesystem.')
   else:self.root.mkdir(parents=True,exist_ok=True);run(['mount','--bind',str(mounted),str(self.root)])
   if self.root.stat().st_uid!=1000:raise RuntimeError('Content mount must be owned by admin UID 1000. Correct its mount options before continuing.')
   fstab=Path('/etc/fstab');text=fstab.read_text();rows=[x.split() for x in text.splitlines() if x.strip() and not x.lstrip().startswith('#')]
@@ -159,7 +188,14 @@ class Installer:
    if fs in ['exfat','ntfs']:opts+=',uid=1000,gid='+str(pwd.getpwnam('admin').pw_gid)+',fmask=0133,dmask=0022'
    if fs=='ntfs':fs='ntfs-3g'
    atomic(fstab,text.rstrip()+'\n# Data Ark content volume\nUUID='+uuid+' /mnt/storage '+fs+' '+opts+' 0 0\n')
-  self.kit=self.root/'DATA-ARK-RECOVERY'
+  destination=self.root/'DATA-ARK-RECOVERY'
+  if selected and original_kit.resolve()!=destination.resolve():
+   if destination.exists():
+    if sha(destination/'kit.json')!=sha(original_kit/'kit.json'):raise RuntimeError('Drive carries another kit. Use its own START-ARK launcher instead.')
+   else:
+    shutil.copytree(original_kit,destination)
+    shutil.copytree(original_kit.parent/'DATA-ARK-CONFIG',self.root/'DATA-ARK-CONFIG')
+  self.kit=destination
  def python(self):
   target=Path('/usr/local/bin/pmtiles')
   if target.exists() and sha(target)!=sha(self.kit/'pmtiles'):raise RuntimeError('Different PMTiles CLI already installed; inspect it before replacement.')
@@ -169,7 +205,7 @@ class Installer:
    p=Path('/var/lib/dataark')/d;p.mkdir(parents=True,exist_ok=True);shutil.chown(p,user='admin',group='admin')
  def base_services(self):
   shutil.copyfile(self.repo/'config/content/public-manifest.yaml',self.repo/'dataark.yaml');shutil.chown(self.repo/'dataark.yaml',user='admin',group='admin')
-  unit=(self.repo/'deploy/reference/dataark.service').read_text();unit=unit.replace('After=network.target','After=network.target\nRequiresMountsFor=/mnt/storage')
+  unit=(self.repo/'deploy/reference/dataark.service').read_text();unit=unit.replace('After=network.target','After=network.target mnt-storage.mount')
   atomic(Path('/etc/systemd/system/dataark.service'),unit)
   run(['a2enmod','proxy','proxy_http','headers','alias','autoindex','mime','dir'])
   atomic(Path('/etc/apache2/sites-available/000-default.conf'),(self.repo/'deploy/reference/apache-vhost.conf').read_text())
@@ -252,23 +288,52 @@ class Installer:
   self.script('install_external_library.py')
   self.script('install_appliance_jobs.py')
   atomic(Path('/var/lib/dataark/bootstrap-readiness.json'),json.dumps({'status':'software_phases_completed_client_acceptance_required','checks_remaining':['Reboot and confirm mount']+(['Hotspot client and captive detection'] if platforms.selected(self.c)['network_mode']=='hotspot' else ['Existing LAN connectivity retained'])+['Offline article and image','Maps/forms/radio tools','Management authentication','Independent fresh-media recovery'],'finished_at':time.time()},indent=2)+'\n')
+def wizard_apply(plan, errors, ask=input):
+ """Accept the already displayed plan without a command-copy round trip."""
+ if errors:
+  print('Resolve the blocked items above, then run this launcher again.');return False
+ return ask('Install this exact reviewed plan now? [y/N]: ').strip().lower() in ('y','yes')
+
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--kit',type=Path);p.add_argument('--site',type=Path);p.add_argument('--profile');p.add_argument('--list-profiles',action='store_true');p.add_argument('--discover',action='store_true');p.add_argument('--accept-plan');p.add_argument('--apply',action='store_true');p.add_argument('--demo-library-gib',type=int,help='Explicitly reserve 2â€“16 GiB on the system card and install the fixed demo samples');p.add_argument('--resume-over-ethernet',action='store_true',help='Resume a journaled installation over an unchanged wired SSH path');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--kit',type=Path);p.add_argument('--site',type=Path);p.add_argument('--profile');p.add_argument('--wizard',action='store_true',help='Review and approve installation in the same interactive launcher');p.add_argument('--list-profiles',action='store_true');p.add_argument('--discover',action='store_true');p.add_argument('--accept-plan');p.add_argument('--apply',action='store_true');p.add_argument('--demo-library-gib',type=int,help='Reserve a system-card library while retaining 10 GiB for Linux');p.add_argument('--resume-over-ethernet',action='store_true',help='Resume a journaled installation over an unchanged wired SSH path');a=p.parse_args()
  if a.list_profiles:
   print(json.dumps([platforms.profile(p.stem) for p in sorted(platforms.PROFILES.glob('*.json'))],indent=2));return
  if a.discover:print(json.dumps(platforms.discover(),indent=2));return
  if not a.kit:p.error('--kit is required except with --discover')
- kit=a.kit.resolve();site=a.site or kit/'site.json';c=json.loads(site.read_text())
+ kit=a.kit.resolve();saved_site=Path('/var/lib/dataark/bootstrap-site.json')
+ site=a.site or (saved_site if a.wizard and Path('/var/lib/dataark/bootstrap.json').exists() and saved_site.exists() else kit/'site.json');c=json.loads(site.read_text())
+ if a.wizard and not a.apply and os.isatty(0) and not Path('/var/lib/dataark/bootstrap.json').exists():
+  arch=platforms.architecture()
+  suggested='raspberry-pi-debian13-arm64' if Path('/etc/rpi-issue').exists() and arch=='aarch64' else 'debian13-amd64-lan' if arch in ('x86_64','amd64') else 'debian13-arm64-lan'
+  if not a.profile:
+   options=[p.stem for p in sorted(platforms.PROFILES.glob('*.json'))]
+   print('Platform profiles: '+', '.join(options))
+   a.profile=input('Platform ['+suggested+']: ').strip() or suggested
+  c=platforms.configure(c,a.profile)
+  if platforms.selected(c)['network_mode']=='hotspot':
+   c['wifi_country']=input('Wi-Fi country ['+c.get('wifi_country','US')+']: ').strip().upper() or c.get('wifi_country','US')
+   c['hotspot']['ssid']=input('Hotspot name ['+c['hotspot']['ssid']+']: ').strip() or c['hotspot']['ssid']
+  choices=storage_choices()
+  if choices and kit.stat().st_dev==Path('/').stat().st_dev and a.demo_library_gib is None:
+   print('Storage: 0 = system-card library')
+   for number,row in enumerate(choices,1):print(f'{number} = {row["model"]} · {row["bytes"]/1024**3:.1f} GiB · {row["uuid"]}')
+   choice=input('Storage [0]: ').strip() or '0'
+   if not choice.isdigit() or int(choice)>len(choices):raise SystemExit('Choose one of the listed storage destinations.')
+   if int(choice):c['content_volume_uuid']=choices[int(choice)-1]['uuid'];c.pop('demo_library',None)
  if a.profile:c=platforms.configure(c,a.profile)
  if a.demo_library_gib is not None:c['demo_library']={'size_gib':a.demo_library_gib}
- if not a.apply and a.demo_library_gib is None and not c.get('demo_library') and os.isatty(0) and kit.stat().st_dev==Path('/').stat().st_dev:
-  answer=input('No separate content drive selected. Optional demo library on system card? Enter GiB (2â€“16, suggested 4), or Enter to decline: ').strip()
+ if not a.apply and a.demo_library_gib is None and not c.get('demo_library') and not c.get('content_volume_uuid') and os.isatty(0) and kit.stat().st_dev==Path('/').stat().st_dev:
+  maximum=min(1024,max(0,int(shutil.disk_usage('/var/lib').free/demo_library.GIB)-demo_library.OS_RESERVE_GIB))
+  answer=input(f'No separate content drive selected. System-card library? Enter GiB (2–{maximum}, suggested 4), or Enter to decline: ').strip()
   if answer.lower() not in ('','n','no'):
    try:c['demo_library']={'size_gib':int(answer)}
    except ValueError:p.error('Enter a whole demo-library size from 2 to 1024 GiB, or decline.')
  if c.get('demo_library'):
   c['demo_library']['sample_configuration_sha256']=sha(kit/'demo-library.json')
   if 'e2fsprogs' not in c['packages']:c['packages'].append('e2fsprogs')
+ if a.wizard and os.isatty(0) and not a.apply:
+  if os.geteuid()!=0:raise SystemExit('Run the interactive launcher with sudo.')
+  atomic(saved_site,json.dumps(c,indent=2)+'\n',0o600);a.site=saved_site
  validate(c)
  journal=Path('/var/lib/dataark/bootstrap.json');plan=platforms.proposal(c,platforms.discover());errors=preflight(c,kit,journal)+plan['issues']
  if c.get('demo_library'):
@@ -287,7 +352,9 @@ def main():
   if a.site:args+=['--site',str(a.site)]
   if a.profile:args+=['--profile',a.profile]
   if c.get('demo_library'):args+=['--demo-library-gib',str(c['demo_library']['size_gib'])]
-  print('Preview only. Reviewed apply command:',shlex.join(args+['--accept-plan',plan['plan_id'],'--apply']));return
+  print('Reviewed terminal alternative:',shlex.join(args+['--accept-plan',plan['plan_id'],'--apply']))
+  if not a.wizard or not os.isatty(0) or not wizard_apply(plan,errors):return
+  a.apply=True;a.accept_plan=plan['plan_id']
  if errors:raise SystemExit('Preflight failed; no installation changes made.')
  if a.accept_plan!=plan['plan_id']:raise SystemExit('Accept the exact current discovery plan with --accept-plan before applying.')
  if os.geteuid()!=0 or not os.isatty(0):raise SystemExit('Run with sudo from a local interactive terminal.')

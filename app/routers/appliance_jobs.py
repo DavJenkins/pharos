@@ -1,10 +1,35 @@
 """Authenticated browser controls for existing bounded copy/restore engines."""
 import json,subprocess
+from pathlib import Path
 from urllib.parse import urlsplit
 from fastapi import APIRouter,HTTPException,Request
+from fastapi.responses import FileResponse
 from starlette.concurrency import run_in_threadpool
 from app.services.network_admin import authorized
 router=APIRouter(prefix='/appliance-jobs',tags=['Make another Ark'])
+
+@router.get('/storage')
+def storage_status():
+    from tools.storage_workflows import STATE
+    path=STATE/'status.json'
+    try:value=json.loads(path.read_text())
+    except FileNotFoundError:value={'phase':'idle','message':'No storage transition in progress.'}
+    return {**value,'library_mounted':Path('/mnt/storage').is_mount()}
+
+@router.get('/card-package')
+def card_status():
+    from tools.ready_card import STATE
+    try:return json.loads((STATE/'status.json').read_text())
+    except FileNotFoundError:return {'phase':'idle','message':'No card preparation package requested.'}
+
+@router.get('/card-download')
+async def card_download(request:Request):
+    if not await run_in_threadpool(authorized,request.headers.get('authorization','')[:2049]):raise HTTPException(401,'Enter the caretaker password')
+    from tools.ready_card import STATE
+    if card_status()['phase']!='ready':raise HTTPException(409,'Finish building the package first')
+    path=STATE/'data-ark-card-preparation.zip'
+    if not path.is_file():raise HTTPException(404,'Package is not available')
+    return FileResponse(path,filename=path.name,media_type='application/zip',headers={'Cache-Control':'no-store'})
 
 def invoke(data):
     try:

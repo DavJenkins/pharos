@@ -1,0 +1,14 @@
+"use strict";
+(()=>{
+ const el=id=>document.getElementById(id);let plan=null,busy=false;
+ function message(t,error=false){el('message').textContent=t;el('message').classList.toggle('error',error);}
+ async function task(fn){if(busy)return;busy=true;try{await fn();}catch(e){message(e.message,true);}finally{busy=false;}}
+ function reset(){plan=null;el('plan').hidden=true;el('apply').hidden=true;const replacement=el('mode').value==='replace';el('copy-label').hidden=!replacement;el('configuration').disabled=replacement;if(replacement)el('configuration').value='keep';}
+ for(const id of ['drive','mode','configuration','copy-existing'])el(id).onchange=reset;
+ el('find').onclick=()=>task(async()=>{const d=await window.ApplianceJobs.action({action:'discover'});el('drive').replaceChildren(...d.drives.map(row=>{const o=document.createElement('option');o.value=row.uuid;o.textContent=(row.model||row.device)+' · '+(row.bytes/1024**3).toFixed(1)+' GiB · '+row.uuid;return o;}));reset();message(d.drives.length?'Choose the drive and purpose.':'No eligible formatted USB drive found. The current and system disks are excluded.');});
+ el('preview').onclick=()=>task(async()=>{plan=await window.ApplianceJobs.action({action:'storage_plan',uuid:el('drive').value,mode:el('mode').value,configuration:el('configuration').value,copy_existing:el('mode').value==='replace'&&el('copy-existing').checked});el('plan').textContent=JSON.stringify({destination:plan.target,uuid:plan.uuid,purpose:plan.mode,configuration:plan.configuration,configuration_changes:plan.configuration_changes,files:plan.target_files_count,recorded_checksums:plan.recorded_checksums,missing_recorded_files:plan.missing_recorded_files,first_missing_files:plan.first_missing_files,copy_GiB:(plan.copy_bytes/1024**3).toFixed(2)},null,2);el('plan').hidden=false;el('apply').hidden=false;message(plan.message);});
+ el('apply').onclick=()=>task(async()=>{if(!plan)throw Error('Review a plan first.');if(!confirm('Use this reviewed drive and configuration? The previous drive content is retained.'))return;await window.ApplianceJobs.action({action:'storage_apply',plan_id:plan.plan_id});message('Verification and activation queued.');el('apply').hidden=true;});
+ el('reconnect').onclick=()=>task(async()=>{const d=await window.ApplianceJobs.action({action:'storage_reconnect'});message(d.message);});
+ async function refresh(){try{const r=await fetch('/api/appliance-jobs/storage',{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();el('mounted').textContent=d.library_mounted?'The configured library is mounted.':'The library drive is missing. Saved content selections are retained.';el('progress').textContent=d.phase+' · '+(d.message||'')+(d.percent!=null?' '+d.percent+'%':'');}catch(e){el('progress').textContent='Waiting for the Ark to reconnect…';}}
+ refresh();setInterval(refresh,5000);
+})();

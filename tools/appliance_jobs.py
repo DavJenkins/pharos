@@ -26,7 +26,7 @@ def start(unit):subprocess.run(['systemctl','start','--no-block',unit],check=Tru
 
 def emit(kind,action):
     from app.services.collection_changes import safe_record
-    safe_record(kind,title='Make another Ark' if action=='clone' else 'Restore Library',action=action)
+    safe_record(kind,title={'clone':'Make another Ark','recipient':'Prepare a recipient','storage':'Library storage and recovery','card':'Prepare a system card'}.get(action,'Restore Library'),action=action)
 
 def save(path,value):
     from tools.clone_drive import save as atomic
@@ -36,16 +36,24 @@ def validate(data):
     if not isinstance(data,dict):raise ValueError('JSON object required')
     fields={'discover':set(),'clone_preview':{'uuid','mode'},'clone_start':{'plan_id'},'clone_pause':set(),'clone_eject':{'uuid'},
             'restore_start':{'preset','plan_id','replace_finished'},'restore_resume':set(),
-            'restore_pause':set(),'restore_cancel':set()}
+            'restore_pause':set(),'restore_cancel':set(),'recipient_preview':set(),
+            'recipient_prepare':{'plan_id','personal_reviewed'},'recipient_sheet':set(),
+            'storage_plan':{'uuid','mode','configuration','copy_existing'},'storage_apply':{'plan_id'},'storage_reconnect':set(),
+            'card_package':{'library_gib','country'}}
     action=data.get('action')
     if action not in fields or set(data)!={'action'}|fields[action]:raise ValueError('Invalid operation or fields')
-    if action in ('clone_preview','clone_eject'):
+    if action in ('clone_preview','clone_eject','storage_plan'):
         if not isinstance(data['uuid'],str) or not re.fullmatch(r'[A-Fa-f0-9-]{4,64}',data['uuid']):raise ValueError('Invalid drive UUID')
     if action=='clone_preview':
         if data['mode'] not in ('config','fit','populated'):raise ValueError('Invalid copy mode')
     if 'plan_id' in data and (not isinstance(data['plan_id'],str) or not re.fullmatch('[a-f0-9]{64}',data['plan_id'])):raise ValueError('Invalid plan ID')
     if action=='restore_start':
         if data['preset'] not in ('none','minimal','recommended','full') or type(data['replace_finished']) is not bool:raise ValueError('Invalid restoration choice')
+    if action=='recipient_prepare' and data['personal_reviewed'] is not True:raise ValueError('Review personal files and owner settings before preparing a recipient')
+    if action=='storage_plan' and (data['mode'] not in ('adopt','replace') or data['configuration'] not in ('keep','drive') or type(data['copy_existing']) is not bool):raise ValueError('Invalid storage selection')
+    if action=='card_package':
+        from tools.ready_card import validate as validate_card
+        validate_card(data['library_gib'],data['country'])
     return action
 
 def storage_module():
@@ -68,6 +76,28 @@ def archive_finished(queue):
 def dispatch(data):
     action=validate(data)
     if action=='discover':return {'drives':storage_module().devices()}
+    if action=='card_package':
+        from tools import ready_card
+        if active('dataark-card-package.service'):raise ValueError('Card package is already being built')
+        save(PRIVATE/'card-job.json',{'library_gib':data['library_gib'],'country':data['country']});ready_card.status('queued',message='Card preparation package queued. No physical card is being written.')
+        emit('queued','card');start('dataark-card-package.service');return {'queued':True}
+    if action.startswith('recipient_'):
+        from tools import prepare_recipient as recipient
+        if action=='recipient_sheet':return {'html':recipient.welcome_sheet()}
+        inspection=recipient.inspection()
+        if action=='recipient_preview':return inspection
+        if data['plan_id']!=inspection['plan_id'] or not inspection['eligible']:raise ValueError('Preparation requirements changed; inspect again')
+        recipient.arm();emit('configuration_published','recipient')
+        return {'html':recipient.welcome_sheet(),'message':'Prepared for its next owner. Save the private welcome sheet, then shut down. The next boot changes identities and starts recipient setup.'}
+    if action.startswith('storage_'):
+        from tools import storage_workflows as storage
+        if active('dataark-storage.service'):raise ValueError('A storage operation is already running')
+        if action=='storage_reconnect':return storage.reconnect()
+        if action=='storage_plan':return storage.plan(data['uuid'],data['mode'],data['configuration'],data['copy_existing'])
+        p=json.loads((storage.PRIVATE/'plan.json').read_text())
+        if p['plan_id']!=data['plan_id']:raise ValueError('Storage plan changed; review again')
+        storage.save(storage.PRIVATE/'job.json',p);storage.status('queued',message='Storage verification and activation queued.')
+        emit('queued','storage');start('dataark-storage.service');return {'queued':True}
     from tools import clone_drive as clone,recovery_queue as queue
     if action.startswith('clone_'):
         if action=='clone_pause':
@@ -145,6 +175,17 @@ def clone_worker():
 def main():
     if os.geteuid()!=0:raise ValueError('Root helper required')
     if sys.argv[1:]==['--clone-worker']:clone_worker();return
+    if sys.argv[1:]==['--storage-worker']:
+        from tools import storage_workflows as storage
+        try:storage.worker()
+        except Exception as e:storage.status('failed',message=str(e));emit('failed','storage');raise
+        return
+    if sys.argv[1:]==['--storage-recover']:
+        from tools.storage_workflows import recover
+        recover();return
+    if sys.argv[1:]==['--card-package']:
+        from tools.ready_card import worker
+        worker();return
     if sys.argv[1:]==['--restore-report']:
         from tools.recovery_queue import snapshot,STATE
         state=snapshot()['status']

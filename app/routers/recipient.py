@@ -12,9 +12,9 @@ STATE=Path('/var/lib/dataark/recipient.json')
 
 @router.get('/status')
 def status():
-    try:state=json.loads(STATE.read_text()).get('state')
-    except (OSError,ValueError):state=None
-    return {'setup_required':state=='awaiting_local_password'}
+    try:data=json.loads(STATE.read_text())
+    except (OSError,ValueError):data={}
+    return {'setup_required':data.get('state')=='awaiting_local_password','network_mode':data.get('network_mode','hotspot'),'hostname':data.get('hostname'),'hotspot_ssid':data.get('hotspot_ssid','DataArk')}
 
 def invoke(payload):
     result=subprocess.run(['/usr/bin/sudo','-n','--','/usr/bin/python3','/usr/local/libexec/dataark-recipient','--enroll'],input=json.dumps(payload),capture_output=True,text=True,timeout=15)

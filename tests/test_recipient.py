@@ -79,7 +79,7 @@ class RecipientTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'integration'):r.arm(root)
             (root/'etc/dataark/bugout-ha.json').unlink()
             (root/'etc/dataark-physical-bootstrap-test').unlink()
-            with self.assertRaisesRegex(ValueError,'demonstration'):r.arm(root)
+            with self.assertRaisesRegex(ValueError,'managed'):r.arm(root)
 
     def test_identity_precedes_https_reconciliation(self):
         self.assertIn('dataark-https-reconcile.service',r.UNIT.split('Before=')[1].splitlines()[0])
