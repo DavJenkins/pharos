@@ -13,6 +13,18 @@ class Request:
     async def stream(self):yield self.body
 
 class SoftwareInstallationTests(unittest.TestCase):
+    def test_fresh_event_feed_is_writable_by_its_service_account(self):
+        import os
+        from types import SimpleNamespace
+        from deploy.install_software_updater import prepare_collection_feed
+        with tempfile.TemporaryDirectory() as directory:
+            account=SimpleNamespace(pw_uid=os.getuid(),pw_gid=os.getgid())
+            path=prepare_collection_feed(Path(directory),account)
+            self.assertEqual(path.stat().st_uid,account.pw_uid)
+            self.assertEqual(path.stat().st_mode&0o7777,0o2770)
+            (path/'write-proof').write_text('service can write')
+            self.assertEqual(prepare_collection_feed(Path(directory),account),path)
+
     def test_no_password_no_upload_or_root_call(self):
         with patch.object(routes,'authorized',return_value=False),patch.object(routes.installation,'invoke') as invoke:
             with self.assertRaises(HTTPException) as caught:asyncio.run(routes.stage(Request(b'archive')))

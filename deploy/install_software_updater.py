@@ -72,10 +72,17 @@ TimeoutStartSec=90
 WantedBy=multi-user.target
 '''}
 
+def prepare_collection_feed(root,account):
+    path=root/'var/lib/dataark/collection-changes'
+    if path.is_symlink():raise ValueError('Collection feed cannot be a symlink')
+    path.mkdir(parents=True,exist_ok=True);os.chown(path,account.pw_uid,account.pw_gid);path.chmod(0o2770)
+    return path
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--revision',help='Explicit source revision for a reviewed legacy installation without build metadata');parser.add_argument('--profile',choices=['raspberry-pi-debian13-arm64','debian13-arm64-lan','debian13-amd64-lan']);args=parser.parse_args()
     if os.geteuid()!=0:raise SystemExit('Run as root on the Ark')
     os.umask(0o077);account=pwd.getpwnam('admin')
+    prepare_collection_feed(Path('/'),account)
     for name in ('software_update.py','software_update_control.py'):
         raw=(ROOT/'tools'/name).read_bytes();compile(raw,name,'exec')
         target=Path('/usr/local/libexec')/('dataark-software-update' if name.endswith('control.py') else name)
