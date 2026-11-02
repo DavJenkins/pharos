@@ -1,6 +1,8 @@
 /* Shared DEJ footer links. Artwork is local; external services open only on request. */
 (()=>{
  function attach(){
+  // A discreet novelty in Help/About, never a recurring promotion.
+  if(!/(?:^|\/)(?:help\/(?:index\.html)?|docs\/(?:index\.html|summary\.html)?|docs\/00-Introduction\/Welcome\.html|about\/handbook\/(?:index\.html)?)$/.test(location.pathname))return;
   if(document.querySelector('[data-dej-community-links]'))return;
   const source=document.currentScript?.src||Array.from(document.scripts).find(s=>s.src.includes('dej-community-links.js'))?.src;
   if(!source)return;
@@ -9,11 +11,11 @@
   document.head.append(style);
   const links=document.createElement('div');links.className='dej-community-links';links.dataset.dejCommunityLinks='';links.setAttribute('aria-label','DEJ Software community and optional support');
   const hello=document.createElement('a');hello.className='dej-hello';hello.href='mailto:support@DEJSoftware.com?subject=DEJ%20Software%20%E2%80%94%20Recognized%20one!';hello.setAttribute('aria-label','Recognize one? Say hello by email.');hello.title='Recognize one? Say hello.';
-  const image=document.createElement('img');image.src=new URL('../dej-affiliations.webp',source).href;image.alt='DEJ Software affiliations — Recognize one? Say hello.';image.width=512;image.height=256;hello.append(image);
-  const coffee=document.createElement('div');coffee.className='dej-coffee';const support=document.createElement('a');support.href='https://buymeacoffee.com/dejsoftware';support.target='_blank';support.rel='noopener noreferrer';support.textContent='Buy Dave a coffee ↗';const note=document.createElement('small');note.textContent='Optional support · internet required';coffee.append(support,note);links.append(hello,coffee);
+  const image=document.createElement('img');image.src=new URL('../dej-affiliations.webp',source).href;image.alt='DEJ Software affiliations â€” Recognize one? Say hello.';image.width=512;image.height=256;hello.append(image);
+  const coffee=document.createElement('div');coffee.className='dej-coffee';const support=document.createElement('a');support.href='https://buymeacoffee.com/dejsoftware';support.target='_blank';support.rel='noopener noreferrer';support.textContent='Buy Dave a coffee â†—';const note=document.createElement('small');note.textContent='Optional support Â· internet required';coffee.append(support,note);links.append(hello,coffee);
   let footer=document.querySelector('footer:not([hidden]):not(.platform-credit)');
   if(!footer){footer=document.createElement('footer');footer.className='dej-support-footer';document.body.append(footer);}
-  footer.append(links);
+  const disclosure=document.createElement('details');const heading=document.createElement('summary');heading.textContent='A personal note';disclosure.append(heading,links);footer.append(disclosure);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',attach,{once:true});else attach();
 })();

@@ -95,3 +95,14 @@ class LibraryGrowthTests(unittest.TestCase):
             info=image.stat();state.write_text(json.dumps({'image':str(image),'inode':info.st_ino,'device':info.st_dev,'capacity_bytes':4*d.GIB,'stage':'ready'}))
             with patch.object(d.shutil,'disk_usage',return_value=SimpleNamespace(free=80*d.GIB)),self.assertRaisesRegex(ValueError,'10 GiB'):d.grow(80,image,state,mount)
             self.assertEqual(image.stat().st_size,4*d.GIB)
+
+
+def test_demo_sample_is_first_and_prominent_without_reordering_normal_configuration():
+    from app.services.demo_library import overlay
+    data={'system':{},'repositories':[{'id':'large-uninstalled-collection'}],'assets':[]}
+    config={'label':'Demo','notice':'Installed sample','repository':{'id':'demo-library'},'samples':[]}
+    result=overlay(data,config)
+    assert result['repositories'][0]['id']=='demo-library'
+    assert result['system']['demo_library']['repository_id']=='demo-library'
+    assert result['system']['demo_library']['heading']=='Try the installed offline sample'
+    assert data['repositories']==[{'id':'large-uninstalled-collection'}]
