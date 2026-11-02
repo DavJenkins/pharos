@@ -2,14 +2,15 @@ repository:
   id: vehicle-manuals
   category: content_sources
   title: Vehicle Manuals
-  description: Honda owner’s manuals and quick guides for the 2017 Accord Sedan and
-    Civic Sedan. Includes routine maintenance and roadside procedures; these are not
-    factory workshop manuals. Confirm engine and equipment before use.
+  description: Configured vehicle owner documents and quick guides. Read each source’s
+    scope, applicability and publisher notices before use.
   artwork:
     path: app/static/assets/icons/Repair.png
     alt: Vehicle maintenance icon
   update_policy: manual
   refresh_interval: never
-  links: []
+  links:
+  - title: Vehicle documents and source notices
+    url: /library-files/vehicles/index.html
 catalogue: catalogues/vehicle-manuals.yaml
 versions: state/versions/vehicle-manuals.yaml

@@ -1,17 +1,36 @@
-# Vehicle manuals
+# Vehicle documents and source notices
 
-The Ark preserves Honda’s official owner’s manuals and quick owner’s guides for the **2017 Accord Sedan** and **2017 Civic Sedan**. Open them from the Vehicle Manuals card on the landing page, or copy the original PDFs from `/library-files/vehicles/`, the public file share, or anonymous FTP.
+Vehicle documents are selected by the source catalogue and linked to vehicles through personalization. The Vehicle Manuals card and [vehicle document index](/library-files/vehicles/index.html) identify the configured documents and their publisher, document type, scope, applicability and rights notices. Original PDFs are also available through the public file share and anonymous FTP.
 
-These are owner documents, including routine maintenance and roadside procedures. They are **not factory workshop/service manuals** and do not supply a complete repair library or all wiring diagrams. Trim, engine, transmission, hybrid status, and fitted equipment have not been confirmed. Check the manual’s applicability before using a procedure; do not assume the Accord hybrid or Civic Si uses the same procedures.
+A vehicle’s make, model and year do not establish the contents or licensing of a document. Owner manuals, quick guides and workshop/service manuals are different document types. Their scope and any applicability limits come from explicit source metadata. Match the document to the vehicle and its equipment before following a procedure.
 
-## Sources and restoration
+## Human-readable source metadata
 
-- Human-readable selection: `/opt/dataark/deploy/reference/vehicle-manuals.json`.
-- Installer: `sudo /usr/bin/python3 /opt/dataark/tools/install_vehicle_manuals.py`.
-- Original PDFs and verified retrieval metadata: `/mnt/storage/vehicles/`.
-- Saved content recipe: `/opt/dataark/config/content/content.yaml`, mirrored in `DATA-ARK-CONFIG` on the content drive.
-- Config-only restoration downloads these PDFs as direct files. Populated drive replication includes the public `vehicles` folder. Honda copyright and original notices remain unchanged.
+`deploy/reference/vehicle-manuals.json` contains `schema: 1`, collection-level `repository` settings, shared `defaults`, and a `documents` list. Each document declares:
 
-Honda’s download server currently omits an intermediate certificate. `deploy/reference/honda-intermediate.pem` supplies DigiCert EV RSA CA G2 for these downloads only; it was verified against the system’s trusted root bundle. Certificate and hostname checks remain enabled. No system trust settings are changed. Replace this intermediate if Honda’s chain changes; never work around a failure by disabling verification.
+- Its ID, title, HTTPS publisher URL, model year and model.
+- Publisher and document type.
+- Scope, applicability and publisher/rights notice. Defaults are explicit catalogue data and can be overridden per document.
+- Optional additional `validation_text` fragments, pinned size and SHA-256.
 
-Additional factory repair material may require a Honda service-information subscription or an owner-supplied licensed manual. No subscription has been purchased and no paid workshop material has been installed.
+Personalization’s `asset_ids` select these source records; they do not generate new claims about a publisher, license, trim, engine or document coverage. Adding another manufacturer or model requires catalogue data, not manufacturer-specific Python.
+
+## Acquisition, provenance and restoration
+
+The installer validates the configured year/model and any additional text against the PDF. It records file size, SHA-256 and retrieval time. Source statements are copied from the catalogue; they are not inferred from the PDF or vehicle name. Source notices are rendered from those records.
+
+```bash
+sudo /usr/bin/python3 /opt/dataark/tools/install_vehicle_manuals.py
+```
+
+To refresh notices against already verified files without downloading or rewriting PDFs:
+
+```bash
+sudo /usr/bin/python3 /opt/dataark/tools/install_vehicle_manuals.py --metadata-only
+```
+
+Verified files and provenance are stored in `/mnt/storage/vehicles/`. A metadata-only refresh preserves the original retrieval time and records its own metadata-update time. Missing files or checksum/identity mismatches fail without treating the document as newly acquired.
+
+Configured publisher certificate-chain additions live in `deploy/reference/source-tls.json`. They apply only to the named host and retain standard system trust and hostname verification. Certificate paths must remain inside the reference directory. Certificate verification is never disabled.
+
+The content recipe and configuration mirror preserve the source definitions and notices. Populated-drive replication copies the original public vehicle PDFs. Public availability or a catalogue entry does not grant additional rights; retain each publisher’s notices.

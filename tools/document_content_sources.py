@@ -23,7 +23,7 @@ NOTES = {
  'wikimed': 'The medical encyclopedia remains distinct from the First Aid & Caregiving collection; that card links here too.',
  'maps-navigation': 'The street maps are not nautical charts or a routing service. The expandable list below identifies the major Caribbean island groups.',
  'laws-codes': 'The state/territory collection is constitutional text (and the DC Home Rule Act/Charter), not a complete collection of every state statute, regulation or adopted building code. Massachusetts and local references have the narrower scope named in each title.',
- 'repairs-maintenance': 'iFixit, practical repairs and the two vehicle collections stay distinct within this card. Honda owner manuals and quick guides are not factory workshop/service manuals.',
+ 'repairs-maintenance': 'Repair resources and vehicle documents retain their individual scope, applicability and publisher notices.',
 }
 # Acquisition failures are maintained in ContentGaps, not the installed-content guide.
 GAPS = {}
@@ -38,6 +38,8 @@ ISLANDS = [
 ]
 
 def generate(data, root):
+    vehicle_ids = {identifier for vehicle in data.get('personalization',{}).get('vehicles',[]) for identifier in vehicle.get('asset_ids',[])}
+    vehicle_ids.update(a['id'] for a in data['assets'] if a.get('repository_id')=='vehicle-manuals' or a.get('source_metadata',{}).get('document_kind'))
     rows = defaultdict(list)
     for asset in data['assets']:
         if not asset.get('removed'):
@@ -75,7 +77,7 @@ def generate(data, root):
         elif identifier == 'learning-home':
             groups = [('Core Knowledge teaching resources', [a for a in items if a['id'].startswith('curriculum-ck-')]), ('OpenStax textbooks', [a for a in items if a['id'].startswith('curriculum-openstax-')])]
         elif identifier == 'repairs-maintenance':
-            groups = [('iFixit illustrated repair archive', [a for a in items if a['id'].startswith('ifixit')]), ('Practical repairs and maintenance', [a for a in items if a['id'].startswith('family-')]), ('Vehicle owner manuals and quick guides', [a for a in items if a['id'].startswith(('accord-', 'civic-'))])]
+            groups = [('iFixit illustrated repair archive', [a for a in items if a['id'].startswith('ifixit')]), ('Practical repairs and maintenance', [a for a in items if a['id'].startswith('family-')]), ('Vehicle owner manuals and quick guides', [a for a in items if a['id'] in vehicle_ids])]
         grouped = {a['id'] for _, entries in groups for a in entries}
         other = [a for a in items if a['id'] not in grouped]
         if other:groups.insert(0, ('Saved content', other))
