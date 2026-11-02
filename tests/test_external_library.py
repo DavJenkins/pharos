@@ -52,7 +52,11 @@ def test_ambiguous_mount_config_refused():
 def test_system_disk_not_offered_even_when_usb(monkeypatch):
     raw={'blockdevices':[{'path':'/dev/sda','tran':'usb','children':[{'path':'/dev/sda1','type':'part','fstype':'ext4','uuid':'abcd-1234','mountpoints':['/']}]},
                          {'path':'/dev/sdb','tran':'usb','model':'Spare','children':[{'path':'/dev/sdb1','type':'part','fstype':'ext4','uuid':'abcd-5678','size':123,'mountpoints':[]}]}]}
-    monkeypatch.setattr(x,'run',lambda _:json.dumps(raw))
+    def lsblk(args):
+        # Without NAME or --tree, lsblk JSON does not nest partition children.
+        if '--tree' not in args:return json.dumps({'blockdevices':[dict(d,children=[]) for d in raw['blockdevices']]})
+        return json.dumps(raw)
+    monkeypatch.setattr(x,'run',lsblk)
     assert [d['uuid'] for d in x.devices()]==['abcd-5678']
 
 def test_nonempty_drive_not_adopted(tmp_path,monkeypatch):

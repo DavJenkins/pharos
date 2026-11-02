@@ -70,7 +70,7 @@ def uuid_ok(value):
     return value
 
 def devices():
-    data=json.loads(run(['lsblk','--json','--bytes','--paths','-o','PATH,TYPE,TRAN,FSTYPE,UUID,SIZE,MODEL,SERIAL,MOUNTPOINTS']))
+    data=json.loads(run(['lsblk','--json','--tree','--bytes','--paths','-o','PATH,TYPE,TRAN,FSTYPE,UUID,SIZE,MODEL,SERIAL,MOUNTPOINTS']))
     rows=[]
     for disk in data['blockdevices']:
         # Never offer the system disk or a USB disk containing the running OS.
