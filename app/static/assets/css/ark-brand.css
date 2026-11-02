@@ -13,3 +13,4 @@ body:has(.ark-app-masthead){padding:clamp(.5rem,2.5vw,2rem);background-image:url
 @media(max-width:600px){.ark-app-masthead{flex-wrap:wrap;gap:1rem}.ark-app-masthead nav{justify-content:flex-start}}
 
 body:has(> #map){padding:0;background:#fffaf0}body:has(> #map)>header>.ark-app-masthead{margin:0 0 .75rem;padding:.75rem 1rem;border-radius:0}
+.network-settings-card:has(> .ark-app-masthead){padding-top:0}
