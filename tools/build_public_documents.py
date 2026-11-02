@@ -78,8 +78,6 @@ def build(website=None):
   meta['handbook_documents']=count;meta['handbook_permalink']='/data-ark/docs/';meta['api_permalink']='/data-ark/api/'
   (local/'publication.json').write_text(json.dumps(meta,indent=2)+'\n',encoding='utf-8')
   for folder in [web,archive]:(folder/'publication.json').write_text(json.dumps(meta,indent=2)+'\n',encoding='utf-8')
-  # Retain already advertised public URLs as small canonical redirects.
-  (website/'data-ark-collection.html').write_text('<!doctype html><html lang="en"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/data-ark/collection/"><title>The Data Ark collection</title><link rel="canonical" href="'+c['website_base']+'/data-ark/collection/"><p><a href="/data-ark/collection/">Read the Data Ark collection catalogue</a></p></html>',encoding='utf-8')
   public_downloads.finish(ROOT,website,edition,c)
  print('Built',len(pages),'paired documents;',edition)
  return meta

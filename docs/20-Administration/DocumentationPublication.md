@@ -6,7 +6,7 @@
 
 These are bundled software documents. They are not independently downloaded, removed or updated by the publication/content queue. A software upgrade regenerates the installed edition; an internet failure does not remove the instructions. Public website editions are supplemental. The current public edition includes the complete handbook and API reference; local editions link to the installed handbook.
 
-The website publisher uploads only generated HTML, PDFs and publication metadata from the public folder. Public handbook JSON attachments and the exported API schema are included. Raw appliance configuration, private appliance state, household files, credentials and development logs are not part of that file set. Existing `/data-ark-collection.html` and its PDF remain compatible with previously distributed links.
+The website publisher uploads only generated HTML, PDFs and publication metadata from the public folder. Public handbook JSON attachments and the exported API schema are included. Raw appliance configuration, private appliance state, household files, credentials and development logs are not part of that file set. The collection catalogue is published at `/data-ark/collection/`; catalogue PDFs are downloaded from GitHub Releases.
 
 Versioned bootstrap downloads are hosted on GitHub Releases. The website entry page links the kit, release notes and checksums; `/data-ark/bootstrap-release.json` provides a small current-download record from `config/bootstrap-release.json`. Preview 2.1 carries its exact tested source revision and a bundled release-audit record. Earlier clean-system replay evidence remains separate. The FTP site stores no large bootstrap archive. Physical spare-media acceptance remains separate from the web/deployment audit.
 
