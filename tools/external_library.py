@@ -221,7 +221,7 @@ def switch():
         installed=REPO/'config/installed-site.json';old_site=installed.read_bytes()
         active,reader=quiesce()
         try:
-            status('switching',message='Switching library storage; reconnectingâ€¦')
+            status('switching',message='Switching library storage; reconnectingÃ¢â‚¬Â¦')
             # Recheck after quiescing, before the mount handover.
             if files(SOURCE)!=p['source_files']:raise ValueError('Library changed; repeat copy')
             run(['umount',str(target)]);run(['umount',str(SOURCE)])
@@ -260,7 +260,9 @@ def main():
         if run(['systemctl','show','-p','ActiveState','--value',unit]) in ('active','activating'):
             raise ValueError('A transition is already running; check status')
     if data=={'action':'drives'}:value={'drives':devices(),'system_card_active':SOURCE.is_mount() and (SOURCE/'DEMO-LIBRARY.json').exists()}
-    elif set(data)=={'action','uuid'} and data['action']=='plan':value=plan(data['uuid'])
+    elif set(data)=={'action','uuid'} and data['action']=='plan':
+        value=plan(data['uuid'])
+        status('planned',message='Preview ready. Review the destination, then choose Copy and verify.',plan_id=value['plan_id'])
     elif set(data)=={'action','plan_id'} and data['action'] in ('copy','switch'):
         p=json.loads((PRIVATE/'plan.json').read_text())
         if data['plan_id']!=p['plan_id']:raise ValueError('Review the current plan')
