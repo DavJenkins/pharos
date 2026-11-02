@@ -251,6 +251,8 @@ def load_manifest(path):
                     raise ManifestError('Demo sample configuration differs from the approved installation plan.')
                 from app.services.demo_library import overlay
                 data = overlay(data, json.loads(raw_demo))
+                if installed.get('external_library'):
+                    data['system']['demo_library']={'label':'External content drive','notice':'Library on the external drive. The previous system-card copy is retained.'}
     community = data.get('community', {'enabled': True})
     if not isinstance(community, dict) or set(community)!={'enabled'} or type(community.get('enabled', True)) is not bool:
         raise ManifestError('community accepts only enabled: true or false.')

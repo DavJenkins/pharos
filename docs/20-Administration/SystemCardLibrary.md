@@ -15,6 +15,24 @@ sudo python3 deploy/demo_library.py --grow-gib 80
 
 The grow operation verifies image ownership and the mounted loop device, allocates real space, expands ext4 online and updates its capacity record. It never formats existing content or shrinks the image. A failed operation retains a resize journal for inspection; do not delete the image to resolve a resize failure. Content hashes and available space should be checked after growth.
 
+## Add an external drive
+
+From **Manage Library**, open **Use an external library drive**. Connect an empty, formatted USB drive, choose **Find drives**, select it, and choose **Preview transfer**. These operations use the on-demand caretaker prompt and its optional password cache.
+
+The preview names the drive and shows the complete file count, transfer size and free space. The destination must fit the entire library plus 1 GiB; nothing is formatted or erased, and partial collections are never silently omitted. A nonempty drive is refused unless it contains this transfer tool's own resumable preparation marker. Adopting an unrelated populated Ark drive requires a separate public-configuration review; it is not an automatic merge.
+
+Choose **Copy and verify**. The updater and library writers are excluded by the shared worker locks. The API and Kiwix reader pause while every file is copied and checked with SHA-256. The progress page reconnects when the API returns; reloading the page never requires a password by itself. If interrupted, the system-card image remains selected, partial destination files remain, and a new preview can restart the verified copy without deleting source content.
+
+After verification, choose **Use this drive**. The tool checks the copy again, pauses writers, replaces only the library mount entry with the destination UUID, and mounts the external drive. A failed handover restores the previous mount entry, site settings and system-card mount. The external mount uses `nofail` so an absent drive does not force Linux into emergency mode. It does not silently substitute an old library if the external drive is missing.
+
+The source image is retained at `/var/lib/dataark/demo-library.ext4`; it is not deleted or shrunk. The existing library configuration, sample registrations, readers and URLs remain in use, with an external-drive label. No redownload is required. The drive must remain connected while in use. Reclaiming system-card space is a separate maintenance step, not part of the handover. Transition requests and completion/failure enter the collection event feed used by Home Assistant.
+
+The installer is `deploy/install_external_library.py`; it installs a fixed root-owned helper and two fixed worker services. Web requests supply only a reviewed plan ID and a discovered drive UUID, never a command or arbitrary path.
+
+### Handover acceptance
+
+Fourteen focused tests cover verified copying, source changes, disconnects, checksum failures, invalid UUIDs, system-drive exclusion, occupied destinations, insufficient space and mount-entry preservation. An isolated physical-Pi test using disposable ext4 images also verified a successful handover, persistence of the selected mount, retention of the source image, and automatic rollback after an injected mount failure. This test does not format or alter production drives. The removable-drive user walkthrough remains part of physical acceptance.
+
 ## Prepare this demonstration card for a recipient
 
 The recipient setup tool currently supports the marked physical demonstration appliance. It preserves content and public configuration. It refuses configured integration/certificate credentials; those need a separate review before transferring an appliance.
