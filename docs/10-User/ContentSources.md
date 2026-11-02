@@ -1896,7 +1896,7 @@ Communicate, Communicate Keyboard for Android, and a downloadable Data Ark boots
 ::: details Saved content (3 items)
 
 - [Communicate — offline browser communication tool](/library-files/communication/communicate/index.html) — [publisher](https://dejsoftware.com/communicate/index.html)
-- [Communicate Keyboard — Android development build 0.2.1-dev.13](/library-files/communication/android/communicate-keyboard-dev-13-c5de874bd628.apk) — [publisher](https://dejsoftware.com/communicate-keyboard-dev/communicate-keyboard-dev-13-c5de874bd628.apk)
+- [Communicate Keyboard — Android development build 0.2.1-dev.13](/library-files/communication/android/communicate-keyboard-dev-13-c5de874bd628.apk) — [publisher](https://github.com/DavJenkins/dej-software-downloads/releases/download/communicate-keyboard-dev-13/communicate-keyboard-dev-13-c5de874bd628.apk)
 - [Data Ark bootstrap kit — 2026.10.30-preview.2.1](/library-files/communication/ark-bootstrap/data-ark-bootstrap-2026.10.30-preview.2.1.tar.gz) — [publisher](https://github.com/DavJenkins/pharos/releases/download/bootstrap-2026.10.30-preview.2.1/data-ark-bootstrap-2026.10.30-preview.2.1.tar.gz)
 
 :::

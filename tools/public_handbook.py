@@ -16,6 +16,14 @@ def body(text):
  value=re.sub(r'^<p class="docs-eyebrow">.*?</p>','',value,count=1)
  return re.sub(r'<p>\*(.*?)\*</p>',r'<p><em>\1</em></p>',value)
 
+def guide_content(text):
+ """The public frame supplies its own navigation and branded masthead."""
+ match=re.search(r'<main[^>]*>(.*?)</main>',text,re.S)
+ if not match:return None
+ content=re.sub(r'<script\b[^>]*>.*?</script>','',match.group(1),flags=re.S|re.I)
+ content=re.sub(r'<header class="ark-app-masthead">.*?</header>','',content,flags=re.S)
+ return re.sub(r'<a class="ark-page-brand"[^>]*>.*?</a>','',content)
+
 def rewrite(root,source,value,prefix,local=False,selected=None):
  selected=selected or {}
  def transform(match):
@@ -87,9 +95,8 @@ def publish(root,web,archive,edition,config,frame):
   schema=json.loads((root/'docs/30-Developer/api/openapi.json').read_text(encoding='utf-8-sig'));api=target/'api';api.mkdir(exist_ok=True)
   (api/'index.html').write_text(frame('Data Ark API reference',api_body(schema,prefix+'api/openapi.json',prefix+'docs/'),prefix+'api/',prefix),encoding='utf-8');shutil.copyfile(root/'docs/30-Developer/api/openapi.json',api/'openapi.json')
   for source in list((root/'app/static/legal').glob('*.html'))+[root/'app/static/content.html',root/'app/static/resources.html']:
-   text=source.read_text(encoding='utf-8-sig');match=re.search(r'<main[^>]*>(.*?)</main>',text,re.S)
-   if not match:continue
-   content=re.sub(r'<script\b[^>]*>.*?</script>','',match.group(1),flags=re.S|re.I);content=re.sub(r'<a class="ark-page-brand"[^>]*>.*?</a>','',content)
+   text=source.read_text(encoding='utf-8-sig');content=guide_content(text)
+   if content is None:continue
    content=rewrite(root,source,content,prefix,selected=selected)
    title=re.search(r'<h1[^>]*>(.*?)</h1>',content,re.S).group(1)
    rel=('legal/' if source.parent.name=='legal' else 'guides/')+source.name;out=target/rel;out.parent.mkdir(exist_ok=True);out.write_text(frame(html.unescape(re.sub('<[^>]+>','',title)),content,prefix+rel,prefix),encoding='utf-8')

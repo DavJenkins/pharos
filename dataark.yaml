@@ -19200,7 +19200,7 @@ assets:
   title: Communicate Keyboard — Android development build 0.2.1-dev.13
   relative_path: communication/android/communicate-keyboard-dev-13-c5de874bd628.apk
   service_endpoint: /library-files/communication/android/communicate-keyboard-dev-13-c5de874bd628.apk
-  download_url: https://dejsoftware.com/communicate-keyboard-dev/communicate-keyboard-dev-13-c5de874bd628.apk
+  download_url: https://github.com/DavJenkins/dej-software-downloads/releases/download/communicate-keyboard-dev-13/communicate-keyboard-dev-13-c5de874bd628.apk
   expected_hash: c5de874bd628faa8608be431367ae629cee9a683b23e523df408c2c503e84c5b
   update_policy: manual
   refresh_interval: never

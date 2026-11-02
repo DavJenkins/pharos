@@ -56,6 +56,7 @@
 - [Forms and Templates](20-Administration/Forms.md)
 - [Paper, play and family resources](20-Administration/FamilyResources.md)
 - [Browser terminal](20-Administration/BrowserTerminal.md)
+- [Desktop and startup artwork](20-Administration/Desktop.md)
 - [VNC desktop access](20-Administration/VNC.md)
 - [Survival, power, laws and PDF forms](20-Administration/ResilienceResources.md)
 - [Paired-media recovery](20-Administration/PairedRecovery.md)
@@ -113,6 +114,7 @@
 - [State and territorial legal coverage](20-Administration/Jurisdictions.md)
 
 - [Home Assistant health and bug-out](20-Administration/HomeAssistant.md)
+- [Integration status](20-Administration/PlannedIntegrations.md)
 
 - [Optional HTTPS and clone identities](20-Administration/HTTPS.md)
 

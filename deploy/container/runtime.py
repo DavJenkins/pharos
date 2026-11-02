@@ -87,6 +87,8 @@ def main():
     if not docs.exists():
         from tools.publish_docs import publish
         publish(ROOT/'docs',docs)
+    from tools.inject_brand_links import inject
+    inject(WEB)
     render()
     processes=[];reader=None;signature=None;stopping=False
     def stop(*_):

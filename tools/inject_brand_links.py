@@ -32,16 +32,34 @@ def application_brand(text):
  text=re.sub(r'(<a\b[^>]*href=")([^"<>]+)">([^<>]+)(</a>)',navigation,text)
  masthead='<div class="ark-page-brand ark-shared-brand"><a class="ark-maker" href="https://www.dejsoftware.com/" title="DEJ Software website (internet required)"><img src="/assets/dej-software-footer.webp" alt="DEJ Software™" width="1024" height="192"></a><a class="ark-home" href="/">Data Ark</a></div>'
  text=re.sub(r'<a class="ark-page-brand" href="/">Data Ark</a>',lambda m:masthead,text)
+ # New first-party tools often start with navigation rather than the old brand
+ # anchor. Give them the same masthead without changing their page title.
+ if not any(marker in text for marker in ('ark-app-masthead','docs-masthead','class="docs-brand"','class="ark-wordmark"','id="pharos-title"','class="manifest-hero"')):
+  if re.search(r'<header>\s*<a href="/">Data Ark</a>\s*</header>',text):
+   text=re.sub(r'<header>\s*<a href="/">Data Ark</a>\s*</header>','<header class="ark-app-masthead">'+masthead+'</header>',text,count=1)
+  elif re.search(r'<nav\b[^>]*>.*?</nav>',text,re.S):
+   text=re.sub(r'<nav\b[^>]*>.*?</nav>',lambda m:'<header class="ark-app-masthead">'+masthead+m[0]+'</header>',text,count=1,flags=re.S)
+  elif re.search(r'<header\b[^>]*>',text):
+   text=re.sub(r'<header\b[^>]*>',lambda m:m[0]+'<div class="ark-app-masthead">'+masthead+'</div>',text,count=1)
  # Bring navigation into the shared masthead without changing page controls.
  if '<header class="ark-app-masthead">' not in text:
   text=re.sub(r'(<div class="ark-page-brand ark-shared-brand">.*?</div>)(\s*)(<nav\b[^>]*>.*?</nav>)',r'<header class="ark-app-masthead">\1\3</header>',text,flags=re.S)
   text=re.sub(r'(<div class="ark-page-brand ark-shared-brand">.*?</div>)(?!<nav)',lambda m:'<header class="ark-app-masthead">'+m[1]+'</header>' if '<header class="ark-app-masthead">' not in text else m[0],text,flags=re.S)
  if 'ark-shared-brand' in text and '/assets/css/ark-brand.css' not in text:
-  text=text.replace('</head>','<link rel="stylesheet" href="/assets/css/ark-brand.css?v=1"></head>')
+  stylesheet='<link rel="stylesheet" href="/assets/css/ark-brand.css?v=3">'
+  text=text.replace('</head>',stylesheet+'</head>',1) if '</head>' in text else text.replace('<body',stylesheet+'</head><body',1)
  text=re.sub(r'/assets/css/ark-brand.css\?v=[^"\s>]+','/assets/css/ark-brand.css?v=3',text)
  return text
 
 def inject(target):
+ # A generated handbook references these shared assets. Install them together
+ # with the HTML so partial deployments cannot create a hundred broken scripts.
+ import shutil
+ static=Path(__file__).resolve().parents[1]/'app/static'
+ for relative in ['assets/js/dej-community-links.js','assets/dej-affiliations.webp','assets/css/ark-brand.css','assets/dej-software-footer.webp']:
+  source=static/relative;destination=target/relative
+  if source.resolve()!=destination.resolve():
+   destination.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,destination);destination.chmod(0o644)
  count=0
  for p in target.rglob('*.html'):
   if p.is_symlink() or 'assets' in p.relative_to(target).parts:continue
