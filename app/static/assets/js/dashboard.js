@@ -238,6 +238,13 @@ const Dashboard = {
                 }
             );
 
+        if (DataArkStatus.restore()) {
+            this.updateIcons();
+            this.updateDebugButton();
+            this.byId("sync-status").textContent = DataArkStatus.sync;
+            this.byId("sync-status").title = "Last known status; checking for changes…";
+            window.dispatchEvent(new Event("dataark:dashboard-restored"));
+        }
         await this.refresh();
 
         this.startTimer();

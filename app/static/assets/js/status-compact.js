@@ -14,7 +14,11 @@ function arkStatusWorking(data) {
  const panel=document.querySelector('.status-bar'),settings=document.getElementById('ark-settings');
  if(!panel||!settings)return;
  const startedAt=Date.now();
- const gear=settings.querySelector('summary');let idleSince=null,lastRefresh=null,attentionUntil=0,lastKey='';
+ const gear=settings.querySelector('summary');let idleSince=null,lastRefresh=null,attentionUntil=0,lastKey='',restoredKey=null;
+ try {
+  const saved=JSON.parse(sessionStorage.getItem('dataark.compact.v1'));
+  if(saved && Date.now()-saved.at>=0 && Date.now()-saved.at<120000){idleSince=saved.idleSince;attentionUntil=saved.attentionUntil;restoredKey=saved.lastKey;}
+ } catch (_) {}
  const badge=document.createElement('span');badge.className='status-attention-count';badge.setAttribute('aria-hidden','true');badge.hidden=true;gear.append(badge);
  const attention=document.createElement('section');attention.className='status-attention';attention.hidden=true;settings.before(attention);
  function update(){
@@ -23,7 +27,7 @@ function arkStatusWorking(data) {
   attention.dataset.tone=health.tone;
   const key=JSON.stringify([health.tone,health.problems,Dashboard.refreshEnabled,lastRefresh===null]);
   if(key!==lastKey){
-   attentionUntil=now+30000;lastKey=key;attention.replaceChildren();
+   if(key!==restoredKey)attentionUntil=now+30000;restoredKey=null;lastKey=key;attention.replaceChildren();
    if(health.tone!=='green'){
     const heading=document.createElement('strong');heading.textContent=health.tone==='gray'?(!Dashboard.refreshEnabled?'Status updates paused':lastRefresh===null?'Connecting to the Ark…':'Status updates delayed'):'Needs attention';attention.append(heading);
     const list=document.createElement('ul');
@@ -47,6 +51,7 @@ function arkStatusWorking(data) {
   }
   const idle=!settings.open&&!arkStatusWorking(data);
   if(!idle)idleSince=null;else if(idleSince===null)idleSince=now;
+  try {sessionStorage.setItem('dataark.compact.v1',JSON.stringify({at:now,idleSince,attentionUntil,lastKey}));}catch(_){}
   const compact=idle&&now-idleSince>=30000&&now>=attentionUntil;
   panel.classList.toggle('status-condensed',compact);gear.dataset.health=health.tone;
   badge.hidden=!health.count;badge.textContent=health.count>99?'99+':String(health.count);
@@ -54,9 +59,11 @@ function arkStatusWorking(data) {
   gear.title=label+' - Settings';gear.setAttribute('aria-label',gear.title);
   attention.hidden=compact||health.tone==='green'||(health.tone==='gray'&&(now-startedAt<15000||!Dashboard.refreshEnabled)&&!settings.open);
  }
+ window.addEventListener('dataark:dashboard-restored',()=>{lastRefresh=DataArkStatus.observedAt;update();});
  window.addEventListener('dataark:dashboard-refreshed',()=>{lastRefresh=Date.now();update();});
  window.addEventListener('dataark:connectivity-refreshed',update);
  settings.addEventListener('toggle',()=>{idleSince=null;update();});
+ if(typeof DataArkStatus.restore==='function' && DataArkStatus.restore())lastRefresh=DataArkStatus.observedAt;
  update();setInterval(update,1000);
 })();
 

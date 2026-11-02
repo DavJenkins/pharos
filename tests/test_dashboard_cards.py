@@ -1,4 +1,5 @@
 import collections,copy,unittest
+from pathlib import Path
 from app.services.dashboard_cards import compose,validate
 from app.services.manifest import load_manifest,ManifestError,url
 class DashboardCardTests(unittest.TestCase):
@@ -19,7 +20,7 @@ class DashboardCardTests(unittest.TestCase):
   data=self.fixture();data['dashboard']['cards'][0]['asset_ids']=['missing']
   with self.assertRaises(ManifestError):validate(data,ManifestError,url)
  def test_live_selection_is_lossless_and_readiness_topics_stay_visible(self):
-  data=load_manifest('/opt/dataark/dataark.yaml');rows={}
+  data=load_manifest(Path(__file__).resolve().parents[1]/'dataark.yaml');rows={}
   for asset in data['assets']:
    if not asset.get('removed'):rows.setdefault(asset['repository_id'],[]).append(asset)
   repos,out=compose(data,rows);counts=collections.Counter(a['id'] for group in out.values() for a in group)

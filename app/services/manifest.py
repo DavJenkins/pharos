@@ -540,9 +540,9 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
                 else:
                     label = label if checked else 'Source unchecked'
                     older = bool(batch and checked and datetime.fromisoformat(checked) < batch[0])
-                    detail = ('Older check Ã‚Â· ' if older else '') + label
+                    detail = ('Older check · ' if older else '') + label
                     if checked and not recent:
-                        detail += ' Ã‚Â· ' + checked_text
+                        detail += ' · ' + checked_text
                     note = '<span class="manifest-upstream" data-source-asset="' + html.escape(item['id'], quote=True) + '" title="Online source status at last check. Preserved locally when marked available above.">' + detail + '</span>'
                 external = ''
                 source = item.get('online_url')
@@ -591,11 +591,11 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
         ''.join(sections) or '<p class="manifest-empty">No repositories configured for display.</p>').replace('{{BACKGROUND_STYLE}}', style)
     rendered = rendered.replace('{{RESOURCE_SECTIONS}}', render_resource_sections([section for section in data.get('resource_sections', []) if section['title'] not in data.get('dashboard',{}).get('merged_resource_titles',[])], root, prefix, hide))
     community_enabled = data.get('community', {}).get('enabled', True)
-    community_card = '<section id="community-board" class="resource-section" aria-labelledby="community-heading"><h2 id="community-heading">Community</h2><div class="manifest-grid"><article class="manifest-card"><h3>Ã°Å¸â€™Â¬ Community board</h3><p>Local announcements, requests, offers, and conversations. Everyone can read and post, even without internet.</p><p><a href="/community.html">Open the community board</a></p></article></div></section>'
-    rendered = rendered.replace('{{COMMUNITY_CARD}}', community_card if community_enabled else '').replace('{{COMMUNITY_NAV}}', ' Ã‚Â· <a href="/community.html">Community board</a>' if community_enabled else '')
+    community_card = '<section id="community-board" class="resource-section" aria-labelledby="community-heading"><h2 id="community-heading">Community</h2><div class="manifest-grid"><article class="manifest-card"><h3>💬 Community board</h3><p>Local announcements, requests, offers, and conversations. Everyone can read and post, even without internet.</p><p><a href="/community.html">Open the community board</a></p></article></div></section>'
+    rendered = rendered.replace('{{COMMUNITY_CARD}}', community_card if community_enabled else '').replace('{{COMMUNITY_NAV}}', ' · <a href="/community.html">Community board</a>' if community_enabled else '')
     demo = system.get('demo_library')
     if isinstance(demo, dict) and demo.get('notice'):
-        notice = '<section class="resource-section demo-library-notice" aria-label="Demo library"><h2>'+html.escape(str(demo.get('heading','Installed offline content')))+'</h2><p>'+html.escape(str(demo['notice']))+'</p>'+('<p><a href="#repository-'+html.escape(str(demo['repository_id']),quote=True)+'">Open the installed sample â†’</a></p>' if demo.get('repository_id') else '')+'</section>'
+        notice = '<section class="resource-section demo-library-notice" aria-label="Demo library"><h2>'+html.escape(str(demo.get('heading','Installed offline content')))+'</h2><p>'+html.escape(str(demo['notice']))+'</p>'+('<p><a href="#repository-'+html.escape(str(demo['repository_id']),quote=True)+'">Open the installed sample →</a></p>' if demo.get('repository_id') else '')+'</section>'
         rendered = rendered.replace('<main class="manifest-catalog">', '<main class="manifest-catalog">'+notice, 1)
     rendered = version_dashboard_assets(rendered)
     compiled = {**data, 'assets': compiled_assets}

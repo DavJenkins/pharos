@@ -15,9 +15,27 @@ const DataArkStatus = {
     // Refresh from API
     //------------------------------------------------------------------
 
+    observedAt: null,
+    restore() {
+        try {
+            const saved = JSON.parse(sessionStorage.getItem('dataark.status.v1'));
+            const age = Date.now() - saved?.at;
+            if (!saved?.data?.status || !Number.isFinite(age) || age < 0 || age > 120000) return false;
+            this.data = saved.data;
+            this.observedAt = saved.at;
+            this.renderLinks();
+            return true;
+        } catch (_) { return false; }
+    },
     async refresh() {
 
         this.data = await DataArkAPI.getStatus();
+        this.observedAt = Date.now();
+        try { sessionStorage.setItem('dataark.status.v1', JSON.stringify({at:this.observedAt,data:this.data})); } catch (_) {}
+        this.renderLinks();
+        return this.data;
+    },
+    renderLinks() {
         const links = document.getElementById("upstream-links");
         if (links) {
             links.replaceChildren();
