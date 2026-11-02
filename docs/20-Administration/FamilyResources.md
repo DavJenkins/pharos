@@ -28,7 +28,7 @@ The book index links publisher pages and keeps sources.json with resolved URLs, 
 
 ## Installation, reinstatement and updates
 
-Installers are explicit/manual; there is no new timer or background service. Run /usr/bin/python3 tools/install_family_resources.py --register on the Ark, then bash deploy/deploy-web.sh. This redownloads the supported catalogue and regenerates all four packs, including files previously removed through Manage library. It also reinstates their asset records. It needs the SSD mounted and the updater worker lock available; do not run alongside an active update or removal. Normal authorized system maintenance access is required. The catalogue is not a general-purpose user URL downloader.
+Installers are explicit/manual; they do not create a timer or background service. Run /usr/bin/python3 tools/install_family_resources.py --register on the Ark, then bash deploy/deploy-web.sh. This redownloads the supported catalogue and regenerates all four packs, including files previously removed through Manage library. It also reinstates their asset records. It needs the SSD mounted and the updater worker lock available; do not run alongside an active update or removal. Normal authorized system maintenance access is required. The catalogue is not a general-purpose user URL downloader.
 
 The system Python uses Debian python3-reportlab plus existing PyYAML/Pillow and Poppler (pdfinfo/pdftotext). Generate just the four packs offline using /usr/bin/python3 tools/build_print_packs.py. Browser tools are static HTML/CSS/JavaScript: no Node build, database or additional network port. The PDF rendering dependency is pinned to PDF.js 6.4.299; tools/install_pdfjs.py downloads its official pdfjs-dist archive, checks the fixed SHA-512 integrity and copies only the required runtime, fonts, CMaps, WASM and license to app/static/assets/vendor/pdfjs. Its source.json records provenance. Vendored assets work without running the installer again. Check upstream security fixes during normal maintenance and deliberately update the pin/checksum together.
 
@@ -42,7 +42,7 @@ The in-app browser did not confirm the SVG download event during verification, a
 
 ## Learning at home
 
-/learning.html organizes existing local resources for early learners, elementary school, middle/high school and adult practical learning. It links Gutenberg, Wikipedia, iFixit, activities and paper tools. It does not add or claim a complete curriculum, teacher guides or assessments. Reader links use the current Ark hostname and Kiwix port 8080. A previously observed Kiwix article timeout is not resolved by this hub; the reader catalogue and actual article opening are separate checks.
+/learning.html organizes existing local resources for early learners, elementary school, middle/high school and adult practical learning. It links Gutenberg, Wikipedia, iFixit, activities and paper tools. It does not add or claim a complete curriculum, teacher guides or assessments. Reader links use the current Ark hostname and Kiwix port 8080. The hub links to the installed readers; reader and article availability are checked separately.
 
 ## Adult coloring
 

@@ -1,6 +1,6 @@
 # Licenses
 
-Document third-party software licenses here.
+Third-party software and reference materials retain their own licenses, attribution and publisher notices. The Ark’s collection and source records identify those materials; DEJ Software does not claim ownership of them.
 
 
 ## iFixit repair guides
@@ -15,3 +15,8 @@ LICENSE and NOTICE are retained in `app/static/assets/vendor/swagger-ui/`, along
 with `source.json` containing the pinned official npm URL, package integrity and
 individual file hashes. The Ark documentation theme is maintained separately;
 the upstream Swagger files are not modified.
+
+
+## Vehicle document notices
+
+Vehicle-specific publisher, document type, scope, applicability and rights statements are authored in the [vehicle source catalogue](../20-Administration/VehicleManuals.md). The [local source-notice index](/library-files/vehicles/index.html) renders those fields alongside each document’s source URL, retrieval time and verified file checksum. Personalization selects records; it does not infer legal terms or document coverage from a make, model or year.

@@ -1,6 +1,6 @@
 # Platform flavors and hardware discovery
 
-The Ark is a Linux knowledge appliance. Raspberry Pi is its reference hardware rather than a requirement of its library or web application. The shared installer now uses small platform profiles, a command adapter and read-only discovery.
+The Ark is a Linux knowledge appliance. Raspberry Pi is its reference hardware rather than a requirement of its library or web application. The shared installer uses small platform profiles, a command adapter and read-only discovery.
 
 | Profile | Processor | Network behavior |
 | --- | --- | --- |

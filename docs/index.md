@@ -3,7 +3,7 @@
 Data Ark keeps a local library available to nearby devices, including when its internet connection is unavailable.
 
 - [Complete handbook and handover](00-Introduction/Handbook.md)
-- [Browse all documentation](SUMMARY.md)
+- [Contents](summary.md)
 - [Start using the Ark](10-User/UserGuide.md)
 - [Frequently asked questions](10-User/FAQ.md)
 - [Manage collections](20-Administration/Library.md)

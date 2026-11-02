@@ -1,12 +1,12 @@
 # Welcome to Data Ark
 
-*Inspired by the ancient Pharos of Alexandria—both a vital navigational aid for travelers and a beacon leading directly to the greatest repository of knowledge in the classical world. A modern, self-contained harbor for offline reference, technical guides, and preserved human knowledge.*
+*Inspired by the ancient Pharos of Alexandria—a vital navigational aid for travelers and a beacon illuminating the seat of the greatest repository of knowledge in the classical world. The Data Ark is a modern, self-contained harbor for offline reference, technical guides, and preserved human knowledge.*
 
 [Access your content](/content.html) · [Other resources](/resources.html) · [Community board](/community.html)
 
 ## What the Ark does
 
-Data Ark is a Raspberry Pi appliance with a content SSD and its own Wi-Fi hotspot. It serves locally preserved knowledge to phones, tablets, and computers. Reading the local library does not require an account, a subscription, or an internet connection.
+Data Ark is a self-contained knowledge appliance that serves reference material and practical tools over a local network—Wi-Fi or wired—with or without internet access. It comes in two flavors: Original Raspberry Pi, built on a Raspberry Pi with a content drive and its own Wi-Fi hotspot; and Plain Linux, running on an existing laptop, server, or other supported Linux computer. Reading the local library does not require an account, a subscription, or an internet connection.
 
 Connect to the DataArk Wi-Fi network and open http://192.168.4.1/ in your browser. Your device may offer a Sign in to network notification; that opens the local landing page. The notification is part of captive-portal discovery, not a request to create an account.
 
@@ -24,7 +24,7 @@ The caretaker protects the shared copy and available storage. Removing a collect
 
 ## Useful beyond reading
 
-The Ark also brings local networking, file transfer, general Linux computing and installed tools. Some are open public services; shell and changes to shared state require authorization. See [Resources beyond the library](../10-User/Resources.md) for what exists now and what is only a possibility.
+The Ark also brings local networking, file transfer, general Linux computing and installed tools. Some are open public services; shell and changes to shared state require authorization. See [Resources beyond the library](../10-User/Resources.md) for available capabilities and their requirements.
 
 ## Start here
 

@@ -53,7 +53,7 @@ The hostname dataark is useful where local resolution works. The portal explicit
 
 The observed service and virtual-host templates are tracked under deploy/reference for reconstruction review. They are not installed automatically. Editing Python requires API restart; publishing static files does not restart the API.
 
-The web deployment script renders the dashboard, builds docs in a fresh temporary directory, and rsyncs static output. Documentation deployment explicitly uses --chmod=D755,F644; missing search permissions previously caused Help to return access errors. Help links directly to /docs/SUMMARY.html.
+The web deployment script renders the dashboard, builds docs in a fresh temporary directory, and rsyncs static output. Documentation deployment uses --chmod=D755,F644 so directories are searchable and pages are readable by the web server. Help links directly to /docs/summary.html.
 
 ## Captive portal and pass-through
 
@@ -125,7 +125,7 @@ Debug is represented by /var/lib/ark/debug_status. The common structured event s
 
 dataark-portal-monitor.service runs a bounded metadata capture only while Debug is on. Its root-only log directory is /var/log/dataark-portal-monitor. The service limits CPU to 5 percent, memory to 64M, uses Nice=10 and restricts writable paths and capabilities. Four rotated 1 MiB files bound its local capture. The packet monitor is not the library application log.
 
-Run tools/capture_config.py as root before significant changes. Its root-only archive contains sensitive settings, SSH host identity and Samba state; never commit or publish it. The capture now includes FTP, root helper copies, boot configuration, live manifest, package/dependency inventory, container inspection and repository revision/dirty status as well as the earlier network/web/service settings. Content libraries and source/private keys outside the listed scope still require separate backups.
+Run tools/capture_config.py as root before significant changes. Its root-only archive contains sensitive settings, SSH host identity and Samba state; never commit or publish it. The capture includes FTP, root helper copies, boot configuration, live manifest, package/dependency inventory, container inspection and repository revision/dirty status as well as network/web/service settings. Content libraries and source/private keys outside the listed scope still require separate backups.
 
 ## Known reconstruction gaps
 
@@ -227,8 +227,8 @@ responses (64 MiB), a 45-second network timeout and 256 MiB memory limit.
 To retry failures once without repeating completed checks, stop the timer's
 current service, then run as admin:
 `/opt/dataark/venv/bin/python /opt/dataark/tools/check_reference_sources.py --retry-errors`.
-A worker lock prevents overlapping passes. Honda checks use the recorded
-intermediate certificate with system roots and hostname verification intact.
+A worker lock prevents overlapping passes. Publisher certificate-chain additions are configured by exact hostname in
+`deploy/reference/source-tls.json`, with system roots and hostname verification intact.
 Package hosts that refuse HEAD (HTTP 403/405/501) get a one-byte Range GET fallback.
 The response is closed without reading the package body, and Content-Range's
 full size is used rather than the one-byte response length. This permits FCC

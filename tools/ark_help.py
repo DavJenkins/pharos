@@ -33,7 +33,7 @@ Places to know
   /opt/dataark/venv            Python environment for the Ark application
   /mnt/storage                Public library and portable SSD catalogue
   /var/backups/dataark         Private configuration backups; root access
-  http://dataark/docs/SUMMARY.html   Local documentation in a browser
+  http://dataark/docs/summary.html   Local documentation in a browser
 
 Useful admin work
   Check service health, free space, memory and recent errors.
@@ -169,7 +169,7 @@ Finding your way around the shell
   ls                          List its files
   cd /opt/dataark             Go to the Ark source
   cd ~                        Return to your own home directory
-  less docs/SUMMARY.md         Read a file; q leaves the reader
+  less docs/summary.md         Read a file; q leaves the reader
   command --help              Many commands describe their options this way
   man command                 Open an installed manual, if available
   exit                        Close this shell; this does not shut down the Ark

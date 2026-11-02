@@ -4,7 +4,7 @@ The optional top-level `personalization` section in `/opt/dataark/dataark.yaml` 
 
 Each vehicle has a unique `id`, integer `year`, `make`, `model`, optional `body_style`, and `asset_ids` referring to registered manuals. Each destination has an `id`, `name`, optional `asset_ids` and optional Ark-relative `viewer_url`. References are checked when the manifest is loaded. Empty lists are valid; older manifests without personalization still work.
 
-The initial profile records the 2017 Honda Accord and Civic four-door sedans, Sint Maarten / Saint Martin, the U.S. Virgin Islands and the Caribbean collection. English and US/Massachusetts are interests, not restrictions on the wider installed library. A destination entry does not claim that every possible resource for that place is installed.
+Vehicles, destinations, languages and jurisdictions describe content interests, not restrictions on the wider library. Inspect the active configuration for this appliance’s selections. A destination entry does not claim that every resource for that place is installed. Vehicle-specific scope and publisher notices come from the linked source records, not from personalization.
 
 These are human-readable content preferences. They do not silently download, remove, restrict, or filter content. The asset/source recipes remain the exact instructions for acquisition and rebuilding. Add a supported content asset and its source recipe before referencing its ID here; an interest without an installed asset may use an empty `asset_ids` list.
 

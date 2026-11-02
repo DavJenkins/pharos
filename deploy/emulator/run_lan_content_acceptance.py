@@ -21,7 +21,7 @@ def get(path):
    if attempt==19:raise
    time.sleep(.5)
 for name in ['dataark','apache2','docker','smbd','avahi-daemon','systemd-networkd']:run(['systemctl','is-active','--quiet',name])
-for path in ['/','/api/','/docs/SUMMARY.html','/library.html','/community.html','/api/docs']:assert get(path),path
+for path in ['/','/api/','/docs/summary.html','/library.html','/community.html','/api/docs']:assert get(path),path
 net=json.loads(get('/api/status'))['network'];assert net['capabilities']['network_mode']=='lan';assert net['capabilities']['hotspot'] is False;assert not net['access_point']['interface']
 checks['core_services_and_pages']=True;checks['no_hotspot_capability']=True
 assert not Path('/etc/NetworkManager/system-connections/DataArk.nmconnection').exists()

@@ -9,6 +9,7 @@
 
 ## User
 
+- [Ways to build or share an Ark](10-User/SharingAnArk.md)
 - [Make another Ark](/make-ark.html) · [Sharing guide](10-User/MakeAnotherArk.md)
 
 - [User Guide](10-User/UserGuide.md)
@@ -33,8 +34,11 @@
 
 ## Administration
 
-- [Configuration reference](20-Administration/Configuration.md)
+- [System-card library and recipient setup](20-Administration/SystemCardLibrary.md)
 - [Run a Data Ark in Docker](20-Administration/Container.md)
+- [Optional HTTPS acceptance](20-Administration/HTTPSAcceptance.md)
+
+- [Configuration reference](20-Administration/Configuration.md)
 - [Source availability checks](20-Administration/SourceChecks.md)
 - [Software updates and maintenance](20-Administration/SoftwareUpdates.md)
 - [Preview release audit](20-Administration/ReleaseAudit.md)
@@ -115,7 +119,6 @@
 - [State and territorial legal coverage](20-Administration/Jurisdictions.md)
 
 - [Home Assistant health and bug-out](20-Administration/HomeAssistant.md)
-- [Integration status](20-Administration/PlannedIntegrations.md)
 
 - [Optional HTTPS and clone identities](20-Administration/HTTPS.md)
 
@@ -142,3 +145,5 @@
 - [Modular public configuration](20-Administration/ModularConfiguration.md)
 
 - [Desktop ARM64 test Ark](20-Administration/Emulator.md)
+
+- [Integration status](20-Administration/PlannedIntegrations.md)

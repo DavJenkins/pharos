@@ -91,7 +91,7 @@ is stored under /etc/dataark; this is not your Linux or Wi-Fi password.
 
 Run the tests, publish the website, and restart dataark.service as described above.
 Open /config/wifi.html or /config/system.html and enter the new password.
-Legacy CGI scripts are no longer used. Do not enable CGI or grant general nmcli
+Network administration uses authenticated API endpoints and restricted helpers. Do not enable CGI or grant general nmcli
 sudo access to the API. The shared password prompt can optionally cache authorization in tab-scoped session storage for a chosen fixed duration. See [session behavior](Library.md#session-behavior); use Lock now or the floating padlock to clear it.
 
 HTTP administration credentials and submitted Wi-Fi passwords are not encrypted
