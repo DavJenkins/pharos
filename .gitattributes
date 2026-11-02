@@ -4,3 +4,5 @@
 config/library/** text eol=lf
 
 *.sh text eol=lf
+
+tools/map_range_source.py text eol=lf
