@@ -90,3 +90,14 @@ def test_usage_named_content_in_a_collection_is_still_copied(tmp_path):
     (tmp_path/'manuals').mkdir()
     (tmp_path/'manuals/usage.json').write_text('publication data')
     assert [item['path'] for item in x.files(tmp_path)]==['manuals/usage.json']
+
+
+def test_non_posix_copy_verifies_bytes_without_chmod_or_chown(tmp_path,monkeypatch):
+    source=tmp_path/'source';target=tmp_path/'target';source.mkdir();target.mkdir()
+    (source/'book.pdf').write_bytes(b'book data')
+    entries=x.files(source)
+    def forbidden(*args,**kwargs):raise AssertionError('exFAT has no Unix ownership/mode metadata')
+    monkeypatch.setattr(Path,'chmod',forbidden)
+    monkeypatch.setattr(x.os,'chown',forbidden,raising=False)
+    x.copy_verified(source,target,entries,lambda:None,lambda *_:None,posix_permissions=False)
+    assert (target/'book.pdf').read_bytes()==(source/'book.pdf').read_bytes()

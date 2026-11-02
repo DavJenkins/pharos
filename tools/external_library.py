@@ -103,9 +103,13 @@ def mounted(uuid):
     else:
         target=Path('/run/dataark-external')/uuid
         target.mkdir(parents=True,exist_ok=True)
-        run(['mount','-o','nodev,nosuid,noexec',row['device'],str(target)])
+        options='nodev,nosuid,noexec'
+        if row['filesystem']!='ext4':options+=',uid=1000,gid=1000,umask=022'
+        run(['mount','-o',options,row['device'],str(target)])
     if target.is_symlink() or any(p.is_symlink() for p in target.parents) or not target.is_mount():
         raise ValueError('Unsafe destination mount')
+    if row['filesystem']!='ext4':
+        run(['mount','-o','remount,nodev,nosuid,noexec,uid=1000,gid=1000,umask=022',row['device'],str(target)])
     return row,target
 
 def files(root):
@@ -146,7 +150,7 @@ def digest(path):
         for chunk in iter(lambda:f.read(2*1024**2),b''):h.update(chunk)
     return h.hexdigest()
 
-def copy_verified(source,target,entries,guard,progress):
+def copy_verified(source,target,entries,guard,progress,posix_permissions=True):
     for index,item in enumerate(entries):
         guard();relative=Path(item['path'])
         if relative.is_absolute() or '..' in relative.parts:raise ValueError('Unsafe copy path')
@@ -161,8 +165,9 @@ def copy_verified(source,target,entries,guard,progress):
                 guard();b.write(chunk)
             b.flush();os.fsync(b.fileno())
         if digest(temp)!=digest(src):raise ValueError('Copy verification failed: '+item['path'])
-        guard();temp.replace(dst);dst.chmod(0o644)
-        if os.name=='posix' and os.geteuid()==0:
+        guard();temp.replace(dst)
+        if posix_permissions:dst.chmod(0o644)
+        if posix_permissions and os.name=='posix' and os.geteuid()==0:
             os.chown(dst,1000,1000)
             parent=dst.parent
             while parent!=target.parent:
@@ -200,7 +205,7 @@ def worker():
         active,reader=quiesce()
         try:
             if files(SOURCE)!=original['source_files']:raise ValueError('Library changed since preview; review again')
-            copy_verified(SOURCE,target,original['source_files'],guard,lambda n,total:status('copying',completed_files=n,total_files=total,percent=round(n*100/max(1,total)),message='Copying and verifying files.'))
+            copy_verified(SOURCE,target,original['source_files'],guard,lambda n,total:status('copying',completed_files=n,total_files=total,percent=round(n*100/max(1,total)),message='Copying and verifying files.'),posix_permissions=row['filesystem']=='ext4')
             guard();save(target/MARKER,{'generator':'dataark-external-v1','uuid':row['uuid'],'phase':'verified'},0o644)
             status('verified',message='Copy verified. Choose Use this drive to switch; the system-card library is still active.',plan_id=original['plan_id'])
         finally:
@@ -221,7 +226,7 @@ def switch():
         installed=REPO/'config/installed-site.json';old_site=installed.read_bytes()
         active,reader=quiesce()
         try:
-            status('switching',message='Switching library storage; reconnectingÃ¢â‚¬Â¦')
+            status('switching',message='Switching library storage; reconnectingÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦')
             # Recheck after quiescing, before the mount handover.
             if files(SOURCE)!=p['source_files']:raise ValueError('Library changed; repeat copy')
             run(['umount',str(target)]);run(['umount',str(SOURCE)])
