@@ -101,3 +101,26 @@ def test_non_posix_copy_verifies_bytes_without_chmod_or_chown(tmp_path,monkeypat
     monkeypatch.setattr(x.os,'chown',forbidden,raising=False)
     x.copy_verified(source,target,entries,lambda:None,lambda *_:None,posix_permissions=False)
     assert (target/'book.pdf').read_bytes()==(source/'book.pdf').read_bytes()
+
+
+def test_portable_mount_requires_ownership_and_distinct_file_directory_masks():
+    assert x.portable_permissions('rw,uid=1000,gid=1000,fmask=0133,dmask=0022')
+    assert not x.portable_permissions('rw,fmask=0022,dmask=0022')
+    assert not x.portable_permissions('rw,uid=1000,gid=1000,fmask=0022,dmask=0022')
+
+
+def test_existing_portable_mount_is_reopened_instead_of_remounted(tmp_path,monkeypatch):
+    row={'uuid':'ABCD-1234','device':'/dev/sda1','filesystem':'exfat','mounts':[str(tmp_path)]}
+    monkeypatch.setattr(x,'devices',lambda:[row])
+    monkeypatch.setattr(Path,'is_mount',lambda _:True)
+    calls=[];reads=[]
+    def run(args):
+        calls.append(args)
+        if args[0]=='findmnt':
+            reads.append(True)
+            return 'rw,fmask=0022,dmask=0022' if len(reads)==1 else 'rw,uid=1000,gid=1000,fmask=0133,dmask=0022'
+        return ''
+    monkeypatch.setattr(x,'run',run)
+    assert x.mounted('ABCD-1234')[1]==tmp_path
+    assert ['umount',str(tmp_path)] in calls
+    assert any(a[0]=='mount' and 'remount' not in a[2] and 'fmask=0133' in a[2] for a in calls)

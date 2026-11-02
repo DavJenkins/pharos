@@ -95,6 +95,11 @@ def source_identity():
         raise ValueError('The active library is not the owned system-card image')
     return SOURCE.stat().st_dev
 
+def portable_permissions(options):
+    values=dict(item.split('=',1) for item in options.split(',') if '=' in item)
+    try:return int(values.get('uid','0'))==1000 and int(values.get('gid','0'))==1000 and int(values.get('fmask','0'),8)==0o133 and int(values.get('dmask','0'),8)==0o22
+    except ValueError:return False
+
 def mounted(uuid):
     row=next((d for d in devices() if d['uuid']==uuid_ok(uuid)),None)
     if not row:raise ValueError('Drive disconnected or no longer eligible')
@@ -104,12 +109,18 @@ def mounted(uuid):
         target=Path('/run/dataark-external')/uuid
         target.mkdir(parents=True,exist_ok=True)
         options='nodev,nosuid,noexec'
-        if row['filesystem']!='ext4':options+=',uid=1000,gid=1000,umask=022'
+        if row['filesystem']!='ext4':options+=',uid=1000,gid=1000,fmask=0133,dmask=0022'
         run(['mount','-o',options,row['device'],str(target)])
     if target.is_symlink() or any(p.is_symlink() for p in target.parents) or not target.is_mount():
         raise ValueError('Unsafe destination mount')
     if row['filesystem']!='ext4':
-        run(['mount','-o','remount,nodev,nosuid,noexec,uid=1000,gid=1000,umask=022',row['device'],str(target)])
+        options=run(['findmnt','-n','-o','OPTIONS','--mountpoint',str(target)])
+        if not portable_permissions(options):
+            # exFAT ownership/masks cannot reliably be changed by remount.
+            run(['umount',str(target)])
+            run(['mount','-o','nodev,nosuid,noexec,uid=1000,gid=1000,fmask=0133,dmask=0022',row['device'],str(target)])
+            if not portable_permissions(run(['findmnt','-n','-o','OPTIONS','--mountpoint',str(target)])):
+                raise ValueError('Destination mount did not apply portable file permissions')
     return row,target
 
 def files(root):
@@ -185,7 +196,7 @@ def fstab_external(text,uuid,filesystem):
     if count!=1:raise ValueError('Expected exactly one current library mount entry')
     if filesystem not in ('ext4','exfat','ntfs','ntfs3'):raise ValueError('Unsupported filesystem')
     options='defaults,nofail,nodev,nosuid,x-systemd.device-timeout=10s'
-    if filesystem!='ext4':options+=',uid=1000,gid=1000,umask=022'
+    if filesystem!='ext4':options+=',uid=1000,gid=1000,fmask=0133,dmask=0022'
     return '\n'.join(lines)+f'\nUUID={uuid} {SOURCE.as_posix()} {filesystem} {options} 0 0\n'
 
 def worker():
@@ -226,7 +237,7 @@ def switch():
         installed=REPO/'config/installed-site.json';old_site=installed.read_bytes()
         active,reader=quiesce()
         try:
-            status('switching',message='Switching library storage; reconnectingÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦')
+            status('switching',message='Switching library storage; reconnectingÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦')
             # Recheck after quiescing, before the mount handover.
             if files(SOURCE)!=p['source_files']:raise ValueError('Library changed; repeat copy')
             run(['umount',str(target)]);run(['umount',str(SOURCE)])
