@@ -26,6 +26,7 @@
       "name": "Alaska",
       "directory_url": "https://www.law.cornell.edu/states/alaska",
       "constitution_candidates": [
+        "https://ltgov.alaska.gov/wp-content/uploads/PDF-Pocket-Constitution.pdf",
         "https://ltgov.alaska.gov/services/alaskas-constitution/"
       ],
       "statute_source": "http://www.legis.state.ak.us/basis/folioproxy.asp?url=http%3A//wwwjnu01.legis.state.ak.us/folhome.htm"

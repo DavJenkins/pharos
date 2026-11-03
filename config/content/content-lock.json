@@ -2492,12 +2492,12 @@
     },
     {
       "id": "jurisdiction-alaska",
-      "title": "Alaska \u2014 constitutional text (snapshot)",
-      "path": "civic-reference/jurisdictions/alaska.html",
+      "title": "Alaska \u2014 pocket constitution (printed April 2023)",
+      "path": "civic-reference/jurisdictions/alaska.pdf",
       "selected": true,
-      "bytes": 183141,
-      "sha256": "a99fd207409ad3aefe632e5821ce163289178564ede239af2ea629076a406584",
-      "source": "https://ltgov.alaska.gov/services/alaskas-constitution/",
+      "bytes": 684462,
+      "sha256": "e9a7749f7e45a2deb6213109c894e57ca0274e158e638871d600a9fd928cbb2d",
+      "source": "https://ltgov.alaska.gov/wp-content/uploads/PDF-Pocket-Constitution.pdf",
       "repository": "civic-reference"
     },
     {

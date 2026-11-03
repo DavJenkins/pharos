@@ -29,21 +29,45 @@
     "name": "Alaska",
     "directory_url": "https://www.law.cornell.edu/states/alaska",
     "constitution_candidates": [
+      "https://ltgov.alaska.gov/wp-content/uploads/PDF-Pocket-Constitution.pdf",
       "https://ltgov.alaska.gov/services/alaskas-constitution/"
     ],
     "statute_source": "http://www.legis.state.ak.us/basis/folioproxy.asp?url=http%3A//wwwjnu01.legis.state.ak.us/folhome.htm",
-    "checked_at": "2026-10-25T01:35:03.415198+00:00",
+    "checked_at": "2026-11-03T20:12:51.831790+00:00",
     "status": "installed",
     "attempts": [],
     "statutes_status": "Not mirrored; source discovery only",
-    "filename": "alaska.html",
-    "format": "html",
-    "pages": null,
-    "source_url": "https://ltgov.alaska.gov/services/alaskas-constitution/",
-    "resolved_url": "https://ltgov.alaska.gov/information/alaskas-constitution/",
-    "bytes": 183141,
-    "sha256": "a99fd207409ad3aefe632e5821ce163289178564ede239af2ea629076a406584",
-    "scope": "Constitution/charter document snapshot; not complete statutes, regulations or case law"
+    "filename": "alaska.pdf",
+    "format": "pdf",
+    "pages": 64,
+    "source_url": "https://ltgov.alaska.gov/wp-content/uploads/PDF-Pocket-Constitution.pdf",
+    "resolved_url": "https://ltgov.alaska.gov/wp-content/uploads/PDF-Pocket-Constitution.pdf",
+    "bytes": 684462,
+    "sha256": "e9a7749f7e45a2deb6213109c894e57ca0274e158e638871d600a9fd928cbb2d",
+    "scope": "Official 64-page pocket edition, printed April 2023; metadata modified January 2024. Earlier HTML snapshot retained. Publication snapshot, not a guarantee of later legal currency.",
+    "previous_snapshots": [
+      {
+        "id": "alaska",
+        "name": "Alaska",
+        "directory_url": "https://www.law.cornell.edu/states/alaska",
+        "constitution_candidates": [
+          "https://ltgov.alaska.gov/services/alaskas-constitution/"
+        ],
+        "statute_source": "http://www.legis.state.ak.us/basis/folioproxy.asp?url=http%3A//wwwjnu01.legis.state.ak.us/folhome.htm",
+        "checked_at": "2026-10-25T01:35:03.415198+00:00",
+        "status": "installed",
+        "attempts": [],
+        "statutes_status": "Not mirrored; source discovery only",
+        "filename": "alaska.html",
+        "format": "html",
+        "pages": null,
+        "source_url": "https://ltgov.alaska.gov/services/alaskas-constitution/",
+        "resolved_url": "https://ltgov.alaska.gov/information/alaskas-constitution/",
+        "bytes": 183141,
+        "sha256": "a99fd207409ad3aefe632e5821ce163289178564ede239af2ea629076a406584",
+        "scope": "Constitution/charter document snapshot; not complete statutes, regulations or case law"
+      }
+    ]
   },
   {
     "id": "american-samoa",

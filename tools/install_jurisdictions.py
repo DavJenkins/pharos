@@ -20,7 +20,10 @@ class Links(HTMLParser):
 
 def fetch(url):
  req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (DataArk public legal reference archive)'})
- with urllib.request.urlopen(req,timeout=20) as r:
+ from tools.source_tls import extra_ca,context
+ options={'timeout':20}
+ if extra_ca(url,ROOT):options['context']=context(url,ROOT)
+ with urllib.request.urlopen(req,**options) as r:
   if urlsplit(r.url).scheme not in ('http','https'):raise ValueError('Unexpected redirect scheme')
   data=r.read(50*1024**2+1);resolved=r.url
  if len(data)>50*1024**2:raise ValueError('Exceeds 50 MiB document cap')

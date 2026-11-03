@@ -1,8 +1,20 @@
 import json
 import unittest
+import io
+from unittest.mock import patch
+from tools import install_jurisdictions as installer
 from tools.install_jurisdictions import university_body, validate_text
 
 class JurisdictionTests(unittest.TestCase):
+    def test_configured_intermediate_uses_verified_tls_context(self):
+        import ssl
+        context=ssl.create_default_context()
+        class Response(io.BytesIO):url='https://ltgov.alaska.gov/wp-content/uploads/PDF-Pocket-Constitution.pdf'
+        with patch('tools.source_tls.extra_ca',return_value='configured.pem'),patch('tools.source_tls.context',return_value=context),patch.object(installer.urllib.request,'urlopen',return_value=Response(b'%PDF-test')) as opener:
+            data,url=installer.fetch(Response.url)
+        self.assertEqual(data,b'%PDF-test');self.assertIs(opener.call_args.kwargs['context'],context)
+        self.assertEqual(context.verify_mode,ssl.CERT_REQUIRED);self.assertTrue(context.check_hostname)
+
     def payload(self, count=10):
         values=[None, {'data':2}, {'useConstitutionEntriesAll2026-10-24':3}, []]
         for i in range(count):

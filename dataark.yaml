@@ -4231,16 +4231,17 @@ assets:
 - id: jurisdiction-alaska
   repository_id: civic-reference
   category: pdf_reference
-  title: Alaska — constitutional text (snapshot)
-  relative_path: civic-reference/jurisdictions/alaska.html
-  service_endpoint: /library-files/civic-reference/jurisdictions/alaska.html
-  online_url: https://ltgov.alaska.gov/services/alaskas-constitution/
-  download_url: https://ltgov.alaska.gov/services/alaskas-constitution/
-  expected_hash: a99fd207409ad3aefe632e5821ce163289178564ede239af2ea629076a406584
+  title: Alaska — pocket constitution (printed April 2023)
+  relative_path: civic-reference/jurisdictions/alaska.pdf
+  service_endpoint: /library-files/civic-reference/jurisdictions/alaska.pdf
+  online_url: https://ltgov.alaska.gov/wp-content/uploads/PDF-Pocket-Constitution.pdf
+  download_url: https://ltgov.alaska.gov/wp-content/uploads/PDF-Pocket-Constitution.pdf
+  expected_hash: e9a7749f7e45a2deb6213109c894e57ca0274e158e638871d600a9fd928cbb2d
   update_policy: manual
   refresh_interval: never
-  source_note: Constitution/charter document snapshot; not complete statutes, regulations
-    or case law; retrieved 2026-10-25T01:35:03.415198+00:00
+  source_note: Official 64-page pocket edition, printed April 2023; PDF metadata modified
+    January 2024. Preserved publication, not a guarantee of later legal currency.
+    Earlier HTML snapshot retained.
 - id: jurisdiction-arizona
   repository_id: civic-reference
   category: pdf_reference

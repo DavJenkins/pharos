@@ -4,6 +4,11 @@
     "techinfo.honda.com": {
       "ca_bundle": "honda-intermediate.pem",
       "note": "Recorded publisher intermediate chain; system trust and hostname verification remain enabled."
+    },
+    "ltgov.alaska.gov": {
+      "ca_bundle": "alaska-intermediate.pem",
+      "source_url": "https://secure.globalsign.com/cacert/gsgccr46ovtlsca2025.crt",
+      "note": "Publisher omits the required GlobalSign GCC R46 OV TLS CA 2025 intermediate. Verified against system roots; normal certificate and hostname verification remain enabled."
     }
   }
 }
