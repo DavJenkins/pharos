@@ -29,8 +29,8 @@ function scheduleText(update){
     return (names[update.policy]||update.policy)+(update.pinned_version?" ("+update.pinned_version+")":"")+" · "+interval+(!update.enabled&&update.policy!=="manual"?" · Paused":"")+"\nLast check: "+last+" · Next due: "+next+(update.result?"\n"+(results[update.result]||update.result):"");
 }
 
-function libraryReviewItems(items,mode){
- return items.filter(item=>mode==='changes'?!!item.update?.pending_change:mode==='failures'?item.update?.result==='error':item.update?.pending_change||item.update?.result==='error'||item.update?.result==='browser_review_due');
+function libraryReviewItems(items,mode,ids=[]){
+ return items.filter(item=>(!ids.length||ids.includes(item.id))&&(mode==='changes'?!!item.update?.pending_change:mode==='failures'?item.update?.result==='error':item.update?.pending_change||item.update?.result==='error'||item.update?.result==='browser_review_due'));
 }
 let sourceReviewItems=[];
 function sourceChanges(items){
@@ -40,7 +40,9 @@ function sourceChanges(items){
     if(!section){section=document.createElement("section");section.id="library-source-changes";const h=document.createElement("h2");h.id='source-review-heading';const p=document.createElement("p");p.textContent="Detected source changes need review before replacing installed reference files. These are not queued downloads. Configured edition families also check dated publisher folders and filenames. Earlier editions are retained.";const label=document.createElement('label');label.textContent='Show';const filter=document.createElement('select');filter.id='source-review-filter';for(const [value,title] of [['all','All source issues'],['changes','Publisher changes'],['failures','Failed publisher checks']]){const option=document.createElement('option');option.value=value;option.textContent=title;filter.append(option);}const requested=new URLSearchParams(window.location?.search||'').get('review');filter.value=['changes','failures'].includes(requested)?requested:'all';filter.addEventListener('change',()=>sourceChanges(sourceReviewItems));label.append(filter);const list=document.createElement("ul");list.id="source-changes";section.append(h,p,label,list);el("library-installed").before(section);}
     const mode=el('source-review-filter')?.value||'all';
     const heading=el('source-review-heading');if(heading)heading.textContent=mode==='changes'?'Publisher changes':mode==='failures'?'Failed publisher checks':'Source changes and check failures';
-    const changes=libraryReviewItems(items,mode);
+    const scoped=new URLSearchParams(window.location?.search||'').get('assets')?.split(',').filter(id=>/^[a-zA-Z0-9_-]+$/.test(id))||[];
+    if(scoped.length&&!el('source-review-scope')){const p=document.createElement('p'),a=document.createElement('a');p.id='source-review-scope';p.textContent='Showing the selected source card. ';a.href='/library.html?review=all#library-source-changes';a.textContent='Show issues from all sources';p.append(a);el('source-changes').before(p);}
+    const changes=libraryReviewItems(items,mode,scoped);
     const list=el("source-changes");list.replaceChildren();
     if(!changes.length){const p=document.createElement("li");p.textContent=mode==='changes'?'No publisher changes await review.':mode==='failures'?'No failed publisher checks recorded.':'No source changes or failed checks recorded. See each item for its last check and first-baseline status.';list.append(p);}
     for(const item of changes){const li=document.createElement("li");const label=document.createElement("span");const title=document.createElement("strong");title.textContent=item.title;const detail=document.createElement("small");detail.className="update-schedule";detail.textContent=(item.update.pending_change?"Source changed — review needed. ":"")+item.update.detail;label.append(title,detail);li.append(label);if(item.update.source_url){const a=document.createElement("a");a.href=item.update.browser_review?"/capture.html":item.update.available_edition?.url||item.update.source_url;a.textContent=item.update.browser_review?"Browser review…":item.update.available_edition?"Review "+item.update.available_edition.edition+" edition ↗":"Publisher ↗";a.target="_blank";a.rel="noopener";li.append(a);}list.append(li);}

@@ -1,0 +1,33 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const help=fs.readFileSync('app/static/assets/js/status-help.js','utf8');
+const context={};vm.createContext(context);vm.runInContext(help.slice(0,help.indexOf('(() =>')),context);
+test('the first annotated tab opens rather than an unrelated healthy tab',()=>{
+ const content={id:'content.source_checks',message:'Check failures'};
+ assert.equal(context.arkDefaultSystemTab([content]),'library');
+ assert.equal(context.arkDefaultSystemTab([{id:'usage.telemetry'}]),'usage');
+ assert.equal(context.arkDefaultSystemTab([{id:'https.certificate'},content]),'system');
+ assert.equal(context.arkDefaultSystemTab([]),'system');
+ assert.equal(context.arkSystemTabIssues([content]).system.length,0);
+});
+const links=fs.readFileSync('app/static/assets/js/manifest-links.js','utf8');
+vm.runInContext(links.slice(links.indexOf('function arkCardIssues'),links.indexOf('(() => {',links.indexOf('function arkCardIssues'))),context);
+test('only affected cards are flagged; shared source URLs count once',()=>{
+ const items=[{id:'one',update:{pending_change:true,source_url:'shared'}},{id:'two',update:{pending_change:true,source_url:'shared'}},{id:'three',update:{result:'error',source_url:'failed'}},{id:'four',update:{result:'unchanged'}},{id:'five',update:{result:'browser_review_due'}}];
+ const issues=context.arkCardIssues(items,['one','two','three','four','five']);
+ assert.equal(issues.changes.length,1);assert.equal(issues.failures.length,1);assert.equal(issues.reviews.length,1);
+ assert.equal(context.arkCardIssues(items,['four']).changes.length,0);
+ assert.equal(context.arkCardIssues(items,[]).failures.length,0);
+});
+test('installed-only control is hidden when filtering cannot hide any card',()=>{
+ function run(installed){
+  const wrapper={},cards=installed.map(value=>({dataset:{installed:String(value)}})),section={querySelectorAll:()=>cards,append(){}};
+  const toggle={closest:name=>name==='.manifest-category'?section:name==='.source-heading'?{dataset:{}}:wrapper,addEventListener(){}};
+  const ctx={document:{getElementById:()=>toggle,createElement:()=>({})},localStorage:{getItem:()=>null},Array};vm.createContext(ctx);
+  const start=links.indexOf('// This is a browser display preference');
+  vm.runInContext(links.slice(start,links.indexOf('function arkCardIssues')),ctx);return wrapper.hidden;
+ }
+ assert.equal(run([true,true]),true);assert.equal(run([true,false]),false);assert.equal(run([]),true);
+});

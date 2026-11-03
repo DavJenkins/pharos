@@ -12,4 +12,5 @@ assert.deepEqual(Array.from(context.libraryReviewItems(items,'changes'),x=>x.id)
 assert.deepEqual(Array.from(context.libraryReviewItems(items,'failures'),x=>x.id),['failed']);
 assert.deepEqual(Array.from(context.libraryReviewItems(items,'all'),x=>x.id),['changed','failed','browser']);
 assert.equal(items.length,4);
+assert.deepEqual(Array.from(context.libraryReviewItems(items,'all',['failed']),x=>x.id),['failed']);
 console.log('Publisher-change and failed-check alert destinations show distinct matching items.');

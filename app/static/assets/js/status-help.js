@@ -1,4 +1,12 @@
 "use strict";
+function arkSystemTabIssues(problems){
+ const groups={system:[],library:[],usage:[]};
+ for(const problem of problems||[])groups[problem.id.startsWith('content.')?'library':problem.id.startsWith('usage.')?'usage':'system'].push(problem);
+ return groups;
+}
+function arkDefaultSystemTab(problems){
+ const groups=arkSystemTabIssues(problems);return ['system','library','usage'].find(key=>groups[key].length)||'system';
+}
 (() => {
     const items = {
         "eth-button": {name:"Ethernet", description:"The Ark's wired connections. Select an adapter to inspect or control it. Current access paths are protected; saved connection settings are retained.", toggle:true},
@@ -153,15 +161,23 @@
                 if(usageResponse?.ok)usageInfo=await usageResponse.json();
                 if(!response.ok)throw new Error("Library unavailable");
                 libraryInfo=await response.json();
+                window.ArkLibraryDiagnostics=libraryInfo;
+                window.dispatchEvent(new CustomEvent('dataark:library-diagnostics'));
             }catch(_){if(!libraryInfo)libraryInfo={unavailable:true};}
             finally{clearTimeout(timer);libraryBusy=false;if(selected==="system-button"&&dialog.open)render();}
         }
         refreshLibrary(true);
-        window.addEventListener("dataark:dashboard-refreshed", () => refreshLibrary());
+        let diagnosticKey='';
+        window.addEventListener("dataark:dashboard-refreshed", () => {
+            const key=JSON.stringify(DataArkStatus.data?.status?.health?.source_checks||{});
+            const changed=key!==diagnosticKey;diagnosticKey=key;refreshLibrary(changed);
+            if(selected==='system-button'&&dialog.open)render();
+        });
         let allowAction = false;
         let pending = null;
         let pendingTimer = null;
         let systemTab="system";
+        let systemTabChosen=false;
         function updateTabActions(){
             const system=selected==="system-button";
             terminalLink.hidden=!system||systemTab!=="system";
@@ -176,6 +192,7 @@
         function renderDetails(item, title) {
             const focusedTab=document.activeElement?.getAttribute("role")==="tab"?document.activeElement.id:null;
             const previousPanel=document.getElementById("system-panel-"+systemTab);
+            const previousTab=systemTab;
             const panelScroll=previousPanel?.scrollTop||0;
             value.replaceChildren();
             const list = document.createElement("dl");
@@ -208,8 +225,11 @@
                 const systemPanel=document.createElement("div"),devicesPanel=document.createElement("div"),libraryPanel=document.createElement("div");
                 systemPanel.append(list);
                 const panels=[systemPanel,libraryPanel,devicesPanel],keys=["system","library","usage"],labels=["System","Library","Usage"],buttons=[];
-                function selectTab(index,focus=false){
+                const problems=DataArkStatus.data?.status?.health?.problems||[],tabIssues=arkSystemTabIssues(problems);
+                if(!systemTabChosen)systemTab=arkDefaultSystemTab(problems);
+                function selectTab(index,focus=false,chosen=false){
                     systemTab=keys[index];
+                    if(chosen)systemTabChosen=true;
                     updateTabActions();
                     panels.forEach((panel,i)=>{panel.hidden=i!==index;buttons[i].setAttribute("aria-selected",String(i===index));buttons[i].tabIndex=i===index?0:-1;});
                     if(focus)buttons[index].focus();
@@ -217,8 +237,10 @@
                 panels.forEach((panel,i)=>{
                     panel.id="system-panel-"+keys[i];panel.setAttribute("role","tabpanel");panel.setAttribute("aria-labelledby","system-tab-"+keys[i]);
                     const button=document.createElement("button");button.type="button";button.id="system-tab-"+keys[i];button.textContent=labels[i];button.setAttribute("role","tab");button.setAttribute("aria-controls",panel.id);buttons.push(button);tabs.append(button);
-                    button.addEventListener("click",()=>selectTab(i));
-                    button.addEventListener("keydown",event=>{let next;if(event.key==="ArrowRight")next=(i+1)%3;else if(event.key==="ArrowLeft")next=(i+2)%3;else if(event.key==="Home")next=0;else if(event.key==="End")next=2;else return;event.preventDefault();selectTab(next,true);});
+                    if(tabIssues[keys[i]].length){const badge=document.createElement('span');badge.className='system-tab-warning';badge.dataset.severity=tabIssues[keys[i]].some(p=>p.severity==='error')?'error':'warning';badge.textContent='!';badge.setAttribute('aria-hidden','true');button.append(badge);button.setAttribute('aria-label',labels[i]+' — '+tabIssues[keys[i]].length+' issues need attention');button.title=tabIssues[keys[i]].map(p=>p.message).join('\n');}
+                    button.addEventListener("click",()=>selectTab(i,false,true));
+                    button.addEventListener("keydown",event=>{let next;if(event.key==="ArrowRight")next=(i+1)%3;else if(event.key==="ArrowLeft")next=(i+2)%3;else if(event.key==="Home")next=0;else if(event.key==="End")next=2;else return;event.preventDefault();selectTab(next,true,true);});
+                    if(tabIssues[keys[i]].length){const issues=document.createElement('ul');issues.className='system-tab-issues';for(const problem of tabIssues[keys[i]]){const row=document.createElement('li'),a=document.createElement('a');a.textContent=problem.message;a.href=typeof arkAttentionHref==='function'?arkAttentionHref(problem.id):'/library.html#library-source-changes';row.append(a);issues.append(row);}panel.prepend(issues);}
                 });
                 const systemActions=document.createElement("div"),libraryActions=document.createElement("div");
                 systemActions.className=libraryActions.className="status-dialog-actions tab-panel-actions";
@@ -257,10 +279,10 @@
                 }
                 libraryPanel.append(summary);
                 const review=DataArkStatus.data?.status?.health?.source_checks?.browser_review;
-                if(review?.required){const p=document.createElement('p'),a=document.createElement('a');a.href='/capture.html';a.textContent=review.required+' sources use scheduled browser review ('+(Number.isInteger(review.overdue)?review.overdue+' due':'status unavailable')+')';p.append(a);libraryPanel.append(p);}
+                if(review?.required){const p=document.createElement('p'),a=document.createElement('a');a.href='/capture.html';a.textContent='Scheduled browser reviews: '+review.required+' sources ('+(Number.isInteger(review.overdue)?review.overdue+' due':'status unavailable')+')';p.append(a);libraryPanel.append(p);}
                 systemPanel.append(systemActions);libraryPanel.append(libraryActions);
                 selectTab(Math.max(0,keys.indexOf(systemTab)));
-                document.getElementById("system-panel-"+systemTab).scrollTop=panelScroll;
+                document.getElementById("system-panel-"+systemTab).scrollTop=previousTab===systemTab?panelScroll:0;
                 if(focusedTab)document.getElementById(focusedTab)?.focus({preventScroll:true});
             }
         }
@@ -335,6 +357,7 @@
                 event.stopImmediatePropagation();
                 if (selected !== id) wifiMessage.textContent = "";
                 selected = id;
+                if(id==='system-button'){systemTabChosen=false;systemTab=arkDefaultSystemTab(DataArkStatus.data?.status?.health?.problems||[]);const panel=document.getElementById('system-panel-'+systemTab);if(panel)panel.scrollTop=0;}
                 render();
                 if (["ap-button","wifi-button","eth-button"].includes(id)) refreshAccess();
                 if (!dialog.open) dialog.showModal();
