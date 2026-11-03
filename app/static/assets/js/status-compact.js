@@ -1,4 +1,10 @@
 "use strict";
+function arkAttentionHref(id) {
+ if(id==='content.source_changes')return '/library.html?review=changes#library-source-changes';
+ if(id==='content.source_checks')return '/library.html?review=failures#library-source-changes';
+ if(id==='content.browser_reviews')return '/capture.html';
+ return id.startsWith('content.')?'/library.html':id.startsWith('https.')?'/config/https.html':id.startsWith('software.')?'/config/updates.html':'/';
+}
 function arkCompactHealth(data, fresh, refreshing) {
  const status=data?.status, health=status?.health;
  const problems=health?.problems?.length?health.problems:(status?.issues||[]).map(message=>({id:'system',message}));
@@ -34,7 +40,7 @@ function arkStatusWorking(data) {
     for(const problem of health.problems){
      const row=document.createElement('li'),link=document.createElement('a');
      link.textContent=problem.message;
-     link.href=/^content\.(browser_reviews|source_checks|source_changes)$/.test(problem.id)?'/capture.html':problem.id.startsWith('content.')?'/library.html':problem.id.startsWith('https.')?'/config/https.html':problem.id.startsWith('software.')?'/config/updates.html':'/';
+     link.href=arkAttentionHref(problem.id);
      if(problem.id.startsWith('system.')||problem.id==='system'||problem.id.startsWith('service')){link.href='#';link.addEventListener('click',event=>{event.preventDefault();document.getElementById('system-button').click();});}
      row.append(link);list.append(row);
     }

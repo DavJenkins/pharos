@@ -19,4 +19,7 @@ at(310000,false);assert.equal(panel.children[0].children[0].textContent,'Status 
 data.status.health={state:'ok',problems:[]};data.status.sync='Idle';data.status.update={state:'idle'};at(341000);assert.equal(gear.dataset.health,'green');at(371000);assert(classes.has('status-condensed'));
 assert.equal(context.arkCompactHealth(data,true,false).tone,'gray');
 console.log('Passed green/amber/red/gray states, attention badge and links, new-warning expansion, stale telemetry, active work, failed idle work, and manual opening.');
+assert.equal(context.arkAttentionHref('content.source_changes'),'/library.html?review=changes#library-source-changes');
+assert.equal(context.arkAttentionHref('content.source_checks'),'/library.html?review=failures#library-source-changes');
+assert.equal(context.arkAttentionHref('content.browser_reviews'),'/capture.html');
 

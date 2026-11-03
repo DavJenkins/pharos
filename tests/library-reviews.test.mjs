@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const source=fs.readFileSync('app/static/assets/js/library.js','utf8');
+const context={};vm.createContext(context);vm.runInContext(source.slice(source.indexOf('function libraryReviewItems'),source.indexOf('let sourceReviewItems')),context);
+const changed={id:'changed',update:{pending_change:true,result:'changed'}};
+const failed={id:'failed',update:{result:'error'}};
+const browser={id:'browser',update:{result:'browser_review_due'}};
+const good={id:'good',update:{result:'unchanged'}};
+const items=[changed,failed,browser,good];
+assert.deepEqual(Array.from(context.libraryReviewItems(items,'changes'),x=>x.id),['changed']);
+assert.deepEqual(Array.from(context.libraryReviewItems(items,'failures'),x=>x.id),['failed']);
+assert.deepEqual(Array.from(context.libraryReviewItems(items,'all'),x=>x.id),['changed','failed','browser']);
+assert.equal(items.length,4);
+console.log('Publisher-change and failed-check alert destinations show distinct matching items.');
