@@ -17,7 +17,7 @@ def main():
         run('openssl','genrsa','-traditional','-out',str(rsa),'3072',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     (config/'config').write_text('port=5901\nenable_auth=true\nenable_pam=true\nrelax_encryption=false\nallow_broken_crypto=false\nprivate_key_file='+str(key)+'\ncertificate_file='+str(cert)+'\nrsa_private_key_file='+str(rsa)+'\n')
     for p in config.iterdir():os.chown(p,owner.pw_uid,owner.pw_gid);p.chmod(0o600)
-    helper=Path('/usr/local/libexec/dataark-vnc');helper.write_bytes((ROOT/'deploy/vnc/launch_vnc.py').read_bytes());helper.chmod(0o755)
+    helper=Path('/usr/local/libexec/dataark-vnc');helper.write_text((ROOT/'deploy/vnc/launch_vnc.py').read_text(),newline='\n');helper.chmod(0o755)
     run('systemctl','disable','--now','x11vnc.service','wayvnc.service','wayvnc-control.service')
     run('systemctl','mask','wayvnc.service','wayvnc-control.service')
     Path('/etc/systemd/system/dataark-vnc.service').write_bytes((ROOT/'deploy/vnc/dataark-vnc.service').read_bytes())
