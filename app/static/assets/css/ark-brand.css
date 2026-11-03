@@ -1,4 +1,4 @@
-@font-face{font-family:ArkDisplay;src:url('/assets/fonts/unifrakturcook/UnifrakturCook-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+body:has(.ark-app-masthead){padding:clamp(.5rem,2.5vw,2rem);background:#203e54 url('/assets/manifest/0ee8357fe4c9b65a4cfa1a5e5f1848ccc1a6febf1878408c1d822d6a6bb11b08.png') center top/cover no-repeat fixed;line-height:1.65}
 body:has(.ark-app-masthead){padding:clamp(.5rem,2.5vw,2rem);background-image:url('/assets/manifest/0ee8357fe4c9b65a4cfa1a5e5f1848ccc1a6febf1878408c1d822d6a6bb11b08.png');line-height:1.65}
 .ark-page:has(.ark-app-masthead){--page-inset:clamp(1.2rem,4vw,3rem);box-sizing:border-box;max-width:1080px;padding:var(--page-inset,0px);border:1px solid #b49b57;border-radius:15px;background:linear-gradient(145deg,#fffdf8,#f6f0e2);box-shadow:0 18px 65px #0007}
 .ark-app-masthead{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;margin:calc(-1 * var(--page-inset,0px)) calc(-1 * var(--page-inset,0px)) var(--page-inset,0px);padding:1.4rem clamp(1rem,3.5vw,2.5rem);background:linear-gradient(120deg,#172d40,#294e68);border-bottom:3px solid #d4af37;border-radius:14px 14px 0 0;color:#d4af37}
