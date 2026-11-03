@@ -26,6 +26,10 @@ class SoftwareUpdateTests(unittest.TestCase):
         self.assertEqual(service.candidates([bootstrap,software])[0],software)
         with patch.object(service,'read_releases',return_value=[software]),patch.object(service,'relationship',return_value='newer_release'):
             result=service.check();self.assertTrue(result['installation_supported']);self.assertNotIn('not an in-place update',result['message'])
+    def test_newer_bootstrap_does_not_hide_installable_software(self):
+        software=release('software-2026.10.29');bootstrap=release('bootstrap-2026.11.03')
+        with patch.object(service,'read_releases',return_value=[bootstrap,software]),patch.object(service,'relationship',return_value='newer_release'):
+            result=service.check();self.assertEqual(result['release']['tag'],software['tag_name']);self.assertTrue(result['download_available'])
     def test_equal_unknown_and_ancestor_comparison(self):
         self.assertEqual(service.relationship(CURRENT,CURRENT),'same')
         self.assertEqual(service.relationship('main',TARGET),'uncompared')

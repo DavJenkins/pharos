@@ -53,3 +53,13 @@ def content(asset, result):
     except Exception:
         import logging
         logging.getLogger(__name__).warning('Content update notification could not be recorded')
+
+
+def download(value):
+    """Expose download/verification progress without installing or flooding events."""
+    kind={'queued':'queued','downloading':'downloading','verifying':'verifying','verified':'suggested',
+          'failed':'failed','interrupted':'failed'}.get(value.get('state'))
+    if kind:
+        _emit(kind,title='Ark software '+str(value.get('tag',''))+': '+str(value.get('state','')),
+              operation_id=value.get('id',''),activity_key='software_download',percent=value.get('percent'),
+              error_type=value.get('state') if kind=='failed' else '')

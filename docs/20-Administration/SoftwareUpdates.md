@@ -18,7 +18,13 @@ The current public archive is a bootstrap/recovery kit, not an in-place update p
 
 ## Software-only installer
 
-Choose a signed `.tar.gz` update package, select **Verify and stage**, review the release and file/removal counts, then select **Install staged update**. Staging does not change running software. Installation asks for caretaker authorization on demand, confirms the restart, and queues a fixed root-owned systemd worker so the browser connection can close safely. The page reconnects to show completion or rollback.
+Select **Check now**, review the published release, then select **Download and verify on the Ark**. Caretaker authorization starts the download directly on the Ark; no desktop download, file transfer or upload is needed. The page shows download size, percentage and signature/compatibility verification. Refreshing the page restores the current progress or verified package. Preview releases require explicit opt-in, and bootstrap/recovery kits cannot be selected as software updates.
+
+After verification, review the release and file/removal counts, then select **Install verified update**. Downloading and staging do not change running software. Installation asks for caretaker authorization on demand, confirms the restart, and queues a fixed root-owned systemd worker so the browser connection can close safely. The page reconnects to show completion or rollback.
+
+**Install a package already downloaded elsewhere** retains the offline upload path: choose a signed `.tar.gz` package and select **Verify and stage**. Both acquisition paths use the same signature, platform, base-revision, local-edit and rollback checks. No extra root permission is granted for downloading.
+
+Downloads accept only an explicit published software tag from the official repository, re-read its release metadata, enforce its declared size and the 256 MiB limit, and verify the GitHub SHA-256 digest when provided. HTTPS redirects are restricted to GitHub's release hosts. The package is then handed to the existing root-owned signature verifier; an internet download never substitutes for signature verification. An interrupted service marks the partial download as interrupted, removes its partial inbox file and offers an explicit retry. It never treats partial bytes as a verified package. Home Assistant receives download, verification and failure lifecycle events through the existing feed.
 
 ![Illustrative verified-package preview: review the file counts before the separate Install staged update action. This example is not a published release.](../assets/screenshots/software-update-staging.jpg)
 

@@ -77,18 +77,23 @@ def check(preview=False):
                 'installation_supported':False,'release':None}
         try:
             choices=candidates(read_releases(),preview)
+            software=[item for item in choices if item['tag_name'].startswith('software-')]
+            if software:choices=software
             if not choices:
                 result.update(state='no_release',message='No published software release is available in this channel. Preview releases can be checked separately.')
             else:
                 item=choices[0];tag=item['tag_name'];relation=relationship(current.get('revision'),item.get('target_commitish'))
                 result['release']={'tag':tag,'published_at':item.get('published_at'),'preview':bool(item.get('prerelease') or '-preview.' in tag),
                     'url':'https://github.com/DavJenkins/pharos/releases/tag/'+tag,'source_revision':item.get('target_commitish')}
+                asset=next(a for a in item['assets'] if a.get('name')=='data-ark-'+tag+'.tar.gz' and a.get('state')=='uploaded')
+                result['release']['package_bytes']=asset.get('size')
                 messages={'same':'This build matches the published source revision.',
                     'development_ahead':'This development build already contains the published release and newer changes. Do not install an older release over this build.',
                     'newer_release':'A newer published source revision is available for review.',
                     'uncompared':'A published release is available, but its revision cannot be reliably compared with this build.'}
                 result['installation_supported']=tag.startswith('software-')
-                suffix=' Review the signed software package and compatibility requirements before staging it.' if result['installation_supported'] else ' The published kit is for bootstrap/recovery; it is not an in-place update package.'
+                result['download_available']=result['installation_supported'] and relation not in {'same','development_ahead'}
+                suffix=' Download and verify the signed package on the Ark, then review it before installation.' if result['download_available'] else '' if result['installation_supported'] else ' The published kit is for bootstrap/recovery; it is not an in-place update package.'
                 result.update(state=relation,message=messages[relation]+suffix)
         except Exception:
             result.update(state='unavailable',message='The release service could not be checked. The Ark may be offline, or the service may be unavailable or rate limited. This does not mean the software is current.')

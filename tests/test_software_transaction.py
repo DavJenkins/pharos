@@ -39,6 +39,25 @@ class SoftwareTransactions(unittest.TestCase):
     def build(self,**kwargs):
         return build(self.payload,self.updater.receipt(),self.source/'requirements.txt',self.key,self.package,'test-1','b'*40,**kwargs)
     def stage(self):return self.updater.stage(self.package)['id']
+    def test_online_download_hands_signed_bytes_to_the_same_verifier(self):
+        from app.services import software_downloads as downloads
+        import hashlib
+        tag='software-2026.11.03'
+        build(self.payload,self.updater.receipt(),self.source/'requirements.txt',self.key,self.package,tag,'b'*40)
+        raw=self.package.read_bytes();inbox=self.root/'inbox';inbox.mkdir()
+        url='https://github.com/DavJenkins/pharos/releases/download/'+tag+'/data-ark-'+tag+'.tar.gz'
+        class Response(io.BytesIO):
+            headers={'Content-Length':str(len(raw))}
+        response=Response(raw);response.url=url
+        def invoke(request):
+            self.assertEqual(request['action'],'stage')
+            return {'ok':True,**self.updater.stage(inbox/(request['id']+'.tar.gz'))}
+        with patch.object(downloads.installation,'INBOX',inbox),patch.object(downloads,'package',return_value=(url,len(raw),hashlib.sha256(raw).hexdigest())),patch.object(downloads.installation,'invoke',side_effect=invoke),patch('tools.update_notifications.download'):
+            downloads.run({'id':'c'*32,'tag':tag,'preview':False},io.BytesIO(),lambda *a,**k:response)
+            state=downloads.status();self.assertEqual(state['state'],'verified')
+            identifier=state['staged']['id'];self.updater.validate(self.updater.stage_path(identifier))
+            self.assertEqual(self.updater.receipt()['revision'],'a'*40)
+            self.assertEqual((self.source/'app/main.py').read_bytes(),b'old source');self.preserved()
     def preserved(self):
         self.assertEqual((self.source/'dataark.yaml').read_bytes(),b'personal private config')
         for name in ('var/lib/dataark/community.db','etc/dataark/network-admin.json','mnt/storage/library/book.zim'):self.assertEqual((self.root/name).read_bytes(),b'private state')

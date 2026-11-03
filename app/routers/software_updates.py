@@ -4,6 +4,7 @@ from fastapi import APIRouter,HTTPException,Request
 from starlette.concurrency import run_in_threadpool
 from app.services import software_updates
 from app.services import software_installation as installation
+from app.services import software_downloads as downloads
 from app.services.network_admin import authorized
 
 router=APIRouter(prefix='/software-updates',tags=['Software updates'])
@@ -22,7 +23,23 @@ async def caretaker(request):
     if not await run_in_threadpool(authorized,request.headers.get('authorization','')[:2049]):raise HTTPException(401,'Caretaker password required.')
 
 @router.get('/installation')
-def installation_status():return installation.status()
+def installation_status():return {**installation.status(),'download':downloads.status()}
+
+@router.post('/download',status_code=202)
+async def download(request:Request):
+    """Fetch an explicitly selected official release and verify it; never apply it."""
+    await caretaker(request)
+    if request.headers.get('content-type','').split(';')[0] != 'application/json':raise HTTPException(415,'JSON required.')
+    raw=bytearray()
+    async for chunk in request.stream():
+        raw.extend(chunk)
+        if len(raw)>1024:raise HTTPException(413,'Request too large.')
+    try:
+        value=json.loads(raw)
+        if not isinstance(value,dict) or set(value)!={'tag','preview'}:raise ValueError()
+    except (ValueError,UnicodeError):raise HTTPException(400,'Select a release and preview channel.') from None
+    try:return await run_in_threadpool(downloads.start,value['tag'],value['preview'])
+    except downloads.DownloadError as error:raise HTTPException(error.status,str(error)) from None
 
 @router.post('/stage')
 async def stage(request:Request):
