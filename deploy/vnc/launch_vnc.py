@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 """Bind VNC only to currently assigned private IPv4 addresses on physical network interfaces."""
-import ipaddress, json, os, subprocess
+import ipaddress, json, os, subprocess, time
+from pathlib import Path
+
+def wait_for_desktop(runtime=None, display=None):
+    socket=Path(runtime or os.environ.get('XDG_RUNTIME_DIR','/run/user/1000'))/(display or os.environ.get('WAYLAND_DISPLAY','wayland-0'))
+    if not socket.is_socket():
+        print('Waiting for the local desktop login before starting VNC.',flush=True)
+    while not socket.is_socket():time.sleep(5)
+
+if __name__ == '__main__':wait_for_desktop()
 addresses=[]
 for interface in json.loads(subprocess.check_output(['/usr/sbin/ip','-j','address'],text=True)):
     if not interface['ifname'].startswith(('wl','eth','en')): continue

@@ -1,5 +1,7 @@
 import hashlib
 import io
+import json
+from datetime import date
 from pathlib import Path
 import tempfile
 import unittest
@@ -14,6 +16,91 @@ class Response(io.BytesIO):
         super().__init__(data); self.headers = headers or {}; self.url = 'https://publisher.test/file'
 
 class ReferenceChecksTests(unittest.TestCase):
+    def test_retired_map_discovers_bounded_header_without_touching_map(self):
+        url='https://build.protomaps.com/20261022.pmtiles'
+        asset=dict(self.asset,relative_path='maps/usa.pmtiles')
+        requests=[]
+        class HeaderResponse(Response):
+            status=206
+            def read(self,size=-1):
+                self.asserted_size=size
+                if size != 127:raise AssertionError('Unbounded map read')
+                return b'PMTiles\x03'+bytes(119)
+        def opener(request,**kwargs):
+            requests.append(request)
+            if request.full_url.endswith('20261103.pmtiles'):raise HTTPError(request.full_url,404,'',{},None)
+            response=HeaderResponse(headers={'Content-Range':'bytes 0-126/139000000000','ETag':'v2'})
+            response.url=request.full_url
+            return response
+        with tempfile.TemporaryDirectory() as folder:
+            saved=Path(folder)/'map.pmtiles';saved.write_bytes(b'original')
+            result=worker.retired_map_edition(url,[asset],{'baseline':'old'},self.cfg,opener,date(2026,11,3))
+            self.assertEqual(saved.read_bytes(),b'original')
+        self.assertEqual(len(requests),2)
+        self.assertEqual(requests[1].get_header('Range'),'bytes=0-126')
+        self.assertEqual(result['edition_discovery']['candidate']['edition'],'2026-11-02')
+        self.assertTrue(result['pending_change'])
+
+    def test_retired_map_discovery_is_bounded_and_rejects_html(self):
+        url='https://build.protomaps.com/20261022.pmtiles';asset=dict(self.asset,relative_path='maps/usa.pmtiles');calls=[]
+        def absent(request,**kwargs):
+            calls.append(request);raise HTTPError(request.full_url,404,'',{},None)
+        with self.assertRaisesRegex(ValueError,'four-day'):
+            worker.retired_map_edition(url,[asset],{},self.cfg,absent,date(2026,11,3))
+        self.assertEqual(len(calls),4)
+        response=Response(b'Not a map',{'Content-Range':'bytes 0-126/1000'});response.status=206;response.url='https://build.protomaps.com/20261103.pmtiles'
+        with self.assertRaisesRegex(ValueError,'invalid PMTiles'):
+            worker.retired_map_edition(url,[asset],{},self.cfg,lambda *a,**k:response,date(2026,11,3))
+    @staticmethod
+    def constitution_page(clause='The constitutional provision', furniture='Navigation'):
+        values = [None, {'data': 2}, {'useConstitutionEntriesAllsnapshot': 3}, list(range(4, 14))]
+        values += [{'clause': 14, 'title': 15} for _ in range(10)]
+        values += [clause, 'Article']
+        return ('<html><p>'+furniture+'</p><script id="__NUXT_DATA__">'+json.dumps(values)+'</script></html>').encode()
+
+    def test_constitution_checks_embedded_provisions_not_page_furniture(self):
+        url='https://50constitutions.org/ma/constitution'
+        first=worker.body_fingerprint(self.constitution_page(), 'text/html', url)
+        self.assertEqual(first, worker.body_fingerprint(self.constitution_page(furniture='New navigation'), 'text/html', url))
+        self.assertNotEqual(first, worker.body_fingerprint(self.constitution_page(clause='Amended constitutional provision'), 'text/html', url))
+
+    def test_constitution_baseline_migration_requires_exact_installed_match(self):
+        data=self.constitution_page()
+        from tools.install_jurisdictions import university_body
+        body=university_body(data.decode())[0]
+        asset=dict(self.asset,relative_path='constitution.html')
+        previous={'baseline':'old-page-furniture','pending_change':True,'etag':'old'}
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);path=root/asset['relative_path']
+            path.write_text('<html><h1>Saved snapshot</h1>'+body+'</html>')
+            def opener(request,**kwargs):
+                self.assertIsNone(request.get_header('If-none-match'))
+                return Response(data,{'Content-Type':'text/html'})
+            result=worker.check('https://50constitutions.org/ma/constitution',[asset],previous,self.cfg,root,opener)
+            self.assertEqual(result['status'],'unchanged')
+            self.assertFalse(result['pending_change'])
+            path.write_text('<html>'+body.replace('The constitutional provision','Older text')+'</html>')
+            changed=worker.check('https://50constitutions.org/ma/constitution',[asset],previous,self.cfg,root,opener)
+            self.assertTrue(changed['pending_change'])
+            path.unlink()
+            missing=worker.check('https://50constitutions.org/ma/constitution',[asset],previous,self.cfg,root,opener)
+            self.assertTrue(missing['pending_change'])
+
+    def test_publisher_body_migration_does_not_ignore_substantive_changes(self):
+        url='https://www.energy.gov/guide'
+        body='<p>'+('Useful wind guidance. '*30)+'</p>'
+        data=('<html><nav>New navigation</nav><main>'+body+'</main></html>').encode()
+        asset=dict(self.asset,relative_path='guide.html')
+        previous={'baseline':'old-whole-page','pending_change':True}
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);path=root/'guide.html'
+            path.write_text('<html><h1>Local title</h1><div class="source"><a>Original publisher page (internet)</a></div>'+body+'</html>')
+            result=worker.check(url,[asset],previous,self.cfg,root,lambda *a,**k:Response(data,{'Content-Type':'text/html'}))
+            self.assertFalse(result['pending_change'])
+            changed=data.replace(b'Useful wind guidance.',b'Changed wind guidance.')
+            result=worker.check(url,[asset],result,self.cfg,root,lambda *a,**k:Response(changed,{'Content-Type':'text/html'}))
+            self.assertTrue(result['pending_change'])
+
     def setUp(self):
         self.asset = {'id': 'doc', 'relative_path': 'docs/file.pdf', 'repository_id': 'docs', 'download_url': 'https://publisher.test/file.pdf'}
         self.cfg = {'enabled': True, 'interval': '7d', 'max_bytes': 10000}

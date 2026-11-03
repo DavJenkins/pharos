@@ -7,6 +7,17 @@ from unittest.mock import patch
 LAUNCHER=Path(__file__).resolve().parents[1]/'deploy/vnc/launch_vnc.py'
 
 class VncLauncherTests(unittest.TestCase):
+    def test_launcher_waits_without_starting_a_desktop_or_changing_login(self):
+        with patch('subprocess.check_output',return_value='[]'),patch('os.execv'):
+            with self.assertRaises(SystemExit):namespace=runpy.run_path(str(LAUNCHER))
+        # Load the helper while supplying an interface so the module completes.
+        interface=[{'ifname':'eth0','addr_info':[{'family':'inet','local':'192.168.4.1'}]}]
+        with patch('subprocess.check_output',return_value=json.dumps(interface)),patch('os.execv'):
+            namespace=runpy.run_path(str(LAUNCHER))
+        with patch('pathlib.Path.is_socket',side_effect=[False,False,True]),patch('time.sleep') as sleep:
+            namespace['wait_for_desktop']('/run/user/1000','wayland-0')
+        sleep.assert_called_once_with(5)
+
     def test_only_private_addresses_on_physical_interfaces_are_bound(self):
         interfaces=[
             {'ifname':'wlan0','addr_info':[{'family':'inet','local':'192.168.4.1'}]},

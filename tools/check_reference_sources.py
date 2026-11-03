@@ -13,6 +13,7 @@ import tempfile
 import ssl
 import argparse
 import time
+from datetime import datetime, timezone, timedelta
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 from urllib.parse import urlsplit, quote
@@ -45,6 +46,22 @@ class Text(HTMLParser):
 
 def body_fingerprint(data, content_type, url):
     if 'html' in content_type or data.lstrip().lower().startswith((b'<!doctype html', b'<html')):
+        # This publisher delivers the provisions in Nuxt data, while visible
+        # page furniture changes independently of the constitutional text.
+        if urlsplit(url).hostname == '50constitutions.org':
+            from tools.install_jurisdictions import university_body
+            body, _, _, _ = university_body(data.decode('utf-8'))
+            parser = Text(); parser.feed(body)
+            text = ' '.join(' '.join(parser.parts).split())
+            return hashlib.sha256(text.encode()).hexdigest(), 'constitutional-text-v1'
+        if urlsplit(url).hostname in {'www.energy.gov', 'malegislature.gov', 'www.leg.state.fl.us', 'cnmilaw.gov', 'law.lis.virginia.gov'}:
+            # Match the substantive-body extractor used to make these saved
+            # snapshots, excluding menus, scripts, forms and other furniture.
+            from tools.install_resilience import body_copy
+            body, _ = body_copy(data, url)
+            parser = Text(); parser.feed(body)
+            text = ' '.join(' '.join(parser.parts).split())
+            return hashlib.sha256(text.encode()).hexdigest(), 'publisher-body-v1'
         parser = Text(); parser.feed(data.decode('utf-8', errors='replace'))
         text = ' '.join(' '.join(parser.parts).split())
         if len(text) < 100 or re.search(r'^(access denied|just a moment|verify you are human)', text, re.I):
@@ -62,6 +79,41 @@ def body_fingerprint(data, content_type, url):
         raise ValueError('Unexpected HTML response')
     return hashlib.sha256(data).hexdigest(), 'bytes'
 
+
+def retired_map_edition(url, assets, previous, config, opener=urlopen, today=None):
+    """Discover a retained daily map build without downloading a planet archive.
+
+    The installed extraction and its pinned source provenance are unchanged.
+    A new build needs a separate, verified regional extraction before activation.
+    """
+    match = re.fullmatch(r'https://build\.protomaps\.com/(\d{8})\.pmtiles', url)
+    if not match or not assets or not all(Path(a['relative_path']).suffix == '.pmtiles' for a in assets):
+        raise ValueError('Not a supported dated map extraction source')
+    installed = datetime.strptime(match[1], '%Y%m%d').date()
+    today = today or datetime.now(timezone.utc).date()
+    for offset in range(4):
+        day = today - timedelta(days=offset)
+        if day <= installed: continue
+        candidate_url = 'https://build.protomaps.com/' + day.strftime('%Y%m%d') + '.pmtiles'
+        try:
+            with opener(Request(candidate_url, headers={'User-Agent':'DataArk bounded map edition check', 'Range':'bytes=0-126', 'Accept-Encoding':'identity'}), timeout=min(config.get('timeout_seconds',45),15)) as response:
+                if response.url != candidate_url or response.status != 206:
+                    raise ValueError('Map publisher did not return the requested bounded header')
+                length = re.fullmatch(r'bytes 0-126/(\d+)', response.headers.get('Content-Range',''))
+                header = response.read(127)
+                if not length or len(header) != 127 or header[:8] != b'PMTiles\x03':
+                    raise ValueError('New map build has an invalid PMTiles header')
+                candidate = {'edition':day.isoformat(), 'url':'https://maps.protomaps.com/builds/',
+                             'archive_url':candidate_url, 'bytes':int(length[1]),
+                             'etag':response.headers.get('ETag'), 'kind':'map_extraction'}
+            detail = 'New Protomaps build '+day.isoformat()+' is available. Rebuild and verify the configured regional extraction before activation; installed map retained.'
+            return dict(previous, status='changed', pending_change=True, detail=detail,
+                        fingerprint=candidate_url+'|'+str(candidate['etag']), fingerprint_kind='map-edition-v1',
+                        edition_discovery={'status':'available','candidate':candidate,'detail':detail,'attempted_at':time.time()})
+        except HTTPError as error:
+            if error.code != 404: raise
+    raise ValueError('Pinned map build expired; no retained build found in the bounded four-day window. Installed map retained.')
+
 def check(url, assets, previous, config, root, opener=urlopen):
     if urlsplit(url).scheme != 'https':
         raise ValueError('Only explicit HTTPS publisher sources are checked')
@@ -70,8 +122,10 @@ def check(url, assets, previous, config, root, opener=urlopen):
     request_url = quote(url, safe=":/?#[]@!$&'()*+,;=%")
     metadata_only = any(urlsplit(url).path.lower().endswith(ext) for ext in ('.zip', '.pmtiles')) or any(a.get('repository_id') == 'curriculum' for a in assets)
     headers = {'User-Agent': 'Mozilla/5.0 (DataArk offline reference source check)'}
-    if previous.get('etag'): headers['If-None-Match'] = previous['etag']
-    elif previous.get('last_modified'): headers['If-Modified-Since'] = previous['last_modified']
+    semantic_hosts = {'50constitutions.org', 'www.energy.gov', 'malegislature.gov', 'www.leg.state.fl.us', 'cnmilaw.gov', 'law.lis.virginia.gov'}
+    migrate_text = urlsplit(url).hostname in semantic_hosts and previous.get('fingerprint_kind') not in {'constitutional-text-v1', 'publisher-body-v1'}
+    if previous.get('etag') and not migrate_text: headers['If-None-Match'] = previous['etag']
+    elif previous.get('last_modified') and not migrate_text: headers['If-Modified-Since'] = previous['last_modified']
     from tools.source_tls import extra_ca, context
     options = {'timeout': config.get('timeout_seconds', 45)}
     if extra_ca(url, ROOT):
@@ -87,6 +141,8 @@ def check(url, assets, previous, config, root, opener=urlopen):
     except HTTPError as error:
         if error.code == 304:
             return dict(previous, status='changed' if previous.get('pending_change') else 'unchanged', detail='Publisher confirms the previously checked version.')
+        if error.code == 404 and re.fullmatch(r'https://build\.protomaps\.com/\d{8}\.pmtiles',url):
+            return retired_map_edition(url, assets, previous, config, opener)
         raise
     with response:
         if urlsplit(response.url).scheme != 'https': raise ValueError('Publisher redirected away from HTTPS')
@@ -117,12 +173,34 @@ def check(url, assets, previous, config, root, opener=urlopen):
                         raise ValueError('Invalid or macro-enabled Word document')
             fingerprint, kind = body_fingerprint(data, response.headers.get('Content-Type', ''), url)
     baseline = previous.get('baseline')
+    if kind in {'constitutional-text-v1', 'publisher-body-v1'} and previous.get('fingerprint_kind') != kind:
+        # Migrate an older page-furniture baseline only when the freshly
+        # retrieved provisions exactly match every installed snapshot.
+        matches = []
+        for asset in assets:
+            try:
+                snapshot = inside(root, asset['relative_path']).read_text(encoding='utf-8')
+                if kind == 'constitutional-text-v1':
+                    start = snapshot.find('<h2>')
+                    if start < 0 or 'class="constitutional-provision"' not in snapshot:
+                        raise ValueError('Installed constitutional provisions not identified')
+                else:
+                    boundary = re.search(r'Original publisher page \(internet\)</a></div>|Publisher source</a></p>', snapshot)
+                    if not boundary: raise ValueError('Installed publisher-body boundary not identified')
+                    start = boundary.end()
+                parser = Text(); parser.feed(snapshot[start:])
+                text = ' '.join(' '.join(parser.parts).split())
+                matches.append(hashlib.sha256(text.encode()).hexdigest() == fingerprint)
+            except (OSError, UnicodeError, ValueError):
+                matches.append(False)
+        if matches and all(matches):
+            baseline = fingerprint
     # Byte-identical direct files can be compared with the installed copy immediately.
     if not baseline and kind == 'bytes':
         direct = [a for a in assets if not a.get('source_check_url') and Path(a['relative_path']).suffix.lower() in ('.pdf', '.docx', '.json', '.txt')]
         baseline = next((a.get('expected_hash') for a in direct if a.get('expected_hash')), None)
     changed = bool(baseline and fingerprint != baseline)
-    result.update(fingerprint=fingerprint, baseline=baseline or fingerprint, pending_change=changed,
+    result.update(fingerprint=fingerprint, fingerprint_kind=kind, baseline=baseline or fingerprint, pending_change=changed,
                   status='changed' if changed else 'unchanged' if baseline else 'baseline',
                   detail='Publisher source changed; installed copy retained for review.' if changed else
                          'Recorded source matches the installed file or previous baseline.' if baseline else
@@ -179,7 +257,7 @@ def run(retry_errors=False):
             result['checked_at'] = time.time()
         except Exception as error:
             result = dict(previous, status='error', detail=failure_detail(error))
-        if previous.get('edition_discovery'):result['edition_discovery']=previous['edition_discovery']
+        if previous.get('edition_discovery') and not result.get('edition_discovery'):result['edition_discovery']=previous['edition_discovery']
         result['attempted_at'] = attempted
         state['sources'][url] = result
         atomic_write(STATE, (json.dumps(state, indent=2) + '\n').encode())

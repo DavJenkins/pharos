@@ -1,7 +1,7 @@
 [Unit]
 Description=Data Ark encrypted Wayland VNC desktop
 After=display-manager.service user@1000.service
-Wants=display-manager.service
+Wants=display-manager.service user@1000.service
 StartLimitIntervalSec=0
 
 [Service]

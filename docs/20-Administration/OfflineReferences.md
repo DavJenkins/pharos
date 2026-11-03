@@ -13,6 +13,8 @@ Attribution: OpenStreetMap contributors (ODbL), Protomaps Produced Work and Natu
 ### Reconstruction and updates
 The street basemap remains manually updated, independent of monthly GIS and Kiwix workers. `tools/content_profile.py restore --only osm --apply` reconstructs the selected national archive from the public source recipe, verifies it, checks the recorded hash and publishes atomically. The regional source cutout is downloaded, not the entire planet. The content profile and its geometry travel in DATA-ARK-CONFIG and the recovery kit. Source availability is required. For a different build, review the source edition, checksum and viewer date together.
 
+Protomaps retains daily builds for a limited period. If the pinned source has expired, publisher checks probe at most four recent daily builds, reading only each requested 127-byte PMTiles header. A valid newer build appears in Manage Library as an edition requiring review. This does not download a planet archive, replace the installed regional map, or change its source/hash record. A new regional extraction must be verified and activated separately. See the [publisher's build retention policy](https://docs.protomaps.com/basemaps/downloads).
+
 ## Preparedness and CERT
 Local contents and provenance: `/library-files/preparedness/index.html` and `sources.json`. Installed: FEMA / Ready.gov Are You Ready? (2021 hosted edition), CERT Basic Training Participant Manual (2019), and CERT Hazard Annexes (2019). Files are unmodified PDFs with source URLs, retrieval dates, sizes and SHA-256 hashes. They are reference editions, not a claim of current certification or a replacement for practical training.
 
