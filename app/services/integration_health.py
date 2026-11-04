@@ -45,7 +45,8 @@ def collect(status=None):
         add('https.setup_failed', 'warning', 'Optional HTTPS setup needs attention')
     try:
         for unit in failed_units():
-            add('service.' + unit, 'error', 'Failed service: ' + unit)
+            kind='login session' if unit.startswith('session-') and unit.endswith('.scope') else 'user manager' if unit.startswith('user@') else 'service'
+            add('service.' + unit, 'error', 'Failed '+kind+': ' + unit)
     except (OSError, subprocess.TimeoutExpired):
         add('services.telemetry', 'warning', 'Failed-service telemetry unavailable')
     reference = {'available':False}

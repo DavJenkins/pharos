@@ -58,3 +58,8 @@ class IntegrationHealthTests(unittest.TestCase):
             current['status']['update']['source_url']='other'
             value=health.collect(current)
             self.assertEqual(len(value['problems']),2)
+
+    def test_failed_login_scope_is_not_mislabelled_as_a_service(self):
+        with patch.object(health,'public_status',return_value={}),patch.object(health,'failed_units',return_value=['session-3.scope','user@1000.service']),patch.object(health,'REFERENCE',self.root/'missing'):
+            value=health.collect(base())
+        self.assertEqual([p['message'] for p in value['problems']],['Failed login session: session-3.scope','Failed user manager: user@1000.service'])
