@@ -63,6 +63,7 @@ function arkCardIssues(items,ids){
  for(const item of items){
   if(!wanted.has(item.id))continue;
   const update=item.update||{},key=update.source_url||item.id;
+  if(update.warning_snoozed)continue;
   if(update.pending_change)groups.changes.set(key,item.id);
   if(update.result==='error')groups.failures.set(key,item.id);
   if(update.result==='browser_review_due')groups.reviews.set(key,item.id);

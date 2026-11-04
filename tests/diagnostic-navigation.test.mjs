@@ -58,3 +58,10 @@ test('installed-only control is hidden when filtering cannot hide any card',()=>
  }
  assert.equal(run([true,true]),true);assert.equal(run([true,false]),false);assert.equal(run([]),true);
 });
+
+test('a snoozed source contributes no card warning until its snooze expires',()=>{
+ const item={id:'manual',update:{result:'error',warning_snoozed:true}};
+ assert.equal(context.arkCardIssues([item],['manual']).failures.length,0);
+ item.update.warning_snoozed=false;
+ assert.equal(context.arkCardIssues([item],['manual']).failures.length,1);
+});

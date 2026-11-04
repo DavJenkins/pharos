@@ -51,7 +51,9 @@ def collect(status=None):
         add('services.telemetry', 'warning', 'Failed-service telemetry unavailable')
     reference = {'available':False}
     try:
-        sources = json.loads(REFERENCE.read_text())['sources']
+        from app.services.reference_checks import settings,source_policy,warning_snoozed
+        config=settings()
+        sources = {url:record for url,record in json.loads(REFERENCE.read_text())['sources'].items() if source_policy(config,url)=='active' and not warning_snoozed(config,url)}
         entries = list(sources.values())
         reviews = browser_reviews.snapshot()
         manual_urls = {r['source_url'] for r in reviews['reviews']}

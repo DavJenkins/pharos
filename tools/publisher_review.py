@@ -519,3 +519,45 @@ def worker(asset_id, job):
 if __name__ == '__main__':
     if len(sys.argv) != 3 or not re.fullmatch(r'[a-zA-Z0-9_-]{1,160}', sys.argv[1]) or not re.fullmatch(r'[a-f0-9]{32}', sys.argv[2]): raise SystemExit('Invalid worker identity')
     worker(*sys.argv[1:])
+
+
+def manage_source(payload):
+    """Caretaker-approved check policy; never downloads, replaces or removes content."""
+    if not isinstance(payload,dict) or not {'action','asset_id','state','url'}<=set(payload) or set(payload)-{'action','asset_id','state','url','snooze_days'}:raise ValueError('Invalid source settings request')
+    days=payload.get('snooze_days',0)
+    if type(days) is not int or not 0<=days<=365:raise ValueError('Snooze must be 0 to 365 whole days')
+    if payload['state'] not in ('active','paused','retired'):raise ValueError('Invalid source state')
+    asset_id=payload['asset_id']
+    if not isinstance(asset_id,str) or not re.fullmatch(r'[a-zA-Z0-9_-]{1,160}',asset_id):raise ValueError('Invalid collection')
+    url=payload['url']
+    if not isinstance(url,str) or len(url)>1200:raise ValueError('Invalid publisher URL')
+    from tools.edition_discovery import public_url
+    public_url(url)
+    with locked():
+        with (checks.STATE.parent/'worker.lock').open('a') as lock, UPDATES_LOCK.open('a') as update_lock:
+            fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+            fcntl.flock(update_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+            manifest=load_manifest(ROOT/'dataark.yaml')
+            asset=next((a for a in manifest['assets'] if a['id']==asset_id and not a.get('removed')),None)
+            if not asset or asset.get('update_source',{}).get('kind')=='kiwix_zim':raise ValueError('No supported publisher source for this collection')
+            old=checks.source(asset)
+            if not old:raise ValueError('No recorded publisher source')
+            # A shared publisher URL has one policy for all references that use it.
+            config=checks.settings()
+            if url!=old:
+                if not any(a['id']!=asset_id and checks.source(a)==old for a in manifest['assets']):
+                    config.setdefault('source_policies',{})[old]={'state':'retired','updated_at':time.time()}
+                config.setdefault('source_overrides',{})[asset_id]=url
+            config.setdefault('source_policies',{})[url]={'state':payload['state'],'updated_at':time.time(),'snoozed_until':time.time()+days*86400 if days else 0}
+            before=checks.CONFIG.read_bytes()
+            backup=STATE/'source-settings-backups';backup.mkdir(parents=True,exist_ok=True,mode=0o700)
+            atomic_write(backup/(uuid.uuid4().hex+'.json'),before)
+            atomic_write(checks.CONFIG,(json.dumps(config,indent=2)+'\n').encode())
+            try:
+                for action in ('export','mirror'):
+                    subprocess.run([str(ROOT/'venv/bin/python'),str(ROOT/'tools/content_profile.py'),action],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+            except Exception:
+                atomic_write(checks.CONFIG,before);raise
+            from app.services.collection_changes import safe_record
+            safe_record('configuration_published',action='publisher_source',collection_id=asset_id,title=asset['title']+' — '+('warnings snoozed for '+str(days)+' days' if days else 'publisher checks '+payload['state']))
+    return {'message':'Source settings saved. Installed content retained.','state':payload['state']}

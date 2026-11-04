@@ -29,3 +29,16 @@ Supported adapters cover configured regional maps, FCC callbook data, PDF public
 Progress is retained if the dialog closes. Reopen the same review to see its latest state. Large maps can spend time planning, transferring and verifying; elapsed time and available transfer metrics distinguish these phases. Only one review worker runs at once. There is no FIFO waiting queue or browsable job-history screen.
 
 The private latest-job records are under `/var/lib/dataark/publisher-review/`. Configuration rollback copies stay in its private `configuration-backups` directory; retained old content is separate from those credentials-bearing configuration files. Do not delete staging or recovery checkpoints while a review transaction is active.
+
+
+## Unavailable or discontinued publishers
+
+In **Manage Library**, choose **Source settings…** beside a failed publisher check, or under an installed item's **Update details**. The caretaker can pause checks, resume them, retire a source, or change its public HTTPS check/download URL. All actions retain installed files. Paused and retired sources remain listed under **Paused and retired sources**, with no active outage warning and no claim that the publication is current. A shared URL has one check policy for all references using it.
+
+Failed automatic checks retry less frequently during prolonged outages: with the default weekly schedule, successive delays are 7, 14, 28 and at most 30 days. A successful check resets the delay. The last successful check remains visible. Manual retries remain available through publisher review.
+
+Changing a source does not install its contents. Prepare and review a verified candidate before replacing the saved edition. Source policy and URL overrides are human-readable in `deploy/reference/reference-checks.json`, exported into the recovery configuration. Changes enter the collection lifecycle feed consumed by Home Assistant.
+
+### Snoozing individual warnings
+
+Choose **Snooze warning…** beside a source issue and enter a number of days. Retries continue, installed content stays available, and the source contributes no warning to the gear or content-card badge until the expiry time. If still unresolved at expiry, its warning returns automatically. **Snoozed warnings** in Manage Library lists these sources and their expiry dates. Set the duration to zero to end a snooze early. This differs from pausing or retiring a source, which stops automatic checks. Snoozes are shared across clients and included in recovery configuration and the Home Assistant lifecycle feed.

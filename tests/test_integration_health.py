@@ -63,3 +63,12 @@ class IntegrationHealthTests(unittest.TestCase):
         with patch.object(health,'public_status',return_value={}),patch.object(health,'failed_units',return_value=['session-3.scope','user@1000.service']),patch.object(health,'REFERENCE',self.root/'missing'):
             value=health.collect(base())
         self.assertEqual([p['message'] for p in value['problems']],['Failed login session: session-3.scope','Failed user manager: user@1000.service'])
+
+    def test_snoozed_source_warning_returns_at_expiry(self):
+        path=self.root/'sources.json';path.write_text(json.dumps({'sources':{'u':{'status':'error'}}}))
+        config={'source_policies':{'u':{'state':'active','snoozed_until':200}}}
+        with patch.object(health,'public_status',return_value={}),patch.object(health,'failed_units',return_value=[]),patch.object(health,'REFERENCE',path),patch('app.services.reference_checks.settings',return_value=config),patch.object(health.browser_reviews,'snapshot',return_value={'reviews':[],'overdue':0}),patch('time.time',return_value=199):
+            self.assertEqual(health.collect(base())['problem_count'],0)
+        config['source_policies']['u']['snoozed_until']=0
+        with patch.object(health,'public_status',return_value={}),patch.object(health,'failed_units',return_value=[]),patch.object(health,'REFERENCE',path),patch('app.services.reference_checks.settings',return_value=config),patch.object(health.browser_reviews,'snapshot',return_value={'reviews':[],'overdue':0}):
+            self.assertEqual(health.collect(base())['problem_count'],1)

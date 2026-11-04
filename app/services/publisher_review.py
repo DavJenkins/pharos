@@ -48,7 +48,7 @@ def status(asset_id):
 def invoke(payload):
     import subprocess
     result = subprocess.run(['/usr/bin/sudo', '-n', '--', '/usr/local/libexec/dataark-library'],
-        input=json.dumps({'action': 'publisher_review', **payload}), text=True, capture_output=True, timeout=30)
+        input=json.dumps({'action': 'publisher_review', **payload}), text=True, capture_output=True, timeout=120 if payload.get('action')=='source_settings' else 30)
     if result.returncode:
         raise ValueError(result.stdout.strip() or 'Publisher review helper unavailable')
     return json.loads(result.stdout)
@@ -66,6 +66,7 @@ def active_progress():
                 from app.services.manifest import load_manifest
                 asset=next((a for a in load_manifest(ROOT/'dataark.yaml')['assets'] if a['id']==current['asset_id']),None)
                 if asset:current['source_url']=reference_checks.source(asset)
+            if state=='error' and (reference_checks.source_policy(reference_checks.settings(),current.get('source_url'))!='active' or reference_checks.warning_snoozed(reference_checks.settings(),current.get('source_url'))):return None
             edition=current.get('candidate_edition') or (current.get('edition') or {}).get('edition')
             title=current['title']
             if edition:title=('U.S. street map' if current['asset_id']=='osm-massachusetts' else title)+' — candidate edition '+edition

@@ -219,4 +219,28 @@ class ReferenceChecksTests(unittest.TestCase):
                 check.assert_called_once()
                 self.assertEqual([a['id'] for a in check.call_args.args[1]], ['doc', 'same-source'])
 
+
+class SourcePolicyTests(unittest.TestCase):
+    def test_outage_backoff_is_bounded_and_success_resets_it(self):
+        config={'interval':'7d'}
+        self.assertEqual([view.retry_seconds(config,{'consecutive_failures':n})//86400 for n in (0,1,2,3,4,99)],[7,7,14,28,30,30])
+
+    def test_paused_source_keeps_last_success_without_claiming_freshness(self):
+        asset={'id':'manual','relative_path':'manual.pdf','download_url':'https://example.org/manual.pdf'}
+        config={'enabled':True,'interval':'7d','source_policies':{asset['download_url']:{'state':'paused'}}}
+        state={'sources':{asset['download_url']:{'status':'error','checked_at':100,'attempted_at':200}}}
+        with patch.object(view,'settings',return_value=config),patch('app.services.browser_reviews.cached_snapshot',return_value={'reviews':[]}):
+            result=view.projection(asset,{},config,state,300)
+        self.assertEqual(result['result'],'paused');self.assertIsNotNone(result['last_success'])
+        self.assertIsNone(result['next_due']);self.assertFalse(result['enabled']);self.assertIn('freshness is not established',result['detail'])
+
+
+class SnoozeTests(unittest.TestCase):
+    def test_warning_snooze_expires_without_disabling_retries(self):
+        config={'interval':'7d','source_policies':{'u':{'state':'active','snoozed_until':200}}}
+        self.assertTrue(view.warning_snoozed(config,'u',199))
+        self.assertFalse(view.warning_snoozed(config,'u',200))
+        self.assertEqual(view.source_policy(config,'u'),'active')
+        self.assertEqual(view.retry_seconds(config,{'consecutive_failures':2}),14*86400)
+
 if __name__ == '__main__': unittest.main()

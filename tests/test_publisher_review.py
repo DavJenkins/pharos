@@ -231,3 +231,38 @@ class PublisherReviewTests(unittest.TestCase):
         tasks=[t['units_processed'] for t in reports if t.get('unit')=='tasks']
         self.assertEqual(sorted(set(tasks)),[0,1,2,3,4])
         self.assertEqual(tasks,sorted(tasks))
+
+    def test_source_pause_and_resume_keep_installed_file_and_emit_event(self):
+        config=self.root/'reference-config.json';config.write_text(json.dumps({'enabled':True,'interval':'7d'}))
+        with patch.object(review.checks,'CONFIG',config),patch.object(review,'load_manifest',return_value=self.manifest),patch('app.services.collection_changes.safe_record') as event:
+            for state in ('paused','retired','active'):
+                response=review.manage_source({'action':'source_settings','asset_id':'schedule','state':state,'url':self.source})
+                self.assertEqual(response['state'],state)
+                self.assertEqual(json.loads(config.read_text())['source_policies'][self.source]['state'],state)
+            self.assertEqual(event.call_count,3)
+        self.assertEqual(self.installed.read_bytes(),b'old 2025')
+
+    def test_source_change_preserves_old_check_and_registers_override(self):
+        config=self.root/'reference-config.json';config.write_text('{}')
+        with patch.object(review.checks,'CONFIG',config),patch.object(review,'load_manifest',return_value=self.manifest),patch('app.services.collection_changes.safe_record'):
+            review.manage_source({'action':'source_settings','asset_id':'schedule','state':'active','url':'https://www.irs.gov/new.pdf'})
+        data=json.loads(config.read_text())
+        self.assertEqual(data['source_overrides']['schedule'],'https://www.irs.gov/new.pdf')
+        self.assertEqual(data['source_policies'][self.source]['state'],'retired')
+        self.assertEqual(self.installed.read_bytes(),b'old 2025')
+
+    def test_source_settings_reject_local_or_insecure_urls_before_mutation(self):
+        for url in ('http://example.com/x','https://127.0.0.1/x','https://dataark.lan/x','https://user:password@example.com/x'):
+            with self.subTest(url=url),self.assertRaises(ValueError):
+                review.manage_source({'action':'source_settings','asset_id':'schedule','state':'paused','url':url})
+
+    def test_warning_snooze_is_persisted_and_can_be_cancelled(self):
+        config=self.root/'reference-config.json';config.write_text('{}')
+        payload={'action':'source_settings','asset_id':'schedule','state':'active','url':self.source,'snooze_days':7}
+        with patch.object(review.checks,'CONFIG',config),patch.object(review,'load_manifest',return_value=self.manifest),patch('app.services.collection_changes.safe_record'),patch.object(review.time,'time',return_value=1000):
+            review.manage_source(payload)
+            policy=json.loads(config.read_text())['source_policies'][self.source]
+            self.assertEqual(policy['snoozed_until'],1000+7*86400);self.assertEqual(policy['state'],'active')
+            payload['snooze_days']=0;review.manage_source(payload)
+            self.assertEqual(json.loads(config.read_text())['source_policies'][self.source]['snoozed_until'],0)
+        self.assertEqual(self.installed.read_bytes(),b'old 2025')

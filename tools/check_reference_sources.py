@@ -219,6 +219,8 @@ def discover_editions(manifest, root, state, config, retry_errors=False):
     for asset in manifest['assets']:
         rule=catalogue.get('rules',{}).get(asset['id'])
         url=source(asset)
+        from app.services.reference_checks import source_policy
+        if source_policy(config,url)!='active':continue
         if not rule or not url or asset.get('removed') or asset['repository_id'] not in enabled or not inside(root,asset['relative_path']).is_file():continue
         record=state.setdefault('sources',{}).setdefault(url,{})
         previous=record.get('edition_discovery',{})
@@ -255,8 +257,10 @@ def run(retry_errors=False):
     state = read(STATE, {'sources': {}})
     discover_editions(manifest,root,state,config,retry_errors)
     for url, assets in groups.items():
+        from app.services.reference_checks import source_policy,retry_seconds
+        if source_policy(config,url)!='active':continue
         previous = state.setdefault('sources', {}).get(url, {})
-        if not (retry_errors and previous.get('status') == 'error') and time.time() - previous.get('attempted_at', 0) < interval_seconds(config.get('interval', '7d')): continue
+        if not (retry_errors and previous.get('status') == 'error') and time.time() - previous.get('attempted_at', 0) < retry_seconds(config,previous): continue
         attempted = time.time()
         try:
             result = check(url, assets, previous, config, root)
@@ -264,6 +268,7 @@ def run(retry_errors=False):
         except Exception as error:
             result = dict(previous, status='error', detail=failure_detail(error))
         if previous.get('edition_discovery') and not result.get('edition_discovery'):result['edition_discovery']=previous['edition_discovery']
+        result['consecutive_failures']=previous.get('consecutive_failures',0)+1 if result.get('status')=='error' else 0
         result['attempted_at'] = attempted
         state['sources'][url] = result
         atomic_write(STATE, (json.dumps(state, indent=2) + '\n').encode())

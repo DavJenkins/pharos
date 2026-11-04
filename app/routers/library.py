@@ -28,6 +28,21 @@ async def publisher_review(request: Request):
         return await run_in_threadpool(invoke,payload)
     except (ValueError,OSError) as error: raise HTTPException(400,str(error)) from None
 
+@router.post('/source-settings')
+async def source_settings(request: Request):
+    await check_password(request)
+    if request.headers.get('content-type','').split(';')[0]!='application/json':raise HTTPException(415,'JSON required')
+    raw=bytearray()
+    async for chunk in request.stream():
+        raw.extend(chunk)
+        if len(raw)>2048:raise HTTPException(413,'Request too large')
+    try:
+        payload=json.loads(raw)
+        if not isinstance(payload,dict) or not {'asset_id','state','url'}<=set(payload) or set(payload)-{'asset_id','state','url','snooze_days'}:raise ValueError('Invalid source settings request')
+        from app.services.publisher_review import invoke
+        return await run_in_threadpool(invoke,dict(payload,action='source_settings'))
+    except (ValueError,OSError) as error:raise HTTPException(400,str(error)) from None
+
 @router.get('/changes')
 def changes():
     from app.services.collection_changes import snapshot
