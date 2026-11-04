@@ -47,3 +47,14 @@ class IntegrationHealthTests(unittest.TestCase):
             recovered=health.collect()
         assert failed['problems'][0]['id']=='content.update_failed'
         assert failed['fingerprint']!=recovered['fingerprint']
+
+    def test_failed_review_and_check_of_same_source_are_one_problem(self):
+        path=self.root/'sources.json';path.write_text(json.dumps({'sources':{'apk':{'status':'error'}}}))
+        current=base();current['status']['update']={'state':'error','review_failure':True,'source_url':'apk','label':'Review failed'}
+        with patch.object(health,'public_status',return_value={}),patch.object(health,'failed_units',return_value=[]),patch.object(health,'REFERENCE',path),patch.object(health.browser_reviews,'snapshot',return_value={'reviews':[],'overdue':0}):
+            value=health.collect(current)
+            self.assertEqual([p['id'] for p in value['problems']],['content.source_checks'])
+            self.assertEqual(value['state'],'error')
+            current['status']['update']['source_url']='other'
+            value=health.collect(current)
+            self.assertEqual(len(value['problems']),2)

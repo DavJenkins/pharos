@@ -1,5 +1,6 @@
 "use strict";
 function arkAttentionHref(id) {
+ if(id==='content.publisher_review')return '/library.html?review=failures#library-source-changes';
  if(id==='content.source_changes')return '/library.html?review=changes#library-source-changes';
  if(id==='content.source_checks')return '/library.html?review=failures#library-source-changes';
  if(id==='content.browser_reviews')return '/capture.html';

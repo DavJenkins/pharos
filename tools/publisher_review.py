@@ -138,7 +138,7 @@ def submit(payload):
         if payload['decision'] == 'prepare':
             job = uuid.uuid4().hex
             value = {'state': 'queued', 'job': job, 'asset_id': asset_id, 'title': asset['title'],
-                     'revision': revision(record), 'installed_version': file_version(path),
+                     'source_url': source, 'revision': revision(record), 'installed_version': file_version(path),
                      'started_at': time.time(), 'operation_started_at': time.time(),
                      'message': 'Queued: preparing a verified comparison. Installed copy remains available.'}
             if old.get('installed_version') == value['installed_version'] and re.fullmatch(r'[a-f0-9]{64}',old.get('installed_hash','')):
@@ -445,10 +445,16 @@ def apply(value, manifest, asset, mount, installed, source, record, stage):
                 metadata.update(source=value['edition']['archive_url'], sha256=value['files'][0]['sha256'], bytes=value['files'][0]['bytes'])
                 atomic_write(ROOT / 'deploy/reference/osm-usa.json', json.dumps(metadata, indent=2).encode())
             atomic_write(ROOT / 'dataark.yaml', serialize(manifest).encode())
-            install_phase(value,'Publishing the library and recovery configuration')
-            publish_library(mount)
+            def publication_progress(done):
+                phases=['Publishing reader catalogue','Publishing web pages','Publishing portable configuration','Publishing recovery configuration','Publishing complete']
+                value['install_telemetry']={'phase':phases[done],'unit':'tasks','units_processed':done,'total_units':4,'percent':done*25}
+                save(value['asset_id'],value)
+            publication_progress(0)
+            publish_library(mount, progress=publication_progress)
             subprocess.run([str(ROOT / 'venv/bin/python'), str(ROOT / 'tools/content_profile.py'), 'export'], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
+            publication_progress(3)
             subprocess.run([str(ROOT / 'venv/bin/python'), str(ROOT / 'tools/content_profile.py'), 'mirror'], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
+            publication_progress(4)
         except Exception:
             recover(value)
             raise

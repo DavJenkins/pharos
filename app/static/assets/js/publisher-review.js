@@ -11,6 +11,7 @@ function publisherReviewElapsed(job,now=Date.now()/1000){
 }
 let publisherRateSample=null;
 function publisherReviewETA(job,t,now=Date.now()/1000){
+ if(t.unit==='tasks')return null;
  const bytes=Number.isFinite(t.total_bytes)&&t.total_bytes>0&&Number.isFinite(t.bytes_processed);
  const total=bytes?t.total_bytes:100,done=bytes?t.bytes_processed:t.percent;
  if(!Number.isFinite(done)||done<0||done>total)return null;
@@ -44,7 +45,7 @@ function renderPublisherReview(job){
  const percent=Number.isFinite(t.percent)&&t.percent>=0&&t.percent<=100?Math.round(t.percent):null;
  const eta=active?publisherReviewETA(job,t):null;
  const processed=Number.isFinite(t.bytes_processed)?(t.total_bytes?(t.bytes_processed/1024**3).toFixed(2)+' of '+(t.total_bytes/1024**3).toFixed(2)+' GiB':(t.bytes_processed/1024**2).toFixed(1)+' MiB'):null;
- if(active&&!loading){for(const [label,value] of [['Candidate edition',job.candidate_edition||job.edition?.edition],['Phase',t.phase||(job.state==='installing'?'Verifying and installing the candidate':null)],['Elapsed',Math.floor(elapsed/60)+' min '+(elapsed%60)+' sec'],[Number.isFinite(t.bytes_downloaded)?'Data downloaded':'Data processed',Number.isFinite(t.bytes_downloaded)?(t.bytes_downloaded/1024**2).toFixed(1)+' MiB':processed],['Progress',percent!==null?percent+'% of this phase':null],['Estimated remaining (this phase)',eta]]){if(!value)continue;const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;metrics.append(dt,dd);}}
+ if(active&&!loading){for(const [label,value] of [['Candidate edition',job.candidate_edition||job.edition?.edition],['Phase',t.phase||(job.state==='installing'?'Verifying and installing the candidate':null)],['Elapsed',Math.floor(elapsed/60)+' min '+(elapsed%60)+' sec'],[Number.isFinite(t.bytes_downloaded)?'Data downloaded':'Data processed',Number.isFinite(t.bytes_downloaded)?(t.bytes_downloaded/1024**2).toFixed(1)+' MiB':processed],['Publishing tasks',t.unit==='tasks'?t.units_processed+' of '+t.total_units+' completed':null],['Progress',percent!==null?percent+'% of this phase':null],['Estimated remaining (this phase)',eta]]){if(!value)continue;const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;metrics.append(dt,dd);}}
  metrics.hidden=!metrics.children.length;
  let bar=publisherDialog.querySelector('.publisher-review-progress');
  if(!bar){bar=document.createElement('progress');bar.className='publisher-review-progress';bar.max=100;bar.setAttribute('aria-label','Current installation phase progress');metrics.after(bar);}

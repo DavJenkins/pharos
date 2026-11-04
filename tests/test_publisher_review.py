@@ -221,4 +221,13 @@ class PublisherReviewTests(unittest.TestCase):
         self.assertEqual(self.installed.read_bytes(),b'old 2025')
 
 
-if __name__=='__main__':unittest.main()
+
+
+    def test_publication_reports_completed_tasks_without_early_completion(self):
+        reports=[]
+        self.mocks[2].side_effect=lambda *args:reports.append(dict(self.value.get('install_telemetry',{})))
+        self.mocks[4].side_effect=lambda mount,progress: [progress(n) for n in (0,1,2)]
+        self.apply()
+        tasks=[t['units_processed'] for t in reports if t.get('unit')=='tasks']
+        self.assertEqual(sorted(set(tasks)),[0,1,2,3,4])
+        self.assertEqual(tasks,sorted(tasks))

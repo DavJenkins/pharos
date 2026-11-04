@@ -45,9 +45,12 @@ def target(data,asset_id,relative,expected_bytes):
         raise ValueError('This file is shared by another collection and cannot be removed separately.')
     return asset,path
 
-def publish_library(mount):
+def publish_library(mount, progress=None):
+    if progress: progress(0)
     publish(mount)
+    if progress: progress(1)
     subprocess.run(['bash',str(ROOT/'deploy/deploy-web.sh')],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+    if progress: progress(2)
 
 def recover():
     if not JOURNAL.exists():

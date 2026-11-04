@@ -5,7 +5,7 @@ function arkCardProgress(progress,ids,items=[]){
  if(!id||!ids.includes(id))return null;
  const percent=typeof progress.percent==='number'&&Number.isFinite(progress.percent)&&progress.percent>=0&&progress.percent<=100?Math.round(progress.percent):null;
  const stepped=Number.isInteger(progress.step)&&Number.isInteger(progress.total_steps)&&progress.step>=1&&progress.step<=progress.total_steps&&progress.total_steps<=12;
- return {id,percent,phase:progress.phase||progress.label||'Updating content',step:stepped?progress.step:null,total:stepped?progress.total_steps:null,bytes:progress.bytes_processed,totalBytes:progress.total_bytes,remaining:progress.estimated_remaining_seconds,records:progress.records_processed};
+ return {id,percent,phase:progress.phase||progress.label||'Updating content',step:stepped?progress.step:null,total:stepped?progress.total_steps:null,bytes:progress.bytes_processed,totalBytes:progress.total_bytes,remaining:progress.estimated_remaining_seconds,records:progress.records_processed,units:progress.units_processed,totalUnits:progress.total_units,unit:progress.unit};
 }
 function arkStepSegments(step,total){
  const slice=360/total,gap=Math.min(3,slice/8),parts=[];
@@ -31,6 +31,7 @@ function arkRenderProgressBadge(host,current,onOpen=null){
    const caption=badge.querySelector('small');caption.textContent=current.step?current.step+' of '+current.total:'';caption.hidden=!current.step;
    const parts=[current.step?'Step '+current.step+' of '+current.total:null,current.phase,current.percent===null?'Progress not measured':current.percent+'% of this step'];
    if(Number.isFinite(current.bytes)&&current.totalBytes>0)parts.push((current.bytes/1024**3).toFixed(2)+' of '+(current.totalBytes/1024**3).toFixed(2)+' GiB');
+   if(current.unit==='tasks')parts.push(current.units+' of '+current.totalUnits+' publishing tasks completed');
    if(Number.isFinite(current.records))parts.push(current.records.toLocaleString()+' records processed');
    if(Number.isFinite(current.remaining)&&current.remaining>0)parts.push('About '+Math.ceil(current.remaining/60)+' min remaining in this step');
    badge.title=parts.filter(Boolean).join(' — ')+'. Open library progress.';

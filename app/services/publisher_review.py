@@ -62,6 +62,10 @@ def active_progress():
         current=status(latest['asset_id'])
         state={'queued':'waiting','preparing':'downloading','installing':'activating','ready':'waiting','failed':'error','interrupted':'error'}.get(current.get('state'))
         if state:
+            if state=='error' and not current.get('source_url'):
+                from app.services.manifest import load_manifest
+                asset=next((a for a in load_manifest(ROOT/'dataark.yaml')['assets'] if a['id']==current['asset_id']),None)
+                if asset:current['source_url']=reference_checks.source(asset)
             edition=current.get('candidate_edition') or (current.get('edition') or {}).get('edition')
             title=current['title']
             if edition:title=('U.S. street map' if current['asset_id']=='osm-massachusetts' else title)+' — candidate edition '+edition
@@ -69,6 +73,8 @@ def active_progress():
             telemetry=telemetry or {}
             step=installation_step(telemetry.get('phase')) if current.get('state')=='installing' else telemetry.get('step')
             return {'state':state,'asset':title,'asset_id':current['asset_id'],'job':current['job'],
+                    'source_url':current.get('source_url'),'review_failure':state=='error',
+                    'units_processed':telemetry.get('units_processed'),'total_units':telemetry.get('total_units'),'unit':telemetry.get('unit'),
                     'percent':telemetry.get('percent'),'phase':telemetry.get('phase'),
                     'step':step,'total_steps':(5 if current.get('state')=='installing' else telemetry.get('total_steps')) if step else None,
                     'bytes_processed':telemetry.get('bytes_processed'),'total_bytes':telemetry.get('total_bytes'),

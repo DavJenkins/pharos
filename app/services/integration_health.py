@@ -26,8 +26,12 @@ def collect(status=None):
         add('system.' + hashlib.sha256(issue.encode()).hexdigest()[:12],
             'error' if status['status']['state'] == 'error' else 'warning', issue)
     update = status['status'].get('update') or {}
+    review_problem = None
     if update.get('state') == 'error':
-        add('content.update_failed', 'error', update.get('label', 'Content update failed'))
+        if update.get('review_failure'):
+            review_problem={'id':'content.publisher_review','severity':'error','message':update.get('label','Publisher review needs attention')}
+        else:
+            add('content.update_failed', 'error', update.get('label', 'Content update failed'))
     from app.services.software_installation import status as software_status
     software=software_status()
     if software.get('state') in ('rolling_back','rollback_pending_health','rolled_back','refused'):
@@ -55,13 +59,16 @@ def collect(status=None):
         changed = sum(bool(v.get('pending_change') or v.get('edition_discovery',{}).get('candidate')) for v in entries)
         reference = {'available':True, 'checked_sources':len(entries), 'errors':errors, 'changed':changed,
                      'blocked_automated_checks':blocked, 'browser_review':reviews}
-        if errors: add('content.source_checks', 'warning', f'{errors} publisher checks need attention; saved content is retained')
+        covered_review = review_problem and sources.get(update.get('source_url'),{}).get('status')=='error'
+        if errors: add('content.source_checks', 'error' if covered_review else 'warning', f'{errors} publisher checks need attention; saved content is retained')
+        if covered_review: review_problem=None
         if changed: add('content.source_changes', 'warning', f'{changed} publisher changes await review')
         if reviews['overdue']: add('content.browser_reviews', 'warning', f"{reviews['overdue']} browser reviews due; saved content is retained")
     except FileNotFoundError:
         pass  # Not configured on every Ark.
     except (OSError, ValueError, KeyError, TypeError, AttributeError):
         add('content.check_telemetry', 'warning', 'Publisher-check telemetry unavailable')
+    if review_problem: problems.append(review_problem)
     problems.sort(key=lambda value:value['id'])
     fingerprint = hashlib.sha256(json.dumps({'problems':problems,'source_checks':reference,'software':{key:software.get(key) for key in ('state','revision','sequence','operation_id')}}, sort_keys=True).encode()).hexdigest()[:24]
     return {'schema_version':1, 'state':'error' if any(p['severity']=='error' for p in problems) else 'warning' if problems else 'ok',
