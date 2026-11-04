@@ -29,7 +29,7 @@ function arkRenderProgressBadge(host,current,onOpen=null){
    if(current.step)badge.style.setProperty('--step-segments',arkStepSegments(current.step,current.total));
    badge.classList.toggle('progress-unmeasured',current.percent===null);
    badge.querySelector('strong').textContent=current.percent===null?'…':current.percent+'%';
-   const caption=badge.querySelector('small');caption.textContent=current.step?'Step '+current.step+' of '+current.total:'';caption.hidden=!current.step;
+   const caption=badge.querySelector('small');caption.textContent=current.step?current.step+' of '+current.total:'';caption.hidden=!current.step;
    const parts=[current.step?'Step '+current.step+' of '+current.total:null,current.phase,current.percent===null?'Progress not measured':current.percent+'% of this step'];
    if(Number.isFinite(current.bytes)&&current.totalBytes>0)parts.push((current.bytes/1024**3).toFixed(2)+' of '+(current.totalBytes/1024**3).toFixed(2)+' GiB');
    if(Number.isFinite(current.remaining)&&current.remaining>0)parts.push('About '+Math.ceil(current.remaining/60)+' min remaining in this step');
