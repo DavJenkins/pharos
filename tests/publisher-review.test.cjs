@@ -37,3 +37,18 @@ test('elapsed advances without worker telemetry and installation has its own clo
  assert.equal(h.run("publisherReviewElapsed({state:'installing',started_at:100,updated_at:150},165)"),15);
  assert.equal(h.run("publisherReviewElapsed({state:'installing',started_at:100,updated_at:160,operation_started_at:150},165)"),15);
 });
+test('ETA measures a phase rate, waits for samples and reports stalls',()=>{
+ const h=harness();
+ assert.equal(h.run("publisherReviewETA({job:'a',state:'installing'},{phase:'Copy',bytes_processed:100,total_bytes:1000},0)"),'Calculating…');
+ assert.equal(h.run("publisherReviewETA({job:'a',state:'installing'},{phase:'Copy',bytes_processed:200,total_bytes:1000},10)"),'About 2 min');
+ assert.equal(h.run("publisherReviewETA({job:'a',state:'installing'},{phase:'Copy',bytes_processed:200,total_bytes:1000},30)"),'Waiting for progress…');
+ assert.equal(h.run("publisherReviewETA({job:'a',state:'installing'},{phase:'Publish',bytes_processed:200,total_bytes:1000},31)"),'Calculating…');
+ assert.equal(h.run("publisherReviewETA({job:'a',state:'installing'},{phase:'Publish',bytes_processed:1000,total_bytes:1000},40)"),'Finishing this phase…');
+});
+test('ETA does not invent totals and restarts after a counter reset',()=>{
+ const h=harness();
+ assert.equal(h.run("publisherReviewETA({job:'a'},{phase:'Preparing'},0)"),null);
+ h.run("publisherReviewETA({job:'a'},{phase:'Copy',percent:50},0)");
+ assert.equal(h.run("publisherReviewETA({job:'a'},{phase:'Copy',percent:60},10)"),'Less than a minute');
+ assert.equal(h.run("publisherReviewETA({job:'a'},{phase:'Copy',percent:5},11)"),'Calculating…');
+});

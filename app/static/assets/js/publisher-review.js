@@ -9,6 +9,26 @@ function publisherReviewElapsed(job,now=Date.now()/1000){
  const start=job.operation_started_at||(job.state==='installing'?job.updated_at:job.started_at);
  return Number.isFinite(start)?Math.max(0,Math.floor(now-start)):Math.max(0,Math.floor(job.telemetry?.elapsed_seconds||0));
 }
+let publisherRateSample=null;
+function publisherReviewETA(job,t,now=Date.now()/1000){
+ const bytes=Number.isFinite(t.total_bytes)&&t.total_bytes>0&&Number.isFinite(t.bytes_processed);
+ const total=bytes?t.total_bytes:100,done=bytes?t.bytes_processed:t.percent;
+ if(!Number.isFinite(done)||done<0||done>total)return null;
+ const key=[job.job,job.state,t.phase,total,bytes].join('|');
+ if(!publisherRateSample||publisherRateSample.key!==key||done<publisherRateSample.done)publisherRateSample={key,done,advanced:now,points:[]};
+ const sample=publisherRateSample;
+ if(done>sample.done){sample.advanced=now;sample.done=done;}
+ sample.points.push({at:now,done});
+ while(sample.points.length>2&&now-sample.points[1].at>=30)sample.points.shift();
+ if(done===total)return 'Finishing this phase…';
+ const first=sample.points[0],seconds=now-first.at;
+ if(seconds<8)return 'Calculating…';
+ if(now-sample.advanced>15||done===first.done)return 'Waiting for progress…';
+ const remaining=(total-done)*seconds/(done-first.done);
+ if(remaining<60)return 'Less than a minute';
+ const minutes=Math.ceil(remaining/60);
+ return minutes<60?'About '+minutes+' min':'About '+Math.floor(minutes/60)+' hr '+(minutes%60)+' min';
+}
 reviewEl('close').onclick=()=>publisherDialog.close();
 publisherDialog.addEventListener('close',()=>refresh());
 function renderPublisherReview(job){
@@ -22,8 +42,9 @@ function renderPublisherReview(job){
  metrics.replaceChildren();
  const t=job.state==='installing'?(job.install_telemetry||{}):(job.telemetry||{}),elapsed=publisherReviewElapsed(job);
  const percent=Number.isFinite(t.percent)&&t.percent>=0&&t.percent<=100?Math.round(t.percent):null;
+ const eta=active?publisherReviewETA(job,t):null;
  const processed=Number.isFinite(t.bytes_processed)?(t.total_bytes?(t.bytes_processed/1024**3).toFixed(2)+' of '+(t.total_bytes/1024**3).toFixed(2)+' GiB':(t.bytes_processed/1024**2).toFixed(1)+' MiB'):null;
- if(active){for(const [label,value] of [['Candidate edition',job.candidate_edition||job.edition?.edition],['Phase',t.phase||(job.state==='installing'?'Verifying and installing the candidate':null)],['Elapsed',Math.floor(elapsed/60)+' min '+(elapsed%60)+' sec'],[Number.isFinite(t.bytes_downloaded)?'Data downloaded':'Data processed',Number.isFinite(t.bytes_downloaded)?(t.bytes_downloaded/1024**2).toFixed(1)+' MiB':processed],['Progress',percent!==null?percent+'% of this phase':null]]){if(!value)continue;const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;metrics.append(dt,dd);}}
+ if(active){for(const [label,value] of [['Candidate edition',job.candidate_edition||job.edition?.edition],['Phase',t.phase||(job.state==='installing'?'Verifying and installing the candidate':null)],['Elapsed',Math.floor(elapsed/60)+' min '+(elapsed%60)+' sec'],[Number.isFinite(t.bytes_downloaded)?'Data downloaded':'Data processed',Number.isFinite(t.bytes_downloaded)?(t.bytes_downloaded/1024**2).toFixed(1)+' MiB':processed],['Progress',percent!==null?percent+'% of this phase':null],['Estimated remaining (this phase)',eta]]){if(!value)continue;const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;metrics.append(dt,dd);}}
  metrics.hidden=!metrics.children.length;
  let bar=publisherDialog.querySelector('.publisher-review-progress');
  if(!bar){bar=document.createElement('progress');bar.className='publisher-review-progress';bar.max=100;bar.setAttribute('aria-label','Current installation phase progress');metrics.after(bar);}
