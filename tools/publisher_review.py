@@ -109,7 +109,7 @@ def submit(payload):
             job = uuid.uuid4().hex
             value = {'state': 'queued', 'job': job, 'asset_id': asset_id, 'title': asset['title'],
                      'revision': revision(record), 'installed_version': file_version(path),
-                     'started_at': time.time(),
+                     'started_at': time.time(), 'operation_started_at': time.time(),
                      'message': 'Queued: preparing a verified comparison. Installed copy remains available.'}
             if old.get('installed_version') == value['installed_version'] and re.fullmatch(r'[a-f0-9]{64}',old.get('installed_hash','')):
                 value['installed_hash']=old['installed_hash']
@@ -124,7 +124,7 @@ def submit(payload):
             if old.get('state') != 'ready' or payload['job'] != old.get('job'): raise ValueError('Prepare and review this candidate first')
             if revision(record) != old['revision'] or file_version(path) != old['installed_version']:
                 raise ValueError('Source or installed file changed. Prepare a fresh comparison.')
-            value = dict(old, state='installing', decision=payload['decision'], message='Applying your review decision; existing files are retained.')
+            value = dict(old, state='installing', decision=payload['decision'], operation_started_at=time.time(), message='Applying your review decision; existing files are retained.')
             job = value['job']
         save(asset_id, value)
         try:
