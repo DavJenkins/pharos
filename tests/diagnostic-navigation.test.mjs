@@ -29,6 +29,17 @@ test('progress pies belong only to the active asset and use whole percentages',(
  assert.equal(context.arkCardProgress({...progress,percent:null},['map']),null);
  assert.equal(context.arkCardProgress({state:'downloading',asset:'Book',percent:17.4},['book'],[{id:'book',title:'Book'}]).percent,17);
 });
+test('compound progress keeps step count separate from step percentage',()=>{
+ const progress={state:'activating',asset_id:'map',step:3,total_steps:5,percent:42.8};
+ const result=context.arkCardProgress(progress,['map']);
+ assert.equal(result.step,3);assert.equal(result.total,5);assert.equal(result.percent,43);
+ assert.equal(context.arkCardProgress({...progress,step:5,percent:null},['map']).percent,null);
+ assert.equal(context.arkCardProgress({...progress,step:6,percent:null},['map']),null);
+ const segments=context.arkStepSegments(3,5);
+ assert.equal((segments.match(/#d9b74e/g)||[]).length,2);
+ assert.equal((segments.match(/#168fd0/g)||[]).length,1);
+ assert.equal((segments.match(/#c8d2da/g)||[]).length,2);
+});
 test('installed-only control is hidden when filtering cannot hide any card',()=>{
  function run(installed){
   const wrapper={},cards=installed.map(value=>({dataset:{installed:String(value)}})),section={querySelectorAll:()=>cards,append(){}};

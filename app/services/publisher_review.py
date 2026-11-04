@@ -7,6 +7,12 @@ from app.services import reference_checks
 ROOT = Path(__file__).resolve().parents[2]
 STATE = Path('/var/lib/dataark/publisher-review')
 
+def installation_step(phase):
+    phase=(phase or '').lower()
+    for prefix,step in [('checking installed',1),('checking candidate',2),('backing up',3),('retaining the previous',3),('installing verified',4),('publishing',5)]:
+        if phase.startswith(prefix):return step
+    return None
+
 
 def revision(record):
     discovery=record.get('edition_discovery') or {}
@@ -61,8 +67,12 @@ def active_progress():
             if edition:title=('U.S. street map' if current['asset_id']=='osm-massachusetts' else title)+' — candidate edition '+edition
             telemetry=current.get('install_telemetry') if current.get('state')=='installing' else current.get('telemetry')
             telemetry=telemetry or {}
+            step=installation_step(telemetry.get('phase')) if current.get('state')=='installing' else None
             return {'state':state,'asset':title,'asset_id':current['asset_id'],'job':current['job'],
                     'percent':telemetry.get('percent'),'phase':telemetry.get('phase'),
+                    'step':step,'total_steps':5 if step else None,
+                    'bytes_processed':telemetry.get('bytes_processed'),'total_bytes':telemetry.get('total_bytes'),
+                    'estimated_remaining_seconds':telemetry.get('estimated_remaining_seconds'),
                     'label':{'waiting':'Publisher review','downloading':'Preparing publisher candidate','activating':'Applying publisher review','error':'Publisher review needs attention'}[state]+': '+title, 'detail':current.get('message','')}
     except (OSError,ValueError,KeyError,TypeError):return None
     return None

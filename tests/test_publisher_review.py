@@ -95,6 +95,14 @@ class PublisherReviewTests(unittest.TestCase):
         self.assertEqual(result['asset_id'],'map')
         self.assertEqual(result['percent'],42.5)
         self.assertEqual(result['phase'],'Backing up map')
+        self.assertEqual(result['step'],3)
+        self.assertEqual(result['total_steps'],5)
+
+    def test_installation_steps_have_explicit_order(self):
+        from app.services.publisher_review import installation_step
+        for phase,step in [('Checking installed file checksum',1),('Checking candidate checksum',2),('Backing up the installed map',3),('Installing verified files',4),('Publishing library configuration',5)]:
+            self.assertEqual(installation_step(phase),step)
+        self.assertIsNone(installation_step('Unknown operation'))
 
     def test_tampered_staging_file_is_not_installed(self):
         (self.stage/'candidate.pdf').write_bytes(b'wrong')
