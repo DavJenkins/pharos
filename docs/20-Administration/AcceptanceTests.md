@@ -74,3 +74,21 @@ Check representative articles and images through each installed Kiwix collection
 For anonymous FTP, verify public listing, a small-file retrieval and resume, rejection of uploads, and denial of private/staging paths. Repeat from an actual client on the intended network. The Windows reader package needs a Windows execution check independent of its presence in the catalogue.
 
 Keep completed results tied to the source revision and tested media. See [Release audit](ReleaseAudit.md), [Paired recovery](PairedRecovery.md) and [Desktop ARM64 test Ark](Emulator.md) for the corresponding procedures and records. A historical fault log is not the current acceptance checklist.
+
+
+## KZ1O retained-build online upgrade
+
+Use the prepared KZ1O microSD as an existing recipient installation, retaining its original build. Do not reflash it, copy current application files onto it, or re-enroll its software baseline before this test. Its populated system-card library and special-edition settings are part of the preservation test.
+
+1. Before booting or changing the card, make and verify a restorable card backup. Record the physical media identity and backup digest privately. Retain the printed setup identity; do not regenerate its setup code solely for this test.
+2. Boot the old card and record its build identity, installed update receipt, enrolled trust key fingerprint and managed-file hashes. Inspect existing local modifications without accepting them into a replacement baseline.
+3. Record a preservation inventory: installed content hashes, library configuration, KZ1O edition notice, installed-only preference, community data, banner, credentials, host/clone identity and network settings. Keep private values out of public test reports.
+4. Verify the starting installation over Ethernet and its hotspot. Record actual problems as starting conditions rather than concealing them.
+5. Publish a signed preview software release applicable to the recorded base revision. Review the complete required file set and updater capabilities first. The version-1 updater excludes privileged helpers, service definitions, dependency changes and schema migrations. Do not ship new application endpoints that depend on an omitted helper. An unsupported required change blocks that release; it is not a successful full upgrade.
+6. From Help, use Check for updates, Download and verify on the Ark, and Install verified update with caretaker authorization. Use the recipient-facing online workflow; no manual SSH file replacement counts as this test.
+7. Verify signature/base/local-edit refusals separately on a disposable copy. Exercise interrupted download and failed-health rollback on that copy; never deliberately corrupt the only recipient card.
+8. Confirm the resulting release identity, installation history, API, dashboard, handbook and content readers. Compare the preservation inventory, including the amateur callsign database. Confirm credentials and special-edition identity remain usable and no new first-run activation is requested unexpectedly.
+9. Cold-boot the upgraded card. Verify hotspot visibility, captive portal, Ethernet access, installed content and system health. Then test disconnected operation, reconnect and check for updates again.
+10. Capture Home Assistant lifecycle results where the recipient installation is configured for it. Record the outcome and any limitations, retain the verified backup, and only then approve this card for mailing.
+
+A successful application-only transaction establishes only that declared scope. Full release acceptance requires every required component of that release to arrive through the supported upgrade workflow, with a tested rollback path. Preserve the old card until a suitable package and any necessary updater transition are ready.
