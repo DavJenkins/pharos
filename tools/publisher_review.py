@@ -30,11 +30,30 @@ STATE = Path('/var/lib/dataark/publisher-review')
 UPDATES_LOCK = Path('/var/lib/dataark/updates/worker.lock')
 
 
-def digest(path):
+def digest(path, progress=None):
     h = hashlib.sha256()
+    amount=0;total=path.stat().st_size
     with path.open('rb') as f:
-        for chunk in iter(lambda: f.read(4 * 1024**2), b''): h.update(chunk)
+        for chunk in iter(lambda: f.read(4 * 1024**2), b''):
+            h.update(chunk);amount+=len(chunk)
+            if progress:progress(amount,total)
     return h.hexdigest()
+
+
+def install_phase(value, phase, done=0, total=0):
+    value['install_telemetry']={'phase':phase,'bytes_processed':done,'total_bytes':total}
+    if total:value['install_telemetry']['percent']=min(100,done*100/total)
+    save(value['asset_id'],value)
+
+
+def installed_digest(path,value,phase):
+    last=[0]
+    def report(done,total):
+        now=time.monotonic()
+        if now-last[0]>=3 or done==total:
+            install_phase(value,phase,done,total);last[0]=now
+    install_phase(value,phase,0,path.stat().st_size)
+    return digest(path,report)
 
 
 def file_version(path):
@@ -321,7 +340,7 @@ def apply(value, manifest, asset, mount, installed, source, record, stage):
     from tools.library_removal import serialize, publish_library
     if value['decision'] == 'install':
         for f in value['files']:
-            if digest(stage / f['file']) != f['sha256']: raise ValueError('Prepared candidate no longer matches verification')
+            if installed_digest(stage / f['file'],value,'Checking candidate checksum') != f['sha256']: raise ValueError('Prepared candidate no longer matches verification')
         backup = mount / '.publisher-review-backups' / value['job']; backup.mkdir(parents=True)
         # The authoritative manifest may contain private household configuration.
         # Keep its recovery checkpoint off the anonymously served content drive.
@@ -378,15 +397,16 @@ def apply(value, manifest, asset, mount, installed, source, record, stage):
         replacements = []
         try:
             value['transaction'] = {'mount': str(mount), 'files': []}
+            install_phase(value,'Retaining the previous edition')
             for f in value['files']:
                 dest = inside(mount, f['relative_path'])
                 if dest.is_file(): shutil.copyfile(dest, backup / f['file'])
                 value['transaction']['files'].append({**f, 'existed': dest.exists()})
             if value['kind'] == 'map': value['old_map_config'] = checks.read(ROOT / 'deploy/reference/osm-usa.json', {})
             save(asset['id'], value)
+            install_phase(value,'Installing verified files')
             for f in value['files']:
                 dest = inside(mount, f['relative_path']); dest.parent.mkdir(parents=True, exist_ok=True)
-                if dest.is_file(): shutil.copyfile(dest, backup / f['file'])
                 replacements.append((dest, backup / f['file']))
                 temp = dest.with_name(dest.name + '.review-part'); shutil.copyfile(stage / f['file'], temp); temp.chmod(0o644); os.replace(temp, dest)
                 for entry in manifest['assets']:
@@ -398,6 +418,7 @@ def apply(value, manifest, asset, mount, installed, source, record, stage):
                 metadata.update(source=value['edition']['archive_url'], sha256=value['files'][0]['sha256'], bytes=value['files'][0]['bytes'])
                 atomic_write(ROOT / 'deploy/reference/osm-usa.json', json.dumps(metadata, indent=2).encode())
             atomic_write(ROOT / 'dataark.yaml', serialize(manifest).encode())
+            install_phase(value,'Publishing the library and recovery configuration')
             publish_library(mount)
             subprocess.run([str(ROOT / 'venv/bin/python'), str(ROOT / 'tools/content_profile.py'), 'export'], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
             subprocess.run([str(ROOT / 'venv/bin/python'), str(ROOT / 'tools/content_profile.py'), 'mirror'], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
@@ -450,7 +471,7 @@ def worker(asset_id, job):
                 prepare(value, asset, mount, path, source, record, stage)
                 value.update(state='ready', message='Candidate verified. Review below and choose Install or Keep installed edition.')
             else:
-                if digest(path) != value['installed_hash']: raise ValueError('Installed file changed. Prepare again.')
+                if installed_digest(path,value,'Checking installed file checksum') != value['installed_hash']: raise ValueError('Installed file changed. Prepare again.')
                 apply(value, manifest, asset, mount, path, source, record, stage)
             save(asset_id, value); notify(value)
     except Exception as error:

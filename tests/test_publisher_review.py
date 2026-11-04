@@ -52,6 +52,39 @@ class PublisherReviewTests(unittest.TestCase):
         self.assertEqual(record['edition_discovery']['reviewed_candidate']['edition'],'2026')
         self.assertFalse(record['pending_change'])
 
+    def test_replacement_retains_each_previous_file_once(self):
+        self.value.pop('edition');self.record['edition_discovery']={}
+        self.value['revision']=review.revision(self.record)
+        self.state.write_text(json.dumps({'sources':{self.source:self.record}}))
+        original=review.shutil.copyfile
+        with patch.object(review.shutil,'copyfile',wraps=original) as copied:self.apply()
+        retained=[c for c in copied.call_args_list if c.args[0]==self.installed and c.args[1]==self.back/self.value['job']/'candidate.pdf']
+        self.assertEqual(len(retained),1)
+        self.assertEqual((self.back/self.value['job']/'candidate.pdf').read_bytes(),b'old 2025')
+
+    def test_checksum_progress_reports_the_actual_bytes_and_phase(self):
+        expected=review.digest(self.installed)
+        self.assertEqual(review.installed_digest(self.installed,self.value,'Checking installed file checksum'),expected)
+        telemetry=self.value['install_telemetry']
+        self.assertEqual(telemetry['bytes_processed'],len(b'old 2025'))
+        self.assertEqual(telemetry['percent'],100)
+        self.assertEqual(telemetry['phase'],'Checking installed file checksum')
+
+    def test_observed_progress_is_bound_to_the_current_job_and_fresh(self):
+        import time
+        from app.services import publisher_review as public
+        folder=self.root/'public-progress';folder.mkdir();(folder/'progress').mkdir()
+        job='f'*32
+        (folder/'schedule.json').write_text(json.dumps({'state':'installing','job':job,'updated_at':time.time()}))
+        sidecar=folder/'progress'/(job+'.json')
+        with patch.object(public,'STATE',folder):
+            sidecar.write_text(json.dumps({'job':job,'observed_at':time.time(),'telemetry':{'phase':'Checking checksum','percent':50}}))
+            self.assertEqual(public.status('schedule')['install_telemetry']['percent'],50)
+            sidecar.write_text(json.dumps({'job':'different','observed_at':time.time(),'telemetry':{'percent':100}}))
+            self.assertNotIn('install_telemetry',public.status('schedule'))
+            sidecar.write_text(json.dumps({'job':job,'observed_at':time.time()-60,'telemetry':{'percent':100}}))
+            self.assertNotIn('install_telemetry',public.status('schedule'))
+
     def test_tampered_staging_file_is_not_installed(self):
         (self.stage/'candidate.pdf').write_bytes(b'wrong')
         with self.assertRaisesRegex(ValueError,'verification'):self.apply()

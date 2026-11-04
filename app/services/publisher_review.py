@@ -22,6 +22,14 @@ def status(asset_id):
     path = STATE / (asset_id + '.json')
     try:
         value = json.loads(path.read_text())
+        if value.get('state')=='installing' and not value.get('install_telemetry'):
+            try:
+                job=value.get('job','')
+                if __import__('re').fullmatch(r'[a-f0-9]{32}',job):
+                    observed=json.loads((STATE/'progress'/(job+'.json')).read_text())
+                    if observed.get('job')==job and 0<=__import__('time').time()-observed.get('observed_at',0)<15:
+                        value['install_telemetry']=observed['telemetry']
+            except (OSError,ValueError,KeyError,TypeError):pass
         if value.get('state') in ('queued', 'preparing', 'installing') and __import__('time').time() - value.get('updated_at', 0) > 15:
             import subprocess
             if subprocess.run(['systemctl', 'is-active', '--quiet', 'dataark-publisher-review-' + value['job']], capture_output=True).returncode:
