@@ -56,8 +56,8 @@ class PublisherReviewTests(unittest.TestCase):
         self.value.pop('edition');self.record['edition_discovery']={}
         self.value['revision']=review.revision(self.record)
         self.state.write_text(json.dumps({'sources':{self.source:self.record}}))
-        original=review.shutil.copyfile
-        with patch.object(review.shutil,'copyfile',wraps=original) as copied:self.apply()
+        original=review.installed_copy
+        with patch.object(review,'installed_copy',wraps=original) as copied:self.apply()
         retained=[c for c in copied.call_args_list if c.args[0]==self.installed and c.args[1]==self.back/self.value['job']/'candidate.pdf']
         self.assertEqual(len(retained),1)
         self.assertEqual((self.back/self.value['job']/'candidate.pdf').read_bytes(),b'old 2025')
@@ -69,6 +69,16 @@ class PublisherReviewTests(unittest.TestCase):
         self.assertEqual(telemetry['bytes_processed'],len(b'old 2025'))
         self.assertEqual(telemetry['percent'],100)
         self.assertEqual(telemetry['phase'],'Checking installed file checksum')
+
+    def test_multiple_files_share_one_monotonic_step_total(self):
+        first=self.root/'first';second=self.root/'second';first.write_bytes(b'ab');second.write_bytes(b'cdef')
+        review.installed_copy(first,self.root/'copy1',self.value,'Installing verified files',0,6)
+        self.assertEqual(self.value['install_telemetry']['bytes_processed'],2)
+        review.installed_copy(second,self.root/'copy2',self.value,'Installing verified files',2,6)
+        self.assertEqual(self.value['install_telemetry']['bytes_processed'],6)
+        self.assertEqual(self.value['install_telemetry']['percent'],100)
+        review.installed_digest(second,self.value,'Checking candidate checksum',2,6)
+        self.assertEqual(self.value['install_telemetry']['bytes_processed'],6)
 
     def test_observed_progress_is_bound_to_the_current_job_and_fresh(self):
         import time

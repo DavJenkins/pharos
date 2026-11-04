@@ -8,31 +8,42 @@ ROOT=Path('/mnt/storage/civic-reference')
 SOURCES=json.loads((Path(__file__).resolve().parents[1]/'deploy/reference/callsign-sources.json').read_text())
 FCC=SOURCES['fcc_url']
 CENSUS=SOURCES['census_url']
-def acquire(path,url,limit,refresh=False):
+def acquire(path,url,limit,refresh=False,progress=None):
  if path.exists() and not refresh:return
  part=path.with_suffix(path.suffix+'.part')
  try:
   with urllib.request.urlopen(url,timeout=60) as r,part.open('wb') as f:
+   length=r.headers.get('Content-Length','');total=int(length) if length.isdigit() else 0
+   if total>limit:raise ValueError('Source exceeds download cap')
    size=0
    while chunk:=r.read(1024**2):
     size+=len(chunk)
     if size>limit:raise ValueError('Source exceeds download cap')
     f.write(chunk)
+    if progress:progress({'phase':'Downloading FCC source archive','bytes_processed':size,'total_bytes':total,'step':1,'total_steps':6})
+  if progress:progress({'phase':'Checking FCC source ZIP','step':1,'total_steps':6})
   with zipfile.ZipFile(part) as z:
    if z.testzip():raise ValueError('Corrupt source ZIP')
   part.chmod(0o644);part.replace(path)
  finally:part.unlink(missing_ok=True)
-def records(z,name):
+def records(z,name,progress=None):
  prefix=name[:2]+'|';pending=''
+ total=z.getinfo(name).file_size;count=0
  with z.open(name) as raw:
   for line in io.TextIOWrapper(raw,encoding='latin1'):
    if line.startswith(prefix):
-    if pending:yield pending.rstrip('\r\n').split('|')
+    if pending:
+     count+=1
+     if progress and count%10000==0:progress(raw.tell(),total,count)
+     yield pending.rstrip('\r\n').split('|')
     pending=line
    elif pending:pending=pending.rstrip('\r\n')+' '+line
    if len(pending)>65536:raise ValueError('Unexpected oversized FCC record')
-  if pending:yield pending.rstrip('\r\n').split('|')
-def build():
+  if pending:count+=1;yield pending.rstrip('\r\n').split('|')
+  if progress:progress(total,total,count)
+def build(progress=None):
+ def report(phase,step,done=None,total=None,count=None):
+  if progress:progress({'phase':phase,'step':step,'total_steps':6,**({'bytes_processed':done,'total_bytes':total} if done is not None else {}),**({'records_processed':count} if count is not None else {})})
  archive=ROOT/'fcc-amateur-source.zip';gaz=ROOT/'zcta-2025.zip'
  target=ROOT/'callsigns.sqlite';stage=ROOT/'callsigns.sqlite.building';stage.unlink(missing_ok=True)
  db=sqlite3.connect(stage)
@@ -42,22 +53,28 @@ def build():
    if sum(i.file_size for i in z.infolist())>2*1024**3:raise ValueError('Expanded FCC data exceeds cap')
    dates={i.filename:'%04d-%02d-%02d'%i.date_time[:3] for i in z.infolist()}
    count=0
-   for r in records(z,'HD.dat'):
+   report('Importing licence headers',2,0,z.getinfo('HD.dat').file_size,0)
+   for r in records(z,'HD.dat',lambda done,total,count:report('Importing licence headers',2,done,total,count)):
     if len(r)<10 or r[0]!='HD' or not r[1].isdigit():raise ValueError('Unexpected HD schema')
     db.execute('INSERT INTO header VALUES(?,?,?,?,?,?,?)',(int(r[1]),r[4].strip().upper(),r[5],r[6],r[7],r[8],r[9]));count+=1
     if count%100000==0:db.commit();print('Header records',count,flush=True)
-   for r in records(z,'EN.dat'):
+   report('Importing licence holders',3,0,z.getinfo('EN.dat').file_size,0)
+   for r in records(z,'EN.dat',lambda done,total,count:report('Importing licence holders',3,done,total,count)):
     if len(r)<19 or not r[1].isdigit():raise ValueError('Unexpected EN schema')
     if r[5]!='L':continue
     name=r[7].strip() or ' '.join(x.strip() for x in (r[8],r[9],r[10]) if x.strip())
     db.execute('INSERT OR REPLACE INTO entity VALUES(?,?,?,?,?)',(int(r[1]),name,r[16].strip(),r[17].strip(),r[18][:5]))
   with zipfile.ZipFile(gaz) as z:
+   report('Loading postcode coordinates',4)
    names=[n for n in z.namelist() if n.endswith('.txt')]
    if len(names)!=1:raise ValueError('Unexpected Census archive')
    with z.open(names[0]) as f:
     for r in csv.DictReader(io.TextIOWrapper(f,encoding='utf-8-sig'),delimiter='|'):
      r={k.strip():v.strip() for k,v in r.items()};db.execute('INSERT INTO zcta VALUES(?,?,?)',(r['GEOID'],float(r['INTPTLAT']),float(r['INTPTLONG'])))
+  report('Building callsign and name indexes',5)
+  db.set_progress_handler(lambda:(report('Building callsign and name indexes',5),0)[1],100000)
   db.executescript('CREATE TABLE licenses AS SELECT h.*,e.name,e.city,e.state,e.zip FROM header h JOIN entity e USING(id); CREATE UNIQUE INDEX license_id ON licenses(id); CREATE INDEX license_call ON licenses(callsign); CREATE INDEX license_zip ON licenses(zip); CREATE INDEX license_state_city ON licenses(state,city); CREATE VIRTUAL TABLE names USING fts5(name,content="licenses",content_rowid="rowid"); INSERT INTO names(names) VALUES("rebuild"); DROP TABLE header; DROP TABLE entity; ANALYZE;')
+  db.set_progress_handler(None,0);report('Verifying the completed database',6)
   total=db.execute('SELECT count(*) FROM licenses').fetchone()[0];mapped=db.execute('SELECT count(*) FROM licenses JOIN zcta USING(zip)').fetchone()[0]
   if total<500000 or mapped<total*.5:raise ValueError('Suspiciously incomplete import')
   assert db.execute('PRAGMA quick_check').fetchone()[0]=='ok'

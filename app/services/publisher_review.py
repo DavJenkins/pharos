@@ -28,13 +28,13 @@ def status(asset_id):
     path = STATE / (asset_id + '.json')
     try:
         value = json.loads(path.read_text())
-        if value.get('state')=='installing' and not value.get('install_telemetry'):
+        if value.get('state') in ('installing','preparing') and not value.get('install_telemetry' if value.get('state')=='installing' else 'telemetry'):
             try:
                 job=value.get('job','')
                 if __import__('re').fullmatch(r'[a-f0-9]{32}',job):
                     observed=json.loads((STATE/'progress'/(job+'.json')).read_text())
                     if observed.get('job')==job and 0<=__import__('time').time()-observed.get('observed_at',0)<15:
-                        value['install_telemetry']=observed['telemetry']
+                        value['install_telemetry' if value.get('state')=='installing' else 'telemetry']=observed['telemetry']
             except (OSError,ValueError,KeyError,TypeError):pass
         if value.get('state') in ('queued', 'preparing', 'installing') and __import__('time').time() - value.get('updated_at', 0) > 15:
             import subprocess
@@ -67,11 +67,12 @@ def active_progress():
             if edition:title=('U.S. street map' if current['asset_id']=='osm-massachusetts' else title)+' — candidate edition '+edition
             telemetry=current.get('install_telemetry') if current.get('state')=='installing' else current.get('telemetry')
             telemetry=telemetry or {}
-            step=installation_step(telemetry.get('phase')) if current.get('state')=='installing' else None
+            step=installation_step(telemetry.get('phase')) if current.get('state')=='installing' else telemetry.get('step')
             return {'state':state,'asset':title,'asset_id':current['asset_id'],'job':current['job'],
                     'percent':telemetry.get('percent'),'phase':telemetry.get('phase'),
-                    'step':step,'total_steps':5 if step else None,
+                    'step':step,'total_steps':(5 if current.get('state')=='installing' else telemetry.get('total_steps')) if step else None,
                     'bytes_processed':telemetry.get('bytes_processed'),'total_bytes':telemetry.get('total_bytes'),
+                    'records_processed':telemetry.get('records_processed'),
                     'estimated_remaining_seconds':telemetry.get('estimated_remaining_seconds'),
                     'label':{'waiting':'Publisher review','downloading':'Preparing publisher candidate','activating':'Applying publisher review','error':'Publisher review needs attention'}[state]+': '+title, 'detail':current.get('message','')}
     except (OSError,ValueError,KeyError,TypeError):return None

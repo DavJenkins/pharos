@@ -4,6 +4,17 @@ from unittest.mock import patch
 from fastapi import HTTPException
 from app.routers import callsigns
 class CallsignTests(unittest.TestCase):
+ def test_bulk_record_progress_reports_real_source_bytes_and_records(self):
+  import zipfile
+  from tools.install_callsigns import records
+  with tempfile.TemporaryDirectory() as tmp:
+   path=Path(tmp)/'source.zip';raw=b'HD|1|FIRST\n continuation\nHD|2|SECOND\n'
+   with zipfile.ZipFile(path,'w') as archive:archive.writestr('HD.dat',raw)
+   updates=[]
+   with zipfile.ZipFile(path) as archive:rows=list(records(archive,'HD.dat',lambda *values:updates.append(values)))
+   self.assertEqual(len(rows),2)
+   self.assertEqual(rows[0][2],'FIRST  continuation')
+   self.assertEqual(updates[-1],(len(raw),len(raw),2))
  def test_grid(self):
   self.assertEqual(callsigns.grid_center('FN42'),(42.5,-71.0))
   self.assertAlmostEqual(callsigns.grid_center('FN42ab')[0],42+1/24+1/48)

@@ -46,14 +46,25 @@ def install_phase(value, phase, done=0, total=0):
     save(value['asset_id'],value)
 
 
-def installed_digest(path,value,phase):
+def installed_digest(path,value,phase,offset=0,total=None):
+    overall=path.stat().st_size if total is None else total
     last=[0]
-    def report(done,total):
+    def report(done,file_total):
         now=time.monotonic()
-        if now-last[0]>=3 or done==total:
-            install_phase(value,phase,done,total);last[0]=now
-    install_phase(value,phase,0,path.stat().st_size)
+        if now-last[0]>=3 or done==file_total:
+            install_phase(value,phase,offset+done,overall);last[0]=now
+    install_phase(value,phase,offset,overall)
     return digest(path,report)
+
+
+def installed_copy(source,target,value,phase,offset=0,total=None):
+    file_bytes=source.stat().st_size;total=file_bytes if total is None else total;done=0;last=0
+    install_phase(value,phase,offset,total)
+    with source.open('rb') as reader,target.open('wb') as writer:
+        for chunk in iter(lambda:reader.read(4*1024**2),b''):
+            writer.write(chunk);done+=len(chunk);now=time.monotonic()
+            if now-last>=3 or done==file_bytes:
+                writer.flush();install_phase(value,phase,offset+done,total);last=now
 
 
 def file_version(path):
@@ -259,9 +270,19 @@ def prepare(value, asset, mount, installed, source, record, stage):
     elif asset['id'] in ('callbook-callsigns-sqlite', 'callbook-fcc-amateur-source-zip'):
         from tools import install_callsigns as callbook
         callbook.ROOT = stage
-        callbook.acquire(stage / 'fcc-amateur-source.zip', callbook.FCC, 400 * 1024**2, True)
+        last=[0,None]
+        def report(telemetry):
+            now=time.monotonic();phase=telemetry['phase']
+            complete=bool(telemetry.get('total_bytes')) and telemetry.get('bytes_processed')==telemetry.get('total_bytes')
+            if now-last[0]<2 and phase==last[1] and not complete:return
+            total=telemetry.get('total_bytes')
+            if total:telemetry['percent']=min(100,telemetry['bytes_processed']*100/total)
+            telemetry['elapsed_seconds']=round(time.time()-value.get('started_at',time.time()))
+            value.update(telemetry=telemetry,message=phase+'. The installed database remains available.')
+            save(asset['id'],value);last[:]=[now,phase]
+        callbook.acquire(stage / 'fcc-amateur-source.zip', callbook.FCC, 400 * 1024**2, True,progress=report)
         shutil.copyfile(mount / 'civic-reference/zcta-2025.zip', stage / 'zcta-2025.zip')
-        callbook.build()
+        callbook.build(progress=report)
         for name in ('fcc-amateur-source.zip', 'callsigns.sqlite', 'callsigns-source.json'): add(stage / name, 'civic-reference/' + name)
         value['kind'] = 'callbook'
         meta = json.loads((stage / 'callsigns-source.json').read_text())
@@ -339,8 +360,10 @@ def recover(value):
 def apply(value, manifest, asset, mount, installed, source, record, stage):
     from tools.library_removal import serialize, publish_library
     if value['decision'] == 'install':
+        checked_bytes=0;candidate_bytes=sum(f['bytes'] for f in value['files'])
         for f in value['files']:
-            if installed_digest(stage / f['file'],value,'Checking candidate checksum') != f['sha256']: raise ValueError('Prepared candidate no longer matches verification')
+            if installed_digest(stage / f['file'],value,'Checking candidate checksum',checked_bytes,candidate_bytes) != f['sha256']: raise ValueError('Prepared candidate no longer matches verification')
+            checked_bytes+=f['bytes']
         backup = mount / '.publisher-review-backups' / value['job']; backup.mkdir(parents=True)
         # The authoritative manifest may contain private household configuration.
         # Keep its recovery checkpoint off the anonymously served content drive.
@@ -397,18 +420,22 @@ def apply(value, manifest, asset, mount, installed, source, record, stage):
         replacements = []
         try:
             value['transaction'] = {'mount': str(mount), 'files': []}
-            install_phase(value,'Backing up the installed edition')
+            backup_bytes=sum(inside(mount,f['relative_path']).stat().st_size for f in value['files'] if inside(mount,f['relative_path']).is_file());copied=0
+            install_phase(value,'Backing up the installed edition',0,backup_bytes)
             for f in value['files']:
                 dest = inside(mount, f['relative_path'])
-                if dest.is_file(): shutil.copyfile(dest, backup / f['file'])
+                if dest.is_file():
+                    installed_copy(dest, backup / f['file'],value,'Backing up the installed edition',copied,backup_bytes)
+                    copied+=dest.stat().st_size
                 value['transaction']['files'].append({**f, 'existed': dest.exists()})
             if value['kind'] == 'map': value['old_map_config'] = checks.read(ROOT / 'deploy/reference/osm-usa.json', {})
             save(asset['id'], value)
-            install_phase(value,'Installing verified files')
+            copied=0;install_bytes=sum(f['bytes'] for f in value['files'])
+            install_phase(value,'Installing verified files',0,install_bytes)
             for f in value['files']:
                 dest = inside(mount, f['relative_path']); dest.parent.mkdir(parents=True, exist_ok=True)
                 replacements.append((dest, backup / f['file']))
-                temp = dest.with_name(dest.name + '.review-part'); shutil.copyfile(stage / f['file'], temp); temp.chmod(0o644); os.replace(temp, dest)
+                temp = dest.with_name(dest.name + '.review-part'); installed_copy(stage / f['file'],temp,value,'Installing verified files',copied,install_bytes); temp.chmod(0o644); os.replace(temp, dest);copied+=f['bytes']
                 for entry in manifest['assets']:
                     if entry['relative_path'] == f['relative_path']: entry['expected_hash'] = f['sha256']
             if value['kind'] == 'map':
