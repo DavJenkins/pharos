@@ -68,7 +68,10 @@ if __name__=='__main__':
         if len(value)>2048:
             raise ValueError('Request too large')
         payload=json.loads(value)
-        if isinstance(payload,dict) and payload.get('action') in ('remove','restore','prefer'):
+        if isinstance(payload,dict) and payload.get('action') == 'publisher_review':
+            from tools.publisher_review import submit
+            result=submit(payload)
+        elif isinstance(payload,dict) and payload.get('action') in ('remove','restore','prefer'):
             from tools.library_removal import remove, restore, prefer_variant
             result={'remove':remove,'restore':restore,'prefer':prefer_variant}[payload['action']](payload)
         else:

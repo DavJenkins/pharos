@@ -107,6 +107,8 @@ def retired_map_edition(url, assets, previous, config, opener=urlopen, today=Non
                              'archive_url':candidate_url, 'bytes':int(length[1]),
                              'etag':response.headers.get('ETag'), 'kind':'map_extraction'}
             detail = 'New Protomaps build '+day.isoformat()+' is available. Rebuild and verify the configured regional extraction before activation; installed map retained.'
+            if previous.get('edition_discovery',{}).get('reviewed_candidate') == candidate:
+                return dict(previous,status='unchanged',pending_change=False,detail='Caretaker reviewed this map build and kept the installed map.')
             return dict(previous, status='changed', pending_change=True, detail=detail,
                         fingerprint=candidate_url+'|'+str(candidate['etag']), fingerprint_kind='map-edition-v1',
                         edition_discovery={'status':'available','candidate':candidate,'detail':detail,'attempted_at':time.time()})
@@ -223,6 +225,10 @@ def discover_editions(manifest, root, state, config, retry_errors=False):
         if time.time()-previous.get('attempted_at',0)<interval and not (retry_errors and previous.get('status')=='error'):continue
         try:
             result=discover(rule,asset)
+            if previous.get('reviewed_candidate'):
+                result['reviewed_candidate']=previous['reviewed_candidate']
+                if result.get('candidate')==previous['reviewed_candidate']:
+                    result.update(status='reviewed',candidate=None,detail='Caretaker already reviewed this edition; installed editions retained.')
             if result['status']=='error' and previous.get('candidate'):result['candidate']=previous['candidate']
         except Exception as error:
             result={**previous,'status':'error','detail':'Edition discovery failed; installed copy retained.','issues':[failure_detail(error)]}
@@ -272,5 +278,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     STATE.parent.mkdir(parents=True, exist_ok=True)
     with (STATE.parent / 'worker.lock').open('a') as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        try: fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            print('Publisher checks deferred: another content review owns the source lock.', flush=True)
+            raise SystemExit(0)
         run(retry_errors=args.retry_errors)

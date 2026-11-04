@@ -15,7 +15,7 @@
 
 .ark-notice[data-banner-width],.ark-page .ark-notice[data-banner-width],#notice-preview[data-banner-width]{margin-top:var(--ark-notice-margin-top,12px);margin-bottom:var(--ark-notice-margin-bottom,12px)}
 
-@font-face{font-family:ArkOldEnglish;src:url('/assets/fonts/unifrakturcook/UnifrakturCook-Bold.ttf') format('truetype');font-style:normal;font-weight:700;font-display:swap}
+@font-face{font-family:ArkOldEnglish;src:url('/assets/fonts/data-ark-blackletter/DataArkBlackletter-Bold.ttf') format('truetype');font-style:normal;font-weight:700;font-display:swap}
 .ark-notice[data-banner-font="old-english"]{font-family:ArkOldEnglish,Georgia,serif;font-weight:700;font-size:1.4rem;line-height:1.5}
 .ark-notice[data-banner-font="serif"]{font-family:Georgia,'Times New Roman',serif}
 .ark-notice[data-banner-font="monospace"]{font-family:ui-monospace,'Courier New',monospace}

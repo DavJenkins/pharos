@@ -35,6 +35,17 @@ class ManifestTests(unittest.TestCase):
         image.save(buffer, format='PNG')
         self.png = buffer.getvalue()
 
+    def test_installed_filter_uses_local_availability(self):
+        self.data['categories'][0]['title'] = 'Content sources'
+        self.write()
+        build(self.manifest, self.template, self.output, content_root=self.content)
+        page = self.output.read_text(encoding='utf-8')
+        self.assertIn('id="installed-sources-only"', page)
+        self.assertIn('data-installed="false"', page)
+        (self.content / 'book.pdf').write_bytes(b'%PDF-test')
+        build(self.manifest, self.template, self.output, content_root=self.content)
+        self.assertIn('data-installed="true"', self.output.read_text(encoding='utf-8'))
+
     def write(self):
         self.manifest.write_text(yaml.safe_dump(self.data), encoding='utf-8')
 

@@ -146,12 +146,6 @@ dashboard:
       links:
       - title: Open practical repairs & maintenance guides
         url: /library-files/family-resources/index.html#repairs
-    - title: Vehicle manuals
-      links:
-      - title: 2017 Honda Accord Sedan — Owner’s Manual
-        url: /library-files/vehicles/accord-2017-manual.pdf
-      - title: 2017 Honda Civic Sedan — Owner’s Manual
-        url: /library-files/vehicles/civic-2017-manual.pdf
   - id: maps-navigation
     anchor: openstreetmap
     title: Maps & Navigation
@@ -392,23 +386,7 @@ personalization:
   jurisdictions_of_interest:
   - US
   - US-MA
-  vehicles:
-  - id: accord-2017
-    year: 2017
-    make: Honda
-    model: Accord
-    body_style: 4-door sedan
-    asset_ids:
-    - accord-2017-manual
-    - accord-2017-guide
-  - id: civic-2017
-    year: 2017
-    make: Honda
-    model: Civic
-    body_style: 4-door sedan
-    asset_ids:
-    - civic-2017-manual
-    - civic-2017-guide
+  vehicles: []
   destinations:
   - id: sint-maarten
     name: Sint Maarten / Saint Martin

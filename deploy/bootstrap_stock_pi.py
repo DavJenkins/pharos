@@ -6,7 +6,6 @@ import argparse,fcntl,hashlib,json,os,platform,pwd,re,shutil,subprocess,tarfile,
 from pathlib import Path
 try:
  from . import bootstrap_platform as platforms
- import demo_library
  from . import demo_library
 except ImportError:
  import sys

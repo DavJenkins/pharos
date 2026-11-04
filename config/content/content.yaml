@@ -89,26 +89,6 @@ direct_files:
   url: https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf
   bytes: 2951425
   sha256: 110abd05cf6dd5760379eaa75b58f09efad5066638e5ded6afeacc16d8a98260
-- id: accord-2017-manual
-  path: vehicles/accord-2017-manual.pdf
-  url: https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf
-  bytes: 38403007
-  sha256: 27131e7c33d2b7a830d4685e79c3cd409b26a9d28e7728cff9fba29a50b09e79
-- id: accord-2017-guide
-  path: vehicles/accord-2017-guide.pdf
-  url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf
-  bytes: 26707760
-  sha256: 4c0b913cccb2cfc56e63b521f38d2e046b97b2fc6af85f88970fd6af11e7cd7c
-- id: civic-2017-manual
-  path: vehicles/civic-2017-manual.pdf
-  url: https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf
-  bytes: 38389872
-  sha256: fe000335a5046b4f8cc2298329dedf223ea30f587789c039d0fe3617f8d6dafe
-- id: civic-2017-guide
-  path: vehicles/civic-2017-guide.pdf
-  url: https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF
-  bytes: 25167273
-  sha256: dc3534cb5238c93af62f1df08df70728fbc068cc56b977f832a9657b419a9929
 - id: curriculum-ck-15d7052a72ed2d4e
   path: curriculum/core-knowledge/ck-15d7052a72ed2d4e.pdf
   url: https://www.coreknowledge.org/wp-content/uploads/2023/08/CKLA_G8U2_Frankenstein_TG.pdf

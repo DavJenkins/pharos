@@ -1,4 +1,7 @@
 venv/
+.venv-test/
+.coverage*
+!.coveragerc
 __pycache__/
 *.pyc
 .env

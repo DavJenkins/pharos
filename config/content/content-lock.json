@@ -1241,46 +1241,6 @@
       "repository": "radio-study"
     },
     {
-      "id": "accord-2017-manual",
-      "title": "2017 Honda Accord Sedan \u2014 Owner\u2019s Manual",
-      "path": "vehicles/accord-2017-manual.pdf",
-      "selected": true,
-      "bytes": 38403007,
-      "sha256": "27131e7c33d2b7a830d4685e79c3cd409b26a9d28e7728cff9fba29a50b09e79",
-      "source": "https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf",
-      "repository": "vehicle-manuals"
-    },
-    {
-      "id": "accord-2017-guide",
-      "title": "2017 Honda Accord Sedan \u2014 Quick Owner\u2019s Guide",
-      "path": "vehicles/accord-2017-guide.pdf",
-      "selected": true,
-      "bytes": 26707760,
-      "sha256": "4c0b913cccb2cfc56e63b521f38d2e046b97b2fc6af85f88970fd6af11e7cd7c",
-      "source": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf",
-      "repository": "vehicle-manuals"
-    },
-    {
-      "id": "civic-2017-manual",
-      "title": "2017 Honda Civic Sedan \u2014 Owner\u2019s Manual",
-      "path": "vehicles/civic-2017-manual.pdf",
-      "selected": true,
-      "bytes": 38389872,
-      "sha256": "fe000335a5046b4f8cc2298329dedf223ea30f587789c039d0fe3617f8d6dafe",
-      "source": "https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf",
-      "repository": "vehicle-manuals"
-    },
-    {
-      "id": "civic-2017-guide",
-      "title": "2017 Honda Civic Sedan \u2014 Quick Owner\u2019s Guide",
-      "path": "vehicles/civic-2017-guide.pdf",
-      "selected": true,
-      "bytes": 25167273,
-      "sha256": "dc3534cb5238c93af62f1df08df70728fbc068cc56b977f832a9657b419a9929",
-      "source": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF",
-      "repository": "vehicle-manuals"
-    },
-    {
       "id": "family-nasa-exoplanets",
       "title": "NASA Exoplanets Coloring Book",
       "path": "family-resources/kids/nasa-exoplanets.pdf",

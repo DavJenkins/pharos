@@ -15,6 +15,7 @@ from wifi_interfaces import interfaces, platform_settings
 from wired_interfaces import devices as wired_devices, permanent_mac, dependencies, NAME as INTERFACE_NAME
 
 NMCLI = '/usr/bin/nmcli'
+ROLE_PENDING = Path('/var/lib/dataark/wifi-roles/pending.json')
 ENV = {'PATH': '/usr/sbin:/usr/bin:/sbin:/bin', 'LC_ALL': 'C'}
 
 class NetworkError(Exception):
@@ -134,7 +135,7 @@ def execute(data):
         request = {k:v for k,v in data.items() if k != 'peer'}
         result = subprocess.run(['/usr/local/libexec/dataark-wifi-roles'], input=json.dumps(request), capture_output=True, text=True, timeout=140, check=False)
         return json.loads(result.stdout)
-    if action not in ('access','scan') and Path('/var/lib/dataark/wifi-roles/pending.json').exists():
+    if action not in ('access','scan') and ROLE_PENDING.exists():
         raise NetworkError('Confirm or revert the pending adapter assignment first.')
     if action in ('scan','connect','uplink') and not interfaces()[1]:
         raise NetworkError('No second Wi-Fi adapter is available for upstream Wi-Fi.')

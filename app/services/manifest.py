@@ -570,7 +570,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
             if entries:
                 availability = '<details class="manifest-file-details"><summary>' + badge + '</summary>' + asset_list + '</details>'
                 asset_list = ''
-            cards.append('<article class="manifest-card' + (' manifest-missing' if missing else '') + '" id="repository-' + html.escape(repo['id'], quote=True) + '" data-repository-id="' + html.escape(repo['id'], quote=True) + '">' +
+            cards.append('<article class="manifest-card' + (' manifest-missing' if missing else '') + '" id="repository-' + html.escape(repo['id'], quote=True) + '" data-repository-id="' + html.escape(repo['id'], quote=True) + '" data-installed="' + ('true' if ready else 'false') + '">' +
                          image_tag(art, repo['title']) + '<h3>' + html.escape(repo['title']) + '</h3><p>' +
                          html.escape(str(repo.get('description', ''))) + '</p>' + availability +
                          '<div class="manifest-tags">' + tags + '</div><nav class="manifest-links">' + ' '.join(links) +
@@ -578,7 +578,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
         if cards:
             heading = '<h2>' + html.escape(category['title']) + '</h2>'
             if category['title'] == 'Content sources':
-                heading = '<div class="source-heading">' + heading + source_check_summary + source_check_button + source_check_status + '</div>'
+                heading = '<div class="source-heading" data-installed-only-default="' + ('true' if data.get('system', {}).get('demo_library', {}).get('installed_only_default', False) else 'false') + '">' + heading + source_check_summary + source_check_button + source_check_status + '<label class="installed-only-switch"><span>Installed only</span><input id="installed-sources-only" type="checkbox" role="switch"><span class="installed-only-track" aria-hidden="true"></span></label></div>'
             sections.append('<section class="manifest-category">' + heading + '<p>' +
                             html.escape(str(category.get('description', ''))) + '</p><div class="manifest-grid">' +
                             ''.join(cards) + '</div></section>')
@@ -595,7 +595,7 @@ def build(manifest_path, template_path, output_path, content_root=None, refresh_
     rendered = rendered.replace('{{COMMUNITY_CARD}}', community_card if community_enabled else '').replace('{{COMMUNITY_NAV}}', ' · <a href="/community.html">Community board</a>' if community_enabled else '')
     demo = system.get('demo_library')
     if isinstance(demo, dict) and demo.get('notice'):
-        notice = '<section class="resource-section demo-library-notice" aria-label="Demo library"><h2>'+html.escape(str(demo.get('heading','Installed offline content')))+'</h2><p>'+html.escape(str(demo['notice']))+'</p>'+('<p><a href="#repository-'+html.escape(str(demo['repository_id']),quote=True)+'">Open the installed sample →</a></p>' if demo.get('repository_id') else '')+'</section>'
+        notice = '<section class="resource-section demo-library-notice" aria-label="Demo library"><h2>'+html.escape(str(demo.get('heading','Installed offline content')))+'</h2><p>'+html.escape(str(demo['notice']))+'</p>'+('<p><a href="#repository-'+html.escape(str(demo['repository_id']),quote=True)+'">Open the installed sample →</a></p>' if demo.get('repository_id') and demo.get('show_sample_link', True) else '')+'</section>'
         rendered = rendered.replace('<main class="manifest-catalog">', '<main class="manifest-catalog">'+notice, 1)
     rendered = version_dashboard_assets(rendered)
     compiled = {**data, 'assets': compiled_assets}

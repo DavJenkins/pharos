@@ -20,7 +20,7 @@ class ProgressTests(unittest.TestCase):
   from unittest.mock import patch
   from app.services.update_status import progress
   for detail in (None, '', 'Archive details'):
-   with patch('app.services.update_status.worker_progress',return_value={'state':'publishing','label':'Publishing: Dashboard','detail':detail}),patch('app.services.update_status.map_progress',return_value={'label':'Preparing U.S. offline map'}):
+   with patch('app.services.publisher_review.active_progress',return_value=None),patch('app.services.update_status.worker_progress',return_value={'state':'publishing','label':'Publishing: Dashboard','detail':detail}),patch('app.services.update_status.map_progress',return_value={'label':'Preparing U.S. offline map'}):
     result=progress()
     self.assertIn('Preparing U.S. offline map',result['detail'])
     self.assertEqual(result['label'],'Publishing: Dashboard')

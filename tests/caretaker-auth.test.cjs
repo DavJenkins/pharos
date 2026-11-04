@@ -1,11 +1,13 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
-function harness(storage=new Map()) {
+function harness(storage=new Map(),hub={values:new Map(),tabs:[]}) {
   const nodes=new Map(),timers=new Map();let now=100000,status=200,calls=0,nextTimer=1;
   const node=selector=>{if(!nodes.has(selector))nodes.set(selector,{value:'',checked:false,disabled:false,textContent:'',listeners:{},querySelector:node,querySelectorAll:()=>[node('[type="submit"]'),node('#caretaker-auth-close')],setAttribute(){},focus(){},select(){},reportValidity:()=>true,reset(){node('#caretaker-auth-remember').checked=false;node('#caretaker-auth-minutes').value='10';},addEventListener(name,fn){this.listeners[name]=fn;},showModal(){this.open=true;},close(){this.open=false;const fn=this.listeners.close;delete this.listeners.close;fn?.();}});return nodes.get(selector);};
   const listeners={};const window={addEventListener(name,fn){listeners[name]=fn;},dispatchEvent(event){listeners[event.type]?.();}};
-  const context=vm.createContext({window,document:{createElement:tag=>node(tag),querySelector:()=>null,body:{append(){},prepend(){}}},sessionStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},TextEncoder,AbortController,Event:class{constructor(type){this.type=type;}},Date:{now:()=>now},btoa:s=>Buffer.from(s,'binary').toString('base64'),setTimeout:(fn,ms)=>{const id=nextTimer++;timers.set(id,{fn,at:now+ms});return id;},clearTimeout:id=>timers.delete(id),fetch:async()=>{calls++;return {ok:status===200,status};}});
+  hub.tabs.push(listeners);
+  const localStorage={getItem:k=>hub.values.get(k)||null,setItem:(k,v)=>{hub.values.set(k,v);for(const tab of hub.tabs)if(tab!==listeners)tab.storage?.({key:k,newValue:v});}};
+  const context=vm.createContext({window,localStorage,document:{createElement:tag=>node(tag),querySelector:()=>null,body:{append(){},prepend(){}}},sessionStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},TextEncoder,AbortController,Event:class{constructor(type){this.type=type;}},Date:{now:()=>now},btoa:s=>Buffer.from(s,'binary').toString('base64'),setTimeout:(fn,ms)=>{const id=nextTimer++;timers.set(id,{fn,at:now+ms});return id;},clearTimeout:id=>timers.delete(id),fetch:async()=>{calls++;return {ok:status===200,status};}});
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../app/static/assets/js/caretaker-auth.js'),'utf8'),context);
-  return {auth:window.CaretakerAuth,node,storage,calls:()=>calls,setStatus:value=>status=value,
+  return {auth:window.CaretakerAuth,node,storage,calls:()=>calls,setStatus:value=>status=value,pauseStorage:()=>{delete listeners.storage;},fire:name=>listeners[name]?.(),
     advance:ms=>{now+=ms;for(const [id,item] of [...timers])if(item.at<=now){timers.delete(id);item.fn();}},
     submit:async(password='test-password',minutes=null)=>{node('#caretaker-auth-password').value=password;if(minutes!==null){node('#caretaker-auth-remember').checked=true;node('#caretaker-auth-minutes').value=String(minutes);}await node('form').onsubmit({preventDefault(){}});}};
 }
@@ -22,6 +24,12 @@ test('chosen remember interval is reused across page instances, then expires',as
 test('wrong password stays in popup and never becomes remembered',async()=>{
  const h=harness();h.setStatus(401);const pending=h.auth.password();await h.submit('wrong',10);assert.equal(h.auth.isRemembered(),false);assert.equal(h.node('dialog').open,true);assert.match(h.node('#caretaker-auth-error').textContent,/not accepted/);
  h.setStatus(200);await h.submit('right',10);assert.equal(await pending,'right');
+});
+
+test('an explicit Unlock request preselects remembering and enables duration',async()=>{
+ const h=harness();const pending=h.auth.authorization('Unlock for a while.',{rememberByDefault:true});
+ assert.equal(h.node('#caretaker-auth-remember').checked,true);assert.equal(h.node('#caretaker-auth-minutes').disabled,false);
+ h.node('#caretaker-auth-close').onclick();await assert.rejects(pending,{name:'AbortError'});assert.equal(h.auth.isRemembered(),false);
 });
 test('closing the popup cancels the action and clears its input',async()=>{
  const h=harness();const pending=h.auth.password();h.node('#caretaker-auth-password').value='secret';h.node('#caretaker-auth-close').onclick();await assert.rejects(pending,{name:'AbortError'});assert.equal(h.node('#caretaker-auth-password').value,'');assert.equal(h.calls(),0);
@@ -62,4 +70,34 @@ test('cancelling fresh authentication cannot fall back to a cached password',asy
  const h=harness();const first=h.auth.password();await h.submit('secret',10);await first;
  const fresh=h.auth.authorization('Sensitive action.',{forceFresh:true});h.node('#caretaker-auth-close').onclick();await assert.rejects(fresh,{name:'AbortError'});assert.equal(h.auth.isRemembered(),false);
  const regular=h.auth.password();assert.equal(h.node('#caretaker-auth-remember').disabled,false);assert.equal(h.node('.caretaker-auth-remember').hidden,false);h.node('dialog').close();await assert.rejects(regular);
+});
+
+test('Lock now clears every tab without sharing passwords between them',async()=>{
+ const hub={values:new Map(),tabs:[]},a=harness(new Map(),hub),b=harness(new Map(),hub);
+ const first=a.auth.password();await a.submit('secret-A',10);await first;assert.equal(b.auth.isRemembered(),false);
+ const second=b.auth.password();await b.submit('secret-B',10);await second;
+ a.auth.forget();assert.equal(a.auth.isRemembered(),false);assert.equal(b.auth.isRemembered(),false);
+ assert.equal(b.node('button').hidden,true);assert.equal(b.storage.size,0);
+ assert.ok([...hub.values.values()].every(value=>!value.includes('secret')));
+});
+
+test('one tab expiring does not cancel a different tab’s valid duration',async()=>{
+ const hub={values:new Map(),tabs:[]},a=harness(new Map(),hub),b=harness(new Map(),hub);
+ const first=a.auth.password();await a.submit('secret-A',1);await first;
+ const second=b.auth.password();await b.submit('secret-B',10);await second;
+ a.advance(60000);assert.equal(a.auth.isRemembered(),false);assert.equal(b.auth.isRemembered(),true);
+});
+
+test('a suspended tab catches up with a missed lock before reusing its password',async()=>{
+ const hub={values:new Map(),tabs:[]},a=harness(new Map(),hub),b=harness(new Map(),hub);
+ const pending=b.auth.password();await b.submit('secret',10);await pending;
+ b.pauseStorage();a.auth.forget();b.fire('focus');
+ assert.equal(b.auth.isRemembered(),false);assert.equal(b.node('button').hidden,true);
+});
+
+test('an in-flight password check cannot undo a lock from another tab',async()=>{
+ const hub={values:new Map(),tabs:[]},a=harness(new Map(),hub),b=harness(new Map(),hub);
+ const pending=b.auth.password();const checking=b.submit('secret',10);a.auth.forget();await checking;
+ assert.equal(b.auth.isRemembered(),false);assert.match(b.node('#caretaker-auth-error').textContent,/locked in another tab/);
+ b.node('#caretaker-auth-close').onclick();await assert.rejects(pending,{name:'AbortError'});
 });

@@ -22,3 +22,33 @@
  }
  image.onload=place;image.src=match[1];window.addEventListener('resize',place);
 })();
+
+// Render the product name with the lighthouse's original blue lettering.
+// Leave editable fields, code, filenames and the combined masthead artwork intact.
+(() => {
+ const css=document.createElement('style');
+ css.textContent='.ark-data-wordmark{display:inline-block;position:relative;vertical-align:-.07em;line-height:1;width:4.896em;height:.68em;overflow:hidden;white-space:nowrap}.ark-data-wordmark>img{position:absolute!important;display:block!important;max-width:none!important;width:109.27778%!important;height:319.6%!important;left:-5.55556%;top:-192%;object-fit:fill!important}.ark-data-wordmark-copy{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}';
+ document.head.append(css);
+ function replace(node){
+  if(!node.parentElement || node.parentElement.closest('script,style,title,textarea,input,select,option,code,pre,svg,[contenteditable],.ark-data-wordmark'))return;
+  const text=node.nodeValue;if(!/\bData Ark\b/i.test(text))return;
+  const fragment=document.createDocumentFragment();let start=0;
+  for(const match of text.matchAll(/\bData Ark\b/gi)){
+   fragment.append(document.createTextNode(text.slice(start,match.index)));
+   const mark=document.createElement('span');mark.className='ark-data-wordmark';mark.setAttribute('role','img');mark.setAttribute('aria-label','Data Ark');
+   const image=document.createElement('img');image.src='/assets/pharos-data-ark-clean.png';image.alt='';
+   const copy=document.createElement('span');copy.className='ark-data-wordmark-copy';copy.textContent='Data Ark';
+   mark.append(image,copy);fragment.append(mark);start=match.index+match[0].length;
+  }
+  fragment.append(document.createTextNode(text.slice(start)));node.replaceWith(fragment);
+ }
+ function scan(root){
+  if(root.nodeType===3){replace(root);return;}
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(replace);
+ }
+ scan(document.body);
+ new MutationObserver(records=>records.forEach(record=>{
+  if(record.type==='characterData')replace(record.target);
+  else record.addedNodes.forEach(scan);
+ })).observe(document.body,{childList:true,subtree:true,characterData:true});
+})();

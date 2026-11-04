@@ -44,7 +44,15 @@ Reinstatement needs upstream internet and is not a recovery guarantee if the pub
 
 ![Caretaker authorization is requested on demand. The optional switch remembers the password for the selected number of minutes in this browser tab.](../assets/screenshots/caretaker-password.jpg)
 
-Caretaker actions use an on-demand password prompt. Remembering is optional: choose 1–120 minutes (default 10). The fixed expiry does not extend with use. The cache survives navigation and reload in the same browser tab and Ark address using tab-scoped session storage; it is not shared across addresses or independent tabs. Expiry, a rejected credential, **Lock now**, or the floating red unlocked padlock clears it. The padlock shows remaining minutes; the inline indicator gives the same countdown. Without remembering, only that action is authorized. A rejected password explicitly says **Password not accepted**. The server verifies every protected request. Each removal still needs confirmation.
+Caretaker actions use an on-demand password prompt. **Unlock**, beside “Library management is locked,” opens that prompt with remembering selected. Remembering is optional: choose 1–120 minutes (default 10). The fixed expiry does not extend with use. The cache survives navigation and reload in the same browser tab and Ark address using tab-scoped session storage. Passwords are not shared between tabs or addresses.
+
+**Lock now**, including the floating red unlocked padlock, clears remembered access in all open tabs at the same Ark address in this browser. A suspended tab checks for a missed lock before reusing its cache. Other devices and different addresses for the same Ark are separate. Automatic expiry in one tab does not cancel another tab's independently chosen duration. The padlock shows remaining minutes. Without remembering, only that action is authorized. A rejected password explicitly says **Password not accepted**. The server verifies every protected request. Each removal still needs confirmation.
+
+## Review publisher changes and retain earlier editions
+
+The Source changes tab separates changed publications from failed publisher checks. **Review on the Ark…** prepares a supported candidate without replacing installed content. Inspect its comparison, then explicitly install it or keep the installed edition. Browser-dependent sources have their own capture action. See [Source availability checks](SourceChecks.md#resolve-a-publisher-change).
+
+Adding a new tax year creates a separate registered file. Find the earlier year in the landing card's expanded file list or search Installed in Manage Library and choose **Open installed file**. Readable documents offer local links; large archive files require their collection reader rather than an accidental full-archive download. Replacing a same-edition file retains a recovery copy, but that hidden rollback copy is not presented as a separately catalogued historical edition.
 
 ## Diagnostics
 

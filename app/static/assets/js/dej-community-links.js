@@ -2,7 +2,7 @@
 (()=>{
  function attach(){
   // A discreet novelty in Help/About, never a recurring promotion.
-  if(!/(?:^|\/)(?:help\/(?:index\.html)?|docs\/(?:index\.html|summary\.html)?|docs\/00-Introduction\/Welcome\.html|about\/handbook\/(?:index\.html)?)$/.test(location.pathname))return;
+  if(!/(?:^|\/)(?:help\/(?:index\.html)?|docs\/(?:index\.html|summary\.html)?)$/i.test(location.pathname))return;
   if(document.querySelector('[data-dej-community-links]'))return;
   const source=document.currentScript?.src||Array.from(document.scripts).find(s=>s.src.includes('dej-community-links.js'))?.src;
   if(!source)return;

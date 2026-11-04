@@ -22,58 +22,5 @@
     "scope": "Owner information and routine maintenance; not a factory workshop manual.",
     "applicability": "Confirm the model year, body style, trim, engine, transmission and fitted equipment before following procedures. The catalogue does not establish which variants apply to an individual vehicle."
   },
-  "documents": [
-    {
-      "id": "accord-2017-manual",
-      "title": "2017 Honda Accord Sedan — Owner’s Manual",
-      "url": "https://techinfo.honda.com/rjanisis/pubs/om/ah/at2a1717om/enu/at2a1717om.pdf",
-      "model": "Accord",
-      "year": 2017,
-      "make": "Honda",
-      "publisher": "Honda",
-      "document_kind": "Owner manual",
-      "rights_notice": "Honda copyright and original publisher notices retained.",
-      "bytes": 38403007,
-      "sha256": "27131e7c33d2b7a830d4685e79c3cd409b26a9d28e7728cff9fba29a50b09e79"
-    },
-    {
-      "id": "accord-2017-guide",
-      "title": "2017 Honda Accord Sedan — Quick Owner’s Guide",
-      "url": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/AT2A1717OG/enu/AT2A1717OG.pdf",
-      "model": "Accord",
-      "year": 2017,
-      "make": "Honda",
-      "publisher": "Honda",
-      "document_kind": "Quick owner guide",
-      "rights_notice": "Honda copyright and original publisher notices retained.",
-      "bytes": 26707760,
-      "sha256": "4c0b913cccb2cfc56e63b521f38d2e046b97b2fc6af85f88970fd6af11e7cd7c"
-    },
-    {
-      "id": "civic-2017-manual",
-      "title": "2017 Honda Civic Sedan — Owner’s Manual",
-      "url": "https://techinfo.honda.com/rjanisis/pubs/OM/AH/ATBA1717OM/enu/ATBA1717OM.pdf",
-      "model": "Civic",
-      "year": 2017,
-      "make": "Honda",
-      "publisher": "Honda",
-      "document_kind": "Owner manual",
-      "rights_notice": "Honda copyright and original publisher notices retained.",
-      "bytes": 38389872,
-      "sha256": "fe000335a5046b4f8cc2298329dedf223ea30f587789c039d0fe3617f8d6dafe"
-    },
-    {
-      "id": "civic-2017-guide",
-      "title": "2017 Honda Civic Sedan — Quick Owner’s Guide",
-      "url": "https://techinfo.honda.com/rjanisis/pubs/QS/AH/ATBA1717OG/enu/ATBA1717OG.PDF",
-      "model": "Civic",
-      "year": 2017,
-      "make": "Honda",
-      "publisher": "Honda",
-      "document_kind": "Quick owner guide",
-      "rights_notice": "Honda copyright and original publisher notices retained.",
-      "bytes": 25167273,
-      "sha256": "dc3534cb5238c93af62f1df08df70728fbc068cc56b977f832a9657b419a9929"
-    }
-  ]
+  "documents": []
 }

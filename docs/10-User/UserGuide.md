@@ -55,6 +55,8 @@ The seven status/control icons open details before changing anything. Help and D
 
 Open Settings, then System, choose the Library tab, then Manage Library. The page lists installed files, registered downloads, free space, and removed items. Removal uses a right-aligned trash can and a confirmation naming the collection and space freed. Supported removed archives offer Reinstate. See [Library management](../20-Administration/Library.md).
 
+Warnings for changed publications open Source changes. A caretaker can prepare a verified comparison on the Ark, then choose to install it or keep the installed edition. Preparation leaves the working copy available. New tax years are separate entries; earlier years remain in the card's expanded file list and the Installed search. Browser-only sources have a separate capture workflow.
+
 ![Manage Library is on the Library tab of the System pop-up. Counts and storage in this example are illustrative.](../assets/screenshots/system-library.jpg)
 
 ## Disconnect or move the drive

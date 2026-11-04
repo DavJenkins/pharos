@@ -17,3 +17,15 @@ On narrow displays the source heading keeps the title and Check now button toget
 ## Scheduled release-notice checks
 
 The separate weekly reference-check worker can use an asset’s optional `source_check_url` instead of its download URL. This is useful for a pinned software archive whose new releases are announced in a small publisher manifest, such as the Ark bootstrap kit. The normal download URL and expected SHA-256 still identify the actual package; the notice has its own change baseline. A change is reported for review and never installs a replacement. This scheduled check is distinct from the heading’s immediate reachability sweep described above.
+
+## Resolve a publisher change
+
+Open **Manage Library → Source changes**. Select **Review on the Ark…** for the affected item. Caretaker authorization starts preparation: the Ark obtains the configured candidate, verifies it and presents the comparison. The installed copy remains available throughout preparation.
+
+When preparation finishes, choose **Install verified candidate** or **Keep installed edition**. A dated publication can instead offer **Add [year] edition**; the earlier year remains a separate installed entry with its own local link. Keeping an edition acknowledges the exact inspected publisher version, not every future change. An unavailable publisher check remains an availability problem and cannot be cleared by pretending a download succeeded.
+
+Supported adapters cover configured regional maps, FCC callbook data, PDF publications and HTML snapshots. Browser-only sources lead to [Capture a public download](BrowserCapture.md). Read the candidate identity before approving it; a different publication must not be imported as an identical edition.
+
+Progress is retained if the dialog closes. Reopen the same review to see its latest state. Large maps can spend time planning, transferring and verifying; elapsed time and available transfer metrics distinguish these phases. Only one review worker runs at once. There is no FIFO waiting queue or browsable job-history screen.
+
+The private latest-job records are under `/var/lib/dataark/publisher-review/`. Configuration rollback copies stay in its private `configuration-backups` directory; retained old content is separate from those credentials-bearing configuration files. Do not delete staging or recovery checkpoints while a review transaction is active.

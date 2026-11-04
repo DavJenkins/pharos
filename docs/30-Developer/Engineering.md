@@ -52,6 +52,12 @@ Check intervals mean “look for a publisher change,” not “a new edition wil
 
 A failing source does not invalidate the saved copy. Human-captured files establish their own identity, edition and checksum baseline, so a successful import can resolve an acquisition gap without pretending future automatic updates are guaranteed.
 
+Publisher warnings lead to actions in Manage Library. A caretaker can prepare a candidate on the Ark, inspect its verified identity and comparison, then install it or keep the installed edition. Preparation does not replace the working copy. Requests name registered assets and a fixed decision; the privileged worker resolves publisher locations from configuration rather than accepting a caller-supplied URL or command.
+
+Adapters handle regional map extraction, the paired FCC source/database build, supported PDF publications and attributed HTML snapshots. Year-specific publications receive distinct catalogue entries and local links, so accepting a new tax year does not hide the previous one. Replacement transactions retain previous content and keep configuration recovery checkpoints in private system storage. A source or installed-file change invalidates an outstanding approval.
+
+The worker persists its latest job per asset and reports transfer, verification and elapsed progress. It serializes review work with content maintenance; this is not a waiting-job queue or a browsable job-history interface. On exFAT media, map extraction uses Linux-system-drive scratch space and a resumable source-range cache before verified publication to the library. Memory and runtime bounds protect the appliance while it prepares large archives.
+
 **Why it matters:** an offline archive needs honest provenance and freshness information, not a binary online/offline label.
 
 See [Source availability checks](../20-Administration/SourceChecks.md) and [Browser capture](../20-Administration/BrowserCapture.md).
@@ -172,6 +178,8 @@ See [Desktop ARM64 test Ark](../20-Administration/Emulator.md).
 
 The software updater separates public release discovery, caretaker authorization, root-owned signature verification and a fixed systemd worker. The release-signing key is independent of the caretaker password. A package is an explicit file inventory, not an executable installation script: platform, base revision, dependency lock, schema and local-file hashes must match before installation begins.
 
+Help's update page can download a published signed software package directly on the Ark and pass it to the same verifier used for an uploaded package. Downloading and verification are separate from the caretaker's installation confirmation. A bootstrap/recovery kit is not an in-place software update, and an unsuccessful release check is not evidence that the installed software is current.
+
 The worker snapshots affected software and build metadata, writes a durable transaction journal, and stops the API before replacing files. Health failure restores the prior files and identity. An interrupted transaction is restored before the API starts at boot, with health verification deferred until services are available. A transient root-owned runtime marker separates a legitimate update restart from boot recovery; it disappears on reboot. Schema, dependency, OS, network and privileged-helper changes are deliberately outside this first software-only package contract.
 
 **Why it matters:** an offline, already acquired update can use the same verification path as an online release, while the content drive, personalized configuration and credentials remain outside the update payload. Recovery is part of the transaction rather than an instruction to reinstall after a failure.
@@ -187,6 +195,8 @@ A normal import can trigger web publication, so a live-only correction is insuff
 The release audit runs the actual deployment script in a private mount namespace. Its source and web paths point to an isolated checkout and staging destination, with the real content mounted read-only. Assertions verify the expected interface contracts after deployment. Read-only HTTP checks exercise local landing-page destinations, actual Kiwix entry pages and representative reader resources. Anonymous mutation requests verify caretaker boundaries without performing destructive actions.
 
 The bootstrap kit carries a validation record tied to its exact source revision. The record distinguishes web deployment and reader checks from clean-OS installation and physical-media recovery tests. See the [validation report](../20-Administration/ReleaseAudit.md).
+
+Python regression runs measure both executed lines and branches across the application, tools and deployment code. Test dependencies are isolated from the appliance runtime. Network unit fixtures use temporary role settings rather than private live-host files; privileged subprocess integration tests run separately. Coverage is evidence about exercised code paths, not a substitute for physical-media, browser or interrupted-operation acceptance. Reproduction commands are in [Reliability acceptance tests](../20-Administration/AcceptanceTests.md).
 
 ## 18. Hardware attribution follows observed hardware
 

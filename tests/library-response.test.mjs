@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+const source=fs.readFileSync('app/static/assets/js/library.js','utf8');
+const context=vm.createContext({});
+vm.runInContext(source.slice(source.indexOf('async function libraryResponseData'),source.indexOf('async function request')),context);
+await assert.rejects(context.libraryResponseData({status:503,json:async()=>{throw new SyntaxError('Unexpected token <');}}),error=>error.status===503&&error.message.includes('temporarily unavailable')&&!error.message.includes('Unexpected token'));
+await assert.rejects(context.libraryResponseData({status:200,json:async()=>{throw new SyntaxError('Unexpected token <');}}),error=>error.message.includes('web page instead of status data'));
+assert.equal((await context.libraryResponseData({status:200,json:async()=>({state:'preparing'})})).state,'preparing');
+console.log('HTML proxy errors produce useful messages; a subsequent JSON response succeeds.');

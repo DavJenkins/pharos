@@ -52,7 +52,7 @@ def collect(status=None):
         manual_urls = {r['source_url'] for r in reviews['reviews']}
         blocked = sum(url in manual_urls and browser_reviews.known_block(v) for url,v in sources.items())
         errors = sum(v.get('status') == 'error' for v in entries) - blocked
-        changed = sum(bool(v.get('pending_change')) for v in entries)
+        changed = sum(bool(v.get('pending_change') or v.get('edition_discovery',{}).get('candidate')) for v in entries)
         reference = {'available':True, 'checked_sources':len(entries), 'errors':errors, 'changed':changed,
                      'blocked_automated_checks':blocked, 'browser_review':reviews}
         if errors: add('content.source_checks', 'warning', f'{errors} publisher checks need attention; saved content is retained')

@@ -6,7 +6,7 @@ import re,sys,json,hashlib
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from app.services.documentation_theme import online_notice
 BRAND_STYLESHEET='/assets/css/ark-brand.css?v='+hashlib.sha256((Path(__file__).resolve().parents[1]/'app/static/assets/css/ark-brand.css').read_bytes()).hexdigest()[:16]
-SCRIPT='<script src="/assets/js/background-sign-link.js?v=brand-links-2"></script>'
+SCRIPT='<script src="/assets/js/background-sign-link.js?v=blue-data-ark-8"></script>'
 class BrandLinks(HTMLParser):
  def __init__(self):super().__init__(convert_charrefs=False);self.out=[];self.skipped=[]
  def handle_starttag(self,tag,attrs):
@@ -25,13 +25,14 @@ class BrandLinks(HTMLParser):
 def brand_links(text):
  parser=BrandLinks();parser.feed(text);parser.close();return ''.join(parser.out)
 def application_brand(text):
+ text=text.replace('class="ark-home" href="/">Data Ark</a>','class="ark-home" href="/"><span class="ark-product-wordmark" role="img" aria-label="Pharos Data Ark"><span class="ark-pharos-part"><img src="/assets/pharos-data-ark-clean.png" alt=""></span><span class="ark-data-part"><img src="/assets/pharos-data-ark-clean.png" alt=""></span></span></a>')
  # Only plain navigation labels are changed; filenames and code retain their spelling.
  labels={'/': {'Library':'Dashboard','Home':'Dashboard','Data Ark library':'Dashboard','Return to the library':'Return to Dashboard','Open the offline library':'Open Dashboard'}, '/index.html': {'Library':'Dashboard','Home':'Dashboard'}, '/library.html': {'Manage library':'Manage Library'}}
  def navigation(match):
   before,href,label,after=match.groups()
   return before+href+'">'+labels.get(href,{}).get(label,label)+after
  text=re.sub(r'(<a\b[^>]*href=")([^"<>]+)">([^<>]+)(</a>)',navigation,text)
- masthead='<div class="ark-page-brand ark-shared-brand"><a class="ark-maker" href="https://www.dejsoftware.com/" title="DEJ Software website (internet required)"><img src="/assets/dej-software-footer.webp" alt="DEJ Software™" width="1024" height="192"></a><a class="ark-home" href="/">Data Ark</a></div>'
+ masthead='<div class="ark-page-brand ark-shared-brand"><a class="ark-maker" href="https://www.dejsoftware.com/" title="DEJ Software website (internet required)"><img src="/assets/dej-software-footer.webp" alt="DEJ Software™" width="1024" height="192"></a><a class="ark-home" href="/"><span class="ark-product-wordmark" role="img" aria-label="Pharos Data Ark"><span class="ark-pharos-part"><img src="/assets/pharos-data-ark-clean.png" alt=""></span><span class="ark-data-part"><img src="/assets/pharos-data-ark-clean.png" alt=""></span></span></a></div>'
  text=re.sub(r'<a class="ark-page-brand" href="/">Data Ark</a>',lambda m:masthead,text)
  # New first-party tools often start with navigation rather than the old brand
  # anchor. Give them the same masthead without changing their page title.
@@ -57,7 +58,7 @@ def inject(target):
  # with the HTML so partial deployments cannot create a hundred broken scripts.
  import shutil
  static=Path(__file__).resolve().parents[1]/'app/static'
- for relative in ['assets/js/dej-community-links.js','assets/dej-affiliations.webp','assets/css/ark-brand.css','assets/dej-software-footer.webp']:
+ for relative in ['assets/js/dej-community-links.js','assets/dej-affiliations.webp','assets/css/ark-brand.css','assets/dej-software-footer.webp','assets/pharos-data-ark-clean.png','assets/js/background-sign-link.js']:
   source=static/relative;destination=target/relative
   if source.resolve()!=destination.resolve():
    destination.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,destination);destination.chmod(0o644)

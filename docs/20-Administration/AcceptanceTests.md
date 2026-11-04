@@ -2,10 +2,28 @@
 
 ## Automated regression checks
 
-Run from `/opt/dataark`:
+### Measured Python coverage
+
+Use a separate Linux test environment so test tools do not change the running appliance's dependencies:
 
 ```bash
-venv/bin/python -m unittest discover -s tests -v
+python3 -m venv .venv-test
+.venv-test/bin/python -m pip install -r requirements.txt -r requirements-test.txt
+mkdir -p "$HOME/dataark-test-scratch"
+export TMPDIR="$HOME/dataark-test-scratch"
+umask 077
+.venv-test/bin/python -m coverage run -m pytest tests
+.venv-test/bin/python -m coverage report
+.venv-test/bin/python -m coverage html
+.venv-test/bin/python -m coverage json
+```
+
+The report covers Python in `app`, `tools` and `deploy`, including files that were never executed. Read the test result before interpreting a percentage: collection errors mean the suite did not run. Line execution and branch coverage do not prove safe behavior under interrupted downloads, missing drives or physical network changes. JavaScript logic tests and browser/device acceptance are separate checks; this Python percentage does not include them. The HTML report is written to `output/coverage/html/index.html`.
+
+Use Linux scratch storage with enough free space for the update reserve checks; the Pi's small memory-backed `/tmp` is unsuitable for that suite. Run the two privileged restoration subprocess cases separately. Their fixtures use temporary content and a fake downloader:
+
+```bash
+sudo env TMPDIR="$TMPDIR" .venv-test/bin/python -m pytest tests/test_recovery_queue.py::RealWorkerTests -v
 ```
 
 If Node.js is installed, run the browser-logic checks as well:
@@ -49,10 +67,10 @@ Record device/OS, date, expected result, actual result, and relevant status outp
 
 Retention limits, UPS behavior and application-specific database consistency need agreed policies and implementations before acceptance criteria can be finalized.
 
-## October 22 viewer and distribution audit
+## Reader and distribution acceptance
 
-Anonymous FTP was tested on loopback and from the desktop LAN: public listing, small-file retrieval and resume succeeded; uploads and entry into staging/private directories were rejected. Documentation and local map indexes returned HTTP 200. These checks do not establish client compatibility for every content format.
+Check representative articles and images through each installed Kiwix collection, not just the reader homepage. Check the local map viewer and a representative installed region. GIS ZIPs are downloadable datasets and require a compatible external application; a successful download does not establish browser viewing support.
 
-Kiwix catalogue and homepage were reachable, but collection-page requests timed out during the live audit while Gutenberg was downloading. Restarting the reader temporarily reset connections; its homepage returned afterward, while archive-page timeouts remained reproducible. A process was observed waiting on SSD reads. This does not establish a disk fault or prove the download caused it; reader performance and article/image access remain unresolved acceptance items. Do not treat a successful catalogue probe as proof of usable article access.
+For anonymous FTP, verify public listing, a small-file retrieval and resume, rejection of uploads, and denial of private/staging paths. Repeat from an actual client on the intended network. The Windows reader package needs a Windows execution check independent of its presence in the catalogue.
 
-The map audit found 59 topographic PDFs, one flood GIS ZIP, and 114 parcel GIS ZIPs. Collection indexes are linked from the landing page, but GIS ZIPs require external software. No integrated browser GIS viewer is currently provided. The Windows reader package is present; execution on Windows and compatibility with other operating systems are separate acceptance checks.
+Keep completed results tied to the source revision and tested media. See [Release audit](ReleaseAudit.md), [Paired recovery](PairedRecovery.md) and [Desktop ARM64 test Ark](Emulator.md) for the corresponding procedures and records. A historical fault log is not the current acceptance checklist.

@@ -279,7 +279,7 @@ function arkDefaultSystemTab(problems){
                 }
                 libraryPanel.append(summary);
                 const review=DataArkStatus.data?.status?.health?.source_checks?.browser_review;
-                if(review?.required){const p=document.createElement('p'),a=document.createElement('a');a.href='/capture.html';a.textContent='Scheduled browser reviews: '+review.required+' sources ('+(Number.isInteger(review.overdue)?review.overdue+' due':'status unavailable')+')';p.append(a);libraryPanel.append(p);}
+                if(review?.required){const p=document.createElement('p'),a=document.createElement('a');p.className='routine-browser-reviews';a.href='/capture.html';a.textContent='Routine browser-review schedule: '+review.required+' sources';p.append(a,document.createElement('br'),Number.isInteger(review.overdue)?(review.overdue===0?'None due. This is separate from the issues listed above.':review.overdue+' due for review.'):'Review status unavailable.');libraryPanel.append(p);}
                 systemPanel.append(systemActions);libraryPanel.append(libraryActions);
                 selectTab(Math.max(0,keys.indexOf(systemTab)));
                 document.getElementById("system-panel-"+systemTab).scrollTop=previousTab===systemTab?panelScroll:0;

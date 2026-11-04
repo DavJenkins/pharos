@@ -2,23 +2,37 @@
 (() => {
     "use strict";
     const key = "dataark.caretaker.session.v1";
+    const lockKey = "dataark.caretaker.lock.v1";
+    let observedLock = "", channel = null;
+    function lockVersion(){try{return localStorage.getItem(lockKey)||observedLock;}catch{return observedLock;}}
     let memory = null, pending = null, dialog, expiryTimer, indicator, indicatorTimer, floatingLock;
-    function forget() {
+    function forget({broadcast=true}={}) {
         memory = null; clearTimeout(expiryTimer);
         try { sessionStorage.removeItem(key); } catch (_) {}
+        if(broadcast){
+            observedLock=String(Date.now())+":"+Math.random().toString(36).slice(2);
+            try{localStorage.setItem(lockKey,observedLock);}catch{}
+            try{channel?.postMessage({kind:"lock",version:observedLock});}catch{}
+        }
         window.dispatchEvent(new Event("caretaker-auth-changed"));
     }
+    function receivedLock(version){observedLock=version||"";forget({broadcast:false});}
+    window.addEventListener("storage",event=>{if(event?.key===lockKey)receivedLock(event.newValue);});
+    try{if(typeof BroadcastChannel==="function"){channel=new BroadcastChannel("dataark.caretaker.lock");channel.onmessage=event=>{if(event.data?.kind==="lock")receivedLock(event.data.version);};}}catch{}
     function cached() {
+        let hadRecord=!!memory;
         try {
             const record = memory || JSON.parse(sessionStorage.getItem(key) || "null");
-            if (record && typeof record.password === "string" && Number.isFinite(record.until) && record.until > Date.now() && record.until <= Date.now()+120*60000) {
+            hadRecord=!!record;
+            if (record && (record.lockVersion||"")===lockVersion() && typeof record.password === "string" && Number.isFinite(record.until) && record.until > Date.now() && record.until <= Date.now()+120*60000) {
                 memory = record;
-                clearTimeout(expiryTimer); expiryTimer = setTimeout(forget, Math.max(1,record.until-Date.now()));
+                clearTimeout(expiryTimer); expiryTimer = setTimeout(()=>forget({broadcast:false}), Math.max(1,record.until-Date.now()));
                 return record;
             }
         } catch (_) {}
         memory = null;
         try { sessionStorage.removeItem(key); } catch (_) {}
+        if(hadRecord)window.dispatchEvent(new Event("caretaker-auth-changed"));
         return null;
     }
     function refreshIndicator() {
@@ -66,7 +80,7 @@
         document.body.append(dialog);
         return dialog;
     }
-    async function password(purpose = "Authorize this caretaker action.", {forceFresh = false} = {}) {
+    async function password(purpose = "Authorize this caretaker action.", {forceFresh = false, rememberByDefault = false} = {}) {
         if (forceFresh) forget();
         const saved = forceFresh ? null : cached();
         if (saved) return saved.password;
@@ -76,6 +90,7 @@
             return password(purpose, {forceFresh:true});
         }
         const popup = makeDialog(), form = popup.querySelector("form");
+        const lockAtStart=lockVersion();
         const input = popup.querySelector("#caretaker-auth-password");
         const remember = popup.querySelector("#caretaker-auth-remember");
         const minutes = popup.querySelector("#caretaker-auth-minutes");
@@ -83,6 +98,8 @@
         const submit = form.querySelector('[type="submit"]');
         popup.querySelector("#caretaker-auth-purpose").textContent = purpose;
         form.reset(); popup.querySelectorAll("button").forEach(button => button.disabled = false); input.value = ""; minutes.disabled = true; error.textContent = "";
+        remember.checked = !forceFresh && rememberByDefault;
+        minutes.disabled = !remember.checked;
         remember.disabled = forceFresh;
         popup.querySelector(".caretaker-auth-remember").hidden = forceFresh;
         popup.querySelector(".caretaker-auth-scope").textContent = forceFresh
@@ -103,16 +120,17 @@
                 try {
                     const response = await fetch("/api/library/unlock", {method:"POST", cache:"no-store", signal:controller.signal, headers:{Authorization:basic(candidate)}});
                     if (!response.ok) {
-                        if (response.status === 401) { forget(); throw new Error("Password not accepted. Try again."); }
+                        if (response.status === 401) { forget({broadcast:false}); throw new Error("Password not accepted. Try again."); }
                         throw new Error("The Ark could not verify the password. Please try again.");
                     }
                     if (!popup.open) return;
+                    if(lockVersion()!==lockAtStart)throw new Error("Caretaker access was locked in another tab. Close this prompt and authorize again.");
                     if (!forceFresh && remember.checked) {
                         const duration = Number(minutes.value);
                         if (!Number.isInteger(duration) || duration < 1 || duration > 120) throw new Error("Choose a whole number from 1 to 120 minutes.");
-                        memory = {password:candidate, until:Date.now()+duration*60000};
+                        memory = {password:candidate, until:Date.now()+duration*60000, lockVersion:lockVersion()};
                         try { sessionStorage.setItem(key, JSON.stringify(memory)); } catch (_) {}
-                        clearTimeout(expiryTimer); expiryTimer = setTimeout(forget, duration*60000);
+                        clearTimeout(expiryTimer); expiryTimer = setTimeout(()=>forget({broadcast:false}), duration*60000);
                         window.dispatchEvent(new Event("caretaker-auth-changed"));
                     }
                     accepted = true;

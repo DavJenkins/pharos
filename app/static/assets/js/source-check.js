@@ -8,7 +8,7 @@
     // Measure intrinsic text widths so wrapping follows the actual timestamp and available space.
     const context=document.createElement('canvas').getContext('2d');
     const measure=node=>{context.font=getComputedStyle(node).font;return context.measureText(node.textContent).width;};
-    heading.classList.toggle('source-heading-stacked',measure(title)+measure(summary)+32+32>heading.clientWidth);
+    heading.classList.toggle('source-heading-stacked',measure(title)+measure(summary)+32+32+(heading.querySelector('.installed-only-switch')?.getBoundingClientRect().width||0)+16>heading.clientWidth);
   }
   const resize=new ResizeObserver(layout);resize.observe(heading);resize.observe(summary);
   new MutationObserver(layout).observe(summary,{childList:true,subtree:true,characterData:true});

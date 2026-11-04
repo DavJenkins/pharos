@@ -59,6 +59,9 @@ def map_progress(state_path=None,log_path=None,active=None):
 def progress(path=None):
     worker=worker_progress(path)
     if path is not None:return worker
+    from app.services.publisher_review import active_progress
+    review=active_progress()
+    if review:return review
     current=map_progress()
     if not current:return worker
     if worker and worker.get('state') not in (None,'idle','waiting','error'):

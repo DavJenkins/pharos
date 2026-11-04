@@ -1,0 +1,17 @@
+[run]
+branch = True
+source =
+    app
+    tools
+    deploy
+data_file = output/coverage/.coverage
+
+[report]
+show_missing = True
+skip_empty = True
+
+[html]
+directory = output/coverage/html
+
+[json]
+output = output/coverage/coverage.json

@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import os
 from unittest.mock import patch
 import yaml
 from tools import recovery_queue as q
@@ -122,6 +123,7 @@ class SharedLockTests(unittest.TestCase):
     with patch.dict(os.environ,{'DATAARK_CONTENT_LOCK_FD':str(a.fileno())}):
      with self.assertRaises(ValueError):acquire(b)
 
+@unittest.skipUnless(os.geteuid() == 0, 'Privileged subprocess integration: run this class separately through sudo in its temporary fixture')
 class RealWorkerTests(QueueFixtures,unittest.TestCase):
  def test_subprocess_restores_and_verifies_fixture_without_network(self):
   import os

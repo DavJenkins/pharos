@@ -7,6 +7,27 @@ from app.services.library_events import emit
 
 router = APIRouter(prefix='/library', tags=['Library'])
 
+@router.get('/publisher-review/{asset_id}')
+def publisher_review_status(asset_id: str):
+    from app.services.publisher_review import status
+    try: return status(asset_id)
+    except (ValueError, OSError) as error: raise HTTPException(400, str(error)) from None
+
+@router.post('/publisher-review')
+async def publisher_review(request: Request):
+    await check_password(request)
+    if request.headers.get('content-type','').split(';')[0] != 'application/json': raise HTTPException(415, 'JSON required')
+    body=bytearray()
+    async for chunk in request.stream():
+        body.extend(chunk)
+        if len(body)>2048: raise HTTPException(413, 'Request too large')
+    try:
+        payload=json.loads(body)
+        if not isinstance(payload,dict) or set(payload)!={'asset_id','decision','job'}: raise ValueError('Invalid review request')
+        from app.services.publisher_review import invoke
+        return await run_in_threadpool(invoke,payload)
+    except (ValueError,OSError) as error: raise HTTPException(400,str(error)) from None
+
 @router.get('/changes')
 def changes():
     from app.services.collection_changes import snapshot

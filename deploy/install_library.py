@@ -11,7 +11,7 @@ def main():
     if os.geteuid()!=0:
         raise SystemExit('Run with root privileges after reviewing tools/library_helper.py.')
     source=Path(__file__).resolve().parents[1]/'tools/library_helper.py'
-    content=source.read_bytes()
+    content=source.read_bytes().replace(b'\r\n',b'\n')
     compile(content,str(source),'exec')
     rule=b'admin ALL=(root) NOPASSWD: /usr/local/libexec/dataark-library ""\n'
     import tempfile

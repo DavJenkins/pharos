@@ -37,8 +37,9 @@ user=dnsmasq
 '''
 # Keep detection hosts on normal DNS: Android can reject private-IP answers.
 DNS += 'address=/dataark/192.168.4.1\nlocal=/dataark/\n'
-if Path('/etc/dataark/https/local-dns.conf').is_file():
-    DNS += 'conf-file=/etc/dataark/https/local-dns.conf\n'
+def dns_configuration():
+    # Importing installer definitions must not inspect private host settings.
+    return DNS + ('conf-file=/etc/dataark/https/local-dns.conf\n' if Path('/etc/dataark/https/local-dns.conf').is_file() else '')
 NFT = MARKER + '''
 add table ip dataark_portal
 flush table ip dataark_portal
@@ -215,6 +216,8 @@ def main():
     args = parser.parse_args()
     if os.geteuid() != 0 or ROOT != Path('/opt/dataark'):
         raise SystemExit('Run sudo python3 deploy/install_portal.py from /opt/dataark on the Pi.')
+    dns=dns_configuration()
+    FILES[Path('/etc/dataark/portal-dns.conf')]=dns
     if args.rollback:
         backup = args.rollback.resolve()
         if backup.parent != Path('/var/backups/dataark-portal') or backup.stat().st_uid != 0:
@@ -252,7 +255,7 @@ def main():
     if any(m not in modules for m in ('proxy_module','proxy_http_module','alias_module')):
         raise SystemExit('The existing Apache reverse-proxy modules must be enabled.')
     with tempfile.NamedTemporaryFile(mode='w') as test:
-        test.write(DNS); test.flush()
+        test.write(dns); test.flush()
         run(['dnsmasq','--test','--conf-file='+test.name])
     run(['nft','-c','-f','-'], input=NFT)
     base = Path('/var/backups/dataark-portal')

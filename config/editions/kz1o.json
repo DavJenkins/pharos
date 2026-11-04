@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "title": "KZ1O Special Edition",
+  "dedication": "Exclusively prepared for KZ1O, so it never has to leave the Faraday cage. Custom populated for completely offline use.",
+  "required_assets": [
+    "callbook-callsigns-sqlite",
+    "callbook-fcc-amateur-source-zip",
+    "callbook-zcta-2025-zip"
+  ],
+  "required_support_files": [
+    "civic-reference/callsigns-source.json"
+  ],
+  "required_viewers": [
+    "/callsigns.html"
+  ],
+  "acceptance": [
+    "Copy verified source files from the original library; retain publisher attribution and source dates.",
+    "Verify callsign lookup, grid-square proximity, distance and bearing with upstream networking disabled.",
+    "Boot and read the populated library with all external content drives disconnected."
+  ],
+  "note": "Preparation specification for the personal card; not an instruction to include third-party content in standard distributions.",
+  "content_notice": "Pre-populated with the Ark’s collection except full English Wikipedia with images, Project Gutenberg, Khan Academy, and the nationwide U.S. street map. These four collections were excluded because of the microSD card’s size limitations.",
+  "installed_only_default": true
+}
