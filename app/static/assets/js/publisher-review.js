@@ -21,9 +21,9 @@ function renderPublisherReview(job){
  if(!metrics){metrics=document.createElement('dl');metrics.className='publisher-review-metrics';reviewEl('status').after(metrics);}
  metrics.replaceChildren();
  const t=job.state==='installing'?(job.install_telemetry||{}):(job.telemetry||{}),elapsed=publisherReviewElapsed(job);
- const percent=Number.isFinite(t.percent)&&t.percent>=0&&t.percent<=100?t.percent:null;
+ const percent=Number.isFinite(t.percent)&&t.percent>=0&&t.percent<=100?Math.round(t.percent):null;
  const processed=Number.isFinite(t.bytes_processed)?(t.total_bytes?(t.bytes_processed/1024**3).toFixed(2)+' of '+(t.total_bytes/1024**3).toFixed(2)+' GiB':(t.bytes_processed/1024**2).toFixed(1)+' MiB'):null;
- if(active){for(const [label,value] of [['Candidate edition',job.candidate_edition||job.edition?.edition],['Phase',t.phase||(job.state==='installing'?'Verifying and installing the candidate':null)],['Elapsed',Math.floor(elapsed/60)+' min '+(elapsed%60)+' sec'],[Number.isFinite(t.bytes_downloaded)?'Data downloaded':'Data processed',Number.isFinite(t.bytes_downloaded)?(t.bytes_downloaded/1024**2).toFixed(1)+' MiB':processed],['Progress',percent!==null?percent.toFixed(1)+'% of this phase':null]]){if(!value)continue;const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;metrics.append(dt,dd);}}
+ if(active){for(const [label,value] of [['Candidate edition',job.candidate_edition||job.edition?.edition],['Phase',t.phase||(job.state==='installing'?'Verifying and installing the candidate':null)],['Elapsed',Math.floor(elapsed/60)+' min '+(elapsed%60)+' sec'],[Number.isFinite(t.bytes_downloaded)?'Data downloaded':'Data processed',Number.isFinite(t.bytes_downloaded)?(t.bytes_downloaded/1024**2).toFixed(1)+' MiB':processed],['Progress',percent!==null?percent+'% of this phase':null]]){if(!value)continue;const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;metrics.append(dt,dd);}}
  metrics.hidden=!metrics.children.length;
  let bar=publisherDialog.querySelector('.publisher-review-progress');
  if(!bar){bar=document.createElement('progress');bar.className='publisher-review-progress';bar.max=100;bar.setAttribute('aria-label','Current installation phase progress');metrics.after(bar);}
