@@ -111,4 +111,13 @@ class TransactionTests(unittest.TestCase):
         publish.assert_called_once_with(BUILTIN,None,True)
         nm.assert_called_with('connection','up','id','DataArk','ifname','wlan0')
 
+
+class BootFailureTests(unittest.TestCase):
+    def test_failed_boot_is_not_reported_as_systemd_success(self):
+        import io
+        with tempfile.TemporaryDirectory() as temp,patch.object(roles,'BASE',Path(temp)),patch.object(roles.os,'geteuid',return_value=0),patch.object(roles.sys,'argv',['helper','--boot']),patch.object(roles,'boot',side_effect=ValueError('Hotspot profile missing')),patch('sys.stdout',new_callable=io.StringIO) as output,patch.object(roles.logging,'exception'):
+            with self.assertRaises(SystemExit) as raised:roles.main()
+            self.assertEqual(raised.exception.code,1)
+            self.assertFalse(json.loads(output.getvalue())['ok'])
+
 if __name__=='__main__':unittest.main()

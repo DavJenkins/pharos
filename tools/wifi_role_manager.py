@@ -265,6 +265,8 @@ def main():
             logging.exception('Wi-Fi adapter operation failed')
             result={'ok':False,'error':str(error) if isinstance(error,ValueError) else 'Adapter operation failed; inspect the local system log.'}
         print(json.dumps(result))
+        if not result.get('ok') and sys.argv[1:]==['--boot']:
+            raise SystemExit(1)
 
 if __name__=='__main__':
     main()
