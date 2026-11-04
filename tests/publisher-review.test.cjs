@@ -1,7 +1,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 function harness(){
  const nodes=new Map();
- function node(){return {hidden:false,textContent:'',children:[],className:'',after(){},replaceChildren(){this.children=[];},append(...items){this.children.push(...items);},querySelector(){return this;}};}
+ function node(){return {hidden:false,textContent:'',children:[],className:'',after(){},setAttribute(){},replaceChildren(){this.children=[];},append(...items){this.children.push(...items);},querySelector(){return this;}};}
  const dialog=node();dialog.open=true;dialog.addEventListener=()=>{};dialog.showModal=()=>{dialog.open=true;};
  dialog.querySelector=s=>{if(!nodes.has(s))nodes.set(s,node());return nodes.get(s);};
  dialog.querySelectorAll=()=>[];
