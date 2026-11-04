@@ -69,6 +69,34 @@ function arkCardIssues(items,ids){
  }
  return Object.fromEntries(Object.entries(groups).map(([kind,values])=>[kind,Array.from(values.values())]));
 }
+function arkCardProgress(progress,ids,items=[]){
+ if(!progress||!['downloading','verifying','activating','publishing','recovering'].includes(progress.state))return null;
+ const id=progress.asset_id||items.find(item=>item.title===progress.asset)?.id;
+ if(!id||!ids.includes(id)||typeof progress.percent!=='number'||!Number.isFinite(progress.percent)||progress.percent<0||progress.percent>100)return null;
+ return {id,percent:Math.round(progress.percent),phase:progress.phase||progress.label||'Updating content'};
+}
+(() => {
+ function render(){
+  const inventory=window.ArkLibraryDiagnostics;
+  const progress=typeof DataArkStatus!=='undefined'?DataArkStatus.data?.status?.update:inventory?.progress;
+  for(const card of document.querySelectorAll('.manifest-card[data-repository-id]')){
+   const ids=Array.from(card.querySelectorAll('[data-source-asset]'),node=>node.dataset.sourceAsset);
+   const current=arkCardProgress(progress,ids,inventory?.installed||[]);
+   let badge=card.querySelector('.manifest-card-progress');
+   card.classList.toggle('has-card-progress',!!current);
+   if(!current){badge?.remove();continue;}
+   if(!badge){badge=document.createElement('a');badge.className='manifest-card-progress';badge.append(document.createElement('span'));card.append(badge);}
+   badge.href='/library.html?review=changes&assets='+encodeURIComponent(current.id)+'#library-source-changes';
+   badge.style.setProperty('--progress-angle',(current.percent*3.6)+'deg');
+   badge.querySelector('span').textContent=current.percent+'%';
+   badge.title=current.phase+' — '+current.percent+'% of this phase. Open library progress.';
+   badge.setAttribute('aria-label',badge.title);
+  }
+ }
+ window.addEventListener('dataark:dashboard-refreshed',render);
+ window.addEventListener('dataark:library-diagnostics',render);
+ render();
+})();
 (() => {
  function render(){
   const inventory=window.ArkLibraryDiagnostics;if(!inventory||inventory.unavailable)return;

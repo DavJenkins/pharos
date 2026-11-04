@@ -59,6 +59,10 @@ def active_progress():
             edition=current.get('candidate_edition') or (current.get('edition') or {}).get('edition')
             title=current['title']
             if edition:title=('U.S. street map' if current['asset_id']=='osm-massachusetts' else title)+' — candidate edition '+edition
-            return {'state':state,'asset':title, 'label':{'waiting':'Publisher review','downloading':'Preparing publisher candidate','activating':'Applying publisher review','error':'Publisher review needs attention'}[state]+': '+title, 'detail':current.get('message','')}
+            telemetry=current.get('install_telemetry') if current.get('state')=='installing' else current.get('telemetry')
+            telemetry=telemetry or {}
+            return {'state':state,'asset':title,'asset_id':current['asset_id'],'job':current['job'],
+                    'percent':telemetry.get('percent'),'phase':telemetry.get('phase'),
+                    'label':{'waiting':'Publisher review','downloading':'Preparing publisher candidate','activating':'Applying publisher review','error':'Publisher review needs attention'}[state]+': '+title, 'detail':current.get('message','')}
     except (OSError,ValueError,KeyError,TypeError):return None
     return None

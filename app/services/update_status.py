@@ -52,7 +52,7 @@ def map_progress(state_path=None,log_path=None,active=None):
             stream.seek(0,2);size=stream.tell();stream.seek(max(0,size-8192));tail=stream.read().decode(errors='replace')
         values=re.findall(r'fetching chunks\s+(\d+)%',tail)
         if values:percent=int(values[-1])
-        return {'state':'downloading','asset':'U.S. offline map','percent':percent,'label':('Downloading '+str(percent)+'%: U.S. offline map') if percent else 'Preparing U.S. offline map','detail':'Staging all 50 states. The existing map remains available.'}
+        return {'state':'downloading','asset':'U.S. offline map','asset_id':'osm-massachusetts','percent':percent,'label':('Downloading '+str(percent)+'%: U.S. offline map') if percent else 'Preparing U.S. offline map','detail':'Staging all 50 states. The existing map remains available.'}
     except FileNotFoundError:return None
     except (OSError,ValueError,TypeError,AttributeError):return None
 

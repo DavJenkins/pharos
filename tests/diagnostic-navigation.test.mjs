@@ -21,6 +21,14 @@ test('only affected cards are flagged; shared source URLs count once',()=>{
  assert.equal(context.arkCardIssues(items,['four']).changes.length,0);
  assert.equal(context.arkCardIssues(items,[]).failures.length,0);
 });
+test('progress pies belong only to the active asset and use whole percentages',()=>{
+ const progress={state:'activating',asset_id:'map',percent:42.876,phase:'Backing up installed map'};
+ assert.equal(context.arkCardProgress(progress,['map']).percent,43);
+ assert.equal(context.arkCardProgress(progress,['other']),null);
+ assert.equal(context.arkCardProgress({...progress,state:'waiting'},['map']),null);
+ assert.equal(context.arkCardProgress({...progress,percent:null},['map']),null);
+ assert.equal(context.arkCardProgress({state:'downloading',asset:'Book',percent:17.4},['book'],[{id:'book',title:'Book'}]).percent,17);
+});
 test('installed-only control is hidden when filtering cannot hide any card',()=>{
  function run(installed){
   const wrapper={},cards=installed.map(value=>({dataset:{installed:String(value)}})),section={querySelectorAll:()=>cards,append(){}};

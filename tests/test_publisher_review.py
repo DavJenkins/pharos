@@ -85,6 +85,17 @@ class PublisherReviewTests(unittest.TestCase):
             sidecar.write_text(json.dumps({'job':job,'observed_at':time.time()-60,'telemetry':{'percent':100}}))
             self.assertNotIn('install_telemetry',public.status('schedule'))
 
+    def test_dashboard_progress_preserves_asset_identity_and_measured_percentage(self):
+        from app.services import publisher_review as public
+        folder=self.root/'dashboard-progress';folder.mkdir()
+        (folder/'map.json').write_text(json.dumps({'asset_id':'map','updated_at':1}))
+        current={'asset_id':'map','job':'f'*32,'state':'installing','title':'Map','install_telemetry':{'percent':42.5,'phase':'Backing up map'}}
+        with patch.object(public,'STATE',folder),patch.object(public,'status',return_value=current):
+            result=public.active_progress()
+        self.assertEqual(result['asset_id'],'map')
+        self.assertEqual(result['percent'],42.5)
+        self.assertEqual(result['phase'],'Backing up map')
+
     def test_tampered_staging_file_is_not_installed(self):
         (self.stage/'candidate.pdf').write_bytes(b'wrong')
         with self.assertRaisesRegex(ValueError,'verification'):self.apply()
