@@ -14,6 +14,7 @@ test('the first annotated tab opens rather than an unrelated healthy tab',()=>{
 });
 const links=fs.readFileSync('app/static/assets/js/manifest-links.js','utf8');
 vm.runInContext(links.slice(links.indexOf('function arkCardIssues'),links.indexOf('(() => {',links.indexOf('function arkCardIssues'))),context);
+vm.runInContext(fs.readFileSync('app/static/assets/js/content-progress.js','utf8'),context);
 test('only affected cards are flagged; shared source URLs count once',()=>{
  const items=[{id:'one',update:{pending_change:true,source_url:'shared'}},{id:'two',update:{pending_change:true,source_url:'shared'}},{id:'three',update:{result:'error',source_url:'failed'}},{id:'four',update:{result:'unchanged'}},{id:'five',update:{result:'browser_review_due'}}];
  const issues=context.arkCardIssues(items,['one','two','three','four','five']);
@@ -39,6 +40,13 @@ test('compound progress keeps step count separate from step percentage',()=>{
  assert.equal((segments.match(/#d9b74e/g)||[]).length,2);
  assert.equal((segments.match(/#168fd0/g)||[]).length,1);
  assert.equal((segments.match(/#c8d2da/g)||[]).length,2);
+});
+test('both pages load the shared progress component before its consumers',()=>{
+ for(const [file,consumer] of [['app/templates/index.html','assets/js/manifest-links.js'],['app/static/library.html','/assets/js/library.js']]){
+  const html=fs.readFileSync(file,'utf8');
+  assert.ok(html.includes('/assets/css/content-progress.css'));
+  assert.ok(html.indexOf('/assets/js/content-progress.js')<html.indexOf(consumer));
+ }
 });
 test('installed-only control is hidden when filtering cannot hide any card',()=>{
  function run(installed){

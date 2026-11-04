@@ -33,7 +33,7 @@ reviewEl('close').onclick=()=>publisherDialog.close();
 publisherDialog.addEventListener('close',()=>refresh());
 function renderPublisherReview(job){
  publisherReviewJob=job;
- const active=['queued','preparing','installing'].includes(job.state),ready=job.state==='ready';
+ const loading=job.state==='loading',active=loading||['queued','preparing','installing'].includes(job.state),ready=job.state==='ready';
  reviewEl('status').textContent=job.message||'Prepare a candidate on the Ark. Downloaded files are verified before you choose what to install. Existing copies remain available.';
  reviewEl('status').className='operation-state state-'+(job.state==='failed'?'error':['installed','kept'].includes(job.state)?'success':active?'working':'confirm');
  reviewEl('summary').textContent=job.summary||'';
@@ -44,7 +44,7 @@ function renderPublisherReview(job){
  const percent=Number.isFinite(t.percent)&&t.percent>=0&&t.percent<=100?Math.round(t.percent):null;
  const eta=active?publisherReviewETA(job,t):null;
  const processed=Number.isFinite(t.bytes_processed)?(t.total_bytes?(t.bytes_processed/1024**3).toFixed(2)+' of '+(t.total_bytes/1024**3).toFixed(2)+' GiB':(t.bytes_processed/1024**2).toFixed(1)+' MiB'):null;
- if(active){for(const [label,value] of [['Candidate edition',job.candidate_edition||job.edition?.edition],['Phase',t.phase||(job.state==='installing'?'Verifying and installing the candidate':null)],['Elapsed',Math.floor(elapsed/60)+' min '+(elapsed%60)+' sec'],[Number.isFinite(t.bytes_downloaded)?'Data downloaded':'Data processed',Number.isFinite(t.bytes_downloaded)?(t.bytes_downloaded/1024**2).toFixed(1)+' MiB':processed],['Progress',percent!==null?percent+'% of this phase':null],['Estimated remaining (this phase)',eta]]){if(!value)continue;const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;metrics.append(dt,dd);}}
+ if(active&&!loading){for(const [label,value] of [['Candidate edition',job.candidate_edition||job.edition?.edition],['Phase',t.phase||(job.state==='installing'?'Verifying and installing the candidate':null)],['Elapsed',Math.floor(elapsed/60)+' min '+(elapsed%60)+' sec'],[Number.isFinite(t.bytes_downloaded)?'Data downloaded':'Data processed',Number.isFinite(t.bytes_downloaded)?(t.bytes_downloaded/1024**2).toFixed(1)+' MiB':processed],['Progress',percent!==null?percent+'% of this phase':null],['Estimated remaining (this phase)',eta]]){if(!value)continue;const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;metrics.append(dt,dd);}}
  metrics.hidden=!metrics.children.length;
  let bar=publisherDialog.querySelector('.publisher-review-progress');
  if(!bar){bar=document.createElement('progress');bar.className='publisher-review-progress';bar.max=100;bar.setAttribute('aria-label','Current installation phase progress');metrics.after(bar);}
@@ -56,7 +56,7 @@ function renderPublisherReview(job){
  reviewEl('comparison').querySelector('pre').textContent=job.identical?'No text differences found.':(job.diff||'')+(job.diff_truncated?'\n[Comparison shortened for display]':'');
  for(const b of publisherDialog.querySelectorAll('.publisher-review-actions button'))b.disabled=publisherReviewBusy;
 }
-async function openPublisherReview(item){publisherReviewItem=item;publisherReviewJob=null;publisherReviewActionError=false;reviewEl('title').textContent=item.title;reviewEl('error').hidden=true;renderPublisherReview({state:'idle'});publisherDialog.showModal();await pollPublisherReview();}
+async function openPublisherReview(item){publisherReviewItem=item;publisherReviewJob=null;publisherReviewActionError=false;reviewEl('title').textContent=item.title;reviewEl('error').hidden=true;renderPublisherReview({state:'loading',message:'Loading current progress…'});publisherDialog.showModal();await pollPublisherReview();}
 async function pollPublisherReview(){if(!publisherDialog.open||!publisherReviewItem||publisherReviewBusy)return;try{const job=await request('/api/library/publisher-review/'+encodeURIComponent(publisherReviewItem.id));if(publisherDialog.open){renderPublisherReview(job);if(!publisherReviewActionError){reviewEl('error').hidden=true;reviewEl('error').textContent='';}}}catch(error){if(!publisherReviewActionError){reviewEl('error').hidden=false;reviewEl('error').textContent=error.message;}}}
 async function decidePublisherReview(decision){
  if(publisherReviewBusy||!publisherReviewItem)return;
