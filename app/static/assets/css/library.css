@@ -42,5 +42,3 @@ body.library-page{max-width:none;margin:0;padding:clamp(.5rem,3vw,2rem);color:#2
 .publisher-review-progress{width:100%;height:.8rem;accent-color:#ad9149;margin:.2rem 0 .7rem}
 .publisher-review-row.has-card-progress{position:relative;padding-right:116px;min-height:110px}.publisher-review-row .manifest-card-progress{top:.75rem;right:.75rem}
 .publisher-review-dialog pre{color:#203e54}.publisher-review-dialog pre code{color:inherit;background:transparent}
-
-.source-settings-dialog{padding:24px;background:#f7f4e9;color:#243a4b;border:1px solid #ad913c;border-radius:12px}.source-settings-dialog label{display:block;margin:16px 0}.source-settings-dialog input,.source-settings-dialog select{display:block;width:100%;margin-top:6px;min-height:44px;font:inherit}.source-settings-dialog .status-dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}

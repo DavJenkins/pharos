@@ -1,8 +1,8 @@
 /* Every action is caretaker-authorized; reading progress and comparisons is public. */
 let publisherReviewItem=null,publisherReviewJob=null,publisherReviewBusy=false,publisherReviewActionError=false;
 const publisherDialog=document.createElement('dialog');
-publisherDialog.className='publisher-review-dialog';
-publisherDialog.innerHTML='<h2>Review publisher change</h2><h3 data-review-title></h3><p data-review-status role="status" aria-live="polite"></p><p data-review-summary></p><details data-review-comparison hidden><summary>Text comparison: installed → publisher candidate</summary><pre></pre></details><p data-review-error role="alert" hidden></p><div class="publisher-review-actions"><button type="button" data-review-prepare>Prepare verified comparison</button><button type="button" data-review-install hidden>Install verified candidate</button><button type="button" data-review-keep hidden>Keep installed edition</button></div><footer><button type="button" data-review-close>Close</button></footer>';
+publisherDialog.className='publisher-review-dialog ark-dialog-layout';
+publisherDialog.innerHTML='<header class="ark-dialog-header"><h2>Review publisher change</h2><h3 class="ark-dialog-subtitle" data-review-title></h3></header><div class="ark-dialog-body"><p data-review-status role="status" aria-live="polite"></p><p data-review-summary></p><details data-review-comparison hidden><summary>Text comparison: installed → publisher candidate</summary><pre></pre></details><p data-review-error role="alert" hidden></p><div class="publisher-review-actions"><button type="button" data-review-prepare>Prepare verified comparison</button><button type="button" data-review-install hidden>Install verified candidate</button><button type="button" data-review-keep hidden>Keep installed edition</button></div></div><footer class="ark-dialog-footer"><button type="button" data-review-close>Close</button></footer>';
 document.body.append(publisherDialog);
 const reviewEl=s=>publisherDialog.querySelector('[data-review-'+s+']');
 function publisherReviewElapsed(job,now=Date.now()/1000){
