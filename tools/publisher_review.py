@@ -397,7 +397,7 @@ def apply(value, manifest, asset, mount, installed, source, record, stage):
         replacements = []
         try:
             value['transaction'] = {'mount': str(mount), 'files': []}
-            install_phase(value,'Retaining the previous edition')
+            install_phase(value,'Backing up the installed edition')
             for f in value['files']:
                 dest = inside(mount, f['relative_path'])
                 if dest.is_file(): shutil.copyfile(dest, backup / f['file'])
