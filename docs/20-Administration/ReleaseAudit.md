@@ -22,6 +22,12 @@ Public/private library configuration, reference settings and saved NetworkManage
 
 The additional copy-first interface change is covered by six browser-logic tests: default copying from a mounted library, disabling copying when missing, retaining an explicit opt-out, never copying over an adopted populated drive, invalidating a plan after source disconnection, and refusing to continue when source status is unknown. The underlying verified-copy backend was unchanged.
 
+## Recipient presentation preservation
+
+Final first-owner-page review found that an approved masthead customization existed on the retained card but not in its authoring template. Its approved header was recovered from the verified pre-upgrade image and incorporated into source; current setup wording and password behavior were retained. Plaintext masthead placeholders in the shared pages were replaced with the existing approved product artwork. No lettering pixels or crop geometry were changed.
+
+The setup form and both external-storage pages passed isolated real-browser checks at 390px and 1280px: no horizontal overflow or script errors. The password-eye control hid and restored its repeat field. All mutation requests were blocked in this visual test. The desktop/mobile setup preview used a simulated pending-setup response, not another actual enrollment.
+
 ## Preview deployment audit — October 30, 2026
 
 The refreshed preview is built from source revision `8dd8b4abb6b0cabe3fec2878d5a5d2cc7876e26a` on `feature/readme-foundation`. The normal web deployment script completed inside a private mount namespace, with its output redirected to a staging web root and the library mounted read-only. The live site was not replaced by this test.
