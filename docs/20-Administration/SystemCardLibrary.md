@@ -17,7 +17,11 @@ The grow operation verifies image ownership and the mounted loop device, allocat
 
 ## Add an external drive
 
-From **Manage Library → Library storage and recovery**, choose the system-card migration link to open **Use an external library drive**. Connect an empty, formatted USB drive, choose **Find drives**, select it, and choose **Preview transfer**. These operations use the on-demand caretaker prompt and its optional password cache.
+From **Manage Library → Add or change a content drive**, choose the system-card migration link to open **Use an external library drive**. Connect an empty, formatted USB drive, choose **Find drives**, select it, and choose **Preview transfer**. These operations use the on-demand caretaker prompt and its optional password cache.
+
+The transfer copies existing installed content rather than downloading it again. A saved older edition is copied too; being due for a publisher check does not make it unusable. After the switch, normal publisher checks can offer newer editions, and missing selections can be restored separately. The transfer itself needs no internet connection.
+
+For an empty drive in the general **Library storage** workflow, **Copy and verify the existing library before switching** is selected by default when the source library is mounted. It is disabled when the source is missing. Adopting an already populated drive is a separate choice and never overwrites that drive with a copy.
 
 The preview names the drive and shows the complete file count, transfer size and free space. The destination must fit the entire library plus 1 GiB; nothing is formatted or erased, and partial collections are never silently omitted. A nonempty drive is refused unless it contains this transfer tool's own resumable preparation marker. Adopting an unrelated populated Ark drive requires a separate public-configuration review; it is not an automatic merge.
 

@@ -12,6 +12,16 @@ The API, engineering handbook and Kiwix homepage responded successfully. The ins
 
 This record distinguishes the verifier transition, original upload path, live automatic rollback and successful bridge installation. Browser automation was unavailable; the authenticated HTTP endpoints used by the page were exercised directly. Subsequent on-Ark acquisition and reboot acceptance are separate checks. No merge was performed.
 
+## On-Ark follow-up and offline acceptance — November 6, 2026
+
+After the bridge, the Pi discovered `software-2026.11.06-preview.3`, downloaded its 1,400,704-byte archive directly from GitHub, verified it and installed all 641 inventoried files through the caretaker-authenticated online API. Its receipt advanced to source `50b454f3a8dae237845a28562d7aa57df5e27fb2`, sequence 2, with no managed-file drift. A physical reboot retained the release, mounted system-card library and active hotspot, with no failed systemd units.
+
+A Windows client joined the real DataArk hotspot. Local dashboard and API access passed; Windows and Android HTTP detection probes both redirected to the Ark landing page. The protected network API refused disabling the hotspot carrying that client's session. Ethernet was then temporarily disabled through the API, with upstream Wi-Fi disconnected. The offline dashboard, an installed Unix Stack Exchange archive page, a local PDF and the callsign search all worked. Software discovery correctly reported unavailable while offline. Ethernet was restored through the same API without changing saved profiles.
+
+Public/private library configuration, reference settings and saved NetworkManager profiles matched the starting inventory. The caretaker record changed only through the explicitly authorized test enrollment. Community messages and metadata matched logical digests recovered from the verified pre-upgrade image; SQLite integrity passed. Its WAL/shared-memory files changed normally during service use. Update lifecycle records included verification/pending, successful installation and the earlier rollback in the local HA-compatible durable feed. The recipient has no configured outbound Home Assistant ownership credentials.
+
+The additional copy-first interface change is covered by six browser-logic tests: default copying from a mounted library, disabling copying when missing, retaining an explicit opt-out, never copying over an adopted populated drive, invalidating a plan after source disconnection, and refusing to continue when source status is unknown. The underlying verified-copy backend was unchanged.
+
 ## Preview deployment audit — October 30, 2026
 
 The refreshed preview is built from source revision `8dd8b4abb6b0cabe3fec2878d5a5d2cc7876e26a` on `feature/readme-foundation`. The normal web deployment script completed inside a private mount namespace, with its output redirected to a staging web root and the library mounted read-only. The live site was not replaced by this test.
