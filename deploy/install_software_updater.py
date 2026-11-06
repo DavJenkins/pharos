@@ -93,6 +93,7 @@ def main():
     updater=Updater();updater.state.chmod(0o700);os.chown(updater.state,0,0)
     updater.trust.mkdir(parents=True,exist_ok=True);updater.trust.chmod(0o755);os.chown(updater.trust,0,0)
     inbox=Path('/var/lib/dataark/software-inbox');inbox.mkdir(parents=True,exist_ok=True);inbox.chmod(0o700);os.chown(inbox,account.pw_uid,account.pw_gid)
+    for name,content in UNITS.items():atomic(Path('/etc/systemd/system')/name,content.encode(),0o644)
     # Enroll exactly the deployed, generated files. Later edits must be reviewed.
     if not (updater.state/'installed.json').exists():
         build=json.loads(Path('/opt/dataark/app/static/assets/build-info.json').read_text())
@@ -106,7 +107,6 @@ def main():
     if public.is_file():
         subprocess.run(['openssl','pkey','-pubin','-in',str(public),'-noout'],check=True,capture_output=True)
         atomic(updater.trust/'dej-release.pem',public.read_bytes(),0o644)
-    for name,content in UNITS.items():atomic(Path('/etc/systemd/system')/name,content.encode(),0o644)
     dropin=Path('/etc/systemd/system/dataark.service.d/software-recovery.conf')
     atomic(dropin,b'[Unit]\nRequires=dataark-software-boot-recover.service\nAfter=dataark-software-boot-recover.service\n',0o644)
     rule=b'admin ALL=(root) NOPASSWD: /usr/local/libexec/dataark-software-update ""\n'

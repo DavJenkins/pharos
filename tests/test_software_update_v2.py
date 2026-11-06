@@ -57,3 +57,20 @@ class ExtendedSoftwareTransactions(base.SoftwareTransactions):
         self.assertEqual(self.updater.apply(self.stage())['state'],'rolled_back')
         for target in self.updater.publication_files():self.assertEqual(target.read_bytes(),b'recipient-specific page')
         self.assertEqual(template.read_bytes(),b'old template')
+
+    def test_initial_enrollment_covers_tools_helpers_units_and_public_pages(self):
+        from tools.software_update import Updater
+        root=self.root/'fresh';u=Updater(root,base.Runtime())
+        for name in ['source/tools/example.py','source/app/templates/index.html','source/app/static/library.html','web/library.html','helpers/dataark-library','systemd/dataark-wifi-roles.service']:
+            target=u.destination(name);target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(b'initial software')
+        u.enroll('c'*40,'test-lan')
+        self.assertEqual(len(u.receipt()['files']),6)
+        with self.assertRaisesRegex(ValueError,'Already enrolled'):u.enroll('d'*40,'test-lan')
+
+    def test_format_one_cannot_acquire_extended_privileged_scope(self):
+        import json,subprocess
+        target,review=self.helper_payload();self.build(reviewed_local_files=review)
+        folder=self.updater.stage_path(self.stage());manifest=folder/'manifest.json'
+        value=json.loads(manifest.read_text());value['schema']=1;value.pop('reviewed_local_files');manifest.write_text(json.dumps(value))
+        subprocess.run(['/usr/bin/openssl','pkeyutl','-sign','-inkey',str(self.key),'-rawin','-in',str(manifest),'-out',str(folder/'manifest.sig')],check=True,capture_output=True)
+        with self.assertRaisesRegex(ValueError,'requires schema 2|require schema 2'):self.updater.validate(folder)

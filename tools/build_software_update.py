@@ -10,7 +10,7 @@ import sys
 import tarfile
 import tempfile
 sys.path.insert(0,str(Path(__file__).resolve().parent))
-from software_update import allowed,digest,MAX_BYTES,REV,ID
+from software_update import allowed,digest,MAX_BYTES,REV,ID,requires_v2
 
 
 def build(payload,baseline,requirements,signing_key,output,release,revision,removals=(),reviewed_local_files=None):
@@ -27,7 +27,7 @@ def build(payload,baseline,requirements,signing_key,output,release,revision,remo
     manifest={'schema':1,'release':release,'sequence':baseline['sequence']+1,'source_revision':revision,
         'base_revision':baseline['revision'],'profiles':[baseline['profile']],'requirements_sha256':digest(requirements),
         'configuration_schema':1,'migrations':[],'files':files,'removals':list(removals)}
-    if reviewed_local_files is not None or any(n.startswith(('helpers/','systemd/','source/tools/')) for n in files):
+    if reviewed_local_files is not None or any(requires_v2(n) for n in files):
         manifest.update(schema=2,reviewed_local_files=reviewed_local_files or {})
     raw=(json.dumps(manifest,sort_keys=True,separators=(',',':'))+'\n').encode()
     with tempfile.TemporaryDirectory() as tmp:
@@ -43,6 +43,7 @@ def build(payload,baseline,requirements,signing_key,output,release,revision,remo
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('payload','baseline','requirements','signing-key','output'):p.add_argument('--'+name,type=Path,required=True)
+    p.add_argument('--reviewed-local-files',type=Path,help='JSON mapping of explicitly reviewed existing paths to their exact SHA-256 hashes')
     p.add_argument('--release',required=True);p.add_argument('--revision',required=True);p.add_argument('--remove',action='append',default=[])
-    a=p.parse_args();build(a.payload,json.loads(a.baseline.read_text()),a.requirements,a.signing_key,a.output,a.release,a.revision,a.remove)
+    a=p.parse_args();build(a.payload,json.loads(a.baseline.read_text()),a.requirements,a.signing_key,a.output,a.release,a.revision,a.remove,reviewed_local_files=json.loads(a.reviewed_local_files.read_text()) if a.reviewed_local_files else None)
     print(a.output)

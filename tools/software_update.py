@@ -74,9 +74,17 @@ def allowed(name):
         return ((parts[1]=='app' and (p.suffix=='.py' or parts[2]=='templates' and p.suffix=='.html'
                   or len(parts)>4 and parts[2:4]==('static','config') and p.suffix=='.html'
                   or len(parts)>5 and parts[2:4]==('static','assets') and parts[4] in ('js','css') and p.suffix in ('.js','.css')))
-                or parts[1]=='tools' and len(parts)==3 and p.suffix=='.py'
+                or parts[1] in ('tools','deploy') and p.suffix=='.py'
                 or parts[1]=='docs' and p.suffix in ('.md','.json'))
     return parts[0]=='web' and ((parts[1]=='config' and p.suffix=='.html') or parts[1]=='assets' and parts[2] in ('js','css') and p.suffix in ('.js','.css') or parts[1]=='docs' and p.suffix in ('.html','.json'))
+
+
+def requires_v2(name):
+    if not isinstance(name,str) or not name:return True
+    parts=PurePosixPath(name).parts
+    return (parts[0] in ('helpers','systemd') or parts[:2] in (('source','tools'),('source','deploy'))
+            or parts[:3]==('source','app','templates') or len(parts)==2 and parts[0]=='web'
+            or len(parts)==4 and parts[:3]==('source','app','static'))
 
 
 class Runtime:
@@ -92,7 +100,10 @@ class Runtime:
                     if db.execute("SELECT 1 FROM operations WHERE state IN ('queued','running') LIMIT 1").fetchone():raise ValueError('Wait for the active bug-out operation to finish')
             except sqlite3.Error:raise ValueError('Cannot verify bug-out activity') from None
     def publish(self):
-        subprocess.run(['/usr/sbin/runuser','-u','admin','--','/opt/dataark/venv/bin/python','/opt/dataark/tools/publish_software_frontend.py'],cwd='/opt/dataark',check=True,capture_output=True,timeout=180)
+        try:subprocess.run(['/usr/sbin/runuser','-u','admin','--','/opt/dataark/venv/bin/python','/opt/dataark/tools/publish_software_frontend.py'],cwd='/opt/dataark',check=True,capture_output=True,timeout=180)
+        except subprocess.CalledProcessError as error:
+            detail=(error.stderr or b'').decode('utf-8',errors='replace').strip().splitlines()
+            raise ValueError('Dashboard publication failed: '+(detail[-1][:220] if detail else 'renderer exited unsuccessfully')) from None
     def reload_units(self):self.system('daemon-reload')
     def stop(self):self.system('stop','dataark.service')
     def start(self):self.system('start','dataark.service')
@@ -143,11 +154,22 @@ class Updater:
         if not REV.fullmatch(revision) or not ID.fullmatch(profile):raise ValueError('Invalid enrollment identity')
         if (self.state/'installed.json').exists():raise ValueError('Already enrolled; refusing to replace the baseline')
         files={}
+        # New installations enroll every supported existing software destination.
+        # Re-running enrollment remains forbidden, so this never blesses later edits.
         for group,base in [('source',self.root/'opt/dataark'),('web',self.root/'var/www/html')]:
-            for prefix in ('app','docs') if group=='source' else ('assets/js','assets/css','config','docs'):
+            prefixes=('app','tools','deploy','docs') if group=='source' else ('assets/js','assets/css','config','docs')
+            for prefix in prefixes:
                 for path in (base/prefix).rglob('*'):
                     name=group+'/'+path.relative_to(base).as_posix()
                     if path.is_file() and allowed(name):files[name]=digest(self.destination(name))
+            if group=='web':
+                for page in ROOT_PAGES:
+                    name='web/'+page
+                    if (base/page).is_file():files[name]=digest(self.destination(name))
+        for group,names in [('helpers',HELPERS),('systemd',UNITS)]:
+            for relative in names:
+                name=group+'/'+relative;path=self.destination(name)
+                if path.is_file():files[name]=digest(path)
         save(self.state/'installed.json',{'schema':1,'revision':revision,'sequence':0,'profile':profile,'files':files})
     def signature(self,stage):
         keys=sorted(self.trust.glob('*.pem'))[:16]
@@ -170,7 +192,7 @@ class Updater:
         for name,expected in reviewed.items():
             self.destination(name)
             if not isinstance(expected,str) or not SHA.fullmatch(expected):raise ValueError('Invalid reviewed local digest')
-        if m['schema']==1 and any(name.startswith(('helpers/','systemd/','source/tools/')) for name in list(m['files'])+m['removals']):raise ValueError('Privileged software requires schema 2')
+        if m['schema']==1 and any(requires_v2(name) for name in list(m['files'])+m['removals']):raise ValueError('Privileged software requires schema 2')
         receipt=self.receipt()
         if any(name not in receipt['files'] and name not in m['files'] for name in reviewed):raise ValueError('Reviewed path is outside this transaction')
         # Exact publisher-signed review, never a general local-edit override.

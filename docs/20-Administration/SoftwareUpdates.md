@@ -94,3 +94,8 @@ The reference Raspberry Pi 4 has Bluetooth hardware. The current Ark's controlle
 An original format-1 verifier cannot accept the broader format-2 package. A separately root-authorized, signed verifier transition installs that capability before the normal online update. It never re-enrolls the device or accepts changed files into its receipt. Its signed manifest pins the original verifier hash, new verifier hash and exact existing receipt hash. It uses the device’s enrolled release key, retains the original verifier and receipt, refuses active transactions, and restores the old verifier if the new module fails its isolated import check.
 
 This one-time maintenance action is separate from the subsequent Help → Check for updates → Download and verify → Install workflow. New bootstrap kits include the format-2 verifier directly. The retained KZ1O build is used to test this transition and the online update; results are recorded separately so a manually installed transition is not presented as a format-1 online self-upgrade.
+
+
+An installation predating on-Ark package downloads uses **Install a package already downloaded elsewhere** for its first signed software update. Download the published software package from GitHub Releases and upload it through that existing page. The updated installation then supports **Download and verify on the Ark**. Both routes use the same enrolled signing key and transactional installer.
+
+Content-addressed dashboard artwork is reused when its bytes already match. Regenerating the page does not require rewriting identical artwork previously published by a root-owned maintenance task.

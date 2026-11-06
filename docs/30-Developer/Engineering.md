@@ -176,6 +176,13 @@ See [Desktop ARM64 test Ark](../20-Administration/Emulator.md).
 
 ## 16. Software changes are signed, journaled transactions
 
+Format 2 extends the signed inventory to explicit maintenance-tool, privileged-helper and service-unit destinations. It does not permit arbitrary root paths or installation hooks. Root-owned files retain root ownership; service changes reload systemd; rollback restores their exact previous bytes and modes. Changed dashboard templates regenerate the page from the recipient’s configuration, with the prior generated pages included in rollback.
+
+Publisher-signed review hashes distinguish known local software customizations from unknown edits. An exact reviewed hash is checked before staging and again after quiescing the API; a later edit invalidates the approval. Initial enrollment covers all supported existing destinations. It cannot be repeated to erase drift. A successful transaction records the reviewed and installed hashes in its receipt.
+
+Changing an original verifier’s trust boundary requires a separate, root-authorized signed transition. The transition pins the old verifier, new verifier and existing receipt hashes, retains recovery copies and never replaces the baseline. This prevents an application-only package from quietly acquiring broader root authority through import side effects.
+
+
 The software updater separates public release discovery, caretaker authorization, root-owned signature verification and a fixed systemd worker. The release-signing key is independent of the caretaker password. A package is an explicit file inventory, not an executable installation script: platform, base revision, dependency lock, schema and local-file hashes must match before installation begins.
 
 Help's update page can download a published signed software package directly on the Ark and pass it to the same verifier used for an uploaded package. Downloading and verification are separate from the caretaker's installation confirmation. A bootstrap/recovery kit is not an in-place software update, and an unsuccessful release check is not evidence that the installed software is current.

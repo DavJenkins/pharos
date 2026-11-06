@@ -421,7 +421,10 @@ def prepare_artwork(spec, project_root, output_root, cache, refresh=False):
                 warnings.warn('Artwork refresh failed; retaining cached copy: ' + spec['url'])
     extension, _ = image_format(blob)
     name = hashlib.sha256(blob).hexdigest() + '.' + extension
-    atomic_write(output_root / 'assets' / 'manifest' / name, blob)
+    target = output_root / 'assets' / 'manifest' / name
+    # Content-addressed artwork is immutable; avoid rewriting identical root-published files.
+    if not target.is_file() or target.read_bytes() != blob:
+        atomic_write(target, blob)
     return {'src': 'assets/manifest/' + name, 'alt': spec.get('alt', '')}
 
 def image_tag(art, fallback):
