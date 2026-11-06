@@ -13,7 +13,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parent))
 from software_update import allowed,digest,MAX_BYTES,REV,ID
 
 
-def build(payload,baseline,requirements,signing_key,output,release,revision,removals=()):
+def build(payload,baseline,requirements,signing_key,output,release,revision,removals=(),reviewed_local_files=None):
     if not ID.fullmatch(release) or not REV.fullmatch(revision):raise ValueError('Invalid release identity')
     files={}
     for path in sorted(payload.rglob('*')):
@@ -27,6 +27,8 @@ def build(payload,baseline,requirements,signing_key,output,release,revision,remo
     manifest={'schema':1,'release':release,'sequence':baseline['sequence']+1,'source_revision':revision,
         'base_revision':baseline['revision'],'profiles':[baseline['profile']],'requirements_sha256':digest(requirements),
         'configuration_schema':1,'migrations':[],'files':files,'removals':list(removals)}
+    if reviewed_local_files is not None or any(n.startswith(('helpers/','systemd/','source/tools/')) for n in files):
+        manifest.update(schema=2,reviewed_local_files=reviewed_local_files or {})
     raw=(json.dumps(manifest,sort_keys=True,separators=(',',':'))+'\n').encode()
     with tempfile.TemporaryDirectory() as tmp:
         folder=Path(tmp);(folder/'manifest.json').write_bytes(raw)

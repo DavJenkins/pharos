@@ -112,7 +112,7 @@ class SoftwareTransactions(unittest.TestCase):
                 out.addfile(item,io.BytesIO(b'x'))
             with self.subTest(name=name),self.assertRaises(ValueError):self.updater.stage(bad)
     def test_private_and_operating_system_paths_never_allowed(self):
-        for name in ['source/dataark.yaml','source/tools/software_update.py','web/index.html','source/requirements.txt','web/../etc/passwd','source/app/../../etc/passwd','/source/app/a.py','source/app\\a.py']:
+        for name in ['source/dataark.yaml','web/index.html','source/requirements.txt','web/../etc/passwd','source/app/../../etc/passwd','/source/app/a.py','source/app\\a.py']:
             self.assertFalse(allowed(name),name)
     def test_interrupted_staging_does_not_touch_live_files(self):
         with patch.object(self.updater,'validate',side_effect=SystemExit('staging interrupted')):

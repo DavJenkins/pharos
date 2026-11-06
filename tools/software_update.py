@@ -46,14 +46,35 @@ def unique(pairs):
         result[key]=value
     return result
 
+# Fixed destinations; packages cannot introduce arbitrary privileged paths or hooks.
+ROOT_PAGES = frozenset(['activities.html', 'callsigns.html', 'capture.html', 'card.html', 'clone.html', 'coloring.html', 'community.html', 'container.html', 'content.html', 'external-library.html', 'learning.html', 'library.html', 'logs.html', 'make-ark.html', 'maps.html', 'pdf-forms.html', 'power.html', 'printables.html', 'radio-study.html', 'recipient.html', 'recovery.html', 'resources.html', 'setup.html', 'storage.html', 'usage.html'])
+HELPERS = frozenset({
+ 'dataark-library','dataark-wifi-roles','wifi_interfaces.py',
+ 'software_update.py','dataark-software-update','update_notifications.py','software_collection_events.py',
+ 'dataark-network','dataark-pass-through','dataark-recipient','dataark-support-diagnostics',
+ 'dataark-appliance-jobs','dataark-external-library','dataark-portal-monitor',
+})
+UNITS = frozenset({
+ 'dataark-software-update.service','dataark-software-recover.service',
+ 'dataark-software-boot-recover.service','dataark-software-verify-recovery.service',
+ 'dataark-os-update-monitor.service','dataark-os-update-monitor.timer','dataark-wifi-roles.service',
+})
+
 def allowed(name):
     if not isinstance(name,str) or '\\' in name or len(name)>240:return False
     p=PurePosixPath(name)
     if p.is_absolute() or any(v in ('','.','..') for v in name.split('/')):return False
     parts=p.parts
+    if parts[0]=='helpers':return len(parts)==2 and parts[1] in HELPERS
+    if parts[0]=='systemd':return len(parts)==2 and parts[1] in UNITS
+    if len(parts)==2 and parts[0]=='web':return parts[1] in ROOT_PAGES
+    if len(parts)==4 and parts[:3]==('source','app','static'):return parts[3] in ROOT_PAGES
     if len(parts)<3:return False
     if parts[0]=='source':
-        return ((parts[1]=='app' and (p.suffix=='.py' or len(parts)>4 and parts[2:4] in (('static','config'),) and p.suffix=='.html' or len(parts)>5 and parts[2:5] in (('static','assets','js'),('static','assets','css')) and p.suffix in ('.js','.css')))
+        return ((parts[1]=='app' and (p.suffix=='.py' or parts[2]=='templates' and p.suffix=='.html'
+                  or len(parts)>4 and parts[2:4]==('static','config') and p.suffix=='.html'
+                  or len(parts)>5 and parts[2:4]==('static','assets') and parts[4] in ('js','css') and p.suffix in ('.js','.css')))
+                or parts[1]=='tools' and len(parts)==3 and p.suffix=='.py'
                 or parts[1]=='docs' and p.suffix in ('.md','.json'))
     return parts[0]=='web' and ((parts[1]=='config' and p.suffix=='.html') or parts[1]=='assets' and parts[2] in ('js','css') and p.suffix in ('.js','.css') or parts[1]=='docs' and p.suffix in ('.html','.json'))
 
@@ -70,6 +91,9 @@ class Runtime:
                 with sqlite3.connect('file:'+str(database)+'?mode=ro',uri=True,timeout=2) as db:
                     if db.execute("SELECT 1 FROM operations WHERE state IN ('queued','running') LIMIT 1").fetchone():raise ValueError('Wait for the active bug-out operation to finish')
             except sqlite3.Error:raise ValueError('Cannot verify bug-out activity') from None
+    def publish(self):
+        subprocess.run(['/usr/sbin/runuser','-u','admin','--','/opt/dataark/venv/bin/python','/opt/dataark/tools/publish_software_frontend.py'],cwd='/opt/dataark',check=True,capture_output=True,timeout=180)
+    def reload_units(self):self.system('daemon-reload')
     def stop(self):self.system('stop','dataark.service')
     def start(self):self.system('start','dataark.service')
     def healthy(self):
@@ -93,13 +117,15 @@ class Updater:
     def destination(self,name):
         if not allowed(name):raise ValueError('Unsupported software path')
         group,relative=name.split('/',1)
-        base=self.root/('opt/dataark' if group=='source' else 'var/www/html')
+        base=self.root/{'source':'opt/dataark','web':'var/www/html','helpers':'usr/local/libexec','systemd':'etc/systemd/system'}[group]
         path=base/relative
         for parent in [path,*path.parents]:
             if parent.is_symlink():raise ValueError('Symlink in installation path')
             if parent==self.root:break
         if path.exists() and not path.is_file():raise ValueError('Software destination is not a regular file')
         return path
+    def publication_files(self):
+        return [self.root/base/name for base in ('opt/dataark/app/static','var/www/html') for name in ('index.html','manifest.json')]
     def lock(self):
         stream=(self.state/'lock').open('a')
         try:fcntl.flock(stream,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -136,9 +162,21 @@ class Updater:
         if len(raw)>1024*1024:raise ValueError('Manifest is too large')
         m=json.loads(raw,object_pairs_hook=unique)
         required={'schema','release','sequence','source_revision','base_revision','profiles','requirements_sha256','configuration_schema','migrations','files','removals'}
-        if set(m)!=required or m['schema']!=1 or m['configuration_schema']!=1 or m['migrations']!=[]:raise ValueError('Unsupported package or schema migration')
+        if m.get('schema')==2:required.add('reviewed_local_files')
+        if set(m)!=required or m['schema'] not in (1,2) or m['configuration_schema']!=1 or m['migrations']!=[]:raise ValueError('Unsupported package or schema migration')
         if not isinstance(m['release'],str) or not ID.fullmatch(m['release']) or not isinstance(m['source_revision'],str) or not REV.fullmatch(m['source_revision']):raise ValueError('Invalid release identity')
+        reviewed=m.get('reviewed_local_files',{})
+        if not isinstance(reviewed,dict) or len(reviewed)>10000:raise ValueError('Invalid reviewed local files')
+        for name,expected in reviewed.items():
+            self.destination(name)
+            if not isinstance(expected,str) or not SHA.fullmatch(expected):raise ValueError('Invalid reviewed local digest')
+        if m['schema']==1 and any(name.startswith(('helpers/','systemd/','source/tools/')) for name in list(m['files'])+m['removals']):raise ValueError('Privileged software requires schema 2')
         receipt=self.receipt()
+        if any(name not in receipt['files'] and name not in m['files'] for name in reviewed):raise ValueError('Reviewed path is outside this transaction')
+        # Exact publisher-signed review, never a general local-edit override.
+        for name,expected in reviewed.items():
+            path=self.destination(name)
+            if not path.is_file() or digest(path)!=expected:raise ValueError('Reviewed local file changed: '+name)
         if m['base_revision']!=receipt['revision'] or type(m['sequence']) is not int or m['sequence']<=receipt['sequence']:raise ValueError('Wrong base revision or downgrade')
         if not isinstance(m['profiles'],list) or receipt['profile'] not in m['profiles']:raise ValueError('Package does not support this platform profile')
         if m['requirements_sha256']!=digest(self.root/'opt/dataark/requirements.txt'):raise ValueError('Dependency changes require a separately tested updater')
@@ -149,14 +187,14 @@ class Updater:
             if not isinstance(item,dict) or set(item)!={'sha256','bytes'} or not isinstance(item['sha256'],str) or not SHA.fullmatch(item['sha256']) or type(item['bytes']) is not int or not 0<=item['bytes']<=MAX_BYTES:raise ValueError('Invalid file digest')
             path=stage/'payload'/name
             if not path.is_file() or path.is_symlink() or path.stat().st_size!=item['bytes'] or digest(path)!=item['sha256']:raise ValueError('Package content verification failed')
-            if destination.exists() and name not in receipt['files']:raise ValueError('Refusing to replace an untracked local file')
+            if destination.exists() and name not in receipt['files'] and name not in reviewed:raise ValueError('Refusing to replace an untracked local file')
         for name in m['removals']:
             self.destination(name)
             if name not in receipt['files']:raise ValueError('Removal is outside the enrolled baseline')
         if baseline:
             for name,expected in receipt['files'].items():
                 path=self.destination(name)
-                if not path.is_file() or digest(path)!=expected:raise ValueError('Local software edits require review before updating: '+name)
+                if not path.is_file() or digest(path)!=reviewed.get(name,expected):raise ValueError('Local software edits require review before updating: '+name)
         return m
     def stage(self,archive):
         with self.lock():
@@ -234,7 +272,13 @@ class Updater:
             if metadata is None:target.unlink(missing_ok=True)
             else:
                 atomic(target,(backup/('build-'+str(index))).read_bytes(),metadata['mode']);os.chown(target,metadata['uid'],metadata['gid'])
+        for index,metadata in enumerate(journal.get('publication_files',[])):
+            target=self.publication_files()[index]
+            if metadata is None:target.unlink(missing_ok=True)
+            else:
+                atomic(target,(backup/('publication-'+str(index))).read_bytes(),metadata['mode']);os.chown(target,metadata['uid'],metadata['gid'])
         atomic(self.state/'installed.json',(backup/'installed.json').read_bytes())
+        if any(n.startswith('systemd/') for n in journal['originals']):self.runtime.reload_units()
         if not boot:
             self.runtime.start()
             if not self.runtime.healthy():raise ValueError('Rollback health check failed; local recovery required')
@@ -288,19 +332,32 @@ class Updater:
                     if target.exists():
                         stat=target.stat();build_files.append({'mode':stat.st_mode&0o777,'uid':stat.st_uid,'gid':stat.st_gid});atomic(backup/('build-'+str(index)),target.read_bytes())
                     else:build_files.append(None)
-                journal.update(state='applying',originals=originals,build_files=build_files);self.write_journal(journal)
+                publication_files=[]
+                if 'source/app/templates/index.html' in m['files']:
+                    for index,target in enumerate(self.publication_files()):
+                        if any(p.is_symlink() for p in (target,*target.parents)):raise ValueError('Symlink in publication path')
+                        if target.exists():
+                            stat=target.stat();publication_files.append({'mode':stat.st_mode&0o777,'uid':stat.st_uid,'gid':stat.st_gid});atomic(backup/('publication-'+str(index)),target.read_bytes())
+                        else:publication_files.append(None)
+                journal.update(state='applying',originals=originals,build_files=build_files,publication_files=publication_files);self.write_journal(journal)
                 for name in m['files']:
                     old=originals[name]
                     target=self.destination(name);atomic(target,(folder/'payload'/name).read_bytes(),old['mode'] if old else 0o644)
-                    if old:os.chown(target,old['uid'],old['gid'])
+                    if name.startswith(('helpers/','systemd/')):
+                        target.chmod(0o755 if name.startswith('helpers/dataark-') else 0o644)
+                        os.chown(target,0,0)
+                    elif old:os.chown(target,old['uid'],old['gid'])
                     elif os.geteuid()==0:
                         stat=(self.root/'opt/dataark').stat();os.chown(target,stat.st_uid,stat.st_gid)
                     if checkpoint:checkpoint(name)
                 for name in m['removals']:self.destination(name).unlink()
+                if any(n.startswith('systemd/') for n in journal['originals']):self.runtime.reload_units()
+                if publication_files:self.runtime.publish()
                 journal['state']='checking';self.write_journal(journal)
                 self.runtime.start()
                 if not self.runtime.healthy():raise ValueError('Updated software failed health checks')
                 receipt.update(revision=m['source_revision'],sequence=m['sequence'],release=m['release'],installed_at=time.time())
+                receipt['files'].update(m.get('reviewed_local_files',{}))
                 for name,item in m['files'].items():receipt['files'][name]=item['sha256']
                 for name in m['removals']:receipt['files'].pop(name)
                 build={'schema':1,'revision':m['source_revision'],'branch':'release: '+m['release'],
