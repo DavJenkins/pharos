@@ -44,6 +44,7 @@
 - [Preview release audit](20-Administration/ReleaseAudit.md)
 - [Public and offline documentation](20-Administration/DocumentationPublication.md)
 - [Source repository, backups and handover](20-Administration/SourceAndHandover.md)
+- [Recover a damaged system card](20-Administration/SystemCardRecovery.md)
 - [Administrator Guide](20-Administration/AdministratorGuide.md)
 - [Clone a content drive](20-Administration/CloneDrive.md)
 - [Household Bugout Backups](20-Administration/Bugout.md)

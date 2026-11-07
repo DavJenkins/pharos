@@ -168,7 +168,7 @@ Hotspot clients cannot disable or rename the hotspot even using a LAN URL.
 Use a different interface before changing the current connection. The Pi's
 local keyboard/KVM remains an independent recovery path.
 
-Caretaker actions use an on-demand password prompt. Remembering is optional: choose 1–120 minutes (default 10). The fixed expiry does not extend with use. The cache survives navigation and reload in the same browser tab and Ark address using tab-scoped session storage; it is not shared across addresses or independent tabs. Expiry, a rejected credential, **Lock now**, or the floating red unlocked padlock clears it. The padlock shows remaining minutes; the inline indicator gives the same countdown. Without remembering, only that action is authorized. A rejected password explicitly says **Password not accepted**. The server verifies every protected request.
+Caretaker actions use an on-demand password prompt. Remembering is optional: choose 1–120 minutes (default 10). The fixed expiry does not extend with use. The cache survives navigation and reload in the same browser tab and Ark address using tab-scoped session storage; passwords are not shared across addresses or independent tabs. **Lock now**, including the floating red unlocked padlock, clears remembered access in all open tabs at the same Ark address in this browser. Expiry and rejected credentials clear the affected tab's cache. Other devices and different addresses remain separate. The padlock shows remaining minutes; the inline indicator gives the same countdown. Without remembering, only that action is authorized. A rejected password explicitly says **Password not accepted**. The server verifies every protected request.
 
 ## Reboot diagnostics
 

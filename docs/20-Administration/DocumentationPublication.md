@@ -21,5 +21,7 @@ A website build stages the complete rendered edition under `output/document-down
 
 Publish and verify the staged assets on the configured GitHub release before publishing the website. The website publisher checks asset availability before uploading any site files. It reuses FTPS connections, retries bounded transient failures, and compares every deployed file with its local source. The verifier reverses only known Cloudflare email-protection transformations.
 
+The main site's collection, feature and handbook download controls follow the newly generated current edition. Historical edition landing pages retain their own immutable downloads. Handbook counts and catalogue snapshot dates must be refreshed together with those links; a still-valid older URL is not necessarily the current publication.
+
 
 Public handbook builds reject absolute desktop drive paths and user-profile paths. Desktop-only procedures identify their host context and use a reader-chosen workspace with relative commands. Ark service paths remain explicit where they are part of the supported installation layout. Network addresses and certificate identities must come from the reader’s own device.

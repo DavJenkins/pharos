@@ -126,9 +126,12 @@ def portable_files(c,folder):
  from app.services import configuration_project as project
  manifest=read(inside(folder,c['manifest']))
  if isinstance(manifest,dict) and all(key in manifest for key in ('system','repositories','assets')):
-  snapshot=Path(folder)/'project-snapshot';parts=project.write(snapshot,project.public(manifest))
-  for name in parts:yield project.inside(snapshot,name),'config/library/'+name
-  yield snapshot/'.layout.json','config/library/.layout.json'
+  # This is a derived export, not the editable project. Never reuse a stale
+  # generated tree or relax the manual-edit protection on real projects.
+  with tempfile.TemporaryDirectory(prefix='.project-snapshot-',dir=folder) as temporary:
+   snapshot=Path(temporary);parts=project.write(snapshot,project.public(manifest))
+   for name in parts:yield project.inside(snapshot,name),'config/library/'+name
+   yield snapshot/'.layout.json','config/library/.layout.json'
   original=inside(folder,c['manifest'])
   if original.name=='ark.yaml':
    prefix=Path(c['manifest']).parent.as_posix()

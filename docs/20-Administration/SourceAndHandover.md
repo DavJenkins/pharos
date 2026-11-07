@@ -19,7 +19,7 @@ Use the checkout's owning account, normally admin. Do not run routine Git comman
 ## What is authoritative
 
 - Source behavior: tracked Python, browser code, installers and tests in the appliance checkout, compared with the deployed revision and installed helper copies.
-- Current collection selection and site policy: live dataark.yaml. Some legitimate management changes may be uncommitted.
+- Current collection selection and site policy: the public configuration project under `config/library`, assembled into the runtime `dataark.yaml`, plus recorded source policies and the public recovery profile. Some legitimate management changes may be uncommitted. Use the configuration editor's validation and publication flow rather than overwriting generated files blindly.
 - Effective system configuration: installed files plus runtime inspection; an installer template alone does not prove it was applied.
 - Running state and failures: API state, worker status, journals, common events and service journals.
 - Rebuild identity and secrets: protected configuration snapshots and separately held credentials/keys.
@@ -28,6 +28,8 @@ Use the checkout's owning account, normally admin. Do not run routine Git comman
 Keep these distinctions when a maintainer says a change is committed, deployed, activated or tested. They mean different things.
 
 ## Backup classes
+
+For an unbootable or damaged system card, preserve a verified full image before attempting repair. See [Recover a damaged system card](SystemCardRecovery.md) for offline diagnosis, matching-package restoration and post-repair checks.
 
 ### Repository and local changes
 

@@ -2,7 +2,7 @@
 
 ## Preserve access before it is needed
 
-An internet outage should not make an already collected manual, reference work, or repair guide inaccessible. Data Ark keeps useful copies on local storage and serves them over a local network. Its hotspot remains useful when the upstream network is unavailable.
+An internet outage should not make an already collected manual, reference work, or repair guide inaccessible. Data Ark keeps useful copies on local storage and serves them over a local network. On hotspot-equipped installations, the local hotspot remains useful when the upstream network is unavailable.
 
 ## Offline first is a working requirement
 

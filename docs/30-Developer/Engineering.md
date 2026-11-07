@@ -32,6 +32,8 @@ The browser editor separates public reading from authorized writing. File and se
 
 Publishing uses revision checks, validation, worker coordination and retained snapshots. A stale editor cannot silently replace newer configuration; concurrent maintenance and unexpected source edits are handled as conflicts rather than overwritten. Private rollback material stays outside public downloads.
 
+Portable recovery projects are fresh projections of the saved public configuration. Each export builds its generated snapshot in temporary storage, consumes it while it exists and removes it afterward. An old generated snapshot cannot block a later policy change or recovery export. Hand-edited authoring files retain their separate revision and manual-edit checks. Export failures return their underlying cause, and source-policy changes roll back rather than reporting a successful save without its recovery copy.
+
 **Why it matters:** configuration is operational state. Saving it must preserve a working appliance, not merely write a text file.
 
 See [Modular configuration](../20-Administration/ModularConfiguration.md).

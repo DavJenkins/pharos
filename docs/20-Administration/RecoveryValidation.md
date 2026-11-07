@@ -1,4 +1,12 @@
-# Recovery validation — 25 October 2026
+# Recovery validation
+
+## Current evidence — November 6, 2026
+
+Physical tests have now covered a clean system-card installation, first-owner setup, offline sample access, verified transfer to a spare external drive and reboot with that drive. A retained populated recipient card also passed a signed software bridge, on-Ark download/install, automatic rollback, cold boot and client access with upstream disabled. See [Physical recovery replay](PhysicalRecoveryReplay.md) and [Release validation](ReleaseAudit.md) for the exact results.
+
+The dated records below describe the scope reached at each test date. Statements that a test was then pending do not override a later passing record. Full-library reconstruction, arbitrary storage hardware, unsupported migrations and every client combination are not established by those narrower tests. Continue to keep recovery work on its feature branch until the agreed acceptance scope is complete.
+
+## October 25, 2026 baseline
 
 ## Verified on the running Ark, using isolated test data
 
@@ -14,7 +22,7 @@ The current content-drive kit passed its source, bootstrap and PMTiles checksum 
 
 The setup tests cover supported configuration, safe extraction, interrupted phase resume, public-content copying and refusal to use live media as a replica destination. Content-profile tests cover selection preservation and verified download behavior.
 
-## Still requires spare hardware/media
+### Spare hardware/media not exercised in the October 25 baseline
 
 This is not a fresh-Pi certification. No replacement boot card was flashed, no content drive was emptied, no reboot or network change was performed. Initial packages, Python dependencies and the Kiwix container still require internet; an offline software cache has not been completed.
 
@@ -48,7 +56,7 @@ This is the **empty-media scenario**, distinct from a configuration-only seed dr
 
 Record both tests separately, including hardware/media identities, source revision, profile checksum, preset, restored package IDs, bytes, timings, failures, interruption behavior and client checks. Compare the before/after desired selections and explain any intentional differences. Retain rollback media until review is complete.
 
-**Status:** this is the next acceptance procedure, not a completed test. The desktop emulator's read-only production-media mount cannot establish empty-media or physical spare-system acceptance. Do not merge the recovery branch or call two-way regeneration dependable on the strength of this procedure alone.
+**Scope of this procedure:** a desktop emulator's read-only production-media mount cannot establish empty-media or physical spare-system acceptance. Later physical results are linked above; do not infer completion of a broader two-way regeneration test from this procedure alone.
 
 
 ## 28 October 2026: ARM64 empty-filesystem drill

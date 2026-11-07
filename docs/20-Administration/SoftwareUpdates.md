@@ -14,7 +14,7 @@ The installed build revision, branch and local publication time identify the run
 - **Library content:** publisher editions, collections and map packages. Manage Library owns these schedules and downloads, independently of software releases.
 - **Operating system:** Debian packages, security patches, kernel, firmware and drivers. These have their own package sources, compatibility checks and restart requirements.
 
-The current public archive is a bootstrap/recovery kit, not an in-place update package. Running its provisioning script against a working Ark is not the software update workflow. Help also provides a separate, caretaker-authorized **Install a signed software update** workflow. A bootstrap archive will be rejected there. Published `software-YYYY.MM.DD` releases are distinguished from `bootstrap-YYYY.MM.DD` releases; both may have a `-preview.N` suffix.
+Bootstrap/recovery kits and signed software-update packages are separate downloads. Running a kit's provisioning script against a working Ark is not the software update workflow. Use Help's caretaker-authorized **Install a signed software update** workflow instead. A bootstrap archive will be rejected there. Published `software-YYYY.MM.DD` releases are distinguished from `bootstrap-YYYY.MM.DD` releases; both may have a `-preview.N` suffix.
 
 ## Software-only installer
 
@@ -82,7 +82,7 @@ The wider update contract, including future schema/dependency/provisioning chang
 - Verify API, dashboard, content readers, storage and network reachability after installation. Commit the new version only after health checks pass. On failure, restore compatible software and state, record diagnostics, and expose recovery instructions. Database migrations need an actual restore path, not merely an old executable.
 - Record installed version, date, outcome and rollback result; notify Home Assistant through the existing integration event path. Keep a local readable history.
 
-The software-only engine has signed-package, failure, interruption and state-preservation tests, including real API stop/start and rollback in the disposable ARM64 QEMU Ark. Unsupported migrations are tested as refusals. This does not establish migration recovery or fresh physical-media acceptance; keep those as separate tests on `feature/readme-foundation` before merging or widening the installer.
+The software-only engine has signed-package, failure, interruption and state-preservation tests, including real API stop/start and rollback in the disposable ARM64 QEMU Ark. The retained physical recipient card also passed its signed bridge, direct on-Ark follow-up download/install, automatic rollback, cold reboot and real-client offline checks. Unsupported migrations are tested as refusals. These results do not establish support for arbitrary dependency or database migrations. See [Release validation](ReleaseAudit.md) for the exact scope and [Physical recovery replay](PhysicalRecoveryReplay.md) for fresh-install and external-drive results.
 
 ## Bluetooth
 
@@ -93,7 +93,7 @@ The reference Raspberry Pi 4 has Bluetooth hardware. The current Ark's controlle
 
 An original format-1 verifier cannot accept the broader format-2 package. A separately root-authorized, signed verifier transition installs that capability before the normal online update. It never re-enrolls the device or accepts changed files into its receipt. Its signed manifest pins the original verifier hash, new verifier hash and exact existing receipt hash. It uses the device’s enrolled release key, retains the original verifier and receipt, refuses active transactions, and restores the old verifier if the new module fails its isolated import check.
 
-This one-time maintenance action is separate from the subsequent Help → Check for updates → Download and verify → Install workflow. New bootstrap kits include the format-2 verifier directly. The retained KZ1O build is used to test this transition and the online update; results are recorded separately so a manually installed transition is not presented as a format-1 online self-upgrade.
+This one-time maintenance action is separate from the subsequent Help → Check for updates → Download and verify → Install workflow. New bootstrap kits include the format-2 verifier directly. The retained recipient build passed this transition and the subsequent online update. The [acceptance record](ReleaseAudit.md) distinguishes the root-authorized transition, original signed upload path and later on-Ark acquisition; it does not describe the transition itself as a format-1 online self-upgrade.
 
 
 An installation predating on-Ark package downloads uses **Install a package already downloaded elsewhere** for its first signed software update. Download the published software package from GitHub Releases and upload it through that existing page. The updated installation then supports **Download and verify on the Ark**. Both routes use the same enrolled signing key and transactional installer.

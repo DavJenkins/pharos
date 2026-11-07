@@ -47,8 +47,10 @@ def fingerprint(profile, policy):
     h = hashlib.sha256(json.dumps(policy, sort_keys=True).encode())
     for source in ['app/services/collection_variants.py','tools/recovery_queue.py','tools/content_profile.py','tools/content_lock.py','tools/content_types.py','app/services/configuration_project.py','tools/configuration_project.py'] + [v[0] for v in content.COLLECTIONS.values()]:
         h.update(source.encode() + b'\0' + (ROOT/source).read_bytes() + b'\0')
-    for path, name in sorted(content.portable_files(c, Path(profile).parent), key=lambda pair: pair[1]):
-        h.update(name.encode() + b'\0' + path.read_bytes() + b'\0')
+    # Read generated snapshots while their generator owns the temporary files.
+    files = [(name, path.read_bytes()) for path, name in content.portable_files(c, Path(profile).parent)]
+    for name, data in sorted(files):
+        h.update(name.encode() + b'\0' + data + b'\0')
     return h.hexdigest()
 
 

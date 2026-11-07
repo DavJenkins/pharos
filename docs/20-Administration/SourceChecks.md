@@ -39,6 +39,8 @@ Failed automatic checks retry less frequently during prolonged outages: with the
 
 Changing a source does not install its contents. Prepare and review a verified candidate before replacing the saved edition. Source policy and URL overrides are human-readable in `deploy/reference/reference-checks.json`, exported into the recovery configuration. Changes enter the collection lifecycle feed consumed by Home Assistant.
 
+Saving also exports the recovery profile and its content-drive mirror. A failed export cancels the policy change and reports the cause; the previous policy remains active. Retry after correcting the reported problem. Generated recovery snapshots are rebuilt independently of editable configuration, so an obsolete generated snapshot does not require discarding or overwriting a person's configuration edits.
+
 ### Snoozing individual warnings
 
 Choose **Snooze warning…** beside a source issue and enter a number of days. Retries continue, installed content stays available, and the source contributes no warning to the gear or content-card badge until the expiry time. If still unresolved at expiry, its warning returns automatically. **Snoozed warnings** in Manage Library lists these sources and their expiry dates. Set the duration to zero to end a snooze early. This differs from pausing or retiring a source, which stops automatic checks. Snoozes are shared across clients and included in recovery configuration and the Home Assistant lifecycle feed.

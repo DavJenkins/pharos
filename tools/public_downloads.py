@@ -20,12 +20,16 @@ def finish(root,website,edition,config):
     # Only lightweight download landing pages are created in the public archive tree.
     for key,asset in record['editions'].items():
         folder=website/'data-ark/editions'/key;folder.mkdir(parents=True,exist_ok=True)
-        text='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archived Data Ark handbook</title><link rel="stylesheet" href="/styles.css"></head><body><main class="wrap collection-document"><h1>Archived Data Ark handbook</h1><p>Edition '+html.escape(key)+'</p><p><a class="button" href="'+html.escape(asset['url'],quote=True)+'">Download this handbook edition (ZIP)</a></p><p>Extract the entire ZIP and open index.html.</p><p><a href="/data-ark/docs/">Read the current complete handbook online</a></p></main><script src="/assets/js/dej-community-links.js?v=1"></script></body></html>'
+        text='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archived Data Ark handbook | DEJ Software</title><link rel="stylesheet" href="/styles.css"></head><body><header class="wrap header ark-publication-header"><a class="header-brand" href="/" aria-label="DEJ Software home"><img src="/assets/dej_software_footer.webp" width="1024" height="192" alt="DEJ Software™"></a><p><a href="/#pharos">← Pharos Data Ark</a></p></header><main class="wrap collection-document"><h1>Archived Data Ark handbook</h1><p>Edition '+html.escape(key)+'</p><p><a class="button" href="'+html.escape(asset['url'],quote=True)+'">Download this handbook edition (ZIP)</a></p><p>Extract the entire ZIP and open index.html.</p><p><a href="/data-ark/docs/">Read the current complete handbook online</a></p></main><script src="/assets/js/dej-community-links.js?v=1"></script></body></html>'
         (folder/'index.html').write_text(text,encoding='utf-8')
     for page in website.rglob('*.html'):
         if '.git' in page.parts or 'saved' in page.parts:continue
         def link(match):
             url=match.group(1);name=url.split('?')[0].rsplit('/',1)[-1]
+            if page==website/'index.html' and url.startswith('https://github.com/DavJenkins/pharos/releases/download/'):
+                for kind in ['collection','feature']:
+                    if re.fullmatch('data-ark-'+kind+'-catalogue-[0-9a-f]{12}\\.pdf',name):return 'href="'+record['pdfs'][kind+'-catalogue.pdf']+'"'
+                if re.fullmatch(r'data-ark-handbook-.+\.zip',name):return 'href="'+record['editions'][edition]['url']+'"'
             if url in replaced:return 'href="'+html.escape(replaced[url],quote=True)+'"'
             if name=='data-ark-collection-catalogue.pdf':name='collection-catalogue.pdf'
             if name in record['pdfs']:return 'href="'+html.escape(record['pdfs'][name],quote=True)+'"'

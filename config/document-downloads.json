@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "release_url": "https://github.com/DavJenkins/pharos/releases/tag/documentation-2026.10.29",
-  "base_url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/",
+  "release_url": "https://github.com/DavJenkins/pharos/releases/tag/documentation-2026.11.06",
+  "base_url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.11.06/",
   "pdfs": {
     "collection-catalogue.pdf": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-collection-catalogue-d4d9e8780743.pdf",
     "feature-catalogue.pdf": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-feature-catalogue-97b795093cbb.pdf"

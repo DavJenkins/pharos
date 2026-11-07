@@ -555,7 +555,12 @@ def manage_source(payload):
             atomic_write(checks.CONFIG,(json.dumps(config,indent=2)+'\n').encode())
             try:
                 for action in ('export','mirror'):
-                    subprocess.run([str(ROOT/'venv/bin/python'),str(ROOT/'tools/content_profile.py'),action],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+                    try:
+                        subprocess.run([str(ROOT/'venv/bin/python'),str(ROOT/'tools/content_profile.py'),action],cwd=ROOT,check=True,capture_output=True,text=True)
+                    except subprocess.CalledProcessError as error:
+                        lines=(error.stderr or error.stdout or '').strip().splitlines()
+                        detail=lines[-1] if lines else 'The profile exporter failed.'
+                        raise ValueError('Recovery configuration could not be saved. '+detail) from None
             except Exception:
                 atomic_write(checks.CONFIG,before);raise
             from app.services.collection_changes import safe_record

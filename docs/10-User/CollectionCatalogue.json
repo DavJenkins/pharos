@@ -1,7 +1,7 @@
 {
   "title": "PHAROS DATA ARK",
   "subtitle": "An extraordinary collection. Ready without the internet.",
-  "edition": "Collection snapshot | October 30, 2026",
+  "edition": "Collection snapshot | November 6, 2026",
   "cards": [
     {
       "number": 1,
@@ -99,6 +99,7 @@
         "IRS Schedule A — Itemized deductions — Tax year 2025",
         "IRS Schedule B — Interest and ordinary dividends — Tax year 2025",
         "IRS Schedule C — Profit or loss from business — Tax year 2025",
+        "IRS Schedule C — Profit or loss from business — Tax year 2026 (retained alongside 2025)",
         "IRS Schedule D — Capital gains and losses — Tax year 2025",
         "IRS Schedule E — Supplemental income and loss — Tax year 2025",
         "IRS Schedule SE — Self-employment tax — Tax year 2025",
@@ -413,5 +414,5 @@
       ]
     }
   ],
-  "installed_asset_count": 1400
+  "installed_asset_count": 1401
 }

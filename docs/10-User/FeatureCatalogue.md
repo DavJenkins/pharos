@@ -1,6 +1,6 @@
 # PHAROS Data Ark — What it can do
 
-*Implemented features | October 29, 2026*
+*Implemented features | November 6, 2026*
 
 [Download the feature catalogue (PDF)](../../feature-catalogue.pdf) · [Companion: The Collection](CollectionCatalogue.md)
 
@@ -33,12 +33,13 @@ For the internal mechanisms and design decisions, see [Engineering behind the Ar
 19. General computing and development on the Ark
 20. Diagnostics, support and handover
 21. A separate desktop ARM64 test Ark
+22. Signed software updates
 
 ## 1. Walk-up access without a reader account
 
 *Power the Ark, join its network, and put a shared resource within reach.*
 
-- A local Wi-Fi hotspot connects phones, tablets and laptops to the Ark without an upstream internet connection.
+- On hotspot-equipped installations, a local Wi-Fi hotspot connects phones, tablets and laptops without an upstream internet connection. LAN-server and container installations use the host network.
 - Captive-portal discovery guides compatible devices toward the landing page; a fixed local address provides a manual route when a device does not open it automatically.
 - The public library, documentation and ordinary browser tools are available without a caretaker account or an installed client application.
 - The interface and its bundled fonts, scripts, icons and API documentation are served locally, rather than relying on a runtime CDN.
@@ -121,6 +122,7 @@ For the internal mechanisms and design decisions, see [Engineering behind the Ar
 
 *Make shared changes deliberate without repeatedly interrupting authorized work.*
 
+- First-owner setup accepts the supplied four-digit code and separately chosen caretaker and Linux-admin passwords. Public browsing remains open; root login stays disabled.
 - Protected actions request the shared caretaker password only when needed; reading configuration and ordinary public status does not prompt.
 - An opt-in remember switch caches authorization for a chosen fixed 1-120 minutes, with 10 minutes as the default.
 - The cache survives same-tab navigation and reload at the same Ark address, but its expiry is not extended by activity.
@@ -282,6 +284,7 @@ For the internal mechanisms and design decisions, see [Engineering behind the Ar
 
 *Carry the instructions for the library as well as its files.*
 
+- A configurable system-card library can serve a sample or a larger selected offline collection without an external content drive.
 - Clone a content drive previews a public configuration/software kit, whole collections that fit, or all public content. Capacity policy keeps a reserve; a caretaker approves the exact plan in the terminal.
 - Resumable copies retain partial files and SHA-256 receipts. The destination catalogue lists verified copied files, while its public recipe retains the desired collection for later restoration. Boot/content disks and their other partitions are protected; unrelated destination files are never erased.
 - Human-readable public profiles record desired content, sources, handlers, sizes/hashes and dependencies; absence on disk does not erase the intended selection.
@@ -291,7 +294,8 @@ For the internal mechanisms and design decisions, see [Engineering behind the Ar
 - A persistent queue supports progress, pause, cancellation, retry and resume, with per-package verification and repeated free-space checks.
 - Existing verified files can be reused, partial files are kept separate, and worker locks prevent competing download/activation jobs.
 - Configuration-only and populated installation-drive preparation, START-ARK entry points and an experimental supported-stock-Pi coordinator are implemented.
-- No automatic formatting or download approval is inferred. Full spare-media, fresh-Pi and interruption acceptance remain required before calling two-way recovery dependable.
+- Adding an empty external drive offers to copy and verify existing content before switching, including usable older editions. Publisher checks and optional downloads can follow separately.
+- No automatic formatting or download approval is inferred. Physical clean-install, sample-library transfer, reboot and recipient software-upgrade results are recorded separately from broader full-library and interruption acceptance.
 
 [Operating details](../20-Administration/RecoveryQueue.md)
 
@@ -338,13 +342,26 @@ For the internal mechanisms and design decisions, see [Engineering behind the Ar
 
 [Operating details](../20-Administration/Emulator.md)
 
+## 22. Signed software updates
+
+*Update the appliance without replacing its library or identity.*
+
+- Help checks official software releases and shows the installed build, publication time and available release. Preview releases require explicit opt-in.
+- The Ark can download and verify a signed package directly; an already-downloaded signed package can also be uploaded for an offline installation.
+- Signature, base revision, platform, permitted file scopes and unexpected local edits are checked before installation. Bootstrap kits and unsupported migrations are rejected.
+- Caretaker approval starts a persistent system worker. The browser reconnects after restart to show completion or rollback.
+- Health checks precede committing the new software receipt. Failed installation restores the retained software and records the outcome.
+- Software, content and operating-system updates remain separate; update lifecycle events can feed configured Home Assistant integrations.
+
+[Operating details](../20-Administration/SoftwareUpdates.md)
+
 ## Practical limits
 
 - Power, working storage/network hardware and compatible clients are still required. Captive-portal behavior and optional remote-access clients vary by device.
 - Acquisition, publisher checks, hosted AI and certificate issuance require upstream connectivity when they contact outside services. Installed local material does not.
 - HTTP remains available and is unencrypted; optional trusted HTTPS and separate service/account credentials have their own scope.
-- The Pi has 2 GB installed RAM. Installed IDEs, services and viewers do not establish every workload, device or dependency has passed acceptance.
-- Recovery tooling is implemented, but full spare-media/fresh-system acceptance and complete offline software provisioning remain unfinished. The emulator does not substitute for those tests.
+- The reference Raspberry Pi 4 has 2 GB installed RAM. Installed IDEs, services and viewers do not establish every workload, device or dependency has passed acceptance.
+- Physical clean-install, sample-library transfer and recipient software-upgrade tests have passed within their recorded scope. Full-library reconstruction and complete offline software provisioning are separate tests; the emulator does not replace physical-device checks.
 - Usage measures activity and approximate addresses, not verified people. Broadcast reaches open compatible pages, not every disconnected device.
 - Household data and support reports need deliberate privacy decisions. A backup is useful only when its independent restoration has been checked.
 

@@ -54,4 +54,4 @@ A ZIM archive needs Kiwix. A PDF needs a PDF reader. GIS ZIP archives are datase
 
 ## Is everything backed up and fully tested?
 
-No. Configuration snapshots, curated content, household backups, and application source have different recovery requirements. A full spare-storage restore and several client/offline acceptance cases remain pending. See the [acceptance tests](../20-Administration/AcceptanceTests.md) for the distinction between implemented features and verified recovery.
+No. Configuration snapshots, curated content, household backups, and application source have different recovery requirements. Physical sample-library transfer, clean installation and recipient software-upgrade tests have passed; reconstructing every collection and verifying every client is a broader task. See [recovery validation](../20-Administration/RecoveryValidation.md) and the [acceptance tests](../20-Administration/AcceptanceTests.md) for the tested scope.

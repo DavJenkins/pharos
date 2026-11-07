@@ -6,11 +6,11 @@
 
 An encyclopedia. A library of books. A repair bench, map cabinet, classroom and emergency reference shelf. The Data Ark brings them together on one local device - ready to serve a household or community when an internet connection is unavailable.
 
-24 collections combine 1,400 registered archives, publications, datasets and packs, plus local tools for maps, radio practice, PDF forms, coloring, games and practical planning. A single archive can contain an entire searchable collection; 1,400 is an inventory count, not a count of its articles, books, maps or pages.
+24 collections combine 1,401 registered archives, publications, datasets and packs, plus local tools for maps, radio practice, PDF forms, coloring, games and practical planning. A single archive can contain an entire searchable collection; 1,401 is an inventory count, not a count of its articles, books, maps or pages.
 
 Connect to the Ark and open a browser. Read, search, learn, plan, fill forms, print worksheets, or take copies of the content with you. The collection is stored locally, rather than being a directory of websites you still need the internet to visit.
 
-Collection snapshot | October 30, 2026
+Collection snapshot | November 6, 2026
 
 ## 1. Wikipedia
 
@@ -86,6 +86,7 @@ The paperwork of everyday life, business and emergency response, ready to read, 
 - IRS Schedule A — Itemized deductions — Tax year 2025
 - IRS Schedule B — Interest and ordinary dividends — Tax year 2025
 - IRS Schedule C — Profit or loss from business — Tax year 2025
+- IRS Schedule C — Profit or loss from business — Tax year 2026 (retained alongside 2025)
 - IRS Schedule D — Capital gains and losses — Tax year 2025
 - IRS Schedule E — Supplemental income and loss — Tax year 2025
 - IRS Schedule SE — Self-employment tax — Tax year 2025
@@ -372,7 +373,7 @@ A local community message board supports announcements, requests, offers and con
 
 ## About this edition
 
-This catalogue describes the content preserved on this Ark as of October 30, 2026. It omits uninstalled wishlist items and blocked acquisition attempts. Collections are snapshots with their original source editions; availability and freshness differ by source. State constitutional snapshots are not complete state statute books. The Massachusetts code files are amendments and named references, not a complete licensed building-code library. Vehicle files are owner manuals and quick guides, not factory service manuals. Street maps are not nautical charts. Original publishers retain their rights and individual notices apply.
+This catalogue describes the content preserved on this Ark as of November 6, 2026. It omits uninstalled wishlist items and blocked acquisition attempts. Collections are snapshots with their original source editions; availability and freshness differ by source. State constitutional snapshots are not complete state statute books. The Massachusetts code files are amendments and named references, not a complete licensed building-code library. Vehicle files are owner manuals and quick guides, not factory service manuals. Street maps are not nautical charts. Original publishers retain their rights and individual notices apply.
 
 DEJ Software | Practical Software for Real Life | dejsoftware.com
 

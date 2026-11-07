@@ -81,6 +81,7 @@ The GitHub repository is not automatically a backup of the working checkout. Git
 - [Configuration reference](../20-Administration/Configuration.md): the settings and installed files needed to reproduce the deployment.
 - [Administrator Guide](../20-Administration/AdministratorGuide.md): configuration capture, deployment, account boundaries and recovery precautions.
 - [Source and handover](../20-Administration/SourceAndHandover.md): repositories, backups, credentials and transfer of responsibility.
+- [System-card recovery](../20-Administration/SystemCardRecovery.md): preserve, diagnose and repair a damaged operating-system card.
 - [Architecture](../30-Developer/Architecture.md) and [Developer Guide](../30-Developer/DeveloperGuide.md): implementation and change workflow.
 
 Maps, household backups and portal behavior have dedicated guides in the [contents](../summary.md). Their rules are separate; a resource link does not create a synchronization job.
@@ -91,13 +92,13 @@ Implemented capabilities include the offline all-50-state and Caribbean street-m
 
 The reader audit identified archive-page timeouts even when the Kiwix catalogue was available. Do not mark all viewers healthy until actual articles and images pass. PDF and GIS formats differ: map indexes are not an integrated GIS viewer. Portable Windows software has its own execution/compatibility checks. See [Acceptance tests](../20-Administration/AcceptanceTests.md) for observed results and unresolved tests.
 
-Other incomplete areas include a spare-storage disaster recovery test, public collection requests and storage approvals, some live household/encryption/HA checks, UPS-aware shutdown/eject policy and retention rules. No physical door, light or other home-automation actions are implied by a configured backup integration.
+Physical clean-install, sample-library transfer, reboot and retained-card software-upgrade results are recorded in [Recovery validation](../20-Administration/RecoveryValidation.md). Full-library reconstruction, public collection requests and storage approvals, household-specific encryption/HA checks, UPS-aware shutdown/eject policy and retention rules have their separate acceptance scope. No physical door, light or other home-automation actions are implied by a configured backup integration.
 
-## The deployment goal
+## Build and reproduce an Ark
 
-The intended end state is a supported Pi image plus one bootstrap command, site-specific input and a verified working Data Ark. Reusing installer scripts is necessary but not sufficient: the base image, disks, interface roles, Apache/API setup, container deployment, identity, credentials and acceptance tests must also be reproducible.
+Start with the [bootstrap download guide](BootstrapDownload.md), choose a supported [platform profile](../30-Developer/PlatformProfiles.md), and follow the matching installation and first-owner setup. The original Raspberry Pi, LAN-server and container forms share the library configuration while differing in network and host services.
 
-That is a goal, not an existing one-command installer. The [Bootstrap plan](../30-Developer/BootstrapPlan.md) records required stages, safeguards and acceptance criteria so the current appliance can be turned into a reproducible product rather than a collection of remembered fixes.
+The [physical replay record](../20-Administration/PhysicalRecoveryReplay.md) identifies the frozen kit and tests that passed. The [bootstrap design](../30-Developer/BootstrapPlan.md) explains the installation stages, safeguards and wider acceptance criteria. A tested kit identifies its supported base, storage arrangement and required connectivity; a successful application start is not a substitute for client, content and recovery checks.
 
 ## Keep this record useful
 

@@ -256,6 +256,14 @@ class PublisherReviewTests(unittest.TestCase):
             with self.subTest(url=url),self.assertRaises(ValueError):
                 review.manage_source({'action':'source_settings','asset_id':'schedule','state':'paused','url':url})
 
+    def test_source_export_failure_reports_cause_and_restores_policy(self):
+        config=self.root/'reference-config.json';config.write_text('{}')
+        error=review.subprocess.CalledProcessError(1,['python','content_profile.py','export'],stderr='Traceback\nValueError: Recovery drive is read-only\n')
+        with patch.object(review.checks,'CONFIG',config),patch.object(review,'load_manifest',return_value=self.manifest),patch.object(review.subprocess,'run',side_effect=error):
+            with self.assertRaisesRegex(ValueError,'Recovery configuration could not be saved.*Recovery drive is read-only'):
+                review.manage_source({'action':'source_settings','asset_id':'schedule','state':'active','url':self.source,'snooze_days':30})
+        self.assertEqual(config.read_text(),'{}')
+
     def test_warning_snooze_is_persisted_and_can_be_cancelled(self):
         config=self.root/'reference-config.json';config.write_text('{}')
         payload={'action':'source_settings','asset_id':'schedule','state':'active','url':self.source,'snooze_days':7}

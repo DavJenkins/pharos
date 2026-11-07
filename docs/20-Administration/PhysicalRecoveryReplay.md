@@ -1,4 +1,8 @@
-# Physical recovery replay — November 2, 2026
+# Physical recovery replay
+
+The corrected frozen-kit installation and external-drive replay passed, as recorded below. The initial November 2 failure remains a dated test result, rather than the current installation status. Later signed-update and offline-client results are in [Release validation](ReleaseAudit.md).
+
+## Initial replay — November 2, 2026
 
 The Raspberry Pi 4 test used a separate 128 GB microSD, without the original content SSD. The frozen kit at `f0479108b4d785e1e651ca7dd33d0b2825872088` completed its ten installation phases. Its clean-install acceptance failed: the OS-update monitor lacked a writable collection-event directory. This result remains failed even though a repaired installation subsequently worked.
 

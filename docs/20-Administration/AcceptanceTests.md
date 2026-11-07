@@ -78,6 +78,8 @@ Keep completed results tied to the source revision and tested media. See [Releas
 
 ## KZ1O retained-build online upgrade
 
+The November 6 retained-card bridge, on-Ark follow-up, rollback, cold-boot and client-offline results are recorded in [Release validation](ReleaseAudit.md). The procedure below remains the repeatable acceptance checklist; a narrower result must not be presented as testing an unexercised migration or every content file.
+
 Use the prepared KZ1O microSD as an existing recipient installation, retaining its original build. Do not reflash it, copy current application files onto it, or re-enroll its software baseline before this test. Its populated system-card library and special-edition settings are part of the preservation test.
 
 1. Before booting or changing the card, make and verify a restorable card backup. Record the physical media identity and backup digest privately. Retain the printed setup identity; do not regenerate its setup code solely for this test.

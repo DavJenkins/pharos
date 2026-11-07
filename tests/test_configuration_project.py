@@ -118,5 +118,24 @@ class ProjectTests(unittest.TestCase):
         self.assertIn('config/content/project/catalogues/one.yaml',portable)
         self.assertIn('config/library/ark.yaml',portable)
 
+    def test_portable_export_ignores_stale_generated_snapshot_without_overwriting_it(self):
+        from tools import content_profile as content,recovery_queue as queue
+        (self.root/'public-manifest.yaml').write_text(p.dump(p.public(self.data)))
+        stale=self.root/'project-snapshot';p.write(stale,self.data)
+        edited=stale/'catalogues/one.yaml';edited.write_text(edited.read_text()+'\n# preserved edit\n')
+        before=edited.read_bytes()
+        with self.assertRaisesRegex(ValueError,'manual edits'):p.ensure_clean(stale)
+        profile={'schema':1,'manifest':'public-manifest.yaml','snapshots':[]}
+        profile_path=self.root/'content.yaml';profile_path.write_text(p.dump(profile))
+        content.mirror(profile,self.root,self.root/'mirror')
+        assembled=p.load(self.root/'mirror/config/library/ark.yaml')
+        self.assertEqual(p.public(assembled),p.public(self.data))
+        self.assertEqual(edited.read_bytes(),before)
+        self.assertFalse(list(self.root.glob('.project-snapshot-*')))
+        first=queue.fingerprint(profile_path,{})
+        self.assertEqual(queue.fingerprint(profile_path,{}),first)
+        self.assertEqual(edited.read_bytes(),before)
+        self.assertFalse(list(self.root.glob('.project-snapshot-*')))
+
 
 if __name__=='__main__':unittest.main()

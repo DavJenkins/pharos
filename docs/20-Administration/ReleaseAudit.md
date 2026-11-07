@@ -1,5 +1,17 @@
 # Release validation
 
+## Recovery-profile export and prototype repair — November 6, 2026
+
+The shared profile exporter now builds each derived modular recovery snapshot in a fresh temporary directory. A stale generated tree no longer blocks source-policy saves, portable exports or restore-plan fingerprints; genuine editable-project conflicts remain protected. The regression includes an intentionally edited stale snapshot, matching mirror output, stable restoration fingerprints and cleanup of temporary files. Export failures expose their underlying cause and restore the previous source policy. All 68 content-profile, modular-project, recovery-queue and publisher-review regressions passed in an isolated directory on the prototype, with disk-backed temporary test storage.
+
+The corrected exporter then completed a real profile export and content-drive mirror. The previously failed 30-day publisher-warning snooze saved through the normal authenticated API; the returned inventory confirmed the expiry and continued automatic checks. This maintenance fix is installed on the prototype; applying it to the retained recipient card is a separate software-update task.
+
+The prototype's operating-system recovery is recorded in [Recover a damaged system card](SystemCardRecovery.md). It retained a verified pre-repair image and restored 547 checksum-matched files before normal boot; it did not replace the prototype with the donor's identity or personalized settings.
+
+## Retained recipient final state — November 6, 2026
+
+The recipient completed `software-2026.11.06-preview.4` and `.5` through the signed online update path. The final receipt identified source `618ffddf08141e150f772346f5c89ca0f2694e97`, sequence 4, with no managed-file drift and healthy system status. The existing printed setup code was preserved, first-owner setup was re-armed for the next boot and the Pi was shut down. Subsequent source fixes require their own installation; the mailing-state record is not a claim that later commits are already on that card.
+
 ## Retained-build bridge acceptance — November 6, 2026
 
 The retained KZ1O system-card installation was backed up and verified before booting. Its original receipt identified source `2245a6c308cbac2f0e03ec49b13b19cbfa852e96`, sequence 0. The separately signed verifier transition retained the existing receipt rather than re-enrolling changed files. First-owner setup was completed through the ordinary pairing-code endpoint for the test.
