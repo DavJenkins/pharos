@@ -2,7 +2,7 @@
 
 Updated 2026-10-30. This register separates unavailable documents, useful alternatives and actual uncovered needs. It is not a list of proposed new collections.
 
-9 unavailable catalogue entries; 7 omitted candidates; 16 entries resolved or corrected. Related guides do not mean the requested document is installed. HTTP errors describe recorded requests, not whether you can open a public document in your browser.
+9 recorded acquisition gaps; 7 omitted candidates; 16 entries resolved or corrected. These are acquisition records, not a count of missing files in the current registered library. Related guides do not mean the requested document is installed. HTTP errors describe recorded requests, not whether you can open a public document in your browser.
 
 ## How to read this report
 
@@ -295,14 +295,12 @@ These are separate from the current unavailable count. Exact URLs were not retai
 
 ## Remaining scope and maintenance limits
 
-Not every blocked URL represents a distinct uncovered need. The installed NCAT hydro guide addresses dedicated hydro planning differently from the failed DOE/Colorado titles. Public state amendments do not include the complete copyrighted ICC/NFPA base books. Gardner ordinance text and small-claims procedure remain separate gaps. Owner manuals are not full Honda factory workshop manuals. Pregnancy-specific coverage and screen-reader/easy-read equivalence remain unverified.
+Not every blocked URL represents a distinct uncovered need. The installed NCAT hydro guide addresses dedicated hydro planning differently from the failed DOE/Colorado titles. Public state amendments do not include the complete copyrighted ICC/NFPA base books. Gardner ordinance text and small-claims procedure remain separate gaps. Owner manuals are not full factory workshop manuals. Pregnancy-specific coverage and screen-reader/easy-read equivalence remain unverified.
 
 The 2025 Title 44 volume-2 target was erroneous: the [official GovInfo directory](https://www.govinfo.gov/bulkdata/CFR/2025/title-44) lists volume 1 only, already installed. Annual snapshots are not live eCFR. Legal and technical currency must be checked against the actual jurisdiction and edition.
 
 Earlier failures resolved by other sources include the ACS bleeding booklet (Indiana DHS), mold originals (EPA/Winnebago/Global Handwashing Partnership), water guidance (EPA), winter references (NWS/archived FEMA/Texas A&M) and the correct AVMA 2023 pet brochure. These are explained in their collection maintenance guides.
 
 Publisher checks for captured PDFs are manual. A failed check does not remove or invalidate an installed copy. Browser comparisons resolve unknown checks; different verified bytes require explicit replacement with the current baseline hash. Previous verified copies are retained privately on the system disk. Pinned tax years cannot silently advance. [Browser capture and update guide](BrowserCapture.md).
-
-For constitutional snapshots delivered through 50constitutions.org, scheduled checks compare the embedded provisions rather than the changing navigation around them. Selected government HTML sources use the same substantive-body extraction as the saved snapshot. When moving from an older whole-page fingerprint, a warning is cleared only if the newly extracted text exactly matches the installed content; differences, missing files and unrecognized snapshot boundaries remain pending. The publisher-check service records its lifecycle activity in the local feed consumed by Home Assistant.
 
 The editable assessment is deploy/reference/content-gaps.json in /opt/dataark and the [GitHub source](https://github.com/DavJenkins/pharos/blob/feature/readme-foundation/deploy/reference/content-gaps.json). Collection sources.json files retain installed provenance and hashes. tools/build_content_gap_report.py renders this page after an import. Exact document equivalence and complete subject coverage are not inferred from a successful download.
