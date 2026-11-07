@@ -11,6 +11,10 @@ base=history['base_url']
 record=json.loads(json.dumps(history));produced=[]
 for kind in ['collection','feature']:
  source=web/'data-ark'/f'{kind}-catalogue.pdf';digest=hashlib.sha256(source.read_bytes()).hexdigest();name=f'data-ark-{kind}-catalogue-{digest[:12]}.pdf';shutil.copyfile(source,out/name);produced.append(out/name);record['pdfs'][source.name]=base+name
+if args.edition:
+ for source in sorted((web/'data-ark/editions'/args.edition/'docs').rglob('*.pdf')):
+  digest=hashlib.sha256(source.read_bytes()).hexdigest();name=source.stem+'-'+digest[:12]+'.pdf'
+  shutil.copyfile(source,out/name);produced.append(out/name);record['pdfs'][source.name]=base+name
 for directory in sorted((web/'data-ark/editions').iterdir()):
  if not directory.is_dir() or (args.edition and directory.name!=args.edition):continue
  edition=directory.name;prefix='/data-ark/editions/'+edition+'/';archive=out/f'data-ark-handbook-{edition}.zip'

@@ -39,4 +39,7 @@ def finish(root,website,edition,config):
                 if len(parts)>4 and parts[3] in record['editions']:return 'href="/data-ark/editions/'+parts[3]+'/"'
             return match.group(0)
         page.write_text(re.sub(r'href="([^"]+)"',link,page.read_text(encoding='utf-8-sig')),encoding='utf-8')
+    # Downloadable PDFs live on Releases; the complete offline ZIP retains them.
+    for pdf in (website/'data-ark/docs').rglob('*.pdf'):
+        if pdf.name in record['pdfs']:pdf.unlink()
     (website/'data-ark/downloads.json').write_text(json.dumps(record,indent=2)+'\n',encoding='utf-8')
