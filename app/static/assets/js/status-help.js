@@ -245,6 +245,7 @@ function arkDefaultSystemTab(problems){
                 const systemActions=document.createElement("div"),libraryActions=document.createElement("div");
                 systemActions.className=libraryActions.className="status-dialog-actions tab-panel-actions";
                 systemActions.append(bannerButton,terminalLink,httpsLink,configurationLink,supportButton);libraryActions.append(link);
+                window.ArkPower?.addControls(systemActions);
                 value.append(tabs,...panels);
 
                 const clientsList=document.createElement("dl");clientsList.className="status-details-list";

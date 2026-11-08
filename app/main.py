@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app.routers.power import router as power_router
 
 from app.routers.about import router as about_router
 from app.routers.debug import router as debug_router
@@ -16,6 +17,7 @@ app = FastAPI(
     docs_url=None,
     redoc_url=None,
 )
+app.include_router(power_router)
 
 from app.routers.documentation import router as documentation_router
 app.include_router(documentation_router)

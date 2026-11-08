@@ -1,5 +1,11 @@
 # Administrator Guide
 
+## Power controls
+
+The dashboard's **System → System → Power…** dialog offers caretaker-authorized Restart and Shut down. Each requires explicit confirmation; the fixed privileged helper schedules the systemd action after five seconds so the browser can receive acknowledgement. Shutdown uses the normal operating-system service stop and filesystem flush sequence. A queued action is not evidence that shutdown has finished: wait for the device to finish before unplugging it.
+
+Power actions disconnect all users and interrupt active work. A shut-down device needs local power-on access. Containers do not expose host power controls. These controls do not replace a backup or repair a damaged filesystem.
+
 ## Capture the appliance configuration
 
 Run on the Pi from `/opt/dataark`:

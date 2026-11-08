@@ -38,11 +38,15 @@ def validate(data):
         raise ValueError('Expected a JSON object.')
     action = data.get('action')
     allowed = {'scan': {'action'}, 'connect': {'action', 'ssid', 'security', 'password'},
-               'rename': {'action', 'ssid'}, 'uplink': {'action', 'enabled'}, 'ethernet': {'action', 'enabled','interface','expected_mac'}, 'hotspot': {'action', 'enabled'}, 'access': {'action'}, 'adapters': {'action'}, 'diagnostics': {'action'}, 'publish-configuration': {'action'}, 'assign': {'action','adapter'}, 'confirm-roles': {'action'}, 'revert-roles': {'action'}}
+               'rename': {'action', 'ssid'}, 'uplink': {'action', 'enabled'}, 'ethernet': {'action', 'enabled','interface','expected_mac'}, 'hotspot': {'action', 'enabled'}, 'access': {'action'}, 'adapters': {'action'}, 'diagnostics': {'action'}, 'publish-configuration': {'action'}, 'power': {'action','operation','confirmed'}, 'assign': {'action','adapter'}, 'confirm-roles': {'action'}, 'revert-roles': {'action'}}
     for fields in allowed.values():
         fields.update({'peer'})
     if action not in allowed or set(data) - allowed[action]:
         raise ValueError('Unsupported network operation.')
+    if action == 'power':
+        if data.get('operation') not in ('restart','shutdown') or data.get('confirmed') is not True:
+            raise ValueError('Confirm Restart or Shut down explicitly.')
+        return action
     if action in ('uplink', 'ethernet', 'hotspot') and type(data.get('enabled')) is not bool:
         raise ValueError('Enabled must be true or false.')
     if action=='ethernet' and ('interface' in data or 'expected_mac' in data):
@@ -123,6 +127,13 @@ def protect_access(data, interface):
 
 def execute(data):
     action = validate(data)
+    if action == 'power':
+        if not Path('/run/systemd/system').is_dir() or Path('/.dockerenv').exists() or Path('/run/.containerenv').exists():
+            raise NetworkError('Power controls are unavailable in this environment. Use the host controls.')
+        command={'restart':'reboot','shutdown':'poweroff'}[data['operation']]
+        result=subprocess.run(['/usr/bin/systemd-run','--unit=dataark-caretaker-power','--on-active=5s','/usr/bin/systemctl',command],capture_output=True,text=True,timeout=10,check=False,env=ENV)
+        if result.returncode:raise NetworkError('Could not schedule the power action. It may already be pending.')
+        return {'ok':True,'operation':data['operation'],'delay_seconds':5}
     if platform_settings() and action not in ('diagnostics','publish-configuration','access','scan'):
         raise NetworkError('This LAN profile preserves the operating system’s network settings. Use its local network settings to make changes.')
     if action == 'publish-configuration':

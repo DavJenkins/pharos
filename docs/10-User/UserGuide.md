@@ -11,6 +11,12 @@ Screenshots use example values. Your installed collections, capacity, dates and 
 
 On the home network, http://dataark/ may also work. Name resolution varies by device; use the appliance's address if necessary. The hotspot address is the dependable manual entry while connected directly to DataArk.
 
+## Restart or shut down
+
+Open the gear, choose **System**, select the **System** tab, then **Power…**. Choose **Restart** or **Shut down**, review the explanation, and confirm with caretaker authorization. Opening the controls does not perform an action.
+
+Everyone is disconnected and active work is interrupted. Restart brings the appliance back after booting; shutdown leaves it off until someone powers it back on. Wait for shutdown to finish before removing power. Container deployments use their host's power controls instead.
+
 ## Read a collection
 
 Choose a local collection or archive link on the landing page. ZIM archives open in the Ark's Kiwix reader. Search within that reader to find articles. Local links can work without upstream internet; links marked online need it.
