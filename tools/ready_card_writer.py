@@ -20,7 +20,13 @@ def make_seed(config,driver):
            'write_files':[{'path':'/usr/local/libexec/dataark-card-build','permissions':'0700','encoding':'b64','content':base64.b64encode(driver).decode()},
                           {'path':'/etc/systemd/system/dataark-card-build.service','permissions':'0644','content':unit}],
            'runcmd':[['systemctl','daemon-reload'],['systemctl','enable','--now','dataark-card-build.service']]}
-    sheet='<!doctype html><html lang="en"><meta charset="utf-8"><title>Private Data Ark welcome</title><style>body{font:18px/1.6 system-ui;max-width:750px;margin:40px auto;padding:24px;color:#203e54}h1{background:#172d40;color:#e0bd68;padding:20px}.code{font:700 36px monospace;letter-spacing:8px}@media print{button{display:none}}</style><h1>Your Pharos Data Ark</h1><p><strong>Keep this sheet private.</strong> First the sender boots the card with Ethernet/internet and waits for the successful build to power off. The card is then ready for its recipient.</p><p>The recipient connects to DataArk Wi-Fi and opens <strong>http://192.168.4.1/setup.html</strong>.</p><p>One-time code:</p><p class="code">'+html.escape(seed['pairing_code'])+'</p><p>Choose separate caretaker and Linux admin passwords, at least 12 characters each. No shared root password or online activation. Complete HTTP setup privately before inviting others.</p><p>Device: '+seed['hostname']+'</p><p>Installed content and first-owner setup work without internet after the build. This card’s library capacity is '+str(seed['library_gib'])+' GiB; capacity does not imply it is full.</p><button onclick="print()">Print / Save as PDF</button></html>'
+    template=HERE/'welcome-template.html'
+    if template.is_file():
+        sheet=template.read_text(encoding='utf-8').replace('{{SETUP_CODE}}',seed['pairing_code']).replace('DATAARK_HOSTNAME',seed['hostname']).replace('{{LIBRARY_GIB}}',str(seed['library_gib']))
+    else:
+        from app.services.welcome_guides import render
+        sheet=render('microsd',code=seed['pairing_code'],hostname=seed['hostname'],note='Sender: finish the initial online build and wait for successful power-off before handoff. Library capacity: '+str(seed['library_gib'])+' GiB; capacity does not imply it is full.')
+
     return seed,cloud,sheet
 
 def candidates():

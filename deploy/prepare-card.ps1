@@ -1,6 +1,8 @@
 #Requires -RunAsAdministrator
 param([string]$ImagePath,[Nullable[int]]$DiskNumber)
 $ErrorActionPreference='Stop'
+$welcomeTemplate=Join-Path $PSScriptRoot 'welcome-template.html'
+if(-not(Test-Path -LiteralPath $welcomeTemplate -PathType Leaf)){throw 'Extract the complete preparation package; welcome-template.html is missing.'}
 $package=Get-Content -LiteralPath (Join-Path $PSScriptRoot 'card-package.json') -Raw | ConvertFrom-Json
 $imager=Join-Path $env:ProgramFiles 'Raspberry Pi Ltd/Imager/rpi-imager.exe'
 if(-not(Test-Path -LiteralPath $imager)){throw 'Install Raspberry Pi Imager 2.0.12 or newer from raspberrypi.com/software, then run again.'}
@@ -65,7 +67,7 @@ try {
  if((Get-FileHash -LiteralPath (Join-Path $folder 'kit.tar.gz') -Algorithm SHA256).Hash.ToLower() -ne $package.kit_sha256){throw 'Copied kit verification failed.'}
  foreach($name in @('kit.tar.gz','provision.json')){$stream=[IO.File]::Open((Join-Path $folder $name),'Open','ReadWrite','Read');try{$stream.Flush($true)}finally{$stream.Dispose()}}
  $sheet=Join-Path $PSScriptRoot ($hostname+'-PRIVATE-welcome.html')
- $html='<!doctype html><html lang="en"><meta charset="utf-8"><title>Private Data Ark welcome</title><style>body{font:18px/1.6 system-ui;max-width:750px;margin:40px auto;padding:24px;color:#203e54}h1{background:#172d40;color:#e0bd68;padding:20px}.code{font:700 36px monospace;letter-spacing:8px}@media print{button{display:none}}</style><h1>Your Pharos Data Ark</h1><p>Keep this sheet private. The sender first boots the card with Ethernet/internet and waits for its successful build to power off. It is then ready for its recipient.</p><p>The recipient joins DataArk Wi-Fi and opens <strong>http://192.168.4.1/setup.html</strong>.</p><p>One-time code:</p><p class="code">'+$code+'</p><p>Choose separate caretaker and Linux admin passwords (12+ characters). No shared root password or online activation. Complete HTTP setup privately. Installed content and enrollment work offline after the build.</p><p>Device: '+$hostname+'</p><button onclick="print()">Print / Save as PDF</button></html>'
+ $html=[IO.File]::ReadAllText($welcomeTemplate).Replace('{{SETUP_CODE}}',$code).Replace('DATAARK_HOSTNAME',$hostname).Replace('{{LIBRARY_GIB}}',[string]$package.library_gib)
  [IO.File]::WriteAllText($sheet,$html,(New-Object Text.UTF8Encoding($false)))
  Write-Host ('Installer card verified. PRIVATE welcome sheet: '+$sheet)
  Write-Host 'Safely eject, then boot with Ethernet/internet. Only a successful build followed by automatic power-off makes it ready to give away.'

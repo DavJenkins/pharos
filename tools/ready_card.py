@@ -6,6 +6,22 @@ ROOT=Path(__file__).resolve().parents[1]
 STATE=Path('/var/lib/dataark/card-package')
 PRIVATE=Path('/etc/dataark/appliance-jobs')
 
+def portable_welcome(source_archive,folder):
+    """Render the same template from the kit's committed source, not host files."""
+    names=['app/services/welcome_guides.py','config/distribution-channels.json','app/static/assets/pharos-data-ark-clean.png','app/static/assets/dej-software-footer.webp']
+    root=folder/'welcome-source'
+    with tarfile.open(source_archive) as archive:
+        for name in names:
+            member=archive.getmember(name)
+            if not member.isfile():raise ValueError('Welcome source must be a regular file')
+            target=root/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(archive.extractfile(member).read())
+    module=root/'app/services/welcome_guides.py';namespace={'__file__':str(module)}
+    exec(compile(module.read_bytes(),str(module),'exec'),namespace)
+    text=namespace['render']('microsd',code='0000',hostname='DATAARK_HOSTNAME',note='Sender: finish the initial online build and wait for its successful automatic power-off before handing over this card. Its chosen library capacity is {{LIBRARY_GIB}} GiB; capacity does not imply it is full.')
+    marker='<div class="code">0000</div>'
+    if marker not in text:raise ValueError('Welcome code field missing')
+    return text.replace(marker,'<div class="code">{{SETUP_CODE}}</div>',1)
+
 def status(phase,**fields):
     from tools.clone_drive import save
     save(STATE/'status.json',{'phase':phase,**fields})
@@ -22,6 +38,7 @@ def build(library_gib,country,output):
     with tempfile.TemporaryDirectory(prefix='dataark-card-package-') as temp:
         folder=Path(temp);kit=folder/'kit';kit.mkdir();metadata=kit_files(kit,profile=profile,platform_profile="raspberry-pi-debian13-arm64")
         revision=metadata['source_revision']
+        welcome=portable_welcome(kit/'DATA-ARK-RECOVERY/dataark-source.tar.gz',folder)
         def committed(name):return subprocess.check_output(['git','-c','safe.directory='+str(ROOT),'-C',str(ROOT),'show',revision+':'+name])
         payload=folder/'kit.tar.gz'
         with tarfile.open(payload,'w:gz') as archive:
@@ -58,6 +75,7 @@ The original Ark and its library are not changed by building this package.
         output=Path(output);output.parent.mkdir(parents=True,exist_ok=True);part=output.with_suffix('.partial')
         with zipfile.ZipFile(part,'w',zipfile.ZIP_DEFLATED) as z:
             z.write(payload,'kit.tar.gz');z.writestr('card-package.json',json.dumps(config,indent=2)+'\n');z.writestr('README.txt',readme)
+            z.writestr('welcome-template.html',welcome)
             for source,name in [('tools/ready_card_first_boot.py','first-boot.py'),('tools/ready_card_writer.py','prepare-card.py'),('deploy/prepare-card.ps1','prepare-card.ps1')]:z.writestr(name,committed(source))
             z.writestr('prepare-card.cmd','@echo off\r\npowershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0prepare-card.ps1" %*\r\n')
         part.replace(output)
