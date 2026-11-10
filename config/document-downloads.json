@@ -1,10 +1,11 @@
 {
   "schema": 1,
-  "release_url": "https://github.com/DavJenkins/pharos/releases/tag/documentation-2026.11.06",
-  "base_url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.11.06/",
+  "release_url": "https://github.com/DavJenkins/pharos/releases/tag/documentation-2026.11.10",
+  "base_url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.11.10/",
   "pdfs": {
-    "collection-catalogue.pdf": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-collection-catalogue-d4d9e8780743.pdf",
-    "feature-catalogue.pdf": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-feature-catalogue-97b795093cbb.pdf"
+    "collection-catalogue.pdf": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.11.06/data-ark-collection-catalogue-caab3b489606.pdf",
+    "feature-catalogue.pdf": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.11.06/data-ark-feature-catalogue-5ac7fddd09f1.pdf",
+    "data-ark-quick-start.pdf": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.11.06/data-ark-quick-start-517156cf895e.pdf"
   },
   "editions": {
     "2026-10-29-2f137191b1": {
@@ -22,6 +23,10 @@
     "2026-11-03-46cc363bef": {
       "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-handbook-2026-11-03-46cc363bef-2049366c759b.zip",
       "filename": "data-ark-handbook-2026-11-03-46cc363bef-2049366c759b.zip"
+    },
+    "2026-11-06-372e004cc2": {
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.11.06/data-ark-handbook-2026-11-06-372e004cc2-1a4697f0df2d.zip",
+      "filename": "data-ark-handbook-2026-11-06-372e004cc2-1a4697f0df2d.zip"
     }
   },
   "assets": [
@@ -30,6 +35,12 @@
       "size": 363599,
       "sha256": "7b7686e77360feee05d833508688cefbc364a8a1adb1bde3d98ae7f6f44aa339",
       "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-collection-catalogue-7b7686e77360.pdf"
+    },
+    {
+      "filename": "data-ark-collection-catalogue-caab3b489606.pdf",
+      "size": 427330,
+      "sha256": "caab3b489606ffa3d5e6971618c46abf2939cfe9e9f96c894d37a68024e5a006",
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.11.06/data-ark-collection-catalogue-caab3b489606.pdf"
     },
     {
       "filename": "data-ark-collection-catalogue-d4d9e8780743.pdf",
@@ -42,6 +53,12 @@
       "size": 371927,
       "sha256": "27e257b3c850d0f48877831093aa66b8c0d2436cd7eeab4087687fcd88bde628",
       "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-feature-catalogue-27e257b3c850.pdf"
+    },
+    {
+      "filename": "data-ark-feature-catalogue-5ac7fddd09f1.pdf",
+      "size": 438104,
+      "sha256": "5ac7fddd09f13594ffb60d5fad320cff806c439e83e365732040269d0b56d6bf",
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.11.06/data-ark-feature-catalogue-5ac7fddd09f1.pdf"
     },
     {
       "filename": "data-ark-feature-catalogue-97b795093cbb.pdf",
@@ -72,6 +89,18 @@
       "size": 1711401,
       "sha256": "2049366c759bd0ecc77f4051b48834bcd45c01ad5ad816cbda38eb8471c9fd40",
       "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.10.29/data-ark-handbook-2026-11-03-46cc363bef-2049366c759b.zip"
+    },
+    {
+      "filename": "data-ark-handbook-2026-11-06-372e004cc2-1a4697f0df2d.zip",
+      "size": 3471928,
+      "sha256": "1a4697f0df2da113c31b421eaf425ac9565ef8ece059c9a1e8d913562c1eb9ad",
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.11.06/data-ark-handbook-2026-11-06-372e004cc2-1a4697f0df2d.zip"
+    },
+    {
+      "filename": "data-ark-quick-start-517156cf895e.pdf",
+      "size": 2141395,
+      "sha256": "517156cf895e095b97c974cb9af1d1a4caacb6fbc68e8c070d39eb40f601b9e5",
+      "url": "https://github.com/DavJenkins/pharos/releases/download/documentation-2026.11.06/data-ark-quick-start-517156cf895e.pdf"
     }
   ]
 }

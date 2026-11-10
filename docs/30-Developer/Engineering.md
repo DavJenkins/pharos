@@ -239,6 +239,12 @@ The same browser-facing address serves the dashboard, documents and Kiwix. The r
 
 Capability reporting distinguishes a container from a hardware appliance. Host network, disk and software-changing operations are rejected explicitly; absent systemd or Wi-Fi is not reported as a broken appliance. Configuration reload validates the mounted YAML and retains the last working manifest after invalid edits. [Container deployment](../20-Administration/Container.md) describes the operating boundary and host workflow.
 
+## 21. First-owner setup follows the trust boundary, not the delivery format
+
+Prepared cards and appliances can defer password selection to a browser with a private, single-use pairing code. Trusted local installers and a Docker host terminal establish credentials directly. A shared welcome-sheet template renders public channel guides and private code-bearing sheets; distribution text lives in `config/distribution-channels.json`. Public generation rejects private-code output inside documentation or website directories. Clones establish a new identity and setup authority instead of inheriting the sender's credentials.
+
+Incorrect code submissions are logged locally and enter a bounded durable security journal before any Home Assistant delivery is attempted. Alerts preserve their original timestamp and stable event identity, survive reboot, and expire after 30 days. Cooldown bursts aggregate by minute. A caretaker acknowledgement changes local warning visibility without discarding pending delivery. Background retries run within the existing worker; immediate delivery is attempted on receipt when an outbound integration is configured. See [setup security](../20-Administration/SetupSecurity.md) and [first-start guides](../10-User/FirstStart.md).
+
 ## Maintaining this chapter
 
 Keep this document focused on implemented mechanisms and the design reasoning behind them. Add source-specific contracts and operational instructions to the linked developer/admin guides. Record acceptance results in the validation documentation. The companion feature catalogue remains the account of what these mechanisms let people do.

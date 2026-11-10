@@ -2,6 +2,8 @@
 
 A Data Ark can be a home appliance, a portable library or a local-network service. Its delivery format determines what the recipient needs and whether installation requires internet access. These are ways to prepare and share an Ark, not a catalogue of units or cards offered for sale.
 
+Use [First start: choose your distribution path](FirstStart.md) for the matching welcome sheet: prepared card, complete appliance, content-drive/split Ark, bootstrap kit, Linux LAN server or Docker. The public sheets and private code-bearing sheets use one template.
+
 ## A complete appliance
 
 Supply a configured host, its system card or disk, and a populated content drive. The recipient supplies power and a phone or computer to browse. A Raspberry Pi hotspot configuration can serve nearby users without an existing router. A LAN installation serves an existing local network, Wi-Fi or wired.

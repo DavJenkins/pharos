@@ -13,6 +13,7 @@ import subprocess
 import tempfile
 import time
 import uuid
+import time
 
 ROOT = Path(__file__).resolve().parents[2]
 STATE = Path('/var/lib/dataark/bugout')
@@ -128,6 +129,13 @@ def database():
                          'CREATE TABLE IF NOT EXISTS events (id TEXT PRIMARY KEY, payload TEXT, next_try REAL DEFAULT 0, attempts INTEGER DEFAULT 0, sent INTEGER DEFAULT 0, error TEXT);')
         db.execute('CREATE TABLE IF NOT EXISTS prefetch (task_id TEXT PRIMARY KEY, signature TEXT, attempted REAL, payload TEXT)')
         db.execute('CREATE TABLE IF NOT EXISTS controls (operation_id TEXT PRIMARY KEY, continue_updates INTEGER NOT NULL)')
+        if 'created' not in {r[1] for r in db.execute('PRAGMA table_info(events)')}:
+            try:db.execute('ALTER TABLE events ADD COLUMN created REAL DEFAULT 0')
+            except sqlite3.OperationalError:
+                if 'created' not in {r[1] for r in db.execute('PRAGMA table_info(events)')}:raise
+        db.execute('UPDATE events SET created=? WHERE created=0',(time.time(),))
+        db.execute('DELETE FROM events WHERE created<=?',(time.time()-30*24*60*60,))
+        db.commit()
         yield db
     finally:
         db.close()
@@ -434,11 +442,10 @@ def event(db, operation, kind):
     # Credentials and source paths are never included in event payloads.
     if operation.get('mode') == 'prefetch':
         return
-    cfg = integration()
-    if cfg.get('url') and cfg.get('token'):
-        payload = {'event_id':str(uuid.uuid4()),'kind':kind,'operation_id':operation['id'],
-                   'origin':operation['origin'],'state':operation['state'], 'tasks':operation.get('results',[])}
-        db.execute('INSERT INTO events(id,payload) VALUES (?,?)',(payload['event_id'],json.dumps(payload)))
+    payload = {'event_id':str(uuid.uuid4()),'kind':kind,'operation_id':operation['id'],
+               'origin':operation['origin'],'state':operation['state'], 'tasks':operation.get('results',[]),
+               'timestamp':datetime.now(timezone.utc).isoformat(timespec='seconds')}
+    db.execute('INSERT INTO events(id,payload,created) VALUES (?,?,?)',(payload['event_id'],json.dumps(payload),time.time()))
 
 
 def start(operation_id, origin, mode='bugout'):

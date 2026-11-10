@@ -1,0 +1,127 @@
+{
+  "schema": 1,
+  "channels": {
+    "microsd": {
+      "title": "Prepared microSD card",
+      "pairing": true,
+      "card_target": true,
+      "intro": "A prepared card turns a compatible Raspberry Pi into a local library. It can serve its installed content without internet access. The supplied card determines the installed selection and capacity.",
+      "needs": [
+        "A compatible Raspberry Pi, power supply and cooling. The tested reference is a Pi 4 Model B with 2 GB RAM.",
+        "A phone, tablet or computer with a browser. The built-in Wi-Fi is sufficient; an external USB radio is optional."
+      ],
+      "steps": [
+        "With the Pi powered off, insert the supplied microSD card and connect power.",
+        "Join the DataArk hotspot. If your device reports no internet, choose to stay connected.",
+        "Open http://192.168.4.1/setup.html and enter the private setup code supplied with this card.",
+        "Choose separate caretaker and Linux admin passwords. Allow the first startup a few minutes."
+      ],
+      "hardware": [
+        "Tested reference: Raspberry Pi 4 Model B, 2 GB RAM; CanaKit 3.5 A USB-C power supply; ventilated MazerPi case with fan and heatsinks.",
+        "A Pi 4 with 4 GB or 8 GB RAM provides more headroom. Use a reliable supply and cooling.",
+        "Optional range: a Linux-supported USB Wi-Fi adapter with external antenna and access-point support. Assign it to the hotspot under Wi-Fi or Hotspot / Wi-Fi adapter assignment; plugging it in alone does not change roles.",
+        "Optional storage: add an external USB content drive using System / Library / Use an external library drive. Existing content can be copied and verified before switching. Use adequate peripheral power."
+      ]
+    },
+    "appliance": {
+      "title": "Complete appliance",
+      "pairing": true,
+      "card_target": false,
+      "intro": "A complete Data Ark includes its host and prepared system storage, with either an external library drive or a system-drive library. Installed content needs no internet connection.",
+      "needs": [
+        "The supplied host, system storage, power supply and any supplied library drive.",
+        "A browser device on the hotspot or the same local network."
+      ],
+      "steps": [
+        "Connect the supplied library drive, if any, before applying power.",
+        "For a hotspot appliance, join its supplied Wi-Fi network and open http://192.168.4.1/setup.html.",
+        "For a LAN appliance, connect it and your browser to the same local network; use the device address supplied with it.",
+        "If first-owner setup is pending, enter the supplied private code and choose the two passwords. If the owner already set credentials locally, no additional code step is needed."
+      ],
+      "hardware": [
+        "Keep the supplied storage attached while the appliance is running.",
+        "Use System / System / Power to restart or shut down safely. A shutdown requires someone to power the device back on."
+      ]
+    },
+    "content-drive": {
+      "title": "Content drive / split Ark",
+      "pairing": false,
+      "card_target": false,
+      "intro": "A library drive carries public content, configuration and the recovery kit. It can help rebuild a replacement host. A surviving host can prepare replacement library media. A content drive alone is not a bootable operating system.",
+      "needs": [
+        "A supported running Linux host with administrative access and an attached library drive.",
+        "Internet for missing operating-system packages and software dependencies. Existing public content is reused."
+      ],
+      "steps": [
+        "Attach the library drive. Locate its DATA-ARK-CONFIG folder and included recovery kit; follow its README rather than executing an arbitrary script from unknown media.",
+        "Preview the bootstrap/recovery plan on the new host and select the intended library location.",
+        "Run the supported installation workflow with Linux administrative authorization. Set owner credentials locally when offered.",
+        "Verify library readers and content. When preparing a second Ark for someone else, use Make another Ark / Prepare for a new owner to establish a fresh identity and private setup code."
+      ],
+      "hardware": [
+        "Never reuse the original owner credentials or printed setup code for a new recipient.",
+        "When starting with configuration but no content, choose a capacity-appropriate restore preset; downloads need an upstream connection."
+      ]
+    },
+    "bootstrap": {
+      "title": "Software / bootstrap kit",
+      "pairing": false,
+      "card_target": false,
+      "intro": "The downloadable kit supplies software and public collection configuration. You supply the host and storage. It is not a complete operating-system image and does not include the public collection.",
+      "needs": [
+        "A supported Linux installation, administrative access, storage and internet for installation.",
+        "The verified bootstrap kit and its matching README."
+      ],
+      "steps": [
+        "Download the kit and checksum from the DEJ Software bootstrap page or the Ark's DEJ Software collection.",
+        "Extract the kit onto a formatted content drive or the installation location described by its README.",
+        "Review the preview, select the platform profile and library location, then complete installation with local administrative authorization.",
+        "Set credentials in the trusted installer. If you deliberately defer first-owner setup to a browser, prepare a unique code and supply it privately before exposing that setup page."
+      ],
+      "hardware": [
+        "Original Raspberry Pi provides the optional hotspot appliance profile. LAN-only Debian hosts serve an existing wired or Wi-Fi network.",
+        "Content acquisition is separate from installing the software; choose only the collections that fit."
+      ]
+    },
+    "linux-lan": {
+      "title": "Linux LAN server",
+      "pairing": false,
+      "card_target": false,
+      "intro": "A Data Ark can serve an existing local network from a supported Linux server or laptop. A Wi-Fi access point is optional, and a Pi is not required for this profile.",
+      "needs": [
+        "A supported Debian-based host, administrative access and an existing wired or Wi-Fi network.",
+        "Library storage and internet for installation dependencies."
+      ],
+      "steps": [
+        "Use the supported bootstrap workflow and select the LAN profile. Preserve the host's existing network configuration.",
+        "Choose a library location or attach an existing content drive. Set the caretaker password through the trusted local installer.",
+        "Open the host's LAN address in a browser and check the dashboard, Help and installed readers.",
+        "Use the host's existing Linux account credentials for SSH. There is no extra activation code after owner credentials have been established."
+      ],
+      "hardware": [
+        "A LAN server does not need a hotspot, a second Wi-Fi adapter or Raspberry Pi-specific hardware.",
+        "If ownership is handed to someone else with browser setup deferred, generate a fresh private pairing code through recipient preparation."
+      ]
+    },
+    "docker": {
+      "title": "Docker / container",
+      "pairing": false,
+      "card_target": false,
+      "intro": "The container serves a library on an existing local network using host-mounted media and persistent state. It does not manage the host's radios, disks, root account or power.",
+      "needs": [
+        "Docker Engine or Docker Desktop with Compose.",
+        "An existing library folder, a writable public configuration folder and persistent private/state volumes."
+      ],
+      "steps": [
+        "Follow the Container guide. Set ARK_MEDIA, ARK_CONFIGURATION and ARK_PORT in the supplied Compose environment file.",
+        "Build or select the reviewed image, then start it using the documented Compose command. Building needs internet; reading installed content does not.",
+        "Set the caretaker password using the documented caretaker-password command in the host terminal. No first-owner pairing code or Linux admin password is created by the container.",
+        "Open the host address and selected port in a browser. Keep the same media/configuration mounts and private/state volumes when recreating or updating it."
+      ],
+      "hardware": [
+        "Networking, physical drives, host credentials, power and optional HTTPS are host responsibilities.",
+        "Do not delete the private/state volumes when you intend to preserve passwords, posts, banner and operational state."
+      ]
+    }
+  }
+}

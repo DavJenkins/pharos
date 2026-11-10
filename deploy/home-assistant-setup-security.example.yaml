@@ -1,0 +1,65 @@
+# Install alongside the Ark bugout package. Replace http://dataark with the same
+# reachable Ark address. Reuse its private dataark_authorization secret.
+# This token can acknowledge delivery, but cannot clear caretaker warnings.
+recorder:
+  exclude:
+    entities:
+      - sensor.data_ark_setup_security
+rest:
+  - resource: http://dataark/api/recipient/security
+    scan_interval: 5
+    timeout: 10
+    sensor:
+      - name: Data Ark setup security
+        unique_id: dataark_setup_security
+        value_template: '{{ value_json.pending_delivery }}'
+        json_attributes:
+          - unacknowledged
+          - pending_events
+rest_command:
+  dataark_setup_security_delivered:
+    url: http://dataark/api/recipient/security/delivered
+    method: POST
+    headers:
+      authorization: !secret dataark_authorization
+      content-type: application/json
+    payload: '{{ {"ids": ids} | to_json }}'
+    timeout: 15
+automation:
+  - id: dataark_setup_security
+    alias: Report Data Ark setup security
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: sensor.data_ark_setup_security
+      - trigger: time_pattern
+        seconds: '/15'
+      - trigger: homeassistant
+        event: start
+    conditions:
+      - condition: template
+        value_template: "{{ (state_attr('sensor.data_ark_setup_security', 'pending_events') or []) | count > 0 }}"
+    actions:
+      - variables:
+          alerts: "{{ (state_attr('sensor.data_ark_setup_security', 'pending_events') or []) | selectattr('created','gt',as_timestamp(now()) - 2592000) | list }}"
+      - repeat:
+          for_each: '{{ alerts }}'
+          sequence:
+            - event: dataark_setup_security
+              event_data:
+                event_id: '{{ repeat.item.id }}'
+                kind: '{{ repeat.item.kind }}'
+                timestamp: '{{ repeat.item.created | timestamp_utc }}'
+                occurrences: '{{ repeat.item.occurrences }}'
+            - action: persistent_notification.create
+              data:
+                notification_id: dataark_setup_security
+                title: Data Ark setup security
+                message: "{{ repeat.item.kind | replace('_',' ') | capitalize }}. Original event: {{ repeat.item.created | timestamp_utc }}. {{ repeat.item.occurrences }} request(s). Review Setup security on the Ark; a failed code is not proof of compromise."
+            - action: logbook.log
+              data:
+                name: Data Ark setup security
+                message: "{{ repeat.item.kind | replace('_',' ') }} (original event {{ repeat.item.created | timestamp_utc }})"
+      - action: rest_command.dataark_setup_security_delivered
+        data:
+          ids: "{{ alerts | map(attribute='id') | list }}"

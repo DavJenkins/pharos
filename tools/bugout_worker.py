@@ -12,6 +12,7 @@ import sys
 import tarfile
 import tempfile
 import time
+import sqlite3
 from urllib.parse import urlsplit
 from urllib.request import Request, build_opener, ProxyHandler, HTTPRedirectHandler
 
@@ -35,7 +36,7 @@ def deliver_event():
         return
     with b.database() as db:
         row = db.execute('SELECT * FROM events WHERE sent=0 ORDER BY rowid LIMIT 1').fetchone()
-        if row is None or row['next_try'] > time.time():
+        if row is None or row['next_try']>time.time():
             return
         try:
             request = Request(target + '/api/events/dataark_bugout', data=row['payload'].encode(),
@@ -49,6 +50,13 @@ def deliver_event():
             db.execute('UPDATE events SET attempts=attempts+1,next_try=?,error=? WHERE id=?',
                        (time.time()+delay,'Home Assistant delivery failed; retrying',row['id']))
         db.commit()
+
+def deliver_setup_alerts():
+    try:
+        from app.services.setup_security import deliver
+        deliver()
+    except (OSError,ValueError,RuntimeError,sqlite3.Error):
+        pass  # Persistent alerts remain queued; do not disrupt content work.
 
 
 def terminate(process):
@@ -214,6 +222,7 @@ def run_operation(operation):
             result.update(state='copying', message='Creating snapshot', bytes_written=0)
             b.update(operation)
             deliver_event()
+            deliver_setup_alerts()
             try:
                 copy_task(task, root, cfg, operation, result)
                 result.update(state='completed', message='Snapshot saved')
@@ -368,6 +377,7 @@ def main():
         while True:
             b.heartbeat()
             deliver_event()
+            deliver_setup_alerts()
             try:
                 queue_prefetch()
             except (OSError, ValueError, RuntimeError):

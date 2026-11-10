@@ -9,6 +9,8 @@
 
 ## User
 
+- [First start: choose your distribution path](10-User/FirstStart.md)
+
 - [Ways to build or share an Ark](10-User/SharingAnArk.md)
 - [Make another Ark](/make-ark.html) · [Sharing guide](10-User/MakeAnotherArk.md)
 
@@ -22,6 +24,8 @@
 ---
 
 ## About and maintain the Ark
+
+- [First-owner setup security and offline alerts](20-Administration/SetupSecurity.md)
 
 - [The collection](10-User/CollectionCatalogue.md)
 - [What the Ark can do](10-User/FeatureCatalogue.md)

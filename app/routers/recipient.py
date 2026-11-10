@@ -6,6 +6,8 @@ import subprocess
 from urllib.parse import urlsplit
 from fastapi import APIRouter, HTTPException, Request
 from starlette.concurrency import run_in_threadpool
+from app.services import setup_security
+from app.services.network_admin import authorized
 
 router=APIRouter(prefix='/recipient',tags=['First-owner setup'])
 STATE=Path('/var/lib/dataark/recipient.json')
@@ -36,6 +38,47 @@ async def setup(request:Request):
     except (ValueError,TypeError):raise HTTPException(400,'Enter the supplied setup code and a password of 12–256 characters.') from None
     try:result=await run_in_threadpool(invoke,payload)
     except (OSError,ValueError,subprocess.TimeoutExpired):raise HTTPException(503,'Setup is unavailable; try again or use the local terminal.') from None
+    kind=result.get('security_event')
+    if kind in ('code_rejected','cooldown'):await run_in_threadpool(setup_security.safe_record,kind)
     if result.get('cooldown'):raise HTTPException(429,'Too many incorrect codes. Wait one minute and try again.',headers={'Retry-After':'60'})
     if not result.get('ok'):raise HTTPException(403,'Setup code not accepted, or setup is already complete.')
+    await run_in_threadpool(setup_security.safe_record,'setup_completed')
+    return {'ok':True}
+
+@router.get('/security')
+def security():
+    data=setup_security.snapshot();cfg=setup_security.integration()
+    return {**data,'outbound_configured':bool(cfg.get('url') and cfg.get('token'))}
+
+@router.post('/security/acknowledge')
+async def acknowledge(request:Request):
+    header=request.headers.get('authorization','')
+    if len(header)>2048 or not await run_in_threadpool(authorized,header):raise HTTPException(401,'Caretaker password required.')
+    if request.headers.get('content-type','').split(';')[0].strip().lower()!='application/json':raise HTTPException(415,'JSON required.')
+    body=bytearray()
+    async for part in request.stream():
+        body.extend(part)
+        if len(body)>10000:raise HTTPException(413,'Request too large.')
+    try:
+        data=json.loads(body)
+        if not isinstance(data,dict) or set(data)!={'ids'}:raise ValueError()
+        await run_in_threadpool(setup_security.acknowledge,data['ids'])
+    except (ValueError,TypeError):raise HTTPException(400,'Choose the displayed events.') from None
+    return {'ok':True}
+
+@router.post('/security/delivered')
+async def delivered(request:Request):
+    from app.services.bugout import ha_authorized
+    header=request.headers.get('authorization','')
+    if len(header)>2048 or not await run_in_threadpool(ha_authorized,header):raise HTTPException(401,'Home Assistant integration authorization required.')
+    if request.headers.get('content-type','').split(';')[0].strip().lower()!='application/json':raise HTTPException(415,'JSON required.')
+    body=bytearray()
+    async for part in request.stream():
+        body.extend(part)
+        if len(body)>10000:raise HTTPException(413,'Request too large.')
+    try:
+        data=json.loads(body)
+        if not isinstance(data,dict) or set(data)!={'ids'}:raise ValueError()
+        await run_in_threadpool(setup_security.delivered,data['ids'])
+    except (ValueError,TypeError):raise HTTPException(400,'Choose the displayed events.') from None
     return {'ok':True}

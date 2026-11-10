@@ -2,6 +2,7 @@
 import hashlib
 import json
 import subprocess
+import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 from app.services.https_setup import public_status
@@ -71,6 +72,12 @@ def collect(status=None):
         pass  # Not configured on every Ark.
     except (OSError, ValueError, KeyError, TypeError, AttributeError):
         add('content.check_telemetry', 'warning', 'Publisher-check telemetry unavailable')
+    from app.services import setup_security
+    try:
+        security=setup_security.snapshot()
+        if security['unacknowledged']:add('security.first_owner_setup','warning',str(security['unacknowledged'])+' failed setup-code attempts need review')
+    except (OSError,ValueError,RuntimeError,sqlite3.Error):
+        add('security.telemetry','warning','Setup-security reporting needs attention')
     if review_problem: problems.append(review_problem)
     problems.sort(key=lambda value:value['id'])
     fingerprint = hashlib.sha256(json.dumps({'problems':problems,'source_checks':reference,'software':{key:software.get(key) for key in ('state','revision','sequence','operation_id')}}, sort_keys=True).encode()).hexdigest()[:24]

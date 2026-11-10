@@ -6,6 +6,8 @@ Install `deploy/home-assistant-bugout.example.yaml` as a Home Assistant package,
 
 ## Health reporting
 
+First-owner setup reporting has its own [security guide and 30-day offline queue](SetupSecurity.md). Install `deploy/home-assistant-setup-security.example.yaml` alongside the existing package to collect failed code attempts and setup completion within a five-second polling interval. Reuse the existing private `dataark_authorization` secret; no new token scope permits general administration. HA acknowledges delivery after recording an event and persistent notification. Caretaker review remains separate. Direct outbound push is also supported when configured on the Ark.
+
 `GET /api/health` is read-only, requires no password, and returns no credentials. It reports overall state (`ok`, `warning`, `error`), stable problem identifiers, severity, human-readable messages, and a fingerprint that changes when the problem set changes. Observation timestamps alone do not change the fingerprint.
 
 Checks cover resource thresholds and core services, failed systemd units, content/map update failures, publisher-check failures and pending source changes, and optional HTTPS setup and certificate health. Certificate renewal warns within 30 days; expiry is an error. HTTPS not configured is normal. Source-check failures do not imply saved content is unusable. This is monitored coverage, not proof that every possible hardware, content, or network fault can be detected.

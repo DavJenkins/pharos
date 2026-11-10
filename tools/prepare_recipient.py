@@ -181,6 +181,13 @@ def first_boot(root=Path('/'),runner=subprocess.run):
     cloud=root/'etc/cloud/cloud.cfg.d'
     if cloud.is_dir():write(cloud/'99-dataark-hostname.cfg','preserve_hostname: true\nmanage_etc_hosts: false\n',0o644)
     write(root/'etc/dataark/device-identity.json',json.dumps({'device_id':state['device_id']})+'\n')
+    # A new owner must not receive queued notifications belonging to the sender.
+    import sqlite3
+    for relative,table in [('var/lib/dataark/bugout/state.sqlite','events'),('var/lib/dataark/bugout/setup-security/events.sqlite3','alerts')]:
+        path=root/relative
+        if path.is_file() and not path.is_symlink():
+            with sqlite3.connect(path,timeout=3) as db:
+                if db.execute('SELECT 1 FROM sqlite_master WHERE type=? AND name=?',('table',table)).fetchone():db.execute('DELETE FROM '+table)
     # No inherited caretaker password or remote provisioner access survives.
     credentials=root/'etc/dataark/network-admin.json'
     write(credentials,json.dumps(password_record(secrets.token_urlsafe(48)))+'\n',0o640)
@@ -223,14 +230,11 @@ def welcome_sheet(root=Path('/')):
     """Private printable sheet. Never place it in the public library."""
     state=json.loads((root/STATE.lstrip('/')).read_text())
     code=(root/'root/dataark-recipient-setup-code').read_text().strip()
-    hostname=state['hostname']
-    if state.get('network_mode')=='lan':
-        connection='Connect the Ark and your browser device to the same local network. For headless first setup, use Ethernet.'
-        url='http://'+hostname+'.local/setup.html'
-    else:connection='Join the '+state.get('hotspot_ssid','DataArk')+' Wi-Fi hotspot.';url='http://192.168.4.1/setup.html'
-    from app.services.recipient_print import card_mount, hardware_notes
-    target=card_mount(root)
-    return '<!doctype html><html lang="en"><meta charset="utf-8"><title>Your Data Ark</title><style>body{font:18px/1.6 system-ui;max-width:750px;margin:40px auto;padding:24px;color:#203e54}h1{background:#172d40;color:#e0bd68;padding:20px}.code{font:700 36px monospace;letter-spacing:8px}@media print{button{display:none}}</style><h1>Your Pharos Data Ark</h1><p>'+html.escape(connection)+'</p><p>Open <strong>'+html.escape(url)+'</strong></p><p>One-time setup code:</p><p class="code">'+html.escape(code)+'</p><p>Choose separate caretaker and Linux admin passwords, each at least 12 characters. No shared root password or online activation is required. Browse the installed library without signing in.</p><p>Complete initial HTTP setup privately before inviting others. Installed content works offline. Keep this sheet private until setup is complete.</p><p>Device: '+html.escape(hostname)+'</p>'+target+hardware_notes()+'<button onclick="print()">Print / Save as PDF</button></html>'
+    from app.services.welcome_guides import render
+    demo=root/'var/lib/dataark/demo-library.json'
+    channel='microsd' if demo.exists() else 'appliance'
+    return render(channel,code=code,hostname=state['hostname'],ssid=state.get('hotspot_ssid','DataArk'),network_mode=state.get('network_mode','hotspot'),root=root/'opt/dataark')
+
 
 
 def complete_password(password,admin_password,root=Path('/')):
@@ -261,11 +265,18 @@ def enroll(data,root=Path('/')):
     record_path=root/'var/lib/dataark/recipient-enrollment.json'
     record=json.loads(record_path.read_text())
     now=time.time()
-    if record.get('retry_after',0)>now:raise ValueError('Too many incorrect codes. Wait one minute and try again.')
+    if record.get('retry_after',0)>now:
+        if root==Path('/'):
+            import syslog
+            syslog.syslog(syslog.LOG_WARNING,'Data Ark first-owner setup: request rejected during code cooldown')
+        raise ValueError('Too many incorrect codes. Wait one minute and try again.')
     if not re.fullmatch(r'[0-9]{4}',data['code']) or not hmac.compare_digest(hashlib.sha256(data['code'].encode()).hexdigest(),record['code_sha256']):
         record['failures']=record.get('failures',0)+1
         if record['failures']>=5:record.update(failures=0,retry_after=now+60)
         write(record_path,json.dumps(record)+'\n')
+        if root==Path('/'):
+            import syslog
+            syslog.syslog(syslog.LOG_WARNING,'Data Ark first-owner setup: incorrect setup code')
         raise ValueError('Setup code not accepted.')
     password_record(data['password'])
     complete_password(data['password'],data['admin_password'],root)
@@ -322,7 +333,8 @@ def main():
             print(json.dumps(enroll(json.loads(body))))
         except ValueError as error:
             cooldown='Wait one minute' in str(error)
-            print(json.dumps({'ok':False,'cooldown':cooldown,'error':'Too many incorrect codes. Wait one minute and try again.' if cooldown else 'Setup code/password not accepted, or setup is already complete.'}))
+            kind='cooldown' if cooldown else 'code_rejected' if str(error)=='Setup code not accepted.' else 'setup_not_pending' if str(error)=='Recipient setup is not pending.' else 'invalid_request'
+            print(json.dumps({'ok':False,'cooldown':cooldown,'security_event':kind,'error':'Too many incorrect codes. Wait one minute and try again.' if cooldown else 'Setup code/password not accepted, or setup is already complete.'}))
         except (OSError,KeyError,subprocess.CalledProcessError):print(json.dumps({'ok':False,'error':'Setup could not complete. Try again or use the local terminal.'}))
     else:set_password()
 

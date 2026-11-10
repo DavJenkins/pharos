@@ -98,3 +98,16 @@ class RecipientTests(unittest.TestCase):
         self.assertNotEqual(a['hash'],b['hash'])
 
 if __name__=='__main__':unittest.main()
+
+class RecipientNotificationIdentityTests(unittest.TestCase):
+    fixture=RecipientTests.fixture
+    def test_new_owner_does_not_inherit_sender_notification_queue(self):
+        import sqlite3
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);self.fixture(root)
+            for rel,table in [('var/lib/dataark/bugout/state.sqlite','events'),('var/lib/dataark/bugout/setup-security/events.sqlite3','alerts')]:
+                path=root/rel;path.parent.mkdir(parents=True,exist_ok=True)
+                with sqlite3.connect(path) as db:db.execute('CREATE TABLE '+table+' (id TEXT)');db.execute('INSERT INTO '+table+' VALUES (?)',('old-owner-event',))
+            r.arm(root);r.first_boot(root)
+            for rel,table in [('var/lib/dataark/bugout/state.sqlite','events'),('var/lib/dataark/bugout/setup-security/events.sqlite3','alerts')]:
+                with sqlite3.connect(root/rel) as db:self.assertEqual(db.execute('SELECT count(*) FROM '+table).fetchone()[0],0)
