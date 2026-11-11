@@ -63,6 +63,27 @@ def inline_html(text):
     return "".join(chunks)
 
 
+def table_cells(line):
+    """Split table cells, keeping escaped pipes and inline code intact."""
+    cells, current, ticks = [], [], False
+    line = line.strip()
+    if line.startswith('|'): line = line[1:]
+    if line.endswith('|') and not line.endswith('\\|'): line = line[:-1]
+    i = 0
+    while i < len(line):
+        char = line[i]
+        if char == '\\' and i + 1 < len(line) and line[i + 1] == '|':
+            current.append('|'); i += 2; continue
+        if char == '`': ticks = not ticks
+        if char == '|' and not ticks:
+            cells.append(''.join(current).strip()); current = []
+        else: current.append(char)
+        i += 1
+    return cells + [''.join(current).strip()]
+
+TABLE_STYLE = '<style>.docs-table-wrap{max-width:100%;overflow-x:auto;margin:1.2rem 0}.docs-table{width:100%;border-collapse:collapse;color:#203e54;background:#fffdf7}.docs-table th,.docs-table td{padding:.8rem;text-align:left;vertical-align:top;border:1px solid #b5a66e;overflow-wrap:anywhere}.docs-table td a{color:#075a89!important}.docs-table th{background:#203e54;color:#ffe3a0}.docs-table tbody tr:nth-child(even){background:#f3efdf}@media(max-width:480px){.docs-table th,.docs-table td{padding:.6rem;font-size:.95rem}}</style>'
+
+
 def markdown_to_html(text, online_url=None, publication_date=None):
 
     out = []
@@ -87,7 +108,10 @@ def markdown_to_html(text, online_url=None, publication_date=None):
     in_code = False
     has_code = False
 
-    for line in text.splitlines():
+    lines = iter(enumerate(text.splitlines()))
+    source_lines = text.splitlines()
+    has_table = False
+    for index, line in lines:
         if line.startswith("```"):
             if in_list:
                 out.append("</ul>")
@@ -99,6 +123,24 @@ def markdown_to_html(text, online_url=None, publication_date=None):
         if in_code:
             out.append(html.escape(line))
             continue
+
+        if '|' in line and index + 1 < len(source_lines):
+            headers = table_cells(line)
+            separator = table_cells(source_lines[index + 1])
+            if len(headers) > 1 and len(headers) == len(separator) and all(re.fullmatch(r':?-{3,}:?', cell) for cell in separator):
+                if in_list: out.append('</ul>'); in_list = False
+                next(lines)
+                has_table = True
+                out.append('<div class="docs-table-wrap"><table class="docs-table"><thead><tr>' + ''.join('<th scope="col">' + inline_html(cell) + '</th>' for cell in headers) + '</tr></thead><tbody>')
+                row_index = index + 2
+                while row_index < len(source_lines) and '|' in source_lines[row_index] and source_lines[row_index].strip():
+                    cells = table_cells(source_lines[row_index])
+                    if len(cells) != len(headers): break
+                    next(lines)
+                    out.append('<tr>' + ''.join('<td>' + inline_html(cell) + '</td>' for cell in cells) + '</tr>')
+                    row_index += 1
+                out.append('</tbody></table></div>')
+                continue
 
         screenshot = re.fullmatch(r'!\[([^\]]*)\]\(([^\s)]+)\)\s*',line)
         if screenshot:
@@ -170,6 +212,8 @@ def markdown_to_html(text, online_url=None, publication_date=None):
 
     if in_code:
         out.append('</code></pre><button type="button" class="copy-command">Copy code</button><span class="copy-feedback" role="status"></span></div>')
+    if has_table:
+        out.append(TABLE_STYLE)
     if has_code:
         out.append(CODE_CONTROLS)
     if online_url:out.append(online_notice(online_url,publication_date))

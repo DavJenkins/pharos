@@ -74,3 +74,20 @@ class PublicationInputIdentity(unittest.TestCase):
             self.assertEqual(first,input_digest(path))
             path.write_text('<link href="/assets/css/ark-pages.css?v=456def"><main>Changed guide</main>',encoding='utf-8')
             self.assertNotEqual(first,input_digest(path))
+
+
+class MarkdownTables(unittest.TestCase):
+    def test_table_links_escaping_and_following_paragraph(self):
+        from tools.publish_docs import markdown_to_html
+        rendered = markdown_to_html('| Channel | Guide |\n| --- | --- |\n| <Card> | [Read](first.md) |\n| Docker | `a|b` |\n\nAfter.')
+        self.assertIn('<table class="docs-table">', rendered)
+        self.assertEqual(rendered.count('<th scope="col">'), 2)
+        self.assertIn('&lt;Card&gt;', rendered)
+        self.assertIn('href="first.html"', rendered)
+        self.assertIn('<code>a|b</code>', rendered)
+        self.assertIn('<p>After.</p>', rendered)
+
+    def test_pipes_without_separator_and_fenced_tables_remain_literal(self):
+        from tools.publish_docs import markdown_to_html
+        rendered = markdown_to_html('A | B\nnot a table\n```\n| A | B |\n| --- | --- |\n```')
+        self.assertNotIn('<table', rendered)
