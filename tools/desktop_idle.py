@@ -30,40 +30,59 @@ def scene_position(elapsed):
     following = SCENE_POSITIONS[(index + 1) % len(SCENE_POSITIONS)]
     return tuple(a + (b - a) * eased for a, b in zip(current, following))
 
-def active_hotspot():
+def command_output(*command):
     try:
-        output = subprocess.check_output(['/usr/sbin/iw', 'dev'], text=True, timeout=3)
+        return subprocess.check_output(command, text=True, timeout=3)
     except (OSError, subprocess.SubprocessError):
-        return None, None
-    for block in re.split(r'(?m)^[ \t]*Interface ', output)[1:]:
+        return ''
+
+
+def wireless_interfaces():
+    radios = {}
+    for block in re.split(r'(?m)^[ \t]*Interface ', command_output('/usr/sbin/iw', 'dev'))[1:]:
         interface, *properties = block.splitlines()
-        properties = [line.lstrip() for line in properties]
-        if 'type AP' in properties:
-            ssid = next((line[5:] for line in properties if line.startswith('ssid ')), None)
-            return interface, ssid
-    return None, None
-
-
-def local_url(hotspot_interface=None):
-    try:
-        interfaces = json.loads(subprocess.check_output(
-            ['ip', '-j', '-4', 'address', 'show', 'up', 'scope', 'global'],
-            text=True, timeout=3,
-        ))
-    except (OSError, ValueError, subprocess.SubprocessError):
-        return 'No local IPv4 address'
-
-    addresses = [(interface.get('ifname'), address['local']) for interface in interfaces
-                 for address in interface.get('addr_info', [])]
-    if not addresses:
-        return 'No local IPv4 address'
-    address = next((ip for name, ip in addresses if name == hotspot_interface), addresses[0][1])
-    return f'http://{address}/'
+        fields = dict(line.lstrip().split(' ', 1) for line in properties if ' ' in line.lstrip())
+        radios[interface] = fields.get('type'), fields.get('ssid')
+    return radios
 
 
 def connection_details():
-    interface, ssid = active_hotspot()
-    return socket.gethostname(), local_url(interface), ssid
+    radios = wireless_interfaces()
+    try:
+        interfaces = json.loads(command_output('ip', '-j', 'address', 'show', 'up', 'scope', 'global') or '[]')
+    except ValueError:
+        interfaces = []
+    by_name = {interface['ifname']: interface for interface in interfaces}
+
+    def addresses(interface):
+        return tuple(dict.fromkeys(
+            entry['local'] for entry in by_name.get(interface, {}).get('addr_info', [])
+            if entry.get('family') in ('inet', 'inet6') and not entry.get('deprecated')
+        ))
+
+    connections = []
+    for interface, (mode, ssid) in radios.items():
+        if mode == 'AP' and ssid:
+            connections.append((f'Wi-Fi network: {ssid}', addresses(interface)))
+
+    for interface in interfaces:
+        name = interface['ifname']
+        if name in radios or 'LOWER_UP' not in interface.get('flags', []):
+            continue
+        if interface.get('link_type') == 'ether' and (Path('/sys/class/net') / name / 'device').exists():
+            connections.append((f'Ethernet ({name})', addresses(name)))
+
+    for interface, (mode, ssid) in radios.items():
+        if mode != 'managed':
+            continue
+        link = command_output('/usr/sbin/iw', 'dev', interface, 'link')
+        match = re.search(r'(?m)^[ \t]*SSID: (.+)$', link)
+        if match:
+            connections.append((f'Wi-Fi connection: {match[1]}', addresses(interface)))
+        elif ssid and 'LOWER_UP' in by_name.get(interface, {}).get('flags', []):
+            connections.append((f'Wi-Fi connection: {ssid}', addresses(interface)))
+
+    return socket.gethostname(), tuple(connections)
 
 
 def idle_command():
@@ -108,7 +127,7 @@ def main():
         .pharos-idle .context { color: #a2aeba; font: 16px sans-serif; }
         .pharos-idle .wifi-network { color: #a2bbd0; font: bold 16px sans-serif; }
         .pharos-idle .device-name { color: #8996a5; font: 15px sans-serif; }
-        .pharos-idle .local-address { color: #b0bdca; font: 19px monospace; }
+        .pharos-idle .local-address { color: #b0bdca; font: 16px monospace; }
         .pharos-idle .lighthouse { border: 1px solid #283444; }
         .pharos-idle .beacon {
             background: radial-gradient(circle, #b1dfff 0%, #589de0 16%, transparent 64%);
@@ -123,12 +142,22 @@ def main():
     dimmed = False
     powered_off = False
 
-    def set_details(name, url, wifi):
-        name.set_text(f"Device name: {lines[0]}")
-        url.set_text(lines[1])
-        ssid = lines[2]
-        wifi.set_text(f"Wi-Fi network: {ssid}" if ssid else "")
-        wifi.set_visible(bool(ssid))
+    def set_details(name, networks):
+        hostname, connections = lines
+        name.set_text(f'Device name: {hostname}')
+        for child in networks.get_children():
+            networks.remove(child)
+        if not connections:
+            networks.add(styled_label('No active network address', 'context'))
+        for label, addresses in connections:
+            network = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
+            network.add(styled_label(label, 'wifi-network'))
+            urls = (f'http://[{address}]/' if ':' in address else f'http://{address}/'
+                    for address in addresses)
+            text = '\n'.join(urls)
+            network.add(styled_label(text or 'No IP address assigned', 'local-address'))
+            networks.add(network)
+        networks.show_all()
 
     def load_lighthouse():
         for path in (Path('/usr/share/dataark/desktop/icon.png'),
@@ -191,7 +220,7 @@ def main():
         elapsed = time.monotonic() - shown_at
         x, y = scene_position(elapsed)
         phase = (1 + math.cos(elapsed * math.tau / 9)) / 2
-        for _, canvas, info, _, _, _, beacon in windows:
+        for _, canvas, info, _, _, beacon in windows:
             width, height = canvas.get_allocated_width(), canvas.get_allocated_height()
             if width <= 1 or height <= 1:
                 continue
@@ -241,28 +270,27 @@ def main():
             about = styled_label('Offline library and tools', 'context')
             about.set_margin_top(14)
             details.add(about)
-            wifi = styled_label('', 'wifi-network')
-            wifi.set_no_show_all(True)
-            details.add(wifi)
-            details.add(styled_label('On this Ark’s network, open:', 'context'))
-            url = styled_label('', 'local-address')
-            details.add(url)
             name = styled_label('', 'device-name')
-            name.set_margin_top(12)
             details.add(name)
+            details.add(styled_label('Open the address for your network.', 'context'))
+            networks = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
+            networks.set_margin_top(8)
+            details.add(networks)
             info.add(details)
-            set_details(name, url, wifi)
+            set_details(name, networks)
             canvas.put(info, 0, 0)
             window.add(canvas)
-            windows.append((window, canvas, info, name, url, wifi, beacon))
+            windows.append((window, canvas, info, name, networks, beacon))
             window.show_all()
 
     def refresh_details():
         nonlocal lines
         if dimmed:
-            lines = connection_details()
-            for _, _, _, name, url, wifi, _ in windows:
-                set_details(name, url, wifi)
+            updated = connection_details()
+            if updated != lines:
+                lines = updated
+                for _, _, _, name, networks, _ in windows:
+                    set_details(name, networks)
         return GLib.SOURCE_CONTINUE
 
     def handle_event(event):
