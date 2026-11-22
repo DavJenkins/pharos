@@ -5,6 +5,7 @@ import json
 import math
 import os
 from pathlib import Path
+import re
 import signal
 import socket
 import subprocess
@@ -29,7 +30,21 @@ def scene_position(elapsed):
     following = SCENE_POSITIONS[(index + 1) % len(SCENE_POSITIONS)]
     return tuple(a + (b - a) * eased for a, b in zip(current, following))
 
-def local_url():
+def active_hotspot():
+    try:
+        output = subprocess.check_output(['/usr/sbin/iw', 'dev'], text=True, timeout=3)
+    except (OSError, subprocess.SubprocessError):
+        return None, None
+    for block in re.split(r'(?m)^[ \t]*Interface ', output)[1:]:
+        interface, *properties = block.splitlines()
+        properties = [line.lstrip() for line in properties]
+        if 'type AP' in properties:
+            ssid = next((line[5:] for line in properties if line.startswith('ssid ')), None)
+            return interface, ssid
+    return None, None
+
+
+def local_url(hotspot_interface=None):
     try:
         interfaces = json.loads(subprocess.check_output(
             ['ip', '-j', '-4', 'address', 'show', 'up', 'scope', 'global'],
@@ -38,11 +53,17 @@ def local_url():
     except (OSError, ValueError, subprocess.SubprocessError):
         return 'No local IPv4 address'
 
-    addresses = [address['local'] for interface in interfaces
+    addresses = [(interface.get('ifname'), address['local']) for interface in interfaces
                  for address in interface.get('addr_info', [])]
-    if '192.168.4.1' in addresses:
-        return 'http://192.168.4.1/'
-    return f'http://{addresses[0]}/' if addresses else 'No local IPv4 address'
+    if not addresses:
+        return 'No local IPv4 address'
+    address = next((ip for name, ip in addresses if name == hotspot_interface), addresses[0][1])
+    return f'http://{address}/'
+
+
+def connection_details():
+    interface, ssid = active_hotspot()
+    return socket.gethostname(), local_url(interface), ssid
 
 
 def idle_command():
@@ -85,6 +106,7 @@ def main():
         .pharos-idle .ark-title { color: #b39b66; font: 31px serif; }
         .pharos-idle .ark-subtitle { color: #769ec0; font: bold 16px sans-serif; }
         .pharos-idle .context { color: #a2aeba; font: 16px sans-serif; }
+        .pharos-idle .wifi-network { color: #a2bbd0; font: bold 16px sans-serif; }
         .pharos-idle .device-name { color: #8996a5; font: 15px sans-serif; }
         .pharos-idle .local-address { color: #b0bdca; font: 19px monospace; }
         .pharos-idle .lighthouse { border: 1px solid #283444; }
@@ -101,9 +123,12 @@ def main():
     dimmed = False
     powered_off = False
 
-    def set_details(name, url):
+    def set_details(name, url, wifi):
         name.set_text(f"Device name: {lines[0]}")
         url.set_text(lines[1])
+        ssid = lines[2]
+        wifi.set_text(f"Wi-Fi network: {ssid}" if ssid else "")
+        wifi.set_visible(bool(ssid))
 
     def load_lighthouse():
         for path in (Path('/usr/share/dataark/desktop/icon.png'),
@@ -124,6 +149,22 @@ def main():
         label = Gtk.Label(label=text, xalign=0)
         label.get_style_context().add_class(style)
         return label
+
+    def add_brand(details):
+        for root in (Path('/var/www/html/assets'), Path('/opt/dataark/app/static/assets')):
+            try:
+                wordmark = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+                    str(root / 'pharos-data-ark-wordmark-v6.png'), 176, -1, True,
+                )
+            except GLib.Error:
+                continue
+            image = Gtk.Image.new_from_pixbuf(wordmark)
+            image.set_halign(Gtk.Align.START)
+            image.set_opacity(0.75)
+            details.add(image)
+            return
+        details.add(styled_label('Pharos', 'ark-title'))
+        details.add(styled_label('DATA ARK', 'ark-subtitle'))
 
     art = load_lighthouse()
 
@@ -150,7 +191,7 @@ def main():
         elapsed = time.monotonic() - shown_at
         x, y = scene_position(elapsed)
         phase = (1 + math.cos(elapsed * math.tau / 9)) / 2
-        for _, canvas, info, _, _, beacon in windows:
+        for _, canvas, info, _, _, _, beacon in windows:
             width, height = canvas.get_allocated_width(), canvas.get_allocated_height()
             if width <= 1 or height <= 1:
                 continue
@@ -196,11 +237,13 @@ def main():
                 info.add(portrait)
             details = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
             details.set_valign(Gtk.Align.CENTER)
-            details.add(styled_label('Pharos', 'ark-title'))
-            details.add(styled_label('DATA ARK', 'ark-subtitle'))
+            add_brand(details)
             about = styled_label('Offline library and tools', 'context')
             about.set_margin_top(14)
             details.add(about)
+            wifi = styled_label('', 'wifi-network')
+            wifi.set_no_show_all(True)
+            details.add(wifi)
             details.add(styled_label('On this Ark’s network, open:', 'context'))
             url = styled_label('', 'local-address')
             details.add(url)
@@ -208,18 +251,18 @@ def main():
             name.set_margin_top(12)
             details.add(name)
             info.add(details)
-            set_details(name, url)
+            set_details(name, url, wifi)
             canvas.put(info, 0, 0)
             window.add(canvas)
-            windows.append((window, canvas, info, name, url, beacon))
+            windows.append((window, canvas, info, name, url, wifi, beacon))
             window.show_all()
 
     def refresh_details():
         nonlocal lines
         if dimmed:
-            lines = (socket.gethostname(), local_url())
-            for _, _, _, name, url, _ in windows:
-                set_details(name, url)
+            lines = connection_details()
+            for _, _, _, name, url, wifi, _ in windows:
+                set_details(name, url, wifi)
         return GLib.SOURCE_CONTINUE
 
     def handle_event(event):
@@ -227,7 +270,7 @@ def main():
         if event == b'show' and not powered_off:
             dimmed = True
             shown_at = time.monotonic()
-            lines = (socket.gethostname(), local_url())
+            lines = connection_details()
             update_outputs()
         elif event == b'standby' and display.get_n_monitors():
             powered_off = True
