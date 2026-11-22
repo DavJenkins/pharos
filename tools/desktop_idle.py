@@ -2,15 +2,32 @@
 """Show Pharos connection details and power down idle Wayland displays."""
 
 import json
+import math
 import os
+from pathlib import Path
 import signal
 import socket
 import subprocess
 import sys
+import time
 
 SHOW_AFTER = 10 * 60
 STANDBY_AFTER = SHOW_AFTER + 20 * 60
 
+
+SCENE_POSITIONS = ((0.30, 0.25), (0.88, 0.64), (0.40, 0.88), (0.12, 0.56))
+POSITION_SECONDS = 30
+GLIDE_SECONDS = 6
+
+
+def scene_position(elapsed):
+    index = int(elapsed // POSITION_SECONDS) % len(SCENE_POSITIONS)
+    within = elapsed % POSITION_SECONDS
+    progress = max(0, (within - (POSITION_SECONDS - GLIDE_SECONDS)) / GLIDE_SECONDS)
+    eased = progress * progress * (3 - 2 * progress)
+    current = SCENE_POSITIONS[index]
+    following = SCENE_POSITIONS[(index + 1) % len(SCENE_POSITIONS)]
+    return tuple(a + (b - a) * eased for a, b in zip(current, following))
 
 def local_url():
     try:
@@ -53,9 +70,10 @@ def main():
 
     import gi
     gi.require_version('Gdk', '3.0')
+    gi.require_version('GdkPixbuf', '2.0')
     gi.require_version('Gtk', '3.0')
     gi.require_version('GtkLayerShell', '0.1')
-    from gi.repository import Gdk, GLib, Gtk, GtkLayerShell
+    from gi.repository import Gdk, GdkPixbuf, GLib, Gtk, GtkLayerShell
 
     if not GtkLayerShell.is_supported():
         return
@@ -63,29 +81,92 @@ def main():
     display = Gdk.Display.get_default()
     css = Gtk.CssProvider()
     css.load_from_data(b"""
-        window.pharos-idle { background-color: #040404; }
-        .pharos-idle label { color: #787d82; font-size: 21px; }
-        .pharos-idle label.device-name { font-size: 28px; font-weight: bold; }
+        window.pharos-idle { background-color: #03060b; }
+        .pharos-idle .ark-title { color: #b39b66; font: 31px serif; }
+        .pharos-idle .ark-subtitle { color: #769ec0; font: bold 16px sans-serif; }
+        .pharos-idle .context { color: #a2aeba; font: 16px sans-serif; }
+        .pharos-idle .device-name { color: #8996a5; font: 15px sans-serif; }
+        .pharos-idle .local-address { color: #b0bdca; font: 19px monospace; }
+        .pharos-idle .lighthouse { border: 1px solid #283444; }
+        .pharos-idle .beacon {
+            background: radial-gradient(circle, #b1dfff 0%, #589de0 16%, transparent 64%);
+        }
     """)
     Gtk.StyleContext.add_provider_for_screen(
         Gdk.Screen.get_default(), css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
     )
-    positions = (
-        (Gtk.Align.START, Gtk.Align.START), (Gtk.Align.END, Gtk.Align.CENTER),
-        (Gtk.Align.CENTER, Gtk.Align.END), (Gtk.Align.END, Gtk.Align.START),
-    )
     windows = []
-    position = 0
+    shown_at = 0.0
     lines = ()
     dimmed = False
     powered_off = False
 
-    def place(info, name, url):
-        x, y = positions[position]
-        info.set_halign(x)
-        info.set_valign(y)
-        name.set_text(lines[0])
+    def set_details(name, url):
+        name.set_text(f"Device name: {lines[0]}")
         url.set_text(lines[1])
+
+    def load_lighthouse():
+        for path in (Path('/usr/share/dataark/desktop/icon.png'),
+                     Path('/opt/dataark/app/static/assets/Pharos Data Ark.png')):
+            try:
+                artwork = GdkPixbuf.Pixbuf.new_from_file(str(path))
+            except GLib.Error:
+                continue
+            width, height = artwork.get_width(), artwork.get_height()
+            crop = artwork.new_subpixbuf(
+                round(width * 0.365), round(height * 0.175),
+                round(width * 0.28), round(height * 0.70),
+            )
+            return crop.scale_simple(152, 216, GdkPixbuf.InterpType.BILINEAR)
+        return None
+
+    def styled_label(text, style):
+        label = Gtk.Label(label=text, xalign=0)
+        label.get_style_context().add_class(style)
+        return label
+
+    art = load_lighthouse()
+
+    def lighthouse():
+        if art is None:
+            return None, None
+        portrait = Gtk.Image.new_from_pixbuf(art)
+        portrait.set_opacity(0.55)
+        frame = Gtk.Overlay()
+        frame.get_style_context().add_class('lighthouse')
+        frame.add(portrait)
+
+        lights = Gtk.Fixed()
+        beacon = Gtk.EventBox()
+        beacon.get_style_context().add_class('beacon')
+        beacon.set_size_request(50, 50)
+        lights.put(beacon, 52, 22)
+        frame.add_overlay(lights)
+        return frame, beacon
+
+    def animate_scene():
+        if not dimmed:
+            return GLib.SOURCE_CONTINUE
+        elapsed = time.monotonic() - shown_at
+        x, y = scene_position(elapsed)
+        phase = (1 + math.cos(elapsed * math.tau / 9)) / 2
+        for _, canvas, info, _, _, beacon in windows:
+            width, height = canvas.get_allocated_width(), canvas.get_allocated_height()
+            if width <= 1 or height <= 1:
+                continue
+            _, natural = info.get_preferred_size()
+            margin_x = min(48, max(0, (width - natural.width) // 2))
+            margin_y = min(48, max(0, (height - natural.height) // 2))
+            left = margin_x + round(x * max(0, width - natural.width - 2 * margin_x))
+            top = margin_y + round(y * max(0, height - natural.height - 2 * margin_y))
+            if (left != canvas.child_get_property(info, 'x')
+                    or top != canvas.child_get_property(info, 'y')):
+                canvas.move(info, left, top)
+            if info.get_opacity() == 0:
+                info.set_opacity(1)
+            if beacon is not None:
+                beacon.set_opacity(0.12 + 0.60 * phase ** 3)
+        return GLib.SOURCE_CONTINUE
 
     def close_windows():
         while windows:
@@ -107,36 +188,45 @@ def main():
                          GtkLayerShell.Edge.LEFT, GtkLayerShell.Edge.RIGHT):
                 GtkLayerShell.set_anchor(window, edge, True)
             window.get_style_context().add_class('pharos-idle')
-            overlay = Gtk.Overlay()
-            overlay.add(Gtk.Box())
-            info = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-            for edge in ('top', 'bottom', 'start', 'end'):
-                info.set_property(f'margin-{edge}', 48)
-            name = Gtk.Label(xalign=0)
-            name.get_style_context().add_class('device-name')
-            url = Gtk.Label(xalign=0)
-            info.add(name)
-            info.add(url)
-            place(info, name, url)
-            overlay.add_overlay(info)
-            window.add(overlay)
-            windows.append((window, info, name, url))
+            canvas = Gtk.Fixed()
+            info = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=24)
+            info.set_opacity(0)
+            portrait, beacon = lighthouse()
+            if portrait is not None:
+                info.add(portrait)
+            details = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+            details.set_valign(Gtk.Align.CENTER)
+            details.add(styled_label('Pharos', 'ark-title'))
+            details.add(styled_label('DATA ARK', 'ark-subtitle'))
+            about = styled_label('Offline library and tools', 'context')
+            about.set_margin_top(14)
+            details.add(about)
+            details.add(styled_label('On this Ark’s network, open:', 'context'))
+            url = styled_label('', 'local-address')
+            details.add(url)
+            name = styled_label('', 'device-name')
+            name.set_margin_top(12)
+            details.add(name)
+            info.add(details)
+            set_details(name, url)
+            canvas.put(info, 0, 0)
+            window.add(canvas)
+            windows.append((window, canvas, info, name, url, beacon))
             window.show_all()
 
-    def move_text():
-        nonlocal position, lines
+    def refresh_details():
+        nonlocal lines
         if dimmed:
-            position = (position + 1) % len(positions)
             lines = (socket.gethostname(), local_url())
-            for _, info, name, url in windows:
-                place(info, name, url)
+            for _, _, _, name, url, _ in windows:
+                set_details(name, url)
         return GLib.SOURCE_CONTINUE
 
     def handle_event(event):
-        nonlocal dimmed, lines, position, powered_off
+        nonlocal dimmed, lines, shown_at, powered_off
         if event == b'show' and not powered_off:
             dimmed = True
-            position = 0
+            shown_at = time.monotonic()
             lines = (socket.gethostname(), local_url())
             update_outputs()
         elif event == b'standby' and display.get_n_monitors():
@@ -171,7 +261,8 @@ def main():
 
     display.connect_after('monitor-added', update_outputs)
     display.connect_after('monitor-removed', update_outputs)
-    GLib.timeout_add_seconds(30, move_text)
+    GLib.timeout_add_seconds(30, refresh_details)
+    GLib.timeout_add(40, animate_scene)
     GLib.unix_signal_add(GLib.PRIORITY_DEFAULT, signal.SIGTERM, stop)
     GLib.unix_signal_add(GLib.PRIORITY_DEFAULT, signal.SIGINT, stop)
     GLib.io_add_watch(idle.stdout.fileno(), GLib.PRIORITY_DEFAULT,
