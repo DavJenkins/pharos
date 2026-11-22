@@ -51,6 +51,11 @@ sudo rm -f \
     "$TARGET/status.json" \
     "$TARGET/logs.php"
 
+# Install the session default when deploying to a labwc desktop.
+if command -v labwc >/dev/null 2>&1; then
+    sudo bash deploy/install_desktop_idle.sh
+fi
+
 echo
 echo "============================================================"
 echo " Deployment Complete"

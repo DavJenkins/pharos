@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Pharos display idle
+Exec=/usr/local/libexec/pharos-desktop-idle
+TryExec=/usr/bin/swayidle
+Terminal=false
