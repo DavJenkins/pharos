@@ -6,6 +6,7 @@ import math
 import os
 from pathlib import Path
 import re
+import shlex
 import signal
 import socket
 import subprocess
@@ -70,14 +71,14 @@ def connection_details():
     connections = []
     for interface, (mode, ssid) in radios.items():
         if mode == 'AP' and ssid:
-            connections.append((f'Wi-Fi network: {ssid}', addresses(interface)))
+            connections.append((f'Wi-Fi network: {ssid}', addresses(interface), interface))
 
     for interface in interfaces:
         name = interface['ifname']
         if name in radios or 'LOWER_UP' not in interface.get('flags', []):
             continue
         if interface.get('link_type') == 'ether' and (Path('/sys/class/net') / name / 'device').exists():
-            connections.append((f'Ethernet ({name})', addresses(name)))
+            connections.append((f'Ethernet ({name})', addresses(name), name))
 
     for interface, (mode, ssid) in radios.items():
         if mode != 'managed':
@@ -85,21 +86,38 @@ def connection_details():
         link = command_output('/usr/sbin/iw', 'dev', interface, 'link')
         match = re.search(r'(?m)^[ \t]*SSID: (.+)$', link)
         if match:
-            connections.append((f'Wi-Fi connection: {match[1]}', addresses(interface)))
+            connections.append((f'Wi-Fi connection: {match[1]}', addresses(interface), interface))
         elif ssid and 'LOWER_UP' in by_name.get(interface, {}).get('flags', []):
-            connections.append((f'Wi-Fi connection: {ssid}', addresses(interface)))
+            connections.append((f'Wi-Fi connection: {ssid}', addresses(interface), interface))
 
     return socket.gethostname(), tuple(connections)
 
 
 def verified_names(hostname, connections):
-    addresses = tuple(dict.fromkeys(ip for _, group in connections for ip in group))
+    addresses = tuple(dict.fromkeys(ip for _, group, _ in connections for ip in group))
     if not addresses:
         return {}
     local_name = f'{hostname.split(".")[0]}.local'
-    mdns = command_output('getent', '-s', 'mdns4_minimal', 'hosts', local_name)
-    local_addresses = {line.split()[0] for line in mdns.splitlines() if line.split()}
-    names = {address: local_name for address in addresses if address in local_addresses}
+    names = {}
+    for _, group, interface in connections:
+        try:
+            index = socket.if_nametoindex(interface)
+        except OSError:
+            continue
+        for protocol in sorted({int(':' in ip) for ip in group}):
+            response = command_output(
+                'busctl', '--system', 'call', 'org.freedesktop.Avahi', '/',
+                'org.freedesktop.Avahi.Server', 'ResolveHostName', 'iisiu',
+                str(index), str(protocol), local_name, str(protocol), '0',
+            )
+            try:
+                fields = shlex.split(response)
+            except ValueError:
+                continue
+            if len(fields) == 7 and fields[0] == 'iisisu' and fields[1] == str(index):
+                name, resolved = fields[3], fields[5]
+                if resolved in group and name.casefold() == local_name.casefold():
+                    names[resolved] = name
     for address in addresses:
         records = command_output('getent', '-s', 'dns', 'hosts', address).split()
         if len(records) < 2:
@@ -179,7 +197,7 @@ def main():
             networks.remove(child)
         if not connections:
             networks.add(styled_label('No active network address', 'context'))
-        for label, addresses in connections:
+        for label, addresses, _ in connections:
             network = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
             network.add(styled_label(label, 'wifi-network'))
             entries = []
