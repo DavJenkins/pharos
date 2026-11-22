@@ -10,6 +10,7 @@ import signal
 import socket
 import subprocess
 import sys
+import threading
 import time
 
 SHOW_AFTER = 10 * 60
@@ -41,7 +42,13 @@ def wireless_interfaces():
     radios = {}
     for block in re.split(r'(?m)^[ \t]*Interface ', command_output('/usr/sbin/iw', 'dev'))[1:]:
         interface, *properties = block.splitlines()
-        fields = dict(line.lstrip().split(' ', 1) for line in properties if ' ' in line.lstrip())
+        fields = {}
+        for line in properties:
+            if line.lstrip().startswith(('phy#', 'Unnamed/non-netdev')):
+                break
+            key, _, value = line.lstrip().partition(' ')
+            if key in ('type', 'ssid'):
+                fields.setdefault(key, value)
         radios[interface] = fields.get('type'), fields.get('ssid')
     return radios
 
@@ -83,6 +90,27 @@ def connection_details():
             connections.append((f'Wi-Fi connection: {ssid}', addresses(interface)))
 
     return socket.gethostname(), tuple(connections)
+
+
+def verified_names(hostname, connections):
+    addresses = tuple(dict.fromkeys(ip for _, group in connections for ip in group))
+    if not addresses:
+        return {}
+    local_name = f'{hostname.split(".")[0]}.local'
+    mdns = command_output('getent', '-s', 'mdns4_minimal', 'hosts', local_name)
+    local_addresses = {line.split()[0] for line in mdns.splitlines() if line.split()}
+    names = {address: local_name for address in addresses if address in local_addresses}
+    for address in addresses:
+        records = command_output('getent', '-s', 'dns', 'hosts', address).split()
+        if len(records) < 2:
+            continue
+        name = records[1].rstrip('.')
+        if not name:
+            continue
+        forward = command_output('getent', '-s', 'dns', 'ahosts', name)
+        if any(line.split()[:1] == [address] for line in forward.splitlines()):
+            names[address] = name
+    return names
 
 
 def idle_command():
@@ -141,6 +169,8 @@ def main():
     lines = ()
     dimmed = False
     powered_off = False
+    dns_names = {}
+    lookup_pending = False
 
     def set_details(name, networks):
         hostname, connections = lines
@@ -152,9 +182,12 @@ def main():
         for label, addresses in connections:
             network = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
             network.add(styled_label(label, 'wifi-network'))
-            urls = (f'http://[{address}]/' if ':' in address else f'http://{address}/'
-                    for address in addresses)
-            text = '\n'.join(urls)
+            entries = []
+            for address in addresses:
+                url = f'http://[{address}]/' if ':' in address else f'http://{address}/'
+                dns_name = dns_names.get(address)
+                entries.append(f'{url}  ({dns_name})' if dns_name else url)
+            text = '\n'.join(entries)
             network.add(styled_label(text or 'No IP address assigned', 'local-address'))
             networks.add(network)
         networks.show_all()
@@ -283,23 +316,48 @@ def main():
             windows.append((window, canvas, info, name, networks, beacon))
             window.show_all()
 
+    def update_labels():
+        for _, _, _, name, networks, _ in windows:
+            set_details(name, networks)
+
+    def look_up_names():
+        nonlocal lookup_pending
+        if lookup_pending:
+            return
+        lookup_pending = True
+        snapshot = lines
+
+        def apply_names(names):
+            nonlocal dns_names, lookup_pending
+            lookup_pending = False
+            if dimmed and lines == snapshot and names != dns_names:
+                dns_names = names
+                update_labels()
+            return GLib.SOURCE_REMOVE
+
+        def resolve():
+            GLib.idle_add(apply_names, verified_names(*snapshot))
+
+        threading.Thread(target=resolve, daemon=True).start()
+
     def refresh_details():
-        nonlocal lines
+        nonlocal lines, dns_names
         if dimmed:
             updated = connection_details()
             if updated != lines:
-                lines = updated
-                for _, _, _, name, networks, _ in windows:
-                    set_details(name, networks)
+                lines, dns_names = updated, {}
+                update_labels()
+            look_up_names()
         return GLib.SOURCE_CONTINUE
 
     def handle_event(event):
-        nonlocal dimmed, lines, shown_at, powered_off
+        nonlocal dimmed, lines, shown_at, powered_off, dns_names
         if event == b'show' and not powered_off:
             dimmed = True
             shown_at = time.monotonic()
-            lines = connection_details()
+            lines, dns_names = connection_details(), {}
             update_outputs()
+            look_up_names()
         elif event == b'standby' and display.get_n_monitors():
             powered_off = True
             if monitor_power('off'):
@@ -310,6 +368,8 @@ def main():
             close_windows()
             if powered_off and monitor_power('on'):
                 powered_off = False
+    dns_names = {}
+    lookup_pending = False
 
     idle = subprocess.Popen(idle_command(), stdout=subprocess.PIPE)
     pending = b''
