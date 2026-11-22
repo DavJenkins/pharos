@@ -10,7 +10,6 @@ import sys
 
 SHOW_AFTER = 10 * 60
 STANDBY_AFTER = SHOW_AFTER + 20 * 60
-POSITIONS = ((0.2, 0.25), (0.75, 0.65), (0.35, 0.8), (0.65, 0.3))
 
 
 def local_url():
@@ -53,6 +52,7 @@ def main():
         return
 
     import gi
+    gi.require_version('Gdk', '3.0')
     gi.require_version('Gtk', '3.0')
     gi.require_version('GtkLayerShell', '0.1')
     from gi.repository import Gdk, GLib, Gtk, GtkLayerShell
@@ -61,31 +61,36 @@ def main():
         return
 
     display = Gdk.Display.get_default()
+    css = Gtk.CssProvider()
+    css.load_from_data(b"""
+        window.pharos-idle { background-color: #040404; }
+        .pharos-idle label { color: #787d82; font-size: 21px; }
+        .pharos-idle label.device-name { font-size: 28px; font-weight: bold; }
+    """)
+    Gtk.StyleContext.add_provider_for_screen(
+        Gdk.Screen.get_default(), css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+    )
+    positions = (
+        (Gtk.Align.START, Gtk.Align.START), (Gtk.Align.END, Gtk.Align.CENTER),
+        (Gtk.Align.CENTER, Gtk.Align.END), (Gtk.Align.END, Gtk.Align.START),
+    )
     windows = []
     position = 0
     lines = ()
     dimmed = False
     powered_off = False
 
-    def draw(widget, context):
-        width, height = widget.get_allocated_width(), widget.get_allocated_height()
-        context.set_source_rgb(0.015, 0.015, 0.015)
-        context.paint()
-        context.set_source_rgb(0.47, 0.49, 0.51)
-        context.select_font_face('Sans')
-        size = max(14, min(32, width / 30, height / 12))
-        x, y = POSITIONS[position]
-
-        for index, line in enumerate(lines):
-            context.set_font_size(size if index == 0 else size * 0.8)
-            bearing, _, text_width, _, _, _ = context.text_extents(line)
-            left = max(0, min(width - text_width - 12, width * x - text_width / 2))
-            context.move_to(left + 6 - bearing, height * y + index * size * 1.3)
-            context.show_text(line)
+    def place(info, name, url):
+        x, y = positions[position]
+        info.set_halign(x)
+        info.set_valign(y)
+        name.set_text(lines[0])
+        url.set_text(lines[1])
 
     def close_windows():
         while windows:
-            windows.pop().destroy()
+            window, *_ = windows.pop()
+            window.destroy()
 
     def update_outputs(*_):
         close_windows()
@@ -101,19 +106,30 @@ def main():
             for edge in (GtkLayerShell.Edge.TOP, GtkLayerShell.Edge.BOTTOM,
                          GtkLayerShell.Edge.LEFT, GtkLayerShell.Edge.RIGHT):
                 GtkLayerShell.set_anchor(window, edge, True)
-            canvas = Gtk.DrawingArea()
-            canvas.connect('draw', draw)
-            window.add(canvas)
-            windows.append(window)
+            window.get_style_context().add_class('pharos-idle')
+            overlay = Gtk.Overlay()
+            overlay.add(Gtk.Box())
+            info = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+            for edge in ('top', 'bottom', 'start', 'end'):
+                info.set_property(f'margin-{edge}', 48)
+            name = Gtk.Label(xalign=0)
+            name.get_style_context().add_class('device-name')
+            url = Gtk.Label(xalign=0)
+            info.add(name)
+            info.add(url)
+            place(info, name, url)
+            overlay.add_overlay(info)
+            window.add(overlay)
+            windows.append((window, info, name, url))
             window.show_all()
 
     def move_text():
         nonlocal position, lines
         if dimmed:
-            position = (position + 1) % len(POSITIONS)
+            position = (position + 1) % len(positions)
             lines = (socket.gethostname(), local_url())
-            for window in windows:
-                window.queue_draw()
+            for _, info, name, url in windows:
+                place(info, name, url)
         return GLib.SOURCE_CONTINUE
 
     def handle_event(event):

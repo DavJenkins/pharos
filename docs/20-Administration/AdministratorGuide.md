@@ -188,7 +188,7 @@ keyboard or mouse input restores the desktop. Pharos services remain running.
 
 Include these packages in the desktop image so the idle display works offline:
 
-    sudo apt install swayidle wlopm python3-gi python3-gi-cairo gir1.2-gtklayershell-0.1
+    sudo apt install swayidle wlopm python3-gi gir1.2-gtklayershell-0.1
 
 The web deployment installs the desktop autostart entry when labwc is present.
 For image provisioning or a desktop-only install, run this from the repository:
