@@ -266,7 +266,7 @@ def main():
                 continue
             width, height = artwork.get_width(), artwork.get_height()
             crop = artwork.new_subpixbuf(
-                round(width * 0.27), round(height * 0.13),
+                0, round(height * 0.13),
                 round(width * 0.66), round(height * 0.55),
             )
             return crop.scale_simple(504, 315, GdkPixbuf.InterpType.BILINEAR)
@@ -310,13 +310,13 @@ def main():
 
         lights = Gtk.Fixed()
         beacon = Gtk.Image.new_from_pixbuf(glow)
-        lights.put(beacon, 142, 74)
+        lights.put(beacon, 348, 74)
         frame.add_overlay(lights)
 
         header.get_style_context().add_class('copy-panel')
         header.set_halign(Gtk.Align.START)
         header.set_valign(Gtk.Align.START)
-        header.set_margin_start(16)
+        header.set_margin_start(152)
         header.set_margin_end(16)
         header.set_margin_top(9)
         frame.add_overlay(header)
@@ -375,9 +375,9 @@ def main():
                 GtkLayerShell.set_anchor(window, edge, True)
             window.get_style_context().add_class('pharos-idle')
             canvas = Gtk.Fixed()
-            header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=18)
+            header = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
             header.add(styled_label('Pharos Data Ark', 'ark-title'))
-            identity = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+            identity = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
             identity.set_valign(Gtk.Align.CENTER)
             identity.add(styled_label('Offline library and tools', 'section-title'))
             name = styled_label('', 'device-name')
