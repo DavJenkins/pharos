@@ -209,9 +209,9 @@ def main():
             padding: 4px 8px;
         }
         .pharos-idle .ark-title { color: #f3faff; font-size: 22px; font-weight: bold; }
-        .pharos-idle .section-title { color: #b7e2ff; font-size: 17px; font-weight: bold; }
+        .pharos-idle .section-title { color: #75baff; font-size: 17px; font-weight: bold; }
         .pharos-idle .context, .pharos-idle .device-name { font-size: 14px; font-weight: bold; }
-        .pharos-idle .wifi-network { color: #b7e2ff; font-size: 15px; font-weight: bold; }
+        .pharos-idle .wifi-network { color: #75baff; font-size: 15px; font-weight: bold; }
         .pharos-idle .local-address {
             font-family: "DejaVu Sans Mono", monospace;
             font-size: 14px;
