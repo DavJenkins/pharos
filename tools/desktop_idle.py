@@ -198,14 +198,25 @@ def main():
     css = Gtk.CssProvider()
     css.load_from_data(b"""
         window.pharos-idle { background-color: #03060b; }
-        .pharos-idle label { text-shadow: 0 1px 2px #02050a, 0 0 3px #02050a; }
-        .pharos-idle .ark-title { color: #b39b66; font: 31px serif; }
-        .pharos-idle .ark-subtitle { color: #769ec0; font: bold 16px sans-serif; }
-        .pharos-idle .section-title { color: #f0cb7b; font: bold 19px sans-serif; }
-        .pharos-idle .context { color: #a8d3f3; font: 14px sans-serif; }
-        .pharos-idle .wifi-network { color: #eaca83; font: bold 15px sans-serif; }
-        .pharos-idle .device-name { color: #a8d3f3; font: 15px sans-serif; }
-        .pharos-idle .local-address { color: #afdfff; font: bold 14px monospace; }
+        .pharos-idle label {
+            color: #e8f4ff;
+            font-family: "DejaVu Sans", sans-serif;
+            text-shadow: 0 1px 2px #02050a, 0 0 4px #02050a, 0 0 7px #02050a;
+        }
+        .pharos-idle .copy-panel {
+            background-color: rgba(3, 9, 17, 0.54);
+            border-radius: 5px;
+            padding: 4px 8px;
+        }
+        .pharos-idle .ark-title { color: #f3faff; font-size: 22px; font-weight: bold; }
+        .pharos-idle .section-title { color: #b7e2ff; font-size: 17px; font-weight: bold; }
+        .pharos-idle .context, .pharos-idle .device-name { font-size: 14px; }
+        .pharos-idle .wifi-network { color: #b7e2ff; font-size: 15px; font-weight: bold; }
+        .pharos-idle .local-address {
+            font-family: "DejaVu Sans Mono", monospace;
+            font-size: 14px;
+            font-weight: bold;
+        }
         .pharos-idle .lighthouse { border: 1px solid #283444; background-color: #050b15; }
     """)
     Gtk.StyleContext.add_provider_for_screen(
@@ -266,22 +277,6 @@ def main():
         label.get_style_context().add_class(style)
         return label
 
-    def add_brand(details):
-        for root in (Path('/var/www/html/assets'), Path('/opt/dataark/app/static/assets')):
-            try:
-                wordmark = GdkPixbuf.Pixbuf.new_from_file_at_scale(
-                    str(root / 'pharos-data-ark-wordmark-v6.png'), 155, -1, True,
-                )
-            except GLib.Error:
-                continue
-            image = Gtk.Image.new_from_pixbuf(wordmark)
-            image.set_halign(Gtk.Align.START)
-            image.set_opacity(0.75)
-            details.add(image)
-            return
-        details.add(styled_label('Pharos', 'ark-title'))
-        details.add(styled_label('DATA ARK', 'ark-subtitle'))
-
     def make_beacon():
         size = 76
         center = (size - 1) / 2
@@ -318,14 +313,16 @@ def main():
         lights.put(beacon, 142, 74)
         frame.add_overlay(lights)
 
-        header.set_halign(Gtk.Align.FILL)
+        header.get_style_context().add_class('copy-panel')
+        header.set_halign(Gtk.Align.START)
         header.set_valign(Gtk.Align.START)
         header.set_margin_start(16)
         header.set_margin_end(16)
         header.set_margin_top(9)
         frame.add_overlay(header)
 
-        details.set_halign(Gtk.Align.FILL)
+        details.get_style_context().add_class('copy-panel')
+        details.set_halign(Gtk.Align.START)
         details.set_valign(Gtk.Align.START)
         details.set_margin_start(16)
         details.set_margin_end(16)
@@ -379,7 +376,7 @@ def main():
             window.get_style_context().add_class('pharos-idle')
             canvas = Gtk.Fixed()
             header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=18)
-            add_brand(header)
+            header.add(styled_label('Pharos Data Ark', 'ark-title'))
             identity = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
             identity.set_valign(Gtk.Align.CENTER)
             identity.add(styled_label('Offline library and tools', 'section-title'))
