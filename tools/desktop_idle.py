@@ -87,7 +87,7 @@ def connection_details():
         if name in radios or 'LOWER_UP' not in interface.get('flags', []):
             continue
         if interface.get('link_type') == 'ether' and (Path('/sys/class/net') / name / 'device').exists():
-            connections.append((f'Ethernet ({name})', addresses(name), name))
+            connections.append(('Ethernet', addresses(name), name))
 
     for interface, (mode, ssid) in radios.items():
         if mode != 'managed':
@@ -247,7 +247,7 @@ def main():
                 if first == 'dataark':
                     entries.append('http://dataark/')
                     dns_name = other_names
-                entries.append(f'{address}  ({dns_name})' if dns_name else address)
+                entries.append(f'{dns_name} ({address})' if dns_name else address)
             text = '\n'.join(entries)
             address_block = styled_label(text or 'No IP address assigned', 'local-address')
             address_block.set_line_wrap(True)
