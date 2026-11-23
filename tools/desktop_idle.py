@@ -189,7 +189,7 @@ def main():
     gi.require_version('GdkPixbuf', '2.0')
     gi.require_version('Gtk', '3.0')
     gi.require_version('GtkLayerShell', '0.1')
-    from gi.repository import Gdk, GdkPixbuf, GLib, Gtk, GtkLayerShell
+    from gi.repository import Gdk, GdkPixbuf, GLib, Gtk, GtkLayerShell, Pango
 
     if not GtkLayerShell.is_supported():
         return
@@ -198,14 +198,14 @@ def main():
     css = Gtk.CssProvider()
     css.load_from_data(b"""
         window.pharos-idle { background-color: #03060b; }
-        .pharos-idle label { text-shadow: 0 1px 2px #02050a; }
+        .pharos-idle label { text-shadow: 0 1px 2px #02050a, 0 0 3px #02050a; }
         .pharos-idle .ark-title { color: #b39b66; font: 31px serif; }
         .pharos-idle .ark-subtitle { color: #769ec0; font: bold 16px sans-serif; }
-        .pharos-idle .section-title { color: #bccde0; font: bold 19px sans-serif; }
-        .pharos-idle .context { color: #a2aeba; font: 14px sans-serif; }
-        .pharos-idle .wifi-network { color: #a2bbd0; font: bold 16px sans-serif; }
-        .pharos-idle .device-name { color: #8996a5; font: 15px sans-serif; }
-        .pharos-idle .local-address { color: #b0bdca; font: 16px monospace; }
+        .pharos-idle .section-title { color: #f0cb7b; font: bold 19px sans-serif; }
+        .pharos-idle .context { color: #a8d3f3; font: 14px sans-serif; }
+        .pharos-idle .wifi-network { color: #eaca83; font: bold 15px sans-serif; }
+        .pharos-idle .device-name { color: #a8d3f3; font: 15px sans-serif; }
+        .pharos-idle .local-address { color: #afdfff; font: bold 14px monospace; }
         .pharos-idle .lighthouse { border: 1px solid #283444; background-color: #050b15; }
     """)
     Gtk.StyleContext.add_provider_for_screen(
@@ -231,17 +231,17 @@ def main():
             network.add(styled_label(label, 'wifi-network'))
             entries = []
             for address in addresses:
-                url = f'http://[{address}]/' if ':' in address else f'http://{address}/'
                 dns_name = dns_names.get(address, '')
                 first, _, other_names = dns_name.partition(', ')
                 if first == 'dataark':
                     entries.append('http://dataark/')
                     dns_name = other_names
-                entries.append(f'{url}  ({dns_name})' if dns_name else url)
+                entries.append(f'{address}  ({dns_name})' if dns_name else address)
             text = '\n'.join(entries)
             address_block = styled_label(text or 'No IP address assigned', 'local-address')
             address_block.set_line_wrap(True)
-            address_block.set_max_width_chars(39)
+            address_block.set_line_wrap_mode(Pango.WrapMode.WORD_CHAR)
+            address_block.set_max_width_chars(46)
             network.add(address_block)
             networks.add(network)
         networks.show_all()
@@ -270,7 +270,7 @@ def main():
         for root in (Path('/var/www/html/assets'), Path('/opt/dataark/app/static/assets')):
             try:
                 wordmark = GdkPixbuf.Pixbuf.new_from_file_at_scale(
-                    str(root / 'pharos-data-ark-wordmark-v6.png'), 176, -1, True,
+                    str(root / 'pharos-data-ark-wordmark-v6.png'), 155, -1, True,
                 )
             except GLib.Error:
                 continue
@@ -301,9 +301,12 @@ def main():
     art = load_lighthouse()
     glow = make_beacon() if art is not None else None
 
-    def lighthouse(details):
+    def lighthouse(header, details):
         if art is None:
-            return details, None
+            card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
+            card.add(header)
+            card.add(details)
+            return card, None
         portrait = Gtk.Image.new_from_pixbuf(art)
         portrait.set_opacity(0.49)
         frame = Gtk.Overlay()
@@ -315,12 +318,18 @@ def main():
         lights.put(beacon, 142, 74)
         frame.add_overlay(lights)
 
-        details.set_halign(Gtk.Align.END)
-        details.set_valign(Gtk.Align.CENTER)
-        details.set_margin_start(14)
+        header.set_halign(Gtk.Align.FILL)
+        header.set_valign(Gtk.Align.START)
+        header.set_margin_start(16)
+        header.set_margin_end(16)
+        header.set_margin_top(9)
+        frame.add_overlay(header)
+
+        details.set_halign(Gtk.Align.FILL)
+        details.set_valign(Gtk.Align.START)
+        details.set_margin_start(16)
         details.set_margin_end(16)
-        details.set_margin_top(18)
-        details.set_margin_bottom(18)
+        details.set_margin_top(155)
         frame.add_overlay(details)
         return frame, beacon
 
@@ -369,21 +378,21 @@ def main():
                 GtkLayerShell.set_anchor(window, edge, True)
             window.get_style_context().add_class('pharos-idle')
             canvas = Gtk.Fixed()
-            details = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
-            details.set_valign(Gtk.Align.CENTER)
-            add_brand(details)
-            about = styled_label('Offline library and tools', 'section-title')
-            about.set_margin_top(10)
-            about.set_margin_bottom(5)
-            details.add(about)
+            header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=18)
+            add_brand(header)
+            identity = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+            identity.set_valign(Gtk.Align.CENTER)
+            identity.add(styled_label('Offline library and tools', 'section-title'))
             name = styled_label('', 'device-name')
-            details.add(name)
+            identity.add(name)
+            header.add(identity)
+
+            details = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
             details.add(styled_label('Open the address for your network.', 'context'))
-            networks = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
-            networks.set_margin_top(8)
+            networks = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
             details.add(networks)
             set_details(name, networks)
-            info, beacon = lighthouse(details)
+            info, beacon = lighthouse(header, details)
             info.set_opacity(0)
             canvas.put(info, 0, 0)
             window.add(canvas)
