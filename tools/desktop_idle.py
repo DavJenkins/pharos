@@ -209,9 +209,6 @@ def main():
         .pharos-idle .reading-shade {
             background: linear-gradient(to right, rgba(3,6,11,0.13), rgba(3,6,11,0.91) 75%);
         }
-        .pharos-idle .beacon {
-            background: radial-gradient(circle, #b1dfff 0%, #589de0 16%, transparent 64%);
-        }
     """)
     Gtk.StyleContext.add_provider_for_screen(
         Gdk.Screen.get_default(), css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
@@ -287,7 +284,24 @@ def main():
         details.add(styled_label('Pharos', 'ark-title'))
         details.add(styled_label('DATA ARK', 'ark-subtitle'))
 
+    def make_beacon():
+        size = 76
+        center = (size - 1) / 2
+        pixels = bytearray()
+        for y in range(size):
+            for x in range(size):
+                radius = math.hypot(x - center, y - center) / center
+                halo = max(0, 1 - radius) ** 2
+                core = max(0, 1 - radius / 0.25) ** 2
+                pixels.extend((round(72 + 167 * core), round(146 + 98 * core),
+                               255, round(245 * halo)))
+        return GdkPixbuf.Pixbuf.new_from_bytes(
+            GLib.Bytes.new(bytes(pixels)), GdkPixbuf.Colorspace.RGB,
+            True, 8, size, size, size * 4,
+        )
+
     art = load_lighthouse()
+    glow = make_beacon() if art is not None else None
 
     def lighthouse(details):
         if art is None:
@@ -298,16 +312,14 @@ def main():
         frame.get_style_context().add_class('lighthouse')
         frame.add(portrait)
 
-        lights = Gtk.Fixed()
-        beacon = Gtk.EventBox()
-        beacon.get_style_context().add_class('beacon')
-        beacon.set_size_request(50, 50)
-        lights.put(beacon, 155, 87)
-        frame.add_overlay(lights)
-
         shade = Gtk.EventBox()
         shade.get_style_context().add_class('reading-shade')
         frame.add_overlay(shade)
+
+        lights = Gtk.Fixed()
+        beacon = Gtk.Image.new_from_pixbuf(glow)
+        lights.put(beacon, 142, 74)
+        frame.add_overlay(lights)
 
         details.set_halign(Gtk.Align.END)
         details.set_valign(Gtk.Align.CENTER)
@@ -339,7 +351,7 @@ def main():
             if info.get_opacity() == 0:
                 info.set_opacity(1)
             if beacon is not None:
-                beacon.set_opacity(0.12 + 0.60 * phase ** 3)
+                beacon.set_opacity(0.06 + 0.89 * phase ** 2)
         return GLib.SOURCE_CONTINUE
 
     def close_windows():
