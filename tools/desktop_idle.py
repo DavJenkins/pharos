@@ -333,7 +333,7 @@ def main():
         details.set_valign(Gtk.Align.START)
         details.set_margin_start(16)
         details.set_margin_end(16)
-        details.set_margin_top(128)
+        details.set_margin_top(115)
         frame.add_overlay(details)
         return frame, beacon
 
