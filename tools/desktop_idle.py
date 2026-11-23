@@ -326,7 +326,7 @@ def main():
         details.set_valign(Gtk.Align.START)
         details.set_margin_start(16)
         details.set_margin_end(16)
-        details.set_margin_top(155)
+        details.set_margin_top(141)
         frame.add_overlay(details)
         return frame, beacon
 
@@ -377,14 +377,11 @@ def main():
             canvas = Gtk.Fixed()
             header = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
             header.add(styled_label('Pharos Data Ark', 'ark-title'))
-            identity = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
-            identity.set_valign(Gtk.Align.CENTER)
-            identity.add(styled_label('Offline library and tools', 'section-title'))
-            name = styled_label('', 'device-name')
-            identity.add(name)
-            header.add(identity)
+            header.add(styled_label('Offline library and tools', 'section-title'))
 
             details = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+            name = styled_label('', 'device-name')
+            details.add(name)
             details.add(styled_label('Open the address for your network.', 'context'))
             networks = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
             details.add(networks)
