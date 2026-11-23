@@ -199,7 +199,7 @@ def main():
     css.load_from_data(b"""
         window.pharos-idle { background-color: #03060b; }
         .pharos-idle label {
-            color: #e8f4ff;
+            color: #f5fbff;
             font-family: "DejaVu Sans", sans-serif;
             text-shadow: 0 1px 2px #02050a, 0 0 4px #02050a, 0 0 7px #02050a;
         }
@@ -209,9 +209,9 @@ def main():
             padding: 4px 8px;
         }
         .pharos-idle .ark-title { color: #f3faff; font-size: 22px; font-weight: bold; }
-        .pharos-idle .section-title { color: #b7e2ff; font-size: 17px; font-weight: bold; }
-        .pharos-idle .context, .pharos-idle .device-name { font-size: 14px; }
-        .pharos-idle .wifi-network { color: #b7e2ff; font-size: 15px; font-weight: bold; }
+        .pharos-idle .section-title { color: #f5fbff; font-size: 17px; font-weight: bold; }
+        .pharos-idle .context, .pharos-idle .device-name { font-size: 14px; font-weight: bold; }
+        .pharos-idle .wifi-network { color: #f5fbff; font-size: 15px; font-weight: bold; }
         .pharos-idle .local-address {
             font-family: "DejaVu Sans Mono", monospace;
             font-size: 14px;
@@ -239,7 +239,9 @@ def main():
             networks.add(styled_label('No active network address', 'context'))
         for label, addresses, _ in connections:
             network = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
-            network.add(styled_label(label, 'wifi-network'))
+            heading = styled_label(label, 'wifi-network')
+            heading.set_margin_top(3)
+            network.add(heading)
             entries = []
             for address in addresses:
                 dns_name = dns_names.get(address, '')
@@ -250,6 +252,7 @@ def main():
                 entries.append(f'{dns_name} ({address})' if dns_name else address)
             text = '\n'.join(entries)
             address_block = styled_label(text or 'No IP address assigned', 'local-address')
+            address_block.set_margin_start(12)
             address_block.set_line_wrap(True)
             address_block.set_line_wrap_mode(Pango.WrapMode.WORD_CHAR)
             address_block.set_max_width_chars(46)
@@ -326,7 +329,7 @@ def main():
         details.set_valign(Gtk.Align.START)
         details.set_margin_start(16)
         details.set_margin_end(16)
-        details.set_margin_top(141)
+        details.set_margin_top(128)
         frame.add_overlay(details)
         return frame, beacon
 
