@@ -18,7 +18,16 @@ SHOW_AFTER = 10 * 60
 STANDBY_AFTER = SHOW_AFTER + 20 * 60
 
 
-SCENE_POSITIONS = ((0.30, 0.25), (0.88, 0.64), (0.40, 0.88), (0.12, 0.56))
+# Visit each point in a five-column, four-row grid in a closed route.
+SCENE_ROUTE = (
+    (0, 0), (1, 0), (2, 0), (3, 0), (4, 0),
+    (4, 1), (3, 1), (2, 1), (1, 1),
+    (1, 2), (2, 2), (3, 2), (4, 2),
+    (4, 3), (3, 3), (2, 3), (1, 3), (0, 3),
+    (0, 2), (0, 1),
+)
+SCENE_POSITIONS = tuple((0.08 + col * 0.21, 0.10 + row * (0.80 / 3))
+                        for col, row in SCENE_ROUTE)
 POSITION_SECONDS = 30
 GLIDE_SECONDS = 6
 
