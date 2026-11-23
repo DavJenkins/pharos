@@ -249,7 +249,11 @@ def main():
                 if first == 'dataark':
                     entries.append('http://dataark/')
                     dns_name = other_names
-                entries.append(f'{dns_name} ({address})' if dns_name else address)
+                if dns_name:
+                    entries.append(f'http://{dns_name} ({address})')
+                else:
+                    host = f'[{address}]' if ':' in address else address
+                    entries.append(f'http://{host}')
             text = '\n'.join(entries)
             address_block = styled_label(text or 'No IP address assigned', 'local-address')
             address_block.set_margin_start(12)
