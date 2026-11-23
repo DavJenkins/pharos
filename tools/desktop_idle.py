@@ -198,6 +198,7 @@ def main():
     css = Gtk.CssProvider()
     css.load_from_data(b"""
         window.pharos-idle { background-color: #03060b; }
+        .pharos-idle label { text-shadow: 0 1px 2px #02050a; }
         .pharos-idle .ark-title { color: #b39b66; font: 31px serif; }
         .pharos-idle .ark-subtitle { color: #769ec0; font: bold 16px sans-serif; }
         .pharos-idle .section-title { color: #bccde0; font: bold 19px sans-serif; }
@@ -206,9 +207,6 @@ def main():
         .pharos-idle .device-name { color: #8996a5; font: 15px sans-serif; }
         .pharos-idle .local-address { color: #b0bdca; font: 16px monospace; }
         .pharos-idle .lighthouse { border: 1px solid #283444; background-color: #050b15; }
-        .pharos-idle .reading-shade {
-            background: linear-gradient(to right, rgba(3,6,11,0.13), rgba(3,6,11,0.91) 75%);
-        }
     """)
     Gtk.StyleContext.add_provider_for_screen(
         Gdk.Screen.get_default(), css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
@@ -258,9 +256,9 @@ def main():
             width, height = artwork.get_width(), artwork.get_height()
             crop = artwork.new_subpixbuf(
                 round(width * 0.27), round(height * 0.13),
-                round(width * 0.73), round(height * 0.55),
+                round(width * 0.66), round(height * 0.55),
             )
-            return crop.scale_simple(560, 315, GdkPixbuf.InterpType.BILINEAR)
+            return crop.scale_simple(504, 315, GdkPixbuf.InterpType.BILINEAR)
         return None
 
     def styled_label(text, style):
@@ -312,10 +310,6 @@ def main():
         frame.get_style_context().add_class('lighthouse')
         frame.add(portrait)
 
-        shade = Gtk.EventBox()
-        shade.get_style_context().add_class('reading-shade')
-        frame.add_overlay(shade)
-
         lights = Gtk.Fixed()
         beacon = Gtk.Image.new_from_pixbuf(glow)
         lights.put(beacon, 142, 74)
@@ -324,7 +318,7 @@ def main():
         details.set_halign(Gtk.Align.END)
         details.set_valign(Gtk.Align.CENTER)
         details.set_margin_start(14)
-        details.set_margin_end(24)
+        details.set_margin_end(16)
         details.set_margin_top(18)
         details.set_margin_bottom(18)
         frame.add_overlay(details)
