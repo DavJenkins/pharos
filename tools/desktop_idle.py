@@ -93,6 +93,24 @@ def connection_details():
     return socket.gethostname(), tuple(connections)
 
 
+def hotspot_short_names(connections):
+    hotspot_addresses = {ip for label, group, _ in connections
+                         if label.startswith('Wi-Fi network: ') for ip in group}
+    if not hotspot_addresses:
+        return {}
+    try:
+        config = Path('/etc/dataark/portal-dns.conf').read_text(encoding='utf-8')
+    except OSError:
+        return {}
+    prefix = 'address=/dataark/'
+    published = {line.strip()[len(prefix):] for line in config.splitlines()
+                 if line.strip().startswith(prefix)}
+    matching = hotspot_addresses & published
+    if not matching or command_output('systemctl', 'is-active', 'dataark-portal-dns.service').strip() != 'active':
+        return {}
+    return {ip: 'dataark' for ip in matching}
+
+
 def verified_names(hostname, connections):
     addresses = tuple(dict.fromkeys(ip for _, group, _ in connections for ip in group))
     if not addresses:
@@ -128,6 +146,9 @@ def verified_names(hostname, connections):
         forward = command_output('getent', '-s', 'dns', 'ahosts', name)
         if any(line.split()[:1] == [address] for line in forward.splitlines()):
             names[address] = name
+    for address, short_name in hotspot_short_names(connections).items():
+        existing = names.get(address)
+        names[address] = f'{short_name}, {existing}' if existing else short_name
     return names
 
 
@@ -170,11 +191,15 @@ def main():
         window.pharos-idle { background-color: #03060b; }
         .pharos-idle .ark-title { color: #b39b66; font: 31px serif; }
         .pharos-idle .ark-subtitle { color: #769ec0; font: bold 16px sans-serif; }
-        .pharos-idle .context { color: #a2aeba; font: 16px sans-serif; }
+        .pharos-idle .section-title { color: #bccde0; font: bold 19px sans-serif; }
+        .pharos-idle .context { color: #a2aeba; font: 14px sans-serif; }
         .pharos-idle .wifi-network { color: #a2bbd0; font: bold 16px sans-serif; }
         .pharos-idle .device-name { color: #8996a5; font: 15px sans-serif; }
         .pharos-idle .local-address { color: #b0bdca; font: 16px monospace; }
-        .pharos-idle .lighthouse { border: 1px solid #283444; }
+        .pharos-idle .lighthouse { border: 1px solid #283444; background-color: #050b15; }
+        .pharos-idle .reading-shade {
+            background: linear-gradient(to right, rgba(3,6,11,0.13), rgba(3,6,11,0.91) 75%);
+        }
         .pharos-idle .beacon {
             background: radial-gradient(circle, #b1dfff 0%, #589de0 16%, transparent 64%);
         }
@@ -203,10 +228,17 @@ def main():
             entries = []
             for address in addresses:
                 url = f'http://[{address}]/' if ':' in address else f'http://{address}/'
-                dns_name = dns_names.get(address)
+                dns_name = dns_names.get(address, '')
+                first, _, other_names = dns_name.partition(', ')
+                if first == 'dataark':
+                    entries.append('http://dataark/')
+                    dns_name = other_names
                 entries.append(f'{url}  ({dns_name})' if dns_name else url)
             text = '\n'.join(entries)
-            network.add(styled_label(text or 'No IP address assigned', 'local-address'))
+            address_block = styled_label(text or 'No IP address assigned', 'local-address')
+            address_block.set_line_wrap(True)
+            address_block.set_max_width_chars(39)
+            network.add(address_block)
             networks.add(network)
         networks.show_all()
 
@@ -219,10 +251,10 @@ def main():
                 continue
             width, height = artwork.get_width(), artwork.get_height()
             crop = artwork.new_subpixbuf(
-                round(width * 0.365), round(height * 0.175),
-                round(width * 0.28), round(height * 0.70),
+                round(width * 0.27), round(height * 0.13),
+                round(width * 0.73), round(height * 0.55),
             )
-            return crop.scale_simple(152, 216, GdkPixbuf.InterpType.BILINEAR)
+            return crop.scale_simple(560, 315, GdkPixbuf.InterpType.BILINEAR)
         return None
 
     def styled_label(text, style):
@@ -248,11 +280,11 @@ def main():
 
     art = load_lighthouse()
 
-    def lighthouse():
+    def lighthouse(details):
         if art is None:
-            return None, None
+            return details, None
         portrait = Gtk.Image.new_from_pixbuf(art)
-        portrait.set_opacity(0.55)
+        portrait.set_opacity(0.49)
         frame = Gtk.Overlay()
         frame.get_style_context().add_class('lighthouse')
         frame.add(portrait)
@@ -261,8 +293,20 @@ def main():
         beacon = Gtk.EventBox()
         beacon.get_style_context().add_class('beacon')
         beacon.set_size_request(50, 50)
-        lights.put(beacon, 52, 22)
+        lights.put(beacon, 155, 87)
         frame.add_overlay(lights)
+
+        shade = Gtk.EventBox()
+        shade.get_style_context().add_class('reading-shade')
+        frame.add_overlay(shade)
+
+        details.set_halign(Gtk.Align.END)
+        details.set_valign(Gtk.Align.CENTER)
+        details.set_margin_start(14)
+        details.set_margin_end(24)
+        details.set_margin_top(18)
+        details.set_margin_bottom(18)
+        frame.add_overlay(details)
         return frame, beacon
 
     def animate_scene():
@@ -310,16 +354,12 @@ def main():
                 GtkLayerShell.set_anchor(window, edge, True)
             window.get_style_context().add_class('pharos-idle')
             canvas = Gtk.Fixed()
-            info = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=24)
-            info.set_opacity(0)
-            portrait, beacon = lighthouse()
-            if portrait is not None:
-                info.add(portrait)
             details = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
             details.set_valign(Gtk.Align.CENTER)
             add_brand(details)
-            about = styled_label('Offline library and tools', 'context')
-            about.set_margin_top(14)
+            about = styled_label('Offline library and tools', 'section-title')
+            about.set_margin_top(10)
+            about.set_margin_bottom(5)
             details.add(about)
             name = styled_label('', 'device-name')
             details.add(name)
@@ -327,8 +367,9 @@ def main():
             networks = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
             networks.set_margin_top(8)
             details.add(networks)
-            info.add(details)
             set_details(name, networks)
+            info, beacon = lighthouse(details)
+            info.set_opacity(0)
             canvas.put(info, 0, 0)
             window.add(canvas)
             windows.append((window, canvas, info, name, networks, beacon))
